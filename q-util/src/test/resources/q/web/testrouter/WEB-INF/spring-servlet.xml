@@ -16,4 +16,6 @@
 	<bean id="main" class="q.web.testrouter.Main" />
 	<bean id="addA" class="q.web.testrouter.a.AddA"></bean>
 	<bean id="getA" class="q.web.testrouter.a.GetA"></bean>
+	<bean id="updateA" class="q.web.testrouter.a.UpdateA"></bean>
+	<bean id="deleteA" class="q.web.testrouter.a.DeleteA"></bean>
 </beans>

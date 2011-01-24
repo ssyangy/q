@@ -23,7 +23,7 @@ public class JspViewResolver implements ViewResolver {
 	 */
 	@Override
 	public void view(HttpServletRequest request, HttpServletResponse response, Resource resource) throws ServletException, IOException {
-		String jsp = "/" + resource.getName() + ".jsp";
+		String jsp = "/WEB-INF/jsp/" + resource.getName() + ".jsp";
 		request.getRequestDispatcher(jsp).forward(request, response);
 	}
 

@@ -13,7 +13,7 @@
 	</logger>
 
 	<root>
-		<level value="info" />
+		<level value="warn" />
 		<appender-ref ref="PROJECT" />
 	</root>
 </log4j:configuration>

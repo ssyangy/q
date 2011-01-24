@@ -12,8 +12,8 @@ public class Main extends Resource {
 
 	@Override
 	public void execute(ResourceContext context) {
-		
-
+		context.setModel("action", "homepage");
+		context.setModel("name", this.getName());
 	}
 
 

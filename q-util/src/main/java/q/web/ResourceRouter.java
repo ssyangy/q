@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.HttpRequestHandler;
@@ -25,12 +26,12 @@ import q.util.StringKit;
  * 
  */
 public class ResourceRouter implements HttpRequestHandler, ApplicationContextAware {
-	private static final char PATH_SPLIT = '/';
-	private static final String HTTP_METHOD_POST = "post";
-	private static final String HTTP_INNER_METHOD = "_method";
-	private static final String HTTP_METHOD_UPDATE = "update";
-	private static final String HTTP_METHOD_DELETE = "delete";
-	private static final String HTTP_METHOD_GET = "get";
+	public static final char PATH_SPLIT = '/';
+	public static final String HTTP_METHOD_POST = "post";
+	public static final String HTTP_INNER_METHOD = "_method";
+	public static final String HTTP_METHOD_UPDATE = "update";
+	public static final String HTTP_METHOD_DELETE = "delete";
+	public static final String HTTP_METHOD_GET = "get";
 	private final static Logger log = Logger.getLogger();
 	private ApplicationContext applicationContext;
 
@@ -52,9 +53,9 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 	public void setDefaultResource(Resource defaultResource) {
 		this.defaultResource = defaultResource;
 	}
-	
+
 	private ViewResolver viewResolver = new JspViewResolver();
-	
+
 	public void setViewResolver(ViewResolver viewResolver) {
 		this.viewResolver = viewResolver;
 	}
@@ -62,7 +63,7 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 	@Override
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String method = request.getMethod().toLowerCase();
-		String path = request.getServletPath().toLowerCase();
+		String path = request.getRequestURI().substring(request.getContextPath().length()).toLowerCase();
 		Resource resource = getResource(request, method, path);
 		// execute resource if exists
 		if (resource == null) {
@@ -118,7 +119,7 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 	protected Resource getResource(HttpServletRequest request, String method, String path) {
 		Resource resource = null;
 		String resourceName = toResourceName(path);
-		if (resourceName == null) {
+		if (StringKit.isEmpty(resourceName)) {
 			resource = this.defaultResource;
 			resource.setName("default");
 		} else {
@@ -175,7 +176,14 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 	private Resource getResource(String prefix, String resourceName) {
 		Resource resource = null;
 		String beanName = prefix + StringKit.capitalize(resourceName);
-		Object bean = this.applicationContext.getBean(beanName);
+		Object bean = null;
+		try {
+			bean = this.applicationContext.getBean(beanName);
+		} catch (NoSuchBeanDefinitionException e) {
+			log.debug("no such bean %s", beanName);
+		} catch (Exception e) {
+			log.error("get bean error", e);
+		}
 		if (bean instanceof Resource) {
 			resource = (Resource) bean;
 			resource.setName(beanName);

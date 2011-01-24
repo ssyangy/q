@@ -12,8 +12,13 @@ public class GetPeoples extends Resource {
 
 	@Override
 	public void execute(ResourceContext context) {
-		String uid = context.getString("id");
-
+		String uid = context.getResourceLastId();
+		String nick = "seanlinwang";
+		long fansNum = 100;
+		long friendsNum = 20;
+		context.setModel("nick", nick);
+		context.setModel("fansNum", fansNum);
+		context.setModel("friendsNum", friendsNum);
 	}
 
 }

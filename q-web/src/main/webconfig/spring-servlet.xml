@@ -8,12 +8,15 @@
 				/*=router
 			</value>
 		</property>
+		<property name="alwaysUseFullPath">
+			<value>true</value>
+		</property>
 	</bean>
 	<bean id="router" class="q.web.ResourceRouter">
-		<property name="defaultResource" ref="homepage"/>
+		<property name="defaultResource" ref="default" />
 	</bean>
 	<!-- biz -->
-	<bean id="homepage" class="q.biz.Homepage"/>
+	<bean id="default" class="q.biz.Default" />
 	<bean id="addPeoples" class="q.biz.peoples.AddPeoples"></bean>
 	<bean id="getPeoples" class="q.biz.peoples.GetPeoples"></bean>
 </beans>

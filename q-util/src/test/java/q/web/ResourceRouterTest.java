@@ -5,6 +5,7 @@ package q.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,8 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
+ * Tests for resource routing.
+ * 
  * @author seanlinwang
  * @date Jan 18, 2011
  * 
@@ -44,10 +47,11 @@ public class ResourceRouterTest extends ServletTestCase {
 
 			@Override
 			public void view(HttpServletRequest request, HttpServletResponse response, Resource resource) throws ServletException, IOException {
-				if (request.getMethod().equals("GET")) {
-					response.getWriter().write((String) request.getAttribute("aid"));
-				} else if (request.getMethod().equals("POST")) {
-					response.getWriter().write((String) request.getAttribute("email"));
+				@SuppressWarnings("unchecked")
+				Enumeration<String> attributeNames = request.getAttributeNames();
+				for (; attributeNames.hasMoreElements();) {
+					String key = (String) attributeNames.nextElement();
+					response.getWriter().write((String) request.getAttribute(key));
 				}
 				response.getWriter().flush();
 				response.getWriter().close();
@@ -55,10 +59,11 @@ public class ResourceRouterTest extends ServletTestCase {
 		});
 	}
 
-	protected ResourceRouter getRouter() {
+	private ResourceRouter getRouter() {
 		return ((ResourceRouter) applicationContext.getBean("router"));
 	}
 
+	// ------------------ route to get ----------------------------
 	public void beginRouteGet(WebRequest theRequest) {
 		theRequest.setURL("serverName.com", "/contextPath", "/a/123456", null, null);
 	}
@@ -72,6 +77,7 @@ public class ResourceRouterTest extends ServletTestCase {
 		assertEquals("123456", response.getText());
 	}
 
+	// ------------------ route to post ----------------------------
 	public void beginRoutePost(WebRequest theRequest) {
 		theRequest.setURL("serverName.com", "/contextPath", "/a", null, null);
 		theRequest.addParameter("email", "xalinx@gmail.com", WebRequest.POST_METHOD);
@@ -86,4 +92,48 @@ public class ResourceRouterTest extends ServletTestCase {
 		assertEquals("xalinx@gmail.com", response.getText());
 	}
 
+	// ------------------ route to update ----------------------------
+	public void beginRouteUpdate(WebRequest request) {
+		request.setURL("serverName.com", "/contextPath", "/a/123456", null, null);
+		request.addParameter(ResourceRouter.HTTP_INNER_METHOD, "update", WebRequest.POST_METHOD);
+	}
+
+	public void testRouteUpdate() throws ServletException, IOException {
+		getRouter().handleRequest(request, response);
+	}
+
+	public void endRouteUpdate(WebResponse response) {
+		assertEquals(200, response.getStatusCode());
+		assertEquals("123456update", response.getText());
+	}
+
+	// ------------------ route to delete ----------------------------
+	public void beginRouteDelete(WebRequest request) {
+		request.setURL("serverName.com", "/contextPath", "/a/123456", null, null);
+		request.addParameter(ResourceRouter.HTTP_INNER_METHOD, "delete", WebRequest.POST_METHOD);
+	}
+
+	public void testRouteDelete() throws ServletException, IOException {
+		getRouter().handleRequest(request, response);
+	}
+
+	public void endRouteDelete(WebResponse response) {
+		assertEquals(200, response.getStatusCode());
+		assertEquals("123456delete", response.getText());
+	}
+
+	// ------------------ route to homepage ----------------------------
+	public void beginRouteHomepage(WebRequest request) {
+		request.setURL("serverName.com", "/contextPath", "/", null, null);
+		request.addParameter(ResourceRouter.HTTP_INNER_METHOD, "delete", WebRequest.POST_METHOD);
+	}
+
+	public void testRouteHomepage() throws ServletException, IOException {
+		getRouter().handleRequest(request, response);
+	}
+
+	public void endRouteHomepage(WebResponse response) {
+		assertEquals(200, response.getStatusCode());
+		assertEquals("defaulthomepage", response.getText());
+	}
 }
