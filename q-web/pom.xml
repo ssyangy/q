@@ -42,6 +42,7 @@
 				<artifactId>maven-jetty-plugin</artifactId>
 				<version>6.1.6</version>
 				<configuration>
+					<contextPath>/q</contextPath>
 					<connectors>
 						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
 							<port>9999</port>
