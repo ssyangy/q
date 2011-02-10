@@ -54,7 +54,7 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 		this.defaultResource = defaultResource;
 	}
 
-	private ViewResolver viewResolver = new JspViewResolver();
+	private ViewResolver viewResolver = new JspViewResolver(); // jsp is the default view resolver
 
 	public void setViewResolver(ViewResolver viewResolver) {
 		this.viewResolver = viewResolver;
@@ -70,10 +70,13 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			log.info("resource not found by method %s and path %s", method, path);
 		} else {
-			ResourceContext context = toResourceContext(request); // extract querys
+			ResourceContext context = toResourceContext(request, response); // extract querys
 			try {
-				resource.execute(context);
-				this.viewResolver.view(request, response, resource);
+				boolean correct = resource.validate(context);
+				if (correct) {
+					resource.execute(context);
+				}
+				this.viewResolver.view(request, response, resource.getName());// use resource name as view name
 			} catch (Exception e) {
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				log.error("resource execute exeption by method %s and path %s", e, method, path);
@@ -82,7 +85,7 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 		return;
 	}
 
-	protected ResourceContext toResourceContext(final HttpServletRequest request) {
+	protected ResourceContext toResourceContext(final HttpServletRequest request, final HttpServletResponse response) {
 		return new ResourceContext() {
 			@Override
 			public String[] getStringArray(String key) {

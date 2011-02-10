@@ -8,6 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface ViewResolver {
 
-	void view(HttpServletRequest request, HttpServletResponse response, Resource resource) throws ServletException, IOException;
+	void view(HttpServletRequest request, HttpServletResponse response, String viewName) throws ServletException, IOException;
 
 }
