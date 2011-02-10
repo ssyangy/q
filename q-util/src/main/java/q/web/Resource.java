@@ -15,4 +15,8 @@ public abstract class Resource {
 		return this.name;
 	}
 	
+	public boolean validate(ResourceContext context) {
+		return true; //default validatation is successful.
+	}
+	
 }

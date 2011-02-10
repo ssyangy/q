@@ -46,7 +46,7 @@ public class ResourceRouterTest extends ServletTestCase {
 		getRouter().setViewResolver(new ViewResolver() {
 
 			@Override
-			public void view(HttpServletRequest request, HttpServletResponse response, Resource resource) throws ServletException, IOException {
+			public void view(HttpServletRequest request, HttpServletResponse response, String viewName) throws ServletException, IOException {
 				@SuppressWarnings("unchecked")
 				Enumeration<String> attributeNames = request.getAttributeNames();
 				for (; attributeNames.hasMoreElements();) {

@@ -268,19 +268,7 @@
 			    <version>2.0</version>
 				<scope>provided</scope>
 			</dependency>
-			<dependency>
-				<groupId>tomcat</groupId>
-				<version>5.5.9</version>
-				<artifactId>jasper-compiler</artifactId>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>tomcat</groupId>
-				<version>5.5.9</version>
-				<artifactId>jasper-runtime</artifactId>
-				<scope>provided</scope>
-			</dependency>
-</dependencies>
+		</dependencies>
 	</dependencyManagement>
 </project>
 

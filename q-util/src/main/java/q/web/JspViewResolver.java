@@ -22,8 +22,8 @@ public class JspViewResolver implements ViewResolver {
 	 * @see q.web.ViewResolver#view(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, q.web.Resource)
 	 */
 	@Override
-	public void view(HttpServletRequest request, HttpServletResponse response, Resource resource) throws ServletException, IOException {
-		String jsp = "/WEB-INF/jsp/" + resource.getName() + ".jsp";
+	public void view(HttpServletRequest request, HttpServletResponse response, String viewName) throws ServletException, IOException {
+		String jsp = "/WEB-INF/jsp/" + viewName + ".jsp";
 		request.getRequestDispatcher(jsp).forward(request, response);
 	}
 
