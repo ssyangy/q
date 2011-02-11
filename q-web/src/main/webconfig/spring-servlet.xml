@@ -17,7 +17,9 @@
 	</bean>
 	<!-- biz -->
 	<bean id="default" class="q.biz.Default" />
-	<bean id="addPeoples" class="q.biz.peoples.AddPeoples"></bean>
-	<bean id="getPeoples" class="q.biz.peoples.GetPeoples"></bean>
 	<bean id="getRegister" class="q.biz.peoples.GetRegister"></bean>
+	<bean id="addPeople" class="q.biz.peoples.AddPeople"></bean>
+	<bean id="getPeople" class="q.biz.peoples.GetPeople">
+		<property name="peopleDao" ref="peopleDao"></property>
+	</bean>
 </beans>

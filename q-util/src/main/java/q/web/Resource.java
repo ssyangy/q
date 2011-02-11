@@ -5,7 +5,7 @@ public abstract class Resource {
 
 	private String name;
 
-	public abstract void execute(ResourceContext context);
+	public abstract void execute(ResourceContext context) throws Exception;
 	
 	public void setName(String name) {
 		this.name = name;
