@@ -64,13 +64,14 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String method = request.getMethod().toLowerCase();
 		String path = request.getRequestURI().substring(request.getContextPath().length()).toLowerCase();
+		log.debug("request resource by method %s and path %s", method, path);
 		Resource resource = getResource(request, method, path);
 		// execute resource if exists
 		if (resource == null) {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			log.info("resource not found by method %s and path %s", method, path);
 		} else {
-			ResourceContext context = toResourceContext(request, response); // extract querys
+			ResourceContext context = toResourceContext(request, response, path); // extract querys
 			try {
 				boolean correct = resource.validate(context);
 				if (correct) {
@@ -85,38 +86,8 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 		return;
 	}
 
-	protected ResourceContext toResourceContext(final HttpServletRequest request, final HttpServletResponse response) {
-		return new ResourceContext() {
-			@Override
-			public String[] getStringArray(String key) {
-				String[] values = request.getParameterValues(key);
-				return values;
-			}
-
-			@Override
-			public String getString(String key) {
-				String value = request.getParameter(key);
-				return value;
-			}
-
-			@Override
-			public String getRequestPath() {
-				return request.getServletPath();
-			}
-
-			@Override
-			public String getResourceLastId() {
-				String path = request.getServletPath();
-				int lastSlashIndex = path.lastIndexOf(PATH_SPLIT);
-				return path.substring(lastSlashIndex + 1);
-			}
-
-			@Override
-			public void setModel(String key, Object value) {
-				request.setAttribute(key, value);
-			}
-
-		};
+	protected ResourceContext toResourceContext(final HttpServletRequest request, final HttpServletResponse response, String path) {
+		return new DefaultResourceContext(request, path);
 	}
 
 	protected Resource getResource(HttpServletRequest request, String method, String path) {

@@ -70,6 +70,7 @@ public class ResourceRouterTest extends ServletTestCase {
 
 	public void testRouteGet() throws ServletException, IOException {
 		getRouter().handleRequest(request, response);
+		assertEquals("123456", new DefaultResourceContext(request, "/a/123456").getResourceLastId());
 	}
 
 	public void endRouteGet(WebResponse response) {

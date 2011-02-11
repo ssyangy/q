@@ -11,7 +11,7 @@ import q.web.ResourceContext;
  * @date Jan 17, 2011
  *
  */
-public class AddPeoples extends Resource {
+public class AddPeople extends Resource {
 
 	/* (non-Javadoc)
 	 * @see q.web.framework.Resource#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.util.Map)

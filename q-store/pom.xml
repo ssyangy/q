@@ -24,8 +24,8 @@
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
         <dependency>
-            <groupId>org.mybatis</groupId> 
-			<artifactId>mybatis</artifactId> 
+            <groupId>org.apache.ibatis</groupId> 
+			<artifactId>ibatis-sqlmap</artifactId> 
         </dependency>         		
 		<dependency>
 			<groupId>junit</groupId>

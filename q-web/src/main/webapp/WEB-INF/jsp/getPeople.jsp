@@ -9,7 +9,7 @@
 <title>我的主页</title>
 </head>
 <body>
-昵称:<c:out value="${nick}"></c:out>
+真实姓名:<c:out value="${people.realName}"></c:out>
 粉丝数:<c:out value="${fansNum}"></c:out>
 好友数<c:out value="${friendsNum}"></c:out>
 </body>
