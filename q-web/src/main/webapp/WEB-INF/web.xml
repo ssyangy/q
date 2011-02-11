@@ -78,6 +78,10 @@
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/peoples/*</url-pattern>
 	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>/register</url-pattern>
+	</servlet-mapping>
 	<!-- ====================================================== -->
 	<!-- Session Config -->
 	<!-- ====================================================== -->

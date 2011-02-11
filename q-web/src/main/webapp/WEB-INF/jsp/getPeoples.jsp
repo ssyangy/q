@@ -12,5 +12,6 @@
 昵称:<c:out value="${nick}"></c:out>
 粉丝数:<c:out value="${fansNum}"></c:out>
 好友数<c:out value="${friendsNum}"></c:out>
+UID<c:out value="${uid}"></c:out>
 </body>
 </html>
