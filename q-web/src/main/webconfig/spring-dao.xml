@@ -2,7 +2,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
 
-	<bean id="peopleDao" class="q.dao.impl.PeopleDaoImpl">
+	<bean id="peopleDao" class="q.dao.ibatis.PeopleDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
 	

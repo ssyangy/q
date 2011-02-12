@@ -10,12 +10,13 @@ import q.web.ResourceContext;
 
 /**
  * @author seanlinwang
+ * @email xalinx at gmail dot com
  * @date Jan 18, 2011
  * 
  */
 public class GetPeople extends Resource {
 	private final static Logger log = Logger.getLogger();
-	
+
 	private PeopleDao peopleDao;
 
 	public void setPeopleDao(PeopleDao peopleDao) {
@@ -27,13 +28,14 @@ public class GetPeople extends Resource {
 		String resourceId = context.getResourceLastId();
 		log.debug("resource id:%s", resourceId);
 		int uid = Integer.valueOf(resourceId);
+
 		People people = peopleDao.getPeopleById(uid);
-		log.debug("getPeople:%s", people.getRealName());
-		long fansNum = 100;
-		long friendsNum = 20;
+		people.setFollowingNum(999999999);
+		people.setFollowNum(99);
+		people.setFriendNum(9);
+
+		log.debug("get people:%s", people);
 		context.setModel("people", people);
-		context.setModel("fansNum", fansNum);
-		context.setModel("friendsNum", friendsNum);
 	}
 
 }

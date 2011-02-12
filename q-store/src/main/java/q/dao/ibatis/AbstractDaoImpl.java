@@ -1,4 +1,4 @@
-package q.dao.impl;
+package q.dao.ibatis;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 

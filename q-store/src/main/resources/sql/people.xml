@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="peoples">
+	<typeAlias alias="people" type="q.domain.People" />
+	<resultMap id="peopleResult" class="people">
+		<result property="id" column="id" />
+		<result property="year" column="year" />
+		<result property="month" column="month" />
+		<result property="day" column="day" />
+		<result property="gender" column="gender_id" typeHandler="q.dao.ibatis.GenderHandler" />
+		<result property="bloodTypeId" column="blood_type_id" />
+		<result property="educationId" column="education_id" />
+		<result property="roleId" column="role_id" />
+		<result property="countryCode" column="country_code" />
+		<result property="districtId" column="district_id" />
+		<result property="mobile" column="mobile" />
+		<result property="email" column="email" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="loginToken" column="login_token" />
+		<result property="realName" column="real_name" />
+		<result property="intro" column="intro" />
+		<result property="status" column="status" />
+		<result property="created" column="created" />
+		<result property="modified" column="modified" />
+	</resultMap>
+
+	<sql id="people.columns">
+		id,
+		year,
+		month,
+		day,
+		gender_id,
+		blood_type_id,
+		education_id,
+		role_id,
+		country_code,
+		district_id,
+		mobile,
+		email,
+		username,
+		password,
+		login_token,
+		real_name,
+		intro,
+		status,
+		created,
+		modified
+	</sql>
+
+	<select id="selectPeopleById" resultMap="peopleResult">
+		select
+		<include refid="people.columns" />
+		from
+		people
+		where id=#value#
+	</select>
+
+	<insert id="insertPeople">
+		insert into people
+		(
+		<include refid="people.columns" />
+		) values (
+		#id#,
+		#year#,
+		#month#,
+		#day#,
+		#gender,handler=q.dao.ibatis.GenderHandler#
+		)
+	</insert>
+
+
+	<!--<update id="IbatisItemVerticalPropertyDAO.update" parameterClass="itemVerticalProperty"> 
+		update auction_vertical_property set AUCTION_VAR_ID=#itemIdStr#, VERTICAL_TYPE=#verticalType#, 
+		PROPERTIES=#propertyList,handler=com.taobao.item.dao.ibatis.support.ItemVerticalPropertiesTypeHandlerCallback#, 
+		GMT_MODIFIED=sysdate where id = #id# </update> -->
+</sqlMap>

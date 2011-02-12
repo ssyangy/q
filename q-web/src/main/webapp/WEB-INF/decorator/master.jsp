@@ -8,7 +8,7 @@
 <title><decorator:title /> ::</title>
 </head>
 <body>
-<div id="header">兴趣小组 | 好友动态 | 找朋友 | 我的主页</div>
+<div id="header">圈子新鲜事 | 好友新鲜事 | <a href="/people/1">我的主页</a> | 找人</div>
 <hr />
 <div id="main"><decorator:body /></div>
 </body>

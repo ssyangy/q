@@ -2,18 +2,20 @@ package q.domain;
 
 import java.util.Date;
 import java.io.Serializable;
-public class People implements Serializable{
+
+public class People implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5592959607374663712L;
 
-	// ===== db properties =====
 	private int id;
 
 	private String username;
 
 	private String password;
+
+	private String loginToken; // md5(username+password)
 
 	private String realName;
 
@@ -23,27 +25,39 @@ public class People implements Serializable{
 
 	private int year;// xxxx - 1900
 
-	private byte month;// 1~12
+	private int month;// 1~12
 
-	private byte day;// 1~31
+	private int day;// 1~31
 
 	private int countryCode;// contry telephone code
 
 	private int districtId;// people residence disctrictId
 
-	private byte genderId;
+	private Gender gender;
 
 	private byte bloodTypeId;
 
 	private byte educationId;
 
-	private byte weiboLimitRoleId;
+	private byte roleId;
 
 	private byte status;
 
 	private Date created;
 
 	private Date modified;
+
+	private int friendNum;
+
+	private int followNum;
+
+	private int followingNum;
+
+	private int weiboNum;
+
+	private String intro;
+
+	// =========================================
 
 	public int getId() {
 		return id;
@@ -96,19 +110,19 @@ public class People implements Serializable{
 		this.year = year;
 	}
 
-	public byte getMonth() {
+	public int getMonth() {
 		return month;
 	}
 
-	public void setMonth(byte month) {
+	public void setMonth(int month) {
 		this.month = month;
 	}
 
-	public byte getDay() {
+	public int getDay() {
 		return day;
 	}
 
-	public void setDay(byte day) {
+	public void setDay(int day) {
 		this.day = day;
 	}
 
@@ -128,12 +142,12 @@ public class People implements Serializable{
 		this.mobile = mobile;
 	}
 
-	public byte getGenderId() {
-		return genderId;
+	public Gender getGender() {
+		return this.gender;
 	}
 
-	public void setGenderId(byte genderId) {
-		this.genderId = genderId;
+	public void setGender(Gender gender) {
+		this.gender = gender;
 	}
 
 	public byte getBloodTypeId() {
@@ -160,12 +174,12 @@ public class People implements Serializable{
 		this.districtId = districtId;
 	}
 
-	public byte getWeiboLimitRoleId() {
-		return weiboLimitRoleId;
+	public byte getRoleId() {
+		return this.roleId;
 	}
 
-	public void setWeiboLimitRoleId(byte weiboLimitRoleId) {
-		this.weiboLimitRoleId = weiboLimitRoleId;
+	public void setRoleId(byte roleId) {
+		this.roleId = roleId;
 	}
 
 	public byte getStatus() {
@@ -192,10 +206,61 @@ public class People implements Serializable{
 		this.modified = modified;
 	}
 
-	// =======================================
+	public String getLoginToken() {
+		return loginToken;
+	}
+
+	public void setLoginToken(String loginToken) {
+		this.loginToken = loginToken;
+	}
+
+	public int getFriendNum() {
+		return friendNum;
+	}
+
+	public void setFriendNum(int friendNum) {
+		this.friendNum = friendNum;
+	}
+
+	public int getFollowNum() {
+		return followNum;
+	}
+
+	public void setFollowNum(int followNum) {
+		this.followNum = followNum;
+	}
+
+	public int getFollowingNum() {
+		return followingNum;
+	}
+
+	public void setFollowingNum(int followingNum) {
+		this.followingNum = followingNum;
+	}
+
+	public int getWeiboNum() {
+		return weiboNum;
+	}
+
+	public void setWeiboNum(int weiboNum) {
+		this.weiboNum = weiboNum;
+	}
+
+	public String getIntro() {
+		return intro;
+	}
+
+	public void setIntro(String intro) {
+		this.intro = intro;
+	}
 
 	public String getBirthdayString() {
 		return getYear() + "-" + getMonth() + "-" + getDay();
+	}
+
+	@Override
+	public String toString() {
+		return "People [id=" + id + ", username=" + username + ", password=" + password + ", loginToken=" + loginToken + ", realName=" + realName + ", email=" + email + ", mobile=" + mobile + ", year=" + year + ", month=" + month + ", day=" + day + ", countryCode=" + countryCode + ", districtId=" + districtId + ", gender=" + gender + ", bloodTypeId=" + bloodTypeId + ", educationId=" + educationId + ", roleId=" + roleId + ", status=" + status + ", created=" + created + ", modified=" + modified + ", friendNum=" + friendNum + ", followNum=" + followNum + ", followingNum=" + followingNum + ", weiboNum=" + weiboNum + ", intro=" + intro + "]";
 	}
 
 }

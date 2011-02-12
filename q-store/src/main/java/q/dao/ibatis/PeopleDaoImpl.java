@@ -1,7 +1,7 @@
 /**
  * 
  */
-package q.dao.impl;
+package q.dao.ibatis;
 
 import java.sql.SQLException;
 
