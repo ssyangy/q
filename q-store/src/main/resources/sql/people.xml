@@ -65,7 +65,22 @@
 		#year#,
 		#month#,
 		#day#,
-		#gender,handler=q.dao.ibatis.GenderHandler#
+		#gender,handler=q.dao.ibatis.GenderHandler#,
+		#blood_type_id#,
+		#education_id#,
+		#role_id#,
+		#country_code#,
+		#district_id#,
+		#mobile#,
+		#email#,
+		#username#,
+		#password#,
+		#login_token#,
+		#real_name#,
+		#intro#,
+		#status#,
+		#created#,
+		#modified#		
 		)
 	</insert>
 

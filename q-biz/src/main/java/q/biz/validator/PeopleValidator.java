@@ -1,10 +1,10 @@
-package q.util;
+package q.biz.validator;
 
 import java.util.regex.Pattern;
 
 import org.apache.commons.validator.GenericValidator;
 
-public class Validator {
+public class PeopleValidator {
 	  /**
 	   *验证email
 	  */
@@ -27,7 +27,7 @@ public class Validator {
     	  return(p.matcher(password).matches());
       }
       /**
-	   *验证密码，允许1-12字节，允许汉字字母数字下划线,区分大小写
+	   *验证姓名，允许1-12字节，允许汉字字母数字下划线,区分大小写
 	  */
       public static boolean validateName(String name){
     	  Pattern p = Pattern.compile("^[a-zA-Z0-9_\u4e00-\u9fa5]+{0,11}$");
