@@ -9,14 +9,15 @@
 </head>
 <%
 //String wrong=request.getAttribute ("Wrong").toString();
+request.setCharacterEncoding( "gb2312"); 
  %>
 <body>
 帐号信息
 
-<form action="/register" method="post">
-登陆邮箱:<input   type=text   name= "email "  > <br/>
-设置密码<input   type=password name= "password "  > <br/>
-再输入一次密码:<input   type=password   name= "confirm_password " ></input><br/>
+<form action="/q/register" method="post" scope>
+登陆邮箱:<input   type=text   name= "email"  > <br/>
+设置密码<input   type=password name= "password"  > <br/>
+再输入一次密码:<input   type=password   name= "confirm_password" ></input><br/>
 圈子帐号:<input   type=text  name= "username"   ></input><br/>
 姓名:<input   type=text   name= "real_name"    ></input><br/>
 <input type="reset"  value="修改"  />

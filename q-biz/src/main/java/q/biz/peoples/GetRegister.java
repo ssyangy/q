@@ -23,13 +23,19 @@ private final static Logger log = Logger.getLogger();
 @Override
 public void execute(ResourceContext context) throws SQLException{
 	String uid = context.getResourceLastId();
-    People people=new People();
-    people.setEmail("iceball8@163.com");
+   // People people=new People();
+  //people.setEmail(context.getString("email"));
+ // people.setPassword(context.getString("password"));
+  //people.setUsername(context.getString("username"));
+ // people.setRealName(context.getString("real_name"));
+  //log.debug("get person's age:%s", people.getYear());
+	//peopleDao.addPeople(people);
+  /*people.setEmail("iceball8@163.com");
     people.setPassword("12345");
     people.setUsername("iceball");
     people.setRealName("赵哲豪");
     people.setId(3);
-    people.setYear(22);
+    people.setYear(1989);
     people.setMonth(3);
     people.setDay(17);
     people.setGender(Gender.MALE);
@@ -42,10 +48,7 @@ public void execute(ResourceContext context) throws SQLException{
     people.setStatus(Byte.parseByte("0"));
     people.setCreated(new Date());
     people.setModified(new Date());
-	//people.setEmail(context.getString("email"));
-	//people.setPassword(context.getString("password"));
-	//people.setUsername(context.getString("username"));
-	//people.setRealName(context.getString("real_name"));
-	peopleDao.addPeople(people);
+    */
+    
 }
 }

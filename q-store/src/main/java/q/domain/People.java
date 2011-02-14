@@ -9,7 +9,7 @@ public class People implements Serializable {
 	 */
 	private static final long serialVersionUID = -5592959607374663712L;
 
-	private int id;
+	private long id;
 
 	private String username;
 
@@ -59,11 +59,11 @@ public class People implements Serializable {
 
 	// =========================================
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -100,7 +100,7 @@ public class People implements Serializable {
 	}
 
 	public int getYear() {
-		return 1900 + year;
+		return year;
 	}
 
 	public void setYear(int year) {
