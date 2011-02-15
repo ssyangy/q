@@ -4,5 +4,7 @@
 	<settings cacheModelsEnabled="false" enhancementEnabled="false"
 		lazyLoadingEnabled="false" maxRequests="3000" maxSessions="3000"
 		maxTransactions="3000" useStatementNamespaces="false" />
+    <sqlMap resource="sql/group.xml" />
 	<sqlMap resource="sql/people.xml" />
+	<sqlMap resource="sql/category.xml" />
 </sqlMapConfig>
