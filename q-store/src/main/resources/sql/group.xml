@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="groups">
+	<typeAlias alias="group" type="q.domain.Group" />
+	<resultMap id="groupResult" class="group">
+		<result property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="intro" column="intro" />
+        <result property="status" column="status" />
+        <result property="created" column="created" />
+		<result property="modified" column="modified" />
+	</resultMap>
+
+	<sql id="group.columns">
+	 id,
+	 name,
+	 intro,
+	 status,
+	 created,
+	 modified
+	</sql>
+
+	<select id="selectGroupById" resultMap="groupResult">
+		select
+		<include refid="group.columns" />
+		from
+		q.group
+		where id=#value#
+	</select>
+
+	<insert id="insertGroup">
+		insert into q.group
+		(
+		<include refid="group.columns" />
+		) values (
+		#id#,
+		#name#,
+		#intro#,
+		#status#,
+		#created#,
+		#modified#		
+		)
+	</insert>
+
+
+	<!--<update id="IbatisItemVerticalPropertyDAO.update" parameterClass="itemVerticalProperty"> 
+		update auction_vertical_property set AUCTION_VAR_ID=#itemIdStr#, VERTICAL_TYPE=#verticalType#, 
+		PROPERTIES=#propertyList,handler=com.taobao.item.dao.ibatis.support.ItemVerticalPropertiesTypeHandlerCallback#, 
+		GMT_MODIFIED=sysdate where id = #id# </update> -->
+</sqlMap>

@@ -1,5 +1,6 @@
 package q.biz.peoples;
 import java.io.*;
+
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -12,6 +13,11 @@ import q.domain.People;
 import q.log.Logger;
 import q.web.Resource;
 import q.web.ResourceContext;
+/**
+ * @author Zhehao
+ * @date Feb 14, 2011
+ *
+ */
 public class GetRegister extends Resource{
 private final static Logger log = Logger.getLogger();
 	
