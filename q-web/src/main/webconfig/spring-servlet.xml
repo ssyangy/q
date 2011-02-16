@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="publicUrlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<value>
+				/*=router
+                       </value>
+		</property>
+		<property name="alwaysUseFullPath">
+			<value>true</value>
+		</property>
+	</bean>
+	<bean id="router" class="q.web.ResourceRouter">
+		<property name="defaultResource" ref="default" />
+	</bean>
+	<!-- biz -->
+	<bean id="default" class="q.biz.Default" />
+
+	<!-- people biz -->
+	<bean id="getPeopleNew" class="q.biz.people.GetPeopleNew">
+		<property name="peopleDao" ref="peopleDao"></property>
+	</bean>
+	<bean id="getPeople" class="q.biz.people.GetPeople">
+		<property name="peopleDao" ref="peopleDao"></property>
+	</bean>
+	<bean id="addPeople" class="q.biz.people.AddPeople"></bean>
+
+	<!-- group biz -->
+	<bean id="addGroup" class="q.biz.group.AddGroup">
+		<property name="groupDao" ref="groupDao"></property>
+	</bean>
+	<bean id="getGroupNew" class="q.biz.group.GetGroupNew">
+	</bean>
+	<bean id="getGroup" class="q.biz.group.GetGroup">
+		<property name="groupDao" ref="groupDao"></property>
+	</bean>
+	<bean id="getCategories" class="q.biz.group.GetCategories">
+		<property name="categoryDao" ref="categoryDao"></property>
+	</bean>
+	<bean id="addCategory" class="q.biz.group.AddCategory">
+
+	</bean>
+</beans>

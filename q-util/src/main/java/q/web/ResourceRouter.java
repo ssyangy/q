@@ -92,7 +92,7 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 
 	protected Resource getResource(HttpServletRequest request, String method, String path) {
 		Resource resource = null;
-		String resourceName = toResourceName(path);
+		String resourceName = toResourceName(method, path);
 		if (StringKit.isEmpty(resourceName)) {
 			resource = this.defaultResource;
 			resource.setName("default");
@@ -119,12 +119,15 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 		return resource;
 	}
 
-	protected String toResourceName(String path) {
+	protected String toResourceName(String method, String path) {
 		String resourceName = null;
 		int firstSlashIndex = 0;
 		int secondSlashIndex = path.indexOf(PATH_SPLIT, firstSlashIndex + 1);
-		if (secondSlashIndex < 0) {
+		if (secondSlashIndex < 0 ) {
 			resourceName = path.substring(firstSlashIndex + 1);
+			if (HTTP_METHOD_GET.equals(method) ) {
+				resourceName += "New";
+			}
 		} else if (secondSlashIndex > firstSlashIndex + 1) {
 			resourceName = path.substring(firstSlashIndex + 1, secondSlashIndex);
 		}
