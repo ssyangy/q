@@ -25,17 +25,17 @@
 		<property name="peopleDao" ref="peopleDao"></property>
 	</bean>
 	<bean id="addPeople" class="q.biz.people.AddPeople">
-	<property name="peopleDao" ref="peopleDao"></property>
+		<property name="peopleDao" ref="peopleDao"></property>
 	</bean>
-   <bean id="updatePeople" class="q.biz.people.UpdatePeople">
-	<property name="peopleDao" ref="peopleDao"></property>
+	<bean id="updatePeople" class="q.biz.people.UpdatePeople">
+		<property name="peopleDao" ref="peopleDao"></property>
 	</bean>
 	<!-- group biz -->
 	<bean id="addGroup" class="q.biz.group.AddGroup">
 		<property name="groupDao" ref="groupDao"></property>
 	</bean>
 	<bean id="getGroupNew" class="q.biz.group.GetGroupNew">
-	<property name="categoryDao" ref="categoryDao"></property>
+		<property name="categoryDao" ref="categoryDao"></property>
 	</bean>
 	<bean id="getGroup" class="q.biz.group.GetGroup">
 		<property name="groupDao" ref="groupDao"></property>
@@ -44,8 +44,19 @@
 		<property name="categoryDao" ref="categoryDao"></property>
 	</bean>
 	<bean id="addCategory" class="q.biz.group.AddCategory">
-     <property name="categoryDao" ref="categoryDao"></property>
+		<property name="categoryDao" ref="categoryDao"></property>
 	</bean>
 	<bean id="getCategoryNew" class="q.biz.group.GetCategoryNew">
+	</bean>
+
+	<!-- event biz -->
+	<bean id="addEvent" class="q.biz.event.AddEvent">
+		<property name="eventDao" ref="eventDao" />
+	</bean>
+	<bean id="getEventNew" class="q.biz.event.GetEventNew">
+		<property name="eventDao" ref="eventDao" />
+	</bean>
+	<bean id="getEvent" class="q.biz.event.GetEvent">
+		<property name="eventDao" ref="eventDao" />
 	</bean>
 </beans>
