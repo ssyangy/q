@@ -4,20 +4,20 @@
 	<typeAlias alias="group" type="q.domain.Group" />
 	<resultMap id="groupResult" class="group">
 		<result property="id" column="id" />
-        <result property="name" column="name" />
-        <result property="intro" column="intro" />
-        <result property="status" column="status" />
-        <result property="created" column="created" />
+		<result property="name" column="name" />
+		<result property="intro" column="intro" />
+		<result property="status" column="status" />
+		<result property="created" column="created" />
 		<result property="modified" column="modified" />
 	</resultMap>
 
 	<sql id="group.columns">
-	 id,
-	 name,
-	 intro,
-	 status,
-	 created,
-	 modified
+		id,
+		name,
+		intro,
+		status,
+		created,
+		modified
 	</sql>
 
 	<select id="selectGroupById" resultMap="groupResult">
@@ -38,13 +38,27 @@
 		#intro#,
 		#status#,
 		#created#,
-		#modified#		
+		#modified#
 		)
 	</insert>
 
 
-	<!--<update id="IbatisItemVerticalPropertyDAO.update" parameterClass="itemVerticalProperty"> 
-		update auction_vertical_property set AUCTION_VAR_ID=#itemIdStr#, VERTICAL_TYPE=#verticalType#, 
-		PROPERTIES=#propertyList,handler=com.taobao.item.dao.ibatis.support.ItemVerticalPropertiesTypeHandlerCallback#, 
-		GMT_MODIFIED=sysdate where id = #id# </update> -->
+	<insert id="insertGroupCategory">
+		insert into q.group_join_category
+		(
+		id,
+		group_id,
+		category_id,
+		status,
+		created,
+		modified
+		) values (
+		#id#,
+		#groupId#,
+		#categoryId#,
+		#status#,
+		#created#,
+		null
+		)
+	</insert>
 </sqlMap>

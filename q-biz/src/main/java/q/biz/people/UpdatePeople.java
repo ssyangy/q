@@ -33,7 +33,7 @@ public class UpdatePeople extends Resource {
 	     newpeople.setYear(Integer.parseInt(context.getString("year")));
 	     newpeople.setMonth(Integer.parseInt(context.getString("month")));
 	     newpeople.setDay(Integer.parseInt(context.getString("day")));
-	     newpeople.setGender(Gender.convertValue(context.getInt("sex")));
+	     newpeople.setGender(Gender.convertValue(context.getInt("gender")));
 	     peopleDao.updatePeople(newpeople);
 	}
 

@@ -25,8 +25,8 @@ public class AddCategory extends Resource {
 public void execute(ResourceContext context) throws SQLException{
      Category category=new Category();
      category.setId(System.currentTimeMillis());
-     category.setName(context.getString("qkname"));
-     category.setIntro(context.getString("qkinformation"));
+     category.setName(context.getString("name"));
+     category.setIntro(context.getString("intro"));
      category.setStatus("0");
      category.setCreated(new Date());
      categoryDao.addCategory(category);

@@ -8,10 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%
-request.setAttribute("id",request.getAttribute("idd")) ;%>
 基本资料<br/>
-id=<%= request.getAttribute("idd") %>
 <form action="/q/people" method="post" >
 
 所在地:
@@ -23,8 +20,8 @@ id=<%= request.getAttribute("idd") %>
 </select>
 <br/>
 性别:
-<INPUT type="radio" name="sex" value="1">男
-<INPUT type="radio" name="sex" value="2">女
+<INPUT type="radio" name="gender" value="1">男
+<INPUT type="radio" name="gender" value="2">女
 <br/>
 年龄:
 <input   type=text  name= "year"   value= "" >年
