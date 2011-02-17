@@ -42,4 +42,15 @@
 	<bean id="addCategory" class="q.biz.group.AddCategory">
 
 	</bean>
+
+	<!-- event biz -->
+	<bean id="addEvent" class="q.biz.event.AddEvent">
+		<property name="eventDao" ref="eventDao" />
+	</bean>
+	<bean id="getEventNew" class="q.biz.event.GetEventNew">
+		<property name="eventDao" ref="eventDao" />
+	</bean>
+	<bean id="getEvent" class="q.biz.event.GetEvent">
+		<property name="eventDao" ref="eventDao" />
+	</bean>
 </beans>
