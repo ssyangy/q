@@ -1,4 +1,4 @@
-package q.biz.peoples;
+package q.biz.people;
 import java.io.*;
 
 import java.sql.SQLException;
@@ -18,7 +18,9 @@ import q.web.ResourceContext;
  * @date Feb 14, 2011
  *
  */
-public class AddRegister extends Resource{
+
+public class AddPeople extends Resource{
+
 private final static Logger log = Logger.getLogger();
 	
 	private PeopleDao peopleDao;

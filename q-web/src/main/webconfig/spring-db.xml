@@ -4,7 +4,7 @@
 	<bean id="propertyConfig"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location">
-			<value>file:${q.db.file}</value>
+			<value>file:/Users/alin/q.db.config</value>
 		</property>
 	</bean>
 	<bean id="dataSourceMaster"

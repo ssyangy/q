@@ -5,10 +5,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>圈子-<c:out value="${group.name}"></c:out></title>
+<title>圈子黄页</title>
 </head>
 
 <body>
+<%
+
+%>
+圈子目录:<br>
+<c:forEach items="${categorys}" var="current" varStatus="status">
+    <c:out value="${current.name}"/><br>
+    </c:forEach>
+    <br>
+人气活动<br/>
+圈子热议<br/>
 
 </body>
 </html>

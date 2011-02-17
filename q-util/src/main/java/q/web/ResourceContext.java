@@ -15,6 +15,8 @@ public interface ResourceContext {
 	
 	String getResourceLastId();
 	
+	long getResourceLastIdLong();
+	
 	void setModel(String key, Object value);
 	
 }
