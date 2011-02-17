@@ -14,8 +14,11 @@
 	</bean>
 	<!-- biz -->
 	<bean id="main" class="q.web.testrouter.Main" />
-	<bean id="addA" class="q.web.testrouter.a.AddA"></bean>
-	<bean id="getA" class="q.web.testrouter.a.GetA"></bean>
-	<bean id="updateA" class="q.web.testrouter.a.UpdateA"></bean>
-	<bean id="deleteA" class="q.web.testrouter.a.DeleteA"></bean>
+	<bean id="addA" class="q.web.testrouter.AddA"></bean>
+	<bean id="getA" class="q.web.testrouter.GetA"></bean>
+	<bean id="getANew" class="q.web.testrouter.GetANew"></bean>
+	<bean id="getAIndex" class="q.web.testrouter.GetAIndex"></bean>
+	<bean id="getAEdit" class="q.web.testrouter.GetAEdit"></bean>
+	<bean id="updateA" class="q.web.testrouter.UpdateA"></bean>
+	<bean id="deleteA" class="q.web.testrouter.DeleteA"></bean>
 </beans>

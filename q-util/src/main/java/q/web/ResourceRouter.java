@@ -121,15 +121,22 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 
 	protected String toResourceName(String method, String path) {
 		String resourceName = null;
-		int firstSlashIndex = 0;
-		int secondSlashIndex = path.indexOf(PATH_SPLIT, firstSlashIndex + 1);
-		if (secondSlashIndex < 0 ) {
-			resourceName = path.substring(firstSlashIndex + 1);
-			if (HTTP_METHOD_GET.equals(method) ) {
-				resourceName += "New";
+		String[] segs = StringKit.split(path, PATH_SPLIT);
+		if (segs.length == 0) {
+			return resourceName;
+		}
+		resourceName = segs[0];
+		if (segs.length == 1) {
+			if (HTTP_METHOD_GET.equals(method)) {
+				resourceName += "Index";
 			}
-		} else if (secondSlashIndex > firstSlashIndex + 1) {
-			resourceName = path.substring(firstSlashIndex + 1, secondSlashIndex);
+		} else {
+			String last = segs[segs.length-1].toLowerCase();
+			if ("new".equals(last)) {
+				resourceName += "New";
+			} else if ("edit".equals(last)) {
+				resourceName += "Edit";
+			}
 		}
 		return resourceName;
 	}
