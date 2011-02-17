@@ -31,8 +31,14 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 	 * @see q.dao.PeoplesDao#getPeopleById(int)
 	 */
 	@Override
-	public People getPeopleById(int pid) throws SQLException {
+	public People getPeopleById(long pid) throws SQLException {
 		return (People) this.sqlMapClient.queryForObject("selectPeopleById", pid);
+	}
+
+	@Override
+	public void updatePeople(People p) throws SQLException {
+		this.sqlMapClient.update("updatePeopleById",p);
+		
 	}
 
 }

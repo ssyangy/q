@@ -25,8 +25,12 @@
 	<bean id="getPeople" class="q.biz.people.GetPeople">
 		<property name="peopleDao" ref="peopleDao"></property>
 	</bean>
-	<bean id="addPeople" class="q.biz.people.AddPeople"></bean>
-
+	<bean id="addPeople" class="q.biz.people.AddPeople">
+	<property name="peopleDao" ref="peopleDao"></property>
+	</bean>
+   <bean id="updatePeople" class="q.biz.people.UpdatePeople">
+	<property name="peopleDao" ref="peopleDao"></property>
+	</bean>
 	<!-- group biz -->
 	<bean id="addGroup" class="q.biz.group.AddGroup">
 		<property name="groupDao" ref="groupDao"></property>

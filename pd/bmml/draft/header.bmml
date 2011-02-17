@@ -1,0 +1,39 @@
+<mockup version="1.0" skin="sketch" measuredW="1159" measuredH="110" mockupW="996" mockupH="102">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="163" y="8" w="996" h="102" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="183" y="61" w="-1" h="-1" measuredW="53" measuredH="37" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>24</size>
+        <text>%u5708%u5B50</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::LinkBar" x="481" y="67" w="-1" h="-1" measuredW="336" measuredH="27" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>0</selectedIndex>
+        <size>16</size>
+        <text>%u5708%u5B50%u65B0%u9C9C%u4E8B%2C%20%u597D%u53CB%u65B0%u9C9C%u4E8B%2C%20%u6211%u7684%u4E3B%u9875%2C%20%u627E%u4EBA</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::SearchBox" x="883" y="66" w="219" h="-1" measuredW="64" measuredH="25" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>search</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="236" y="73" w="-1" h="-1" measuredW="63" measuredH="24" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>14</size>
+        <text>Q.com.cn</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::LinkBar" x="914" y="20" w="-1" h="-1" measuredW="222" measuredH="23" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u53D1%u8A00%2C%20%u79C1%u4FE1%2C%20%u5176%u5B9E%u7684%u5E10%u53F7%2C%20%u9000%u51FA</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::LinkBar" x="183" y="21" w="-1" h="-1" measuredW="261" measuredH="23" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u6D3B%u52A8%2C%20%u76F8%u518C%2C%20%u6362%u80A4%2C%20%u597D%u53CB%u5730%u56FE%2C%20%u624B%u673A</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

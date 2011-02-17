@@ -1,14 +1,7 @@
 package q.biz.people;
-import java.io.*;
-
 import java.sql.SQLException;
 import java.util.Date;
-
-
-import org.apache.commons.validator.GenericValidator;
-
 import q.dao.PeopleDao;
-import q.domain.Gender;
 import q.domain.People;
 import q.log.Logger;
 import q.web.Resource;
@@ -30,7 +23,6 @@ private final static Logger log = Logger.getLogger();
 	}
 @Override
 public void execute(ResourceContext context) throws SQLException{
-  String uid = context.getResourceLastId();
   People people=new People();
   people.setId(System.currentTimeMillis());
   people.setEmail(context.getString("email"));
@@ -39,8 +31,8 @@ public void execute(ResourceContext context) throws SQLException{
   people.setRealName(context.getString("real_name"));
   people.setLoginToken("xxxx");
   people.setCreated(new Date());
-  log.debug("get person's email:%s", people.getEmail());
-  log.debug("get person's age:%s", people.getYear());
-	peopleDao.addPeople(people);
+  context.setModel("idd", people.getId());
+  log.debug("get person's id:%s", people.getId());
+  peopleDao.addPeople(people);
 }
 }

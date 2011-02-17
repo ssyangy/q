@@ -84,6 +84,20 @@
 		)
 	</insert>
 
+    <update id="updatePeopleById" >
+		 update q.people set
+		 year = #year#,
+		 month =#month#,
+		 day=#day#,
+         gender_id=#gender,handler=q.dao.ibatis.GenderHandler#,
+         blood_type_id=#bloodTypeId#,
+         education_id=#educationId#,
+         role_id=#roleId#,
+         country_code=#countryCode#,
+         district_id=#districtId#,
+         mobile=#mobile#
+         where id=#id#
+	</update>
 
 	<!--<update id="IbatisItemVerticalPropertyDAO.update" parameterClass="itemVerticalProperty"> 
 		update auction_vertical_property set AUCTION_VAR_ID=#itemIdStr#, VERTICAL_TYPE=#verticalType#, 
