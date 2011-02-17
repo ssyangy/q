@@ -38,7 +38,7 @@
 		#intro#,
 		#status#,
 		#created#,
-		#modified#
+		null		
 		)
 	</insert>
 
