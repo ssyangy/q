@@ -1,5 +1,5 @@
 package q.biz.group;
-import java.io.*;
+
 /**
  * @author Zhehao
  * @date Feb 15, 2011
@@ -7,34 +7,36 @@ import java.io.*;
  */
 import java.sql.SQLException;
 import java.util.Date;
-import org.apache.commons.validator.GenericValidator;
 import q.dao.GroupDao;
-import q.dao.PeopleDao;
 import q.domain.Group;
-import q.log.Logger;
+import q.domain.GroupJoinCategory;
 import q.web.Resource;
 import q.web.ResourceContext;
-public class AddGroup extends Resource{
-private final static Logger log = Logger.getLogger();
-	
+
+public class AddGroup extends Resource {
+
 	private GroupDao groupDao;
 
 	public void setGroupDao(GroupDao groupDao) {
 		this.groupDao = groupDao;
 	}
-@Override
-public void execute(ResourceContext context) throws SQLException{
-  String uid = context.getResourceLastId();
- // Group temp=groupDao.getGroupById(1);
-  //log.debug("get group:%s", temp.getName());
-  
-  
-  Group group=new Group();
-  group.setId(System.currentTimeMillis());
-  group.setName(context.getString("qname"));
-  group.setIntro(context.getString("qinformation"));
-  group.setStatus("0");
-  group.setCreated(new Date());
-  groupDao.addGroup(group);
-}
+
+	@Override
+	public void execute(ResourceContext context) throws SQLException {
+		Group group = new Group();
+		long groupid=System.currentTimeMillis();
+		group.setId(groupid);
+		group.setName(context.getString("name"));
+		group.setIntro(context.getString("intro"));
+		group.setStatus("0");
+		group.setCreated(new Date());
+		GroupJoinCategory groupcategory=new GroupJoinCategory();
+		groupcategory.setId(System.currentTimeMillis());
+		groupcategory.setCategoryId(Long.parseLong(context.getString("category")));
+		groupcategory.setGroupId(groupid);
+		groupcategory.setStatus("0");
+		groupcategory.setCreated(new Date());
+		groupDao.addGroup(group);
+		groupDao.addGroupCategory(groupcategory);
+	}
 }

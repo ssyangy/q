@@ -1,101 +1,78 @@
 package q.domain;
 
-import java.util.Date;
 import java.io.Serializable;
-/**
- * @author Zhehao
- * @date Feb 15, 2011
- *
- */
-public class Group implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -471923896513393314L;
+import java.util.Date;
+
+public class GroupJoinCategory implements Serializable{
 
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 6882792727642936124L;
 	
-
 	private long id;
 	
-	private String name;
+	private long groupId;
 
-	private String intro;
-	
+	private long categoryId;
+
 	private String status;
 
 	private Date created;
 
 	private Date modified;
 
-	
-
 	public long getId() {
 		return id;
 	}
-
 
 	public void setId(long id) {
 		this.id = id;
 	}
 
-
-	public String getName() {
-		return name;
+	public long getGroupId() {
+		return groupId;
 	}
 
-
-	public void setName(String name) {
-		this.name = name;
+	public void setGroupId(long groupId) {
+		this.groupId = groupId;
 	}
 
-
-	public String getIntro() {
-		return intro;
+	public long getCategoryId() {
+		return categoryId;
 	}
 
-
-	public void setIntro(String intro) {
-		this.intro = intro;
+	public void setCategoryId(long categoryId) {
+		this.categoryId = categoryId;
 	}
-
 
 	public String getStatus() {
 		return status;
 	}
 
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 
 	public Date getCreated() {
 		return created;
 	}
 
-
 	public void setCreated(Date created) {
 		this.created = created;
 	}
-
 
 	public Date getModified() {
 		return modified;
 	}
 
-
 	public void setModified(Date modified) {
 		this.modified = modified;
 	}
 
-
 	@Override
 	public String toString() {
-		return "Group [id=" + id + ", name=" + name+ ", intro=" + intro+ ", status=" + status+ ", created=" + created+ ", modified=" + modified+"]";
+		return "Category [id=" + id + ", groupId=" + groupId + ", " + "categoryId=" + categoryId + ", status=" + status + ", created=" + created + ", modified=" + modified + "]";
 	}
 
-	
 }
