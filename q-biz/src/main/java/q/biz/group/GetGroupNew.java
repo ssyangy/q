@@ -1,16 +1,11 @@
 package q.biz.group;
 
-import java.io.*;
 
 import java.sql.SQLException;
-import java.util.Date;
-import org.apache.commons.validator.GenericValidator;
+import java.util.ArrayList;
 
-import q.dao.GroupDao;
-import q.dao.PeopleDao;
-import q.domain.Gender;
-import q.domain.People;
-import q.log.Logger;
+import q.dao.CategoryDao;
+import q.domain.Category;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -20,17 +15,17 @@ import q.web.ResourceContext;
  * 
  */
 public class GetGroupNew extends Resource {
-	private final static Logger log = Logger.getLogger();
 
-	private GroupDao groupDao;
+	private CategoryDao categoryDao;
 
-	public void setGroupDao(GroupDao groupDao) {
-		this.groupDao = groupDao;
+	public void setCategoryDao(CategoryDao categoryDao) {
+		this.categoryDao = categoryDao;
 	}
-
 	@Override
 	public void execute(ResourceContext context) throws SQLException {
-		String uid = context.getResourceLastId();
+
+        ArrayList<Category>categorys=categoryDao.getCategorys();
+        context.setModel("categorys", categorys);
 
 	}
 }

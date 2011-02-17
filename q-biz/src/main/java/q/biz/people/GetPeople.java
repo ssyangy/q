@@ -27,7 +27,7 @@ public class GetPeople extends Resource {
 	public void execute(ResourceContext context) throws SQLException {
 		String resourceId = context.getResourceLastId();
 		log.debug("resource id:%s", resourceId);
-		int uid = Integer.valueOf(resourceId);
+		long uid = Long.valueOf(resourceId);
 
 		People people = peopleDao.getPeopleById(uid);
 		people.setFollowingNum(999999999);

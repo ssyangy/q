@@ -1,10 +1,9 @@
-package q.biz.peoples;
+package q.biz.group;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import q.dao.CategoryDao;
 import q.domain.Category;
-import q.log.Logger;
 import q.web.Resource;
 import q.web.ResourceContext;
 /**
@@ -12,8 +11,7 @@ import q.web.ResourceContext;
  * @date Feb 15, 2011
  *
  */
-public class GetCategory extends Resource {
-	private final static Logger log = Logger.getLogger();
+public class GetCategoryIndex extends Resource {
 
 	private CategoryDao categoryDao;
 

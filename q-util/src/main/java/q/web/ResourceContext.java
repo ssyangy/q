@@ -11,6 +11,8 @@ public interface ResourceContext {
 	
 	String getString(String key);
 	
+	int getInt(String key);
+	
 	String getRequestPath();
 	
 	String getResourceLastId();

@@ -30,7 +30,7 @@ public class GetGroup extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long groupId = context.getResourceLastIdLong();
 		Group group = groupDao.getGroupById(groupId);
-		context.setModel("people", group);
+		context.setModel("group", group);
 	}
 
 }
