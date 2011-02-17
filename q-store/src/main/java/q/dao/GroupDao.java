@@ -13,5 +13,6 @@ public interface GroupDao {
 
 	void addGroup(Group p) throws SQLException;
 
-	Group getGroupById(int gid) throws SQLException;
+	Group getGroupById(long gid) throws SQLException;
+
 }

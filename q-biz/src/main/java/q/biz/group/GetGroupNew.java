@@ -1,4 +1,5 @@
-package q.biz.peoples;
+package q.biz.group;
+
 import java.io.*;
 
 import java.sql.SQLException;
@@ -12,22 +13,24 @@ import q.domain.People;
 import q.log.Logger;
 import q.web.Resource;
 import q.web.ResourceContext;
+
 /**
  * @author Zhehao
  * @date Feb 15, 2011
- *
+ * 
  */
-public class GetGroup extends Resource{
-private final static Logger log = Logger.getLogger();
-	
+public class GetGroupNew extends Resource {
+	private final static Logger log = Logger.getLogger();
+
 	private GroupDao groupDao;
 
 	public void setGroupDao(GroupDao groupDao) {
 		this.groupDao = groupDao;
 	}
-@Override
-public void execute(ResourceContext context) throws SQLException{
-  String uid = context.getResourceLastId();
 
-}
+	@Override
+	public void execute(ResourceContext context) throws SQLException {
+		String uid = context.getResourceLastId();
+
+	}
 }

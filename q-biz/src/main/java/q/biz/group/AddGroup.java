@@ -1,4 +1,4 @@
-package q.biz.peoples;
+package q.biz.group;
 import java.io.*;
 /**
  * @author Zhehao

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package q.biz.peoples;
+package q.biz.group;
 
 import q.web.Resource;
 import q.web.ResourceContext;

@@ -22,8 +22,8 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 		
 	}
 
-	@Override
-	public Group getGroupById(int gid) throws SQLException {
+
+	public Group getGroupById(long gid) throws SQLException {
 		return (Group) this.sqlMapClient.queryForObject("selectGroupById", gid);
 	}
 

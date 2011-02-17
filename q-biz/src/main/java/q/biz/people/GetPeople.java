@@ -1,4 +1,4 @@
-package q.biz.peoples;
+package q.biz.people;
 
 import java.sql.SQLException;
 

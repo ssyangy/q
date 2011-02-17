@@ -2,11 +2,11 @@ package q.web;
 
 import javax.servlet.http.HttpServletRequest;
 
-class DefaultResourceContext implements ResourceContext {
+public class DefaultResourceContext implements ResourceContext {
 	private final HttpServletRequest request;
 	private String path;
 
-	DefaultResourceContext(HttpServletRequest request, String path) {
+	public DefaultResourceContext(HttpServletRequest request, String path) {
 		this.request = request;
 		this.path = path;
 	}
@@ -32,6 +32,11 @@ class DefaultResourceContext implements ResourceContext {
 	public String getResourceLastId() {
 		int lastSlashIndex = this.path.lastIndexOf(ResourceRouter.PATH_SPLIT);
 		return path.substring(lastSlashIndex + 1);
+	}
+
+	@Override
+	public long getResourceLastIdLong() {
+		return Long.valueOf(getResourceLastId());
 	}
 
 	@Override
