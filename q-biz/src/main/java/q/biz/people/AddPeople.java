@@ -32,7 +32,7 @@ public void execute(ResourceContext context) throws SQLException{
   people.setLoginToken("xxxx");
   people.setCreated(new Date());
   context.setModel("idd", people.getId());
-  log.debug("get person's id:%s", people.getId());
+  log.debug("add person %s", people);
   peopleDao.addPeople(people);
 }
 }

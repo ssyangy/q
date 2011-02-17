@@ -1,16 +1,7 @@
 package q.biz.people;
-import java.io.*;
 
 import java.sql.SQLException;
-import java.util.Date;
 
-
-import org.apache.commons.validator.GenericValidator;
-
-import q.dao.PeopleDao;
-import q.domain.Gender;
-import q.domain.People;
-import q.log.Logger;
 import q.web.Resource;
 import q.web.ResourceContext;
 /**
@@ -21,16 +12,9 @@ import q.web.ResourceContext;
 
 public class GetPeopleNew extends Resource{
 
-private final static Logger log = Logger.getLogger();
-	
-	private PeopleDao peopleDao;
-
-	public void setPeopleDao(PeopleDao peopleDao) {
-		this.peopleDao = peopleDao;
-	}
 @Override
 public void execute(ResourceContext context) throws SQLException{
-	String uid = context.getResourceLastId();
+	
    // People people=new People();
   //people.setEmail(context.getString("email"));
  // people.setPassword(context.getString("password"));
