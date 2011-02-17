@@ -27,7 +27,7 @@ public class Event implements Serializable {
 
 	private String intro;
 
-	private String status;
+	private byte status;
 
 	private Date created;
 
@@ -65,11 +65,11 @@ public class Event implements Serializable {
 		this.intro = intro;
 	}
 
-	public String getStatus() {
+	public byte getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(byte status) {
 		this.status = status;
 	}
 

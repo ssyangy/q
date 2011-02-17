@@ -13,6 +13,7 @@
 	name="name" size="20" maxlength="20"> <br />
 活动介绍:<textarea name="intro" cols="50" rows="10"> 
 </textarea> <br />
+<input type="hidden" name="sender_id" value="1" /><br />
 <input type="submit" value="提交" /></form>
 </body>
 </html>

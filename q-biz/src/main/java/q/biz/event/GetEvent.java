@@ -4,6 +4,7 @@
 package q.biz.event;
 
 import q.dao.EventDao;
+import q.domain.Event;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -27,8 +28,9 @@ public class GetEvent extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-
+		long eventId = context.getResourceLastIdLong();
+		Event event = this.eventDao.getEventById(eventId);
+		context.setModel("event", event);
 	}
 
 }

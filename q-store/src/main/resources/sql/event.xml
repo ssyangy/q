@@ -36,7 +36,7 @@
 		<include refid="event.columns" />
 		) values (
 		#id#,
-		#sender_id#,
+		#senderId#,
 		#name#,
 		#intro#,
 		#status#,

@@ -6,12 +6,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>我的主页</title>
+<title>活动</title>
 </head>
 <body>
-<c:out value="${people.realName}" />
-<%--  c:out value="${people.district.level1}" /--%>
-<%--  c:out value="${people.district.level2}" /--%>
+<c:out value="${event.name}" />
 <br />
 <c:out value="${event.intro}" />
 <br />

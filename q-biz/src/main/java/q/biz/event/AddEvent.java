@@ -1,5 +1,7 @@
 package q.biz.event;
 
+import java.util.Date;
+
 import q.biz.IdCreator;
 import q.dao.EventDao;
 import q.domain.Event;
@@ -17,7 +19,11 @@ public class AddEvent extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		Event event = new Event();
 		event.setId(IdCreator.getLongId());
-
+		event.setIntro(context.getString("intro"));
+		event.setName(context.getString("name"));
+		event.setSenderId(context.getInt("sender_id"));
+		event.setCreated(new Date());
+		this.eventDao.addEvent(event);
 	}
 
 }
