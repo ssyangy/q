@@ -1,4 +1,4 @@
-package q.web.testrouter.a;
+package q.web.testrouter;
 
 import q.web.Resource;
 import q.web.ResourceContext;
