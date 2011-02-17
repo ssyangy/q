@@ -11,6 +11,12 @@
 申请创建圈子
 <form action="/q/group" method="post" >
 圈子名称:<input   type=text   name= "qname"  size="20"  maxlength="20" > <br/>
+所在分类:<select name="category"   style="width:170px;"  onchange="" >
+<option value=0>--请选择圈子所在的分类--</option>
+<c:forEach items="${categorys}" var="current" varStatus="status">
+<option value=${status.index}>${current.name}</option>
+ </c:forEach>
+</select><br/>
 圈子介绍:<textarea   name="qinformation"     cols="50" rows="10"  > 
 </textarea>
 <br/>

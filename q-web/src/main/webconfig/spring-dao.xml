@@ -11,4 +11,7 @@
 	<bean id="categoryDao" class="q.dao.ibatis.CategoryDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
+	<bean id="eventDao" class="q.dao.ibatis.EventDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
 </beans>

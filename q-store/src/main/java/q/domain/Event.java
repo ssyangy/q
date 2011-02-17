@@ -1,26 +1,33 @@
-package q.domain;
-
-import java.util.Date;
-import java.io.Serializable;
-
 /**
- * @author Zhehao
- * @date Feb 15, 2011
  * 
  */
-public class Category implements Serializable {
+package q.domain;
+
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * @author seanlinwang
+ * @email xalinx at gmail dot com
+ * @date Feb 17, 2011
+ * 
+ */
+public class Event implements Serializable {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1611557472302730738L;
+	private static final long serialVersionUID = 986692036209440550L;
 
 	private long id;
+
+	private long senderId;
 
 	private String name;
 
 	private String intro;
 
-	private String status;
+	private byte status;
 
 	private Date created;
 
@@ -32,6 +39,14 @@ public class Category implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public long getSenderId() {
+		return senderId;
+	}
+
+	public void setSenderId(long senderId) {
+		this.senderId = senderId;
 	}
 
 	public String getName() {
@@ -50,11 +65,11 @@ public class Category implements Serializable {
 		this.intro = intro;
 	}
 
-	public String getStatus() {
+	public byte getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(byte status) {
 		this.status = status;
 	}
 
@@ -74,8 +89,4 @@ public class Category implements Serializable {
 		this.modified = modified;
 	}
 
-	@Override
-	public String toString() {
-		return "Category [id=" + id + ", name=" + name + ", " + "intro=" + intro + ", status=" + status + ", created=" + created + ", modified=" + modified + "]";
-	}
 }
