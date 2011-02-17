@@ -16,5 +16,7 @@ public interface PeopleDao {
 
 	void addPeople(People p) throws SQLException;
 
-	People getPeopleById(int pid) throws SQLException;
+	People getPeopleById(long pid) throws SQLException;
+	
+	void updatePeople(People p)throws SQLException;
 }

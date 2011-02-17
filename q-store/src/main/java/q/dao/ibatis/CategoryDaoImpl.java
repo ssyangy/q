@@ -13,13 +13,12 @@ public class CategoryDaoImpl extends AbstractDaoImpl implements CategoryDao{
 
 	@Override
 	public void addCategory(Category p) throws SQLException {
-		// TODO Auto-generated method stub
+		this.sqlMapClient.insert("insertCategory", p);
 		
 	}
 
 	@Override
 	public Category getCategoryById(int cid) throws SQLException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

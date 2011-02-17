@@ -22,6 +22,11 @@ public class DefaultResourceContext implements ResourceContext {
 		String value = request.getParameter(key);
 		return value;
 	}
+	
+	@Override
+	public int getInt(String key) {
+		return Integer.valueOf(getString(key));
+	}
 
 	@Override
 	public String getRequestPath() {

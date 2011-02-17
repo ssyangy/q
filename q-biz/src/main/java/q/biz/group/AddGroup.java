@@ -1,5 +1,5 @@
 package q.biz.group;
-import java.io.*;
+
 /**
  * @author Zhehao
  * @date Feb 15, 2011
@@ -7,15 +7,11 @@ import java.io.*;
  */
 import java.sql.SQLException;
 import java.util.Date;
-import org.apache.commons.validator.GenericValidator;
 import q.dao.GroupDao;
-import q.dao.PeopleDao;
 import q.domain.Group;
-import q.log.Logger;
 import q.web.Resource;
 import q.web.ResourceContext;
 public class AddGroup extends Resource{
-private final static Logger log = Logger.getLogger();
 	
 	private GroupDao groupDao;
 
@@ -24,11 +20,6 @@ private final static Logger log = Logger.getLogger();
 	}
 @Override
 public void execute(ResourceContext context) throws SQLException{
-  String uid = context.getResourceLastId();
- // Group temp=groupDao.getGroupById(1);
-  //log.debug("get group:%s", temp.getName());
-  
-  
   Group group=new Group();
   group.setId(System.currentTimeMillis());
   group.setName(context.getString("qname"));
