@@ -12,7 +12,7 @@ import q.web.ResourceContext;
  * @date Feb 15, 2011
  *
  */
-public class GetCategories extends Resource {
+public class GetCategoryIndex extends Resource {
 	private final static Logger log = Logger.getLogger();
 
 	private CategoryDao categoryDao;

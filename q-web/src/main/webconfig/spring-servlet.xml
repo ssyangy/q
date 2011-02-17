@@ -36,7 +36,7 @@
 	<bean id="getGroup" class="q.biz.group.GetGroup">
 		<property name="groupDao" ref="groupDao"></property>
 	</bean>
-	<bean id="getCategories" class="q.biz.group.GetCategories">
+	<bean id="getCategoryIndex" class="q.biz.group.GetCategoryIndex">
 		<property name="categoryDao" ref="categoryDao"></property>
 	</bean>
 	<bean id="addCategory" class="q.biz.group.AddCategory">
