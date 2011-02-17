@@ -1,7 +1,7 @@
 /**
  * 
  */
-package q.web;
+package q.web.testrouter;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +20,10 @@ import org.apache.cactus.WebResponse;
 import org.apache.cactus.extension.jetty.Jetty5xTestSetup;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import q.web.DefaultResourceContext;
+import q.web.ResourceRouter;
+import q.web.ViewResolver;
 
 /**
  * Tests for resource routing.
@@ -62,7 +66,48 @@ public class ResourceRouterTest extends ServletTestCase {
 	private ResourceRouter getRouter() {
 		return ((ResourceRouter) applicationContext.getBean("router"));
 	}
+	// ------------------ route to get index ----------------------------
+	public void beginRouteGetIndex(WebRequest theRequest) {
+		theRequest.setURL("serverName.com", "/contextPath", "/a", null, null);
+	}
 
+	public void testRouteGetIndex() throws ServletException, IOException {
+		getRouter().handleRequest(request, response);
+	}
+
+	public void endRouteGetIndex(WebResponse response) {
+		assertEquals(200, response.getStatusCode());
+		assertEquals("index", response.getText());
+	}
+	
+	// ------------------ route to get new ----------------------------
+	public void beginRouteGetNew(WebRequest theRequest) {
+		theRequest.setURL("serverName.com", "/contextPath", "/a/new", null, null);
+	}
+
+	public void testRouteGetNew() throws ServletException, IOException {
+		getRouter().handleRequest(request, response);
+	}
+
+	public void endRouteGetNew(WebResponse response) {
+		assertEquals(200, response.getStatusCode());
+		assertEquals("new", response.getText());
+	}
+
+	// ------------------ route to get edit ----------------------------
+	public void beginRouteGetEdit(WebRequest theRequest) {
+		theRequest.setURL("serverName.com", "/contextPath", "/a/111/edit", null, null);
+	}
+
+	public void testRouteGetEdit() throws ServletException, IOException {
+		getRouter().handleRequest(request, response);
+	}
+
+	public void endRouteGetEdit(WebResponse response) {
+		assertEquals(200, response.getStatusCode());
+		assertEquals("edit", response.getText());
+	}
+	
 	// ------------------ route to get ----------------------------
 	public void beginRouteGet(WebRequest theRequest) {
 		theRequest.setURL("serverName.com", "/contextPath", "/a/123456", null, null);
