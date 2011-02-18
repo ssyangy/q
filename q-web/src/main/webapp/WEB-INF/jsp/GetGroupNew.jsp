@@ -9,7 +9,7 @@
 </head>
 <body>
 申请创建圈子
-<form action="/q/group" method="post" >
+<form action="<c:out value="${contextPath}" />/group" method="post" >
 圈子名称:<input   type=text   name= "name"  size="20"  maxlength="20" > <br/>
 所在分类:<select name="category"   style="width:170px;"  onchange="" >
 <option value=0>--请选择圈子所在的分类--</option>

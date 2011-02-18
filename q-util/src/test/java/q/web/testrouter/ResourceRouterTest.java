@@ -78,6 +78,8 @@ public class ResourceRouterTest extends ServletTestCase {
 	public void endRouteGetIndex(WebResponse response) {
 		assertEquals(200, response.getStatusCode());
 		assertEquals("index", response.getText());
+		//assertEquals("testcontext", request.getAttribute("contextPath"));
+		//assertEquals("http://testurl", request.getAttribute("urlPrefix"));
 	}
 	
 	// ------------------ route to get new ----------------------------

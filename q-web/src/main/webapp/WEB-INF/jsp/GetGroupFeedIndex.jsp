@@ -5,16 +5,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>创建圈子分类</title>
+<title>圈子新鲜事</title>
 </head>
 <body>
-申请创建圈子分类
-<form action="<c:out value="${contextPath}" />/category" method="post" >
-圈子分类名称:<input   type=text   name= "name"  size="20"  maxlength="20" > <br/>
-圈子分类介绍:<textarea   name="intro"     cols="50" rows="10"  > 
-</textarea>
-<br/>
-<input type="submit"  value="提交" />
-</form>
+
 </body>
 </html>

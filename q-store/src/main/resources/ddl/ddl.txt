@@ -48,8 +48,9 @@ default character set utf8 engine = innodb;
 create table q.weibo_reply (
 	id bigint unsigned not null primary key,
 	sender_id bigint unsigned not null,
-	quote_weibo_id bigint unsigned,
-	quote_sender_id bigint unsigned,
+	quote_weibo_id bigint unsigned not null,
+	quote_sender_id bigint unsigned not null,
+	quote_reply_id bigint unsigned not null,
 	content varchar(10240),
 	status tinyint unsigned not null,
 	created datetime not null,

@@ -76,63 +76,7 @@
 	<!-- ====================================================== -->
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
-		<url-pattern>/people/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/people</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/group/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/group</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/groups/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/groups</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/register</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/category/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/category</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/event/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/event</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/feed/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/feed</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/groupFeed/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/groupFeed</url-pattern>
+		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 	<!-- ====================================================== -->
 	<!-- Session Config -->
@@ -140,9 +84,6 @@
 	<session-config>
 		<session-timeout>0</session-timeout>
 	</session-config>
-	<!-- ====================================================== -->
-	<!-- Error Pages -->
-	<!-- ====================================================== -->
 	<error-page>
 		<error-code>500</error-code>
 		<location>/error-500.html</location>

@@ -9,7 +9,7 @@
 </head>
 <body>
 基本资料<br/>
-<form action="/q/people" method="post" >
+<form action="<c:out value="${contextPath}" />/people" method="post" >
 
 所在地:
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="publicUrlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<value>
+				/*=router
+			</value>
+		</property>
+	</bean>
+	<bean id="router" class="q.web.ResourceRouter">
+		<property name="defaultResource" ref="homepage"/>
+		<property name="urlPrefix" value="http://testurl" />
+		<property name="contextPath" value="testcontext" />
+	</bean>
+	<!-- biz -->
+	<bean id="homepage" class="q.biz.Homepage"/>
+	<bean id="addPeoples" class="q.biz.peoples.AddPeoples"></bean>
+	<bean id="getPeoples" class="q.biz.peoples.GetPeoples"></bean>
+</beans>
