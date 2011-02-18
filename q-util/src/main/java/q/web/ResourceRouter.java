@@ -77,13 +77,14 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 		String method = request.getMethod().toLowerCase();
 		String path = request.getRequestURI().substring(request.getContextPath().length());
 		log.debug("request resource by method %s and path %s", method, path);
-		Resource resource = getResource(request, method, path);
+		String[] segs = StringKit.split(path, PATH_SPLIT);
+		Resource resource = getResource(request, method, path, segs);
 		// execute resource if exists
 		if (resource == null) {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			log.info("resource not found by method %s and path %s", method, path);
 		} else {
-			ResourceContext context = toResourceContext(request, response, path); // extract querys
+			ResourceContext context = toResourceContext(request, response, path, segs); // extract querys
 			try {
 				boolean correct = resource.validate(context);
 				if (correct) {
@@ -106,13 +107,13 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 			context.setModel("contextPath", this.contextPath);
 	}
 
-	protected ResourceContext toResourceContext(final HttpServletRequest request, final HttpServletResponse response, String path) {
-		return new DefaultResourceContext(request, path);
+	protected ResourceContext toResourceContext(final HttpServletRequest request, final HttpServletResponse response, String path, String[] segs) {
+		return new DefaultResourceContext(request, path, segs);
 	}
 
-	protected Resource getResource(HttpServletRequest request, String method, String path) {
+	protected Resource getResource(HttpServletRequest request, String method, String path, String[] segs) {
 		Resource resource = null;
-		String resourceName = toResourceName(method, path);
+		String resourceName = toResourceName(method, segs);
 		if (StringKit.isEmpty(resourceName)) {
 			resource = this.defaultResource;
 			resource.setName("default");
@@ -139,9 +140,8 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 		return resource;
 	}
 
-	protected String toResourceName(String method, String path) {
+	protected String toResourceName(String method, String[] segs) {
 		String resourceName = null;
-		String[] segs = StringKit.split(path, PATH_SPLIT);
 		if (segs.length == 0) {
 			return resourceName;
 		}
@@ -150,14 +150,16 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 			if (HTTP_METHOD_GET.equals(method)) {
 				resourceName += "Index";
 			}
-		} else {
+		} else if(segs.length == 2){
 			String last = segs[segs.length-1];
-
 			if ("new".equals(last)) {
 				resourceName += "New";
 			} else if ("edit".equals(last)) {
 				resourceName += "Edit";
 			}
+		} else if (segs.length == 3) {
+			String last = segs[segs.length-1];
+			resourceName +=StringKit.capitalize(last);
 		}
 		return resourceName;
 	}
