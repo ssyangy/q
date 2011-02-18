@@ -15,6 +15,7 @@
 	<!-- biz -->
 	<bean id="main" class="q.web.testrouter.Main" />
 	<bean id="addA" class="q.web.testrouter.AddA"></bean>
+	<bean id="addAJoin" class="q.web.testrouter.AddAJoin"></bean>
 	<bean id="getA" class="q.web.testrouter.GetA"></bean>
 	<bean id="getANew" class="q.web.testrouter.GetANew"></bean>
 	<bean id="getAIndex" class="q.web.testrouter.GetAIndex"></bean>

@@ -134,6 +134,14 @@
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/groupFeed</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>/login/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
 	<!-- ====================================================== -->
 	<!-- Session Config -->
 	<!-- ====================================================== -->

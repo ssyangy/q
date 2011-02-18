@@ -36,8 +36,9 @@
 	</bean>
 	<bean id="getPeopleIndex" class="q.biz.people.GetPeopleIndex">
 	</bean>
-	
-	
+	<bean id="getLoginNew" class="q.biz.people.GetLoginNew">
+	</bean>
+
 	<!-- group biz -->
 	<bean id="addGroup" class="q.biz.group.AddGroup">
 		<property name="groupDao" ref="groupDao"></property>
@@ -58,16 +59,24 @@
 	</bean>
 	<bean id="getGroupFeedIndex" class="q.biz.group.GetGroupFeedIndex">
 	</bean>
- 
+	<bean id="addGroupJoin" class="q.biz.group.AddGroupJoin">
+	     <property name="groupDao" ref="groupDao" />
+	</bean>
+
 	<!-- event biz -->
 	<bean id="addEvent" class="q.biz.event.AddEvent">
 		<property name="eventDao" ref="eventDao" />
+		
 	</bean>
 	<bean id="getEventNew" class="q.biz.event.GetEventNew">
 	</bean>
 	<bean id="getEvent" class="q.biz.event.GetEvent">
 		<property name="eventDao" ref="eventDao" />
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="getEventIndex" class="q.biz.event.GetEventIndex">
+	</bean>
+	<bean id="addEventJoin" class="q.biz.event.AddEventJoin">
+	     <property name="eventDao" ref="eventDao" />
 	</bean>
 </beans>

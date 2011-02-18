@@ -5,10 +5,12 @@ import javax.servlet.http.HttpServletRequest;
 public class DefaultResourceContext implements ResourceContext {
 	private final HttpServletRequest request;
 	private String path;
+	private String[] segs;
 
-	public DefaultResourceContext(HttpServletRequest request, String path) {
+	public DefaultResourceContext(HttpServletRequest request, String path, String[] segs) {
 		this.request = request;
 		this.path = path;
+		this.segs = segs;
 	}
 
 	@Override
@@ -22,7 +24,7 @@ public class DefaultResourceContext implements ResourceContext {
 		String value = request.getParameter(key);
 		return value;
 	}
-	
+
 	@Override
 	public int getInt(String key) {
 		return Integer.valueOf(getString(key));
@@ -35,8 +37,11 @@ public class DefaultResourceContext implements ResourceContext {
 
 	@Override
 	public String getResourceLastId() {
-		int lastSlashIndex = this.path.lastIndexOf(ResourceRouter.PATH_SPLIT);
-		return path.substring(lastSlashIndex + 1);
+		if (segs.length >= 2) {
+			return segs[1];
+		} else {
+			return null;
+		}
 	}
 
 	@Override

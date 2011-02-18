@@ -117,7 +117,8 @@ public class ResourceRouterTest extends ServletTestCase {
 
 	public void testRouteGet() throws ServletException, IOException {
 		getRouter().handleRequest(request, response);
-		assertEquals("123456", new DefaultResourceContext(request, "/a/123456").getResourceLastId());
+		assertEquals("123456", new DefaultResourceContext(request, "/a/123456", new String[]{"a", "123456"}).getResourceLastId());
+		assertEquals("123456", new DefaultResourceContext(request, "/a/123456/join", new String[]{"a", "123456"}).getResourceLastId());
 	}
 
 	public void endRouteGet(WebResponse response) {
@@ -139,7 +140,22 @@ public class ResourceRouterTest extends ServletTestCase {
 		assertEquals(200, response.getStatusCode());
 		assertEquals("xalinx@gmail.com", response.getText());
 	}
+	
+	// ------------------ route to post extra ----------------------------
+	public void beginRoutePostExtra(WebRequest theRequest) {
+		theRequest.setURL("serverName.com", "/contextPath", "/a/1111/join", null, null);
+		theRequest.addParameter("email", "xalinx@gmail.com", WebRequest.POST_METHOD);
+	}
 
+	public void testRoutePostExtra() throws ServletException, IOException {
+		getRouter().handleRequest(request, response);
+	}
+
+	public void endRoutePostExtra(WebResponse response) {
+		assertEquals(200, response.getStatusCode());
+		assertEquals("join", response.getText());
+	}
+	
 	// ------------------ route to update ----------------------------
 	public void beginRouteUpdate(WebRequest request) {
 		request.setURL("serverName.com", "/contextPath", "/a/123456", null, null);
