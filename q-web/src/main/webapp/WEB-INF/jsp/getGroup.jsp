@@ -8,7 +8,7 @@
 <title>圈子:<c:out value="${group.name}" /></title>
 </head>
 <body>
-<div><c:out value="${group.name}" /><form action="<c:out value="${contextPath}/group/${group.id}"/>/group/<c:out value="${group.id}"/>/join" method="post" ><button>加入</button></form></div>
+<div><c:out value="${group.name}" /><form action="<c:out value="${contextPath}/group/${group.id}/join"/> method="post"><button>加入</button></form></div>
 <div>成员数:上海9999/全站:199999</div>
 <div>上海 <a href="#">切换所在地</a></div>
 <div>讨论区 | 活动 | 图片 | 成员</div>
