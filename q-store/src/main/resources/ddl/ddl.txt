@@ -22,6 +22,24 @@ create table q.people(
 	modified timestamp not null) 
 default character set utf8 engine = innodb;
 
+create table q.people_join_group(
+	id bigint unsigned not null primary key,
+	people_id bigint unsigned not null,
+	group_id bigint unsigned not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null) 
+default character set utf8 engine = innodb;
+
+create table q.people_join_event(
+	id bigint unsigned not null primary key,
+	people_id bigint unsigned not null,
+	event_id bigint unsigned not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null) 
+default character set utf8 engine = innodb;
+
 # == event ==
 create table q.event(
 	id bigint unsigned not null primary key,
@@ -87,8 +105,8 @@ default character set utf8 engine = innodb;
 
 create table q.group_join_category(
 	id bigint unsigned not null primary key,
-	group_id bigint unsigned,
-	category_id bigint unsigned,
+	group_id bigint unsigned not null,
+	category_id bigint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null) 
