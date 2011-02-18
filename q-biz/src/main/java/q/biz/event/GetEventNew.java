@@ -3,7 +3,6 @@
  */
 package q.biz.event;
 
-import q.dao.EventDao;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -14,11 +13,7 @@ import q.web.ResourceContext;
  * 
  */
 public class GetEventNew extends Resource {
-	private EventDao eventDao;
 
-	public void setEventDao(EventDao eventDao) {
-		this.eventDao = eventDao;
-	}
 
 	/*
 	 * (non-Javadoc)

@@ -63,7 +63,7 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 	@Override
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String method = request.getMethod().toLowerCase();
-		String path = request.getRequestURI().substring(request.getContextPath().length()).toLowerCase();
+		String path = request.getRequestURI().substring(request.getContextPath().length());
 		log.debug("request resource by method %s and path %s", method, path);
 		Resource resource = getResource(request, method, path);
 		// execute resource if exists
@@ -131,7 +131,7 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 				resourceName += "Index";
 			}
 		} else {
-			String last = segs[segs.length-1].toLowerCase();
+			String last = segs[segs.length-1];
 			if ("new".equals(last)) {
 				resourceName += "New";
 			} else if ("edit".equals(last)) {
