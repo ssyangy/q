@@ -9,9 +9,27 @@
 <title>活动</title>
 </head>
 <body>
-<c:out value="${event.name}" />
+活动名称:<c:out value="${event.name}" />
 <br />
-<c:out value="${event.intro}" />
+<form action="<c:out value="${contextPath}/event/${event.id}/join"/>" method="post" >
+
+<input type="hidden" name="eventId" value="${event.intro}" /><br />
+<button>我要参加</button>
+
+</form>
+<form action="<c:out value="${contextPath}/event/${event.id}/join"/>" method="post" ><button>我感兴趣</button></form>
+<br>
+时间:<c:out value="${event.intro}" />
+<br />
+地点:<c:out value="${event.intro}" />
+<br />
+费用:<c:out value="${event.intro}" />
+<br />
+人数限制:<c:out value="${event.intro}" />
+<br />
+简介:<c:out value="${event.intro}" />
+<br />
+发起人:<c:out value="${senderperson.username}" />
 <br />
 </body>
 </html>

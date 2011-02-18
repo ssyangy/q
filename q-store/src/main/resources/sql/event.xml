@@ -44,4 +44,23 @@
 		null
 		)
 	</insert>
+	
+	<insert id="insertPeopleJoinEvent">
+		insert into q.people_join_event
+		(
+		id,
+		people_id,
+		event_id,
+		status,
+		created,
+		modified
+		) values (
+		#id#,
+		#peopleId#,
+		#eventId#,
+		#status#,
+		#created#,
+		null
+		)
+	</insert>
 </sqlMap>

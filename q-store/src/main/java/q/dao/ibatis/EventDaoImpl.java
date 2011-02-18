@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import q.dao.EventDao;
 import q.domain.Event;
+import q.domain.PeopleEventJoin;
 
 /**
  * @author seanlinwang
@@ -25,5 +26,13 @@ public class EventDaoImpl extends AbstractDaoImpl implements EventDao {
 	public Event getEventById(long eid) throws SQLException {
 		return (Event) this.sqlMapClient.queryForObject("selectEventById", eid);
 	}
+
+	@Override
+	public void addPeopleJoinEvent(PeopleEventJoin e) throws SQLException {
+	    this.sqlMapClient.insert("insertPeopleJoinEvent", e);
+		
+	}
+
+	
 
 }

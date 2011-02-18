@@ -36,6 +36,8 @@
 	</bean>
 	<bean id="getPeopleIndex" class="q.biz.people.GetPeopleIndex">
 	</bean>
+	<bean id="getLoginNew" class="q.biz.people.GetLoginNew">
+	</bean>
 	
 	
 	<!-- group biz -->
@@ -62,11 +64,13 @@
 	<!-- event biz -->
 	<bean id="addEvent" class="q.biz.event.AddEvent">
 		<property name="eventDao" ref="eventDao" />
+		
 	</bean>
 	<bean id="getEventNew" class="q.biz.event.GetEventNew">
 	</bean>
 	<bean id="getEvent" class="q.biz.event.GetEvent">
 		<property name="eventDao" ref="eventDao" />
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="getEventIndex" class="q.biz.event.GetEventIndex">
 	</bean>
