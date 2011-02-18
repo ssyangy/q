@@ -8,7 +8,9 @@
 <title><decorator:title /> ::</title>
 </head>
 <body>
-<div id="header">圈子新鲜事 | 好友新鲜事 | <a href="/people/1">我的主页</a> | 找人</div>
+<div id="header"><a href="${q.url.prefix}/groupFeed">圈子新鲜事</a> | <a
+	href="${q.url.prefix}/feed">好友新鲜事</a> | <a href="${q.url.prefix}/people/1">我的主页</a>
+| <a href="${q.url.prefix}/people">找人</a></div>
 <hr />
 <div id="main"><decorator:body /></div>
 </body>
