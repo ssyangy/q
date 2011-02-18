@@ -5,10 +5,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title><decorator:title /> ::</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><decorator:title /></title>
 </head>
 <body>
-<div id="header">圈子新鲜事 | 好友新鲜事 | <a href="/people/1">我的主页</a> | 找人</div>
+<div id="header"><a href="${q.url.prefix}/groupFeed">圈子新鲜事</a> | <a
+	href="${q.url.prefix}/feed">好友新鲜事</a> | <a href="${q.url.prefix}/people/1">我的主页</a>
+| <a href="${q.url.prefix}/people">找人</a></div>
 <hr />
 <div id="main"><decorator:body /></div>
 </body>
