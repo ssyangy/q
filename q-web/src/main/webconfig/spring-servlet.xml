@@ -14,6 +14,8 @@
 	</bean>
 	<bean id="router" class="q.web.ResourceRouter">
 		<property name="defaultResource" ref="default" />
+		<property name="urlPrefix" value="${q.url.prefix}" />
+		<property name="contextPath" value="${q.context.path}" />
 	</bean>
 	<!-- biz -->
 	<bean id="default" class="q.biz.Default" />

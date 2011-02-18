@@ -60,6 +60,18 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 		this.viewResolver = viewResolver;
 	}
 
+	private String urlPrefix;
+
+	private Object contextPath;
+
+	public void setUrlPrefix(String urlPrefix) {
+		this.urlPrefix = urlPrefix;
+	}
+
+	public void setContextPath(Object contextPath) {
+		this.contextPath = contextPath;
+	}
+
 	@Override
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String method = request.getMethod().toLowerCase();
@@ -77,6 +89,7 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 				if (correct) {
 					resource.execute(context);
 				}
+				fixModel(context);
 				this.viewResolver.view(request, response, resource.getName());// use resource name as view name
 			} catch (Exception e) {
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -84,6 +97,13 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 			}
 		}
 		return;
+	}
+
+	private void fixModel(ResourceContext context) {
+		if (this.urlPrefix != null)
+			context.setModel("urlPrefix", this.urlPrefix);
+		if (this.contextPath != null)
+			context.setModel("contextPath", this.contextPath);
 	}
 
 	protected ResourceContext toResourceContext(final HttpServletRequest request, final HttpServletResponse response, String path) {
@@ -131,7 +151,7 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 				resourceName += "Index";
 			}
 		} else {
-			String last = segs[segs.length-1].toLowerCase();
+			String last = segs[segs.length - 1].toLowerCase();
 			if ("new".equals(last)) {
 				resourceName += "New";
 			} else if ("edit".equals(last)) {
