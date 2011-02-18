@@ -19,7 +19,7 @@ public class AddEventJoin extends Resource{
 		PeopleEventJoin peopleeventjoin=new PeopleEventJoin();
 		peopleeventjoin.setId(System.currentTimeMillis());
 		peopleeventjoin.setCreated(new Date());
-		peopleeventjoin.setPeopleId(1);
+		peopleeventjoin.setPeopleId(1);//FIXME
 		peopleeventjoin.setEventId(Long.parseLong(context.getString("eventId")));
 		peopleeventjoin.setStatus(0);
 		eventDao.addPeopleJoinEvent(peopleeventjoin);

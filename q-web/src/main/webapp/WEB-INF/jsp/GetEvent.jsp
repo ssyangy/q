@@ -12,8 +12,7 @@
 活动名称:<c:out value="${event.name}" />
 <br />
 <form action="<c:out value="${contextPath}/event/${event.id}/join"/>" method="post" >
-
-<input type="hidden" name="eventId" value="${event.intro}" /><br />
+<input type="hidden" name="eventId" value="${event.id}" /><br />
 <button>我要参加</button>
 
 </form>

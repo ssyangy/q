@@ -9,10 +9,12 @@
 </head>
 <body>
 <div><c:out value="${group.name}" />
-<form
-	action="<c:out value="${contextPath}/group/${group.id}"/>/group/<c:out value="${group.id}"/>/join"
-	method="post">
+
+<form action="<c:out value="${contextPath}/group/${group.id}/join"/>" method="post" >
+	<input type="hidden" name="groupId" value="${group.id}" /><br />
+	 <c:if test="${whetherjoined=='0'}">
 <button>加入</button>
+</c:if>
 </form>
 </div>
 <div>成员数:上海9999/全站:199999</div>

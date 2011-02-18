@@ -3,7 +3,11 @@
  */
 package q.biz.group;
 
+import java.util.Date;
+
+import q.biz.IdCreator;
 import q.dao.GroupDao;
+import q.domain.PeopleGroupJoin;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -28,8 +32,13 @@ public class AddGroupJoin extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-
+		PeopleGroupJoin peopleGroupJoin = new PeopleGroupJoin();
+		peopleGroupJoin.setId(IdCreator.getLongId());
+		peopleGroupJoin.setCreated(new Date());
+		peopleGroupJoin.setPeopleId(1);// FIXME
+		peopleGroupJoin.setGroupId(Long.parseLong(context.getString("groupId")));
+		peopleGroupJoin.setStatus(0);
+		groupDao.addPeopleJoinGroup(peopleGroupJoin);
 	}
 
 }
