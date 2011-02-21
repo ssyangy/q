@@ -9,11 +9,11 @@
 <title>我的主页</title>
 </head>
 <body>
-<form action="<c:out value="${contextPath}" />/event" method="post">活动主题:<input type=text
+<form action="<c:out value="${contextPath}/event" />" method="post">活动主题:<input type=text
 	name="name" size="20" maxlength="20"> <br />
 活动介绍:<textarea name="intro" cols="50" rows="10"> 
 </textarea> <br />
-<input type="hidden" name="sender_id" value="1" /><br />
+<input type="hidden" name="groupId" value="<c:out value="${groupId}"/>"/>
 <input type="submit" value="提交" /></form>
 </body>
 </html>

@@ -18,7 +18,7 @@ public class UpdateA extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) {
-		context.setModel("id", context.getResourceLastId());
+		context.setModel("id", context.getResourceId());
 		context.setModel("action", "update");
 	}
 

@@ -4,10 +4,10 @@
 package q.dao;
 
 import java.sql.SQLException;
+import java.util.List;
+
 import q.domain.Group;
-import q.domain.GroupJoinCategory;
-import q.domain.People;
-import q.domain.PeopleGroupJoin;
+import q.domain.PeopleJoinGroup;
 
 /**
  * @author Zhehao
@@ -20,9 +20,20 @@ public interface GroupDao {
 
 	Group getGroupById(long gid) throws SQLException;
 
-	void addGroupCategory(GroupJoinCategory gc) throws SQLException;
+	void addGroupJoinCategory(long groupId, long categoryId) throws SQLException;
 
-	void addPeopleJoinGroup(PeopleGroupJoin peopleGroupJoin) throws SQLException;
+	void addPeopleJoinGroup(long peopleId, long groupId) throws SQLException;
 	
-	PeopleGroupJoin whetherJoined(PeopleGroupJoin peopleGroupJoin) throws SQLException;
+	PeopleJoinGroup getPeopleJoinGroup(long peopleId, long groupId) throws SQLException;
+	
+	void unjoinPeopleJoinGroup(long peopleId, long groupId) throws SQLException;
+	
+	void rejoinPeopleJoinGroup(long peopleId, long groupId) throws SQLException;
+
+	/**
+	 * @param loginPeopleId
+	 * @return TODO
+	 * @throws SQLException 
+	 */
+	List<Group> getGroupsByPeopleId(long loginPeopleId) throws SQLException;
 }

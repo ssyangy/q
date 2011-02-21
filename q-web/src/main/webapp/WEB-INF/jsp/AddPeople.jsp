@@ -50,7 +50,6 @@
 圈子:
 <br/>
 <input type="submit" value="保存我的基本资料" onclick=""    />
-<input type="hidden" name="id" value=<%= request.getAttribute("idd") %>/>
 <input type="hidden" name="_method" value="update"/>
 </form>
 </body>

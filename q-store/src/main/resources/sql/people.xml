@@ -55,7 +55,15 @@
 		people
 		where id=#value#
 	</select>
-
+	
+	<select id="selectPeopleByUsername" resultMap="peopleResult">
+		select
+		<include refid="people.columns" />
+		from
+		people
+		where username=#value#
+	</select>
+	
 	<insert id="insertPeople">
 		insert into people
 		(
@@ -80,23 +88,23 @@
 		#intro#,
 		#status#,
 		#created#,
-		#modified#		
+		#modified#
 		)
 	</insert>
 
-    <update id="updatePeopleById" >
-		 update q.people set
-		 year = #year#,
-		 month =#month#,
-		 day=#day#,
-         gender_id=#gender,handler=q.dao.ibatis.GenderHandler#,
-         blood_type_id=#bloodTypeId#,
-         education_id=#educationId#,
-         role_id=#roleId#,
-         country_code=#countryCode#,
-         district_id=#districtId#,
-         mobile=#mobile#
-         where id=#id#
+	<update id="updatePeopleById">
+		update q.people set
+		year = #year#,
+		month =#month#,
+		day=#day#,
+		gender_id=#gender,handler=q.dao.ibatis.GenderHandler#,
+		blood_type_id=#bloodTypeId#,
+		education_id=#educationId#,
+		role_id=#roleId#,
+		country_code=#countryCode#,
+		district_id=#districtId#,
+		mobile=#mobile#
+		where id=#id#
 	</update>
 
 	<!--<update id="IbatisItemVerticalPropertyDAO.update" parameterClass="itemVerticalProperty"> 

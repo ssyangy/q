@@ -2,10 +2,20 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap namespace="groups">
 	<typeAlias alias="group" type="q.domain.Group" />
+	<typeAlias alias="pjg" type="q.domain.PeopleJoinGroup" />
 	<resultMap id="groupResult" class="group">
 		<result property="id" column="id" />
+		<result property="creatorId" column="creator_id" />
 		<result property="name" column="name" />
 		<result property="intro" column="intro" />
+		<result property="status" column="status" />
+		<result property="created" column="created" />
+		<result property="modified" column="modified" />
+	</resultMap>
+	<resultMap id="pjgResult" class="pjg">
+		<result property="id" column="id" />
+		<result property="peopleId" column="people_id" />
+		<result property="groupId" column="group_id" />
 		<result property="status" column="status" />
 		<result property="created" column="created" />
 		<result property="modified" column="modified" />
@@ -13,6 +23,7 @@
 
 	<sql id="group.columns">
 		id,
+		creator_id,
 		name,
 		intro,
 		status,
@@ -28,25 +39,34 @@
 		where id=#value#
 	</select>
 
-    
+	<select id="selectGroupsByPeopleId" resultMap="groupResult">
+		select
+		<include refid="group.columns" />
+		from `group` where id in
+		(
+		select group_id from people_join_group
+		where
+		people_id = #value#
+		);
+	</select>
 
 	<insert id="insertGroup">
-		insert into q.group
+		insert into `group`
 		(
 		<include refid="group.columns" />
 		) values (
 		#id#,
+		#creatorId#,
 		#name#,
 		#intro#,
-		#status#,
-		#created#,
+		0,
+		now(),
 		null
 		)
 	</insert>
 
-
-	<insert id="insertGroupCategory">
-		insert into q.group_join_category
+	<insert id="insertGroupJoinCategory">
+		insert into group_join_category
 		(
 		id,
 		group_id,
@@ -58,39 +78,56 @@
 		#id#,
 		#groupId#,
 		#categoryId#,
-		#status#,
-		#created#,
+		0,
+		now(),
 		null
 		)
 	</insert>
 
-	<insert id="insertPeopleJoinGroup">
-		insert into q.people_join_group
-		(
+	<sql id="pjg.columns">
 		id,
 		people_id,
 		group_id,
 		status,
 		created,
 		modified
+	</sql>
+
+	<insert id="insertPeopleJoinGroup">
+		insert into people_join_group
+		(
+		<include refid="pjg.columns" />
 		) values (
 		#id#,
 		#peopleId#,
 		#groupId#,
-		#status#,
-		#created#,
+		0,
+		now(),
 		null
 		)
 	</insert>
-	
-	<select id="whetherjoined" >
+
+	<insert id="updatePeopleJoinGroupStatusByPeopleIdAndGroupId">
+		update people_join_group set
+		status = #status#,
+		modified = null
+		where
+		people_id = #peopleId#
+		and
+		group_id = #groupId#
+	</insert>
+
+	<select id="selectPeopleJoinGroupByPeopleIdAndGroupId"
+		resultMap="pjgResult">
 		select
-		*
+		<include refid="pjg.columns" />
 		from
-		q.people_join_group
-		where people_id=#peopleId#
-		and 
+		people_join_group
+		where
+		people_id=#peopleId#
+		and
 		group_id=#groupId#
 	</select>
-	
+
+
 </sqlMap>

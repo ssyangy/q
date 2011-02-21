@@ -16,67 +16,137 @@
 		<property name="defaultResource" ref="default" />
 		<property name="urlPrefix" value="${q.url.prefix}" />
 		<property name="contextPath" value="${q.context.path}" />
+		<property name="loginPath" value="/login/new" />
+		<property name="needLoginResources">
+			<set>
+				<value>getMineIndex</value>
+				<value>getSettingIndex</value>
+				<value>getPeopleFeed</value>
+				<value>updatePeople</value>
+				<value>getGroupNew</value>
+				<value>addGroup</value>
+				<value>getGroupFeed</value>
+				<value>addGroupJoin</value>
+				<value>deleteGroupJoin</value>
+				<value>getCategoryNew</value>
+				<value>addCategory</value>
+				<value>getEventNew</value>
+				<value>addEvent</value>
+				<value>addEventJoin</value>
+				<value>deleteEventJoin</value>
+				<value>getMessageIndex</value>
+				<value>getMessageNew</value>
+				<value>getMessage</value>
+				<value>addMessage</value>
+				<value>addWeibo</value>
+			</set>
+		</property>
 	</bean>
-	<!-- biz -->
-	<bean id="default" class="q.biz.Default" />
+	<!-- global web -->
+	<bean id="default" class="q.web.Default" />
 
-	<!-- people biz -->
-	<bean id="getPeopleNew" class="q.biz.people.GetPeopleNew">
+	<!-- setting web -->
+	<bean id="getSettingIndex" class="q.web.setting.GetSettingIndex" />
+
+	<!-- people web -->
+	<bean id="getMineIndex" class="q.web.people.GetMineIndex"/>
+	<bean id="getPeopleNew" class="q.web.people.GetPeopleNew">
 	</bean>
-	<bean id="getPeople" class="q.biz.people.GetPeople">
+	<bean id="getPeople" class="q.web.people.GetPeople">
 		<property name="peopleDao" ref="peopleDao"></property>
 	</bean>
-	<bean id="addPeople" class="q.biz.people.AddPeople">
+	<bean id="addPeople" class="q.web.people.AddPeople">
 		<property name="peopleDao" ref="peopleDao"></property>
 	</bean>
-	<bean id="updatePeople" class="q.biz.people.UpdatePeople">
+	<bean id="updatePeople" class="q.web.people.UpdatePeople">
 		<property name="peopleDao" ref="peopleDao"></property>
 	</bean>
-	<bean id="getFeedIndex" class="q.biz.people.GetFeedIndex">
+	<bean id="getPeopleFeed" class="q.web.people.GetPeopleFeed">
 	</bean>
-	<bean id="getPeopleIndex" class="q.biz.people.GetPeopleIndex">
+	<bean id="getPeopleIndex" class="q.web.people.GetPeopleIndex">
 	</bean>
-	<bean id="getLoginNew" class="q.biz.people.GetLoginNew">
+	
+
+	<!-- login web -->
+	<bean id="getLoginNew" class="q.web.login.GetLoginNew">
+	</bean>
+	<bean id="addLogin" class="q.web.login.AddLogin">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="getLoginDelete" class="q.web.login.DeleteLogin">
+		<property name="redirectPath" value="/" />
 	</bean>
 
-	<!-- group biz -->
-	<bean id="addGroup" class="q.biz.group.AddGroup">
+	<!-- category web -->
+	<bean id="getCategoryIndex" class="q.web.category.GetCategoryIndex">
+		<property name="categoryDao" ref="categoryDao"></property>
+	</bean>
+	<bean id="addCategory" class="q.web.category.AddCategory">
+		<property name="categoryDao" ref="categoryDao" />
+		<property name="redirectPath" value="/category" />
+	</bean>
+	<bean id="getCategoryNew" class="q.web.category.GetCategoryNew">
+	</bean>
+
+	<!-- group web -->
+	<bean id="addGroup" class="q.web.group.AddGroup">
 		<property name="groupDao" ref="groupDao"></property>
 	</bean>
-	<bean id="getGroupNew" class="q.biz.group.GetGroupNew">
+	<bean id="getGroupNew" class="q.web.group.GetGroupNew">
 		<property name="categoryDao" ref="categoryDao"></property>
 	</bean>
-	<bean id="getGroup" class="q.biz.group.GetGroup">
+	<bean id="getGroup" class="q.web.group.GetGroup">
 		<property name="groupDao" ref="groupDao"></property>
 	</bean>
-	<bean id="getCategoryIndex" class="q.biz.group.GetCategoryIndex">
+	<bean id="getGroupIndex" class="q.web.group.GetGroupIndex">
 		<property name="categoryDao" ref="categoryDao"></property>
 	</bean>
-	<bean id="addCategory" class="q.biz.group.AddCategory">
+	<bean id="getGroupFeed" class="q.web.group.GetGroupFeed">
 		<property name="categoryDao" ref="categoryDao"></property>
+		<property name="groupDao" ref="groupDao"></property>
 	</bean>
-	<bean id="getCategoryNew" class="q.biz.group.GetCategoryNew">
+	<bean id="addGroupJoin" class="q.web.group.AddGroupJoin">
+		<property name="groupDao" ref="groupDao" />
 	</bean>
-	<bean id="getGroupFeedIndex" class="q.biz.group.GetGroupFeedIndex">
-	</bean>
-	<bean id="addGroupJoin" class="q.biz.group.AddGroupJoin">
-	     <property name="groupDao" ref="groupDao" />
+	<bean id="deleteGroupJoin" class="q.web.group.DeleteGroupJoin">
+		<property name="groupDao" ref="groupDao" />
 	</bean>
 
-	<!-- event biz -->
-	<bean id="addEvent" class="q.biz.event.AddEvent">
+	<!-- event web -->
+	<bean id="addEvent" class="q.web.event.AddEvent">
 		<property name="eventDao" ref="eventDao" />
-		
 	</bean>
-	<bean id="getEventNew" class="q.biz.event.GetEventNew">
+	<bean id="getEventNew" class="q.web.event.GetEventNew">
 	</bean>
-	<bean id="getEvent" class="q.biz.event.GetEvent">
+	<bean id="getEvent" class="q.web.event.GetEvent">
 		<property name="eventDao" ref="eventDao" />
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
-	<bean id="getEventIndex" class="q.biz.event.GetEventIndex">
+	<bean id="getEventIndex" class="q.web.event.GetEventIndex">
 	</bean>
-	<bean id="addEventJoin" class="q.biz.event.AddEventJoin">
-	     <property name="eventDao" ref="eventDao" />
+	<bean id="addEventJoin" class="q.web.event.AddEventJoin">
+		<property name="eventDao" ref="eventDao" />
+	</bean>
+	<bean id="deleteEventJoin" class="q.web.event.DeleteEventJoin">
+		<property name="eventDao" ref="eventDao" />
+	</bean>
+
+	<!-- weibo web -->
+	<bean id="addWeibo" class="q.web.weibo.AddWeibo">
+		<property name="weiboDao" ref="weiboDao" />
+	</bean>
+
+	<!-- message web -->
+	<bean id="getMessageIndex" class="q.web.message.GetMessageIndex">
+		<property name="messageDao" ref="messageDao" />
+	</bean>
+	<bean id="getMessageNew" class="q.web.message.GetMessageNew">
+		<property name="messageDao" ref="messageDao" />
+	</bean>
+	<bean id="getMessage" class="q.web.message.GetMessage">
+		<property name="messageDao" ref="messageDao" />
+	</bean>
+	<bean id="addMessage" class="q.web.message.AddMessage">
+		<property name="messageDao" ref="messageDao" />
 	</bean>
 </beans>

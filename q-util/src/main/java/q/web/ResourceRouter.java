@@ -4,6 +4,7 @@
 package q.web;
 
 import java.io.IOException;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -72,26 +73,44 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 		this.contextPath = contextPath;
 	}
 
+	private Set<String> needLoginResources;
+
+	public void setNeedLoginResources(Set<String> needLoginResources) {
+		this.needLoginResources = needLoginResources;
+	}
+
+	private String loginPath;
+
+	public void setLoginPath(String loginPath) {
+		this.loginPath = loginPath;
+	}
+
 	@Override
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String method = request.getMethod().toLowerCase();
-		String path = request.getRequestURI().substring(request.getContextPath().length());
+		String method = request.getMethod().toLowerCase(); // lowercase http method
+		String path = request.getRequestURI().substring(request.getContextPath().length()); // path without context and domain
 		log.debug("request resource by method %s and path %s", method, path);
-		String[] segs = StringKit.split(path, PATH_SPLIT);
-		Resource resource = getResource(request, method, path, segs);
-		// execute resource if exists
-		if (resource == null) {
+		String[] segs = StringKit.split(path, PATH_SPLIT); // split path to path segments
+		Resource resource = getResource(request, method, path, segs); // get request resource
+		if (resource == null) { // if resource not exists , return 404
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			log.info("resource not found by method %s and path %s", method, path);
 		} else {
-			ResourceContext context = toResourceContext(request, response, path, segs); // extract querys
+			ResourceContext context = toResourceContext(request, response, path, segs); // construct resource context
+			if (this.needLoginResources != null && this.needLoginResources.contains(resource.getName())) { // request resource need visitor login first
+				if (context.getLoginPeopleId() < 0) { // visitor logoff
+					response.sendRedirect(request.getContextPath() + loginPath + "?from=" + request.getContextPath() + path);
+					return;
+				}
+			}
+
 			try {
 				boolean correct = resource.validate(context);
 				if (correct) {
-					resource.execute(context);
+					resource.execute(context); // execute resource if exists
 				}
-				fixModel(context);
-				this.viewResolver.view(request, response, resource.getName());// use resource name as view name
+				complementModel(context); // complement model
+				this.viewResolver.view(request, response, resource);// use resource name as view name
 			} catch (Exception e) {
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				log.error("resource execute exeption by method %s and path %s", e, method, path);
@@ -100,7 +119,7 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 		return;
 	}
 
-	private void fixModel(ResourceContext context) {
+	private void complementModel(ResourceContext context) {
 		if (this.urlPrefix != null)
 			context.setModel("urlPrefix", this.urlPrefix);
 		if (this.contextPath != null)
@@ -108,7 +127,7 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 	}
 
 	protected ResourceContext toResourceContext(final HttpServletRequest request, final HttpServletResponse response, String path, String[] segs) {
-		return new DefaultResourceContext(request, path, segs);
+		return new DefaultResourceContext(request, response, segs);
 	}
 
 	protected Resource getResource(HttpServletRequest request, String method, String path, String[] segs) {
@@ -150,16 +169,18 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 			if (HTTP_METHOD_GET.equals(method)) {
 				resourceName += "Index";
 			}
-		} else if(segs.length == 2){
-			String last = segs[segs.length-1];
+		} else if (segs.length == 2) {
+			String last = segs[segs.length - 1];
 			if ("new".equals(last)) {
 				resourceName += "New";
-			} else if ("edit".equals(last)) {
-				resourceName += "Edit";
+			} else if ("feed".equals(last)) {
+				resourceName += "Feed";
+			} else if ("delete".equals(last)) {
+				resourceName += "Delete";
 			}
 		} else if (segs.length == 3) {
-			String last = segs[segs.length-1];
-			resourceName +=StringKit.capitalize(last);
+			String last = segs[segs.length - 1];
+			resourceName += StringKit.capitalize(last);
 		}
 		return resourceName;
 	}

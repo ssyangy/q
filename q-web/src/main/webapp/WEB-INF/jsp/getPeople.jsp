@@ -23,9 +23,9 @@
 粉丝数<c:out value="${people.followingNum}"></c:out>
 微博数<c:out value="${people.weiboNum}" />
 <br />
-关注<c:out value="${people.gender.cncall}" />
-私信<c:out value="${people.gender.cncall}" />
-@<c:out value="${people.gender.cncall}" />
-邀请<c:out value="${people.gender.cncall}" />加入圈子
+关注<c:out value="${people.realName}" />
+私信<c:out value="${people.realName}" />
+@<c:out value="${people.realName}" />
+邀请<c:out value="${people.realName}" />加入圈子
 </body>
 </html>

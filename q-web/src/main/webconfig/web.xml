@@ -84,23 +84,31 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
+		<url-pattern>/mine</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>/weibo/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>/weibo</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>/message/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>/message</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
 		<url-pattern>/group/*</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/group</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/groups/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/groups</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/register</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
@@ -120,19 +128,15 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
-		<url-pattern>/feed/*</url-pattern>
+		<url-pattern>/logoff/*</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
-		<url-pattern>/feed</url-pattern>
+		<url-pattern>/logoff</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
-		<url-pattern>/groupFeed/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/groupFeed</url-pattern>
+		<url-pattern>/login</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
@@ -140,7 +144,11 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
-		<url-pattern>/login</url-pattern>
+		<url-pattern>/setting/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>/setting</url-pattern>
 	</servlet-mapping>
 	<!-- ====================================================== -->
 	<!-- Session Config -->

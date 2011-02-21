@@ -19,4 +19,11 @@ public interface PeopleDao {
 	People getPeopleById(long pid) throws SQLException;
 	
 	void updatePeople(People p)throws SQLException;
+
+	/**
+	 * @param username
+	 * @return 
+	 * @throws SQLException 
+	 */
+	People getPeopleByUsername(String username) throws SQLException;
 }

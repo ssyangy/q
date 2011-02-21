@@ -4,10 +4,13 @@
 package q.dao.ibatis;
 
 import java.sql.SQLException;
+import java.util.Date;
 
 import q.dao.EventDao;
 import q.domain.Event;
-import q.domain.PeopleEventJoin;
+import q.domain.PeopleJoinEvent;
+import q.domain.Status;
+import q.util.IdCreator;
 
 /**
  * @author seanlinwang
@@ -18,8 +21,11 @@ import q.domain.PeopleEventJoin;
 public class EventDaoImpl extends AbstractDaoImpl implements EventDao {
 
 	@Override
-	public void addEvent(Event e) throws SQLException {
-		this.sqlMapClient.insert("insertEvent", e);
+	public void addEvent(Event event) throws SQLException {
+		event.setId(IdCreator.getLongId());
+		event.setCreated(new Date());
+		event.setStatus(Status.COMMON.getValue());
+		this.sqlMapClient.insert("insertEvent", event);
 	}
 
 	@Override
@@ -28,7 +34,7 @@ public class EventDaoImpl extends AbstractDaoImpl implements EventDao {
 	}
 
 	@Override
-	public void addPeopleJoinEvent(PeopleEventJoin e) throws SQLException {
+	public void addPeopleJoinEvent(PeopleJoinEvent e) throws SQLException {
 	    this.sqlMapClient.insert("insertPeopleJoinEvent", e);
 		
 	}

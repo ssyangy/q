@@ -11,6 +11,11 @@
 	</bean>
 	<bean id="router" class="q.web.ResourceRouter">
 		<property name="defaultResource" ref="main" />
+		<property name="needLoginResources">
+			<set>
+				<value>mine</value>
+			</set>
+		</property>
 	</bean>
 	<!-- biz -->
 	<bean id="main" class="q.web.testrouter.Main" />

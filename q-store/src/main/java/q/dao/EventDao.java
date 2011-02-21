@@ -6,7 +6,7 @@ package q.dao;
 import java.sql.SQLException;
 
 import q.domain.Event;
-import q.domain.PeopleEventJoin;
+import q.domain.PeopleJoinEvent;
 
 /**
  * @author seanlinwang
@@ -16,9 +16,9 @@ import q.domain.PeopleEventJoin;
  */
 public interface EventDao {
 
-	void addEvent(Event e) throws SQLException;
+	void addEvent(Event event) throws SQLException;
 	
 	Event getEventById(long eventId) throws SQLException;
 	
-	void addPeopleJoinEvent(PeopleEventJoin e)throws SQLException;
+	void addPeopleJoinEvent(PeopleJoinEvent join)throws SQLException;
 }

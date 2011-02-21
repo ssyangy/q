@@ -12,7 +12,7 @@
 <%
 
 %>
-圈子目录:<br>
+目录:<br>
 <c:forEach items="${categorys}" var="current" varStatus="status">
     <c:out value="${current.name}"/><br>
     </c:forEach>

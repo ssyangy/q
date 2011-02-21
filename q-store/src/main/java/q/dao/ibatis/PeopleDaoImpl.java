@@ -41,4 +41,12 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see q.dao.PeopleDao#getPeopleByUsername(java.lang.String)
+	 */
+	@Override
+	public People getPeopleByUsername(String username) throws SQLException {
+		return (People) this.sqlMapClient.queryForObject("selectPeopleByUsername", username);
+	}
+
 }

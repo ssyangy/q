@@ -4,7 +4,8 @@
 	<typeAlias alias="event" type="q.domain.Event" />
 	<resultMap id="eventResult" class="event">
 		<result property="id" column="id" />
-		<result property="senderId" column="sender_id" />
+		<result property="creatorId" column="creator_id" />
+		<result property="groupId" column="group_id" />
 		<result property="name" column="name" />
 		<result property="intro" column="intro" />
 		<result property="status" column="status" />
@@ -14,7 +15,8 @@
 
 	<sql id="event.columns">
 		id,
-		sender_id,
+		creator_id,
+		group_id,
 		name,
 		intro,
 		status,
@@ -36,11 +38,12 @@
 		<include refid="event.columns" />
 		) values (
 		#id#,
-		#senderId#,
+		#creatorId#,
+		#groupId#,
 		#name#,
 		#intro#,
-		#status#,
-		#created#,
+		0,
+		now(),
 		null
 		)
 	</insert>
@@ -58,8 +61,8 @@
 		#id#,
 		#peopleId#,
 		#eventId#,
-		#status#,
-		#created#,
+		0,
+		now(),
 		null
 		)
 	</insert>

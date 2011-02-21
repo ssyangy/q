@@ -14,7 +14,7 @@
 		<property name="urlPrefix" value="http://testurl" />
 		<property name="contextPath" value="testcontext" />
 	</bean>
-	<!-- biz -->
+	<!-- web -->
 	<bean id="homepage" class="q.biz.Homepage"/>
 	<bean id="addPeoples" class="q.biz.peoples.AddPeoples"></bean>
 	<bean id="getPeoples" class="q.biz.peoples.GetPeoples"></bean>
