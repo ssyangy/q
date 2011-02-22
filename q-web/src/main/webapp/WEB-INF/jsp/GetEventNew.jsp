@@ -6,14 +6,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>我的主页</title>
+<title>发起活动</title>
 </head>
 <body>
-<form action="<c:out value="${contextPath}/event" />" method="post">活动主题:<input type=text
-	name="name" size="20" maxlength="20"> <br />
-活动介绍:<textarea name="intro" cols="50" rows="10"> 
+发起活动
+<br />
+<form action="<c:out value="${contextPath}/event" />" method="post">
+主题:<input type=text name="name" size="20" maxlength="20"> <br />
+开始时间:<input type="text" name="start" size="20" maxlength="20"
+	value="暂不支持"><br />
+结束时间:<input type="text" name="end" size="20" maxlength="20" value="暂不支持"><br />
+所在地: <select name="city" id="city" onchange="">
+</select> <select name="gsub_type" id="region" onchange="">
+</select><br />
+简介:<textarea name="intro" cols="50" rows="10"> 
 </textarea> <br />
-<input type="hidden" name="groupId" value="<c:out value="${groupId}"/>"/>
-<input type="submit" value="提交" /></form>
+费用:<input type="text" name="end" size="10" maxlength="10" value="暂不支持"><br />
+人数限制:<input type="text" name="end" size="10" maxlength="10" value="暂不支持"><br />
+<input type="hidden" name="groupId" value="<c:out value="${groupId}"/>" />
+<input type="submit" value="创建活动" /></form>
 </body>
 </html>

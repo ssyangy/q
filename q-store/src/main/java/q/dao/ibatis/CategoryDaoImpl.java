@@ -1,7 +1,8 @@
 package q.dao.ibatis;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
+
 import q.dao.CategoryDao;
 import q.domain.Category;
 /**
@@ -24,10 +25,8 @@ public class CategoryDaoImpl extends AbstractDaoImpl implements CategoryDao{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Category> getCategorys() throws SQLException {
-		return  (ArrayList<Category>)this.sqlMapClient.queryForList("selectCategorys");
+	public List<Category> getCategorys() throws SQLException {
+		return  (List<Category>)this.sqlMapClient.queryForList("selectCategorys");
 	}
-
-
 
 }

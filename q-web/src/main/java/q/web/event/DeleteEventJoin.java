@@ -1,9 +1,6 @@
 package q.web.event;
 
-import java.util.Date;
-
 import q.dao.EventDao;
-import q.domain.PeopleJoinEvent;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -16,7 +13,10 @@ public class DeleteEventJoin extends Resource{
 	}
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		
+		long peopleId = context.getLoginPeopleId();
+		long eventId = context.getResourceIdLong();
+		eventDao.unjoinPeopleJoinEvent(peopleId, eventId);
+		context.redirectServletPath("/event/" + eventId);
 	}
 
 }

@@ -46,7 +46,7 @@ create table event(
 	creator_id bigint unsigned not null,
 	group_id bigint unsigned not null,
 	name varchar(32) not null,
-	intro varchar(1024),
+	intro varchar(1024) not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null) 
@@ -58,7 +58,7 @@ create table weibo (
 	sender_id bigint unsigned not null,
 	quote_weibo_id bigint unsigned,
 	quote_sender_id bigint unsigned,
-	content varchar(10240),
+	content varchar(10240) not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null) 
@@ -70,7 +70,7 @@ create table weibo_reply (
 	quote_weibo_id bigint unsigned not null,
 	quote_sender_id bigint unsigned not null,
 	quote_reply_id bigint unsigned not null,
-	content varchar(10240),
+	content varchar(10240) not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null) 
@@ -78,8 +78,8 @@ default character set utf8 engine = innodb;
 
 create table weibo_join_group(
 	id bigint unsigned not null primary key,
-	weibo_id bigint unsigned,
-	group_id bigint unsigned,
+	weibo_id bigint unsigned not null,
+	group_id bigint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null) 
@@ -90,7 +90,7 @@ create table `group`(
 	id bigint unsigned not null primary key,
 	creator_id bigint unsigned not null,
 	name varchar(32) not null,
-	intro varchar(1024),
+	intro varchar(1024) not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null) 
@@ -99,7 +99,7 @@ default character set utf8 engine = innodb;
 create table category(
 	id bigint unsigned not null primary key,
 	name varchar(32) not null,
-	intro varchar(1024),
+	intro varchar(1024) not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null) 

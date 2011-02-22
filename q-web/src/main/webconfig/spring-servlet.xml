@@ -26,6 +26,8 @@
 				<value>getGroupNew</value>
 				<value>addGroup</value>
 				<value>getGroupFeed</value>
+				<value>getGroupEvent</value>
+				<value>getGroupPhoto</value>
 				<value>addGroupJoin</value>
 				<value>deleteGroupJoin</value>
 				<value>getCategoryNew</value>
@@ -49,23 +51,23 @@
 	<bean id="getSettingIndex" class="q.web.setting.GetSettingIndex" />
 
 	<!-- people web -->
-	<bean id="getMineIndex" class="q.web.people.GetMineIndex"/>
+	<bean id="getMineIndex" class="q.web.people.GetMineIndex" />
 	<bean id="getPeopleNew" class="q.web.people.GetPeopleNew">
 	</bean>
 	<bean id="getPeople" class="q.web.people.GetPeople">
-		<property name="peopleDao" ref="peopleDao"></property>
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="addPeople" class="q.web.people.AddPeople">
-		<property name="peopleDao" ref="peopleDao"></property>
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="updatePeople" class="q.web.people.UpdatePeople">
-		<property name="peopleDao" ref="peopleDao"></property>
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="getPeopleFeed" class="q.web.people.GetPeopleFeed">
 	</bean>
 	<bean id="getPeopleIndex" class="q.web.people.GetPeopleIndex">
 	</bean>
-	
+
 
 	<!-- login web -->
 	<bean id="getLoginNew" class="q.web.login.GetLoginNew">
@@ -79,7 +81,7 @@
 
 	<!-- category web -->
 	<bean id="getCategoryIndex" class="q.web.category.GetCategoryIndex">
-		<property name="categoryDao" ref="categoryDao"></property>
+		<property name="categoryDao" ref="categoryDao" />
 	</bean>
 	<bean id="addCategory" class="q.web.category.AddCategory">
 		<property name="categoryDao" ref="categoryDao" />
@@ -90,20 +92,22 @@
 
 	<!-- group web -->
 	<bean id="addGroup" class="q.web.group.AddGroup">
-		<property name="groupDao" ref="groupDao"></property>
+		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="getGroupNew" class="q.web.group.GetGroupNew">
-		<property name="categoryDao" ref="categoryDao"></property>
+		<property name="categoryDao" ref="categoryDao" />
 	</bean>
 	<bean id="getGroup" class="q.web.group.GetGroup">
-		<property name="groupDao" ref="groupDao"></property>
+		<property name="groupDao" ref="groupDao" />
+		<property name="weiboDao" ref="weiboDao" />
 	</bean>
 	<bean id="getGroupIndex" class="q.web.group.GetGroupIndex">
-		<property name="categoryDao" ref="categoryDao"></property>
+		<property name="categoryDao" ref="categoryDao" />
+		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="getGroupFeed" class="q.web.group.GetGroupFeed">
-		<property name="categoryDao" ref="categoryDao"></property>
-		<property name="groupDao" ref="groupDao"></property>
+		<property name="categoryDao" ref="categoryDao" />
+		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="addGroupJoin" class="q.web.group.AddGroupJoin">
 		<property name="groupDao" ref="groupDao" />
@@ -112,7 +116,14 @@
 		<property name="groupDao" ref="groupDao" />
 	</bean>
 
+	<!-- photo web -->
+	<bean id="getGroupPhoto" class="q.web.photo.GetGroupPhoto">
+	</bean>
+
 	<!-- event web -->
+	<bean id="getGroupEvent" class="q.web.event.GetGroupEvent">
+		<property name="eventDao" ref="eventDao" />
+	</bean>
 	<bean id="addEvent" class="q.web.event.AddEvent">
 		<property name="eventDao" ref="eventDao" />
 	</bean>
@@ -123,6 +134,7 @@
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="getEventIndex" class="q.web.event.GetEventIndex">
+		<property name="eventDao" ref="eventDao" />
 	</bean>
 	<bean id="addEventJoin" class="q.web.event.AddEventJoin">
 		<property name="eventDao" ref="eventDao" />

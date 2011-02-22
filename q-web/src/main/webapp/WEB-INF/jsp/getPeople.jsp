@@ -18,14 +18,26 @@
 生日
 <c:out value="${people.birthdayString}"></c:out>
 <br />
-好友数<c:out value="${people.friendNum}"></c:out>
-关注数<c:out value="${people.followNum}"></c:out>
-粉丝数<c:out value="${people.followingNum}"></c:out>
-微博数<c:out value="${people.weiboNum}" />
+好友数
+<a href="<c:out value="${urlPrefix}/people/${people.id}/friend"/>">
+<c:out value="${people.friendNum}" /></a>
+关注数
+<a href="<c:out value="${urlPrefix}/people/${people.id}/follow"/>"><c:out
+	value="${people.followNum}" /></a>
+粉丝数
+<a href="<c:out value="${urlPrefix}/people/${people.id}/following"/>">
+<c:out value="${people.followingNum}" /></a>
+微博数
+<c:out value="${people.weiboNum}" />
 <br />
-关注<c:out value="${people.realName}" />
-私信<c:out value="${people.realName}" />
-@<c:out value="${people.realName}" />
-邀请<c:out value="${people.realName}" />加入圈子
+关注
+<c:out value="${people.realName}" />
+私信
+<c:out value="${people.realName}" />
+@
+<c:out value="${people.realName}" />
+邀请
+<c:out value="${people.realName}" />
+加入圈子
 </body>
 </html>

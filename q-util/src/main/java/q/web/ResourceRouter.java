@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
@@ -110,7 +111,7 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 					resource.execute(context); // execute resource if exists
 				}
 				complementModel(context); // complement model
-				this.viewResolver.view(request, response, resource);// use resource name as view name
+				this.viewResolver.view(context, resource);// use resource name as view name
 			} catch (Exception e) {
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				log.error("resource execute exeption by method %s and path %s", e, method, path);
@@ -171,12 +172,8 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 			}
 		} else if (segs.length == 2) {
 			String last = segs[segs.length - 1];
-			if ("new".equals(last)) {
-				resourceName += "New";
-			} else if ("feed".equals(last)) {
-				resourceName += "Feed";
-			} else if ("delete".equals(last)) {
-				resourceName += "Delete";
+			if (!StringUtils.isNumeric(last)) {
+				resourceName += StringKit.capitalize(last);
 			}
 		} else if (segs.length == 3) {
 			String last = segs[segs.length - 1];

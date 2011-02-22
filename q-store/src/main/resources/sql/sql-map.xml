@@ -8,4 +8,5 @@
 	<sqlMap resource="sql/people.xml" />
 	<sqlMap resource="sql/category.xml" />
 	<sqlMap resource="sql/event.xml" />
+	<sqlMap resource="sql/weibo.xml" />
 </sqlMapConfig>

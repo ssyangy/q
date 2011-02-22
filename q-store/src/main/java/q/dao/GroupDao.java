@@ -23,17 +23,22 @@ public interface GroupDao {
 	void addGroupJoinCategory(long groupId, long categoryId) throws SQLException;
 
 	void addPeopleJoinGroup(long peopleId, long groupId) throws SQLException;
-	
+
 	PeopleJoinGroup getPeopleJoinGroup(long peopleId, long groupId) throws SQLException;
-	
+
 	void unjoinPeopleJoinGroup(long peopleId, long groupId) throws SQLException;
-	
+
 	void rejoinPeopleJoinGroup(long peopleId, long groupId) throws SQLException;
 
 	/**
-	 * @param loginPeopleId
-	 * @return TODO
-	 * @throws SQLException 
+	 * @param peopleId
+	 * @throws SQLException
 	 */
-	List<Group> getGroupsByPeopleId(long loginPeopleId) throws SQLException;
+	List<Group> getGroupsByPeopleId(long peopleId) throws SQLException;
+
+	/**
+	 * @param limit
+	 * @return
+	 */
+	List<Group> getNewGroups(int limit) throws SQLException;
 }

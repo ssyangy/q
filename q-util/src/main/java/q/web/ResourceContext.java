@@ -37,14 +37,21 @@ public interface ResourceContext {
 	void redirectReffer() throws IOException;
 
 	/**
-	 * @param fromPath
+	 * @param contextPath
 	 * @throws IOException 
 	 */
-	void redirect(String fromPath) throws IOException;
+	void redirectContextPath(String contextPath) throws IOException;
 
 	/**
-	 * @param string
+	 * @param servletPath
 	 * @throws IOException 
 	 */
-	void redirectPath(String path) throws IOException;
+	void redirectServletPath(String servletPath) throws IOException;
+
+	/**
+	 * 
+	 */
+	void emptyView();
+	
+	boolean isEmptyView();
 }

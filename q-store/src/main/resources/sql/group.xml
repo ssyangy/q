@@ -50,6 +50,14 @@
 		);
 	</select>
 
+	<select id="selectNewGroups" resultMap="groupResult">
+		select
+		<include refid="group.columns" />
+		from `group`
+		order by created desc
+		limit #value#;
+	</select>
+
 	<insert id="insertGroup">
 		insert into `group`
 		(

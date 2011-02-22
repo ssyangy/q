@@ -43,9 +43,9 @@ public class AddLogin extends Resource {
 		}
 		((DefaultResourceContext) context).setLoginToken(p.getId(), p.getUsername()); // set login cookie
 		if (fromPath != null) {
-			context.redirect(fromPath);
+			context.redirectContextPath(fromPath);
 		} else {
-			context.redirect("/");
+			context.redirectContextPath("/");
 		}
 	}
 

@@ -3,11 +3,15 @@
  */
 package q.web.group;
 
+import java.util.List;
+
 import q.dao.GroupDao;
+import q.dao.WeiboDao;
 import q.domain.Group;
 import q.domain.PeopleJoinGroup;
 import q.domain.Status;
-import q.log.Logger;
+import q.domain.Weibo;
+import q.domain.WeiboPage;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -19,10 +23,15 @@ import q.web.ResourceContext;
  */
 public class GetGroup extends Resource {
 	private GroupDao groupDao;
-	private final static Logger log = Logger.getLogger();
 
 	public void setGroupDao(GroupDao groupDao) {
 		this.groupDao = groupDao;
+	}
+
+	private WeiboDao weiboDao;
+
+	public void setWeiboDao(WeiboDao weiboDao) {
+		this.weiboDao = weiboDao;
 	}
 
 	/*
@@ -40,7 +49,14 @@ public class GetGroup extends Resource {
 		if (join != null && join.getStatus() == Status.COMMON.getValue()) {
 			context.setModel("join", join);
 		}
-		log.debug("group:%s, join:%s", group, join);
+		WeiboPage page = new WeiboPage();
+		page.setGroupId(groupId);
+		page.setStartId(0);
+		page.setSize(20);
+		page.setStartIndex(0);
+		List<Weibo> weibos = weiboDao.getPageWeibo(page);
+		context.setModel("weibos", weibos);
+		log.debug("group:%s, join:%s, weibos:%s", group, join, weibos);
 	}
 
 }

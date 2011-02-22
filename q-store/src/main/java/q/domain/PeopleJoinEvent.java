@@ -3,7 +3,7 @@ package q.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-public class PeopleJoinEvent implements Serializable{
+public class PeopleJoinEvent implements Serializable {
 
 	/**
 	 * 
@@ -11,16 +11,30 @@ public class PeopleJoinEvent implements Serializable{
 	private static final long serialVersionUID = -6382113643857231843L;
 
 	private long id;
-	
+
 	private long peopleId;
-	
+
 	private long eventId;
-	
+
 	private int status;
-	
+
 	private Date created;
-	
+
 	private Date modified;
+
+	public PeopleJoinEvent() {
+		super();
+	}
+
+	/**
+	 * @param peopleId2
+	 * @param eventId2
+	 */
+	public PeopleJoinEvent(long peopleId, long eventId) {
+		this.peopleId = peopleId;
+		this.eventId = eventId;
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -68,6 +82,7 @@ public class PeopleJoinEvent implements Serializable{
 	public void setModified(Date modified) {
 		this.modified = modified;
 	}
+
 	@Override
 	public String toString() {
 		return "EventJoin [id=" + id + ", peopleId=" + peopleId + ", eventId=" + eventId + ", status=" + status + ", created=" + created + ", modified=" + modified + "]";

@@ -13,6 +13,14 @@
 		<level value="${q.logLevel}" />
 		<appender-ref ref="PROJECT" />
 	</logger>
+	<logger name="com.ibatis" additivity="false">
+		<level value="${q.logLevel}" />
+		<appender-ref ref="PROJECT" />
+	</logger>
+	<logger name="java.sql" additivity="false">
+		<level value="${q.logLevel}" />
+		<appender-ref ref="PROJECT" />
+	</logger>
 	<root>
 		<level value="error" />
 		<appender-ref ref="PROJECT" />

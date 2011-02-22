@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="weibos">
+	<typeAlias alias="weibo" type="q.domain.Weibo" />
+	<resultMap id="weiboResult" class="weibo">
+		<result property="id" column="id" />
+		<result property="senderId" column="sender_id" />
+		<result property="quoteWeiboId" column="quote_weibo_id" />
+		<result property="quoteSenderId" column="quote_sender_id" />
+		<result property="content" column="content" />
+		<result property="status" column="status" />
+		<result property="created" column="created" />
+		<result property="modified" column="modified" />
+	</resultMap>
+	<sql id="weibo.columns">
+		id,
+		sender_id,
+		quote_weibo_id,
+		quote_sender_id,
+		content,
+		status,
+		created,
+		modified
+	</sql>
+
+	<select id="selectWeiboById" resultMap="weiboResult">
+		select
+		<include refid="weibo.columns" />
+		from weibo
+		where id=#value#
+	</select>
+
+	<select id="selectPageWeiboIds" resultClass="long">
+		select weibo_id
+		from weibo_join_group
+		where
+		group_id = #groupId#
+		<isNotNull prepend=" " property="startCreated">
+			and created >=
+			#startCreated#
+		</isNotNull>
+		<isNotNull prepend=" " property="startId">
+			and id >= #startId#
+		</isNotNull>
+		order by created desc
+		limit #startIndex#, #size#
+	</select>
+
+	<select id="selectWeibosByIds" resultMap="weiboResult">
+		select
+		<include refid="weibo.columns" />
+		from weibo
+		where id in
+		<iterate open="(" close=")" conjunction=",">
+			#[]#
+        </iterate>
+	</select>
+
+	<insert id="insertWeibo">
+		insert into weibo
+		(
+		<include refid="weibo.columns" />
+		) values (
+		#id#,
+		#senderId#,
+		#quoteWeiboId#,
+		#quoteSenderId#,
+		#content#,
+		0,
+		now(),
+		null
+		)
+	</insert>
+
+	<typeAlias alias="wjg" type="q.domain.WeiboJoinGroup" />
+	<resultMap id="wjgResult" class="wjg">
+		<result property="id" column="id" />
+		<result property="weiboId" column="weibo_id" />
+		<result property="groupId" column="group_id" />
+		<result property="status" column="status" />
+		<result property="created" column="created" />
+		<result property="modified" column="modified" />
+	</resultMap>
+	<sql id="wjg.columns">
+		id,
+		weibo_id,
+		group_id,
+		status,
+		created,
+		modified
+	</sql>
+
+	<insert id="insertWeiboJoinGroup">
+		insert into weibo_join_group
+		(
+		<include refid="wjg.columns" />
+		) values (
+		#id#,
+		#weiboId#,
+		#groupId#,
+		0,
+		now(),
+		null
+		)
+	</insert>
+
+
+</sqlMap>

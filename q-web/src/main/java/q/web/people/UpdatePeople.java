@@ -36,7 +36,7 @@ public class UpdatePeople extends Resource {
 		newpeople.setDay(Integer.parseInt(context.getString("day")));
 		newpeople.setGender(Gender.convertValue(context.getInt("gender")));
 		peopleDao.updatePeople(newpeople);
-		context.redirectPath("/people/" + newpeople.getId());
+		context.redirectServletPath("/people/" + newpeople.getId());
 	}
 
 }

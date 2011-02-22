@@ -6,16 +6,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>活动索引</title>
+<title>好友新鲜事</title>
 </head>
 <body>
-新活动:
-<br />
-<c:forEach items="${newEvents}" var="event" varStatus="status">
-	<a href="<c:out value="${urlPrefix}/event/${event.id}"/>"> <c:out
-		value="${event.name}" /> </a>
-	<br />
-</c:forEach>
 
 </body>
 </html>

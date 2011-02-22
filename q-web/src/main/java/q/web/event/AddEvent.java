@@ -20,7 +20,7 @@ public class AddEvent extends Resource {
 		event.setGroupId(context.getLong("groupId"));
 		event.setCreatorId(context.getLoginPeopleId());
 		this.eventDao.addEvent(event);
-		context.redirectPath("/event/" + event.getId());
+		context.redirectServletPath("/event/" + event.getId());
 	}
 
 }

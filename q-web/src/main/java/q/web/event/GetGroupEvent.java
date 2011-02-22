@@ -1,25 +1,34 @@
+/**
+ * 
+ */
 package q.web.event;
 
-import java.util.List;
-
 import q.dao.EventDao;
-import q.domain.Event;
 import q.web.Resource;
 import q.web.ResourceContext;
 
-
-
-public class GetEventIndex extends Resource{
+/**
+ * @author seanlinwang
+ * @email xalinx at gmail dot com
+ * @date Feb 22, 2011
+ * 
+ */
+public class GetGroupEvent extends Resource {
 	private EventDao eventDao;
-	
+
 	public void setEventDao(EventDao eventDao) {
 		this.eventDao = eventDao;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see q.web.Resource#execute(q.web.ResourceContext)
+	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		List<Event> groups = eventDao.getNewEvents(10);
-		context.setModel("newEvents", groups);
+		// TODO Auto-generated method stub
+
 	}
 
 }

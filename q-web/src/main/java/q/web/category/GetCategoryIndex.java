@@ -1,7 +1,8 @@
 package q.web.category;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
+
 import q.dao.CategoryDao;
 import q.domain.Category;
 import q.web.Resource;
@@ -23,7 +24,7 @@ public class GetCategoryIndex extends Resource {
 
 	@Override
 	public void execute(ResourceContext context) throws SQLException {
-		ArrayList<Category> categorys = categoryDao.getCategorys();
+		List<Category> categorys = categoryDao.getCategorys();
 		context.setModel("categorys", categorys);
 	}
 

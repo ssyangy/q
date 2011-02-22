@@ -6,9 +6,12 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import q.log.Logger;
 import q.util.StringKit;
 
 public class DefaultResourceContext implements ResourceContext {
+	private static final Logger log = Logger.getLogger();
+
 	private final HttpServletRequest request;
 	private final HttpServletResponse response;
 	private String[] paths;
@@ -17,6 +20,14 @@ public class DefaultResourceContext implements ResourceContext {
 		this.request = request;
 		this.response = response;
 		this.paths = paths;
+	}
+
+	public HttpServletRequest getRequest() {
+		return request;
+	}
+
+	public HttpServletResponse getResponse() {
+		return response;
 	}
 
 	@Override
@@ -111,16 +122,29 @@ public class DefaultResourceContext implements ResourceContext {
 	 */
 	@Override
 	public void redirectReffer() throws IOException {
-		redirect(request.getHeader("refferr"));
+		redirectContextPath(request.getHeader("refferr"));
 	}
 
 	@Override
-	public void redirectPath(String path) throws IOException {
-		redirect(request.getContextPath() + path);
+	public void redirectServletPath(String path) throws IOException {
+		redirectContextPath(request.getContextPath() + path);
 	}
 
 	@Override
-	public void redirect(String fullPath) throws IOException {
+	public void redirectContextPath(String fullPath) throws IOException {
 		response.sendRedirect(fullPath);
+		log.debug("send redirect to %s", fullPath);
 	}
+
+	private boolean isEmptyView = false;
+
+	@Override
+	public void emptyView() {
+		this.isEmptyView = true;
+	}
+
+	public boolean isEmptyView() {
+		return isEmptyView;
+	}
+
 }

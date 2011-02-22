@@ -88,5 +88,15 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 		List<Group> groups = this.sqlMapClient.queryForList("selectGroupsByGroupIds", groupIds);
 		return groups;
 	}
+	
+	/* (non-Javadoc)
+	 * @see q.dao.CategoryDao#getNewGroups(int)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Group> getNewGroups(int i) throws SQLException {
+		return (List<Group>)this.sqlMapClient.queryForList("selectNewGroups", i);
+	}
+
 
 }

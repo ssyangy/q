@@ -1,8 +1,7 @@
 package q.web.group;
 
-
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import q.dao.CategoryDao;
 import q.domain.Category;
@@ -22,11 +21,11 @@ public class GetGroupNew extends Resource {
 	public void setCategoryDao(CategoryDao categoryDao) {
 		this.categoryDao = categoryDao;
 	}
+
 	@Override
 	public void execute(ResourceContext context) throws SQLException {
-        ArrayList<Category>categorys=categoryDao.getCategorys();
-        context.setModel("categorys", categorys);
-        
+		List<Category> categorys = categoryDao.getCategorys();
+		context.setModel("categorys", categorys);
 
 	}
 }

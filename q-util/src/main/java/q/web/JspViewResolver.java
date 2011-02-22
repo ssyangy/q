@@ -24,14 +24,19 @@ public class JspViewResolver implements ViewResolver {
 	 * @see q.web.ViewResolver#view(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, q.web.Resource)
 	 */
 	@Override
-	public void view(HttpServletRequest request, HttpServletResponse response, Resource resource) throws ServletException, IOException {
-		if (response.isCommitted()) {
+	public void view(ResourceContext context, Resource resource) throws ServletException, IOException {
+		if (context.isEmptyView()) { // return if empty view
+			return;
+		}
+		HttpServletRequest request = ((DefaultResourceContext) context).getRequest();
+		HttpServletResponse response = ((DefaultResourceContext) context).getResponse();
+		if (response.isCommitted()) { // return if already committed
 			return;
 		}
 		String redirect = resource.getRedirectPath();
 		if (redirect != null) {
 			response.sendRedirect(request.getContextPath() + redirect);
-			log.debug("redirect to view: %s", request.getContextPath() + redirect);
+			log.debug("redirect to path: %s", request.getContextPath() + redirect);
 			return;
 		}
 		String jsp = "/WEB-INF/jsp/" + resource.getName() + ".jsp";

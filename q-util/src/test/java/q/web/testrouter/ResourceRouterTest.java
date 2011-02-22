@@ -22,6 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import q.web.DefaultResourceContext;
+import q.web.ResourceContext;
 import q.web.ResourceRouter;
 import q.web.ViewResolver;
 
@@ -50,7 +51,9 @@ public class ResourceRouterTest extends ServletTestCase {
 		getRouter().setViewResolver(new ViewResolver() {
 
 			@Override
-			public void view(HttpServletRequest request, HttpServletResponse response, q.web.Resource resource) throws ServletException, IOException {
+			public void view(ResourceContext context, q.web.Resource resource) throws ServletException, IOException {
+				HttpServletRequest request = ((DefaultResourceContext) context).getRequest();
+				HttpServletResponse response = ((DefaultResourceContext) context).getResponse();
 				@SuppressWarnings("unchecked")
 				Enumeration<String> attributeNames = request.getAttributeNames();
 				for (; attributeNames.hasMoreElements();) {

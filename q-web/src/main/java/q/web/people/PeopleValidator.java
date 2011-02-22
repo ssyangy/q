@@ -1,4 +1,4 @@
-package q.web.validator;
+package q.web.people;
 
 import java.util.regex.Pattern;
 
