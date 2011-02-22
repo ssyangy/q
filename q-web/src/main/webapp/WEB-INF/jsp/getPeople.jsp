@@ -31,13 +31,20 @@
 <c:out value="${people.weiboNum}" />
 <br />
 关注
-<c:out value="${people.realName}" />
+<c:out value="${people.gender.cncall}" />
 私信
-<c:out value="${people.realName}" />
+<c:out value="${people.gender.cncall}" />
 @
-<c:out value="${people.realName}" />
-邀请
-<c:out value="${people.realName}" />
-加入圈子
+<c:out value="${people.gender.cncall}" />
+
+<div>发言 | 关注</div>
+<div><c:forEach items="${weibos}" var="weibo" varStatus="status">
+	<c:out value="${weibo.content}" />
+	<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}"/>"> 回复 </a>&nbsp;
+	<a href="<c:out value="${contextPath}/people/${weibo.senderId}"/>"><c:out
+		value="${weibo.senderRealName}" /></a>
+	<c:out value="${weibo.created}" />
+	<br />
+</c:forEach></div>
 </body>
 </html>

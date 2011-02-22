@@ -4,6 +4,8 @@
 package q.dao;
 
 import java.sql.SQLException;
+import java.util.Map;
+import java.util.Set;
 
 import q.domain.People;
 
@@ -26,4 +28,10 @@ public interface PeopleDao {
 	 * @throws SQLException 
 	 */
 	People getPeopleByUsername(String username) throws SQLException;
+
+	/**
+	 * @param senderIds
+	 * @return
+	 */
+	Map<Long, String> getPeopleRealNamesByIds(Set<Long> senderIds) throws SQLException;
 }

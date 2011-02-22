@@ -23,6 +23,8 @@ public class Weibo implements Serializable {
 
 	private long senderId;
 
+	private String senderRealName;
+
 	private long quoteWeiboId;
 
 	private long quoteSenderId;
@@ -103,9 +105,17 @@ public class Weibo implements Serializable {
 		return this.quoteWeiboId > 0;
 	}
 
+	public String getSenderRealName() {
+		return senderRealName;
+	}
+
+	public void setSenderRealName(String senderRealName) {
+		this.senderRealName = senderRealName;
+	}
+
 	@Override
 	public String toString() {
-		return "Weibo [id=" + id + ", senderId=" + senderId + ", quoteWeiboId=" + quoteWeiboId + ", quoteSenderId=" + quoteSenderId + ", content=" + content + ", status=" + status + ", created=" + created + ", modified=" + modified + "]";
+		return "Weibo [id=" + id + ", senderId=" + senderId + ", senderRealName" + senderRealName + ", quoteWeiboId=" + quoteWeiboId + ", quoteSenderId=" + quoteSenderId + ", content=" + content + ", status=" + status + ", created=" + created + ", modified=" + modified + "]";
 	}
 
 }

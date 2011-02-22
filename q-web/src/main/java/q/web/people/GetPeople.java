@@ -1,9 +1,14 @@
 package q.web.people;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import q.dao.DaoHelper;
 import q.dao.PeopleDao;
+import q.dao.WeiboDao;
+import q.dao.page.WeiboPage;
 import q.domain.People;
+import q.domain.Weibo;
 import q.log.Logger;
 import q.web.Resource;
 import q.web.ResourceContext;
@@ -23,19 +28,30 @@ public class GetPeople extends Resource {
 		this.peopleDao = peopleDao;
 	}
 
+	private WeiboDao weiboDao;
+
+	public void setWeiboDao(WeiboDao weiboDao) {
+		this.weiboDao = weiboDao;
+	}
+
 	@Override
 	public void execute(ResourceContext context) throws SQLException {
-		String resourceId = context.getResourceId();
-		log.debug("resource id:%s", resourceId);
-		long uid = Long.valueOf(resourceId);
+		Long peopleId = context.getResourceIdLong();
 
-		People people = peopleDao.getPeopleById(uid);
+		People people = peopleDao.getPeopleById(peopleId);
 		people.setFollowingNum(999999999);
 		people.setFollowNum(99);
 		people.setFriendNum(9);
-
-		log.debug("get people:%s", people);
 		context.setModel("people", people);
+
+		WeiboPage page = new WeiboPage();
+		page.setSenderId(peopleId);
+		page.setStartId(0);
+		page.setSize(20);
+		page.setStartIndex(0);
+		List<Weibo> weibos = DaoHelper.getPageWeibo(peopleDao, weiboDao, page);
+		context.setModel("weibos", weibos);
+		log.debug("people:%s, weibos:%s", people, weibos);
 	}
 
 }

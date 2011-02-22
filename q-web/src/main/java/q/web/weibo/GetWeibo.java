@@ -5,6 +5,8 @@ package q.web.weibo;
 
 import java.util.List;
 
+import q.dao.DaoHelper;
+import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.dao.page.WeiboReplyPage;
 import q.domain.Weibo;
@@ -25,6 +27,12 @@ public class GetWeibo extends Resource {
 		this.weiboDao = weiboDao;
 	}
 
+	private PeopleDao peopleDao;
+
+	public void setPeopleDao(PeopleDao peopleDao) {
+		this.peopleDao = peopleDao;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -40,7 +48,7 @@ public class GetWeibo extends Resource {
 		page.setSize(20);
 		page.setStartId(0);
 		page.setStartIndex(0);
-		List<WeiboReply> replies = weiboDao.getPageWeiboReply(page);
+		List<WeiboReply> replies = DaoHelper.getPageWeiboReply(peopleDao, weiboDao, page);
 		context.setModel("replies", replies);
 		log.debug("weibo:%s, replies:%s", weibo, replies);
 	}

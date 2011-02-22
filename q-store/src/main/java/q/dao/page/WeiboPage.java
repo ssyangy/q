@@ -16,7 +16,7 @@ public class WeiboPage extends Page implements Serializable {
 
 	private Long groupId;
 
-	private Long peopleId;
+	private Long senderId;
 
 
 
@@ -28,12 +28,12 @@ public class WeiboPage extends Page implements Serializable {
 		this.groupId = groupId;
 	}
 
-	public Long getPeopleId() {
-		return peopleId;
+	public Long getSenderId() {
+		return senderId;
 	}
 
-	public void setPeopleId(Long peopleId) {
-		this.peopleId = peopleId;
+	public void setSenderId(Long senderId) {
+		this.senderId = senderId;
 	}
 
 	

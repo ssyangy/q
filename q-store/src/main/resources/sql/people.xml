@@ -47,7 +47,17 @@
 		created,
 		modified
 	</sql>
-
+	
+	<select id="selectPeopleRealNamesByIds" resultClass="java.lang.String">
+		select
+		real_name
+		from people
+		where id in
+		<iterate open="(" close=")" conjunction=",">
+			#[]#
+        </iterate>
+	</select>
+	
 	<select id="selectPeopleById" resultMap="peopleResult">
 		select
 		<include refid="people.columns" />

@@ -30,7 +30,7 @@
 		where id=#value#
 	</select>
 
-	<select id="selectPageWeiboIds" resultClass="long">
+	<select id="selectPageGroupWeiboIds" resultClass="long">
 		select weibo_id
 		from weibo_join_group
 		where
@@ -42,7 +42,6 @@
 		<isNotNull prepend=" " property="startId">
 			and id >= #startId#
 		</isNotNull>
-		order by created desc
 		limit #startIndex#, #size#
 	</select>
 
@@ -54,6 +53,24 @@
 		<iterate open="(" close=")" conjunction=",">
 			#[]#
         </iterate>
+        order by created desc
+	</select>
+
+	<select id="selectPageWeibo" resultMap="weiboResult">
+		select 
+		<include refid="weibo.columns" />
+		from weibo
+		where
+		sender_id = #senderId#
+		<isNotNull prepend=" " property="startCreated">
+			and created >=
+			#startCreated#
+		</isNotNull>
+		<isNotNull prepend=" " property="startId">
+			and id >= #startId#
+		</isNotNull>
+		order by created desc
+		limit #startIndex#, #size#
 	</select>
 
 	<insert id="insertWeibo">
@@ -128,14 +145,15 @@
 		modified
 	</sql>
 
-	<select id="selectPageWeiboReply" resultMap="weiboResult">
+	<select id="selectPageWeiboReply" resultMap="replyResult">
 		select
 		<include refid="reply.columns" />
 		from weibo_reply
 		where
 		quote_weibo_id = #quoteWeiboId#
 		<isNotNull prepend=" " property="startCreated">
-			and created >= #startCreated#
+			and created >=
+			#startCreated#
 		</isNotNull>
 		<isNotNull prepend=" " property="startId">
 			and id >= #startId#

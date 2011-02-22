@@ -6,14 +6,13 @@ package q.dao.ibatis;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.springframework.util.CollectionUtils;
-
 import q.dao.WeiboDao;
 import q.dao.page.WeiboPage;
 import q.dao.page.WeiboReplyPage;
 import q.domain.Weibo;
 import q.domain.WeiboJoinGroup;
 import q.domain.WeiboReply;
+import q.util.CollectionKit;
 import q.util.IdCreator;
 
 /**
@@ -56,12 +55,20 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Weibo> getPageWeibo(WeiboPage page) throws SQLException {
-		List<Long> ids = (List<Long>) this.sqlMapClient.queryForList("selectPageWeiboIds", page);
-		if (CollectionUtils.isEmpty(ids)) {
+	public List<Weibo> getPageGroupWeibo(WeiboPage page) throws SQLException {
+		List<Long> ids = (List<Long>) this.sqlMapClient.queryForList("selectPageGroupWeiboIds", page);
+		if (CollectionKit.isEmpty(ids)) {
 			return null;
 		}
 		return (List<Weibo>) this.sqlMapClient.queryForList("selectWeibosByIds", ids);
+	}
+	
+	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Weibo> getPageWeibo(WeiboPage page) throws SQLException {
+		return (List<Weibo>)this.sqlMapClient.queryForList("selectPageWeibo", page);
 	}
 
 	/*

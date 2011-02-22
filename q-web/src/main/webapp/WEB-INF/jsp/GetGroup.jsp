@@ -39,8 +39,11 @@
 </div>
 <div>新帖 | 热贴 | 我发起的 | 我回复的 | 我关注的</div>
 <div><c:forEach items="${weibos}" var="weibo" varStatus="status">
-	<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}"/>"> <c:out
-		value="${weibo.content}" /> </a><c:out value="${weibo.created}" />
+	<c:out value="${weibo.content}" />
+	<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}"/>"> 回复 </a>&nbsp;
+	<a href="<c:out value="${contextPath}/people/${weibo.senderId}"/>"><c:out
+		value="${weibo.senderRealName}" /></a>
+	<c:out value="${weibo.created}" />
 	<br />
 </c:forEach></div>
 </html>

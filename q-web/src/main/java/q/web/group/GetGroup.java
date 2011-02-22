@@ -5,7 +5,9 @@ package q.web.group;
 
 import java.util.List;
 
+import q.dao.DaoHelper;
 import q.dao.GroupDao;
+import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.dao.page.WeiboPage;
 import q.domain.Group;
@@ -34,6 +36,12 @@ public class GetGroup extends Resource {
 		this.weiboDao = weiboDao;
 	}
 
+	private PeopleDao peopleDao;
+
+	public void setPeopleDao(PeopleDao peopleDao) {
+		this.peopleDao = peopleDao;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -54,7 +62,7 @@ public class GetGroup extends Resource {
 		page.setStartId(0);
 		page.setSize(20);
 		page.setStartIndex(0);
-		List<Weibo> weibos = weiboDao.getPageWeibo(page);
+		List<Weibo> weibos = DaoHelper.getPageGroupWeibo(peopleDao, weiboDao, page);
 		context.setModel("weibos", weibos);
 		log.debug("group:%s, join:%s, weibos:%s", group, join, weibos);
 	}
