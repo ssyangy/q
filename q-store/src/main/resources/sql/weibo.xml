@@ -104,5 +104,60 @@
 		)
 	</insert>
 
+	<typeAlias alias="reply" type="q.domain.WeiboReply" />
+	<resultMap id="replyResult" class="reply">
+		<result property="id" column="id" />
+		<result property="senderId" column="sender_id" />
+		<result property="quoteWeiboId" column="quote_weibo_id" />
+		<result property="quoteSenderId" column="quote_sender_id" />
+		<result property="quoteReplyId" column="quote_reply_id" />
+		<result property="content" column="content" />
+		<result property="status" column="status" />
+		<result property="created" column="created" />
+		<result property="modified" column="modified" />
+	</resultMap>
+	<sql id="reply.columns">
+		id,
+		sender_id,
+		quote_weibo_id,
+		quote_sender_id,
+		quote_reply_id,
+		content,
+		status,
+		created,
+		modified
+	</sql>
 
+	<select id="selectPageWeiboReply" resultMap="weiboResult">
+		select
+		<include refid="reply.columns" />
+		from weibo_reply
+		where
+		quote_weibo_id = #quoteWeiboId#
+		<isNotNull prepend=" " property="startCreated">
+			and created >= #startCreated#
+		</isNotNull>
+		<isNotNull prepend=" " property="startId">
+			and id >= #startId#
+		</isNotNull>
+		order by created desc
+		limit #startIndex#, #size#
+	</select>
+
+	<insert id="insertWeiboReply">
+		insert into weibo_reply
+		(
+		<include refid="reply.columns" />
+		) values (
+		#id#,
+		#senderId#,
+		#quoteWeiboId#,
+		#quoteSenderId#,
+		#quoteReplyId#,
+		#content#,
+		0,
+		now(),
+		null
+		)
+	</insert>
 </sqlMap>

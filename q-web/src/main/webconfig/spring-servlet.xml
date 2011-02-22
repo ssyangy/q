@@ -41,6 +41,7 @@
 				<value>getMessage</value>
 				<value>addMessage</value>
 				<value>addWeibo</value>
+				<value>addWeiboReply</value>
 			</set>
 		</property>
 	</bean>
@@ -145,6 +146,12 @@
 
 	<!-- weibo web -->
 	<bean id="addWeibo" class="q.web.weibo.AddWeibo">
+		<property name="weiboDao" ref="weiboDao" />
+	</bean>
+	<bean id="getWeibo" class="q.web.weibo.GetWeibo">
+		<property name="weiboDao" ref="weiboDao" />
+	</bean>
+	<bean id="addWeiboReply" class="q.web.weibo.AddWeiboReply">
 		<property name="weiboDao" ref="weiboDao" />
 	</bean>
 

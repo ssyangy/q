@@ -7,11 +7,11 @@ import java.util.List;
 
 import q.dao.GroupDao;
 import q.dao.WeiboDao;
+import q.dao.page.WeiboPage;
 import q.domain.Group;
 import q.domain.PeopleJoinGroup;
 import q.domain.Status;
 import q.domain.Weibo;
-import q.domain.WeiboPage;
 import q.web.Resource;
 import q.web.ResourceContext;
 

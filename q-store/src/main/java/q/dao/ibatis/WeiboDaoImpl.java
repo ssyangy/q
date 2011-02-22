@@ -9,9 +9,11 @@ import java.util.List;
 import org.springframework.util.CollectionUtils;
 
 import q.dao.WeiboDao;
+import q.dao.page.WeiboPage;
+import q.dao.page.WeiboReplyPage;
 import q.domain.Weibo;
 import q.domain.WeiboJoinGroup;
-import q.domain.WeiboPage;
+import q.domain.WeiboReply;
 import q.util.IdCreator;
 
 /**
@@ -60,6 +62,28 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 			return null;
 		}
 		return (List<Weibo>) this.sqlMapClient.queryForList("selectWeibosByIds", ids);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see q.dao.WeiboDao#getWeiboById(long)
+	 */
+	@Override
+	public Weibo getWeiboById(long weiboId) throws SQLException {
+		return (Weibo) this.sqlMapClient.queryForObject("selectWeiboById", weiboId);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<WeiboReply> getPageWeiboReply(WeiboReplyPage page) throws SQLException {
+		return (List<WeiboReply>) this.sqlMapClient.queryForList("selectPageWeiboReply", page);
+	}
+
+	@Override
+	public void addWeiboReply(WeiboReply reply) throws SQLException {
+		reply.setId(IdCreator.getLongId());
+		this.sqlMapClient.insert("insertWeiboReply", reply);
 	}
 
 }

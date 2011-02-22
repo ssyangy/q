@@ -40,7 +40,7 @@
 <div>新帖 | 热贴 | 我发起的 | 我回复的 | 我关注的</div>
 <div><c:forEach items="${weibos}" var="weibo" varStatus="status">
 	<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}"/>"> <c:out
-		value="${weibo.content}" /> </a>
+		value="${weibo.content}" /> </a><c:out value="${weibo.created}" />
 	<br />
 </c:forEach></div>
 </html>

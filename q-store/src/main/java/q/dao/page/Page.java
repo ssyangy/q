@@ -1,9 +1,8 @@
 /**
  * 
  */
-package q.domain;
+package q.dao.page;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -12,13 +11,7 @@ import java.util.Date;
  * @date Feb 22, 2011
  * 
  */
-public class WeiboPage implements Serializable {
-	private static final long serialVersionUID = 3914161124769051701L;
-
-	private Long groupId;
-
-	private Long peopleId;
-
+public class Page {
 	private Date startCreated;
 
 	private Integer startIndex;
@@ -26,22 +19,6 @@ public class WeiboPage implements Serializable {
 	private Integer startId;
 
 	private Integer size;
-
-	public Long getGroupId() {
-		return groupId;
-	}
-
-	public void setGroupId(Long groupId) {
-		this.groupId = groupId;
-	}
-
-	public Long getPeopleId() {
-		return peopleId;
-	}
-
-	public void setPeopleId(Long peopleId) {
-		this.peopleId = peopleId;
-	}
 
 	public Date getStartCreated() {
 		return startCreated;
