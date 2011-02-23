@@ -23,6 +23,8 @@
 				<value>getSettingIndex</value>
 				<value>getPeopleFeed</value>
 				<value>updatePeople</value>
+				<value>addPeopleFollowing</value>
+				<value>deletePeopleFollowing</value>
 				<value>getGroupNew</value>
 				<value>addGroup</value>
 				<value>getGroupFeed</value>
@@ -58,8 +60,21 @@
 	<bean id="getPeople" class="q.web.people.GetPeople">
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="weiboDao" ref="weiboDao" />
+		<property name="eventDao" ref="eventDao" />
 	</bean>
 	<bean id="addPeople" class="q.web.people.AddPeople">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="getPeopleFollowing" class="q.web.people.GetPeopleFollowing">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="getPeopleFollower" class="q.web.people.GetPeopleFollower">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="addPeopleFollowing" class="q.web.people.AddPeopleFollowing">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="deletePeopleFollowing" class="q.web.people.DeletePeopleFollowing">
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="updatePeople" class="q.web.people.UpdatePeople">

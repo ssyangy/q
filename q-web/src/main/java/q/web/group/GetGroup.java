@@ -57,14 +57,13 @@ public class GetGroup extends Resource {
 		if (join != null && join.getStatus() == Status.COMMON.getValue()) {
 			context.setModel("join", join);
 		}
+		
 		WeiboPage page = new WeiboPage();
 		page.setGroupId(groupId);
-		page.setStartId(0);
 		page.setSize(20);
 		page.setStartIndex(0);
-		List<Weibo> weibos = DaoHelper.getPageGroupWeibo(peopleDao, weiboDao, page);
+		List<Weibo> weibos = DaoHelper.getPageGroupWeiboWithSenderRealName(peopleDao, weiboDao, page);
 		context.setModel("weibos", weibos);
-		log.debug("group:%s, join:%s, weibos:%s", group, join, weibos);
 	}
 
 }

@@ -62,13 +62,11 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 		}
 		return (List<Weibo>) this.sqlMapClient.queryForList("selectWeibosByIds", ids);
 	}
-	
-	
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Weibo> getPageWeibo(WeiboPage page) throws SQLException {
-		return (List<Weibo>)this.sqlMapClient.queryForList("selectPageWeibo", page);
+		return (List<Weibo>) this.sqlMapClient.queryForList("selectPageWeibo", page);
 	}
 
 	/*
@@ -91,6 +89,11 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 	public void addWeiboReply(WeiboReply reply) throws SQLException {
 		reply.setId(IdCreator.getLongId());
 		this.sqlMapClient.insert("insertWeiboReply", reply);
+	}
+
+	@Override
+	public int getPeopleWeiboNumByPeopleId(long peopleId) throws SQLException {
+		return (Integer)this.sqlMapClient.queryForObject("getPeopleWeiboNumByPeopleId", peopleId);
 	}
 
 }

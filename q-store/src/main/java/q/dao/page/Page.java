@@ -14,11 +14,11 @@ import java.util.Date;
 public class Page {
 	private Date startCreated;
 
-	private Integer startIndex;
+	private Integer startIndex = 0;
 
 	private Integer startId;
 
-	private Integer size;
+	private Integer size = 20;
 
 	public Date getStartCreated() {
 		return startCreated;

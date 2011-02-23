@@ -9,42 +9,58 @@
 <title>我的主页</title>
 </head>
 <body>
-<c:out value="${people.realName}" />
-<%--  c:out value="${people.district.level1}" /--%>
-<%--  c:out value="${people.district.level2}" /--%>
-<br />
-<c:out value="${people.intro}" />
-<br />
-生日
-<c:out value="${people.birthdayString}"></c:out>
-<br />
-好友数
-<a href="<c:out value="${urlPrefix}/people/${people.id}/friend"/>">
-<c:out value="${people.friendNum}" /></a>
-关注数
-<a href="<c:out value="${urlPrefix}/people/${people.id}/follow"/>"><c:out
-	value="${people.followNum}" /></a>
-粉丝数
-<a href="<c:out value="${urlPrefix}/people/${people.id}/following"/>">
-<c:out value="${people.followingNum}" /></a>
-微博数
-<c:out value="${people.weiboNum}" />
-<br />
-关注
-<c:out value="${people.gender.cncall}" />
-私信
-<c:out value="${people.gender.cncall}" />
-@
-<c:out value="${people.gender.cncall}" />
-
-<div>发言 | 关注</div>
-<div><c:forEach items="${weibos}" var="weibo" varStatus="status">
-	<c:out value="${weibo.content}" />
-	<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}"/>"> 回复 </a>&nbsp;
-	<a href="<c:out value="${contextPath}/people/${weibo.senderId}"/>"><c:out
-		value="${weibo.senderRealName}" /></a>
-	<c:out value="${weibo.created}" />
-	<br />
-</c:forEach></div>
+	<div id="content">
+		<c:out value="${people.realName}" /><br />
+		<%--  c:out value="${people.district.level1}" /--%>
+		<%--  c:out value="${people.district.level2}" /--%>
+		<c:out value="${people.intro}" /><br />
+		生日<c:out value="${people.birthdayString}"></c:out><br />
+		关注数<a href="<c:out value="${urlPrefix}/people/${people.id}/following"/>"><c:out value="${people.followingNum}" /></a>
+		粉丝数<a href="<c:out value="${urlPrefix}/people/${people.id}/follower"/>"><c:out value="${people.followerNum}" /></a>
+		微博数<c:out value="${people.weiboNum}" />
+		<br />
+		<c:if test="${isMe == false}">
+			<c:choose>
+				<c:when test="${isFollowing == false}">
+					<form
+						action="<c:out value="${urlPrefix}/people/${people.id}/following"/>"
+						method="post">
+						<button>关注<c:out value="${people.gender.cncall}"/></button>
+					</form>
+				</c:when>
+				<c:otherwise>
+					<form
+						action="<c:out value="${urlPrefix}/people/${people.id}/following"/>"
+						method="post">
+						<input type="hidden" name="_method" value="delete"/>
+						<button>取消关注</button>
+					</form>
+				</c:otherwise>
+			</c:choose>
+			<a href="<c:out value="${urlPrefix}/message/new?peopleId=${people.id}" />">私信<c:out value="${people.gender.cncall}" /></a>
+			<a href="<c:out value="${urlPrefix}/weibo/new?peopleId=${people.id}" />">@<c:out value="${people.gender.cncall}" /></a>
+		</c:if>
+		
+		<div>发言 | 关注</div>
+		<div>
+			<c:forEach items="${weibos}" var="weibo" varStatus="status">
+				<c:out value="${weibo.content}" />
+				<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}"/>"> 回复 </a>&nbsp;
+				<a href="<c:out value="${urlPrefix}/people/${weibo.senderId}"/>"><c:out
+					value="${weibo.senderRealName}" /></a>
+				<c:out value="${weibo.created}" />
+				<br />
+			</c:forEach>
+		</div>
+	</div>
+	<div id="content2">
+		<c:out value="${people.gender.cncall}" />参与的活动: <br />
+		<c:forEach items="${events}" var="event" varStatus="status">
+			<a href="<c:out value="${urlPrefix}/event/${event.id}"/>">
+				<c:out value="${event.name}" /> 
+			</a>
+			<br />
+		</c:forEach>
+	</div>
 </body>
 </html>

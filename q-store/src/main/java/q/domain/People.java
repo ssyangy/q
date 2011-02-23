@@ -49,7 +49,7 @@ public class People implements Serializable {
 
 	private int friendNum;
 
-	private int followNum;
+	private int followerNum;
 
 	private int followingNum;
 
@@ -222,12 +222,12 @@ public class People implements Serializable {
 		this.friendNum = friendNum;
 	}
 
-	public int getFollowNum() {
-		return followNum;
+	public int getFollowerNum() {
+		return followerNum;
 	}
 
-	public void setFollowNum(int followNum) {
-		this.followNum = followNum;
+	public void setFollowerNum(int followerNum) {
+		this.followerNum = followerNum;
 	}
 
 	public int getFollowingNum() {
@@ -255,12 +255,12 @@ public class People implements Serializable {
 	}
 
 	public String getBirthdayString() {
-		return getYear() + "-" + getMonth() + "-" + getDay();
+		return getYear() + 1900 + "-" + getMonth() + "-" + getDay();
 	}
 
 	@Override
 	public String toString() {
-		return "People [id=" + id + ", username=" + username + ", password=" + password + ", loginToken=" + loginToken + ", realName=" + realName + ", email=" + email + ", mobile=" + mobile + ", year=" + year + ", month=" + month + ", day=" + day + ", countryCode=" + countryCode + ", districtId=" + districtId + ", gender=" + gender + ", bloodTypeId=" + bloodTypeId + ", educationId=" + educationId + ", roleId=" + roleId + ", status=" + status + ", created=" + created + ", modified=" + modified + ", friendNum=" + friendNum + ", followNum=" + followNum + ", followingNum=" + followingNum + ", weiboNum=" + weiboNum + ", intro=" + intro + "]";
+		return "People [id=" + id + ", username=" + username + ", password=" + password + ", loginToken=" + loginToken + ", realName=" + realName + ", email=" + email + ", mobile=" + mobile + ", year=" + year + ", month=" + month + ", day=" + day + ", countryCode=" + countryCode + ", districtId=" + districtId + ", gender=" + gender + ", bloodTypeId=" + bloodTypeId + ", educationId=" + educationId + ", roleId=" + roleId + ", status=" + status + ", created=" + created + ", modified=" + modified + ", friendNum=" + friendNum + ", followNum=" + followerNum + ", followingNum=" + followingNum + ", weiboNum=" + weiboNum + ", intro=" + intro + "]";
 	}
 
 }

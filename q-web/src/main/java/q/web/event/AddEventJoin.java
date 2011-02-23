@@ -2,7 +2,6 @@ package q.web.event;
 
 import q.dao.EventDao;
 import q.domain.PeopleJoinEvent;
-import q.domain.Status;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -21,7 +20,7 @@ public class AddEventJoin extends Resource {
 		PeopleJoinEvent join = eventDao.getPeopleJoinEvent(peopleId, eventId);
 		if (join == null) {
 			eventDao.addPeopleJoinEvent(peopleId, eventId);
-		} else if (join.getStatus() == Status.DELETE.getValue()) {
+		} else if (join.isUnjoinStatus()) {
 			eventDao.rejoinPeopleJoinEvent(peopleId, eventId);
 		}
 

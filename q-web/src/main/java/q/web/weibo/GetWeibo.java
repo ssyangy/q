@@ -46,9 +46,8 @@ public class GetWeibo extends Resource {
 		WeiboReplyPage page = new WeiboReplyPage();
 		page.setQuoteWeiboId(weiboId);
 		page.setSize(20);
-		page.setStartId(0);
 		page.setStartIndex(0);
-		List<WeiboReply> replies = DaoHelper.getPageWeiboReply(peopleDao, weiboDao, page);
+		List<WeiboReply> replies = DaoHelper.getPageWeiboReplyWithSenderRealName(peopleDao, weiboDao, page);
 		context.setModel("replies", replies);
 		log.debug("weibo:%s, replies:%s", weibo, replies);
 	}

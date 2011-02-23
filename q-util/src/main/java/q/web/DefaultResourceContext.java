@@ -74,6 +74,7 @@ public class DefaultResourceContext implements ResourceContext {
 	@Override
 	public void setModel(String key, Object value) {
 		request.setAttribute(key, value);
+		log.debug("set context model[%s:%s]", key, value);
 	}
 
 	/*

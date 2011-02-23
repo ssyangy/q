@@ -27,7 +27,12 @@
 		select
 		<include refid="weibo.columns" />
 		from weibo
-		where id=#value#
+		where id = #value#
+	</select>
+	
+	<select id="getPeopleWeiboNumByPeopleId" resultClass="int">
+		select count(id) from weibo 
+		where sender_id = #value#
 	</select>
 
 	<select id="selectPageGroupWeiboIds" resultClass="long">
@@ -36,11 +41,10 @@
 		where
 		group_id = #groupId#
 		<isNotNull prepend=" " property="startCreated">
-			and created >=
-			#startCreated#
+			and created &lt;= #startCreated#
 		</isNotNull>
 		<isNotNull prepend=" " property="startId">
-			and id >= #startId#
+			and id &lt;= #startId#
 		</isNotNull>
 		limit #startIndex#, #size#
 	</select>
@@ -53,21 +57,20 @@
 		<iterate open="(" close=")" conjunction=",">
 			#[]#
         </iterate>
-        order by created desc
+		order by created desc
 	</select>
 
 	<select id="selectPageWeibo" resultMap="weiboResult">
-		select 
+		select
 		<include refid="weibo.columns" />
 		from weibo
 		where
 		sender_id = #senderId#
 		<isNotNull prepend=" " property="startCreated">
-			and created >=
-			#startCreated#
+			and created &lt;= #startCreated#
 		</isNotNull>
 		<isNotNull prepend=" " property="startId">
-			and id >= #startId#
+			and id &lt;= #startId#
 		</isNotNull>
 		order by created desc
 		limit #startIndex#, #size#
@@ -152,11 +155,11 @@
 		where
 		quote_weibo_id = #quoteWeiboId#
 		<isNotNull prepend=" " property="startCreated">
-			and created >=
+			and created &lt;=
 			#startCreated#
 		</isNotNull>
 		<isNotNull prepend=" " property="startId">
-			and id >= #startId#
+			and id &lt;= #startId#
 		</isNotNull>
 		order by created desc
 		limit #startIndex#, #size#

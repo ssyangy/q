@@ -36,6 +36,20 @@ public interface EventDao {
 
 	/**
 	 * @param peopleId
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Event> getEventsByParticipantId(long peopleId) throws SQLException;
+
+	/**
+	 * @param eventIds
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Event> getEventsByIds(List<Long> eventIds) throws SQLException;
+
+	/**
+	 * @param peopleId
 	 * @param eventId
 	 */
 	void addPeopleJoinEvent(long peopleId, long eventId) throws SQLException;

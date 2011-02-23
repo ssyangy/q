@@ -4,12 +4,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 import q.dao.DaoHelper;
+import q.dao.EventDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.dao.page.WeiboPage;
+import q.domain.Event;
 import q.domain.People;
+import q.domain.PeopleRelation;
 import q.domain.Weibo;
-import q.log.Logger;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -20,8 +22,6 @@ import q.web.ResourceContext;
  * 
  */
 public class GetPeople extends Resource {
-	private final static Logger log = Logger.getLogger();
-
 	private PeopleDao peopleDao;
 
 	public void setPeopleDao(PeopleDao peopleDao) {
@@ -33,25 +33,43 @@ public class GetPeople extends Resource {
 	public void setWeiboDao(WeiboDao weiboDao) {
 		this.weiboDao = weiboDao;
 	}
+	
+	private EventDao eventDao;
+	
+	public void setEventDao(EventDao eventDao) {
+		this.eventDao = eventDao;
+	}
 
 	@Override
 	public void execute(ResourceContext context) throws SQLException {
-		Long peopleId = context.getResourceIdLong();
+		long peopleId = context.getResourceIdLong();
 
 		People people = peopleDao.getPeopleById(peopleId);
-		people.setFollowingNum(999999999);
-		people.setFollowNum(99);
-		people.setFriendNum(9);
+		people.setFollowingNum(peopleDao.getPeopleFollowingNumById(peopleId));
+		people.setFollowerNum(peopleDao.getPeopleFollowerNumById(peopleId));
+		people.setWeiboNum(weiboDao.getPeopleWeiboNumByPeopleId(peopleId));
 		context.setModel("people", people);
 
 		WeiboPage page = new WeiboPage();
 		page.setSenderId(peopleId);
-		page.setStartId(0);
 		page.setSize(20);
 		page.setStartIndex(0);
-		List<Weibo> weibos = DaoHelper.getPageWeibo(peopleDao, weiboDao, page);
+		List<Weibo> weibos = DaoHelper.getPageWeiboWithSenderRealName(peopleDao, weiboDao, page);
 		context.setModel("weibos", weibos);
-		log.debug("people:%s, weibos:%s", people, weibos);
-	}
+		
+		List<Event> events = eventDao.getEventsByParticipantId(peopleId);
+		context.setModel("events", events);
 
+		boolean isMe = peopleId == context.getLoginPeopleId();
+		context.setModel("isMe", isMe);
+		
+		boolean isFollowing = false;
+		if (isMe == false) {
+			PeopleRelation relation = peopleDao.getPeopleRelationByFromIdToId(context.getLoginPeopleId(), peopleId);
+			if(relation != null && relation.isFollowing()) {
+				isFollowing = true;
+			}
+		}
+		context.setModel("isFollowing", isFollowing);
+	}
 }

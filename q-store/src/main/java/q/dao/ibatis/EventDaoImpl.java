@@ -4,6 +4,7 @@
 package q.dao.ibatis;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import q.dao.EventDao;
 import q.domain.Event;
 import q.domain.PeopleJoinEvent;
 import q.domain.Status;
+import q.util.CollectionKit;
 import q.util.IdCreator;
 
 /**
@@ -52,7 +54,32 @@ public class EventDaoImpl extends AbstractDaoImpl implements EventDao {
 	 */
 	@Override
 	public PeopleJoinEvent getPeopleJoinEvent(long peopleId, long eventId) throws SQLException {
-		return (PeopleJoinEvent) this.sqlMapClient.queryForObject("selectPeopleJoinEvetByPeopleIdAndEventId", new PeopleJoinEvent(peopleId, eventId));
+		return (PeopleJoinEvent) this.sqlMapClient.queryForObject("selectPeopleJoinEventByPeopleIdAndEventId", new PeopleJoinEvent(peopleId, eventId));
+	}
+
+	@Override
+	public List<Event> getEventsByParticipantId(long peopleId) throws SQLException {
+		@SuppressWarnings("unchecked")
+		List<PeopleJoinEvent> joins = this.sqlMapClient.queryForList("selectPeopleJoinEventsByPeopleId", peopleId);
+		if (CollectionKit.isEmpty(joins)) {
+			return null;
+		}
+		List<Long> eventIds = new ArrayList<Long>(joins.size());
+		for (PeopleJoinEvent join : joins) {
+			eventIds.add(join.getEventId());
+		}
+		return getEventsByIds(eventIds);
+	}
+
+	/**
+	 * @param eventIds
+	 * @return
+	 * @throws SQLException
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Event> getEventsByIds(List<Long> eventIds) throws SQLException {
+		return (List<Event>) this.sqlMapClient.queryForList("selectEventsByIds", eventIds);
 	}
 
 	/*
@@ -84,7 +111,9 @@ public class EventDaoImpl extends AbstractDaoImpl implements EventDao {
 		this.sqlMapClient.update("updatePeopleJoinEventStatusByPeopleIdAndEventId", join);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.dao.EventDao#unjoinPeopleJoinEvent(long, long)
 	 */
 	@Override

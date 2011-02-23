@@ -23,14 +23,14 @@ import q.util.CollectionKit;
  */
 public class DaoHelper {
 
-	public static List<WeiboReply> getPageWeiboReply(PeopleDao peopleDao, WeiboDao weiboDao, WeiboReplyPage page) throws SQLException {
+	public static List<WeiboReply> getPageWeiboReplyWithSenderRealName(PeopleDao peopleDao, WeiboDao weiboDao, WeiboReplyPage page) throws SQLException {
 		List<WeiboReply> replies = weiboDao.getPageWeiboReply(page);
 		if (CollectionKit.isNotEmpty(replies)) {
 			Set<Long> senderIds = new HashSet<Long>(replies.size());
 			for (WeiboReply reply : replies) {
 				senderIds.add(reply.getSenderId());
 			}
-			Map<Long, String> map = peopleDao.getPeopleRealNamesByIds(senderIds);
+			Map<Long, String> map = peopleDao.getPeopleIdRealNameMapByIds(senderIds);
 			for (WeiboReply reply : replies) {
 				reply.setSenderRealName(map.get(reply.getSenderId()));
 			}
@@ -45,29 +45,14 @@ public class DaoHelper {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static List<Weibo> getPageGroupWeibo(PeopleDao peopleDao, WeiboDao weiboDao, WeiboPage page) throws SQLException {
+	public static List<Weibo> getPageGroupWeiboWithSenderRealName(PeopleDao peopleDao, WeiboDao weiboDao, WeiboPage page) throws SQLException {
 		List<Weibo> weibos = weiboDao.getPageGroupWeibo(page);
 		if (CollectionKit.isNotEmpty(weibos)) {
 			HashSet<Long> senderIds = new HashSet<Long>(weibos.size());
 			for (Weibo weibo : weibos) {
 				senderIds.add(weibo.getSenderId());
 			}
-			Map<Long, String> map = peopleDao.getPeopleRealNamesByIds(senderIds);
-			for (Weibo weibo : weibos) {
-				weibo.setSenderRealName(map.get(weibo.getSenderId()));
-			}
-		}
-		return weibos;
-	}
-	
-	public static List<Weibo> getPageWeibo(PeopleDao peopleDao, WeiboDao weiboDao, WeiboPage page) throws SQLException {
-		List<Weibo> weibos = weiboDao.getPageWeibo(page);
-		if (CollectionKit.isNotEmpty(weibos)) {
-			HashSet<Long> senderIds = new HashSet<Long>(weibos.size());
-			for (Weibo weibo : weibos) {
-				senderIds.add(weibo.getSenderId());
-			}
-			Map<Long, String> map = peopleDao.getPeopleRealNamesByIds(senderIds);
+			Map<Long, String> map = peopleDao.getPeopleIdRealNameMapByIds(senderIds);
 			for (Weibo weibo : weibos) {
 				weibo.setSenderRealName(map.get(weibo.getSenderId()));
 			}
@@ -75,4 +60,19 @@ public class DaoHelper {
 		return weibos;
 	}
 
+	public static List<Weibo> getPageWeiboWithSenderRealName(PeopleDao peopleDao, WeiboDao weiboDao, WeiboPage page) throws SQLException {
+		List<Weibo> weibos = weiboDao.getPageWeibo(page);
+		if (CollectionKit.isNotEmpty(weibos)) {
+			HashSet<Long> senderIds = new HashSet<Long>(weibos.size());
+			for (Weibo weibo : weibos) {
+				senderIds.add(weibo.getSenderId());
+			}
+			Map<Long, String> map = peopleDao.getPeopleIdRealNameMapByIds(senderIds);
+			for (Weibo weibo : weibos) {
+				weibo.setSenderRealName(map.get(weibo.getSenderId()));
+			}
+		}
+		return weibos;
+	}
+	
 }

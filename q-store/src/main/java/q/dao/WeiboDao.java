@@ -58,4 +58,10 @@ public interface WeiboDao {
 	 */
 	void addWeiboReply(WeiboReply reply) throws SQLException;
 
+	/**
+	 * @param peopleId
+	 * @return
+	 */
+	int getPeopleWeiboNumByPeopleId(long peopleId) throws SQLException;
+
 }

@@ -88,4 +88,15 @@ public class PeopleJoinEvent implements Serializable {
 		return "EventJoin [id=" + id + ", peopleId=" + peopleId + ", eventId=" + eventId + ", status=" + status + ", created=" + created + ", modified=" + modified + "]";
 	}
 
+	/**
+	 * @return
+	 */
+	public boolean isUnjoinStatus() {
+		return this.getStatus() == Status.DELETE.getValue();
+	}
+
+	public boolean isJoinStatus() {
+		return this.getStatus() == Status.COMMON.getValue();
+	}
+
 }

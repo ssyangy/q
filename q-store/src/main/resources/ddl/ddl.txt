@@ -22,6 +22,16 @@ create table people(
 	modified timestamp not null) 
 default character set utf8 engine = innodb;
 
+create table people_relation(
+	id bigint unsigned not null primary key,
+	from_people_id bigint unsigned not null,
+	to_people_id bigint unsigned not null,
+	alias varchar(32),
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null) 
+default character set utf8 engine = innodb;
+
 create table people_join_group(
 	id bigint unsigned not null primary key,
 	people_id bigint unsigned not null,
