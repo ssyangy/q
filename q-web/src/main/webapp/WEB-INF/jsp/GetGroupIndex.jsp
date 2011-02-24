@@ -9,24 +9,31 @@
 </head>
 
 <body>
-圈子目录:
-<br />
-<c:forEach items="${categorys}" var="current" varStatus="status">
-	<c:out value="${current.name}" />
-	<br />
-</c:forEach>
-<br />
-新圈子:
-<br />
-<c:forEach items="${newGroups}" var="group" varStatus="status">
-	<a href="<c:out value="${urlPrefix}/group/${group.id}"/>"> <c:out
-		value="${group.name}" /> </a>
-	<br />
-</c:forEach>
-人气活动:
-<br />
-圈子热议:
-<br />
-<a href='<c:out value="${urlPrefix}/group/new"/>'>创建圈子</a>
+	<div id="content">
+		<div>
+			<a href='<c:out value="${urlPrefix}/group/new"/>'>创建圈子</a>
+		</div>
+		<div>
+			圈子目录:<br />
+			<c:forEach items="${categorys}" var="current" varStatus="status">
+				<c:out value="${current.name}" />
+				<br />
+			</c:forEach>
+		</div>
+		<div>
+			人气活动:<br />
+		</div>
+		<div>
+			圈子热议:<br />
+		</div>
+	</div>
+	<div id="content2">
+		新圈子:<br />
+		<c:forEach items="${newGroups}" var="group" varStatus="status">
+			<a href="<c:out value="${urlPrefix}/group/${group.id}"/>"> <c:out
+				value="${group.name}" /> </a>
+			<br />
+		</c:forEach>
+	</div>
 </body>
 </html>

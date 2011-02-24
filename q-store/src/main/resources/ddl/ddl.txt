@@ -123,3 +123,15 @@ create table group_join_category(
 	created datetime not null,
 	modified timestamp not null) 
 default character set utf8 engine = innodb;
+
+# == message ==
+create table message(
+	id bigint unsigned not null primary key,
+	sender_id bigint unsigned not null,
+	receiver_id bigint unsigned not null,
+	quote_message_id bigint unsigned not null,
+	content varchar(1024) not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null) 
+default character set utf8 engine = innodb;

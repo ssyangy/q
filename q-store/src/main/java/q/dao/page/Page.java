@@ -3,6 +3,7 @@
  */
 package q.dao.page;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,7 +12,9 @@ import java.util.Date;
  * @date Feb 22, 2011
  * 
  */
-public class Page {
+public class Page implements Serializable{
+	private static final long serialVersionUID = -4271255854510793304L;
+
 	private Date startCreated;
 
 	private Integer startIndex = 0;

@@ -3,7 +3,8 @@
  */
 package q.web.message;
 
-import q.dao.MessageDao;
+import q.dao.PeopleDao;
+import q.domain.People;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -14,19 +15,24 @@ import q.web.ResourceContext;
  *
  */
 public class GetMessageNew extends Resource {
-	private MessageDao messageDao;
-
-	public void setMessageDao(MessageDao messageDao) {
-		this.messageDao = messageDao;
-	}
+	private PeopleDao peopleDao;
 	
+	public void setPeopleDao(PeopleDao peopleDao) {
+		this.peopleDao = peopleDao;
+	}
+
 	/* (non-Javadoc)
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-
+		long senderId = context.getLoginPeopleId();
+		if(senderId < 0 ) {
+			throw new IllegalStateException();
+		}
+		long receiverId = context.getLong("receiverId");
+		People receiver = peopleDao.getPeopleById(receiverId);
+		context.setModel("receiver", receiver);
 	}
 
 }

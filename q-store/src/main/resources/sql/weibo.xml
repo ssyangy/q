@@ -154,12 +154,11 @@
 		from weibo_reply
 		where
 		quote_weibo_id = #quoteWeiboId#
-		<isNotNull prepend=" " property="startCreated">
-			and created &lt;=
-			#startCreated#
+		<isNotNull prepend="and" property="startCreated">
+			created &lt;= #startCreated#
 		</isNotNull>
-		<isNotNull prepend=" " property="startId">
-			and id &lt;= #startId#
+		<isNotNull prepend="and" property="startId">
+			id &lt;= #startId#
 		</isNotNull>
 		order by created desc
 		limit #startIndex#, #size#

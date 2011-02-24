@@ -9,13 +9,13 @@
 <title>活动索引</title>
 </head>
 <body>
-新活动:
-<br />
-<c:forEach items="${newEvents}" var="event" varStatus="status">
-	<a href="<c:out value="${urlPrefix}/event/${event.id}"/>"> <c:out
-		value="${event.name}" /> </a>
-	<br />
-</c:forEach>
-
+<div id="content">
+	新活动:<br />
+	<c:forEach items="${newEvents}" var="event" varStatus="status">
+		<a href="<c:out value="${urlPrefix}/event/${event.id}"/>"> <c:out
+			value="${event.name}" /> </a>
+		<br />
+	</c:forEach>
+</div>
 </body>
 </html>

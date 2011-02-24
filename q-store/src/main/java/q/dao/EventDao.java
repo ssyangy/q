@@ -6,6 +6,7 @@ package q.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import q.dao.page.EventPage;
 import q.domain.Event;
 import q.domain.PeopleJoinEvent;
 
@@ -22,10 +23,10 @@ public interface EventDao {
 	Event getEventById(long eventId) throws SQLException;
 
 	/**
-	 * @param i
+	 * @param 
 	 * @return
 	 */
-	List<Event> getNewEvents(int i) throws SQLException;
+	List<Event> getPageEvents(EventPage page) throws SQLException;
 
 	/**
 	 * @param peopleId

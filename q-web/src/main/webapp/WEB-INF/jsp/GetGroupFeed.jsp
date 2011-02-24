@@ -8,17 +8,24 @@
 <title>圈子新鲜事</title>
 </head>
 <body>
-<div>我的圈子</div>
-<div>讨论区 | <a
-	href="<c:out value="${urlPrefix}/group/event"/>">活动</a> | <a
-	href="<c:out value="${urlPrefix}/group/photo"/>">相册</a></div>
-<div><c:forEach items="${groups}" var="group" varStatus="status">
-	<a href="<c:out value="${urlPrefix}/group/${group.id}"/>"><c:out
-		value="${group.name}" /></a>
-	<br />
-</c:forEach></div>
-<div>上海 <a href="#">切换所在地</a> <a
-	href="<c:out value="${contextPath}/group"/>">逛更多圈子</a></div>
-<div>新帖 | 热贴 | 我发起的 | 我回复的 | 我关注的</div>
+<div id="content">
+	<div>我的圈子</div>
+	<div>讨论区 | <a
+		href="<c:out value="${urlPrefix}/group/event"/>">活动</a> | <a
+		href="<c:out value="${urlPrefix}/group/photo"/>">相册</a></div>
+	<div><c:forEach items="${groups}" var="group" varStatus="status">
+		<a href="<c:out value="${urlPrefix}/group/${group.id}"/>"><c:out
+			value="${group.name}" /></a>
+		<br />
+	</c:forEach></div>
+	<div>上海 <a href="#">切换所在地</a> 
+		<a href="<c:out value="${contextPath}/group"/>">逛更多圈子</a>
+	</div>
+	<div>新帖 | 热贴 | 我发起的 | 我回复的 | 我关注的</div>
+</div>
+<div id="content2">
+	<div>圈子活动:<br/></div>
+	<div>热图:<br/></div>
+</div>
 </body>
 </html>

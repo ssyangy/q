@@ -9,6 +9,19 @@
 <title>私信</title>
 </head>
 <body>
-
+<div id="content">
+	<div>
+		<c:forEach items="${messages}" var="message" varStatus="status">
+			
+			<a href="<c:out value="${urlPrefix}/people/${message.senderId}"/>"><c:out
+				value="${message.senderRealName}" /></a>发送给
+			<a href="<c:out value="${urlPrefix}/people/${message.receiverId}"/>"><c:out
+				value="${message.receiverRealName}" /></a>
+			<c:out value="${message.content}" />
+			<c:out value="${message.created}" />
+			<br />
+		</c:forEach>
+	</div>
+</div>
 </body>
 </html>

@@ -9,6 +9,13 @@
 <title>好友新鲜事</title>
 </head>
 <body>
-
+<div id="content">
+	<div>新动态 | @提到我 | 回复我</div>
+</div>
+<div id="content2">
+<div>好友地图 
+	<div>附近好友 | 全部好友 | 附近陌生人</div> 
+</div>
+</div>
 </body>
 </html>

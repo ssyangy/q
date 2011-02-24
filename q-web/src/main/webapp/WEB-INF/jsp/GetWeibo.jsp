@@ -9,19 +9,25 @@
 <title>微博</title>
 </head>
 <body>
-<div><c:out value="${weibo.content}" /></div>
-<div>
-<form action="<c:out value="${contextPath}/weibo/${weibo.id}/reply"/>"
-	method="post"><textarea name="content"></textarea>
-<button>回复</button>
-</form>
+<div id="content">
+	<div>
+		<c:out value="${weibo.content}" />
+	</div>
+	<div>
+		<form action="<c:out value="${contextPath}/weibo/${weibo.id}/reply"/>"
+			method="post"><textarea name="content"></textarea>
+		<button>回复</button>
+		</form>
+	</div>
+	<div>
+		<c:forEach items="${replies}" var="reply" varStatus="status">
+			<c:out value="${reply.content}" />
+			<a href="<c:out value="${contextPath}/people/${reply.senderId}"/>"><c:out
+				value="${reply.senderRealName}" /></a>
+			<c:out value="${reply.created}" />
+			<br />
+		</c:forEach>
+	</div>
 </div>
-<div><c:forEach items="${replies}" var="reply" varStatus="status">
-	<c:out value="${reply.content}" />
-	<a href="<c:out value="${contextPath}/people/${reply.senderId}"/>"><c:out
-		value="${reply.senderRealName}" /></a>
-	<c:out value="${reply.created}" />
-	<br />
-</c:forEach></div>
 </body>
 </html>

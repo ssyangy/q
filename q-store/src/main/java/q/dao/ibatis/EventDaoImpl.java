@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import q.dao.EventDao;
+import q.dao.page.EventPage;
 import q.domain.Event;
 import q.domain.PeopleJoinEvent;
 import q.domain.Status;
@@ -43,8 +44,8 @@ public class EventDaoImpl extends AbstractDaoImpl implements EventDao {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Event> getNewEvents(int limit) throws SQLException {
-		return (List<Event>) this.sqlMapClient.queryForList("selectNewEvents", limit);
+	public List<Event> getPageEvents(EventPage page) throws SQLException {
+		return (List<Event>) this.sqlMapClient.queryForList("selectPageEvents", page);
 	}
 
 	/*

@@ -44,10 +44,11 @@
 		<include refid="group.columns" />
 		from `group` where id in
 		(
-		select group_id from people_join_group
-		where
-		people_id = #value#
-		);
+			select group_id from people_join_group
+			where
+			people_id = #value#
+		)
+		order by created desc
 	</select>
 
 	<select id="selectNewGroups" resultMap="groupResult">

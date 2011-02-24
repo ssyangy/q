@@ -79,18 +79,20 @@ public class DefaultResourceContext implements ResourceContext {
 	}
 
 	/*
-	 * (non-Javadoc)
+	 * 
 	 * 
 	 * @see q.web.ResourceContext#getLoginPeopleId()
 	 */
 	@Override
 	public long getLoginPeopleId() {
 		Cookie[] cookies = request.getCookies();
-		for (int i = 0; i < cookies.length; i++) {
-			Cookie cookie = cookies[i];
-			if ("u".equals(cookie.getName())) { // login user
-				if (StringKit.isNotEmpty(cookie.getValue())) {
-					return Long.valueOf(cookie.getValue());
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				Cookie cookie = cookies[i];
+				if ("u".equals(cookie.getName())) { // login user
+					if (StringKit.isNotEmpty(cookie.getValue())) {
+						return Long.valueOf(cookie.getValue());
+					}
 				}
 			}
 		}
@@ -106,13 +108,15 @@ public class DefaultResourceContext implements ResourceContext {
 
 	public void removeLoginToken() {
 		Cookie[] cookies = request.getCookies();
-		for (int i = 0; i < cookies.length; i++) {
-			if ("u".equals(cookies[i].getName())) {
-				Cookie cookie = new Cookie("u", null);
-				cookie.setMaxAge(0);// clear login token
-				cookie.setPath("/");
-				response.addCookie(cookie);
-				break;
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				if ("u".equals(cookies[i].getName())) {
+					Cookie cookie = new Cookie("u", null);
+					cookie.setMaxAge(0);// clear login token
+					cookie.setPath("/");
+					response.addCookie(cookie);
+					break;
+				}
 			}
 		}
 	}

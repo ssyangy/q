@@ -13,4 +13,13 @@ public class IdCreator {
 	public static long getLongId() {
 		return System.currentTimeMillis();
 	}
+
+	public static boolean isValidIds(long... ids) {
+		for (long id : ids) {
+			if (id <= 0) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

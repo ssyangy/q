@@ -37,7 +37,7 @@
 					</form>
 				</c:otherwise>
 			</c:choose>
-			<a href="<c:out value="${urlPrefix}/message/new?peopleId=${people.id}" />">私信<c:out value="${people.gender.cncall}" /></a>
+			<a href="<c:out value="${urlPrefix}/message/new?receiverId=${people.id}" />">私信<c:out value="${people.gender.cncall}" /></a>
 			<a href="<c:out value="${urlPrefix}/weibo/new?peopleId=${people.id}" />">@<c:out value="${people.gender.cncall}" /></a>
 		</c:if>
 		

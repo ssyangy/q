@@ -9,8 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import q.dao.page.MessagePage;
 import q.dao.page.WeiboPage;
 import q.dao.page.WeiboReplyPage;
+import q.domain.Message;
 import q.domain.Weibo;
 import q.domain.WeiboReply;
 import q.util.CollectionKit;
@@ -74,5 +76,22 @@ public class DaoHelper {
 		}
 		return weibos;
 	}
-	
+
+	public static List<Message> getPageMessageRealName(PeopleDao peopleDao, MessageDao messageDao, MessagePage page) throws SQLException {
+		List<Message> messages = messageDao.getPageMessages(page);
+		if (CollectionKit.isNotEmpty(messages)) {
+			HashSet<Long> peopleIds = new HashSet<Long>(messages.size() + 1); // people number is less than messages count + 1
+			for (Message message : messages) {
+				peopleIds.add(message.getSenderId());
+				peopleIds.add(message.getReceiverId());
+			}
+			Map<Long, String> map = peopleDao.getPeopleIdRealNameMapByIds(peopleIds);
+			for (Message message : messages) {
+				message.setSenderRealName(map.get(message.getSenderId()));
+				message.setReceiverRealName(map.get(message.getReceiverId()));
+			}
+		}
+		return messages;
+	}
+
 }

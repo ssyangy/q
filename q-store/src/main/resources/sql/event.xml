@@ -46,7 +46,7 @@
 		event
 		where id=#value#
 	</select>
-	
+
 	<select id="selectEventsByIds" resultMap="eventSimpleResult">
 		select
 		id, group_id, name
@@ -58,12 +58,15 @@
         </iterate>
 	</select>
 
-	<select id="selectNewEvents" resultMap="eventResult">
+	<select id="selectPageEvents" resultMap="eventResult">
 		select
 		<include refid="event.columns" />
 		from event
+		<dynamic prepend="where">
+			<isNotNull property="groupId">group_id = #groupId#</isNotNull>
+		</dynamic>
 		order by created desc
-		limit #value#;
+		limit #startIndex#, #size#
 	</select>
 
 	<insert id="insertEvent">
@@ -115,7 +118,8 @@
 		event_id = #eventId#
 	</insert>
 
-	<select id="selectPeopleJoinEventByPeopleIdAndEventId" resultMap="pjeResult">
+	<select id="selectPeopleJoinEventByPeopleIdAndEventId"
+		resultMap="pjeResult">
 		select
 		<include refid="pje.columns" />
 		from
@@ -125,7 +129,7 @@
 		and
 		event_id=#eventId#
 	</select>
-	
+
 	<select id="selectPeopleJoinEventsByPeopleId" resultMap="pjeResult">
 		select
 		<include refid="pje.columns" />
@@ -135,7 +139,8 @@
 		status = 0
 		and
 		people_id=#peopleId#
-		order by created desc
+		order by
+		created desc
 	</select>
 
 </sqlMap>
