@@ -20,6 +20,7 @@ import org.apache.cactus.WebResponse;
 import org.apache.cactus.extension.jetty.Jetty5xTestSetup;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.web.servlet.ModelAndView;
 
 import q.web.DefaultResourceContext;
 import q.web.ResourceContext;
@@ -51,7 +52,7 @@ public class ResourceRouterTest extends ServletTestCase {
 		getRouter().setViewResolver(new ViewResolver() {
 
 			@Override
-			public void view(ResourceContext context, q.web.Resource resource) throws ServletException, IOException {
+			public ModelAndView view(ResourceContext context, q.web.Resource resource) throws ServletException, IOException {
 				HttpServletRequest request = ((DefaultResourceContext) context).getRequest();
 				HttpServletResponse response = ((DefaultResourceContext) context).getResponse();
 				@SuppressWarnings("unchecked")
@@ -62,6 +63,7 @@ public class ResourceRouterTest extends ServletTestCase {
 				}
 				response.getWriter().flush();
 				response.getWriter().close();
+				return null;
 			}
 		});
 	}

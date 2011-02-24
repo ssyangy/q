@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author seanlinwang
  * @date Jan 18, 2011
  */
-public class JspViewResolver implements ViewResolver {
+public class SimpleSpringViewResolver implements ViewResolver {
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -21,19 +21,7 @@ public class JspViewResolver implements ViewResolver {
 	 */
 	@Override
 	public ModelAndView view(ResourceContext context, Resource resource) throws ServletException, IOException {
-		if (context.isEmptyView()) { // return if empty view
-			return null;
-		}
-		if (context.isCommitted()) { // return if already committed
-			return null;
-		}
-		String redirect = resource.getRedirectPath();
-		if (redirect != null) {
-			context.redirectServletPath(redirect);
-			return null;
-		}
-		context.forward("/WEB-INF/jsp/" + resource.getName() + ".jsp");
-		return null;
+		return new ModelAndView(resource.getName());
 	}
 
 }

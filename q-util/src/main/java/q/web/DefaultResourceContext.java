@@ -2,6 +2,7 @@ package q.web;
 
 import java.io.IOException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -146,6 +147,17 @@ public class DefaultResourceContext implements ResourceContext {
 
 	public boolean isEmptyView() {
 		return isEmptyView;
+	}
+
+	@Override
+	public boolean isCommitted() {
+		return response.isCommitted();
+	}
+
+	@Override
+	public void forward(String path) throws ServletException, IOException {
+		request.getRequestDispatcher(path).forward(request, response);
+		log.debug("forward to %s", path);
 	}
 
 }

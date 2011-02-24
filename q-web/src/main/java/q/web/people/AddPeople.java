@@ -1,7 +1,6 @@
 package q.web.people;
 
 import java.sql.SQLException;
-import java.util.Date;
 
 import q.dao.PeopleDao;
 import q.domain.Gender;
@@ -25,16 +24,13 @@ public class AddPeople extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws SQLException {
 		People people = new People();
-		people.setId(System.currentTimeMillis());
 		people.setEmail(context.getString("email"));
 		people.setPassword(context.getString("password"));
 		people.setUsername(context.getString("username"));
 		people.setRealName(context.getString("real_name"));
 		people.setGender(Gender.convertValue(context.getInt("gender")));
 		people.setLoginToken("xxxx");
-		people.setCreated(new Date());
-		context.setModel("idd", people.getId());
-		log.debug("add person %s", people);
 		peopleDao.addPeople(people);
+		context.setModel("idd", people.getId());
 	}
 }

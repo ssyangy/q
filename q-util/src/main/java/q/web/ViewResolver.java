@@ -4,8 +4,10 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
+import org.springframework.web.servlet.ModelAndView;
+
 public interface ViewResolver {
 
-	void view(ResourceContext context, Resource resource) throws ServletException, IOException;
+	ModelAndView view(ResourceContext context, Resource resource) throws ServletException, IOException;
 
 }

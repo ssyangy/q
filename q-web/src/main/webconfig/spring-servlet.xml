@@ -12,10 +12,22 @@
 			<value>true</value>
 		</property>
 	</bean>
+	<bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/jsp/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
 	<bean id="router" class="q.web.ResourceRouter">
 		<property name="defaultResource" ref="default" />
 		<property name="urlPrefix" value="${q.url.prefix}" />
 		<property name="contextPath" value="${q.context.path}" />
+		<property name="viewResolver">
+			<bean class="q.web.SpringViewResolver" />
+		</property>
 		<property name="loginPath" value="/login/new" />
 		<property name="needLoginResources">
 			<set>

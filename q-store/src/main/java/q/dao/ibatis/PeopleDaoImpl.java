@@ -32,6 +32,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 	 */
 	@Override
 	public void addPeople(People p) throws SQLException {
+		p.setId(IdCreator.getLongId());
 		this.sqlMapClient.insert("insertPeople", p);
 	}
 

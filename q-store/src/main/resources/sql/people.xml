@@ -135,9 +135,9 @@
 		#loginToken#,
 		#realName#,
 		#intro#,
-		#status#,
-		#created#,
-		#modified#
+		0,
+		now(),
+		null
 		)
 	</insert>
 

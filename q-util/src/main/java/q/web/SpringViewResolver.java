@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author seanlinwang
  * @date Jan 18, 2011
  */
-public class JspViewResolver implements ViewResolver {
+public class SpringViewResolver implements ViewResolver {
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -32,8 +32,7 @@ public class JspViewResolver implements ViewResolver {
 			context.redirectServletPath(redirect);
 			return null;
 		}
-		context.forward("/WEB-INF/jsp/" + resource.getName() + ".jsp");
-		return null;
+		return new ModelAndView(resource.getName());
 	}
 
 }

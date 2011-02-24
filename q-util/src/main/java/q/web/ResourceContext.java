@@ -2,6 +2,8 @@ package q.web;
 
 import java.io.IOException;
 
+import javax.servlet.ServletException;
+
 /**
  * @author seanlinwang
  * @date Jan 18, 2011
@@ -32,19 +34,20 @@ public interface ResourceContext {
 
 	/**
 	 * Redirect to reffer url.
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	void redirectReffer() throws IOException;
 
 	/**
 	 * @param contextPath
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	void redirectContextPath(String contextPath) throws IOException;
 
 	/**
 	 * @param servletPath
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	void redirectServletPath(String servletPath) throws IOException;
 
@@ -52,6 +55,17 @@ public interface ResourceContext {
 	 * 
 	 */
 	void emptyView();
-	
+
 	boolean isEmptyView();
+
+	/**
+	 * @return
+	 */
+	boolean isCommitted();
+
+	/**
+	 * @param string
+	 * @throws Exception
+	 */
+	void forward(String string) throws ServletException, IOException;
 }

@@ -15,7 +15,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.web.HttpRequestHandler;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
 
 import q.log.Logger;
 import q.util.StringKit;
@@ -27,7 +28,7 @@ import q.util.StringKit;
  * @date Jan 16, 2011
  * 
  */
-public class ResourceRouter implements HttpRequestHandler, ApplicationContextAware {
+public class ResourceRouter implements Controller, ApplicationContextAware {
 	public static final char PATH_SPLIT = '/';
 	public static final String HTTP_METHOD_POST = "post";
 	public static final String HTTP_INNER_METHOD = "_method";
@@ -56,7 +57,7 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 		this.defaultResource = defaultResource;
 	}
 
-	private ViewResolver viewResolver = new JspViewResolver(); // jsp is the default view resolver
+	private ViewResolver viewResolver = new SpringViewResolver();
 
 	public void setViewResolver(ViewResolver viewResolver) {
 		this.viewResolver = viewResolver;
@@ -87,7 +88,7 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 	}
 
 	@Override
-	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String method = request.getMethod().toLowerCase(); // lowercase http method
 		String path = request.getRequestURI().substring(request.getContextPath().length()); // path without context and domain
 		log.debug("request resource by method %s and path %s", method, path);
@@ -96,12 +97,13 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 		if (resource == null) { // if resource not exists , return 404
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			log.info("resource not found by method %s and path %s", method, path);
+			return null;
 		} else {
 			ResourceContext context = toResourceContext(request, response, path, segs); // construct resource context
 			if (this.needLoginResources != null && this.needLoginResources.contains(resource.getName())) { // request resource need visitor login first
 				if (context.getLoginPeopleId() < 0) { // visitor logoff
-					response.sendRedirect(request.getContextPath() + loginPath + "?from=" + request.getContextPath() + path);
-					return;
+					context.redirectServletPath(loginPath + "?from=" + request.getContextPath() + path);
+					return null;
 				}
 			}
 
@@ -111,13 +113,14 @@ public class ResourceRouter implements HttpRequestHandler, ApplicationContextAwa
 					resource.execute(context); // execute resource if exists
 				}
 				complementModel(context); // complement model
-				this.viewResolver.view(context, resource);// use resource name as view name
+				ModelAndView view = this.viewResolver.view(context, resource);// use resource name as view name
+				return view;
 			} catch (Exception e) {
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				log.error("resource execute exeption by method %s and path %s", e, method, path);
 			}
+			return null;
 		}
-		return;
 	}
 
 	private void complementModel(ResourceContext context) {
