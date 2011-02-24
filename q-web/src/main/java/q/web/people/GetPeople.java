@@ -35,13 +35,13 @@ public class GetPeople extends Resource {
 	public void setWeiboDao(WeiboDao weiboDao) {
 		this.weiboDao = weiboDao;
 	}
-	
+
 	private EventDao eventDao;
-	
+
 	public void setEventDao(EventDao eventDao) {
 		this.eventDao = eventDao;
 	}
-	
+
 	private GroupDao groupDao;
 
 	public void setGroupDao(GroupDao groupDao) {
@@ -64,20 +64,24 @@ public class GetPeople extends Resource {
 		page.setStartIndex(0);
 		List<Weibo> weibos = DaoHelper.getPageWeiboWithSenderRealName(peopleDao, weiboDao, page);
 		context.setModel("weibos", weibos);
-		
+
 		List<Event> events = eventDao.getEventsByParticipantId(peopleId);
 		context.setModel("events", events);
-		
+
 		List<Group> groups = groupDao.getGroupsByPeopleId(peopleId);
 		context.setModel("groups", groups);
 
-		boolean isMe = peopleId == context.getLoginPeopleId();
+		long loginPeopleId = context.getLoginPeopleId();
+		boolean isMe = false;
+		if (loginPeopleId > 0 && peopleId == loginPeopleId) {
+			isMe = true;
+		}
 		context.setModel("isMe", isMe);
-		
+
 		boolean isFollowing = false;
 		if (isMe == false) {
-			PeopleRelation relation = peopleDao.getPeopleRelationByFromIdToId(context.getLoginPeopleId(), peopleId);
-			if(relation != null && relation.isFollowing()) {
+			PeopleRelation relation = peopleDao.getPeopleRelationByFromIdToId(loginPeopleId, peopleId);
+			if (relation != null && relation.isFollowing()) {
 				isFollowing = true;
 			}
 		}
