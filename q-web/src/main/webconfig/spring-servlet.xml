@@ -61,6 +61,7 @@
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="eventDao" ref="eventDao" />
+		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="addPeople" class="q.web.people.AddPeople">
 		<property name="peopleDao" ref="peopleDao" />

@@ -5,10 +5,12 @@ import java.util.List;
 
 import q.dao.DaoHelper;
 import q.dao.EventDao;
+import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.dao.page.WeiboPage;
 import q.domain.Event;
+import q.domain.Group;
 import q.domain.People;
 import q.domain.PeopleRelation;
 import q.domain.Weibo;
@@ -39,6 +41,12 @@ public class GetPeople extends Resource {
 	public void setEventDao(EventDao eventDao) {
 		this.eventDao = eventDao;
 	}
+	
+	private GroupDao groupDao;
+
+	public void setGroupDao(GroupDao groupDao) {
+		this.groupDao = groupDao;
+	}
 
 	@Override
 	public void execute(ResourceContext context) throws SQLException {
@@ -59,6 +67,9 @@ public class GetPeople extends Resource {
 		
 		List<Event> events = eventDao.getEventsByParticipantId(peopleId);
 		context.setModel("events", events);
+		
+		List<Group> groups = groupDao.getGroupsByPeopleId(peopleId);
+		context.setModel("groups", groups);
 
 		boolean isMe = peopleId == context.getLoginPeopleId();
 		context.setModel("isMe", isMe);

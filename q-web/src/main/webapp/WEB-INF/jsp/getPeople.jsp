@@ -54,13 +54,23 @@
 		</div>
 	</div>
 	<div id="content2">
-		<c:out value="${people.gender.cncall}" />参与的活动: <br />
-		<c:forEach items="${events}" var="event" varStatus="status">
-			<a href="<c:out value="${urlPrefix}/event/${event.id}"/>">
-				<c:out value="${event.name}" /> 
-			</a>
-			<br />
-		</c:forEach>
+		<div>
+			<c:out value="${people.gender.cncall}" />加入的圈子: <br />
+			<c:forEach items="${groups}" var="group" varStatus="status">
+			<a href="<c:out value="${urlPrefix}/group/${group.id}"/>">
+				<c:out value="${group.name}" />
+			</a><br />
+			</c:forEach>
+		</div>
+		<div>
+			<c:out value="${people.gender.cncall}" />参与的活动: <br />
+			<c:forEach items="${events}" var="event" varStatus="status">
+				<a href="<c:out value="${urlPrefix}/event/${event.id}"/>">
+					<c:out value="${event.name}" /> 
+				</a>
+				<br />
+			</c:forEach>
+		</div>
 	</div>
 </body>
 </html>
