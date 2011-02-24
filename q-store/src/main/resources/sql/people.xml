@@ -146,7 +146,6 @@
 		year = #year#,
 		month =#month#,
 		day=#day#,
-		gender_id=#gender,handler=q.dao.ibatis.GenderHandler#,
 		blood_type_id=#bloodTypeId#,
 		education_id=#educationId#,
 		role_id=#roleId#,

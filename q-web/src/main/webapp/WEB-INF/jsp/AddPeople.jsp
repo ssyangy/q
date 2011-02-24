@@ -19,10 +19,7 @@
 <select name="gsub_type" id="region" onchange="" >
 </select>
 <br/>
-性别:
-<INPUT type="radio" name="gender" value="1">男
-<INPUT type="radio" name="gender" value="2">女
-<br/>
+
 年龄:
 <input   type=text  name= "year"   value= "" >年
  <input   type=text   name= "month"   value= "" >月
