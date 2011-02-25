@@ -41,7 +41,7 @@ public class AddWeibo extends Resource {
 		if (from != null) {
 			context.redirectContextPath(from);
 		} else {
-			context.redirectServletPath("/weibo/" + weibo.getId());
+			context.emptyView();
 		}
 
 	}

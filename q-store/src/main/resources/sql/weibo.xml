@@ -60,17 +60,17 @@
 		order by created desc
 	</select>
 
-	<select id="selectPageWeibos" resultMap="weiboResult">
+	<select id="selectPageWeibo" resultMap="weiboResult">
 		select
 		<include refid="weibo.columns" />
 		from weibo
 		where
 		sender_id = #senderId#
-		<isNotNull prepend="and" property="startCreated">
-			created &lt;= #startCreated#
+		<isNotNull prepend=" " property="startCreated">
+			and created &lt;= #startCreated#
 		</isNotNull>
-		<isNotNull prepend="and" property="startId">
-			id &lt;= #startId#
+		<isNotNull prepend=" " property="startId">
+			and id &lt;= #startId#
 		</isNotNull>
 		order by created desc
 		limit #startIndex#, #size#

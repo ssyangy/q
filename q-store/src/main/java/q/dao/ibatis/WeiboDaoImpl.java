@@ -66,7 +66,7 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Weibo> getPageWeibo(WeiboPage page) throws SQLException {
-		return (List<Weibo>) this.sqlMapClient.queryForList("selectPageWeibos", page);
+		return (List<Weibo>) this.sqlMapClient.queryForList("selectPageWeibo", page);
 	}
 
 	/*

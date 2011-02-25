@@ -42,10 +42,8 @@
 	<div><c:forEach items="${weibos}" var="weibo" varStatus="status">
 		<c:out value="${weibo.content}" />
 		<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}"/>"> 回复 </a>&nbsp;
-		<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}/retweet?from=${contextPath}/group/${group.id}"/>"> 转发 </a>&nbsp;
-		<a href="<c:out value="${contextPath}/people/${weibo.senderId}"/>">
-			<c:out value="${weibo.senderRealName}" />
-		</a>
+		<a href="<c:out value="${contextPath}/people/${weibo.senderId}"/>"><c:out
+			value="${weibo.senderRealName}" /></a>
 		<c:out value="${weibo.created}" />
 		<br />
 	</c:forEach></div>
