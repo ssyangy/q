@@ -35,7 +35,7 @@
 		action="<c:out value="${contextPath}/weibo?from=${contextPath}/group/${group.id}"/>"
 		method="post"><textarea name="content"></textarea> <input
 		type="hidden" name="groupId" value="<c:out value="${group.id}"/>" />
-	<button>发表</button>
+	<button>发言</button>
 	</form>
 	</div>
 	<div>新帖 | 热贴 | 我发起的 | 我回复的 | 我关注的</div>

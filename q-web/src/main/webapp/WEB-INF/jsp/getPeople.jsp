@@ -38,7 +38,7 @@
 				</c:otherwise>
 			</c:choose>
 			<a href="<c:out value="${urlPrefix}/message/new?receiverId=${people.id}" />">私信<c:out value="${people.gender.cncall}" /></a>
-			<a href="<c:out value="${urlPrefix}/weibo/new?peopleId=${people.id}" />">@<c:out value="${people.gender.cncall}" /></a>
+			<a href="<c:out value="${urlPrefix}/weibo/new?receiverId=${people.id}&from=${contextPath}/people/${people.id}" />">@<c:out value="${people.gender.cncall}" /></a>
 		</c:if>
 		
 		<div>发言 | 关注</div>

@@ -50,7 +50,11 @@ public class DefaultResourceContext implements ResourceContext {
 
 	@Override
 	public long getLong(String key) {
-		return Long.valueOf(getString(key));
+		try {
+			return Long.valueOf(getString(key));
+		} catch (Exception e) {
+		}
+		return -1;
 	}
 
 	@Override
