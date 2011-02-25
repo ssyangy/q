@@ -62,7 +62,7 @@ public class DaoHelper {
 		return weibos;
 	}
 
-	public static List<Weibo> getPageWeiboWithSenderRealName(PeopleDao peopleDao, WeiboDao weiboDao, WeiboPage page) throws SQLException {
+	public static List<Weibo> getPageWeiboBySenderIdWithSenderRealName(PeopleDao peopleDao, WeiboDao weiboDao, WeiboPage page) throws SQLException {
 		List<Weibo> weibos = weiboDao.getPageWeibo(page);
 		if (CollectionKit.isNotEmpty(weibos)) {
 			HashSet<Long> senderIds = new HashSet<Long>(weibos.size());
