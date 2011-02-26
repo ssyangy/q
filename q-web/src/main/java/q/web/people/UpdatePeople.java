@@ -4,7 +4,6 @@
 package q.web.people;
 
 import q.dao.PeopleDao;
-import q.domain.Gender;
 import q.domain.People;
 import q.web.Resource;
 import q.web.ResourceContext;

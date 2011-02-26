@@ -52,7 +52,7 @@
 				<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}/retweet?from=${contextPath}/people/${people.id}"/>">转发</a>&nbsp;
 				<a href="<c:out value="${urlPrefix}/people/${weibo.senderId}"/>"><c:out
 					value="${weibo.senderRealName}" /></a>
-				<c:out value="${weibo.created}" />
+				<c:out value="${weibo.time}" />
 				<br />
 			</c:forEach>
 		</div>

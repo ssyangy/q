@@ -4,7 +4,6 @@
 package q.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author seanlinwang
@@ -12,17 +11,11 @@ import java.util.Date;
  * @date Feb 24, 2011
  * 
  */
-public class Message implements Serializable {
+public class Message extends AbstractDomain implements Serializable {
 
 	private static final long serialVersionUID = -676135026148020795L;
 
-	private long id;
-
 	private int status;
-
-	private Date created;
-
-	private Date modified;
 
 	private String content;
 
@@ -44,36 +37,12 @@ public class Message implements Serializable {
 		this.quoteMessageId = quoteMessageId;
 	}
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	public int getStatus() {
 		return status;
 	}
 
 	public void setStatus(int status) {
 		this.status = status;
-	}
-
-	public Date getCreated() {
-		return created;
-	}
-
-	public void setCreated(Date created) {
-		this.created = created;
-	}
-
-	public Date getModified() {
-		return modified;
-	}
-
-	public void setModified(Date modified) {
-		this.modified = modified;
 	}
 
 	public String getContent() {

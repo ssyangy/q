@@ -1,15 +1,9 @@
 package q.domain;
 
-import java.util.Date;
 import java.io.Serializable;
 
-public class People implements Serializable {
-	/**
-	 * 
-	 */
+public class People extends AbstractDomain implements Serializable {
 	private static final long serialVersionUID = -5592959607374663712L;
-
-	private long id;
 
 	private String username;
 
@@ -43,10 +37,6 @@ public class People implements Serializable {
 
 	private byte status;
 
-	private Date created;
-
-	private Date modified;
-
 	private int friendNum;
 
 	private int followerNum;
@@ -58,14 +48,6 @@ public class People implements Serializable {
 	private String intro;
 
 	// =========================================
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getUsername() {
 		return username;
@@ -188,22 +170,6 @@ public class People implements Serializable {
 
 	public void setStatus(byte status) {
 		this.status = status;
-	}
-
-	public Date getCreated() {
-		return created;
-	}
-
-	public void setCreated(Date created) {
-		this.created = created;
-	}
-
-	public Date getModified() {
-		return modified;
-	}
-
-	public void setModified(Date modified) {
-		this.modified = modified;
 	}
 
 	public String getLoginToken() {

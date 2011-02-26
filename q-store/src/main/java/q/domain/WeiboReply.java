@@ -4,7 +4,6 @@
 package q.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author seanlinwang
@@ -12,11 +11,9 @@ import java.util.Date;
  * @date Feb 22, 2011
  * 
  */
-public class WeiboReply implements Serializable {
+public class WeiboReply extends AbstractDomain implements Serializable {
 
 	private static final long serialVersionUID = -3572302391963822701L;
-
-	private long id;
 
 	private long senderId;
 
@@ -31,18 +28,6 @@ public class WeiboReply implements Serializable {
 	private String content;
 
 	private int status;
-
-	private Date created;
-
-	private Date modified;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public long getSenderId() {
 		return senderId;
@@ -90,22 +75,6 @@ public class WeiboReply implements Serializable {
 
 	public void setStatus(int status) {
 		this.status = status;
-	}
-
-	public Date getCreated() {
-		return created;
-	}
-
-	public void setCreated(Date created) {
-		this.created = created;
-	}
-
-	public Date getModified() {
-		return modified;
-	}
-
-	public void setModified(Date modified) {
-		this.modified = modified;
 	}
 
 	public String getSenderRealName() {

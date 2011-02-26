@@ -18,7 +18,7 @@
 			<a href="<c:out value="${urlPrefix}/people/${message.receiverId}"/>"><c:out
 				value="${message.receiverRealName}" /></a>
 			<c:out value="${message.content}" />
-			<c:out value="${message.created}" />
+			<c:out value="${message.time}" />
 			<br />
 		</c:forEach>
 	</div>

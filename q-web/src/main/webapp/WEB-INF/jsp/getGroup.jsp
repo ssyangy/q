@@ -46,7 +46,7 @@
 		<a href="<c:out value="${contextPath}/people/${weibo.senderId}"/>">
 			<c:out value="${weibo.senderRealName}" />
 		</a>
-		<c:out value="${weibo.created}" />
+		<c:out value="${weibo.time}" />
 		<br />
 	</c:forEach></div>
 </div>
