@@ -124,7 +124,7 @@ public class DateKit {
 	}
 
 	public static String date2SinaStyle(Date before, Date base) {
-		StringBuilder sb = new StringBuilder(16); // "2011-11-12 4月3日".length==16
+		StringBuilder sb = new StringBuilder(16); // "2011-11-12 24:24".length==17
 		long seconds = (base.getTime() - before.getTime()) / 1000;
 		if (seconds == 0) {
 			sb.append("10秒前");
