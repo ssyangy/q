@@ -41,8 +41,8 @@
 	<div>新帖 | 热贴 | 我发起的 | 我回复的 | 我关注的</div>
 	<div><c:forEach items="${weibos}" var="weibo" varStatus="status">
 		<br/><c:out value="${weibo.content}" /><br/>
+		<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}/retweet?groupId=${group.id}&from=${contextPath}/group/${group.id}"/>">分享给好友</a>&nbsp;
 		<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}"/>">回复</a>&nbsp;
-		<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}/retweet?groupId=${group.id}&from=${contextPath}/group/${group.id}"/>">转发</a>&nbsp;
 		<a href="<c:out value="${contextPath}/people/${weibo.senderId}"/>">
 			<c:out value="${weibo.senderRealName}" />
 		</a>&nbsp;

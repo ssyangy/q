@@ -30,8 +30,8 @@
 	<div>
 		<c:forEach items="${replies}" var="reply" varStatus="status">
 			<br/><c:out value="${reply.content}" /><br/>
-			<a href="#">回复</a>&nbsp;
 			<a href="<c:out value="${urlPrefix}/reply/${reply.id}/retweet?from=${contextPath}/weibo/${weibo.id}"/>">转发</a>&nbsp;
+			<a href="#">回复</a>&nbsp;
 			<a href="<c:out value="${urlPrefix}/people/${reply.senderId}"/>">
 				<c:out value="${reply.senderRealName}" />
 			</a>&nbsp;${reply.time}&nbsp;
