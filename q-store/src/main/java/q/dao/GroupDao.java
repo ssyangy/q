@@ -5,6 +5,8 @@ package q.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import q.domain.Group;
 import q.domain.PeopleJoinGroup;
@@ -41,4 +43,10 @@ public interface GroupDao {
 	 * @return
 	 */
 	List<Group> getNewGroups(int limit) throws SQLException;
+
+	/**
+	 * @param groupIds
+	 * @return
+	 */
+	Map<Long, String> getGroupIdNameMapByIds(Set<Long> groupIds) throws SQLException;
 }

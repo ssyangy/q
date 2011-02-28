@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import q.log.Logger;
+import q.util.IdCreator;
 import q.util.StringKit;
 
 public class DefaultResourceContext implements ResourceContext {
@@ -49,12 +50,21 @@ public class DefaultResourceContext implements ResourceContext {
 	}
 
 	@Override
-	public long getLong(String key) {
-		try {
-			return Long.valueOf(getString(key));
-		} catch (Exception e) {
+	public long getLongId(String key) {
+		String value = getString(key);
+		long v = -1;
+		if (value == null) {
+			return v;
 		}
-		return -1;
+		try {
+			v = Long.valueOf(value);
+		} catch (NumberFormatException e) {
+			throw new IllegalStateException(value);
+		}
+		if (!IdCreator.isValidIds(v)) {
+			throw new IllegalStateException(value);
+		}
+		return v;
 	}
 
 	@Override

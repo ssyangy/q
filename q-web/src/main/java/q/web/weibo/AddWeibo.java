@@ -29,18 +29,19 @@ public class AddWeibo extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		long peopleId = context.getLoginPeopleId();
-		String content = context.getString("content");
-		String from = context.getString("from");
-
 		Weibo weibo = new Weibo();
-		weibo.setSenderId(peopleId);
+		long senderId = context.getLoginPeopleId();
+		weibo.setSenderId(senderId);
+		String content = context.getString("content");
 		weibo.setContent(content);
 		this.weiboDao.addWeibo(weibo);
-		long groupId = context.getLong("groupId");
+		
+		long groupId = context.getLongId("groupId");
 		if (IdCreator.isValidIds(groupId)) {
 			this.weiboDao.addWeiboJoinGroup(weibo.getId(), groupId);
 		}
+		
+		String from = context.getString("from");
 		if (from != null) {
 			context.redirectContextPath(from);
 		} else {

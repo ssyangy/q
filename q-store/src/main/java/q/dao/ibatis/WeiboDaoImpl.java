@@ -93,7 +93,25 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 
 	@Override
 	public int getPeopleWeiboNumByPeopleId(long peopleId) throws SQLException {
-		return (Integer)this.sqlMapClient.queryForObject("getPeopleWeiboNumByPeopleId", peopleId);
+		return (Integer) this.sqlMapClient.queryForObject("getPeopleWeiboNumByPeopleId", peopleId);
+	}
+
+	@Override
+	public WeiboReply getWeiboReplyById(long weiboReplyId) throws SQLException {
+		return (WeiboReply) this.sqlMapClient.queryForObject("selectWeiboReplyById", weiboReplyId);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see q.dao.WeiboDao#getWeiboJoinGroupByWeiboIdAndGroupId(long, long)
+	 */
+	@Override
+	public WeiboJoinGroup getWeiboJoinGroupByWeiboIdAndGroupId(long weiboId, long groupId) throws SQLException {
+		WeiboJoinGroup join = new WeiboJoinGroup();
+		join.setWeiboId(weiboId);
+		join.setGroupId(groupId);
+		return (WeiboJoinGroup) this.sqlMapClient.queryForObject("selectWeiboJoinGroupByWeiboIdGroupId", join);
 	}
 
 }

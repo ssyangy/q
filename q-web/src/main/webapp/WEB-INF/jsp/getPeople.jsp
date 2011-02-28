@@ -44,15 +44,19 @@
 		<div>发言 | 关注</div>
 		<div>
 			<c:forEach items="${weibos}" var="weibo" varStatus="status">
-				<c:out value="${weibo.content}" />
+				<br/><c:out value="${weibo.content}" /><br/>
 				<c:if test="${weibo.quoteWeiboId >0}">
 					<a href="<c:out value="${urlPrefix}/weibo/${weibo.quoteWeiboId}"/>">原文</a>&nbsp;
 				</c:if>				
 				<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}"/>">回复</a>&nbsp;
 				<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}/retweet?from=${contextPath}/people/${people.id}"/>">转发</a>&nbsp;
-				<a href="<c:out value="${urlPrefix}/people/${weibo.senderId}"/>"><c:out
-					value="${weibo.senderRealName}" /></a>
-				<c:out value="${weibo.time}" />
+				<a href="<c:out value="${urlPrefix}/people/${weibo.senderId}"/>">
+					<c:out value="${weibo.senderRealName}" />
+				</a>&nbsp;
+				<c:out value="${weibo.time}" />&nbsp;
+				<a href="<c:out value="${urlPrefix}${weibo.fromUrl}" />">
+					<c:out value="${weibo.fromName}" />
+				</a>
 				<br />
 			</c:forEach>
 		</div>

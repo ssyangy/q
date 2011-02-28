@@ -33,20 +33,23 @@
 	<div>
 	<form
 		action="<c:out value="${contextPath}/weibo?from=${contextPath}/group/${group.id}"/>"
-		method="post"><textarea name="content"></textarea> <input
+		method="post"><textarea name="content" rows="5" cols="50"></textarea> <input
 		type="hidden" name="groupId" value="<c:out value="${group.id}"/>" />
 	<button>发言</button>
 	</form>
 	</div>
 	<div>新帖 | 热贴 | 我发起的 | 我回复的 | 我关注的</div>
 	<div><c:forEach items="${weibos}" var="weibo" varStatus="status">
-		<c:out value="${weibo.content}" />
-		<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}"/>"> 回复 </a>&nbsp;
-		<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}/retweet?from=${contextPath}/group/${group.id}"/>"> 转发 </a>&nbsp;
+		<br/><c:out value="${weibo.content}" /><br/>
+		<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}"/>">回复</a>&nbsp;
+		<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}/retweet?groupId=${group.id}&from=${contextPath}/group/${group.id}"/>">转发</a>&nbsp;
 		<a href="<c:out value="${contextPath}/people/${weibo.senderId}"/>">
 			<c:out value="${weibo.senderRealName}" />
+		</a>&nbsp;
+		<c:out value="${weibo.time}" />&nbsp;
+		<a href="<c:out value="${urlPrefix}${weibo.fromUrl}" />">
+			<c:out value="${weibo.fromName}" />
 		</a>
-		<c:out value="${weibo.time}" />
 		<br />
 	</c:forEach></div>
 </div>

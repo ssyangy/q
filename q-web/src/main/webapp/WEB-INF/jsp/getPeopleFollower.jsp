@@ -9,10 +9,13 @@
 <title>关注者</title>
 </head>
 <body>
-<div><c:forEach items="${relations}" var="relation">
-	<a href="<c:out value="${urlPrefix}/people/${relation.fromPeopleId}"/>"><c:out
-		value="${relation.fromPeopleRealName}" /></a>
+<div id="content">
+<c:forEach items="${relations}" var="relation">
+	<a href="<c:out value="${urlPrefix}/people/${relation.fromPeopleId}"/>">
+		<c:out value="${relation.fromPeopleRealName}" />
+	</a>
 	<br />
-</c:forEach></div>
+</c:forEach>
+</div>
 </body>
 </html>

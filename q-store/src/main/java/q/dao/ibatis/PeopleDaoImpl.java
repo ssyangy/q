@@ -63,9 +63,9 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 	}
 
 	@Override
-	public Map<Long, String> getPeopleIdRealNameMapByIds(Set<Long> peopleIds) throws SQLException {
+	public Map<Long, String> getIdRealNameMapByIds(Set<Long> peopleIds) throws SQLException {
 		@SuppressWarnings("unchecked")
-		List<People> peoples = (List<People>) this.sqlMapClient.queryForList("selectPeopleIdRealNamesByIds", peopleIds.toArray(new Long[peopleIds.size()]));
+		List<People> peoples = (List<People>) this.sqlMapClient.queryForList("selectPeopleIdRealNamesByIds", peopleIds.toArray());
 		if (CollectionKit.isEmpty(peoples)) {
 			return null;
 		}
@@ -95,7 +95,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 			for (PeopleRelation relation : relations) {
 				peopleIds.add(relation.getFromPeopleId());
 			}
-			Map<Long, String> map = getPeopleIdRealNameMapByIds(peopleIds);
+			Map<Long, String> map = getIdRealNameMapByIds(peopleIds);
 			for (PeopleRelation relation : relations) {
 				relation.setFromPeopleRealName(map.get(relation.getFromPeopleId()));
 			}
@@ -111,7 +111,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 			for (PeopleRelation relation : relations) {
 				peopleIds.add(relation.getToPeopleId());
 			}
-			Map<Long, String> map = getPeopleIdRealNameMapByIds(peopleIds);
+			Map<Long, String> map = getIdRealNameMapByIds(peopleIds);
 			for (PeopleRelation relation : relations) {
 				relation.setToPeopleRealName(map.get(relation.getToPeopleId()));
 			}

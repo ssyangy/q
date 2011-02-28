@@ -9,6 +9,7 @@ import java.util.List;
 import q.dao.page.WeiboPage;
 import q.dao.page.WeiboReplyPage;
 import q.domain.Weibo;
+import q.domain.WeiboJoinGroup;
 import q.domain.WeiboReply;
 
 /**
@@ -63,5 +64,20 @@ public interface WeiboDao {
 	 * @return
 	 */
 	int getPeopleWeiboNumByPeopleId(long peopleId) throws SQLException;
+
+	/**
+	 * @param replyWeiboId
+	 * @return
+	 * @throws SQLException 
+	 */
+	WeiboReply getWeiboReplyById(long weiboReplyId) throws SQLException;
+
+	/**
+	 * @param id
+	 * @param groupId
+	 * @return
+	 * @throws SQLException 
+	 */
+	WeiboJoinGroup getWeiboJoinGroupByWeiboIdAndGroupId(long id, long groupId) throws SQLException;
 
 }

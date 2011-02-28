@@ -6,6 +6,7 @@ package q.web.weibo;
 import java.util.List;
 
 import q.dao.DaoHelper;
+import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.dao.page.WeiboReplyPage;
@@ -32,6 +33,12 @@ public class GetWeibo extends Resource {
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
 	}
+	
+	private GroupDao groupDao;
+	
+	public void setGroupDao(GroupDao groupDao) {
+		this.groupDao = groupDao;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -41,13 +48,13 @@ public class GetWeibo extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long weiboId = context.getResourceIdLong();
-		Weibo weibo = weiboDao.getWeiboById(weiboId);
+		Weibo weibo = DaoHelper.getWeiboWithSenderRealNameAndFrom(peopleDao, weiboDao, groupDao, weiboId);
 		context.setModel("weibo", weibo);
 		WeiboReplyPage page = new WeiboReplyPage();
 		page.setQuoteWeiboId(weiboId);
 		page.setSize(20);
 		page.setStartIndex(0);
-		List<WeiboReply> replies = DaoHelper.getPageWeiboReplyWithSenderRealName(peopleDao, weiboDao, page);
+		List<WeiboReply> replies = DaoHelper.getPageWeiboReplyWithSenderRealNameAndFrom(peopleDao, weiboDao, groupDao, page);
 		context.setModel("replies", replies);
 	}
 

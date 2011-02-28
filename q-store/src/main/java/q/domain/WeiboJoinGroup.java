@@ -75,4 +75,7 @@ public class WeiboJoinGroup implements Serializable {
 		this.groupId = groupId;
 	}
 
+	public boolean isValid() {
+		return Status.COMMON.getValue() == status;
+	}
 }

@@ -36,7 +36,7 @@ public class AddGroup extends Resource {
 		group.setName(context.getString("name"));
 		group.setIntro(context.getString("intro"));
 		groupDao.addGroup(group); // create group
-		groupDao.addGroupJoinCategory(group.getId(), context.getLong("categoryId")); // set group category
+		groupDao.addGroupJoinCategory(group.getId(), context.getLongId("categoryId")); // set group category
 		context.redirectServletPath("/group/" + group.getId());
 	}
 }

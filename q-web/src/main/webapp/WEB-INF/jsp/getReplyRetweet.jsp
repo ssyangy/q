@@ -6,25 +6,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>微博转发</title>
+<title>评论转发</title>
 </head>
 <body>
 <div id="content">
 	<div>
-		<c:out value="${weibo.content}" /><br/>
-		<a href="<c:out value="${urlPrefix}/people/${weibo.senderId}"/>">
-			<c:out value="${weibo.senderRealName}" />
+		<c:out value="${reply.content}" /><br/>
+		<a href="<c:out value="${urlPrefix}/people/${reply.senderId}"/>">
+			<c:out value="${reply.senderRealName}" />
 		</a>&nbsp;
-		<c:out value="${weibo.time}" />&nbsp;
-		<a href="<c:out value="${urlPrefix}${weibo.fromUrl}" />">
-			<c:out value="${weibo.fromName}" />
+		<c:out value="${reply.time}" />&nbsp;
+		<a href="<c:out value="${urlPrefix}${reply.fromUrl}" />">
+			<c:out value="${reply.fromName}" />
 		</a>
 		<br />
 	</div>
 	<div>
-		<form action="<c:out value="${urlPrefix}/weibo/${weibo.id}/retweet"/>" method="post">
+		<form action="<c:out value="${urlPrefix}/reply/${reply.id}/retweet"/>" method="post">
 			<input type="hidden" name="from" value='<c:out value="${from}"></c:out>'/>
-			<input type="hidden" name="groupId" value='<c:out value="${groupId}"></c:out>'/>
 			<textarea name="content" rows="5" cols="50">//@<c:out value="${sender.realName}"></c:out></textarea>
 			<button>转发</button>
 		</form>

@@ -8,17 +8,17 @@ import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.domain.People;
-import q.domain.Weibo;
+import q.domain.WeiboReply;
 import q.web.Resource;
 import q.web.ResourceContext;
 
 /**
  * @author seanlinwang
  * @email xalinx at gmail dot com
- * @date Feb 24, 2011
+ * @date Feb 27, 2011
  * 
  */
-public class GetWeiboRetweet extends Resource {
+public class GetReplyRetweet extends Resource {
 	private WeiboDao weiboDao;
 
 	public void setWeiboDao(WeiboDao weiboDao) {
@@ -44,13 +44,13 @@ public class GetWeiboRetweet extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		long weiboId = context.getResourceIdLong();
-		Weibo weibo = DaoHelper.getWeiboWithSenderRealNameAndFrom(peopleDao, weiboDao, groupDao, weiboId);
-		context.setModel("weibo", weibo);
+		long replyId = context.getResourceIdLong();
+		WeiboReply reply = DaoHelper.getWeiboReplyWithSenderRealNameAndFrom(peopleDao, weiboDao, groupDao, replyId);
+		context.setModel("reply", reply);
 
-		People sender = peopleDao.getPeopleById(weibo.getSenderId());
+		People sender = peopleDao.getPeopleById(reply.getSenderId());
 		context.setModel("sender", sender);
-		context.setModel("groupId", context.getString("groupId"));
+
 		context.setModel("from", context.getString("from"));
 	}
 

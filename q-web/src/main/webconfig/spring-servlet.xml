@@ -60,6 +60,8 @@
 				<value>getWeiboNew</value>
 				<value>getWeiboRetweet</value>
 				<value>addWeiboRetweet</value>
+				<value>getReplyRetweet</value>
+				<value>addReplyRetweet</value>
 			</set>
 		</property>
 	</bean>
@@ -186,6 +188,7 @@
 	<bean id="getWeibo" class="q.web.weibo.GetWeibo">
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
+		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="addWeiboReply" class="q.web.weibo.AddWeiboReply">
 		<property name="weiboDao" ref="weiboDao" />
@@ -196,12 +199,20 @@
 	<bean id="getWeiboRetweet" class="q.web.weibo.GetWeiboRetweet">
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
+		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="addWeiboRetweet" class="q.web.weibo.AddWeiboRetweet">
 		<property name="weiboDao" ref="weiboDao" />
-		<property name="peopleDao" ref="peopleDao" />
 	</bean>
-
+	<bean id="getReplyRetweet" class="q.web.weibo.GetReplyRetweet">
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+	<bean id="addReplyRetweet" class="q.web.weibo.AddReplyRetweet">
+		<property name="weiboDao" ref="weiboDao" />
+	</bean>
+	
 	<!-- message web -->
 	<bean id="getMessageIndex" class="q.web.message.GetMessageIndex">
 		<property name="messageDao" ref="messageDao" />

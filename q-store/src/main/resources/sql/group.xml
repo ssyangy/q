@@ -12,6 +12,10 @@
 		<result property="created" column="created" />
 		<result property="modified" column="modified" />
 	</resultMap>
+	<resultMap id="groupIdNameResult" class="group">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+	</resultMap>
 	<resultMap id="pjgResult" class="pjg">
 		<result property="id" column="id" />
 		<result property="peopleId" column="people_id" />
@@ -30,12 +34,21 @@
 		created,
 		modified
 	</sql>
-
+	
+	<select id="selectIdNamesByIds" resultMap="groupIdNameResult">
+		select
+		id, name
+		from `group`
+		where id in
+		<iterate open="(" close=")" conjunction=",">
+			#[]#
+        </iterate>
+	</select>
+	
 	<select id="selectGroupById" resultMap="groupResult">
 		select
 		<include refid="group.columns" />
-		from
-		q.group
+		from `group`
 		where id=#value#
 	</select>
 

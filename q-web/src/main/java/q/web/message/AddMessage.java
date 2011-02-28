@@ -41,14 +41,14 @@ public class AddMessage extends Resource {
 		Message message = new Message();
 		message.setContent(context.getString("content"));
 		message.setSenderId(context.getLoginPeopleId());
-		message.setReceiverId(context.getLong("receiverId"));
+		message.setReceiverId(context.getLongId("receiverId"));
 		messageDao.addMessage(message);
 		context.redirectServletPath("/message");
 	}
 
 	@Override
 	public boolean validate(ResourceContext context) {
-		long receiverId = context.getLong("receiverId");
+		long receiverId = context.getLongId("receiverId");
 		long senderId = context.getLoginPeopleId();
 		if (!IdCreator.isValidIds(senderId, receiverId)) {
 			return false;

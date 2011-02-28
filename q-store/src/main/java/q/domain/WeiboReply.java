@@ -23,11 +23,23 @@ public class WeiboReply extends AbstractDomain implements Serializable {
 
 	private long quoteSenderId;
 
-	private long quoteReplyId;
+	private long replyWeiboId;
+
+	private long replySenderId;
 
 	private String content;
 
+	private WeiboFromType fromType;
+
+	private long fromId;
+
 	private int status;
+
+	private String fromPostfix;
+	
+	public void setFromPostfix(String fromPostfix) {
+		this.fromPostfix = fromPostfix;
+	}
 
 	public long getSenderId() {
 		return senderId;
@@ -53,12 +65,12 @@ public class WeiboReply extends AbstractDomain implements Serializable {
 		this.quoteSenderId = quoteSenderId;
 	}
 
-	public long getQuoteReplyId() {
-		return quoteReplyId;
+	public long getReplyWeiboId() {
+		return replyWeiboId;
 	}
 
-	public void setQuoteReplyId(long quoteReplyId) {
-		this.quoteReplyId = quoteReplyId;
+	public void setReplyWeiboId(long quoteReplyId) {
+		this.replyWeiboId = quoteReplyId;
 	}
 
 	public String getContent() {
@@ -85,9 +97,45 @@ public class WeiboReply extends AbstractDomain implements Serializable {
 		this.senderRealName = senderRealName;
 	}
 
+	public long getReplySenderId() {
+		return replySenderId;
+	}
+
+	public void setReplySenderId(long replySenderId) {
+		this.replySenderId = replySenderId;
+	}
+
+	public WeiboFromType getFromType() {
+		return fromType;
+	}
+
+	public void setFromType(WeiboFromType fromType) {
+		this.fromType = fromType;
+	}
+
+	public long getFromId() {
+		return fromId;
+	}
+
+	public void setFromId(long fromId) {
+		this.fromId = fromId;
+	}
+
+	public String getFromName() {
+		return this.fromType.getFromName(fromPostfix);
+	}
+
+	public String getFromUrl() {
+		return this.fromType.getFromUrl(fromId);
+	}
+	
+	public boolean isFromGroup() {
+		return this.fromType.isFromGroup();
+	}
+
 	@Override
 	public String toString() {
-		return "WeiboReply [id=" + id + ", senderId=" + senderId + ", senderRealName=" + senderRealName + ", quoteWeiboId=" + quoteWeiboId + ", quoteSenderId=" + quoteSenderId + ", quoteReplyId=" + quoteReplyId + ", content=" + content + ", status=" + status + ", created=" + created + ", modified=" + modified + "]";
+		return "WeiboReply [senderId=" + senderId + ", senderRealName=" + senderRealName + ", quoteWeiboId=" + quoteWeiboId + ", quoteSenderId=" + quoteSenderId + ", replyWeiboId=" + replyWeiboId + ", replySenderId=" + replySenderId + ", content=" + content + ", fromType=" + fromType + ", fromId=" + fromId + ", status=" + status + ", id=" + id + ", created=" + created + ", modified=" + modified + "]";
 	}
 
 }

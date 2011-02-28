@@ -7,6 +7,10 @@
 		<result property="senderId" column="sender_id" />
 		<result property="quoteWeiboId" column="quote_weibo_id" />
 		<result property="quoteSenderId" column="quote_sender_id" />
+		<result property="replyWeiboId" column="reply_weibo_id" />
+		<result property="replySenderId" column="reply_sender_id" />
+		<result property="fromType" column="from_type" typeHandler="q.dao.ibatis.WeiboFromTypeHandler"/>
+		<result property="fromId" column="from_id" />
 		<result property="content" column="content" />
 		<result property="status" column="status" />
 		<result property="created" column="created" />
@@ -17,6 +21,10 @@
 		sender_id,
 		quote_weibo_id,
 		quote_sender_id,
+		reply_weibo_id,
+		reply_sender_id,
+		from_type,
+		from_id,
 		content,
 		status,
 		created,
@@ -29,24 +37,11 @@
 		from weibo
 		where id = #value#
 	</select>
-	
-	<select id="getPeopleWeiboNumByPeopleId" resultClass="int">
-		select count(id) from weibo 
-		where sender_id = #value#
-	</select>
 
-	<select id="selectPageGroupWeiboIds" resultClass="long">
-		select weibo_id
-		from weibo_join_group
-		where
-		group_id = #groupId#
-		<isNotNull prepend=" " property="startCreated">
-			and created &lt;= #startCreated#
-		</isNotNull>
-		<isNotNull prepend=" " property="startId">
-			and id &lt;= #startId#
-		</isNotNull>
-		limit #startIndex#, #size#
+	<select id="getPeopleWeiboNumByPeopleId" resultClass="int">
+		select
+		count(id) from weibo
+		where sender_id = #value#
 	</select>
 
 	<select id="selectWeibosByIds" resultMap="weiboResult">
@@ -67,7 +62,8 @@
 		where
 		sender_id = #senderId#
 		<isNotNull prepend="and" property="startCreated">
-			created &lt;= #startCreated#
+			created &lt;=
+			#startCreated#
 		</isNotNull>
 		<isNotNull prepend="and" property="startId">
 			id &lt;= #startId#
@@ -85,6 +81,10 @@
 		#senderId#,
 		#quoteWeiboId#,
 		#quoteSenderId#,
+		#replyWeiboId#,
+		#replySenderId#,
+		#fromType,handler=q.dao.ibatis.WeiboFromTypeHandler#,
+		#fromId#,
 		#content#,
 		0,
 		now(),
@@ -109,7 +109,31 @@
 		created,
 		modified
 	</sql>
-
+	
+	<select id="selectPageGroupWeiboIds" resultClass="long">
+		select weibo_id
+		from weibo_join_group
+		where
+		group_id = #groupId#
+		<isNotNull prepend=" " property="startCreated">
+			and created &lt;=
+			#startCreated#
+		</isNotNull>
+		<isNotNull prepend=" " property="startId">
+			and id &lt;= #startId#
+		</isNotNull>
+		limit #startIndex#, #size#
+	</select>
+	
+	<select id="selectWeiboJoinGroupByWeiboIdGroupId" resultMap="wjgResult">
+		select
+		<include refid="wjg.columns" />
+		from weibo_join_group
+		where 
+		weibo_id = #weiboId#
+		and group_id = #groupId# 
+	</select>
+	
 	<insert id="insertWeiboJoinGroup">
 		insert into weibo_join_group
 		(
@@ -130,7 +154,10 @@
 		<result property="senderId" column="sender_id" />
 		<result property="quoteWeiboId" column="quote_weibo_id" />
 		<result property="quoteSenderId" column="quote_sender_id" />
-		<result property="quoteReplyId" column="quote_reply_id" />
+		<result property="replyWeiboId" column="reply_weibo_id" />
+		<result property="replySenderId" column="reply_sender_id" />
+		<result property="fromType" column="from_type" typeHandler="q.dao.ibatis.WeiboFromTypeHandler"/>
+		<result property="fromId" column="from_id" />
 		<result property="content" column="content" />
 		<result property="status" column="status" />
 		<result property="created" column="created" />
@@ -141,13 +168,23 @@
 		sender_id,
 		quote_weibo_id,
 		quote_sender_id,
-		quote_reply_id,
+		reply_weibo_id,
+		reply_sender_id,
+		from_type,
+		from_id,
 		content,
 		status,
 		created,
 		modified
 	</sql>
-
+	
+	<select id="selectWeiboReplyById" resultMap="replyResult">
+		select
+		<include refid="reply.columns" />
+		from weibo_reply
+		where id = #value#
+	</select>
+	
 	<select id="selectPageWeiboReply" resultMap="replyResult">
 		select
 		<include refid="reply.columns" />
@@ -155,7 +192,8 @@
 		where
 		quote_weibo_id = #quoteWeiboId#
 		<isNotNull prepend="and" property="startCreated">
-			created &lt;= #startCreated#
+			created &lt;=
+			#startCreated#
 		</isNotNull>
 		<isNotNull prepend="and" property="startId">
 			id &lt;= #startId#
@@ -173,7 +211,10 @@
 		#senderId#,
 		#quoteWeiboId#,
 		#quoteSenderId#,
-		#quoteReplyId#,
+		#replyWeiboId#,
+		#replySenderId#,
+		#fromType,handler=q.dao.ibatis.WeiboFromTypeHandler#,
+		#fromId#,
 		#content#,
 		0,
 		now(),

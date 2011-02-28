@@ -30,7 +30,7 @@ public class GetMessageNew extends Resource {
 		if(senderId < 0 ) {
 			throw new IllegalStateException();
 		}
-		long receiverId = context.getLong("receiverId");
+		long receiverId = context.getLongId("receiverId");
 		People receiver = peopleDao.getPeopleById(receiverId);
 		context.setModel("receiver", receiver);
 	}

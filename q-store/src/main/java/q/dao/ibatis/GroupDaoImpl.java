@@ -4,13 +4,17 @@
 package q.dao.ibatis;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import q.dao.GroupDao;
 import q.domain.Group;
 import q.domain.GroupJoinCategory;
 import q.domain.PeopleJoinGroup;
 import q.domain.Status;
+import q.util.CollectionKit;
 import q.util.IdCreator;
 
 /**
@@ -88,15 +92,30 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 		List<Group> groups = this.sqlMapClient.queryForList("selectGroupsByGroupIds", groupIds);
 		return groups;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.dao.CategoryDao#getNewGroups(int)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Group> getNewGroups(int i) throws SQLException {
-		return (List<Group>)this.sqlMapClient.queryForList("selectNewGroups", i);
+		return (List<Group>) this.sqlMapClient.queryForList("selectNewGroups", i);
 	}
 
+	@Override
+	public Map<Long, String> getGroupIdNameMapByIds(Set<Long> groupIds) throws SQLException {
+		@SuppressWarnings("unchecked")
+		List<Group> groups = (List<Group>)this.sqlMapClient.queryForList("selectIdNamesByIds", groupIds.toArray());
+		if (CollectionKit.isEmpty(groups)) {
+			return null;
+		}
+		Map<Long, String> IdNameMap = new HashMap<Long, String>(groups.size());
+		for (Group group : groups) {
+			IdNameMap.put(group.getId(), group.getName());
+		}
+		return IdNameMap;
+	}
 
 }

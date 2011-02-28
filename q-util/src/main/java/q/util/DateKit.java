@@ -124,7 +124,7 @@ public class DateKit {
 	}
 
 	public static String date2SinaStyle(Date before, Date base) {
-		StringBuilder sb = new StringBuilder(16); // "2011-11-12 24:24".length==17
+		StringBuilder sb = new StringBuilder(16); // "2011-11-12 24:24".length==16
 		long seconds = (base.getTime() - before.getTime()) / 1000;
 		if (seconds == 0) {
 			sb.append("10秒前");
@@ -158,9 +158,17 @@ public class DateKit {
 				}
 			}
 			sb.append(' ');
-			sb.append(beforeCal.get(HOUR_OF_DAY));
+			int hour = beforeCal.get(HOUR_OF_DAY);
+			if (hour < 10) {
+				sb.append(0);
+			}
+			sb.append(hour);
 			sb.append(':');
-			sb.append(beforeCal.get(MINUTE));
+			int min = beforeCal.get(MINUTE);
+			if (hour < 10) {
+				sb.append(0);
+			}
+			sb.append(min);
 		}
 		return sb.toString();
 	}

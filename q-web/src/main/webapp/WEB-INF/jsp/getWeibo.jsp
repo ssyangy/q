@@ -11,20 +11,33 @@
 <body>
 <div id="content">
 	<div>
-		<c:out value="${weibo.content}" />
+		<c:out value="${weibo.content}" /><br/>
+		<a href="<c:out value="${urlPrefix}/people/${weibo.senderId}"/>">
+			<c:out value="${weibo.senderRealName}" />
+		</a>&nbsp;
+		<c:out value="${weibo.time}" />&nbsp;
+		<a href="<c:out value="${urlPrefix}${weibo.fromUrl}" />">
+			<c:out value="${weibo.fromName}" />
+		</a>
+		<br />
 	</div>
 	<div>
-		<form action="<c:out value="${contextPath}/weibo/${weibo.id}/reply"/>"
-			method="post"><textarea name="content"></textarea>
+		<form action="<c:out value="${urlPrefix}/weibo/${weibo.id}/reply"/>"
+			method="post"><textarea name="content" rows="5" cols="50"></textarea>
 		<button>回复</button>
 		</form>
 	</div>
 	<div>
 		<c:forEach items="${replies}" var="reply" varStatus="status">
-			<c:out value="${reply.content}" />
-			<a href="<c:out value="${contextPath}/people/${reply.senderId}"/>"><c:out
-				value="${reply.senderRealName}" /></a>
-			<c:out value="${reply.time}" />
+			<br/><c:out value="${reply.content}" /><br/>
+			<a href="#">回复</a>&nbsp;
+			<a href="<c:out value="${urlPrefix}/reply/${reply.id}/retweet?from=${contextPath}/weibo/${weibo.id}"/>">转发</a>&nbsp;
+			<a href="<c:out value="${urlPrefix}/people/${reply.senderId}"/>">
+				<c:out value="${reply.senderRealName}" />
+			</a>&nbsp;${reply.time}&nbsp;
+			<a href="${urlPrefix}${reply.fromUrl}">
+				${reply.fromName}
+			</a>
 			<br />
 		</c:forEach>
 	</div>

@@ -79,6 +79,16 @@ public class DateKitTest {
 		Date now = beforeCal.getTime();
 		Assert.assertEquals("今天 21:22", DateKit.date2SinaStyle(before, now));
 	}
+	
+	@Test
+	public void testDate2SinaStyleTheSameDayPrefixZero() {
+		Calendar beforeCal = Calendar.getInstance();
+		beforeCal.set(2010, 5, 25, 1, 1, 0);
+		Date before = beforeCal.getTime();
+		beforeCal.set(Calendar.HOUR_OF_DAY, 23);
+		Date now = beforeCal.getTime();
+		Assert.assertEquals("今天 01:01", DateKit.date2SinaStyle(before, now));
+	}
 
 	@Test
 	public void testDate2SinaStyleMoreOneMinuteLessOrEqualsOneHour() {

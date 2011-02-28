@@ -12,7 +12,9 @@ import java.util.Set;
 import q.dao.page.MessagePage;
 import q.dao.page.WeiboPage;
 import q.dao.page.WeiboReplyPage;
+import q.domain.Group;
 import q.domain.Message;
+import q.domain.People;
 import q.domain.Weibo;
 import q.domain.WeiboReply;
 import q.util.CollectionKit;
@@ -25,19 +27,57 @@ import q.util.CollectionKit;
  */
 public class DaoHelper {
 
-	public static List<WeiboReply> getPageWeiboReplyWithSenderRealName(PeopleDao peopleDao, WeiboDao weiboDao, WeiboReplyPage page) throws SQLException {
+	/**
+	 * @param peopleDao
+	 * @param weiboDao
+	 * @param groupDao
+	 * @param page
+	 * @return
+	 * @throws SQLException
+	 */
+	public static List<WeiboReply> getPageWeiboReplyWithSenderRealNameAndFrom(PeopleDao peopleDao, WeiboDao weiboDao, GroupDao groupDao, WeiboReplyPage page) throws SQLException {
 		List<WeiboReply> replies = weiboDao.getPageWeiboReply(page);
 		if (CollectionKit.isNotEmpty(replies)) {
-			Set<Long> senderIds = new HashSet<Long>(replies.size());
+			Set<Long> peopleIds = new HashSet<Long>(replies.size());
+			Set<Long> groupIds = null;
 			for (WeiboReply reply : replies) {
-				senderIds.add(reply.getSenderId());
+				peopleIds.add(reply.getSenderId());
+				if (reply.isFromGroup()) {
+					if (groupIds == null) {
+						groupIds = new HashSet<Long>(replies.size());// lazy init
+					}
+					groupIds.add(reply.getFromId());
+				}
 			}
-			Map<Long, String> map = peopleDao.getPeopleIdRealNameMapByIds(senderIds);
-			for (WeiboReply reply : replies) {
-				reply.setSenderRealName(map.get(reply.getSenderId()));
+			if (CollectionKit.isNotEmpty(peopleIds)) {
+				Map<Long, String> peopleIdRealNameMap = peopleDao.getIdRealNameMapByIds(peopleIds);
+				for (WeiboReply reply : replies) {
+					reply.setSenderRealName(peopleIdRealNameMap.get(reply.getSenderId()));
+				}
+			}
+			if (CollectionKit.isNotEmpty(groupIds)) {
+				Map<Long, String> groupIdNameMap = groupDao.getGroupIdNameMapByIds(groupIds);
+				for (WeiboReply reply : replies) {
+					if (reply.isFromGroup()) {
+						reply.setFromPostfix(groupIdNameMap.get(reply.getFromId()));
+					}
+				}
 			}
 		}
 		return replies;
+	}
+
+	/**
+	 * @param peopleDao
+	 * @param weiboDao
+	 * @param groupDao
+	 * @param page
+	 * @return
+	 * @throws SQLException
+	 */
+	public static List<Weibo> getPageWeiboWithSenderRealNameAndFrom(PeopleDao peopleDao, WeiboDao weiboDao, GroupDao groupDao, WeiboPage page) throws SQLException {
+		List<Weibo> weibos = weiboDao.getPageWeibo(page);
+		return injectWeibosWithSenderRealNameAndFrom(peopleDao, groupDao, weibos);
 	}
 
 	/**
@@ -47,31 +87,44 @@ public class DaoHelper {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static List<Weibo> getPageGroupWeiboWithSenderRealName(PeopleDao peopleDao, WeiboDao weiboDao, WeiboPage page) throws SQLException {
+	public static List<Weibo> getPageGroupWeiboWithSenderRealName(PeopleDao peopleDao, WeiboDao weiboDao, GroupDao groupDao, WeiboPage page) throws SQLException {
 		List<Weibo> weibos = weiboDao.getPageGroupWeibo(page);
-		if (CollectionKit.isNotEmpty(weibos)) {
-			HashSet<Long> senderIds = new HashSet<Long>(weibos.size());
-			for (Weibo weibo : weibos) {
-				senderIds.add(weibo.getSenderId());
-			}
-			Map<Long, String> map = peopleDao.getPeopleIdRealNameMapByIds(senderIds);
-			for (Weibo weibo : weibos) {
-				weibo.setSenderRealName(map.get(weibo.getSenderId()));
-			}
-		}
-		return weibos;
+		return injectWeibosWithSenderRealNameAndFrom(peopleDao, groupDao, weibos);
 	}
 
-	public static List<Weibo> getPageWeiboBySenderIdWithSenderRealName(PeopleDao peopleDao, WeiboDao weiboDao, WeiboPage page) throws SQLException {
-		List<Weibo> weibos = weiboDao.getPageWeibo(page);
+	/**
+	 * @param peopleDao
+	 * @param groupDao
+	 * @param weibos
+	 * @return
+	 * @throws SQLException
+	 */
+	public static List<Weibo> injectWeibosWithSenderRealNameAndFrom(PeopleDao peopleDao, GroupDao groupDao, List<Weibo> weibos) throws SQLException {
 		if (CollectionKit.isNotEmpty(weibos)) {
-			HashSet<Long> senderIds = new HashSet<Long>(weibos.size());
+			Set<Long> peopleIds = new HashSet<Long>(weibos.size());
+			Set<Long> groupIds = null;
 			for (Weibo weibo : weibos) {
-				senderIds.add(weibo.getSenderId());
+				peopleIds.add(weibo.getSenderId());
+				if (weibo.isFromGroup()) {
+					if (groupIds == null) {
+						groupIds = new HashSet<Long>(weibos.size());// lazy init
+					}
+					groupIds.add(weibo.getFromId());
+				}
 			}
-			Map<Long, String> map = peopleDao.getPeopleIdRealNameMapByIds(senderIds);
-			for (Weibo weibo : weibos) {
-				weibo.setSenderRealName(map.get(weibo.getSenderId()));
+			if (CollectionKit.isNotEmpty(peopleIds)) {
+				Map<Long, String> peopleIdRealNameMap = peopleDao.getIdRealNameMapByIds(peopleIds);
+				for (Weibo weibo : weibos) {
+					weibo.setSenderRealName(peopleIdRealNameMap.get(weibo.getSenderId()));
+				}
+			}
+			if (CollectionKit.isNotEmpty(groupIds)) {
+				Map<Long, String> groupIdNameMap = groupDao.getGroupIdNameMapByIds(groupIds);
+				for (Weibo weibo : weibos) {
+					if (weibo.isFromGroup()) {
+						weibo.setFromPostfix(groupIdNameMap.get(weibo.getFromId()));
+					}
+				}
 			}
 		}
 		return weibos;
@@ -85,7 +138,7 @@ public class DaoHelper {
 				peopleIds.add(message.getSenderId());
 				peopleIds.add(message.getReceiverId());
 			}
-			Map<Long, String> map = peopleDao.getPeopleIdRealNameMapByIds(peopleIds);
+			Map<Long, String> map = peopleDao.getIdRealNameMapByIds(peopleIds);
 			for (Message message : messages) {
 				message.setSenderRealName(map.get(message.getSenderId()));
 				message.setReceiverRealName(map.get(message.getReceiverId()));
@@ -94,4 +147,41 @@ public class DaoHelper {
 		return messages;
 	}
 
+	/**
+	 * @param peopleDao
+	 * @param weiboDao
+	 * @param groupDao
+	 * @param weiboId
+	 * @return
+	 * @throws SQLException
+	 */
+	public static Weibo getWeiboWithSenderRealNameAndFrom(PeopleDao peopleDao, WeiboDao weiboDao, GroupDao groupDao, long weiboId) throws SQLException {
+		Weibo weibo = weiboDao.getWeiboById(weiboId);
+		People people = peopleDao.getPeopleById(weibo.getSenderId());
+		weibo.setSenderRealName(people.getRealName());
+		if (weibo.isFromGroup()) {
+			Group group = groupDao.getGroupById(weibo.getFromId());
+			weibo.setFromPostfix(group.getName());
+		}
+		return weibo;
+	}
+
+	/**
+	 * @param peopleDao
+	 * @param weiboDao
+	 * @param groupDao
+	 * @param replyId
+	 * @return
+	 * @throws SQLException
+	 */
+	public static WeiboReply getWeiboReplyWithSenderRealNameAndFrom(PeopleDao peopleDao, WeiboDao weiboDao, GroupDao groupDao, long replyId) throws SQLException {
+		WeiboReply reply = weiboDao.getWeiboReplyById(replyId);
+		People people = peopleDao.getPeopleById(reply.getSenderId());
+		reply.setSenderRealName(people.getRealName());
+		if (reply.isFromGroup()) {
+			Group group = groupDao.getGroupById(reply.getFromId());
+			reply.setFromPostfix(group.getName());
+		}
+		return reply;
+	}
 }

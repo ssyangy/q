@@ -50,7 +50,7 @@ public interface PeopleDao {
 	 * @param senderIds
 	 * @return
 	 */
-	Map<Long, String> getPeopleIdRealNameMapByIds(Set<Long> senderIds) throws SQLException;
+	Map<Long, String> getIdRealNameMapByIds(Set<Long> senderIds) throws SQLException;
 
 	/**
 	 * @param relation

@@ -15,7 +15,7 @@ public interface ResourceContext {
 
 	String getString(String key);
 
-	long getLong(String key);
+	long getLongId(String key);
 
 	int getInt(String key);
 
