@@ -26,7 +26,7 @@ public class Weibo extends AbstractDomain implements Serializable {
 	private long replyWeiboId;
 
 	private long replySenderId;
-
+	
 	private WeiboFromType fromType;
 
 	private long fromId;
@@ -137,9 +137,13 @@ public class Weibo extends AbstractDomain implements Serializable {
 		return this.fromType.isFromGroup();
 	}
 
+	public String getFromPostfix() {
+		return fromPostfix;
+	}
+
 	@Override
 	public String toString() {
-		return "Weibo [senderId=" + senderId + ", senderRealName=" + senderRealName + ", quoteWeiboId=" + quoteWeiboId + ", quoteSenderId=" + quoteSenderId + ", replyWeiboId=" + replyWeiboId + ", replySenderId=" + replySenderId + ", fromType=" + fromType + ", fromId=" + fromId + ", content=" + content + ", status=" + status + ", id=" + id + ", created=" + created + ", modified=" + modified + "]";
+		return "Weibo [senderId=" + senderId + ", senderRealName=" + senderRealName + ", quoteWeiboId=" + quoteWeiboId + ", quoteSenderId=" + quoteSenderId + ", replyWeiboId=" + replyWeiboId + ", replySenderId=" + replySenderId + ", fromType=" + fromType + ", fromId=" + fromId + ", content=" + content + ", status=" + status + ", fromPostfix=" + fromPostfix + ", id=" + id + ", created=" + created + ", modified=" + modified + "]";
 	}
 
 }

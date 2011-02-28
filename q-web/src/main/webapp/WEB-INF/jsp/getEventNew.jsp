@@ -28,8 +28,8 @@
 	简介:<textarea name="intro" cols="50" rows="10"> 
 	</textarea> <br />
 	费用:<input type="text" name="end" size="10" maxlength="10" value="暂不支持"><br />
-	人数限制:<input type="radio" name="peoplenumber" value="1" checked="true">无 <input type="text" name="peoplenumber" size="10" maxlength="10" value="暂不支持"><br />
-	<input type="hidden" name="groupId" value="<c:out value="${groupId}"/>" />
+	人数限制:<input type="radio" name="peoplenumber" value="1" checked="checked" />无 <input type="text" name="peoplenumber" size="10" maxlength="10" value="暂不支持"/><br />
+	<input type="hidden" name="groupId" value="${groupId}" />
 	<input type="submit" value="创建活动" /></form>
 </div>
 </body>

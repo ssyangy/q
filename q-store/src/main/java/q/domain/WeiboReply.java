@@ -27,6 +27,8 @@ public class WeiboReply extends AbstractDomain implements Serializable {
 
 	private long replySenderId;
 
+	private long groupId;
+
 	private String content;
 
 	private WeiboFromType fromType;
@@ -36,7 +38,7 @@ public class WeiboReply extends AbstractDomain implements Serializable {
 	private int status;
 
 	private String fromPostfix;
-	
+
 	public void setFromPostfix(String fromPostfix) {
 		this.fromPostfix = fromPostfix;
 	}
@@ -128,14 +130,26 @@ public class WeiboReply extends AbstractDomain implements Serializable {
 	public String getFromUrl() {
 		return this.fromType.getFromUrl(fromId);
 	}
-	
+
 	public boolean isFromGroup() {
 		return this.fromType.isFromGroup();
 	}
 
+	public long getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(long groupId) {
+		this.groupId = groupId;
+	}
+
+	public String getFromPostfix() {
+		return fromPostfix;
+	}
+
 	@Override
 	public String toString() {
-		return "WeiboReply [senderId=" + senderId + ", senderRealName=" + senderRealName + ", quoteWeiboId=" + quoteWeiboId + ", quoteSenderId=" + quoteSenderId + ", replyWeiboId=" + replyWeiboId + ", replySenderId=" + replySenderId + ", content=" + content + ", fromType=" + fromType + ", fromId=" + fromId + ", status=" + status + ", id=" + id + ", created=" + created + ", modified=" + modified + "]";
+		return "WeiboReply [senderId=" + senderId + ", senderRealName=" + senderRealName + ", quoteWeiboId=" + quoteWeiboId + ", quoteSenderId=" + quoteSenderId + ", replyWeiboId=" + replyWeiboId + ", replySenderId=" + replySenderId + ", groupId=" + groupId + ", content=" + content + ", fromType=" + fromType + ", fromId=" + fromId + ", status=" + status + ", fromPostfix=" + fromPostfix + ", id=" + id + ", created=" + created + ", modified=" + modified + "]";
 	}
 
 }

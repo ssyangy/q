@@ -80,4 +80,10 @@ public interface WeiboDao {
 	 */
 	WeiboJoinGroup getWeiboJoinGroupByWeiboIdAndGroupId(long id, long groupId) throws SQLException;
 
+	/**
+	 * @param id
+	 * @return
+	 */
+	WeiboJoinGroup getWeiboJoinGroupByWeiboId(long weiboId) throws SQLException;
+
 }

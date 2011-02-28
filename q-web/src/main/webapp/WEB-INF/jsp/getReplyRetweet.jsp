@@ -22,9 +22,9 @@
 		<br />
 	</div>
 	<div>
-		<form action="<c:out value="${urlPrefix}/reply/${reply.id}/retweet"/>" method="post">
-			<input type="hidden" name="from" value='<c:out value="${from}"></c:out>'/>
-			<textarea name="content" rows="5" cols="50">//@<c:out value="${sender.realName}"></c:out></textarea>
+		<form action="${urlPrefix}/reply/${reply.id}/retweet" method="post">
+			<input type="hidden" name="from" value="${from}" />
+			<textarea name="content" rows="5" cols="50">//@${sender.realName}</textarea>
 			<button>转发</button>
 		</form>
 	</div>

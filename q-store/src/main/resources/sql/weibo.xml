@@ -134,6 +134,14 @@
 		and group_id = #groupId# 
 	</select>
 	
+	<select id="selectWeiboJoinGroupByWeiboId" resultMap="wjgResult">
+		select
+		<include refid="wjg.columns" />
+		from weibo_join_group
+		where 
+		weibo_id = #weiboId#
+	</select>
+	
 	<insert id="insertWeiboJoinGroup">
 		insert into weibo_join_group
 		(

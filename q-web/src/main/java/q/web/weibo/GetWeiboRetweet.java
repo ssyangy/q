@@ -50,7 +50,7 @@ public class GetWeiboRetweet extends Resource {
 
 		People sender = peopleDao.getPeopleById(weibo.getSenderId());
 		context.setModel("sender", sender);
-		context.setModel("groupId", context.getString("groupId"));
+		
 		context.setModel("from", context.getString("from"));
 	}
 

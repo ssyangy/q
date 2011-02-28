@@ -5,6 +5,8 @@ package q.web.weibo;
 
 import q.dao.WeiboDao;
 import q.domain.Weibo;
+import q.domain.WeiboFromType;
+import q.domain.WeiboJoinGroup;
 import q.domain.WeiboReply;
 import q.web.Resource;
 import q.web.ResourceContext;
@@ -41,7 +43,7 @@ public class AddWeiboReply extends Resource {
 		WeiboReply reply = new WeiboReply();
 		reply.setQuoteWeiboId(quote.getId());
 		reply.setQuoteSenderId(quote.getSenderId());
-		long replyWeiboId = context.getLongId("replyId");
+		long replyWeiboId = context.getIdLong("replyId");
 		if (replyWeiboId > 0) { // exsits replied comment
 			WeiboReply replied = weiboDao.getWeiboReplyById(replyWeiboId);
 			reply.setReplyWeiboId(replied.getId());
@@ -49,6 +51,11 @@ public class AddWeiboReply extends Resource {
 		}
 		reply.setSenderId(senderId);
 		reply.setContent(content);
+		WeiboJoinGroup join = weiboDao.getWeiboJoinGroupByWeiboId(quote.getId());
+		if (join != null && join.isValid()) {
+			reply.setFromType(WeiboFromType.GROUP);
+			reply.setFromId(join.getGroupId());
+		}
 		this.weiboDao.addWeiboReply(reply);
 		context.redirectServletPath("/weibo/" + quoteId);
 	}

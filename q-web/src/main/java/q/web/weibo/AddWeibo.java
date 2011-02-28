@@ -5,6 +5,7 @@ package q.web.weibo;
 
 import q.dao.WeiboDao;
 import q.domain.Weibo;
+import q.domain.WeiboFromType;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
@@ -34,9 +35,11 @@ public class AddWeibo extends Resource {
 		weibo.setSenderId(senderId);
 		String content = context.getString("content");
 		weibo.setContent(content);
+		long groupId = context.getIdLong("groupId");
+		weibo.setFromType(WeiboFromType.GROUP);
+		weibo.setFromId(groupId);
 		this.weiboDao.addWeibo(weibo);
 		
-		long groupId = context.getLongId("groupId");
 		if (IdCreator.isValidIds(groupId)) {
 			this.weiboDao.addWeiboJoinGroup(weibo.getId(), groupId);
 		}

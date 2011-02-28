@@ -28,7 +28,7 @@ public class GetWeiboNew extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		People receiver = peopleDao.getPeopleById(context.getLongId("receiverId"));
+		People receiver = peopleDao.getPeopleById(context.getIdLong("receiverId"));
 		context.setModel("from", context.getString("from"));
 		context.setModel("receiver", receiver);
 	}

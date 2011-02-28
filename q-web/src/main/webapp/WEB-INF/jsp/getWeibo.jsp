@@ -12,6 +12,9 @@
 <div id="content">
 	<div>
 		<c:out value="${weibo.content}" /><br/>
+		<c:if test="${weibo.quoteWeiboId >0}">
+					<a href="<c:out value="${urlPrefix}/weibo/${weibo.quoteWeiboId}"/>">原文</a>&nbsp;
+		</c:if>	
 		<a href="<c:out value="${urlPrefix}/people/${weibo.senderId}"/>">
 			<c:out value="${weibo.senderRealName}" />
 		</a>&nbsp;

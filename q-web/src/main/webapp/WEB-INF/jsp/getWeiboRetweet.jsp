@@ -22,10 +22,9 @@
 		<br />
 	</div>
 	<div>
-		<form action="<c:out value="${urlPrefix}/weibo/${weibo.id}/retweet"/>" method="post">
-			<input type="hidden" name="from" value='<c:out value="${from}"></c:out>'/>
-			<input type="hidden" name="groupId" value='<c:out value="${groupId}"></c:out>'/>
-			<textarea name="content" rows="5" cols="50">//@<c:out value="${sender.realName}"></c:out></textarea>
+		<form action="${urlPrefix}/weibo/${weibo.id}/retweet" method="post">
+			<input type="hidden" name="from" value="${from}"/>
+			<textarea name="content" rows="5" cols="50">//@${sender.realName}</textarea>
 			<button>转发</button>
 		</form>
 	</div>

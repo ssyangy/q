@@ -36,27 +36,25 @@ public class AddWeiboRetweet extends Resource {
 		String content = context.getString("content");
 		String from = context.getString("from");
 
-		Weibo origin = weiboDao.getWeiboById(context.getResourceIdLong());
-		if (origin == null) {
+		Weibo father = weiboDao.getWeiboById(context.getResourceIdLong());
+		if (father == null) {
 			throw new IllegalStateException();
 		}
 
 		Weibo retweet = new Weibo();
 		retweet.setSenderId(senderId);
-		retweet.setQuoteWeiboId(origin.getQuoteWeiboId() == 0 ? origin.getId() : origin.getQuoteWeiboId()); // if replied weibo is origin, use replied id as quote id.
-		retweet.setQuoteSenderId(origin.getQuoteSenderId() == 0 ? origin.getSenderId() : origin.getQuoteSenderId());
-		retweet.setReplyWeiboId(origin.getId());
-		retweet.setReplySenderId(origin.getSenderId());
+		retweet.setQuoteWeiboId(father.getQuoteWeiboId() == 0 ? father.getId() : father.getQuoteWeiboId()); // if replied weibo is origin, use replied id as quote id.
+		retweet.setQuoteSenderId(father.getQuoteSenderId() == 0 ? father.getSenderId() : father.getQuoteSenderId());
+		retweet.setReplyWeiboId(father.getId());
+		retweet.setReplySenderId(father.getSenderId());
 		retweet.setContent(content);
-		long groupId = context.getLongId("groupId");
-		if (groupId > 0) {
-			WeiboJoinGroup join = weiboDao.getWeiboJoinGroupByWeiboIdAndGroupId(origin.getId(), groupId);
-			if (join != null && join.isValid()) {
-				retweet.setFromType(WeiboFromType.GROUP);
-				retweet.setFromId(join.getGroupId());
-			}
+		WeiboJoinGroup join = weiboDao.getWeiboJoinGroupByWeiboId(father.getId());
+		if (join != null && join.isValid()) {
+			retweet.setFromType(WeiboFromType.GROUP);
+			retweet.setFromId(join.getGroupId());
 		}
 		this.weiboDao.addWeibo(retweet);
+		
 		if (from != null) {
 			context.redirectContextPath(from);
 		} else {

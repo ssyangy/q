@@ -15,15 +15,15 @@ public interface ResourceContext {
 
 	String getString(String key);
 
-	long getLongId(String key);
+	long getIdLong(String key);
 
 	int getInt(String key);
 
 	String getRequestPath();
 
-	String getResourceId();
-
 	long getResourceIdLong();
+	
+	String getResourceId();
 
 	/**
 	 * @return

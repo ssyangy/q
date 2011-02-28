@@ -40,8 +40,7 @@ public class DefaultResourceContext implements ResourceContext {
 
 	@Override
 	public String getString(String key) {
-		String value = request.getParameter(key);
-		return value;
+		return request.getParameter(key);
 	}
 
 	@Override
@@ -50,19 +49,22 @@ public class DefaultResourceContext implements ResourceContext {
 	}
 
 	@Override
-	public long getLongId(String key) {
+	public long getIdLong(String key) {
 		String value = getString(key);
+		return getIdLongFromValue(value);
+	}
+
+	private long getIdLongFromValue(String value) {
 		long v = -1;
-		if (value == null) {
+		if (StringKit.isEmpty(value)) {
 			return v;
 		}
 		try {
 			v = Long.valueOf(value);
+			if (!IdCreator.isValidIds(v)) {
+				v = -1;
+			}
 		} catch (NumberFormatException e) {
-			throw new IllegalStateException(value);
-		}
-		if (!IdCreator.isValidIds(v)) {
-			throw new IllegalStateException(value);
 		}
 		return v;
 	}
@@ -83,7 +85,7 @@ public class DefaultResourceContext implements ResourceContext {
 
 	@Override
 	public long getResourceIdLong() {
-		return Long.valueOf(getResourceId());
+		return getIdLongFromValue(getResourceId());
 	}
 
 	@Override

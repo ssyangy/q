@@ -17,7 +17,7 @@ public class AddEvent extends Resource {
 		Event event = new Event();
 		event.setIntro(context.getString("intro"));
 		event.setName(context.getString("name"));
-		event.setGroupId(context.getLongId("groupId"));
+		event.setGroupId(context.getIdLong("groupId"));
 		event.setCreatorId(context.getLoginPeopleId());
 		this.eventDao.addEvent(event);
 		context.redirectServletPath("/event/" + event.getId());

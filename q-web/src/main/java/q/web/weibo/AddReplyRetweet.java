@@ -37,19 +37,25 @@ public class AddReplyRetweet extends Resource {
 		String content = context.getString("content");
 		String from = context.getString("from");
 
-		WeiboReply origin = weiboDao.getWeiboReplyById(context.getResourceIdLong());
-		if (origin == null) {
+		WeiboReply father = weiboDao.getWeiboReplyById(context.getResourceIdLong());
+		if (father == null) {
 			throw new IllegalStateException();
 		}
 
 		Weibo retweet = new Weibo();
 		retweet.setSenderId(senderId);
-		retweet.setQuoteWeiboId(origin.getQuoteWeiboId());
-		retweet.setQuoteSenderId(origin.getQuoteSenderId());
-		retweet.setReplyWeiboId(origin.getId());
-		retweet.setReplySenderId(origin.getSenderId());
+		retweet.setQuoteWeiboId(father.getQuoteWeiboId());
+		retweet.setQuoteSenderId(father.getQuoteSenderId());
+		retweet.setReplyWeiboId(father.getId());
+		retweet.setReplySenderId(father.getSenderId());
 		retweet.setContent(content);
+		WeiboJoinGroup join = weiboDao.getWeiboJoinGroupByWeiboId(father.getQuoteWeiboId());
+		if (join != null && join.isValid()) {
+			retweet.setFromType(WeiboFromType.GROUP);
+			retweet.setFromId(join.getGroupId());
+		}
 		this.weiboDao.addWeibo(retweet);
+
 		if (from != null) {
 			context.redirectContextPath(from);
 		} else {
