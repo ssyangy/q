@@ -4,6 +4,7 @@
 package q.dao.page;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author seanlinwang
@@ -18,7 +19,15 @@ public class WeiboPage extends Page implements Serializable {
 
 	private Long senderId;
 
+	private List<Long> senderIds;
 
+	public List<Long> getSenderIds() {
+		return senderIds;
+	}
+
+	public void setSenderIds(List<Long> senderIds) {
+		this.senderIds = senderIds;
+	}
 
 	public Long getGroupId() {
 		return groupId;
@@ -36,5 +45,4 @@ public class WeiboPage extends Page implements Serializable {
 		this.senderId = senderId;
 	}
 
-	
 }

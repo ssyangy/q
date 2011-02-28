@@ -48,7 +48,12 @@
 				<c:if test="${weibo.quoteWeiboId >0}">
 					<a href="<c:out value="${urlPrefix}/weibo/${weibo.quoteWeiboId}"/>">原文</a>&nbsp;
 				</c:if>				
-				<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}/retweet?from=${contextPath}/people/${people.id}"/>">转发</a>&nbsp;
+				<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}/retweet?from=${contextPath}/people/${people.id}"/>">
+				<c:choose>
+					<c:when test="${weibo.inGroup}">分享给好友</c:when>
+					<c:otherwise>转发</c:otherwise>
+				</c:choose>
+				</a>&nbsp;
 				<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}"/>">回复</a>&nbsp;
 				<a href="<c:out value="${urlPrefix}/people/${weibo.senderId}"/>">
 					<c:out value="${weibo.senderRealName}" />

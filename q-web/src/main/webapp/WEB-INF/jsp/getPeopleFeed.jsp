@@ -11,6 +11,27 @@
 <body>
 <div id="content">
 	<div>新动态 | @提到我 | 回复我</div>
+	<c:forEach items="${weibos}" var="weibo" varStatus="status">
+		<br/><c:out value="${weibo.content}" /><br/>
+		<c:if test="${weibo.quoteWeiboId >0}">
+			<a href="<c:out value="${urlPrefix}/weibo/${weibo.quoteWeiboId}"/>">原文</a>&nbsp;
+		</c:if>				
+		<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}/retweet?from=${contextPath}/people/feed"/>">
+		<c:choose>
+			<c:when test="${weibo.fromGroup && weibo.quoteWeiboId > 0}">分享给好友</c:when>
+			<c:otherwise>转发</c:otherwise>
+		</c:choose>
+		</a>&nbsp;
+		<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}"/>">回复</a>&nbsp;
+		<a href="<c:out value="${urlPrefix}/people/${weibo.senderId}"/>">
+			<c:out value="${weibo.senderRealName}" />
+		</a>&nbsp;
+		<c:out value="${weibo.time}" />&nbsp;
+		<a href="<c:out value="${urlPrefix}${weibo.fromUrl}" />">
+			<c:out value="${weibo.fromName}" />
+		</a>
+		<br />
+	</c:forEach>
 </div>
 <div id="content2">
 <div>好友地图 

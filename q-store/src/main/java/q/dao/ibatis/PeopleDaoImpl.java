@@ -125,6 +125,17 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 		List<PeopleRelation> relations = (List<PeopleRelation>) this.sqlMapClient.queryForList("selectPagePeopleRelation", page);
 		return relations;
 	}
+	
+
+	@Override
+	public List<Long> getAllFollowingId(long fromPeopleId) throws SQLException {
+		PeopleRelation query = new PeopleRelation();
+		query.setStatus(PeopleRelationStatus.FOLLOWING);
+		query.setFromPeopleId(fromPeopleId);
+		@SuppressWarnings("unchecked")
+		List<Long> followingIds = this.sqlMapClient.queryForList("selectAllToPeopleIds", query);
+		return followingIds;
+	}
 
 	@Override
 	public PeopleRelation getPeopleRelationByFromIdToId(long fromPeopleId, long toPeopleId) throws SQLException {

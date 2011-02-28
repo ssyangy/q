@@ -211,6 +211,13 @@
 		order by created desc
 		limit #startIndex#, #size#
 	</select>
+	
+	<select id="selectAllToPeopleIds" resultClass="long">
+		select to_people_id
+		from people_relation
+		where status = #status,handler=q.dao.ibatis.PeopleRelationStatusHandler#
+		and from_people_id = #fromPeopleId#
+	</select>
 
 	<select id="selectPeopleRelationByFromIdToId" resultMap="relationResult">
 		select

@@ -33,7 +33,12 @@
 	<div>
 		<c:forEach items="${replies}" var="reply" varStatus="status">
 			<br/><c:out value="${reply.content}" /><br/>
-			<a href="<c:out value="${urlPrefix}/reply/${reply.id}/retweet?from=${contextPath}/weibo/${weibo.id}"/>">转发</a>&nbsp;
+			<a href="<c:out value="${urlPrefix}/reply/${reply.id}/retweet?from=${contextPath}/weibo/${weibo.id}"/>">
+			<c:choose>
+				<c:when test="${reply.fromGroup}">分享给好友</c:when>
+				<c:otherwise>转发</c:otherwise>
+			</c:choose>
+			</a>&nbsp;
 			<a href="#">回复</a>&nbsp;
 			<a href="<c:out value="${urlPrefix}/people/${reply.senderId}"/>">
 				<c:out value="${reply.senderRealName}" />

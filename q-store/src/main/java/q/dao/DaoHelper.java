@@ -91,6 +91,25 @@ public class DaoHelper {
 		List<Weibo> weibos = weiboDao.getPageGroupWeibo(page);
 		return injectWeibosWithSenderRealNameAndFrom(peopleDao, groupDao, weibos);
 	}
+	
+
+	/**
+	 * @param peopleDao
+	 * @param weiboDao
+	 * @param groupDao
+	 * @param page
+	 * @param loginPeopleId
+	 * @throws SQLException 
+	 */
+	public static List<Weibo> getFollowingWeibosWithSenderRealNameAndFrom(PeopleDao peopleDao, WeiboDao weiboDao, GroupDao groupDao, WeiboPage page, long loginPeopleId) throws SQLException {
+		List<Long> senderIds = peopleDao.getAllFollowingId(loginPeopleId);
+		if(CollectionKit.isEmpty(senderIds)) {
+			return null;
+		}
+		page.setSenderIds(senderIds);
+		List<Weibo> weibos = weiboDao.getPageFollowingWeibos(page);
+		return injectWeibosWithSenderRealNameAndFrom(peopleDao, groupDao, weibos);
+	}
 
 	/**
 	 * @param peopleDao
@@ -184,4 +203,5 @@ public class DaoHelper {
 		}
 		return reply;
 	}
+
 }

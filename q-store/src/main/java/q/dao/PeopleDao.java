@@ -77,6 +77,13 @@ public interface PeopleDao {
 	 * @throws SQLException
 	 */
 	List<PeopleRelation> getPagePeopleRelation(PeopleRelationPage page) throws SQLException;
+	
+	/**
+	 * @param peopleId
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Long> getAllFollowingId(long peopleId) throws SQLException;
 
 	/**
 	 * @param fromPeopleId

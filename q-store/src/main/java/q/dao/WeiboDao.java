@@ -39,8 +39,20 @@ public interface WeiboDao {
 	 * @throws SQLException
 	 */
 	List<Weibo> getPageGroupWeibo(WeiboPage page) throws SQLException;
-	
+
+	/**
+	 * @param page
+	 * @return
+	 * @throws SQLException
+	 */
 	List<Weibo> getPageWeibo(WeiboPage page) throws SQLException;
+
+	/**
+	 * @param page
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Weibo> getPageFollowingWeibos(WeiboPage page) throws SQLException;
 
 	/**
 	 * @param weiboId
@@ -68,7 +80,7 @@ public interface WeiboDao {
 	/**
 	 * @param replyWeiboId
 	 * @return
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	WeiboReply getWeiboReplyById(long weiboReplyId) throws SQLException;
 
@@ -76,7 +88,7 @@ public interface WeiboDao {
 	 * @param id
 	 * @param groupId
 	 * @return
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	WeiboJoinGroup getWeiboJoinGroupByWeiboIdAndGroupId(long id, long groupId) throws SQLException;
 

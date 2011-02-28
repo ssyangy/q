@@ -136,6 +136,10 @@ public class Weibo extends AbstractDomain implements Serializable {
 	public boolean isFromGroup() {
 		return this.fromType.isFromGroup();
 	}
+	
+	public boolean isInGroup() { // not retweet to followers
+		return isFromGroup() && this.quoteWeiboId == 0;
+	}
 
 	public String getFromPostfix() {
 		return fromPostfix;

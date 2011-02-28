@@ -100,6 +100,10 @@
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="getPeopleFeed" class="q.web.people.GetPeopleFeed">
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="eventDao" ref="eventDao" />
+		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="getPeopleIndex" class="q.web.people.GetPeopleIndex">
 	</bean>
@@ -212,7 +216,7 @@
 	<bean id="addReplyRetweet" class="q.web.weibo.AddReplyRetweet">
 		<property name="weiboDao" ref="weiboDao" />
 	</bean>
-	
+
 	<!-- message web -->
 	<bean id="getMessageIndex" class="q.web.message.GetMessageIndex">
 		<property name="messageDao" ref="messageDao" />

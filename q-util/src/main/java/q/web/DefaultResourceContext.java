@@ -55,14 +55,14 @@ public class DefaultResourceContext implements ResourceContext {
 	}
 
 	private long getIdLongFromValue(String value) {
-		long v = -1;
+		long v = 0;
 		if (StringKit.isEmpty(value)) {
 			return v;
 		}
 		try {
 			v = Long.valueOf(value);
 			if (!IdCreator.isValidIds(v)) {
-				v = -1;
+				v = 0;
 			}
 		} catch (NumberFormatException e) {
 		}
