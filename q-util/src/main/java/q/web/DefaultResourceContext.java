@@ -44,8 +44,21 @@ public class DefaultResourceContext implements ResourceContext {
 	}
 
 	@Override
-	public int getInt(String key) {
-		return Integer.valueOf(getString(key));
+	public int getIdInt(String key, int defaultValue) {
+		String value = getString(key);
+		return getIdIntFromValue(value, defaultValue);
+	}
+
+	private int getIdIntFromValue(String value, int defaultValue) {
+		int v = defaultValue;
+		if (StringKit.isEmpty(value)) {
+			return v;
+		}
+		try {
+			v = Integer.valueOf(value);
+		} catch (NumberFormatException e) {
+		}
+		return v;
 	}
 
 	@Override
@@ -144,7 +157,7 @@ public class DefaultResourceContext implements ResourceContext {
 	 */
 	@Override
 	public void redirectReffer() throws IOException {
-		redirectContextPath(request.getHeader("refferr"));
+		redirectContextPath(request.getHeader("Referer"));
 	}
 
 	@Override
@@ -154,8 +167,8 @@ public class DefaultResourceContext implements ResourceContext {
 
 	@Override
 	public void redirectContextPath(String fullPath) throws IOException {
-		response.sendRedirect(fullPath);
 		log.debug("send redirect to %s", fullPath);
+		response.sendRedirect(fullPath);
 	}
 
 	private boolean isEmptyView = false;

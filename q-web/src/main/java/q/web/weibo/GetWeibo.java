@@ -6,6 +6,7 @@ package q.web.weibo;
 import java.util.List;
 
 import q.dao.DaoHelper;
+import q.dao.FavoriteDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
@@ -40,6 +41,12 @@ public class GetWeibo extends Resource {
 		this.groupDao = groupDao;
 	}
 
+	private FavoriteDao favoriteDao;
+	
+	public void setFavoriteDao(FavoriteDao favoriteDao) {
+		this.favoriteDao = favoriteDao;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -54,7 +61,9 @@ public class GetWeibo extends Resource {
 		page.setQuoteWeiboId(weiboId);
 		page.setSize(20);
 		page.setStartIndex(0);
-		List<WeiboReply> replies = DaoHelper.getPageWeiboReplyWithSenderRealNameAndFrom(peopleDao, weiboDao, groupDao, page);
+		List<WeiboReply> replies = weiboDao.getPageWeiboReply(page);
+		long loginPeopleId = context.getLoginPeopleId();
+		DaoHelper.injectWeiboRepliesWithSenderRealNameAndFromAndFavorite(peopleDao, weiboDao, groupDao, favoriteDao, replies, loginPeopleId);
 		context.setModel("replies", replies);
 	}
 

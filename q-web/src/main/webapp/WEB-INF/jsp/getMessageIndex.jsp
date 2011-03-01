@@ -12,12 +12,13 @@
 <div id="content">
 	<div>
 		<c:forEach items="${messages}" var="message" varStatus="status">
+			<br/>
 			<a href="${urlPrefix}/people/${message.senderId}">
 				${message.senderRealName}
 			</a>发送给
 			<a href="${urlPrefix}/people/${message.receiverId}">
 				${message.receiverRealName}
-			</a>
+			</a>&nbsp;
 			${message.content}<br/>
 			<c:if test="${loginId != message.senderId}">
 				<a href="${urlPrefix}/message/new?receiverId=${message.senderId}&replyMessageId=${message.id}">回复</a>&nbsp;

@@ -13,9 +13,6 @@ import java.io.Serializable;
  */
 public class Event extends AbstractDomain implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 986692036209440550L;
 
 	private long creatorId;

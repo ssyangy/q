@@ -10,4 +10,5 @@
 	<sqlMap resource="sql/event.xml" />
 	<sqlMap resource="sql/weibo.xml" />
 	<sqlMap resource="sql/message.xml" />
+	<sqlMap resource="sql/favorite.xml" />
 </sqlMapConfig>

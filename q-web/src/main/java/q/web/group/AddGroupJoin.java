@@ -40,7 +40,7 @@ public class AddGroupJoin extends Resource {
 			groupDao.rejoinPeopleJoinGroup(peopleId, groupId);
 		}
 
-		context.redirectServletPath("/group/" + groupId);
+		context.redirectReffer();
 	}
 
 }

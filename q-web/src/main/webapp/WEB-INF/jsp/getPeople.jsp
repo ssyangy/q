@@ -46,8 +46,19 @@
 			<c:forEach items="${weibos}" var="weibo" varStatus="status">
 				<br/><c:out value="${weibo.content}" /><br/>
 				<c:if test="${weibo.quoteWeiboId >0}">
-					<a href="<c:out value="${urlPrefix}/weibo/${weibo.quoteWeiboId}"/>">原文</a>&nbsp;
-				</c:if>				
+					<a href="${urlPrefix}/weibo/${weibo.quoteWeiboId}">原文</a>&nbsp;
+				</c:if>	
+				<form action="${urlPrefix}/weibo/${weibo.id}/favorite" method="post">
+				<c:choose>
+					<c:when test="${weibo.unFav}">
+					<button>收藏</button>
+					</c:when>
+					<c:otherwise>
+					<input type="hidden" name="_method"  value="delete"/>
+					<button>取消收藏</button>
+					</c:otherwise>
+				</c:choose>	
+				</form>		
 				<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}/retweet?from=${contextPath}/people/${people.id}"/>">
 				<c:choose>
 					<c:when test="${weibo.inGroup}">分享给好友</c:when>

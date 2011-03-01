@@ -4,13 +4,13 @@
 package q.dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import q.dao.page.MessagePage;
-import q.dao.page.WeiboReplyPage;
 import q.domain.Group;
 import q.domain.Message;
 import q.domain.People;
@@ -34,8 +34,7 @@ public class DaoHelper {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static List<WeiboReply> getPageWeiboReplyWithSenderRealNameAndFrom(PeopleDao peopleDao, WeiboDao weiboDao, GroupDao groupDao, WeiboReplyPage page) throws SQLException {
-		List<WeiboReply> replies = weiboDao.getPageWeiboReply(page);
+	public static void injectWeiboRepliesWithSenderRealNameAndFromAndFavorite(PeopleDao peopleDao, WeiboDao weiboDao, GroupDao groupDao, FavoriteDao favoriteDao, List<WeiboReply> replies, long loginPeopleId) throws SQLException {
 		if (CollectionKit.isNotEmpty(replies)) {
 			Set<Long> peopleIds = new HashSet<Long>(replies.size());
 			Set<Long> groupIds = null;
@@ -62,8 +61,23 @@ public class DaoHelper {
 					}
 				}
 			}
+
+			if (loginPeopleId > 0) { // if login, inject favorite status
+				List<Long> replyIds = new ArrayList<Long>(replies.size());
+				for (WeiboReply reply : replies) {
+					replyIds.add(reply.getId());
+				}
+				List<Long> favIds = favoriteDao.getFavReplyIds(replyIds, loginPeopleId);
+				if (CollectionKit.isNotEmpty(favIds)) {
+					Set<Long> favSet = new HashSet<Long>(favIds);
+					for (WeiboReply reply : replies) {
+						if (favSet.contains(reply.getId())) {
+							reply.setFav(true);
+						}
+					}
+				}
+			}
 		}
-		return replies;
 	}
 
 	/**
@@ -73,7 +87,7 @@ public class DaoHelper {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static List<Weibo> injectWeibosWithSenderRealNameAndFrom(PeopleDao peopleDao, GroupDao groupDao, List<Weibo> weibos) throws SQLException {
+	public static void injectWeibosWithSenderRealNameAndFrom(PeopleDao peopleDao, GroupDao groupDao, List<Weibo> weibos) throws SQLException {
 		if (CollectionKit.isNotEmpty(weibos)) {
 			Set<Long> peopleIds = new HashSet<Long>(weibos.size());
 			Set<Long> groupIds = null;
@@ -101,7 +115,22 @@ public class DaoHelper {
 				}
 			}
 		}
-		return weibos;
+	}
+
+	public static void injectWeibosWithFavorite(FavoriteDao favoriteDao, List<Weibo> weibos, long peopleId) throws SQLException {
+		List<Long> replyIds = new ArrayList<Long>(weibos.size());
+		for (Weibo weibo : weibos) {
+			replyIds.add(weibo.getId());
+		}
+		List<Long> favIds = favoriteDao.getFavWeiboIds(replyIds, peopleId);
+		if (CollectionKit.isNotEmpty(favIds)) {
+			Set<Long> favSet = new HashSet<Long>(favIds);
+			for (Weibo weibo : weibos) {
+				if (favSet.contains(weibo.getId())) {
+					weibo.setFav(true);
+				}
+			}
+		}
 	}
 
 	public static List<Message> getPageMessageRealName(PeopleDao peopleDao, MessageDao messageDao, MessagePage page) throws SQLException {

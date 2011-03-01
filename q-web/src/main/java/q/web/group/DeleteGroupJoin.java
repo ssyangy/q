@@ -29,7 +29,7 @@ public class DeleteGroupJoin extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		groupDao.unjoinPeopleJoinGroup(context.getLoginPeopleId(), context.getResourceIdLong());
-		context.redirectServletPath("/group/" + context.getResourceIdLong());
+		context.redirectReffer();
 	}
 
 }

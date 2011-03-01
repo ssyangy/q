@@ -17,6 +17,9 @@
 	<bean id="weiboDao" class="q.dao.ibatis.WeiboDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
+	<bean id="favoriteDao" class="q.dao.ibatis.FavoriteDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
 	<bean id="messageDao" class="q.dao.ibatis.MessageDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
