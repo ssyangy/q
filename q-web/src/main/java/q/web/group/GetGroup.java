@@ -74,7 +74,8 @@ public class GetGroup extends Resource {
 		page.setGroupId(groupId);
 		page.setSize(20);
 		page.setStartIndex(0);
-		List<Weibo> weibos = DaoHelper.getPageGroupWeiboWithSenderRealName(peopleDao, weiboDao, groupDao, page);
+		List<Weibo> weibos = weiboDao.getPageGroupWeibo(page);
+		DaoHelper.injectWeibosWithSenderRealNameAndFrom(peopleDao, groupDao, weibos);
 		context.setModel("weibos", weibos);
 		
 		EventPage epage = new EventPage();

@@ -17,6 +17,29 @@
 		<a href="<c:out value="${contextPath}/group"/>">逛更多圈子</a>
 	</div>
 	<div>新帖 | 热贴 | 我发起的 | 我回复的 | 我关注的</div>
+	<div>
+	<c:forEach items="${weibos}" var="weibo" varStatus="status">
+		<br/><c:out value="${weibo.content}" /><br/>
+		<c:if test="${weibo.quoteWeiboId >0}">
+			<a href="<c:out value="${urlPrefix}/weibo/${weibo.quoteWeiboId}"/>">原文</a>&nbsp;
+		</c:if>				
+		<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}/retweet?from=${contextPath}/group/feed"/>">
+		<c:choose>
+			<c:when test="${weibo.inGroup}">分享给好友</c:when>
+			<c:otherwise>转发</c:otherwise>
+		</c:choose>
+		</a>&nbsp;
+		<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}"/>">回复</a>&nbsp;
+		<a href="<c:out value="${urlPrefix}/people/${weibo.senderId}"/>">
+			<c:out value="${weibo.senderRealName}" />
+		</a>&nbsp;
+		<c:out value="${weibo.time}" />&nbsp;
+		<a href="<c:out value="${urlPrefix}${weibo.fromUrl}" />">
+			<c:out value="${weibo.fromName}" />
+		</a>
+		<br />
+	</c:forEach>
+	</div>	
 </div>
 <div id="content2">
 	<div>我加入的圈子:</div>

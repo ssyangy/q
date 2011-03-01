@@ -39,6 +39,13 @@ public interface WeiboDao {
 	 * @throws SQLException
 	 */
 	List<Weibo> getPageGroupWeibo(WeiboPage page) throws SQLException;
+	
+	/**
+	 * @param page
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Weibo> getPageGroupFeedWeibo(WeiboPage page) throws SQLException;
 
 	/**
 	 * @param page

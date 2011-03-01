@@ -52,16 +52,22 @@
 		where id=#value#
 	</select>
 
-	<select id="selectGroupsByPeopleId" resultMap="groupResult">
+	<select id="selectGroupsByIds" resultMap="groupResult">
 		select
 		<include refid="group.columns" />
-		from `group` where id in
-		(
-			select group_id from people_join_group
-			where
-			people_id = #value#
-		)
+		from `group` 
+		where id in
+		<iterate open="(" close=")" conjunction=",">
+			#[]#
+        </iterate>
 		order by created desc
+	</select>
+	
+	<select id="selectGroupIdsByPeopleId" resultClass="long">
+		select group_id 
+		from people_join_group
+		where
+		people_id = #value#
 	</select>
 
 	<select id="selectNewGroups" resultMap="groupResult">

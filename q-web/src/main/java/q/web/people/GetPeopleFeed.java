@@ -9,6 +9,7 @@ import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.dao.page.WeiboPage;
 import q.domain.Weibo;
+import q.util.CollectionKit;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -40,12 +41,17 @@ public class GetPeopleFeed extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getLoginPeopleId();
+		List<Long> senderIds = peopleDao.getAllFollowingId(loginPeopleId);
+		if (CollectionKit.isNotEmpty(senderIds)) {
+			WeiboPage page = new WeiboPage();
+			page.setStartIndex(0);
+			page.setSize(20);
+			page.setSenderIds(senderIds);
+			List<Weibo> weibos = weiboDao.getPageFollowingWeibos(page);
+			DaoHelper.injectWeibosWithSenderRealNameAndFrom(peopleDao, groupDao, weibos);
+			context.setModel("weibos", weibos);
 
-		WeiboPage page = new WeiboPage();
-		page.setStartIndex(0);
-		page.setSize(20);
-		List<Weibo> weibos = DaoHelper.getFollowingWeibosWithSenderRealNameAndFrom(peopleDao, weiboDao, groupDao, page, loginPeopleId);
-		context.setModel("weibos", weibos);
+		}
 	}
 
 }

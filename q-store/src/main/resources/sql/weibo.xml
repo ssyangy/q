@@ -74,7 +74,7 @@
 		order by created desc
 		limit #startIndex#, #size#
 	</select>
-
+	
 	<select id="selectPageWeibos" resultMap="weiboResult">
 		select
 		<include refid="weibo.columns" />
@@ -132,14 +132,23 @@
 	<select id="selectPageGroupWeiboIds" resultClass="long">
 		select weibo_id
 		from weibo_join_group
-		where
-		group_id = #groupId#
-		<isNotNull prepend="and" property="startCreated">
-			created &lt;= #startCreated#
-		</isNotNull>
-		<isNotNull prepend="and" property="startId">
-			id &lt;= #startId#
-		</isNotNull>
+		<dynamic prepend="where"> 
+			<isNotNull property="groupIds">
+				group_id in
+				<iterate property="groupIds" open="(" close=")" conjunction=",">
+					#groupIds[]#
+	        	</iterate>
+	        </isNotNull>
+			<isNotNull prepend="and" property="groupId">
+				group_id = #groupId#
+			</isNotNull>
+			<isNotNull prepend="and" property="startCreated">
+				created &lt;= #startCreated#
+			</isNotNull>
+			<isNotNull prepend="and" property="startId">
+				id &lt;= #startId#
+			</isNotNull>
+		</dynamic>
 		order by created desc
 		limit #startIndex#, #size#
 	</select>

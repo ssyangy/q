@@ -11,6 +11,7 @@
 <body>
 <div id="content">
 	<div>新动态 | @提到我 | 回复我</div>
+	<div>
 	<c:forEach items="${weibos}" var="weibo" varStatus="status">
 		<br/><c:out value="${weibo.content}" /><br/>
 		<c:if test="${weibo.quoteWeiboId >0}">
@@ -18,7 +19,7 @@
 		</c:if>				
 		<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}/retweet?from=${contextPath}/people/feed"/>">
 		<c:choose>
-			<c:when test="${weibo.fromGroup && weibo.quoteWeiboId > 0}">分享给好友</c:when>
+			<c:when test="${weibo.inGroup}">分享给好友</c:when>
 			<c:otherwise>转发</c:otherwise>
 		</c:choose>
 		</a>&nbsp;
@@ -32,6 +33,7 @@
 		</a>
 		<br />
 	</c:forEach>
+	</div>
 </div>
 <div id="content2">
 <div>好友地图 

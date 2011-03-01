@@ -21,8 +21,18 @@ public class WeiboPage extends Page implements Serializable {
 
 	private List<Long> senderIds;
 
+	private List<Long> groupIds;
+
 	public List<Long> getSenderIds() {
 		return senderIds;
+	}
+
+	public List<Long> getGroupIds() {
+		return groupIds;
+	}
+
+	public void setGroupIds(List<Long> groupIds) {
+		this.groupIds = groupIds;
 	}
 
 	public void setSenderIds(List<Long> senderIds) {
@@ -43,6 +53,11 @@ public class WeiboPage extends Page implements Serializable {
 
 	public void setSenderId(Long senderId) {
 		this.senderId = senderId;
+	}
+
+	@Override
+	public String toString() {
+		return "WeiboPage [groupId=" + groupId + ", senderId=" + senderId + ", senderIds=" + senderIds + ", groupIds=" + groupIds + "]";
 	}
 
 }

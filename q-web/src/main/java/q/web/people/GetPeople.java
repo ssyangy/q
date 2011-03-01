@@ -62,7 +62,8 @@ public class GetPeople extends Resource {
 		page.setSenderId(peopleId);
 		page.setSize(20);
 		page.setStartIndex(0);
-		List<Weibo> weibos = DaoHelper.getPageWeiboWithSenderRealNameAndFrom(peopleDao, weiboDao, groupDao, page);
+		List<Weibo> weibos = weiboDao.getPageWeibo(page);
+		DaoHelper.injectWeibosWithSenderRealNameAndFrom(peopleDao, groupDao, weibos);
 		context.setModel("weibos", weibos);
 
 		List<Event> events = eventDao.getEventsByParticipantId(peopleId);

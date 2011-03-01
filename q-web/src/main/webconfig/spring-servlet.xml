@@ -149,6 +149,9 @@
 	</bean>
 	<bean id="getGroupFeed" class="q.web.group.GetGroupFeed">
 		<property name="categoryDao" ref="categoryDao" />
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="eventDao" ref="eventDao" />
 		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="addGroupJoin" class="q.web.group.AddGroupJoin">

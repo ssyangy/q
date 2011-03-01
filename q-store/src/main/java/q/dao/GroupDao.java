@@ -32,6 +32,10 @@ public interface GroupDao {
 
 	void rejoinPeopleJoinGroup(long peopleId, long groupId) throws SQLException;
 
+	public List<Group> getGroupsByIds(List<Long> groupIds) throws SQLException;
+	
+	public List<Long> getGroupIdsByPeopleId(long peopleId) throws SQLException;
+	
 	/**
 	 * @param peopleId
 	 * @throws SQLException
