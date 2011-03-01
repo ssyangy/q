@@ -63,8 +63,7 @@ public class AddWeiboRetweet extends Resource {
 	}
 
 	@Override
-	public boolean validate(ResourceContext context) throws SQLException {
-		return true;
+	public void validate(ResourceContext context) throws SQLException {
 	}
 
 }

@@ -6,14 +6,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>新微博</title>
+<title>发表微博</title>
 </head>
 <body>
 <div id="content">
 	<div>
-		<form action="<c:out value="${urlPrefix}/weibo"/>" method="post">
-			<input type="hidden" name="from" value='<c:out value="${from}"></c:out>'/>
-			<textarea name="content" rows="5" cols="50">@<c:out value="${receiver.realName}"></c:out></textarea>
+		<form action="${urlPrefix}/weibo" method="post">
+			<input type="hidden" name="from" value="${from}"/>
+			<textarea name="content" rows="5" cols="50">@${receiver.realName}</textarea>
 			<button>发言</button>
 		</form>
 	</div>

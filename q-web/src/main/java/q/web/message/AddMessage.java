@@ -3,12 +3,11 @@
  */
 package q.web.message;
 
-import java.sql.SQLException;
-
 import q.dao.MessageDao;
 import q.dao.PeopleDao;
 import q.domain.Message;
-import q.util.IdCreator;
+import q.domain.People;
+import q.web.ParameterInvalidException;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -19,13 +18,13 @@ import q.web.ResourceContext;
  * 
  */
 public class AddMessage extends Resource {
-	private MessageDao messageDao;
+	protected MessageDao messageDao;
 
 	public void setMessageDao(MessageDao messageDao) {
 		this.messageDao = messageDao;
 	}
 
-	private PeopleDao peopleDao;
+	protected PeopleDao peopleDao;
 
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
@@ -42,26 +41,34 @@ public class AddMessage extends Resource {
 		message.setContent(context.getString("content"));
 		message.setSenderId(context.getLoginPeopleId());
 		message.setReceiverId(context.getIdLong("receiverId"));
+		long replyMessageId = context.getIdLong("replyMessageId");
+		if (replyMessageId > 0) {
+			message.setReplyMessageId(replyMessageId);
+		}
 		messageDao.addMessage(message);
 		context.redirectServletPath("/message");
 	}
 
 	@Override
-	public boolean validate(ResourceContext context) {
-		long receiverId = context.getIdLong("receiverId");
+	public void validate(ResourceContext context) throws Exception {
 		long senderId = context.getLoginPeopleId();
-		if (!IdCreator.isValidIds(senderId, receiverId)) {
-			return false;
+		long receiverId = context.getIdLong("receiverId");
+		if (senderId == 0 || receiverId == 0)
+			throw new ParameterInvalidException();
+
+		People receiver = peopleDao.getPeopleById(receiverId);
+		if (receiver == null)
+			throw new ParameterInvalidException();
+
+		long replyMessageId = context.getIdLong("replyMessageId");
+		if (replyMessageId > 0) {
+			Message replied = messageDao.getMessageById(replyMessageId);
+			if (replied == null)
+				throw new ParameterInvalidException();
+
+			if (replied.getReceiverId() != senderId) // check replied message is mine
+				throw new ParameterInvalidException();
 		}
-		try {
-			if (peopleDao.getPeopleById(receiverId) == null) {
-				return false;
-			}
-		} catch (SQLException e) {
-			log.error("", e);
-			return false;
-		}
-		return true;
 	}
 
 }

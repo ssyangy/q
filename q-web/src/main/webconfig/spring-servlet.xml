@@ -114,6 +114,7 @@
 	</bean>
 	<bean id="addLogin" class="q.web.login.AddLogin">
 		<property name="peopleDao" ref="peopleDao" />
+		<property name="redirectPath" value="/" />
 	</bean>
 	<bean id="getLoginDelete" class="q.web.login.DeleteLogin">
 		<property name="redirectPath" value="/" />
@@ -226,13 +227,14 @@
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="getMessageNew" class="q.web.message.GetMessageNew">
-		<property name="peopleDao" ref="peopleDao" />
-	</bean>
-	<bean id="getMessage" class="q.web.message.GetMessage">
 		<property name="messageDao" ref="messageDao" />
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="addMessage" class="q.web.message.AddMessage">
 		<property name="messageDao" ref="messageDao" />
 		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="getMessage" class="q.web.message.GetMessage">
+		<property name="messageDao" ref="messageDao" />
 	</bean>
 </beans>

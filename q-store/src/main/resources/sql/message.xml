@@ -6,7 +6,7 @@
 		<result property="id" column="id" />
 		<result property="senderId" column="sender_id" />
 		<result property="receiverId" column="receiver_id" />
-		<result property="quoteMessageId" column="quote_message_id" />
+		<result property="replyMessageId" column="reply_message_id" />
 		<result property="content" column="content" />
 		<result property="status" column="status" />
 		<result property="created" column="created" />
@@ -16,7 +16,7 @@
 		id,
 		sender_id,
 		receiver_id,
-		quote_message_id,
+		reply_message_id,
 		content,
 		status,
 		created,
@@ -55,7 +55,7 @@
 		#id#,
 		#senderId#,
 		#receiverId#,
-		#quoteMessageId#,
+		#replyMessageId#,
 		#content#,
 		0,
 		now(),
