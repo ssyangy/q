@@ -3,8 +3,6 @@
  */
 package q.web.weibo;
 
-import java.sql.SQLException;
-
 import q.dao.WeiboDao;
 import q.domain.Weibo;
 import q.domain.WeiboFromType;
@@ -64,8 +62,7 @@ public class AddReplyRetweet extends Resource {
 	}
 
 	@Override
-	public boolean validate(ResourceContext context) throws SQLException {
-		return true;
+	public void validate(ResourceContext context){
 	}
 
 }

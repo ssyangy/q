@@ -32,17 +32,26 @@
 	</div>
 	<div>
 		<c:forEach items="${replies}" var="reply" varStatus="status">
-			<br/><c:out value="${reply.content}" /><br/>
-			<a href="<c:out value="${urlPrefix}/reply/${reply.id}/retweet?from=${contextPath}/weibo/${weibo.id}"/>">
+			<br>${reply.content}<br/>
+			<form action="${urlPrefix}/reply/${reply.id}/favorite" method="post">
+			<c:choose>
+				<c:when test="${reply.unFav}">
+				<button>收藏</button>
+				</c:when>
+				<c:otherwise>
+				<input type="hidden" name="_method"  value="delete"/>
+				<button>取消收藏</button>
+				</c:otherwise>
+			</c:choose>
+			</form>
+			<a href="${urlPrefix}/reply/${reply.id}/retweet?from=${contextPath}/weibo/${weibo.id}">			
 			<c:choose>
 				<c:when test="${reply.fromGroup}">分享给好友</c:when>
 				<c:otherwise>转发</c:otherwise>
 			</c:choose>
-			</a>&nbsp;
+			</a>
 			<a href="#">回复</a>&nbsp;
-			<a href="<c:out value="${urlPrefix}/people/${reply.senderId}"/>">
-				<c:out value="${reply.senderRealName}" />
-			</a>&nbsp;${reply.time}&nbsp;
+			<a href="${urlPrefix}/people/${reply.senderId}">${reply.senderRealName}</a>&nbsp;${reply.time}&nbsp;
 			<a href="${urlPrefix}${reply.fromUrl}">
 				${reply.fromName}
 			</a>

@@ -27,8 +27,7 @@ public abstract class Resource {
 		this.redirectPath = redirectPath;
 	}
 
-	public boolean validate(ResourceContext context) throws Exception {
-		return true; // default validatation is successful.
+	public void validate(ResourceContext context) throws Exception {
 	}
 
 }

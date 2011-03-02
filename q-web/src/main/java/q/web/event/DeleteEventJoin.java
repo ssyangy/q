@@ -16,7 +16,7 @@ public class DeleteEventJoin extends Resource{
 		long peopleId = context.getLoginPeopleId();
 		long eventId = context.getResourceIdLong();
 		eventDao.unjoinPeopleJoinEvent(peopleId, eventId);
-		context.redirectServletPath("/event/" + eventId);
+		context.redirectReffer();
 	}
 
 }

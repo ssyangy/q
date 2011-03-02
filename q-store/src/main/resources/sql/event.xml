@@ -108,7 +108,7 @@
 		)
 	</insert>
 
-	<insert id="updatePeopleJoinEventStatusByPeopleIdAndEventId">
+	<update id="updatePeopleJoinEventStatusByPeopleIdAndEventId">
 		update people_join_event set
 		status = #status#,
 		modified = null
@@ -116,7 +116,7 @@
 		people_id = #peopleId#
 		and
 		event_id = #eventId#
-	</insert>
+	</update>
 
 	<select id="selectPeopleJoinEventByPeopleIdAndEventId"
 		resultMap="pjeResult">

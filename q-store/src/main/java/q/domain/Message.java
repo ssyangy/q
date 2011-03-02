@@ -27,14 +27,14 @@ public class Message extends AbstractDomain implements Serializable {
 
 	private String receiverRealName;
 
-	private long quoteMessageId;
+	private long replyMessageId;
 
-	public long getQuoteMessageId() {
-		return quoteMessageId;
+	public long getReplyMessageId() {
+		return replyMessageId;
 	}
 
-	public void setQuoteMessageId(long quoteMessageId) {
-		this.quoteMessageId = quoteMessageId;
+	public void setReplyMessageId(long replyMessageId) {
+		this.replyMessageId = replyMessageId;
 	}
 
 	public int getStatus() {
@@ -87,7 +87,7 @@ public class Message extends AbstractDomain implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Message [id=" + id + ", status=" + status + ", created=" + created + ", modified=" + modified + ", content=" + content + ", senderId=" + senderId + ", senderRealName=" + senderRealName + ", receiverId=" + receiverId + ", receiverRealName=" + receiverRealName + ", quoteMessageId=" + quoteMessageId + "]";
+		return "Message [id=" + id + ", status=" + status + ", created=" + created + ", modified=" + modified + ", content=" + content + ", senderId=" + senderId + ", senderRealName=" + senderRealName + ", receiverId=" + receiverId + ", receiverRealName=" + receiverRealName + ", quoteMessageId=" + replyMessageId + "]";
 	}
 
 }

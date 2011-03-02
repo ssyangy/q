@@ -7,6 +7,7 @@ import java.util.List;
 
 import q.dao.DaoHelper;
 import q.dao.EventDao;
+import q.dao.FavoriteDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
@@ -44,11 +45,17 @@ public class GetGroup extends Resource {
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
 	}
-	
+
 	private EventDao eventDao;
 
 	public void setEventDao(EventDao eventDao) {
 		this.eventDao = eventDao;
+	}
+
+	private FavoriteDao favoriteDao;
+
+	public void setFavoriteDao(FavoriteDao favoriteDao) {
+		this.favoriteDao = favoriteDao;
 	}
 
 	/*
@@ -62,22 +69,25 @@ public class GetGroup extends Resource {
 		Group group = groupDao.getGroupById(groupId);
 		context.setModel("group", group);
 
-		long peopleId = context.getLoginPeopleId();
-		if (peopleId > 0) {
-			PeopleJoinGroup join = groupDao.getPeopleJoinGroup(peopleId, groupId);
+		long loginPeopleId = context.getLoginPeopleId();
+		if (loginPeopleId > 0) {
+			PeopleJoinGroup join = groupDao.getPeopleJoinGroup(loginPeopleId, groupId);
 			if (join != null && join.getStatus() == Status.COMMON.getValue()) {
 				context.setModel("join", join);
 			}
 		}
-		
+
 		WeiboPage page = new WeiboPage();
 		page.setGroupId(groupId);
 		page.setSize(20);
 		page.setStartIndex(0);
 		List<Weibo> weibos = weiboDao.getPageGroupWeibo(page);
 		DaoHelper.injectWeibosWithSenderRealNameAndFrom(peopleDao, groupDao, weibos);
+		if (loginPeopleId > 0) {
+			DaoHelper.injectWeibosWithFavorite(favoriteDao, weibos, loginPeopleId);
+		}
 		context.setModel("weibos", weibos);
-		
+
 		EventPage epage = new EventPage();
 		epage.setGroupId(groupId);
 		epage.setSize(10);

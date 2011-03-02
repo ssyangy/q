@@ -28,7 +28,7 @@ public class AddPeople extends Resource {
 		people.setPassword(context.getString("password"));
 		people.setUsername(context.getString("username"));
 		people.setRealName(context.getString("real_name"));
-		people.setGender(Gender.convertValue(context.getInt("gender")));
+		people.setGender(Gender.convertValue(context.getIdInt("gender", -1)));
 		people.setLoginToken("xxxx");
 		peopleDao.addPeople(people);
 		context.setModel("idd", people.getId());

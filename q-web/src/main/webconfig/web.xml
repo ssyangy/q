@@ -136,6 +136,14 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
+		<url-pattern>/favorite/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>/favorite</url-pattern>
+	</servlet-mapping>	
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
 		<url-pattern>/logoff/*</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>

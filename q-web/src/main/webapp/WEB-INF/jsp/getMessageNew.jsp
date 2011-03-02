@@ -6,16 +6,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>私信</title>
+<title>发送私信</title>
 </head>
 <body>
 <div id="content">
-	<form action="<c:out value="${urlPrefix}/message" />" method="post">
-		<input type="hidden" name="receiverId" value='<c:out value="${receiver.id}"></c:out>'></input>
-		<label>发私信给:<c:out value='${receiver.realName}'></c:out></label><br/>
-		<textarea name="content"></textarea><br/>
-		<button>发送</button>
-	</form>
+	<div>
+		<form action="${urlPrefix}/message" method="post">
+			<input type="hidden" name="receiverId" value="${receiver.id}"/>
+			<input type="hidden" name="replyMessageId" value="${replyMessageId}"/>
+			<label>发私信给:${receiver.realName}</label><br/>
+			<textarea name="content" rows="5" cols="50"></textarea><br/>
+			<button>发送</button>
+		</form>
+	</div>
 </div>
 </body>
 </html>

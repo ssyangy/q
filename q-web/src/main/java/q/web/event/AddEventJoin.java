@@ -24,7 +24,7 @@ public class AddEventJoin extends Resource {
 			eventDao.rejoinPeopleJoinEvent(peopleId, eventId);
 		}
 
-		context.redirectServletPath("/event/" + eventId);
+		context.redirectReffer();
 
 	}
 

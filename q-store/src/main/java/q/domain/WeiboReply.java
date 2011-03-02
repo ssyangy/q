@@ -39,6 +39,8 @@ public class WeiboReply extends AbstractDomain implements Serializable {
 
 	private String fromPostfix;
 
+	private boolean fav = false; //default  is unFav
+
 	public void setFromPostfix(String fromPostfix) {
 		this.fromPostfix = fromPostfix;
 	}
@@ -133,6 +135,18 @@ public class WeiboReply extends AbstractDomain implements Serializable {
 
 	public boolean isFromGroup() {
 		return this.fromType.isFromGroup();
+	}
+
+	public boolean isUnFav() {
+		return !this.fav ;
+	}
+
+	public boolean isFav() {
+		return this.fav;
+	}
+	
+	public void setFav(boolean fav) {
+		this.fav = fav;
 	}
 
 	public long getGroupId() {

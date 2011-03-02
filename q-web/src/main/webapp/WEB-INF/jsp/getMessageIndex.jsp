@@ -12,12 +12,17 @@
 <div id="content">
 	<div>
 		<c:forEach items="${messages}" var="message" varStatus="status">
-			
-			<a href="<c:out value="${urlPrefix}/people/${message.senderId}"/>"><c:out
-				value="${message.senderRealName}" /></a>发送给
-			<a href="<c:out value="${urlPrefix}/people/${message.receiverId}"/>"><c:out
-				value="${message.receiverRealName}" /></a>
-			<c:out value="${message.content}" />
+			<br/>
+			<a href="${urlPrefix}/people/${message.senderId}">
+				${message.senderRealName}
+			</a>发送给
+			<a href="${urlPrefix}/people/${message.receiverId}">
+				${message.receiverRealName}
+			</a>&nbsp;
+			${message.content}<br/>
+			<c:if test="${loginId != message.senderId}">
+				<a href="${urlPrefix}/message/new?receiverId=${message.senderId}&replyMessageId=${message.id}">回复</a>&nbsp;
+			</c:if>			
 			<c:out value="${message.time}" />
 			<br />
 		</c:forEach>

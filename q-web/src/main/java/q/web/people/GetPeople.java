@@ -5,6 +5,7 @@ import java.util.List;
 
 import q.dao.DaoHelper;
 import q.dao.EventDao;
+import q.dao.FavoriteDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
@@ -47,10 +48,17 @@ public class GetPeople extends Resource {
 	public void setGroupDao(GroupDao groupDao) {
 		this.groupDao = groupDao;
 	}
+	
+	private FavoriteDao favoriteDao;
+	
+	public void setFavoriteDao(FavoriteDao favoriteDao) {
+		this.favoriteDao = favoriteDao;
+	}
 
 	@Override
 	public void execute(ResourceContext context) throws SQLException {
 		long peopleId = context.getResourceIdLong();
+		long loginPeopleId = context.getLoginPeopleId();
 
 		People people = peopleDao.getPeopleById(peopleId);
 		people.setFollowingNum(peopleDao.getPeopleFollowingNumById(peopleId));
@@ -64,6 +72,9 @@ public class GetPeople extends Resource {
 		page.setStartIndex(0);
 		List<Weibo> weibos = weiboDao.getPageWeibo(page);
 		DaoHelper.injectWeibosWithSenderRealNameAndFrom(peopleDao, groupDao, weibos);
+		if(loginPeopleId > 0) {
+			DaoHelper.injectWeibosWithFavorite(favoriteDao, weibos, loginPeopleId);
+		}
 		context.setModel("weibos", weibos);
 
 		List<Event> events = eventDao.getEventsByParticipantId(peopleId);
@@ -72,7 +83,7 @@ public class GetPeople extends Resource {
 		List<Group> groups = groupDao.getGroupsByPeopleId(peopleId);
 		context.setModel("groups", groups);
 
-		long loginPeopleId = context.getLoginPeopleId();
+		
 		boolean isMe = false;
 		if (loginPeopleId > 0 && peopleId == loginPeopleId) {
 			isMe = true;

@@ -40,11 +40,13 @@ public class GetMessageIndex extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		MessagePage page = new MessagePage();
-		page.setMyId(context.getLoginPeopleId());
+		long loginPeopleId = context.getLoginPeopleId();
+		page.setMyId(loginPeopleId);
 		page.setStartIndex(0);
 		page.setSize(20);
 		List<Message> messages = DaoHelper.getPageMessageRealName(peopleDao, messageDao, page);
 		context.setModel("messages", messages);
+		context.setModel("loginId", loginPeopleId);
 	}
 
 }

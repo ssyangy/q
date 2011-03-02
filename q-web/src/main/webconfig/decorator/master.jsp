@@ -12,7 +12,8 @@
 <body>
 <div><a href="${q.url.prefix}">首页</a> <a
 	href="${q.url.prefix}/group">圈子</a> <a href="${q.url.prefix}/event">活动</a>
-<a href="${q.url.prefix}/message">私信</a> <a
+	<a href="${q.url.prefix}/message">私信</a>
+	<a href="${q.url.prefix}/favorite">收藏</a> <a
 	href="${q.url.prefix}/setting">设置</a> <a
 	href="${q.url.prefix}/people/new">注册</a> <a
 	href="${q.url.prefix}/login/new">登陆</a> <a

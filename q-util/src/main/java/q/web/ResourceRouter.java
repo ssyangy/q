@@ -108,10 +108,8 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 			}
 
 			try {
-				boolean correct = resource.validate(context);
-				if (correct) {
-					resource.execute(context); // execute resource if exists
-				}
+				resource.validate(context);
+				resource.execute(context); // execute resource if exists
 				complementModel(context); // complement model
 				ModelAndView view = this.viewResolver.view(context, resource);// use resource name as view name
 				return view;

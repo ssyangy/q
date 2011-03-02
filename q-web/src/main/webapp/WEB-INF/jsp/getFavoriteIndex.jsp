@@ -6,16 +6,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>发表微博</title>
+<title>收藏夹</title>
 </head>
 <body>
 <div id="content">
 	<div>
-		<form action="${urlPrefix}/weibo" method="post">
-			<input type="hidden" name="from" value="${from}"/>
-			<textarea name="content" rows="5" cols="50">@${receiver.realName}</textarea>
-			<button>发言</button>
-		</form>
+		<c:forEach items="${favorites}" var="fav" varStatus="status">
+			<br/>收藏于:${fav.time}
+			<br/>
+		</c:forEach>
 	</div>
 </div>
 </body>

@@ -41,4 +41,12 @@ public class MessageDaoImpl extends AbstractDaoImpl implements MessageDao {
 		return (List<Message>) this.sqlMapClient.queryForList("selectPageMessages", page);
 	}
 
+	/* (non-Javadoc)
+	 * @see q.dao.MessageDao#getMessageById(long)
+	 */
+	@Override
+	public Message getMessageById(long replyMessageId) throws SQLException {
+		return (Message) this.sqlMapClient.queryForObject("selectMessageById", replyMessageId);
+	}
+
 }

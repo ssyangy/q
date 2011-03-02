@@ -4,6 +4,7 @@ import java.util.List;
 
 import q.dao.DaoHelper;
 import q.dao.EventDao;
+import q.dao.FavoriteDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
@@ -37,6 +38,12 @@ public class GetPeopleFeed extends Resource {
 	public void setGroupDao(GroupDao groupDao) {
 		this.groupDao = groupDao;
 	}
+	
+	private FavoriteDao favoriteDao;
+	
+	public void setFavoriteDao(FavoriteDao favoriteDao) {
+		this.favoriteDao = favoriteDao;
+	}
 
 	@Override
 	public void execute(ResourceContext context) throws Exception {
@@ -49,6 +56,7 @@ public class GetPeopleFeed extends Resource {
 			page.setSenderIds(senderIds);
 			List<Weibo> weibos = weiboDao.getPageFollowingWeibos(page);
 			DaoHelper.injectWeibosWithSenderRealNameAndFrom(peopleDao, groupDao, weibos);
+			DaoHelper.injectWeibosWithFavorite(favoriteDao, weibos, loginPeopleId);
 			context.setModel("weibos", weibos);
 
 		}
