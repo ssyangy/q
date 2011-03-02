@@ -117,8 +117,7 @@ public class DefaultResourceContext implements ResourceContext {
 
 	public void setLoginToken(long userId, String username) {
 		Cookie cookie = new Cookie("u", String.valueOf(userId));
-		cookie.setMaxAge(3600 * 24 * 7); // one week
-		cookie.setPath("/");
+		cookie.setMaxAge(3600 * 24 * 7); // one week		cookie.setPath("/");
 		response.addCookie(cookie);
 	}
 
