@@ -17,7 +17,6 @@ import q.web.ResourceContext;
  */
 public class GetEventNew extends Resource {
 
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -26,13 +25,13 @@ public class GetEventNew extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		context.setModel("groupId", context.getString("groupId"));
-		Date date=new Date();
-		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String time=df.format(date);
-        String time1=time.substring(0,10);
-        String time2=time.substring(10);
-		context.setModel("day", time1);
-		context.setModel("time", time2);
+		
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String datetime = df.format(new Date());
+		String date = datetime.substring(0, 10);
+		String time = datetime.substring(10);
+		context.setModel("day", date);
+		context.setModel("time", time);
 	}
 
 }

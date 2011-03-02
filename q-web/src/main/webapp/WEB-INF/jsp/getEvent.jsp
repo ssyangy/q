@@ -29,12 +29,12 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
-	时间:<c:out value="${event.intro}" /><br />
-	地点:<c:out value="${event.intro}" /><br />
-	费用:<c:out value="${event.intro}" /><br />
-	人数限制:<c:out value="${event.intro}" /><br />
-	简介:<c:out value="${event.intro}" /><br />
-	发起人:<c:out value="${senderperson.username}" /><br />
+	时间:${event.started}&nbsp;~&nbsp;${event.ended}<br />
+	地点:${event.address}<br />
+	费用:${event.cost}<br />
+	人数限制:${event.number}<br />
+	简介:${event.intro}<br />
+	发起人:${senderperson.username}<br />
 </div>
 </body>
 </html>

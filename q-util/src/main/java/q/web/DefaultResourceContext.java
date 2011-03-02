@@ -44,12 +44,12 @@ public class DefaultResourceContext implements ResourceContext {
 	}
 
 	@Override
-	public int getIdInt(String key, int defaultValue) {
+	public int getInt(String key, int defaultValue) {
 		String value = getString(key);
-		return getIdIntFromValue(value, defaultValue);
+		return getIntFromValue(value, defaultValue);
 	}
 
-	private int getIdIntFromValue(String value, int defaultValue) {
+	private int getIntFromValue(String value, int defaultValue) {
 		int v = defaultValue;
 		if (StringKit.isEmpty(value)) {
 			return v;

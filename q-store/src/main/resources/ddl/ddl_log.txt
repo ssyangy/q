@@ -1,0 +1,6 @@
+alter table event add district_id smallint unsigned not null;
+alter table event add address varchar(512);
+alter table event add cost varchar(512);
+alter table event add number int unsigned not null;
+alter table event add started datetime not null;
+alter table event add ended datetime not null;

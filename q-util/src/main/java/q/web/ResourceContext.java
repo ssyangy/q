@@ -17,7 +17,7 @@ public interface ResourceContext {
 
 	long getIdLong(String key);
 
-	int getIdInt(String key, int defaultValue);
+	int getInt(String key, int defaultValue);
 
 	String getRequestPath();
 

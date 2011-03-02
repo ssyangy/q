@@ -11,24 +11,25 @@
 <body>
 <div id="content">
 	发起活动<br />
-	<form action="<c:out value="${contextPath}/event" />" method="post">
+	<form action="${contextPath}/event" method="post">
 	主题:<input type=text name="name" size="20" maxlength="20"> <br />
-	开始时间:<input type="text" name="start" size="20" maxlength="20"
-		value="${day}">
-		<input type="text" name="starttime" size="20" maxlength="20"
-		value="${time}">
+	开始时间:<input type="text" name="startDate" size="20" maxlength="20" value="${day}">
+		    <input type="text" name="startTime" size="20" maxlength="20" value="${time}">
 		<br />
-	结束时间:<input type="text" name="end" size="20" maxlength="20" value="${day}">
-	        <input type="text" name="end" size="20" maxlength="20" value="${time}">
+	结束时间:<input type="text" name="endDate" size="20" maxlength="20" value="${day}">
+	        <input type="text" name="endTime" size="20" maxlength="20" value="${time}">
 	<br />
-	所在地: <select name="city" id="city" onchange="">
-	</select> <select name="gsub_type" id="region" onchange="">
-	</select><br>
-	<input type="text" name="location" size="10" maxlength="10" value="暂不支持"><br />
-	简介:<textarea name="intro" cols="50" rows="10"> 
-	</textarea> <br />
-	费用:<input type="text" name="end" size="10" maxlength="10" value="暂不支持"><br />
-	人数限制:<input type="radio" name="peoplenumber" value="1" checked="checked" />无 <input type="text" name="peoplenumber" size="10" maxlength="10" value="暂不支持"/><br />
+	所在地: 
+	<select name="districtOne" id="city" onchange=""></select> 
+	<select name="districtTwo" id="region" onchange=""></select><br>
+	<input type="text" name="location" size="10" maxlength="10" value=""><br />
+	简介:
+	<textarea name="intro" cols="50" rows="10"></textarea> <br />
+	费用:
+	<input type="text" name="cost" size="10" maxlength="10" value="暂不支持"><br />
+	人数限制:
+	<input type="radio" name="zeroNumber" value="0" checked="checked" />无 
+	<input type="text" name="number" size="10" maxlength="10" value=""/><br />
 	<input type="hidden" name="groupId" value="${groupId}" />
 	<input type="submit" value="创建活动" /></form>
 </div>

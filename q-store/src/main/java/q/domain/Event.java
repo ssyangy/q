@@ -4,6 +4,7 @@
 package q.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author seanlinwang
@@ -22,7 +23,19 @@ public class Event extends AbstractDomain implements Serializable {
 	private String name;
 
 	private String intro;
-
+	
+	private long districtId;
+	
+	private String address;
+	
+	private Date started;
+	
+	private Date ended;
+	
+	private String cost;
+	
+	private int number;//people number
+	
 	private int status;
 
 	public long getCreatorId() {
@@ -65,9 +78,57 @@ public class Event extends AbstractDomain implements Serializable {
 		this.status = status;
 	}
 
+	public long getDistrictId() {
+		return districtId;
+	}
+
+	public void setDistrictId(long districtId) {
+		this.districtId = districtId;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public Date getStarted() {
+		return started;
+	}
+
+	public void setStarted(Date started) {
+		this.started = started;
+	}
+
+	public Date getEnded() {
+		return ended;
+	}
+
+	public void setEnded(Date ended) {
+		this.ended = ended;
+	}
+
+	public String getCost() {
+		return cost;
+	}
+
+	public void setCost(String cost) {
+		this.cost = cost;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
 	@Override
 	public String toString() {
-		return "Event [creatorId=" + creatorId + ", groupId=" + groupId + ", name=" + name + ", intro=" + intro + ", status=" + status + ", id=" + id + ", created=" + created + ", modified=" + modified + "]";
+		return "Event [creatorId=" + creatorId + ", groupId=" + groupId + ", name=" + name + ", intro=" + intro + ", districtId=" + districtId + ", address=" + address + ", started=" + started + ", ended=" + ended + ", cost=" + cost + ", number=" + number + ", status=" + status + ", id=" + id + ", created=" + created + ", modified=" + modified + "]";
 	}
 
 }
