@@ -161,16 +161,11 @@
         <text>%u521B%u5EFA%u6D3B%u52A8</text>
       </controlProperties>
     </control>
-    <control controlID="147" controlTypeID="com.balsamiq.mockups::Label" x="225" y="590" w="-1" h="-1" measuredW="43" measuredH="23" zOrder="33" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>%u8D39%u7528%uFF1A</text>
-      </controlProperties>
-    </control>
-    <control controlID="148" controlTypeID="com.balsamiq.mockups::TextInput" x="284" y="587" w="139" h="-1" measuredW="79" measuredH="27" zOrder="34" locked="false" isInGroup="-1">
+    <control controlID="148" controlTypeID="com.balsamiq.mockups::TextInput" x="284" y="587" w="139" h="-1" measuredW="79" measuredH="27" zOrder="33" locked="false" isInGroup="-1">
       <controlProperties>
         <text/>
       </controlProperties>
     </control>
-    <control controlID="149" controlTypeID="com.balsamiq.mockups::Map" x="284" y="320" w="357" h="111" measuredW="252" measuredH="222" zOrder="35" locked="false" isInGroup="-1"/>
+    <control controlID="149" controlTypeID="com.balsamiq.mockups::Map" x="284" y="320" w="357" h="111" measuredW="252" measuredH="222" zOrder="34" locked="false" isInGroup="-1"/>
   </controls>
 </mockup>
