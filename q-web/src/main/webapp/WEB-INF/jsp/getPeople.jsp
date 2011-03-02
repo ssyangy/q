@@ -65,7 +65,7 @@
 					<c:otherwise>转发</c:otherwise>
 				</c:choose>
 				</a>&nbsp;
-				<a href="${urlPrefix}/weibo/${weibo.id">回复</a>&nbsp;
+				<a href="${urlPrefix}/weibo/${weibo.id}">回复</a>&nbsp;
 				<a href="${urlPrefix}/people/${weibo.senderId}">
 					${weibo.senderRealName}
 				</a>&nbsp;
