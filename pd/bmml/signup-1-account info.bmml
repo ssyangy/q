@@ -108,11 +108,5 @@
         <text>%u627E%u5230%u5FD7%u8DA3%u76F8%u6295%u7684%u670B%u53CB%uFF0C%u597D%u5403%u597D%u73A9%u5E94%u6709%u5C3D%u6709%uFF0C%u5708%u5B50%u5C31%u662F%u597D%u73A9%uFF01%u6709%u5708%u5B50%u624D%u5C3D%u5174%uFF01</text>
       </controlProperties>
     </control>
-    <control controlID="27" controlTypeID="com.balsamiq.mockups::Label" x="782" y="57" w="-1" h="-1" measuredW="148" measuredH="23" zOrder="22" locked="false" isInGroup="-1">
-      <controlProperties>
-        <italic>true</italic>
-        <text>%u53CC%u811A%u79BB%u5730%u5174%u594B%u8DF3%u8D77%u7684%u56FE%u6807</text>
-      </controlProperties>
-    </control>
   </controls>
 </mockup>
