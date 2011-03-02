@@ -1,6 +1,5 @@
 package q.domain;
 
-import java.util.Date;
 import java.io.Serializable;
 
 /**
@@ -8,31 +7,14 @@ import java.io.Serializable;
  * @date Feb 15, 2011
  * 
  */
-public class Category implements Serializable {
-	/**
-	 * 
-	 */
+public class Category extends AbstractDomain implements Serializable {
 	private static final long serialVersionUID = 1611557472302730738L;
-
-	private long id;
 
 	private String name;
 
 	private String intro;
 
 	private String status;
-
-	private Date created;
-
-	private Date modified;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;
@@ -56,22 +38,6 @@ public class Category implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public Date getCreated() {
-		return created;
-	}
-
-	public void setCreated(Date created) {
-		this.created = created;
-	}
-
-	public Date getModified() {
-		return modified;
-	}
-
-	public void setModified(Date modified) {
-		this.modified = modified;
 	}
 
 	@Override

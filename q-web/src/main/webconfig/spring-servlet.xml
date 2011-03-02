@@ -12,71 +12,262 @@
 			<value>true</value>
 		</property>
 	</bean>
+	<bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/jsp/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
 	<bean id="router" class="q.web.ResourceRouter">
 		<property name="defaultResource" ref="default" />
 		<property name="urlPrefix" value="${q.url.prefix}" />
 		<property name="contextPath" value="${q.context.path}" />
+		<property name="viewResolver">
+			<bean class="q.web.SpringViewResolver" />
+		</property>
+		<property name="loginPath" value="/login/new" />
+		<property name="needLoginResources">
+			<set>
+				<value>getMineIndex</value>
+				<value>getSettingIndex</value>
+				<value>getPeopleFeed</value>
+				<value>updatePeople</value>
+				<value>addPeopleFollowing</value>
+				<value>deletePeopleFollowing</value>
+				<value>getGroupNew</value>
+				<value>addGroup</value>
+				<value>getGroupFeed</value>
+				<value>getGroupEvent</value>
+				<value>getGroupPhoto</value>
+				<value>addGroupJoin</value>
+				<value>deleteGroupJoin</value>
+				<value>getCategoryNew</value>
+				<value>addCategory</value>
+				<value>getEventNew</value>
+				<value>addEvent</value>
+				<value>addEventJoin</value>
+				<value>deleteEventJoin</value>
+				<value>getMessageIndex</value>
+				<value>getMessageNew</value>
+				<value>addMessage</value>
+				<value>getMessage</value>
+				<value>addMessage</value>
+				<value>addWeibo</value>
+				<value>addWeiboReply</value>
+				<value>getWeiboNew</value>
+				<value>getReplyNew</value>
+				<value>getWeiboRetweet</value>
+				<value>addWeiboRetweet</value>
+				<value>getReplyRetweet</value>
+				<value>addReplyRetweet</value>
+				<value>addWeiboFavorite</value>
+				<value>addReplyFavorite</value>
+				<value>deleteWeiboFavorite</value>
+				<value>deleteReplyFavorite</value>
+				<value>getFavoriteIndex</value>
+			</set>
+		</property>
 	</bean>
-	<!-- biz -->
-	<bean id="default" class="q.biz.Default" />
+	<!-- global web -->
+	<bean id="default" class="q.web.Default" />
 
-	<!-- people biz -->
-	<bean id="getPeopleNew" class="q.biz.people.GetPeopleNew">
-	</bean>
-	<bean id="getPeople" class="q.biz.people.GetPeople">
-		<property name="peopleDao" ref="peopleDao"></property>
-	</bean>
-	<bean id="addPeople" class="q.biz.people.AddPeople">
-		<property name="peopleDao" ref="peopleDao"></property>
-	</bean>
-	<bean id="updatePeople" class="q.biz.people.UpdatePeople">
-		<property name="peopleDao" ref="peopleDao"></property>
-	</bean>
-	<bean id="getFeedIndex" class="q.biz.people.GetFeedIndex">
-	</bean>
-	<bean id="getPeopleIndex" class="q.biz.people.GetPeopleIndex">
-	</bean>
-	<bean id="getLoginNew" class="q.biz.people.GetLoginNew">
-	</bean>
+	<!-- setting web -->
+	<bean id="getSettingIndex" class="q.web.setting.GetSettingIndex" />
 
-	<!-- group biz -->
-	<bean id="addGroup" class="q.biz.group.AddGroup">
-		<property name="groupDao" ref="groupDao"></property>
+	<!-- people web -->
+	<bean id="getMineIndex" class="q.web.people.GetMineIndex" />
+	<bean id="getPeopleNew" class="q.web.people.GetPeopleNew">
 	</bean>
-	<bean id="getGroupNew" class="q.biz.group.GetGroupNew">
-		<property name="categoryDao" ref="categoryDao"></property>
-	</bean>
-	<bean id="getGroup" class="q.biz.group.GetGroup">
-		<property name="groupDao" ref="groupDao"></property>
-	</bean>
-	<bean id="getCategoryIndex" class="q.biz.group.GetCategoryIndex">
-		<property name="categoryDao" ref="categoryDao"></property>
-	</bean>
-	<bean id="addCategory" class="q.biz.group.AddCategory">
-		<property name="categoryDao" ref="categoryDao"></property>
-	</bean>
-	<bean id="getCategoryNew" class="q.biz.group.GetCategoryNew">
-	</bean>
-	<bean id="getGroupFeedIndex" class="q.biz.group.GetGroupFeedIndex">
-	</bean>
-	<bean id="addGroupJoin" class="q.biz.group.AddGroupJoin">
-	     <property name="groupDao" ref="groupDao" />
-	</bean>
-
-	<!-- event biz -->
-	<bean id="addEvent" class="q.biz.event.AddEvent">
+	<bean id="getPeople" class="q.web.people.GetPeople">
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="weiboDao" ref="weiboDao" />
 		<property name="eventDao" ref="eventDao" />
-		
+		<property name="groupDao" ref="groupDao" />
+		<property name="favoriteDao" ref="favoriteDao"/>
 	</bean>
-	<bean id="getEventNew" class="q.biz.event.GetEventNew">
+	<bean id="addPeople" class="q.web.people.AddPeople">
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
-	<bean id="getEvent" class="q.biz.event.GetEvent">
+	<bean id="getPeopleFollowing" class="q.web.people.GetPeopleFollowing">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="getPeopleFollower" class="q.web.people.GetPeopleFollower">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="addPeopleFollowing" class="q.web.people.AddPeopleFollowing">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="deletePeopleFollowing" class="q.web.people.DeletePeopleFollowing">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="updatePeople" class="q.web.people.UpdatePeople">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="getPeopleFeed" class="q.web.people.GetPeopleFeed">
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="eventDao" ref="eventDao" />
+		<property name="groupDao" ref="groupDao" />
+		<property name="favoriteDao" ref="favoriteDao"/>
+	</bean>
+	<bean id="getPeopleIndex" class="q.web.people.GetPeopleIndex">
+	</bean>
+
+
+	<!-- login web -->
+	<bean id="getLoginNew" class="q.web.login.GetLoginNew">
+	</bean>
+	<bean id="addLogin" class="q.web.login.AddLogin">
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="redirectPath" value="/" />
+	</bean>
+	<bean id="getLoginDelete" class="q.web.login.DeleteLogin">
+		<property name="redirectPath" value="/" />
+	</bean>
+
+	<!-- category web -->
+	<bean id="getCategoryIndex" class="q.web.category.GetCategoryIndex">
+		<property name="categoryDao" ref="categoryDao" />
+	</bean>
+	<bean id="addCategory" class="q.web.category.AddCategory">
+		<property name="categoryDao" ref="categoryDao" />
+		<property name="redirectPath" value="/category" />
+	</bean>
+	<bean id="getCategoryNew" class="q.web.category.GetCategoryNew">
+	</bean>
+
+	<!-- group web -->
+	<bean id="addGroup" class="q.web.group.AddGroup">
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+	<bean id="getGroupNew" class="q.web.group.GetGroupNew">
+		<property name="categoryDao" ref="categoryDao" />
+	</bean>
+	<bean id="getGroup" class="q.web.group.GetGroup">
+		<property name="groupDao" ref="groupDao" />
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="eventDao" ref="eventDao" />
+		<property name="favoriteDao" ref="favoriteDao"/>
+	</bean>
+	<bean id="getGroupIndex" class="q.web.group.GetGroupIndex">
+		<property name="categoryDao" ref="categoryDao" />
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+	<bean id="getGroupFeed" class="q.web.group.GetGroupFeed">
+		<property name="categoryDao" ref="categoryDao" />
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="eventDao" ref="eventDao" />
+		<property name="groupDao" ref="groupDao" />
+		<property name="favoriteDao" ref="favoriteDao"/>
+	</bean>
+	<bean id="addGroupJoin" class="q.web.group.AddGroupJoin">
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+	<bean id="deleteGroupJoin" class="q.web.group.DeleteGroupJoin">
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+
+	<!-- photo web -->
+	<bean id="getGroupPhoto" class="q.web.photo.GetGroupPhoto">
+	</bean>
+
+	<!-- event web -->
+	<bean id="getGroupEvent" class="q.web.event.GetGroupEvent">
+		<property name="eventDao" ref="eventDao" />
+	</bean>
+	<bean id="addEvent" class="q.web.event.AddEvent">
+		<property name="eventDao" ref="eventDao" />
+	</bean>
+	<bean id="getEventNew" class="q.web.event.GetEventNew">
+	</bean>
+	<bean id="getEvent" class="q.web.event.GetEvent">
 		<property name="eventDao" ref="eventDao" />
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
-	<bean id="getEventIndex" class="q.biz.event.GetEventIndex">
+	<bean id="getEventIndex" class="q.web.event.GetEventIndex">
+		<property name="eventDao" ref="eventDao" />
 	</bean>
-	<bean id="addEventJoin" class="q.biz.event.AddEventJoin">
-	     <property name="eventDao" ref="eventDao" />
+	<bean id="addEventJoin" class="q.web.event.AddEventJoin">
+		<property name="eventDao" ref="eventDao" />
+	</bean>
+	<bean id="deleteEventJoin" class="q.web.event.DeleteEventJoin">
+		<property name="eventDao" ref="eventDao" />
+	</bean>
+
+	<!-- weibo web -->
+	<bean id="addWeibo" class="q.web.weibo.AddWeibo">
+		<property name="weiboDao" ref="weiboDao" />
+	</bean>
+	<bean id="getWeibo" class="q.web.weibo.GetWeibo">
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="groupDao" ref="groupDao" />
+		<property name="favoriteDao" ref="favoriteDao" />
+	</bean>
+	<bean id="addWeiboReply" class="q.web.weibo.AddWeiboReply">
+		<property name="weiboDao" ref="weiboDao" />
+	</bean>
+	<bean id="getWeiboNew" class="q.web.weibo.GetWeiboNew">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="getWeiboRetweet" class="q.web.weibo.GetWeiboRetweet">
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+	<bean id="addWeiboRetweet" class="q.web.weibo.AddWeiboRetweet">
+		<property name="weiboDao" ref="weiboDao" />
+	</bean>
+	<bean id="getReplyRetweet" class="q.web.weibo.GetReplyRetweet">
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+	<bean id="addReplyRetweet" class="q.web.weibo.AddReplyRetweet">
+		<property name="weiboDao" ref="weiboDao" />
+	</bean>
+
+	<!-- favorite web -->
+	<bean id="getFavoriteIndex" class="q.web.favorite.GetFavoriteIndex">
+		<property name="favoriteDao" ref="favoriteDao" />
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+	<bean id="addWeiboFavorite" class="q.web.favorite.AddWeiboFavorite">
+		<property name="favoriteDao" ref="favoriteDao" />
+		<property name="weiboDao" ref="weiboDao" />
+	</bean>
+	<bean id="addReplyFavorite" class="q.web.favorite.AddReplyFavorite">
+		<property name="favoriteDao" ref="favoriteDao" />
+		<property name="weiboDao" ref="weiboDao" />
+	</bean>
+	<bean id="deleteWeiboFavorite" class="q.web.favorite.DeleteWeiboFavorite">
+		<property name="favoriteDao" ref="favoriteDao" />
+	</bean>
+	<bean id="deleteReplyFavorite" class="q.web.favorite.DeleteReplyFavorite">
+		<property name="favoriteDao" ref="favoriteDao" />
+	</bean>
+
+	<!-- message web -->
+	<bean id="getMessageIndex" class="q.web.message.GetMessageIndex">
+		<property name="messageDao" ref="messageDao" />
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="getMessageNew" class="q.web.message.GetMessageNew">
+		<property name="messageDao" ref="messageDao" />
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="addMessage" class="q.web.message.AddMessage">
+		<property name="messageDao" ref="messageDao" />
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="getMessage" class="q.web.message.GetMessage">
+		<property name="messageDao" ref="messageDao" />
 	</bean>
 </beans>

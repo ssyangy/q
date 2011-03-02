@@ -35,8 +35,8 @@ public class GenderHandler implements TypeHandlerCallback {
 	/**
 	 * convert gender to db
 	 */
-	public void setParameter(ParameterSetter setter, Object value) throws SQLException {
-		setter.setInt(value == null ? 0 : ((Gender) value).getValue());
+	public void setParameter(ParameterSetter setter, Object parameter) throws SQLException {
+		setter.setInt(parameter == null ? 0 : ((Gender) parameter).getValue());
 	}
 
 	/**

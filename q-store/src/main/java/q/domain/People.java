@@ -1,15 +1,9 @@
 package q.domain;
 
-import java.util.Date;
 import java.io.Serializable;
 
-public class People implements Serializable {
-	/**
-	 * 
-	 */
+public class People extends AbstractDomain implements Serializable {
 	private static final long serialVersionUID = -5592959607374663712L;
-
-	private long id;
 
 	private String username;
 
@@ -43,13 +37,9 @@ public class People implements Serializable {
 
 	private byte status;
 
-	private Date created;
-
-	private Date modified;
-
 	private int friendNum;
 
-	private int followNum;
+	private int followerNum;
 
 	private int followingNum;
 
@@ -58,14 +48,6 @@ public class People implements Serializable {
 	private String intro;
 
 	// =========================================
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getUsername() {
 		return username;
@@ -190,22 +172,6 @@ public class People implements Serializable {
 		this.status = status;
 	}
 
-	public Date getCreated() {
-		return created;
-	}
-
-	public void setCreated(Date created) {
-		this.created = created;
-	}
-
-	public Date getModified() {
-		return modified;
-	}
-
-	public void setModified(Date modified) {
-		this.modified = modified;
-	}
-
 	public String getLoginToken() {
 		return loginToken;
 	}
@@ -222,12 +188,12 @@ public class People implements Serializable {
 		this.friendNum = friendNum;
 	}
 
-	public int getFollowNum() {
-		return followNum;
+	public int getFollowerNum() {
+		return followerNum;
 	}
 
-	public void setFollowNum(int followNum) {
-		this.followNum = followNum;
+	public void setFollowerNum(int followerNum) {
+		this.followerNum = followerNum;
 	}
 
 	public int getFollowingNum() {
@@ -255,12 +221,12 @@ public class People implements Serializable {
 	}
 
 	public String getBirthdayString() {
-		return getYear() + "-" + getMonth() + "-" + getDay();
+		return getYear() + 1900 + "-" + getMonth() + "-" + getDay();
 	}
 
 	@Override
 	public String toString() {
-		return "People [id=" + id + ", username=" + username + ", password=" + password + ", loginToken=" + loginToken + ", realName=" + realName + ", email=" + email + ", mobile=" + mobile + ", year=" + year + ", month=" + month + ", day=" + day + ", countryCode=" + countryCode + ", districtId=" + districtId + ", gender=" + gender + ", bloodTypeId=" + bloodTypeId + ", educationId=" + educationId + ", roleId=" + roleId + ", status=" + status + ", created=" + created + ", modified=" + modified + ", friendNum=" + friendNum + ", followNum=" + followNum + ", followingNum=" + followingNum + ", weiboNum=" + weiboNum + ", intro=" + intro + "]";
+		return "People [id=" + id + ", username=" + username + ", password=" + password + ", loginToken=" + loginToken + ", realName=" + realName + ", email=" + email + ", mobile=" + mobile + ", year=" + year + ", month=" + month + ", day=" + day + ", countryCode=" + countryCode + ", districtId=" + districtId + ", gender=" + gender + ", bloodTypeId=" + bloodTypeId + ", educationId=" + educationId + ", roleId=" + roleId + ", status=" + status + ", created=" + created + ", modified=" + modified + ", friendNum=" + friendNum + ", followNum=" + followerNum + ", followingNum=" + followingNum + ", weiboNum=" + weiboNum + ", intro=" + intro + "]";
 	}
 
 }

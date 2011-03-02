@@ -1,5 +1,5 @@
 # == people ==
-create table q.people(
+create table people(
 	id bigint unsigned not null primary key,
 	year tinyint unsigned not null,
 	month tinyint unsigned not null,
@@ -22,7 +22,17 @@ create table q.people(
 	modified timestamp not null) 
 default character set utf8 engine = innodb;
 
-create table q.people_join_group(
+create table people_relation(
+	id bigint unsigned not null primary key,
+	from_people_id bigint unsigned not null,
+	to_people_id bigint unsigned not null,
+	alias varchar(32),
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null) 
+default character set utf8 engine = innodb;
+
+create table people_join_group(
 	id bigint unsigned not null primary key,
 	people_id bigint unsigned not null,
 	group_id bigint unsigned not null,
@@ -31,7 +41,7 @@ create table q.people_join_group(
 	modified timestamp not null) 
 default character set utf8 engine = innodb;
 
-create table q.people_join_event(
+create table people_join_event(
 	id bigint unsigned not null primary key,
 	people_id bigint unsigned not null,
 	event_id bigint unsigned not null,
@@ -41,72 +51,104 @@ create table q.people_join_event(
 default character set utf8 engine = innodb;
 
 # == event ==
-create table q.event(
+create table event(
 	id bigint unsigned not null primary key,
-	sender_id bigint unsigned not null,
-	name varchar(32),
-	intro varchar(1024),
+	creator_id bigint unsigned not null,
+	group_id bigint unsigned not null,
+	name varchar(32) not null,
+	intro varchar(1024) not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null) 
 default character set utf8 engine = innodb;
 
 # == weibo ==
-create table q.weibo (
+create table weibo (
 	id bigint unsigned not null primary key,
 	sender_id bigint unsigned not null,
 	quote_weibo_id bigint unsigned,
 	quote_sender_id bigint unsigned,
-	content varchar(10240),
+	reply_weibo_id bigint unsigned not null,
+	reply_sender_id bigint unsigned not null,
+	from_type tinyint unsigned not null,
+	from_id bigint unsigned not null,
+	content varchar(10240) not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null) 
 default character set utf8 engine = innodb;
 
-create table q.weibo_reply (
+create table weibo_reply (
 	id bigint unsigned not null primary key,
 	sender_id bigint unsigned not null,
 	quote_weibo_id bigint unsigned not null,
 	quote_sender_id bigint unsigned not null,
-	quote_reply_id bigint unsigned not null,
-	content varchar(10240),
+	reply_weibo_id bigint unsigned not null,
+	reply_sender_id bigint unsigned not null,
+	from_type tinyint unsigned not null,
+	from_id bigint unsigned not null,	
+	content varchar(10240) not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null) 
 default character set utf8 engine = innodb;
 
-create table q.weibo_join_group(
+create table weibo_join_group(
 	id bigint unsigned not null primary key,
-	weibo_id bigint unsigned,
-	group_id bigint unsigned,
+	weibo_id bigint unsigned not null,
+	group_id bigint unsigned not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null) 
+default character set utf8 engine = innodb;
+
+# == favorite ==
+create table favorite (
+	id bigint unsigned not null primary key,
+	from_type tinyint unsigned not null,
+	from_id bigint unsigned not null,
+	creator_id bigint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null) 
 default character set utf8 engine = innodb;
 
 # == group ==
-create table q.group(
+create table `group`(
 	id bigint unsigned not null primary key,
-	name varchar(32),
-	intro varchar(1024),
+	creator_id bigint unsigned not null,
+	name varchar(32) not null,
+	intro varchar(1024) not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null) 
 default character set utf8 engine = innodb;
 
-create table q.category(
+create table category(
 	id bigint unsigned not null primary key,
-	name varchar(32),
-	intro varchar(1024),
+	name varchar(32) not null,
+	intro varchar(1024) not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null) 
 default character set utf8 engine = innodb;
 
-create table q.group_join_category(
+create table group_join_category(
 	id bigint unsigned not null primary key,
 	group_id bigint unsigned not null,
 	category_id bigint unsigned not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null) 
+default character set utf8 engine = innodb;
+
+# == message ==
+create table message(
+	id bigint unsigned not null primary key,
+	sender_id bigint unsigned not null,
+	receiver_id bigint unsigned not null,
+	quote_message_id bigint unsigned not null,
+	content varchar(1024) not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null) 

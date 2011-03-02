@@ -16,7 +16,7 @@ public class GroupJoinCategory implements Serializable{
 
 	private long categoryId;
 
-	private String status;
+	private int status;
 
 	private Date created;
 
@@ -46,11 +46,11 @@ public class GroupJoinCategory implements Serializable{
 		this.categoryId = categoryId;
 	}
 
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 

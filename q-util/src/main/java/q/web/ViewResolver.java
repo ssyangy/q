@@ -3,11 +3,11 @@ package q.web;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.servlet.ModelAndView;
 
 public interface ViewResolver {
 
-	void view(HttpServletRequest request, HttpServletResponse response, String viewName) throws ServletException, IOException;
+	ModelAndView view(ResourceContext context, Resource resource) throws ServletException, IOException;
 
 }

@@ -2,11 +2,27 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap namespace="events">
 	<typeAlias alias="event" type="q.domain.Event" />
+	<typeAlias alias="pje" type="q.domain.PeopleJoinEvent" />
 	<resultMap id="eventResult" class="event">
 		<result property="id" column="id" />
-		<result property="senderId" column="sender_id" />
+		<result property="creatorId" column="creator_id" />
+		<result property="groupId" column="group_id" />
 		<result property="name" column="name" />
 		<result property="intro" column="intro" />
+		<result property="status" column="status" />
+		<result property="created" column="created" />
+		<result property="modified" column="modified" />
+	</resultMap>
+	<resultMap id="eventSimpleResult" class="event">
+		<result property="id" column="id" />
+		<result property="groupId" column="group_id" />
+		<result property="name" column="name" />
+	</resultMap>
+
+	<resultMap id="pjeResult" class="pje">
+		<result property="id" column="id" />
+		<result property="peopleId" column="people_id" />
+		<result property="eventId" column="event_id" />
 		<result property="status" column="status" />
 		<result property="created" column="created" />
 		<result property="modified" column="modified" />
@@ -14,7 +30,8 @@
 
 	<sql id="event.columns">
 		id,
-		sender_id,
+		creator_id,
+		group_id,
 		name,
 		intro,
 		status,
@@ -30,37 +47,100 @@
 		where id=#value#
 	</select>
 
+	<select id="selectEventsByIds" resultMap="eventSimpleResult">
+		select
+		id, group_id, name
+		from
+		event
+		where id in
+		<iterate open="(" close=")" conjunction=",">
+			#[]#
+        </iterate>
+	</select>
+
+	<select id="selectPageEvents" resultMap="eventResult">
+		select
+		<include refid="event.columns" />
+		from event
+		<dynamic prepend="where">
+			<isNotNull property="groupId">group_id = #groupId#</isNotNull>
+		</dynamic>
+		order by created desc
+		limit #startIndex#, #size#
+	</select>
+
 	<insert id="insertEvent">
 		insert into event
 		(
 		<include refid="event.columns" />
 		) values (
 		#id#,
-		#senderId#,
+		#creatorId#,
+		#groupId#,
 		#name#,
 		#intro#,
-		#status#,
-		#created#,
+		0,
+		now(),
 		null
 		)
 	</insert>
-	
-	<insert id="insertPeopleJoinEvent">
-		insert into q.people_join_event
-		(
+
+	<sql id="pje.columns">
 		id,
 		people_id,
 		event_id,
 		status,
 		created,
 		modified
+	</sql>
+
+	<insert id="insertPeopleJoinEvent">
+		insert into q.people_join_event
+		(
+		<include refid="pje.columns" />
 		) values (
 		#id#,
 		#peopleId#,
 		#eventId#,
-		#status#,
-		#created#,
+		0,
+		now(),
 		null
 		)
 	</insert>
+
+	<update id="updatePeopleJoinEventStatusByPeopleIdAndEventId">
+		update people_join_event set
+		status = #status#,
+		modified = null
+		where
+		people_id = #peopleId#
+		and
+		event_id = #eventId#
+	</update>
+
+	<select id="selectPeopleJoinEventByPeopleIdAndEventId"
+		resultMap="pjeResult">
+		select
+		<include refid="pje.columns" />
+		from
+		people_join_event
+		where
+		people_id=#peopleId#
+		and
+		event_id=#eventId#
+	</select>
+
+	<select id="selectPeopleJoinEventsByPeopleId" resultMap="pjeResult">
+		select
+		<include refid="pje.columns" />
+		from
+		people_join_event
+		where
+		status = 0
+		and
+		people_id=#peopleId#
+		order by
+		created desc
+	</select>
+
 </sqlMap>

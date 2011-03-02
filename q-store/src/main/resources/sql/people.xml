@@ -24,6 +24,22 @@
 		<result property="created" column="created" />
 		<result property="modified" column="modified" />
 	</resultMap>
+	<resultMap id="peopleIdRealNameResult" class="people">
+		<result property="id" column="id" />
+		<result property="realName" column="real_name" />
+	</resultMap>
+	
+	<typeAlias alias="relation" type="q.domain.PeopleRelation" />
+	<resultMap id="relationResult" class="relation">
+		<result property="id" column="id" />
+		<result property="fromPeopleId" column="from_people_id" />
+		<result property="toPeopleId" column="to_people_id" />
+		<result property="status" column="status"
+			typeHandler="q.dao.ibatis.PeopleRelationStatusHandler" />
+		<result property="alias" column="alias" />
+		<result property="created" column="created" />
+		<result property="modified" column="modified" />
+	</resultMap>
 
 	<sql id="people.columns">
 		id,
@@ -47,6 +63,39 @@
 		created,
 		modified
 	</sql>
+	<sql id="relation.columns">
+		id,
+		from_people_id,
+		to_people_id,
+		alias,
+		status,
+		created,
+		modified
+	</sql>
+
+	<select id="getPeopleFollowingNumById" resultClass="int">
+		select count(id) 
+		from people_relation
+		where status = 3
+		and from_people_id = #value# 
+	</select>
+
+	<select id="getPeopleFollowerNumById" resultClass="int">
+		select count(id)
+		from people_relation
+		where status = 3 
+		and to_people_id = #value#
+	</select>
+
+	<select id="selectPeopleIdRealNamesByIds" resultMap="peopleIdRealNameResult">
+		select
+		id, real_name
+		from people
+		where id in
+		<iterate open="(" close=")" conjunction=",">
+			#[]#
+        </iterate>
+	</select>
 
 	<select id="selectPeopleById" resultMap="peopleResult">
 		select
@@ -54,6 +103,14 @@
 		from
 		people
 		where id=#value#
+	</select>
+
+	<select id="selectPeopleByUsername" resultMap="peopleResult">
+		select
+		<include refid="people.columns" />
+		from
+		people
+		where username=#value#
 	</select>
 
 	<insert id="insertPeople">
@@ -78,29 +135,98 @@
 		#loginToken#,
 		#realName#,
 		#intro#,
-		#status#,
-		#created#,
-		#modified#		
+		0,
+		now(),
+		null
 		)
 	</insert>
 
-    <update id="updatePeopleById" >
-		 update q.people set
-		 year = #year#,
-		 month =#month#,
-		 day=#day#,
-         gender_id=#gender,handler=q.dao.ibatis.GenderHandler#,
-         blood_type_id=#bloodTypeId#,
-         education_id=#educationId#,
-         role_id=#roleId#,
-         country_code=#countryCode#,
-         district_id=#districtId#,
-         mobile=#mobile#
-         where id=#id#
+	<update id="updatePeopleById">
+		update people set
+		year = #year#,
+		month =#month#,
+		day=#day#,
+		blood_type_id=#bloodTypeId#,
+		education_id=#educationId#,
+		role_id=#roleId#,
+		country_code=#countryCode#,
+		district_id=#districtId#,
+		mobile=#mobile#
+		where id=#id#
 	</update>
 
-	<!--<update id="IbatisItemVerticalPropertyDAO.update" parameterClass="itemVerticalProperty"> 
-		update auction_vertical_property set AUCTION_VAR_ID=#itemIdStr#, VERTICAL_TYPE=#verticalType#, 
-		PROPERTIES=#propertyList,handler=com.taobao.item.dao.ibatis.support.ItemVerticalPropertiesTypeHandlerCallback#, 
-		GMT_MODIFIED=sysdate where id = #id# </update> -->
+	<update id="updatePeopleRelationStatusById">
+		update people_relation set
+		status =
+		#status,handler=q.dao.ibatis.PeopleRelationStatusHandler#
+		where id =
+		#id#;
+	</update>
+
+	<update id="updatePeopleRelationStatusByFromIdToId">
+		update people_relation set
+		status =
+		#status,handler=q.dao.ibatis.PeopleRelationStatusHandler#
+		where
+		from_people_id = #fromPeopleId#
+		and to_people_id = #toPeopleId#;
+	</update>
+
+	<insert id="insertPeopleRelation">
+		insert into people_relation
+		(
+		<include refid="relation.columns" />
+		) values (
+		#id#,
+		#fromPeopleId#,
+		#toPeopleId#,
+		#alias#,
+		#status,handler=q.dao.ibatis.PeopleRelationStatusHandler#,
+		now(),
+		null
+		)
+	</insert>
+
+	<select id="selectPagePeopleRelation" resultMap="relationResult">
+		select
+		<include refid="relation.columns" />
+		from people_relation
+		<dynamic prepend="where">
+			<isNotNull prepend="and" property="status">
+				status = #status,handler=q.dao.ibatis.PeopleRelationStatusHandler#
+			</isNotNull>
+			<isNotNull prepend="and" property="fromPeopleId">
+				from_people_id = #fromPeopleId#
+			</isNotNull>
+			<isNotNull prepend="and" property="toPeopleId">
+				to_people_id = #toPeopleId#
+			</isNotNull>
+			<isNotNull prepend="and" property="startCreated">
+				created &lt;= #startCreated#
+			</isNotNull>
+			<isNotNull prepend="and" property="startId">
+				id &lt;= #startId#
+			</isNotNull>
+		</dynamic>
+		order by created desc
+		limit #startIndex#, #size#
+	</select>
+	
+	<select id="selectAllToPeopleIds" resultClass="long">
+		select to_people_id
+		from people_relation
+		where status = #status,handler=q.dao.ibatis.PeopleRelationStatusHandler#
+		and from_people_id = #fromPeopleId#
+	</select>
+
+	<select id="selectPeopleRelationByFromIdToId" resultMap="relationResult">
+		select
+		<include refid="relation.columns" />
+		from people_relation
+		where
+		from_people_id = #fromPeopleId#
+		and
+		to_people_id = #toPeopleId#
+	</select>
+
 </sqlMap>

@@ -4,7 +4,6 @@
 package q.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author seanlinwang
@@ -12,41 +11,34 @@ import java.util.Date;
  * @date Feb 17, 2011
  * 
  */
-public class Event implements Serializable {
+public class Event extends AbstractDomain implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 986692036209440550L;
 
-	private long id;
+	private long creatorId;
 
-	private long senderId;
+	private long groupId;
 
 	private String name;
 
 	private String intro;
 
-	private byte status;
+	private int status;
 
-	private Date created;
-
-	private Date modified;
-
-	public long getId() {
-		return id;
+	public long getCreatorId() {
+		return creatorId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setCreatorId(long creatorId) {
+		this.creatorId = creatorId;
 	}
 
-	public long getSenderId() {
-		return senderId;
+	public long getGroupId() {
+		return groupId;
 	}
 
-	public void setSenderId(long senderId) {
-		this.senderId = senderId;
+	public void setGroupId(long groupId) {
+		this.groupId = groupId;
 	}
 
 	public String getName() {
@@ -65,28 +57,17 @@ public class Event implements Serializable {
 		this.intro = intro;
 	}
 
-	public byte getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(byte status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 
-	public Date getCreated() {
-		return created;
-	}
-
-	public void setCreated(Date created) {
-		this.created = created;
-	}
-
-	public Date getModified() {
-		return modified;
-	}
-
-	public void setModified(Date modified) {
-		this.modified = modified;
+	@Override
+	public String toString() {
+		return "Event [creatorId=" + creatorId + ", groupId=" + groupId + ", name=" + name + ", intro=" + intro + ", status=" + status + ", id=" + id + ", created=" + created + ", modified=" + modified + "]";
 	}
 
 }

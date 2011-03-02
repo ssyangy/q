@@ -20,8 +20,10 @@ import org.apache.cactus.WebResponse;
 import org.apache.cactus.extension.jetty.Jetty5xTestSetup;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.web.servlet.ModelAndView;
 
 import q.web.DefaultResourceContext;
+import q.web.ResourceContext;
 import q.web.ResourceRouter;
 import q.web.ViewResolver;
 
@@ -50,7 +52,9 @@ public class ResourceRouterTest extends ServletTestCase {
 		getRouter().setViewResolver(new ViewResolver() {
 
 			@Override
-			public void view(HttpServletRequest request, HttpServletResponse response, String viewName) throws ServletException, IOException {
+			public ModelAndView view(ResourceContext context, q.web.Resource resource) throws ServletException, IOException {
+				HttpServletRequest request = ((DefaultResourceContext) context).getRequest();
+				HttpServletResponse response = ((DefaultResourceContext) context).getResponse();
 				@SuppressWarnings("unchecked")
 				Enumeration<String> attributeNames = request.getAttributeNames();
 				for (; attributeNames.hasMoreElements();) {
@@ -59,6 +63,7 @@ public class ResourceRouterTest extends ServletTestCase {
 				}
 				response.getWriter().flush();
 				response.getWriter().close();
+				return null;
 			}
 		});
 	}
@@ -66,6 +71,7 @@ public class ResourceRouterTest extends ServletTestCase {
 	private ResourceRouter getRouter() {
 		return ((ResourceRouter) applicationContext.getBean("router"));
 	}
+
 	// ------------------ route to get index ----------------------------
 	public void beginRouteGetIndex(WebRequest theRequest) {
 		theRequest.setURL("serverName.com", "/contextPath", "/a", null, null);
@@ -78,10 +84,10 @@ public class ResourceRouterTest extends ServletTestCase {
 	public void endRouteGetIndex(WebResponse response) {
 		assertEquals(200, response.getStatusCode());
 		assertEquals("index", response.getText());
-		//assertEquals("testcontext", request.getAttribute("contextPath"));
-		//assertEquals("http://testurl", request.getAttribute("urlPrefix"));
+		// assertEquals("testcontext", request.getAttribute("contextPath"));
+		// assertEquals("http://testurl", request.getAttribute("urlPrefix"));
 	}
-	
+
 	// ------------------ route to get new ----------------------------
 	public void beginRouteGetNew(WebRequest theRequest) {
 		theRequest.setURL("serverName.com", "/contextPath", "/a/new", null, null);
@@ -109,7 +115,7 @@ public class ResourceRouterTest extends ServletTestCase {
 		assertEquals(200, response.getStatusCode());
 		assertEquals("edit", response.getText());
 	}
-	
+
 	// ------------------ route to get ----------------------------
 	public void beginRouteGet(WebRequest theRequest) {
 		theRequest.setURL("serverName.com", "/contextPath", "/a/123456", null, null);
@@ -117,8 +123,8 @@ public class ResourceRouterTest extends ServletTestCase {
 
 	public void testRouteGet() throws ServletException, IOException {
 		getRouter().handleRequest(request, response);
-		assertEquals("123456", new DefaultResourceContext(request, "/a/123456", new String[]{"a", "123456"}).getResourceLastId());
-		assertEquals("123456", new DefaultResourceContext(request, "/a/123456/join", new String[]{"a", "123456"}).getResourceLastId());
+		assertEquals("123456", new DefaultResourceContext(request, response, new String[] { "a", "123456" }).getResourceId());
+		assertEquals("123456", new DefaultResourceContext(request, response, new String[] { "a", "123456", "edit" }).getResourceId());
 	}
 
 	public void endRouteGet(WebResponse response) {
@@ -140,7 +146,7 @@ public class ResourceRouterTest extends ServletTestCase {
 		assertEquals(200, response.getStatusCode());
 		assertEquals("xalinx@gmail.com", response.getText());
 	}
-	
+
 	// ------------------ route to post extra ----------------------------
 	public void beginRoutePostExtra(WebRequest theRequest) {
 		theRequest.setURL("serverName.com", "/contextPath", "/a/1111/join", null, null);
@@ -155,7 +161,7 @@ public class ResourceRouterTest extends ServletTestCase {
 		assertEquals(200, response.getStatusCode());
 		assertEquals("join", response.getText());
 	}
-	
+
 	// ------------------ route to update ----------------------------
 	public void beginRouteUpdate(WebRequest request) {
 		request.setURL("serverName.com", "/contextPath", "/a/123456", null, null);

@@ -12,7 +12,7 @@ public class GetA extends Resource {
 
 	@Override
 	public void execute(ResourceContext context) {
-		String aid = context.getResourceLastId();
+		String aid = context.getResourceId();
 		context.setModel("aid", aid);
 	}
 
