@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <decorators defaultdir="/WEB-INF/decorator">
+	<excludes>
+		<pattern>/login/new</pattern>
+		<pattern>/people/new</pattern>
+	</excludes>
 	<decorator name="master" page="master.jsp">
 		<pattern>/*</pattern>
 	</decorator>

@@ -25,6 +25,7 @@
 		<property name="defaultResource" ref="default" />
 		<property name="urlPrefix" value="${q.url.prefix}" />
 		<property name="contextPath" value="${q.context.path}" />
+		<property name="staticUrlPrefix" value="${q.style.url.prefix}"/>
 		<property name="viewResolver">
 			<bean class="q.web.SpringViewResolver" />
 		</property>

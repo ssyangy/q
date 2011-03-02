@@ -65,14 +65,20 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 
 	private String urlPrefix;
 
-	private Object contextPath;
+	private String contextPath;
 
 	public void setUrlPrefix(String urlPrefix) {
 		this.urlPrefix = urlPrefix;
 	}
 
-	public void setContextPath(Object contextPath) {
+	public void setContextPath(String contextPath) {
 		this.contextPath = contextPath;
+	}
+	
+	private String staticUrlPrefix;
+	
+	public void setStaticUrlPrefix(String staticUrlPrefix) {
+		this.staticUrlPrefix = staticUrlPrefix;
 	}
 
 	private Set<String> needLoginResources;
@@ -126,6 +132,9 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 			context.setModel("urlPrefix", this.urlPrefix);
 		if (this.contextPath != null)
 			context.setModel("contextPath", this.contextPath);
+		if (this.staticUrlPrefix != null) {
+			context.setModel("staticUrlPrefix", this.staticUrlPrefix);
+		}
 	}
 
 	protected ResourceContext toResourceContext(final HttpServletRequest request, final HttpServletResponse response, String path, String[] segs) {

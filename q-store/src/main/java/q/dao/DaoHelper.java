@@ -119,16 +119,18 @@ public class DaoHelper {
 	}
 
 	public static void injectWeibosWithFavorite(FavoriteDao favoriteDao, List<Weibo> weibos, long peopleId) throws SQLException {
-		List<Long> replyIds = new ArrayList<Long>(weibos.size());
-		for (Weibo weibo : weibos) {
-			replyIds.add(weibo.getId());
-		}
-		List<Long> favIds = favoriteDao.getFavWeiboIds(replyIds, peopleId);
-		if (CollectionKit.isNotEmpty(favIds)) {
-			Set<Long> favSet = new HashSet<Long>(favIds);
+		if (CollectionKit.isNotEmpty(weibos)) {
+			List<Long> replyIds = new ArrayList<Long>(weibos.size());
 			for (Weibo weibo : weibos) {
-				if (favSet.contains(weibo.getId())) {
-					weibo.setFav(true);
+				replyIds.add(weibo.getId());
+			}
+			List<Long> favIds = favoriteDao.getFavWeiboIds(replyIds, peopleId);
+			if (CollectionKit.isNotEmpty(favIds)) {
+				Set<Long> favSet = new HashSet<Long>(favIds);
+				for (Weibo weibo : weibos) {
+					if (favSet.contains(weibo.getId())) {
+						weibo.setFav(true);
+					}
 				}
 			}
 		}
