@@ -165,7 +165,7 @@ public class DateKit {
 			sb.append(hour);
 			sb.append(':');
 			int min = beforeCal.get(MINUTE);
-			if (hour < 10) {
+			if (min < 10) {
 				sb.append(0);
 			}
 			sb.append(min);
