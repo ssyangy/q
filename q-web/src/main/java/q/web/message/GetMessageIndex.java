@@ -44,7 +44,8 @@ public class GetMessageIndex extends Resource {
 		page.setMyId(loginPeopleId);
 		page.setStartIndex(0);
 		page.setSize(20);
-		List<Message> messages = DaoHelper.getPageMessageRealName(peopleDao, messageDao, page);
+		List<Message> messages = messageDao.getPageMessages(page);
+		DaoHelper.injectMessagesWithSenderReceiverRealName(peopleDao, messages);
 		context.setModel("messages", messages);
 		context.setModel("loginId", loginPeopleId);
 	}

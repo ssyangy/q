@@ -55,7 +55,8 @@ public class GetWeibo extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long weiboId = context.getResourceIdLong();
-		Weibo weibo = DaoHelper.getWeiboWithSenderRealNameAndFrom(peopleDao, weiboDao, groupDao, weiboId);
+		Weibo weibo = weiboDao.getWeiboById(weiboId);
+		DaoHelper.injectWeiboWithSenderRealNameAndFrom(peopleDao, groupDao, weibo);
 		context.setModel("weibo", weibo);
 		WeiboReplyPage page = new WeiboReplyPage();
 		page.setQuoteWeiboId(weiboId);
@@ -63,7 +64,8 @@ public class GetWeibo extends Resource {
 		page.setStartIndex(0);
 		List<WeiboReply> replies = weiboDao.getPageWeiboReply(page);
 		long loginPeopleId = context.getLoginPeopleId();
-		DaoHelper.injectWeiboRepliesWithSenderRealNameAndFromAndFavorite(peopleDao, weiboDao, groupDao, favoriteDao, replies, loginPeopleId);
+		DaoHelper.injectWeiboRepliesWithSenderRealNameAndFrom(peopleDao, groupDao, replies);
+		DaoHelper.injectWeiboRepliesWithFavorite(favoriteDao, replies, loginPeopleId);
 		context.setModel("replies", replies);
 	}
 

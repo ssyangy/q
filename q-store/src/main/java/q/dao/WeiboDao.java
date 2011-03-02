@@ -105,4 +105,19 @@ public interface WeiboDao {
 	 */
 	WeiboJoinGroup getWeiboJoinGroupByWeiboId(long weiboId) throws SQLException;
 
+	/**
+	 * @param ids
+	 * @param needDesc
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Weibo> getWeibosByIds(List<Long> ids, boolean needDesc) throws SQLException;
+
+	/**
+	 * @param sourceReplyIds
+	 * @param b
+	 * @return
+	 */
+	List<WeiboReply> getWeiboRepliesByIds(List<Long> replyIds, boolean needDesc) throws SQLException;
+
 }

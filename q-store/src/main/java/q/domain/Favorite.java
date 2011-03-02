@@ -23,6 +23,8 @@ public class Favorite extends AbstractDomain implements Serializable {
 
 	private long creatorId;
 
+	private WeiboModel source;
+
 	public long getCreatorId() {
 		return creatorId;
 	}
@@ -55,12 +57,28 @@ public class Favorite extends AbstractDomain implements Serializable {
 		this.fromId = fromId;
 	}
 
+	public boolean isFromWeibo() {
+		return this.fromType.isFromWeibo();
+	}
+	
+	public boolean isFromReply() {
+		return this.fromType.isFromReply();
+	}
+	
 	public boolean isFav() {
 		return this.status.isFav();
 	}
 
 	public boolean isUnFav() {
 		return this.status.isUnFav();
+	}
+
+	public WeiboModel getSource() {
+		return source;
+	}
+
+	public void setSource(WeiboModel source) {
+		this.source = source;
 	}
 
 }

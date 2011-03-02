@@ -49,10 +49,12 @@
 		<include refid="weibo.columns" />
 		from weibo
 		where id in
-		<iterate open="(" close=")" conjunction=",">
-			#[]#
+		<iterate property="ids" open="(" close=")" conjunction=",">
+		#ids[]#
         </iterate>
+        <isNotNull property="desc">
 		order by created desc
+		</isNotNull>
 	</select>
 	
 	<select id="selectPageFollowingWeibos" resultMap="weiboResult">
@@ -220,6 +222,20 @@
 		from weibo_reply
 		where id = #value#
 	</select>
+	
+	<select id="selectWeiboRepliesByIds" resultMap="replyResult">
+		select
+		<include refid="reply.columns" />
+		from weibo_reply
+		where id in
+		<iterate property="ids" open="(" close=")" conjunction=",">
+		#ids[]#
+        </iterate>
+        <isNotNull property="desc">
+		order by created desc
+		</isNotNull>
+	</select>
+	
 	
 	<select id="selectPageWeiboReply" resultMap="replyResult">
 		select

@@ -44,7 +44,7 @@
 		<div>发言 | 关注</div>
 		<div>
 			<c:forEach items="${weibos}" var="weibo" varStatus="status">
-				<br/><c:out value="${weibo.content}" /><br/>
+				<br/>${weibo.content}<br/>
 				<c:if test="${weibo.quoteWeiboId >0}">
 					<a href="${urlPrefix}/weibo/${weibo.quoteWeiboId}">原文</a>&nbsp;
 				</c:if>	
@@ -59,19 +59,19 @@
 					</c:otherwise>
 				</c:choose>	
 				</form>		
-				<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}/retweet?from=${contextPath}/people/${people.id}"/>">
+				<a href="${urlPrefix}/weibo/${weibo.id}/retweet?from=${contextPath}/people/${people.id}">
 				<c:choose>
 					<c:when test="${weibo.inGroup}">分享给好友</c:when>
 					<c:otherwise>转发</c:otherwise>
 				</c:choose>
 				</a>&nbsp;
-				<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}"/>">回复</a>&nbsp;
-				<a href="<c:out value="${urlPrefix}/people/${weibo.senderId}"/>">
-					<c:out value="${weibo.senderRealName}" />
+				<a href="${urlPrefix}/weibo/${weibo.id">回复</a>&nbsp;
+				<a href="${urlPrefix}/people/${weibo.senderId}">
+					${weibo.senderRealName}
 				</a>&nbsp;
 				<c:out value="${weibo.time}" />&nbsp;
-				<a href="<c:out value="${urlPrefix}${weibo.fromUrl}" />">
-					<c:out value="${weibo.fromName}" />
+				<a href="${urlPrefix}${weibo.fromUrl}">
+					${weibo.fromName}
 				</a>
 				<br />
 			</c:forEach>

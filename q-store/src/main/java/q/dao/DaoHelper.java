@@ -5,12 +5,13 @@ package q.dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import q.dao.page.MessagePage;
+import q.domain.Favorite;
 import q.domain.Group;
 import q.domain.Message;
 import q.domain.People;
@@ -34,12 +35,12 @@ public class DaoHelper {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static void injectWeiboRepliesWithSenderRealNameAndFromAndFavorite(PeopleDao peopleDao, WeiboDao weiboDao, GroupDao groupDao, FavoriteDao favoriteDao, List<WeiboReply> replies, long loginPeopleId) throws SQLException {
+	public static void injectWeiboRepliesWithSenderRealNameAndFrom(PeopleDao peopleDao, GroupDao groupDao, List<WeiboReply> replies) throws SQLException {
 		if (CollectionKit.isNotEmpty(replies)) {
-			Set<Long> peopleIds = new HashSet<Long>(replies.size());
+			Set<Long> senderIds = new HashSet<Long>(replies.size());
 			Set<Long> groupIds = null;
 			for (WeiboReply reply : replies) {
-				peopleIds.add(reply.getSenderId());
+				senderIds.add(reply.getSenderId());
 				if (reply.isFromGroup()) {
 					if (groupIds == null) {
 						groupIds = new HashSet<Long>(replies.size());// lazy init
@@ -47,8 +48,8 @@ public class DaoHelper {
 					groupIds.add(reply.getFromId());
 				}
 			}
-			if (CollectionKit.isNotEmpty(peopleIds)) {
-				Map<Long, String> peopleIdRealNameMap = peopleDao.getIdRealNameMapByIds(peopleIds);
+			if (CollectionKit.isNotEmpty(senderIds)) {
+				Map<Long, String> peopleIdRealNameMap = peopleDao.getIdRealNameMapByIds(senderIds);
 				for (WeiboReply reply : replies) {
 					reply.setSenderRealName(peopleIdRealNameMap.get(reply.getSenderId()));
 				}
@@ -61,20 +62,20 @@ public class DaoHelper {
 					}
 				}
 			}
+		}
+	}
 
-			if (loginPeopleId > 0) { // if login, inject favorite status
-				List<Long> replyIds = new ArrayList<Long>(replies.size());
-				for (WeiboReply reply : replies) {
-					replyIds.add(reply.getId());
-				}
-				List<Long> favIds = favoriteDao.getFavReplyIds(replyIds, loginPeopleId);
-				if (CollectionKit.isNotEmpty(favIds)) {
-					Set<Long> favSet = new HashSet<Long>(favIds);
-					for (WeiboReply reply : replies) {
-						if (favSet.contains(reply.getId())) {
-							reply.setFav(true);
-						}
-					}
+	public static void injectWeiboRepliesWithFavorite(FavoriteDao favoriteDao, List<WeiboReply> replies, long peopleId) throws SQLException {
+		List<Long> replyIds = new ArrayList<Long>(replies.size());
+		for (WeiboReply reply : replies) {
+			replyIds.add(reply.getId());
+		}
+		List<Long> favIds = favoriteDao.getFavReplyIds(replyIds, peopleId);
+		if (CollectionKit.isNotEmpty(favIds)) {
+			Set<Long> favSet = new HashSet<Long>(favIds);
+			for (WeiboReply reply : replies) {
+				if (favSet.contains(reply.getId())) {
+					reply.setFav(true);
 				}
 			}
 		}
@@ -89,10 +90,10 @@ public class DaoHelper {
 	 */
 	public static void injectWeibosWithSenderRealNameAndFrom(PeopleDao peopleDao, GroupDao groupDao, List<Weibo> weibos) throws SQLException {
 		if (CollectionKit.isNotEmpty(weibos)) {
-			Set<Long> peopleIds = new HashSet<Long>(weibos.size());
+			Set<Long> senderIds = new HashSet<Long>(weibos.size());
 			Set<Long> groupIds = null;
 			for (Weibo weibo : weibos) {
-				peopleIds.add(weibo.getSenderId());
+				senderIds.add(weibo.getSenderId());
 				if (weibo.isFromGroup()) {
 					if (groupIds == null) {
 						groupIds = new HashSet<Long>(weibos.size());// lazy init
@@ -100,8 +101,8 @@ public class DaoHelper {
 					groupIds.add(weibo.getFromId());
 				}
 			}
-			if (CollectionKit.isNotEmpty(peopleIds)) {
-				Map<Long, String> peopleIdRealNameMap = peopleDao.getIdRealNameMapByIds(peopleIds);
+			if (CollectionKit.isNotEmpty(senderIds)) {
+				Map<Long, String> peopleIdRealNameMap = peopleDao.getIdRealNameMapByIds(senderIds);
 				for (Weibo weibo : weibos) {
 					weibo.setSenderRealName(peopleIdRealNameMap.get(weibo.getSenderId()));
 				}
@@ -133,8 +134,65 @@ public class DaoHelper {
 		}
 	}
 
-	public static List<Message> getPageMessageRealName(PeopleDao peopleDao, MessageDao messageDao, MessagePage page) throws SQLException {
-		List<Message> messages = messageDao.getPageMessages(page);
+	/**
+	 * @param peopleDao
+	 * @param groupDao
+	 * @param weiboDao
+	 * @param favorites
+	 */
+	public static void injectFavoritesWithSource(PeopleDao peopleDao, GroupDao groupDao, WeiboDao weiboDao, List<Favorite> favorites) throws SQLException {
+		if (CollectionKit.isNotEmpty(favorites)) {
+			List<Long> sourceWeiboIds = null; // lazy init
+			List<Long> sourceReplyIds = null; // lazy inti
+			for (Favorite fav : favorites) { // extract weibo and reply sources
+				if (fav.isFromWeibo()) {
+					if (sourceWeiboIds == null) {
+						sourceWeiboIds = new ArrayList<Long>(favorites.size());
+					}
+					sourceWeiboIds.add(fav.getFromId());
+				}
+				if (fav.isFromReply()) {
+					if (sourceReplyIds == null) {
+						sourceReplyIds = new ArrayList<Long>(favorites.size());
+					}
+					sourceReplyIds.add(fav.getFromId());
+				}
+			}
+			Map<Long, Weibo> weiboMap = null;
+			if (CollectionKit.isNotEmpty(sourceWeiboIds)) {
+				weiboMap = new HashMap<Long, Weibo>(sourceWeiboIds.size());
+				List<Weibo> weibos = weiboDao.getWeibosByIds(sourceWeiboIds, false);
+				for (Weibo weibo : weibos) {
+					if (weibo.isCommon()) {
+						weiboMap.put(weibo.getId(), weibo);
+					}
+				}
+			}
+			Map<Long, WeiboReply> replyMap = null;
+			if (CollectionKit.isNotEmpty(sourceReplyIds)) {
+				replyMap = new HashMap<Long, WeiboReply>(sourceReplyIds.size());
+				List<WeiboReply> replies = weiboDao.getWeiboRepliesByIds(sourceReplyIds, false);
+				for (WeiboReply reply : replies) {
+					if (reply.isCommon()) {
+						replyMap.put(reply.getId(), reply);
+					}
+				}
+			}
+			for (Favorite fav : favorites) { // inject weibo and reply sources
+				if (weiboMap != null && fav.isFromWeibo()) {
+					fav.setSource(weiboMap.get(fav.getFromId()));
+					fav.getSource().setFav(true);
+				}
+				if (replyMap != null && fav.isFromReply()) {
+					fav.setSource(replyMap.get(fav.getFromId()));
+					fav.getSource().setFav(true);
+				}
+			}
+		}
+
+	}
+
+	public static void injectMessagesWithSenderReceiverRealName(PeopleDao peopleDao, List<Message> messages) throws SQLException {
 		if (CollectionKit.isNotEmpty(messages)) {
 			HashSet<Long> peopleIds = new HashSet<Long>(messages.size() + 1); // people number is less than messages count + 1
 			for (Message message : messages) {
@@ -147,7 +205,6 @@ public class DaoHelper {
 				message.setReceiverRealName(map.get(message.getReceiverId()));
 			}
 		}
-		return messages;
 	}
 
 	/**
@@ -158,15 +215,13 @@ public class DaoHelper {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static Weibo getWeiboWithSenderRealNameAndFrom(PeopleDao peopleDao, WeiboDao weiboDao, GroupDao groupDao, long weiboId) throws SQLException {
-		Weibo weibo = weiboDao.getWeiboById(weiboId);
+	public static void injectWeiboWithSenderRealNameAndFrom(PeopleDao peopleDao, GroupDao groupDao, Weibo weibo) throws SQLException {
 		People people = peopleDao.getPeopleById(weibo.getSenderId());
 		weibo.setSenderRealName(people.getRealName());
 		if (weibo.isFromGroup()) {
 			Group group = groupDao.getGroupById(weibo.getFromId());
 			weibo.setFromPostfix(group.getName());
 		}
-		return weibo;
 	}
 
 	/**
@@ -177,15 +232,13 @@ public class DaoHelper {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static WeiboReply getWeiboReplyWithSenderRealNameAndFrom(PeopleDao peopleDao, WeiboDao weiboDao, GroupDao groupDao, long replyId) throws SQLException {
-		WeiboReply reply = weiboDao.getWeiboReplyById(replyId);
+	public static void injectWeiboReplyWithSenderRealNameAndFrom(PeopleDao peopleDao, GroupDao groupDao, WeiboReply reply) throws SQLException {
 		People people = peopleDao.getPeopleById(reply.getSenderId());
 		reply.setSenderRealName(people.getRealName());
 		if (reply.isFromGroup()) {
 			Group group = groupDao.getGroupById(reply.getFromId());
 			reply.setFromPostfix(group.getName());
 		}
-		return reply;
 	}
 
 }

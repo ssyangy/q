@@ -13,7 +13,35 @@
 	<div>
 		<c:forEach items="${favorites}" var="fav" varStatus="status">
 			<br/>收藏于:${fav.time}
-			<br/>
+			<br/>${fav.source.content}<br/>
+			<c:if test="${fav.source.quoteWeiboId >0}">
+				<a href="${urlPrefix}/${fav.source.viewName}/${fav.source.quoteWeiboId}">原文</a>&nbsp;
+			</c:if>	
+			<form action="${urlPrefix}/${fav.source.viewName}/${fav.source.id}/favorite" method="post">
+			<c:choose>
+				<c:when test="${fav.source.unFav}">
+				<button>收藏</button>
+				</c:when>
+				<c:otherwise>
+				<input type="hidden" name="_method"  value="delete"/>
+				<button>取消收藏</button>
+				</c:otherwise>
+			</c:choose>	
+			</form>		
+			<a href="${urlPrefix}/${fav.source.viewName}/${fav.source.id}/retweet?from=${contextPath}/people/${people.id}">
+			<c:choose>
+				<c:when test="${fav.source.inGroup}">分享给好友</c:when>
+				<c:otherwise>转发</c:otherwise>
+			</c:choose>
+			</a>&nbsp;
+			<a href="${urlPrefix}/${fav.source.viewName}/${fav.source.id}">回复</a>&nbsp;
+			<a href="${urlPrefix}/people/${fav.source.senderId}">
+				${fav.source.senderRealName}
+			</a>&nbsp;
+			<c:out value="${fav.source.time}" />&nbsp;
+			<a href="${urlPrefix}${fav.source.fromUrl}">
+				${fav.source.fromName}
+			</a><br/>
 		</c:forEach>
 	</div>
 </div>

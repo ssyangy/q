@@ -45,12 +45,13 @@ public class GetWeiboRetweet extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long weiboId = context.getResourceIdLong();
-		Weibo weibo = DaoHelper.getWeiboWithSenderRealNameAndFrom(peopleDao, weiboDao, groupDao, weiboId);
+		Weibo weibo = this.weiboDao.getWeiboById(weiboId);
+		DaoHelper.injectWeiboWithSenderRealNameAndFrom(peopleDao, groupDao, weibo);
 		context.setModel("weibo", weibo);
 
 		People sender = peopleDao.getPeopleById(weibo.getSenderId());
 		context.setModel("sender", sender);
-		
+
 		context.setModel("from", context.getString("from"));
 	}
 

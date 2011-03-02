@@ -45,7 +45,8 @@ public class GetReplyRetweet extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long replyId = context.getResourceIdLong();
-		WeiboReply reply = DaoHelper.getWeiboReplyWithSenderRealNameAndFrom(peopleDao, weiboDao, groupDao, replyId);
+		WeiboReply reply = this.weiboDao.getWeiboReplyById(replyId);
+		DaoHelper.injectWeiboReplyWithSenderRealNameAndFrom(peopleDao, groupDao, reply);
 		context.setModel("reply", reply);
 
 		People sender = peopleDao.getPeopleById(reply.getSenderId());

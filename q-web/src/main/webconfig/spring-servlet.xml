@@ -67,6 +67,7 @@
 				<value>addReplyFavorite</value>
 				<value>deleteWeiboFavorite</value>
 				<value>deleteReplyFavorite</value>
+				<value>getFavoriteIndex</value>
 			</set>
 		</property>
 	</bean>

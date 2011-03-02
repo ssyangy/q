@@ -4,7 +4,9 @@
 package q.dao.ibatis;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import q.dao.WeiboDao;
 import q.dao.page.WeiboPage;
@@ -56,12 +58,31 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Weibo> getPageGroupWeibo(WeiboPage page) throws SQLException {
-		log.debug("weiboPage:%s", page);
 		List<Long> ids = (List<Long>) this.sqlMapClient.queryForList("selectPageGroupWeiboIds", page);
 		if (CollectionKit.isEmpty(ids)) {
 			return null;
 		}
-		return (List<Weibo>) this.sqlMapClient.queryForList("selectWeibosByIds", ids);
+		return getWeibosByIds(ids, true);
+	}
+
+	@Override
+	public List<Weibo> getWeibosByIds(List<Long> ids, boolean needDesc) throws SQLException {
+		Map<String, Object> query = new HashMap<String, Object>();
+		query.put("ids", ids);
+		query.put("desc", needDesc ? new Object(): null);
+		@SuppressWarnings("unchecked")
+		List<Weibo> weibos = (List<Weibo>) this.sqlMapClient.queryForList("selectWeibosByIds", query);
+		return weibos;
+	}
+	
+	@Override
+	public List<WeiboReply> getWeiboRepliesByIds(List<Long> repliyIds, boolean needDesc) throws SQLException {
+		Map<String, Object> query = new HashMap<String, Object>();
+		query.put("ids", repliyIds);
+		query.put("desc", needDesc ? new Object(): null);
+		@SuppressWarnings("unchecked")
+		List<WeiboReply> replies = (List<WeiboReply>) this.sqlMapClient.queryForList("selectWeiboRepliesByIds", query);
+		return replies;
 	}
 
 	@Override

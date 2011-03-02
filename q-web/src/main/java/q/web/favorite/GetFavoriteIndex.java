@@ -12,6 +12,7 @@ import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.dao.page.FavoritePage;
 import q.domain.Favorite;
+import q.web.ParameterInvalidException;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -56,7 +57,15 @@ public class GetFavoriteIndex extends Resource {
 		page.setStartIndex(0);
 		page.setCreatorId(context.getLoginPeopleId());
 		List<Favorite> favorites = this.favoriteDao.getPageFavorites(page);
+		DaoHelper.injectFavoritesWithSource(peopleDao, groupDao, weiboDao, favorites);
 		context.setModel("favorites", favorites);
+	}
+
+	@Override
+	public void validate(ResourceContext context) throws Exception {
+		if(context.getLoginPeopleId() == 0) {
+			throw new ParameterInvalidException();
+		}
 	}
 
 }
