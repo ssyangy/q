@@ -117,5 +117,11 @@ public interface PeopleDao {
 	 * @return
 	 */
 	int getPeopleFollowerNumById(long peopleId) throws SQLException;
+	/**
+	 * @param email
+	 * @return
+	 */
+	long getPeopleIdByEmail(String email)throws SQLException;
+
 }
 

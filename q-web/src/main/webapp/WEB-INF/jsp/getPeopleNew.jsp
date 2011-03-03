@@ -7,6 +7,106 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" href="${staticUrlPrefix}/common/q.css" type="text/css" media="screen, projection" />
 	<title>登陆注册</title>
+	<script type="text/javascript">
+	var xmlhttp;
+function checkEmail(a)
+{
+     var i=a.length;  
+     var  temp  =  a.indexOf('@');  
+     var  tempd  =  a.indexOf('.');  
+     if  (temp  >  0)  {  
+         if  ((i-temp)  >  3){  
+               if  ((i-tempd)>1){  
+                 document.getElementById("emailcorrect").style.display="block";
+                 document.getElementById("emailwrong").style.display="none";    
+                 disResult()();
+                 return 1;
+               }                                      
+          } 
+    }
+   document.getElementById("emailcorrect").style.display="none"; 
+   document.getElementById("emailwrong").style.display="block";
+   document.getElementById("emailwrong").innerHTML='请输入正确的邮箱地址。';
+   return 0;
+}
+function checkPassword(a){
+      var i=a.length;
+      if(i>5){
+          document.getElementById("passwordcorrect").style.display="block";
+          document.getElementById("passwordwrong").style.display="none";
+          return 1;
+      }
+      else{
+          document.getElementById("passwordwrong").style.display="block";
+           document.getElementById("passwordcorrect").style.display="none";
+      }
+      document.getElementById("passwordwrong").innerHTML='密码太短了，最少6位。';
+      return 0;
+}
+function recheckPassword(a){
+      var i=a.length;
+      if(document.getElementById("password").value==document.getElementById("confirm_password").value){
+    	  if(document.getElementById("password").value!=""){
+          document.getElementById("repasswordcorrect").style.display="block";
+          document.getElementById("repasswordwrong").style.display="none";
+          return 1;
+      }
+      }
+      else{
+          document.getElementById("repasswordcorrect").style.display="none";
+          document.getElementById("repasswordwrong").style.display="block";          
+      }
+      document.getElementById("repasswordwrong").innerHTML='两次输入的密码不同。';
+      return 0;
+}
+
+function check() {  
+  var ce=checkEmail(document.getElementById("email").value);
+  var cp=checkPassword(document.getElementById("password").value);
+  if(cp==1&&ce==1){
+   var crp=recheckPassword(document.getElementById("confirm_password").value);
+   if(crp==1){     
+     return true;
+   } 
+  }
+   return false;    
+ }
+
+function disResult()
+{
+	var xmlhttp;
+	try{
+	    xmlhttp=new ActiveXObject('Msxml2.XMLHTTP');
+	} 
+	catch(e){
+	  try{
+         xmlhttp=new ActiveXObject('Microsoft.XMLHTTP');
+	   } 
+	  catch(e){
+      try{
+    xmlhttp=new XMLHttpRequest();
+       }catch(e){    	   
+       }
+      }
+   }	                      
+	var idno=document.getElementById("email").value;
+	xmlhttp.open("get","../checkemail?email="+idno,true);
+	xmlhttp.onreadystatechange=function(){
+	        if (xmlhttp.readyState==4)
+	 
+	        if (xmlhttp.status==200)
+	        {
+	        	document.getElementById("emailcorrect").style.display="none"; 
+	        	document.getElementById("emailwrong").style.display="block";
+	        	document.getElementById("emailwrong").innerHTML='该邮箱地址已被注册。';
+	        }
+}
+	xmlhttp.send(null);
+
+}
+
+
+</script>
 </head>
 <body>
 	<div id="container"> 
@@ -25,16 +125,16 @@
 								</div> 
 							</div> 
 							<div id="signup-form"> 
-								<form method="post" action="${urlPrefix}/people"> 
+								<form method="post" action="${urlPrefix}/people" onSubmit="return check()" > 
 									<fieldset> 
 										<table class="input-form"> 
 											<tbody> 
 												<tr> 
 													<th><label for="">邮箱：</label></th> 
-													<td class="col-field"><input name="email" type="text" class="text_field" size="20"></td> 
+													<td class="col-field"><input name="email" id="email" type="text" class="text_field" size="20" onblur="checkEmail(this.value)" runat="server" ></td> 
 													<td class="col-help"> 
-														<div class="label-box-good" style="display:none;"></div> 
-														<div class="label-box-error" style=""></div> 
+														<div class="label-box-good" style="display:none;" id="emailcorrect"></div> 
+														<div class="label-box-error" style="display:none;" id="emailwrong"></div> 
 													</td> 
 												</tr> 
 												<tr> 
@@ -43,9 +143,10 @@
 												</tr> 
 												<tr> 
 													<th><label for="">设置密码：</label></th> 
-													<td class="col-field"><input name="password" type="password" class="text_field" size="20"></td> 
+													<td class="col-field"><input name="password" type="password" id="password" class="text_field" size="20" onblur="checkPassword(this.value)"></td> 
 													<td class="col-help"> 
-														<div class="label-box-good"></div> 
+														<div class="label-box-good" style="display:none;" id="passwordcorrect"></div> 
+														<div class="label-box-error" style="display:none;" id="passwordwrong"></div> 
 													</td> 
 												</tr> 
 												<tr> 
@@ -54,8 +155,11 @@
 												</tr> 
 												<tr> 
 													<th><label for="">密码确认：</label></th> 
-													<td class="col-field"><input name="confirm_password" type="password" class="text_field" size="20"></td> 
-													<td class="col-help"></td> 
+													<td class="col-field"><input name="confirm_password" type="password" id="confirm_password" class="text_field" size="20" onblur="recheckPassword(this.value)"></td> 
+													<td class="col-help">
+													     <div class="label-box-good" style="display:none;" id="repasswordcorrect"></div> 
+														 <div class="label-box-error" style="display:none;" id="repasswordwrong"></div> 
+													</td> 
 												</tr> 
 												<tr> 
 													<th></th> 
@@ -94,7 +198,7 @@
 												</tr> 
 												<tr> 
 													<th></th> 
-													<td colspan="2"><button class="btn-x" type="submit">立即注册</button></td> 
+													<td colspan="2"><button class="btn-x" type="submit" >立即注册</button></td> 
 												</tr> 
 											</tbody> 
 										</table> 

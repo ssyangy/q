@@ -116,6 +116,9 @@
 	</bean>
 	<bean id="getPeopleIndex" class="q.web.people.GetPeopleIndex">
 	</bean>
+	<bean id="getCheckemailIndex" class="q.web.check.GetCheckEmailIndex">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
 
 
 	<!-- login web -->

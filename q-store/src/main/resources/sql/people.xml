@@ -228,5 +228,14 @@
 		and
 		to_people_id = #toPeopleId#
 	</select>
+	
+	<select id="selectEmailExists" resultClass="long">
+		select
+		id
+		from 
+		people
+		where email=#value#
+		
+	</select>
 
 </sqlMap>
