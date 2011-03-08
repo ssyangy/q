@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<method xmlns="http://apimapping.taobao.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://apimapping.taobao.com apimapping.xsd"
+	interfaceName="q.serialize.album.AlbumService"
+	interfaceVersion="1.0.0">
+	
+	<methodCall name="addAlbum" apiName="taobao.album.add">
+		<params>
+			<param type="int" apiName="aid" />
+		</params>
+	</methodCall>
+	
+	<methodResponse>
+		<param>
+			<type>
+				<struct>
+					<member name="totalResult" apiName="totalResult" outputApiName="total_result" apiType="int" />
+					<member name="string" apiName="string" outputApiName="stringV2" apiType="string" />
+					<member name="objectTest" apiName="objectTest" outputApiName="object_test" >
+						<type class="java.util.List">
+							<array apiArrayItemName="obj">
+								<type>
+									<struct>
+										<member name="value" apiName="value" apiType="string" />
+									</struct>
+								</type>
+							</array>
+						</type>
+					</member>
+					<member name="noChange" apiName="noChange"  >
+						<type class="java.util.List">
+							<array apiArrayItemName="obj">
+								<type>
+									<struct>
+										<member name="value" apiName="value" apiType="string" />
+									</struct>
+								</type>
+							</array>
+						</type>
+					</member>
+				</struct>
+			</type>
+		</param>
+	</methodResponse>
+</method>

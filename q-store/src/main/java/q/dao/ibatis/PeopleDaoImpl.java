@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 import q.dao.PeopleDao;
+import q.dao.page.PeoplePage;
 import q.dao.page.PeopleRelationPage;
 import q.domain.People;
 import q.domain.PeopleRelation;
@@ -36,16 +37,6 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 		this.sqlMapClient.insert("insertPeople", p);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see q.dao.PeoplesDao#getPeopleById(int)
-	 */
-	@Override
-	public People getPeopleById(long pid) throws SQLException {
-		return (People) this.sqlMapClient.queryForObject("selectPeopleById", pid);
-	}
-
 	@Override
 	public void updatePeople(People p) throws SQLException {
 		this.sqlMapClient.update("updatePeopleById", p);
@@ -55,11 +46,36 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see q.dao.PeoplesDao#getPeopleById(int)
+	 */
+	@Override
+	public People getPeopleById(long pid) throws SQLException {
+		PeoplePage page = new PeoplePage();
+		page.setId(pid);
+		return queryPeople(page);
+	}
+
+	@Override
+	public People getPeopleByEmail(String email) throws SQLException {
+		PeoplePage page = new PeoplePage();
+		page.setEmail(email);
+		return queryPeople(page);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.dao.PeopleDao#getPeopleByUsername(java.lang.String)
 	 */
 	@Override
 	public People getPeopleByUsername(String username) throws SQLException {
-		return (People) this.sqlMapClient.queryForObject("selectPeopleByUsername", username);
+		PeoplePage page = new PeoplePage();
+		page.setUsername(username);
+		return queryPeople(page);
+	}
+
+	private People queryPeople(PeoplePage page) throws SQLException {
+		return (People) this.sqlMapClient.queryForObject("selectPeopleByPage", page);
 	}
 
 	@Override
@@ -102,7 +118,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 		}
 		return relations;
 	}
-	
+
 	@Override
 	public List<PeopleRelation> getPagePeopleRelationWithToRealName(PeopleRelationPage page) throws SQLException {
 		List<PeopleRelation> relations = getPagePeopleRelation(page);
@@ -125,7 +141,6 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 		List<PeopleRelation> relations = (List<PeopleRelation>) this.sqlMapClient.queryForList("selectPagePeopleRelation", page);
 		return relations;
 	}
-	
 
 	@Override
 	public List<Long> getAllFollowingId(long fromPeopleId) throws SQLException {
@@ -171,17 +186,12 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	@Override
 	public int getPeopleFollowingNumById(long peopleId) throws SQLException {
-		return (Integer) this.sqlMapClient.queryForObject("getPeopleFollowingNumById", peopleId);
+		return (Integer) this.sqlMapClient.queryForObject("selectPeopleFollowingNumById", peopleId);
 	}
 
 	@Override
 	public int getPeopleFollowerNumById(long peopleId) throws SQLException {
-		return (Integer) this.sqlMapClient.queryForObject("getPeopleFollowerNumById", peopleId);
-	}
-
-	@Override
-	public long getPeopleIdByEmail(String email) throws SQLException {
-		return (Long) this.sqlMapClient.queryForObject("selectEmailExists",email);
+		return (Integer) this.sqlMapClient.queryForObject("selectPeopleFollowerNumById", peopleId);
 	}
 
 }

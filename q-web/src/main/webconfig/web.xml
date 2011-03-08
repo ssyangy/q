@@ -23,6 +23,9 @@
 	<listener>
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
 	</listener>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 	<!-- ====================================================== -->
 	<!-- Filters -->
 	<!-- ====================================================== -->
@@ -61,11 +64,6 @@
 	<!-- ====================================================== -->
 	<!-- Servlets -->
 	<!-- ====================================================== -->
-	<servlet>
-		<servlet-name>context</servlet-name>
-		<servlet-class>org.springframework.web.context.ContextLoaderServlet</servlet-class>
-		<load-on-startup>3</load-on-startup>
-	</servlet>
 	<servlet>
 		<servlet-name>spring</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -141,7 +139,7 @@
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/favorite</url-pattern>
-	</servlet-mapping>	
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/logoff/*</url-pattern>
@@ -165,14 +163,6 @@
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/setting</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/checkemail/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/checkemail</url-pattern>
 	</servlet-mapping>
 	<!-- ====================================================== -->
 	<!-- Session Config -->

@@ -63,21 +63,21 @@ public interface PeopleDao {
 	 * @throws SQLException
 	 */
 	List<PeopleRelation> getPagePeopleRelationWithFromRealName(PeopleRelationPage page) throws SQLException;
-	
+
 	/**
 	 * @param page
 	 * @return
 	 * @throws SQLException
 	 */
 	List<PeopleRelation> getPagePeopleRelationWithToRealName(PeopleRelationPage page) throws SQLException;
-	
+
 	/**
 	 * @param page
 	 * @return
 	 * @throws SQLException
 	 */
 	List<PeopleRelation> getPagePeopleRelation(PeopleRelationPage page) throws SQLException;
-	
+
 	/**
 	 * @param peopleId
 	 * @return
@@ -93,7 +93,7 @@ public interface PeopleDao {
 	PeopleRelation getPeopleRelationByFromIdToId(long fromPeopleId, long toPeopleId) throws SQLException;
 
 	/**
-	 * @param relationStatus 
+	 * @param relationStatus
 	 * @param relationId
 	 * @param newRelation
 	 */
@@ -117,11 +117,11 @@ public interface PeopleDao {
 	 * @return
 	 */
 	int getPeopleFollowerNumById(long peopleId) throws SQLException;
+
 	/**
 	 * @param email
 	 * @return
 	 */
-	long getPeopleIdByEmail(String email)throws SQLException;
+	People getPeopleByEmail(String email) throws SQLException;
 
 }
-

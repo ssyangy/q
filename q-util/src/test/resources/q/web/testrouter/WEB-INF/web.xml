@@ -6,14 +6,12 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>WEB-INF/spring-*.xml</param-value>
 	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 	<!-- ====================================================== -->
 	<!-- Servlets -->
 	<!-- ====================================================== -->
-	<servlet>
-		<servlet-name>context</servlet-name>
-		<servlet-class>org.springframework.web.context.ContextLoaderServlet</servlet-class>
-		<load-on-startup>3</load-on-startup>
-	</servlet>
 	<servlet>
 		<servlet-name>spring</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

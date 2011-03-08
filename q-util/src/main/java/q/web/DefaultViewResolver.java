@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author seanlinwang
  * @date Jan 18, 2011
  */
-public class SpringViewResolver implements ViewResolver {
+public class DefaultViewResolver implements ViewResolver {
 	/*
 	 * (non-Javadoc)
 	 * 

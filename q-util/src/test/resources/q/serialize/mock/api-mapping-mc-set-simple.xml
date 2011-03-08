@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<method xmlns="http://apimapping.taobao.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://apimapping.taobao.com ../apimapping.xsd"
+	interfaceName="q.serialize.album.AlbumService"
+	interfaceVersion="1.0.0">
+
+	<methodCall name="addAlbum" apiName="taobao.album.add">
+		<params>
+			<param type="string set" apiName="ss" />
+			<param type="char set" apiName="cs" />
+			<param type="boolean set" apiName="bs" />
+			<param type="byte set" apiName="bytes" />
+			<param type="short set" apiName="shorts" />
+			<param type="int set" apiName="is" />
+			<param type="long set" apiName="ls" />
+			<param type="float set" apiName="fs" />
+			<param type="double set" apiName="ds" />
+		</params>
+	</methodCall>
+
+	<methodResponse>
+
+	</methodResponse>
+</method>

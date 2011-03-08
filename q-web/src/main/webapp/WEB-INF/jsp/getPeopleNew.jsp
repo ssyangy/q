@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<link rel="stylesheet" href="${staticUrlPrefix}/common/q.css" type="text/css" media="screen, projection" />
+	<link rel="stylesheet" href="${staticUrlPrefix}/style/common/q.css" type="text/css" media="screen, projection" />
 	<title>登陆注册</title>
 	<script type="text/javascript">
 	var xmlhttp;
