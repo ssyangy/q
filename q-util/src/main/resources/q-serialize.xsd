@@ -13,7 +13,8 @@
 				use="required" />
 		</xs:complexType>
 	</xs:element>
-
+	<xs:element name="param" type="respParamType">
+	</xs:element>
 	<xs:complexType name="methodCallType">
 		<xs:sequence>
 			<xs:element name="params" minOccurs="0" maxOccurs="1">
