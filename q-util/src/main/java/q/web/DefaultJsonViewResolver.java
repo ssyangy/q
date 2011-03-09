@@ -4,6 +4,7 @@
 package q.web;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +25,8 @@ import q.serialize.mapping.OperationCodeException;
 import q.util.StringKit;
 
 /**
+ * Json view resolver
+ * 
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Mar 7, 2011
@@ -31,19 +34,25 @@ import q.util.StringKit;
  */
 public class DefaultJsonViewResolver implements ViewResolver {
 	protected final Logger log = Logger.getLogger();
-	
+
 	private Map<String, org.springframework.core.io.Resource> resources = new HashMap<String, org.springframework.core.io.Resource>();
-	
+
 	public void setResources(Map<String, org.springframework.core.io.Resource> resources) {
 		this.resources = resources;
 	}
 
 	private MemberMappingFactory memberMappingFactory = new DefaultMemberMappingFactory();
-	
+
 	private MappingConfigReader configReader = new MappingConfigReader();
-	
+
+	/**
+	 * Must call init() before view()
+	 * 
+	 * @throws IOException
+	 * @throws MappingFormatException
+	 */
 	public void init() throws IOException, MappingFormatException {
-		for(Map.Entry<String, org.springframework.core.io.Resource> entry: resources.entrySet()) {
+		for (Map.Entry<String, org.springframework.core.io.Resource> entry : resources.entrySet()) {
 			log.info("start parse resource key:%s", entry.getKey());
 			String[] segs = StringKit.split(entry.getKey(), ':');
 			MemberMapping<Object> memberMapping = configReader.readMemberMapping(entry.getValue().getInputStream());
@@ -62,15 +71,33 @@ public class DefaultJsonViewResolver implements ViewResolver {
 	 */
 	@Override
 	public ModelAndView view(ResourceContext context, q.web.Resource resource) throws ServletException, IOException, MappingException, OperationCodeException {
-		MemberMapping<Object> memberMapping = memberMappingFactory.getMemberMapping(resource.getName());
-		if(memberMapping == null) {
+		ErrorCodeException error = context.getErrorModel();
+		Writer writer = context.getWriter();
+		if (error != null) {
+			writeError(writer, error);
 			return null;
-		} 
-		log.debug("get %s:%s", resource.getName(), memberMapping);
-		Object model = context.getModel(memberMapping.getName());
-		Convert convert = new JSONConvert(context.getWriter());
-		memberMapping.write(convert, model, false);
+		}
+		MemberMapping<Object> memberMapping = memberMappingFactory.getMemberMapping(resource.getName());
+		if (memberMapping == null) {
+			return null;
+		}
+		log.debug("get memberMapping %s:%s", resource.getName(), memberMapping);
+		writeSuccess(writer, context, memberMapping);
 		return null;
+	}
+
+	protected void writeSuccess(Writer writer, ResourceContext context, MemberMapping<Object> memberMapping) throws MappingException, OperationCodeException {
+		Object model = context.getModel(memberMapping.getName());
+		Convert convert = new JSONConvert(writer);
+		memberMapping.write(convert, model, false);
+	}
+
+	protected void writeError(Writer writer, ErrorCodeException error) throws IOException {
+		writer.write("{\"error_code\":\"");
+		writer.write(error.getErrorCode());
+		writer.write("\",\"error\":\"");
+		writer.write(error.getError());
+		writer.write("\"}");
 	}
 
 }

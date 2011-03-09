@@ -54,4 +54,13 @@ public class GetEvent extends Resource {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see q.web.Resource#validate(q.web.ResourceContext)
+	 */
+	@Override
+	public void validate(ResourceContext context) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

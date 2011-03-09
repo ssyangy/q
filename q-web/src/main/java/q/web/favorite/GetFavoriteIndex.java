@@ -5,6 +5,7 @@ package q.web.favorite;
 
 import java.util.List;
 
+import q.biz.exception.RequestParameterInvalidException;
 import q.dao.DaoHelper;
 import q.dao.FavoriteDao;
 import q.dao.GroupDao;
@@ -12,7 +13,6 @@ import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.dao.page.FavoritePage;
 import q.domain.Favorite;
-import q.web.ParameterInvalidException;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -64,7 +64,7 @@ public class GetFavoriteIndex extends Resource {
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		if(context.getLoginPeopleId() == 0) {
-			throw new ParameterInvalidException();
+			throw new RequestParameterInvalidException("loginId invalid");
 		}
 	}
 

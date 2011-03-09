@@ -81,4 +81,14 @@ public interface ResourceContext {
 	 * @throws IOException 
 	 */
 	Writer getWriter() throws IOException;
+
+	/**
+	 * @param e
+	 */
+	void setErrorModel(ErrorCodeException e);
+
+	/**
+	 * @return
+	 */
+	ErrorCodeException getErrorModel();
 }

@@ -22,4 +22,13 @@ public class GetAIndex extends Resource {
 		context.setModel("action", "index");
 	}
 
+	/* (non-Javadoc)
+	 * @see q.web.Resource#validate(q.web.ResourceContext)
+	 */
+	@Override
+	public void validate(ResourceContext context) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

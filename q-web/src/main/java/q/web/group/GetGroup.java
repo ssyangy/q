@@ -95,4 +95,13 @@ public class GetGroup extends Resource {
 		context.setModel("events", events);
 	}
 
+	/* (non-Javadoc)
+	 * @see q.web.Resource#validate(q.web.ResourceContext)
+	 */
+	@Override
+	public void validate(ResourceContext context) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

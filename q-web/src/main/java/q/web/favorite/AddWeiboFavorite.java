@@ -3,11 +3,11 @@
  */
 package q.web.favorite;
 
+import q.biz.exception.RequestParameterInvalidException;
 import q.dao.FavoriteDao;
 import q.dao.WeiboDao;
 import q.domain.Favorite;
 import q.domain.Weibo;
-import q.web.ParameterInvalidException;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -44,10 +44,10 @@ public class AddWeiboFavorite extends Resource {
 		if (old == null) {
 			Weibo weibo = this.weiboDao.getWeiboById(weiboId);
 			if (null == weibo) {
-				throw new ParameterInvalidException("fromId", weiboId);
+				throw new RequestParameterInvalidException("fromId" + weiboId);
 			}
 			this.favoriteDao.addWeiboFavorite(weiboId, creatorId);
-		} else if(old.isUnFav()) {
+		} else if (old.isUnFav()) {
 			this.favoriteDao.favWeiboById(old.getId());
 		}
 		context.redirectReffer();
@@ -57,7 +57,7 @@ public class AddWeiboFavorite extends Resource {
 	public void validate(ResourceContext context) throws Exception {
 		long weiboId = context.getResourceIdLong();
 		if (weiboId == 0) {
-			throw new ParameterInvalidException("fromId", weiboId);
+			throw new RequestParameterInvalidException("fromId" + weiboId);
 		}
 	}
 

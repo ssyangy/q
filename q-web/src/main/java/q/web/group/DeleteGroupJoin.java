@@ -32,4 +32,13 @@ public class DeleteGroupJoin extends Resource {
 		context.redirectReffer();
 	}
 
+	/* (non-Javadoc)
+	 * @see q.web.Resource#validate(q.web.ResourceContext)
+	 */
+	@Override
+	public void validate(ResourceContext context) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

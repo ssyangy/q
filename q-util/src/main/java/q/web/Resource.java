@@ -27,7 +27,6 @@ public abstract class Resource {
 		this.redirectPath = redirectPath;
 	}
 
-	public void validate(ResourceContext context) throws Exception {
-	}
+	public abstract void validate(ResourceContext context) throws Exception;
 
 }

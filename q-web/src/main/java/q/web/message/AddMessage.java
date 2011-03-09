@@ -3,11 +3,11 @@
  */
 package q.web.message;
 
+import q.biz.exception.RequestParameterInvalidException;
 import q.dao.MessageDao;
 import q.dao.PeopleDao;
 import q.domain.Message;
 import q.domain.People;
-import q.web.ParameterInvalidException;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -53,21 +53,23 @@ public class AddMessage extends Resource {
 	public void validate(ResourceContext context) throws Exception {
 		long senderId = context.getLoginPeopleId();
 		long receiverId = context.getIdLong("receiverId");
-		if (senderId == 0 || receiverId == 0)
-			throw new ParameterInvalidException();
+		if (senderId == 0)
+			throw new RequestParameterInvalidException("loginId invalid");
+		if (receiverId == 0)
+			throw new RequestParameterInvalidException("receiverId invalid");
 
 		People receiver = peopleDao.getPeopleById(receiverId);
 		if (receiver == null)
-			throw new ParameterInvalidException();
+			throw new RequestParameterInvalidException("receiverId invalid");
 
 		long replyMessageId = context.getIdLong("replyMessageId");
-		if (replyMessageId > 0) {
+		if (replyMessageId > 0) { // check has repliedId
 			Message replied = messageDao.getMessageById(replyMessageId);
-			if (replied == null)
-				throw new ParameterInvalidException();
+			if (replied == null) // check replied exists
+				throw new RequestParameterInvalidException("replied invalid");
 
-			if (replied.getReceiverId() != senderId) // check replied message is mine
-				throw new ParameterInvalidException();
+			if (replied.getReceiverId() != senderId) // check replied is mine
+				throw new RequestParameterInvalidException("replied receiverId invlaid");
 		}
 	}
 

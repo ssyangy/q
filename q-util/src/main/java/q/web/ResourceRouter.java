@@ -126,6 +126,8 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 				resource.validate(context);
 				resource.execute(context); // execute resource if exists
 				complementModel(context); // complement model
+			} catch (ErrorCodeException e) {
+				context.setErrorModel(e);
 			} catch (Exception e) {// resource internal error
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				log.error("resource  %s execute exeption", e, resource);

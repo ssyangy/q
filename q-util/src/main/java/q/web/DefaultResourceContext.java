@@ -179,6 +179,8 @@ public class DefaultResourceContext implements ResourceContext {
 
 	private boolean isEmptyView = false;
 
+	private ErrorCodeException errorCodeException;
+
 	@Override
 	public void emptyView() {
 		this.isEmptyView = true;
@@ -202,6 +204,16 @@ public class DefaultResourceContext implements ResourceContext {
 	@Override
 	public Writer getWriter() throws IOException {
 		return response.getWriter();
+	}
+
+	@Override
+	public void setErrorModel(ErrorCodeException e) {
+		this.errorCodeException = e;
+	}
+
+	@Override
+	public ErrorCodeException getErrorModel() {
+		return this.errorCodeException;
 	}
 
 }

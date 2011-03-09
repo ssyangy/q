@@ -39,4 +39,13 @@ public class AddGroup extends Resource {
 		groupDao.addGroupJoinCategory(group.getId(), context.getIdLong("categoryId")); // set group category
 		context.redirectServletPath("/group/" + group.getId());
 	}
+
+	/* (non-Javadoc)
+	 * @see q.web.Resource#validate(q.web.ResourceContext)
+	 */
+	@Override
+	public void validate(ResourceContext context) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 }

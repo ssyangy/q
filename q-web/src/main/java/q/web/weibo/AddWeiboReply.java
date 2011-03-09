@@ -59,4 +59,13 @@ public class AddWeiboReply extends Resource {
 		this.weiboDao.addWeiboReply(reply);
 		context.redirectServletPath("/weibo/" + quoteId);
 	}
+
+	/* (non-Javadoc)
+	 * @see q.web.Resource#validate(q.web.ResourceContext)
+	 */
+	@Override
+	public void validate(ResourceContext context) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 }

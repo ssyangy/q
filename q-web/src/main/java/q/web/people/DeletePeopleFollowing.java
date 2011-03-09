@@ -33,4 +33,13 @@ public class DeletePeopleFollowing extends Resource {
 		context.redirectServletPath("/people/" + toPeopleId);
 	}
 
+	/* (non-Javadoc)
+	 * @see q.web.Resource#validate(q.web.ResourceContext)
+	 */
+	@Override
+	public void validate(ResourceContext context) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
