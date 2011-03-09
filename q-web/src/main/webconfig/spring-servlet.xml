@@ -25,9 +25,23 @@
 		<property name="defaultResource" ref="default" />
 		<property name="urlPrefix" value="${q.url.prefix}" />
 		<property name="contextPath" value="${q.context.path}" />
-		<property name="staticUrlPrefix" value="${q.static.url.prefix}"/>
-		<property name="viewResolver">
-			<bean class="q.web.SpringViewResolver" />
+		<property name="staticUrlPrefix" value="${q.static.url.prefix}" />
+		<property name="defaultViewResolver">
+			<bean class="q.web.DefaultViewResolver" />
+		</property>
+		<property name="jsonViewResolver">
+			<bean class="q.web.DefaultJsonViewResolver" init-method="init">
+				<property name="resources">
+					<map>
+						<entry>
+							<key>
+								<value>addPeopleCheck:result</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
+					</map>
+				</property>
+			</bean>
 		</property>
 		<property name="loginPath" value="/login/new" />
 		<property name="needLoginResources">
@@ -87,7 +101,7 @@
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="eventDao" ref="eventDao" />
 		<property name="groupDao" ref="groupDao" />
-		<property name="favoriteDao" ref="favoriteDao"/>
+		<property name="favoriteDao" ref="favoriteDao" />
 	</bean>
 	<bean id="addPeople" class="q.web.people.AddPeople">
 		<property name="peopleDao" ref="peopleDao" />
@@ -112,11 +126,11 @@
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="eventDao" ref="eventDao" />
 		<property name="groupDao" ref="groupDao" />
-		<property name="favoriteDao" ref="favoriteDao"/>
+		<property name="favoriteDao" ref="favoriteDao" />
 	</bean>
 	<bean id="getPeopleIndex" class="q.web.people.GetPeopleIndex">
 	</bean>
-	<bean id="getCheckemailIndex" class="q.web.check.GetCheckEmailIndex">
+	<bean id="addPeopleCheck" class="q.web.check.AddPeopleCheck">
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 
@@ -155,7 +169,7 @@
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="eventDao" ref="eventDao" />
-		<property name="favoriteDao" ref="favoriteDao"/>
+		<property name="favoriteDao" ref="favoriteDao" />
 	</bean>
 	<bean id="getGroupIndex" class="q.web.group.GetGroupIndex">
 		<property name="categoryDao" ref="categoryDao" />
@@ -167,7 +181,7 @@
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="eventDao" ref="eventDao" />
 		<property name="groupDao" ref="groupDao" />
-		<property name="favoriteDao" ref="favoriteDao"/>
+		<property name="favoriteDao" ref="favoriteDao" />
 	</bean>
 	<bean id="addGroupJoin" class="q.web.group.AddGroupJoin">
 		<property name="groupDao" ref="groupDao" />

@@ -73,14 +73,14 @@
 		modified
 	</sql>
 
-	<select id="getPeopleFollowingNumById" resultClass="int">
+	<select id="selectPeopleFollowingNumById" resultClass="int">
 		select count(id) 
 		from people_relation
 		where status = 3
 		and from_people_id = #value# 
 	</select>
 
-	<select id="getPeopleFollowerNumById" resultClass="int">
+	<select id="selectPeopleFollowerNumById" resultClass="int">
 		select count(id)
 		from people_relation
 		where status = 3 
@@ -95,22 +95,6 @@
 		<iterate open="(" close=")" conjunction=",">
 			#[]#
         </iterate>
-	</select>
-
-	<select id="selectPeopleById" resultMap="peopleResult">
-		select
-		<include refid="people.columns" />
-		from
-		people
-		where id=#value#
-	</select>
-
-	<select id="selectPeopleByUsername" resultMap="peopleResult">
-		select
-		<include refid="people.columns" />
-		from
-		people
-		where username=#value#
 	</select>
 
 	<insert id="insertPeople">
@@ -229,13 +213,24 @@
 		to_people_id = #toPeopleId#
 	</select>
 	
-	<select id="selectEmailExists" resultClass="long">
+	<select id="selectPeopleByPage" resultMap="peopleResult">
 		select
-		id
-		from 
-		people
-		where email=#value#
-		
+		<include refid="people.columns" />
+		from people
+		<dynamic prepend="where">
+			<isNotNull prepend="and" property="id">
+				id = #id#
+			</isNotNull>
+			<isNotNull prepend="and" property="username">
+				username = #username#
+			</isNotNull>
+			<isNotNull prepend="and" property="startCreated">
+				password = #password#
+			</isNotNull>
+			<isNotNull prepend="and" property="email">
+				email = #email#
+			</isNotNull>
+		</dynamic>
 	</select>
-
+	
 </sqlMap>

@@ -1,6 +1,7 @@
 package q.web;
 
 import java.io.IOException;
+import java.io.Writer;
 
 import javax.servlet.ServletException;
 
@@ -68,4 +69,16 @@ public interface ResourceContext {
 	 * @throws Exception
 	 */
 	void forward(String string) throws ServletException, IOException;
+
+	/**
+	 * @param key
+	 * @return
+	 */
+	Object getModel(String key);
+
+	/**
+	 * @return
+	 * @throws IOException 
+	 */
+	Writer getWriter() throws IOException;
 }

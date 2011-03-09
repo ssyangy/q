@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<method xmlns="http://apimapping.taobao.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://apimapping.taobao.com http://confluence.taobao.ali.com:8080/download/attachments/94798567/apimapping.xsd"
+	interfaceName="q.serialize.album.AlbumService"
+	interfaceVersion="1.0.0">
+
+	<methodCall name="addAlbum" apiName="taobao.album.add">
+	</methodCall>
+
+	<methodResponse>
+		<param>
+			<type>
+				<struct>
+					<member name="sl" apiName="sl" apiArrayItemName="s"
+						apiType="string list" />
+					<member name="sl2" apiName="sl2" apiArrayItemName="s2"
+						apiType="string list" />
+					<member name="sa" apiName="sa" apiArrayItemName="s" apiType="string[]" />
+					<member name="sa2" apiName="sa2" apiArrayItemName="s2"
+						apiType="string[]" />
+
+					<member name="cl" apiName="cl" apiArrayItemName="c" apiType="char list" />
+					<member name="ca" apiName="ca" apiArrayItemName="c" apiType="char[]" />
+
+					<member name="bl" apiName="bl" apiArrayItemName="b"
+						apiType="boolean list" />
+					<member name="ba" apiName="ba" apiArrayItemName="b" apiType="boolean[]" />
+
+					<member name="bytel" apiName="bytel" apiArrayItemName="byte"
+						apiType="byte list" />
+					<member name="bytea" apiName="bytea" apiArrayItemName="byte"
+						apiType="byte[]" />
+
+					<member name="shortl" apiName="shortl" apiArrayItemName="short"
+						apiType="short list" />
+					<member name="shorta" apiName="shorta" apiArrayItemName="short"
+						apiType="short[]" />
+
+					<member name="il" apiName="il" apiArrayItemName="i" apiType="int list" />
+					<member name="il2" apiName="il2" apiArrayItemName="i2"
+						apiType="int list" />
+					<member name="ia" apiName="ia" apiArrayItemName="i" apiType="int[]" />
+					<member name="ia2" apiName="ia2" apiArrayItemName="i2"
+						apiType="int[]" />
+
+					<member name="ll" apiName="ll" apiArrayItemName="l" apiType="long list" />
+					<member name="la" apiName="la" apiArrayItemName="l" apiType="long[]" />
+
+					<member name="fl" apiName="fl" apiArrayItemName="f" apiType="float list" />
+					<member name="fa" apiName="fa" apiArrayItemName="f" apiType="float[]" />
+
+					<member name="dl" apiName="dl" apiArrayItemName="d"
+						apiType="double list" />
+					<member name="dl2" apiName="dl2" apiArrayItemName="d2"
+						apiType="double list" />
+					<member name="da" apiName="da" apiArrayItemName="d" apiType="double[]" />
+					<member name="da2" apiName="da2" apiArrayItemName="d2"
+						apiType="double[]" />
+				</struct>
+			</type>
+		</param>
+	</methodResponse>
+</method>

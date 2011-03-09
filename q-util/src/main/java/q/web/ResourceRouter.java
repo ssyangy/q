@@ -3,10 +3,8 @@
  */
 package q.web;
 
-import java.io.IOException;
 import java.util.Set;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,6 +27,10 @@ import q.util.StringKit;
  *
  */
 public class ResourceRouter implements Controller, ApplicationContextAware {
+	/**
+	 * 
+	 */
+	private static final String MEDIA_TYPE_APPLICATION_JSON = "application/json";
 	public static final char PATH_SPLIT = '/';
 	public static final String HTTP_METHOD_POST = "post";
 	public static final String HTTP_INNER_METHOD = "_method";
@@ -36,6 +38,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 	public static final String HTTP_METHOD_DELETE = "delete";
 	public static final String HTTP_METHOD_GET = "get";
 	private final static Logger log = Logger.getLogger();
+
 	private ApplicationContext applicationContext;
 
 	@Override
@@ -57,19 +60,25 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 		this.defaultResource = defaultResource;
 	}
 
-	private ViewResolver viewResolver = new SpringViewResolver();
+	private ViewResolver defaultViewResolver = new DefaultViewResolver();
 
-	public void setViewResolver(ViewResolver viewResolver) {
-		this.viewResolver = viewResolver;
+	public void setDefaultViewResolver(ViewResolver viewResolver) {
+		this.defaultViewResolver = viewResolver;
+	}
+
+	private ViewResolver jsonViewResolver;
+
+	public void setJsonViewResolver(ViewResolver jsonViewResolver) {
+		this.jsonViewResolver = jsonViewResolver;
 	}
 
 	private String urlPrefix;
 
-	private String contextPath;
-
 	public void setUrlPrefix(String urlPrefix) {
 		this.urlPrefix = urlPrefix;
 	}
+
+	private String contextPath;
 
 	public void setContextPath(String contextPath) {
 		this.contextPath = contextPath;
@@ -94,7 +103,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 	}
 
 	@Override
-	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String method = request.getMethod().toLowerCase(); // lowercase http method
 		String path = request.getRequestURI().substring(request.getContextPath().length()); // path without context and domain
 		log.debug("request resource by method %s and path %s", method, path);
@@ -102,7 +111,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 		Resource resource = getResource(request, method, path, segs); // get request resource
 		if (resource == null) { // if resource not exists , return 404
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-			log.info("resource not found by method %s and path %s", method, path);
+			log.warn("resource not found by method %s and path %s", method, path);
 			return null;
 		} else {
 			ResourceContext context = toResourceContext(request, response, path, segs); // construct resource context
@@ -117,13 +126,21 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 				resource.validate(context);
 				resource.execute(context); // execute resource if exists
 				complementModel(context); // complement model
-				ModelAndView view = this.viewResolver.view(context, resource);// use resource name as view name
-				return view;
-			} catch (Exception e) {
+			} catch (Exception e) {// resource internal error
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				log.error("resource execute exeption by method %s and path %s", e, method, path);
+				log.error("resource  %s execute exeption", e, resource);
 			}
-			return null;
+
+			ViewResolver viewResolver = this.defaultViewResolver;
+			String accept = request.getHeader("Accept");
+			if (accept != null) {
+				if (accept.equals(MEDIA_TYPE_APPLICATION_JSON)) { // do json mime
+					response.setContentType(MEDIA_TYPE_APPLICATION_JSON);
+					viewResolver = this.jsonViewResolver;
+				}
+			}
+			ModelAndView view = viewResolver.view(context, resource);// use resource name as view name
+			return view;
 		}
 	}
 

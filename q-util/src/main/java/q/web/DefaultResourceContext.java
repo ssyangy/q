@@ -2,6 +2,7 @@ package q.web;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.Writer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -108,6 +109,11 @@ public class DefaultResourceContext implements ResourceContext {
 		log.debug("set context model[%s:%s]", key, value);
 	}
 
+	@Override
+	public Object getModel(String key) {
+		return request.getAttribute(key);
+	}
+
 	/*
 	 *
 	 *
@@ -194,8 +200,14 @@ public class DefaultResourceContext implements ResourceContext {
 		log.debug("forward to %s", path);
 	}
 
+
 	public OutputStream getOutputStream() throws IOException {
 		return response.getOutputStream();
+	}
+	@Override
+	public Writer getWriter() throws IOException {
+		return response.getWriter();
+
 	}
 
 }

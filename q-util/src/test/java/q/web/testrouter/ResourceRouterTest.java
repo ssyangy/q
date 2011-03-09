@@ -49,7 +49,7 @@ public class ResourceRouterTest extends ServletTestCase {
 	@Override
 	protected void setUp() throws Exception {
 		applicationContext = WebApplicationContextUtils.getWebApplicationContext(config.getServletContext());
-		getRouter().setViewResolver(new ViewResolver() {
+		getRouter().setDefaultViewResolver(new ViewResolver() {
 
 			@Override
 			public ModelAndView view(ResourceContext context, q.web.Resource resource) throws ServletException, IOException {
@@ -77,7 +77,7 @@ public class ResourceRouterTest extends ServletTestCase {
 		theRequest.setURL("serverName.com", "/contextPath", "/a", null, null);
 	}
 
-	public void testRouteGetIndex() throws ServletException, IOException {
+	public void testRouteGetIndex() throws Exception {
 		getRouter().handleRequest(request, response);
 	}
 
@@ -93,7 +93,7 @@ public class ResourceRouterTest extends ServletTestCase {
 		theRequest.setURL("serverName.com", "/contextPath", "/a/new", null, null);
 	}
 
-	public void testRouteGetNew() throws ServletException, IOException {
+	public void testRouteGetNew() throws Exception {
 		getRouter().handleRequest(request, response);
 	}
 
@@ -107,7 +107,7 @@ public class ResourceRouterTest extends ServletTestCase {
 		theRequest.setURL("serverName.com", "/contextPath", "/a/111/edit", null, null);
 	}
 
-	public void testRouteGetEdit() throws ServletException, IOException {
+	public void testRouteGetEdit() throws Exception {
 		getRouter().handleRequest(request, response);
 	}
 
@@ -121,7 +121,7 @@ public class ResourceRouterTest extends ServletTestCase {
 		theRequest.setURL("serverName.com", "/contextPath", "/a/123456", null, null);
 	}
 
-	public void testRouteGet() throws ServletException, IOException {
+	public void testRouteGet() throws Exception {
 		getRouter().handleRequest(request, response);
 		assertEquals("123456", new DefaultResourceContext(request, response, new String[] { "a", "123456" }).getResourceId());
 		assertEquals("123456", new DefaultResourceContext(request, response, new String[] { "a", "123456", "edit" }).getResourceId());
@@ -138,7 +138,7 @@ public class ResourceRouterTest extends ServletTestCase {
 		theRequest.addParameter("email", "xalinx@gmail.com", WebRequest.POST_METHOD);
 	}
 
-	public void testRoutePost() throws ServletException, IOException {
+	public void testRoutePost() throws Exception {
 		getRouter().handleRequest(request, response);
 	}
 
@@ -153,7 +153,7 @@ public class ResourceRouterTest extends ServletTestCase {
 		theRequest.addParameter("email", "xalinx@gmail.com", WebRequest.POST_METHOD);
 	}
 
-	public void testRoutePostExtra() throws ServletException, IOException {
+	public void testRoutePostExtra() throws Exception {
 		getRouter().handleRequest(request, response);
 	}
 
@@ -168,7 +168,7 @@ public class ResourceRouterTest extends ServletTestCase {
 		request.addParameter(ResourceRouter.HTTP_INNER_METHOD, "update", WebRequest.POST_METHOD);
 	}
 
-	public void testRouteUpdate() throws ServletException, IOException {
+	public void testRouteUpdate() throws Exception {
 		getRouter().handleRequest(request, response);
 	}
 
@@ -183,7 +183,7 @@ public class ResourceRouterTest extends ServletTestCase {
 		request.addParameter(ResourceRouter.HTTP_INNER_METHOD, "delete", WebRequest.POST_METHOD);
 	}
 
-	public void testRouteDelete() throws ServletException, IOException {
+	public void testRouteDelete() throws Exception {
 		getRouter().handleRequest(request, response);
 	}
 
@@ -198,7 +198,7 @@ public class ResourceRouterTest extends ServletTestCase {
 		request.addParameter(ResourceRouter.HTTP_INNER_METHOD, "delete", WebRequest.POST_METHOD);
 	}
 
-	public void testRouteHomepage() throws ServletException, IOException {
+	public void testRouteHomepage() throws Exception {
 		getRouter().handleRequest(request, response);
 	}
 

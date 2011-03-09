@@ -3,6 +3,7 @@
 	<excludes>
 		<pattern>/login/new</pattern>
 		<pattern>/people/new</pattern>
+		<pattern>/people/check</pattern>
 	</excludes>
 	<decorator name="master" page="master.jsp">
 		<pattern>/*</pattern>
