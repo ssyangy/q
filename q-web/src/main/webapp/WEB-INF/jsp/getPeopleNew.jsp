@@ -119,7 +119,7 @@ function emailExistCheck(){
          return true;
     },
     success: function(json){
-      alert(json);
+    //  alert(json);
    // var data="{'error_code':'403309','error':'该邮箱地址已被注册.'}";
  //   var json=eval("("+data+")");
       if(json.error_code!=null){
