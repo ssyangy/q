@@ -29,13 +29,13 @@ public class People extends AbstractDomain implements Serializable {
 
 	private Gender gender;
 
-	private byte bloodTypeId;
+	private int bloodTypeId;
 
-	private byte educationId;
+	private int educationId;
 
-	private byte roleId;
+	private int roleId;
 
-	private byte status;
+	private int status;
 
 	private int friendNum;
 
@@ -132,15 +132,15 @@ public class People extends AbstractDomain implements Serializable {
 		this.gender = gender;
 	}
 
-	public byte getBloodTypeId() {
+	public int getBloodTypeId() {
 		return bloodTypeId;
 	}
 
-	public void setBloodTypeId(byte bloodTypeId) {
+	public void setBloodTypeId(int bloodTypeId) {
 		this.bloodTypeId = bloodTypeId;
 	}
 
-	public byte getEducationId() {
+	public int getEducationId() {
 		return educationId;
 	}
 
@@ -156,19 +156,19 @@ public class People extends AbstractDomain implements Serializable {
 		this.districtId = districtId;
 	}
 
-	public byte getRoleId() {
+	public int getRoleId() {
 		return this.roleId;
 	}
 
-	public void setRoleId(byte roleId) {
+	public void setRoleId(int roleId) {
 		this.roleId = roleId;
 	}
 
-	public byte getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(byte status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 

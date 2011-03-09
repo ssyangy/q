@@ -164,15 +164,7 @@
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/setting</url-pattern>
 	</servlet-mapping>
-<<<<<<< HEAD
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/checkemail/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/checkemail</url-pattern>
-	</servlet-mapping>
+
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/authcode/*</url-pattern>
@@ -181,8 +173,7 @@
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/authcode</url-pattern>
 	</servlet-mapping>
-=======
->>>>>>> 8148184b7fafa3e7c5d4b0cc814185fecfafdae7
+
 	<!-- ====================================================== -->
 	<!-- Session Config -->
 	<!-- ====================================================== -->

@@ -83,4 +83,10 @@ public class GetAuthcodeNew extends Resource {
 			g.dispose();
 		}
 	}
+
+	@Override
+	public void validate(ResourceContext context) throws Exception {
+		// TODO Auto-generated method stub
+
+	}
 }

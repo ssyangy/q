@@ -19,7 +19,19 @@ create table people(
 	intro varchar(1024),
 	status tinyint unsigned not null,
 	created datetime not null,
-	modified timestamp not null) 
+	modified timestamp not null
+	)
+default character set utf8 engine = innodb;
+
+create table people_certify (
+	id bigint unsigned not null primary key,
+	people_id bigint unsigned not null,
+	rand varchar(32) not null,
+	expired datetime not null,
+	type tinyint unsigned not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null)
 default character set utf8 engine = innodb;
 
 create table people_relation(
@@ -29,7 +41,7 @@ create table people_relation(
 	alias varchar(32),
 	status tinyint unsigned not null,
 	created datetime not null,
-	modified timestamp not null) 
+	modified timestamp not null)
 default character set utf8 engine = innodb;
 
 create table people_join_group(
@@ -38,7 +50,7 @@ create table people_join_group(
 	group_id bigint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
-	modified timestamp not null) 
+	modified timestamp not null)
 default character set utf8 engine = innodb;
 
 create table people_join_event(
@@ -47,7 +59,7 @@ create table people_join_event(
 	event_id bigint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
-	modified timestamp not null) 
+	modified timestamp not null)
 default character set utf8 engine = innodb;
 
 # == event ==
@@ -65,7 +77,7 @@ create table event(
 	ended datetime not null,
 	status tinyint unsigned not null,
 	created datetime not null,
-	modified timestamp not null) 
+	modified timestamp not null)
 default character set utf8 engine = innodb;
 
 # == weibo ==
@@ -81,7 +93,7 @@ create table weibo (
 	content varchar(10240) not null,
 	status tinyint unsigned not null,
 	created datetime not null,
-	modified timestamp not null) 
+	modified timestamp not null)
 default character set utf8 engine = innodb;
 
 create table weibo_reply (
@@ -92,11 +104,11 @@ create table weibo_reply (
 	reply_weibo_id bigint unsigned not null,
 	reply_sender_id bigint unsigned not null,
 	from_type tinyint unsigned not null,
-	from_id bigint unsigned not null,	
+	from_id bigint unsigned not null,
 	content varchar(10240) not null,
 	status tinyint unsigned not null,
 	created datetime not null,
-	modified timestamp not null) 
+	modified timestamp not null)
 default character set utf8 engine = innodb;
 
 create table weibo_join_group(
@@ -105,7 +117,7 @@ create table weibo_join_group(
 	group_id bigint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
-	modified timestamp not null) 
+	modified timestamp not null)
 default character set utf8 engine = innodb;
 
 # == favorite ==
@@ -116,7 +128,7 @@ create table favorite (
 	creator_id bigint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
-	modified timestamp not null) 
+	modified timestamp not null)
 default character set utf8 engine = innodb;
 
 # == group ==
@@ -127,7 +139,7 @@ create table `group`(
 	intro varchar(1024) not null,
 	status tinyint unsigned not null,
 	created datetime not null,
-	modified timestamp not null) 
+	modified timestamp not null)
 default character set utf8 engine = innodb;
 
 create table category(
@@ -136,7 +148,7 @@ create table category(
 	intro varchar(1024) not null,
 	status tinyint unsigned not null,
 	created datetime not null,
-	modified timestamp not null) 
+	modified timestamp not null)
 default character set utf8 engine = innodb;
 
 create table group_join_category(
@@ -145,7 +157,7 @@ create table group_join_category(
 	category_id bigint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
-	modified timestamp not null) 
+	modified timestamp not null)
 default character set utf8 engine = innodb;
 
 # == message ==
@@ -157,5 +169,5 @@ create table message(
 	content varchar(1024) not null,
 	status tinyint unsigned not null,
 	created datetime not null,
-	modified timestamp not null) 
+	modified timestamp not null)
 default character set utf8 engine = innodb;
