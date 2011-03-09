@@ -31,6 +31,8 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 	 * 
 	 */
 	private static final String MEDIA_TYPE_APPLICATION_JSON = "application/json";
+	private static final String MEDIA_TYPE_APPLICATION_JSON_TEXT = "text/javascript";
+	
 	public static final char PATH_SPLIT = '/';
 	public static final String HTTP_METHOD_POST = "post";
 	public static final String HTTP_INNER_METHOD = "_method";
@@ -38,6 +40,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 	public static final String HTTP_METHOD_DELETE = "delete";
 	public static final String HTTP_METHOD_GET = "get";
 	private final static Logger log = Logger.getLogger();
+	
 
 	private ApplicationContext applicationContext;
 
@@ -136,7 +139,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 			ViewResolver viewResolver = this.defaultViewResolver;
 			String accept = request.getHeader("Accept");
 			if (accept != null) {
-				if (accept.equals(MEDIA_TYPE_APPLICATION_JSON)) { // do json mime
+				if (accept.startsWith(MEDIA_TYPE_APPLICATION_JSON) || accept.startsWith(MEDIA_TYPE_APPLICATION_JSON_TEXT)) { // do json mime
 					response.setContentType(MEDIA_TYPE_APPLICATION_JSON);
 					viewResolver = this.jsonViewResolver;
 				}

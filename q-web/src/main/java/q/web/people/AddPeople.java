@@ -62,7 +62,6 @@ public class AddPeople extends Resource {
         	context.setModel("authcodeWrong", "验证码不对,重新输入下吧。");
             throw new InvalidAuthcodeException();
         }
-		super.validate(context);
 	}
 
 
