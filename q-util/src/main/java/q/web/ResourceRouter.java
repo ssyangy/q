@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.web;
 
@@ -23,10 +23,10 @@ import q.util.StringKit;
 
 /**
  * RESTFUL resource entry
- * 
+ *
  * @author seanlinwang
  * @date Jan 16, 2011
- * 
+ *
  */
 public class ResourceRouter implements Controller, ApplicationContextAware {
 	public static final char PATH_SPLIT = '/';
@@ -50,7 +50,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 
 	/**
 	 * set default resource to router
-	 * 
+	 *
 	 * @param defaultResource
 	 */
 	public void setDefaultResource(Resource defaultResource) {
@@ -74,9 +74,9 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 	public void setContextPath(String contextPath) {
 		this.contextPath = contextPath;
 	}
-	
+
 	private String staticUrlPrefix;
-	
+
 	public void setStaticUrlPrefix(String staticUrlPrefix) {
 		this.staticUrlPrefix = staticUrlPrefix;
 	}

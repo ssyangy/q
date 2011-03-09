@@ -1,6 +1,7 @@
 package q.web;
 
 import java.io.IOException;
+import java.io.OutputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -108,8 +109,8 @@ public class DefaultResourceContext implements ResourceContext {
 	}
 
 	/*
-	 * 
-	 * 
+	 *
+	 *
 	 * @see q.web.ResourceContext#getLoginPeopleId()
 	 */
 	@Override
@@ -130,7 +131,7 @@ public class DefaultResourceContext implements ResourceContext {
 
 	public void setLoginToken(long userId, String username) {
 		Cookie cookie = new Cookie("u", String.valueOf(userId));
-		cookie.setMaxAge(3600 * 24 * 7); // one week		
+		cookie.setMaxAge(3600 * 24 * 7); // one week
 		cookie.setPath("/");
 		response.addCookie(cookie);
 	}
@@ -152,7 +153,7 @@ public class DefaultResourceContext implements ResourceContext {
 
 	/*
 	 * redirect to reffer
-	 * 
+	 *
 	 * @see q.web.ResourceContext#redirectRefferUrl()
 	 */
 	@Override
@@ -191,6 +192,10 @@ public class DefaultResourceContext implements ResourceContext {
 	public void forward(String path) throws ServletException, IOException {
 		request.getRequestDispatcher(path).forward(request, response);
 		log.debug("forward to %s", path);
+	}
+
+	public OutputStream getOutputStream() throws IOException {
+		return response.getOutputStream();
 	}
 
 }
