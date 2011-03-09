@@ -75,14 +75,13 @@ public class DefaultJsonViewResolver implements ViewResolver {
 		Writer writer = context.getWriter();
 		if (error != null) {
 			writeError(writer, error);
-			return null;
+		} else {
+			MemberMapping<Object> memberMapping = memberMappingFactory.getMemberMapping(resource.getName());
+			if (memberMapping != null) {
+				log.debug("get memberMapping %s:%s", resource.getName(), memberMapping);
+				writeSuccess(writer, context, memberMapping);
+			}
 		}
-		MemberMapping<Object> memberMapping = memberMappingFactory.getMemberMapping(resource.getName());
-		if (memberMapping == null) {
-			return null;
-		}
-		log.debug("get memberMapping %s:%s", resource.getName(), memberMapping);
-		writeSuccess(writer, context, memberMapping);
 		return null;
 	}
 
