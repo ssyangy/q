@@ -1,6 +1,7 @@
 package q.web;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Writer;
 
 import javax.servlet.ServletException;
@@ -114,8 +115,8 @@ public class DefaultResourceContext implements ResourceContext {
 	}
 
 	/*
-	 * 
-	 * 
+	 *
+	 *
 	 * @see q.web.ResourceContext#getLoginPeopleId()
 	 */
 	@Override
@@ -158,7 +159,7 @@ public class DefaultResourceContext implements ResourceContext {
 
 	/*
 	 * redirect to reffer
-	 * 
+	 *
 	 * @see q.web.ResourceContext#redirectRefferUrl()
 	 */
 	@Override
@@ -201,9 +202,14 @@ public class DefaultResourceContext implements ResourceContext {
 		log.debug("forward to %s", path);
 	}
 
+
+	public OutputStream getOutputStream() throws IOException {
+		return response.getOutputStream();
+	}
 	@Override
 	public Writer getWriter() throws IOException {
 		return response.getWriter();
+
 	}
 
 	@Override

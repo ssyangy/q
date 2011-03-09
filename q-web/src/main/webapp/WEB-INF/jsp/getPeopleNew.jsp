@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -11,6 +11,7 @@
 <script type="text/javascript"
 	src="${staticUrlPrefix}/js/jquery-1.5.1.min.js"></script>
 <script type="text/javascript">
+
 function checkEmail(a)
 {
     var emailtest= /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
@@ -43,7 +44,7 @@ function checkPassword(a){
       return false;
 }
 function recheckPassword(a){
-      if($("#password").val()==$("#confirm_password").val()){
+      if($("#password").val()==$("#confirmPassword").val()){
     	  if($("#password").val()!=""){
           $("#repasswordcorrect").css("display","block");
           $("#repasswordwrong").css("display","none");
@@ -66,27 +67,27 @@ function checkUserName(a){
        $("#usernamewrong").css("display","none");
       return true;
 }
-function checkReal_name(a){
+function checkrealName(a){
        if(a==""){
-       $("#real_namecorrect").css("display","none");
-       $("#real_namewrong").css("display","block");
-       $("#real_namewrong").html("昵称不能为空。");
+       $("#realNamecorrect").css("display","none");
+       $("#realNamewrong").css("display","block");
+       $("#realNamewrong").html("昵称不能为空。");
         return false;
         }
-       $("#real_namecorrect").css("display","block");
-       $("#real_namewrong").css("display","none");
+       $("#realNamecorrect").css("display","block");
+       $("#realNamewrong").css("display","none");
       return true;
 
 }
-function checkVerify_code(a){
+function checkauthcode(a){
        if(a==""){
-       $("#verify_codecorrect").css("display","none");
-       $("#verify_codewrong").css("display","block");
-       $("#verify_codewrong").html("验证码不能为空。");
+       $("#authcodecorrect").css("display","none");
+       $("#authcodewrong").css("display","block");
+       $("#authcodewrong").html("验证码不能为空。");
         return false;
         }
-       $("#verify_codecorrect").css("display","block");
-       $("#verify_codewrong").css("display","none");
+       $("#authcodecorrect").css("display","block");
+       $("#authcodewrong").css("display","none");
       return true;
 
 }
@@ -94,10 +95,10 @@ function check() {
   var ce=checkEmail($("#email").val());
   var cp=checkPassword($("#password").val());
   var cu=checkUserName($("#username").val());
-  var cr=checkReal_name($("#real_name").val());
-  var cv=checkVerify_code($("#verify_code").val());
+  var cr=checkrealName($("#realName").val());
+  var cv=checkauthcode($("#authcode").val());
   if(ce==true&&cp==true){
-   var crp=recheckPassword($("#confirm_password").val());
+   var crp=recheckPassword($("#confirmPassword").val());
    if(crp==true){
      return true;
    }
@@ -115,7 +116,7 @@ function emailExistCheck(){
     timeout: 5000,
     error: function(){
          alert('Check the network!');
-         return false;
+         return true;
     },
     success: function(json){
     var data="{'error_code':'403309','error':'该邮箱地址已被注册.'}";
@@ -134,9 +135,17 @@ function emailExistCheck(){
     }
 });
 }
+function randomInt(){
+  var num= Math.floor(Math.random()*100000+1); 　
+  return num;
+}
+function reloadVerify_img(){
+var value=randomInt();
+$("#authimg").attr("src","${urlPrefix}/authcode/new?authImgId="+value);
+}
 </script>
 </head>
-<body>
+<body onload="reloadVerify_img()">
 <div id="container">
 <div id="header"><span class="logo-zh">圈子</span><span
 	class="logo-en">Q.com.cn</span></div>
@@ -191,8 +200,8 @@ function emailExistCheck(){
 					</tr>
 					<tr>
 						<th><label for="">密码确认：</label></th>
-						<td class="col-field"><input name="confirm_password"
-							type="password" id="confirm_password" class="text_field"
+						<td class="col-field"><input name="confirmPassword"
+							type="password" id="confirmPassword" class="text_field"
 							size="20" onblur="recheckPassword(this.value)"></td>
 						<td class="col-help">
 						<div class="label-box-good" style="display: none;"
@@ -222,13 +231,13 @@ function emailExistCheck(){
 					</tr>
 					<tr>
 						<th><label for="">昵称：</label></th>
-						<td class="col-field"><input name="real_name" type="text" id="real_name"
-							class="text_field" size="20" onblur="checkReal_name(this.value)"></td>
+						<td class="col-field"><input name="realName" type="text" id="realName"
+							class="text_field" size="20" onblur="checkrealName(this.value)"></td>
 						<td class="col-help">
 					     	<div class="label-box-good" style="display: none;"
-							id="real_namecorrect"></div>
+							id="realNamecorrect"></div>
 						    <div class="label-box-error" style="display: none;"
-							id="real_namewrong"></div>
+							id="realNamewrong"></div>
 						</td>
 					</tr>
 					<tr>
@@ -237,13 +246,16 @@ function emailExistCheck(){
 					</tr>
 					<tr>
 						<th><label for="">验证码：</label></th>
-						<td class="col-field"><input type="text" name="verify_code" id="verify_code"
-							class="text_field verify_code" size="8" onblur="checkVerify_code(this.value)"></td>
+						<td class="col-field"><input type="text" name="authcode" id="authcode"
+							class="text_field authcode" size="5" onblur="checkauthcode(this.value)">
+                          <img id="authimg"  src="" />
+                          <a href="javascript:reloadVerify_img()">看不清,换一张</a>
+                         </td>
 						<td class="col-help">
 						    <div class="label-box-good" style="display: none;"
-							id="verify_codecorrect"></div>
+							id="authcodecorrect"></div>
 						    <div class="label-box-error" style="display: none;"
-							id="verify_codewrong"></div>
+							id="authcodewrong"></div>
 						</td>
 					</tr>
 					<tr>

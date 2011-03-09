@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.web;
 
@@ -21,10 +21,10 @@ import q.util.StringKit;
 
 /**
  * RESTFUL resource entry
- * 
+ *
  * @author seanlinwang
  * @date Jan 16, 2011
- * 
+ *
  */
 public class ResourceRouter implements Controller, ApplicationContextAware {
 	/**
@@ -53,7 +53,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 
 	/**
 	 * set default resource to router
-	 * 
+	 *
 	 * @param defaultResource
 	 */
 	public void setDefaultResource(Resource defaultResource) {

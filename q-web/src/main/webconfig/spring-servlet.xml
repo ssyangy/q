@@ -288,4 +288,8 @@
 	<bean id="getMessage" class="q.web.message.GetMessage">
 		<property name="messageDao" ref="messageDao" />
 	</bean>
+
+	<!-- auth web -->
+	<bean id="getAuthcodeNew" class="q.web.authcode.GetAuthcodeNew">
+	</bean>
 </beans>
