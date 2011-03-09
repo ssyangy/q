@@ -4,13 +4,15 @@ import q.biz.exception.RequestParameterInvalidException;
 import q.biz.exception.PeopleAlreadyExistException;
 import q.dao.PeopleDao;
 import q.domain.People;
+import q.log.Logger;
 import q.util.StringKit;
 import q.web.Resource;
 import q.web.ResourceContext;
+import sun.rmi.runtime.Log;
 
 public class AddPeopleCheck extends Resource {
 	private PeopleDao peopleDao;
-
+	private final static Logger log = Logger.getLogger();
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
 	}

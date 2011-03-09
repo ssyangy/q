@@ -106,22 +106,22 @@ function check() {
      return false;
  }
 function emailExistCheck(){
-	//var emailtext=document.getElementById("email").value;
-//	alert(emailtext);
+	var emailtext=document.getElementById("email").value;
 	$.ajax({
     url: '${urlPrefix}/people/check',
     type: 'POST',
     dataType: 'json',
-	contentType: 'application/json',
-    data:{email: ""},
+	//contentType: 'application/json',
+    data:{email: emailtext},
     timeout: 5000,
     error: function(){
          alert('Check the network!');
          return true;
     },
     success: function(json){
+      alert(json);
    // var data="{'error_code':'403309','error':'该邮箱地址已被注册.'}";
-    var json=eval("("+data+")");
+ //   var json=eval("("+data+")");
       if(json.error_code!=null){
           $("#emailcorrect").css("display","none");
           $("#emailwrong").css("display","block");
