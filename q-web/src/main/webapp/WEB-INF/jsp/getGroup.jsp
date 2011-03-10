@@ -4,80 +4,112 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>圈子:<c:out value="${group.name}" /></title>
+<jsp:include page="head.jsp" flush="true"/>
+<title>圈子:${group.name}</title>
+	<script type="text/javascript">
+		$(function(){
+			$( "#radio" ).buttonset();
+			$('#tabs').tabs();
+		});
+	</script>	
 </head>
 <body>
-<div id="content">
-	<div><c:out value="${group.name}" /> <c:choose>
-		<c:when test="${join == null}">
-			<form action="<c:out value="${contextPath}/group/${group.id}/join"/>"
-				method="post">
-			<button>加入</button>
-			</form>
-		</c:when>
-		<c:otherwise>我已加入这个圈子
-			<form action="<c:out value="${contextPath}/group/${group.id}/join"/>"
-				method="post"><input type="hidden" name="_method"
-				value="delete" />
-			<button>不参加了</button>
-			</form>
-		</c:otherwise>
-	</c:choose></div>
-	<div>成员数:上海9999/全站:199999</div>
-	<div>上海 <a href="#">切换所在地</a></div>
-	<div>讨论区 | 活动 | 图片 | 成员</div>
-	<div>发言 | <a
-		href="<c:out value="${urlPrefix}/event/new?groupId=${group.id}" />">发起活动</a>
-	</div>
-	<div>
-	<form
-		action="<c:out value="${contextPath}/weibo?from=${contextPath}/group/${group.id}"/>"
-		method="post"><textarea name="content" rows="5" cols="50"></textarea> <input
-		type="hidden" name="groupId" value="<c:out value="${group.id}"/>" />
-	<button>发言</button>
-	</form>
-	</div>
-	<div>新帖 | 热贴 | 我发起的 | 我回复的 | 我关注的</div>
-	<div><c:forEach items="${weibos}" var="weibo" varStatus="status">
-		<br/>${weibo.content}<br/>
-		<form action="${urlPrefix}/weibo/${weibo.id}/favorite" method="post">
-				<c:choose>
-					<c:when test="${weibo.unFav}">
-					<button>收藏</button>
-					</c:when>
-					<c:otherwise>
-					<input type="hidden" name="_method"  value="delete"/>
-					<button>取消收藏</button>
-					</c:otherwise>
-				</c:choose>	
-		</form>				
-		<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}/retweet?from=${contextPath}/group/${group.id}"/>">
-		<c:choose>
-			<c:when test="${weibo.inGroup}">分享给好友</c:when>
-			<c:otherwise>转发</c:otherwise>
-		</c:choose>
-		</a>&nbsp;
-		<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}"/>">回复</a>&nbsp;
-		<a href="<c:out value="${contextPath}/people/${weibo.senderId}"/>">
-			<c:out value="${weibo.senderRealName}" />
-		</a>&nbsp;
-		<c:out value="${weibo.time}" />&nbsp;
-		<a href="<c:out value="${urlPrefix}${weibo.fromUrl}" />">
-			<c:out value="${weibo.fromName}" />
-		</a>
-		<br />
-	</c:forEach></div>
+<div id="doc">
+<jsp:include page="top.jsp" flush="true"/>	
+	<div id="page-outer">
+		<div id="page-container">
+			<div class="main-content" style="min-height:400px">
+				<div class="home-header">
+					<div class="group-header-box">
+						<div class="header-box">
+							<div class="group-info">
+								<div class="group-name">
+									<h2>${group.name}</h2>
+								</div>
+								<div class="group-briefing">
+									<div class="group-member-number">成员数：上海 123,990 / 全站 3,003,900</div>
+								</div>
+								<div class="group-action">
+									<div class="group-join">
+									<c:choose>
+										<c:when test="${join == null}">
+											<form action="${urlPrefix}/group/${group.id}/join" method="post">
+												<button>加入</button>
+											</form>
+										</c:when>
+										<c:otherwise>我已加入这个圈子
+											<form action="${contextPath}/group/${group.id}/join" method="post">
+												<input type="hidden" name="_method" value="delete" />
+												<button>不参加了</button>
+											</form>
+										</c:otherwise>
+									</c:choose>
+									</div>
+								</div>
+								<div class="clearfix2"></div>
+							</div>
+						</div>
+					</div>				
+				</div>
+				<div class="main-tweet-box">
+					<div class="tweet-box">
+						<div class="group-location">所在地：上海 长宁区 (<a href="">切换所在地</a>)&nbsp;&nbsp;&nbsp;<a href="">邀请好友</a></div>
+						<div class="clearfix2"></div>
+						<div class="group-nav">
+							<div class="group-nav-links snow">
+								<ul>
+									<li><span class="active-entry">讨论区</span></li> • 
+									<li><a href="">活动</a></li> • 
+									<li><a href="">相册</a></li> •
+									<li><a href="">成员</a></li>
+								</ul>
+							</div>
+							<div class="group-nav-buttons">
+								<a class="button" href="${urlPrefix}/event/new?groupId=${group.id}">发起活动</a>
+								<a href="" class="button">发照片</a>
+							</div>
+							<div class="clearfix2"></div>
+						</div>
+						<form action="${contextPath}/weibo?from=${contextPath}/group/${group.id}" method="post">
+							<input type="hidden" name="groupId" value="${group.id}" />
+							<div class="text-area">
+								<textarea name="content" class="twitter-anywhere-tweet-box-editor" style="width: 482px; height: 56px; "></textarea>
+							</div>
+							<div class="tweet-button-container">
+								<button>发表</button>
+							</div>
+						</form>
+					</div>
+				</div>				
+				<div class="stream-manager">
+					<div id="tabs">
+						<ul class="stream-tabs">
+							<li class="stream-tab"><a class="tab-text" href="#tabs-1">新话题</a></li>
+							<li class="stream-tab"><a class="tab-text" href="#tabs-2">热议</a></li>
+							<li class="stream-tab"><a class="tab-text" href="#tabs-3">我发起的</a></li>
+							<li class="stream-tab"><a class="tab-text" href="#tabs-4">我回复的</a></li>
+							<li class="stream-tab"><a class="tab-text" href="#tabs-5">我收藏的</a></li>
+						</ul>
+						<div id="tabs-1">
+						<jsp:include page="weiboList.jsp" flush="true"/>
+						</div>
+						<div id="tabs-2">tabs2</div>
+						<div id="tabs-3">tabs3</div>
+						<div id="tabs-4">tabs4</div>
+						<div id="tabs-5">tabs5</div>
+					</div>
+				</div>	
 </div>
-<div id="content2">
-	<div>
-		最新活动: <br />
-		<c:forEach items="${events}" var="event" varStatus="status">
-			<a href="<c:out value="${urlPrefix}/event/${event.id}"/>">
-				<c:out value="${event.name}" /> 
-			</a>
-			<br />
-		</c:forEach>
+			<div class="dashboard" style="display:block;">
+					最新活动: <br />
+					<c:forEach items="${events}" var="event" varStatus="status">
+						<a href="<c:out value="${urlPrefix}/event/${event.id}"/>">
+							${event.name} 
+						</a>
+						<br />
+					</c:forEach>
+			</div>
+		</div>
 	</div>
 </div>
 </html>

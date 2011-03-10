@@ -119,7 +119,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 		} else {
 			ResourceContext context = toResourceContext(request, response, path, segs); // construct resource context
 			if (this.needLoginResources != null && this.needLoginResources.contains(resource.getName())) { // request resource need visitor login first
-				if (context.getCookiePeopleId() < 0) { // visitor logoff
+				if (context.getCookiePeopleId() <= 0) { // visitor logoff
 					context.redirectServletPath(loginPath + "?from=" + request.getContextPath() + path);
 					return null;
 				}

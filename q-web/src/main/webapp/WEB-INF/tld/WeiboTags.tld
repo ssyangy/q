@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN" 
+"http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+<taglib>
+	<tlibversion>1.0</tlibversion>
+	<jspversion>1.1</jspversion>
+	<shortname>WeiboTags</shortname>
+	<uri>http://www.q.com.cn</uri>
+	<info>Weibo Tags Library</info>
+
+	<tag>
+		<name>list</name>
+		<tagclass>q.web.tag.WeiboListTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<info>Weibo List JSP Tag</info>
+
+		<attribute>
+			<name>weibos</name>
+			<required>true</required>
+		</attribute>
+		<attribute>
+			<name>urlPrefix</name>
+			<required>true</required>
+		</attribute>
+		
+	</tag>
+</taglib>

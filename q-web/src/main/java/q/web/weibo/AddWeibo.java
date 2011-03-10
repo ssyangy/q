@@ -3,6 +3,7 @@
  */
 package q.web.weibo;
 
+import q.biz.exception.RequestParameterInvalidException;
 import q.dao.WeiboDao;
 import q.domain.Weibo;
 import q.domain.WeiboFromType;
@@ -55,12 +56,17 @@ public class AddWeibo extends Resource {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-		
+		long senderId = context.getCookiePeopleId();
+		if (senderId <= 0) {
+			throw new RequestParameterInvalidException("senderId");
+		}
+
 	}
 }
