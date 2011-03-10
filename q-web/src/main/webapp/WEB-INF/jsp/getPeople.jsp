@@ -6,6 +6,13 @@
 <head>
 	<jsp:include page="head.jsp" flush="true"/>
 	<title>我的主页</title>
+	<script type="text/javascript">
+		$(function(){
+			// Tabs
+			$('#tabs').tabs();
+			$tabs.tabs('select', 0);
+		});
+	</script>
 </head>
 <body>
 	<div id="doc">
@@ -60,42 +67,75 @@
 					</div>									
 					</c:if>	
 				</div>
-				
-				<div>发言 | 关注</div>
-				<div>
-					<c:forEach items="${weibos}" var="weibo" varStatus="status">
-						<br/>${weibo.content}<br/>
-						<c:if test="${weibo.quoteWeiboId >0}">
-							<a href="${urlPrefix}/weibo/${weibo.quoteWeiboId}">原文</a>&nbsp;
-						</c:if>	
-						<form action="${urlPrefix}/weibo/${weibo.id}/favorite" method="post">
-						<c:choose>
-							<c:when test="${weibo.unFav}">
-							<button>收藏</button>
-							</c:when>
-							<c:otherwise>
-							<input type="hidden" name="_method"  value="delete"/>
-							<button>取消收藏</button>
-							</c:otherwise>
-						</c:choose>	
-						</form>		
-						<a href="${urlPrefix}/weibo/${weibo.id}/retweet?from=${contextPath}/people/${people.id}">
-						<c:choose>
-							<c:when test="${weibo.inGroup}">分享给好友</c:when>
-							<c:otherwise>转发</c:otherwise>
-						</c:choose>
-						</a>&nbsp;
-						<a href="${urlPrefix}/weibo/${weibo.id}">回复</a>&nbsp;
-						<a href="${urlPrefix}/people/${weibo.senderId}">
-							${weibo.senderRealName}
-						</a>&nbsp;
-						<c:out value="${weibo.time}" />&nbsp;
-						<a href="${urlPrefix}${weibo.fromUrl}">
-							${weibo.fromName}
-						</a>
-						<br />
-					</c:forEach>
-				</div>
+				<div class="stream-manager">
+					<div id="tabs">
+						<ul class="stream-tabs">
+							<li class="stream-tab"><a class="tab-text" href="#tabs-1">微博</a></li>
+							<li class="stream-tab"><a class="tab-text" href="#tabs-2">收藏</a></li>
+							<li class="stream-tab"><a class="tab-text" href="#tabs-3">好友</a></li>
+							<li class="stream-tab"><a class="tab-text" href="#tabs-4">关注</a></li>
+							<li class="stream-tab"><a class="tab-text" href="#tabs-5">粉丝</a></li>
+						</ul>
+						<div id="tabs-1">
+							<div class="stream-items">
+							<c:forEach items="${weibos}" var="weibo" varStatus="status">
+								<div class="stream-item tweet">
+									<div class="tweet-image">
+										<img height="48" width="48" src="images/1.png">
+									</div>
+									<div class="tweet-content">
+										<div class="tweet-row">
+											<span class="tweet-user-name">
+												<a class="tweet-screen-name user-profile-link" href="${urlPrefix}/people/${weibo.senderId}">
+												${weibo.senderRealName}
+												</a>
+											</span>
+											<span class="tweet-group">
+												发自 <a href="${urlPrefix}${weibo.fromUrl}">${weibo.fromName}</a>
+											</span>
+										</div>
+										<div class="tweet-row">
+											<div class="tweet-text">
+												${weibo.content}
+											<c:if test="${weibo.quoteWeiboId >0}">
+											<a href="${urlPrefix}/weibo/${weibo.quoteWeiboId}">原文</a>&nbsp;
+											</c:if>												
+											</div>
+										</div>
+										<div class="tweet-row">
+											<a href="" class="tweet-timestamp">${weibo.time}</a>
+											<span class="tweet-actions">
+												<a href="${urlPrefix}/weibo/${weibo.id}/retweet?from=${contextPath}/people/${people.id}">
+												<c:choose>
+													<c:when test="${weibo.inGroup}">分享给好友</c:when>
+													<c:otherwise>转发</c:otherwise>
+												</c:choose>
+												</a>&nbsp;
+												<form action="${urlPrefix}/weibo/${weibo.id}/favorite" method="post">
+												<c:choose>
+													<c:when test="${weibo.unFav}">
+													<button>收藏</button>
+													</c:when>
+													<c:otherwise>
+													<input type="hidden" name="_method"  value="delete"/>
+													<button>取消收藏</button>
+													</c:otherwise>
+												</c:choose>	
+												</form>
+												<a href="${urlPrefix}/weibo/${weibo.id}">回复</a>&nbsp;
+											</span>
+										</div>
+									</div>
+								</div>							
+							</c:forEach>							
+							</div>
+						</div>
+						<div id="tabs-2">tabs2</div>
+						<div id="tabs-3">tabs3</div>
+						<div id="tabs-4">tabs4</div>
+						<div id="tabs-5">tabs5</div>
+					</div>
+				</div>				
 			</div>
 			<div class="dashboard" style="display:block;">
 				<div>
