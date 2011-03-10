@@ -23,10 +23,10 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -36,6 +36,10 @@
 			<artifactId>servlet-api</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>commons-validator</groupId>
 			<artifactId>commons-validator</artifactId>
 		</dependency>
@@ -43,22 +47,20 @@
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
-		<!--dependency>
-			<groupId>cactus</groupId>
-			<artifactId>cactus</artifactId>
-		</dependency-->
-        <dependency>
-            <groupId>org.apache.cactus</groupId>
-            <artifactId>cactus.core.framework.uberjar.javaEE.14</artifactId>
-        </dependency>
+		<!--dependency> <groupId>cactus</groupId> <artifactId>cactus</artifactId> 
+			</dependency -->
+		<dependency>
+			<groupId>org.apache.cactus</groupId>
+			<artifactId>cactus.core.framework.uberjar.javaEE.14</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
@@ -71,12 +73,12 @@
 			<groupId>org.mortbay.jetty</groupId>
 			<artifactId>org.mortbay.jetty</artifactId>
 		</dependency>
-		  <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4</version>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4</version>
 
-        </dependency>
+		</dependency>
 
 	</dependencies>
 </project>
