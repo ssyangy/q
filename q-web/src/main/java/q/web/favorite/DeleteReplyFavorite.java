@@ -28,7 +28,7 @@ public class DeleteReplyFavorite extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		long creatorId = context.getLoginPeopleId();
+		long creatorId = context.getCookiePeopleId();
 		long replyId = context.getResourceIdLong();
 		this.favoriteDao.unFavReplyFavorite(replyId, creatorId);
 		context.redirectReffer();

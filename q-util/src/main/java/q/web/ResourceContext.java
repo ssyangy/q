@@ -29,7 +29,9 @@ public interface ResourceContext {
 	/**
 	 * @return
 	 */
-	long getLoginPeopleId();
+	long getCookiePeopleId();
+	
+	LoginCookie getLoginCookie();
 
 	void setModel(String key, Object value);
 

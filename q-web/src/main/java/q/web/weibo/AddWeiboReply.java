@@ -31,7 +31,7 @@ public class AddWeiboReply extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		long senderId = context.getLoginPeopleId();
+		long senderId = context.getCookiePeopleId();
 		String content = context.getString("content");
 
 		long quoteId = context.getResourceIdLong();

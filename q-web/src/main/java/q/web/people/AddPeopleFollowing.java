@@ -29,7 +29,7 @@ public class AddPeopleFollowing extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		long fromPeopleId = context.getLoginPeopleId();
+		long fromPeopleId = context.getCookiePeopleId();
 		long toPeopleId = context.getResourceIdLong();
 
 		PeopleRelation oldRelation = this.peopleDao.getPeopleRelationByFromIdToId(fromPeopleId, toPeopleId);

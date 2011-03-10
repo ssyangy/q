@@ -20,7 +20,7 @@ public class AddEvent extends Resource {
 		event.setIntro(context.getString("intro"));
 		event.setName(context.getString("name"));
 		event.setGroupId(context.getIdLong("groupId"));
-		event.setCreatorId(context.getLoginPeopleId());
+		event.setCreatorId(context.getCookiePeopleId());
 		event.setAddress(context.getString("address"));
 		event.setCost(context.getString("cost"));
 		// event.setDistrictId(1); FIXME

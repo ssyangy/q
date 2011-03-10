@@ -7,6 +7,7 @@ import q.dao.PeopleDao;
 import q.domain.People;
 import q.log.Logger;
 import q.web.DefaultResourceContext;
+import q.web.LoginCookie;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -41,19 +42,21 @@ public class AddLogin extends Resource {
 		if (!p.getPassword().equals(password)) { // FIXME incorrect password
 			throw new IncorrectPasswordLoginException(username);
 		}
-		((DefaultResourceContext) context).setLoginToken(p.getId(), p.getUsername()); // set login cookie
+		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(p.getId(), p.getRealName(), p.getUsername())); // set login cookie
 		if (fromPath != null) {
 			context.redirectContextPath(fromPath);
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

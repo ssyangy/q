@@ -39,7 +39,7 @@ public class AddMessage extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		Message message = new Message();
 		message.setContent(context.getString("content"));
-		message.setSenderId(context.getLoginPeopleId());
+		message.setSenderId(context.getCookiePeopleId());
 		message.setReceiverId(context.getIdLong("receiverId"));
 		long replyMessageId = context.getIdLong("replyMessageId");
 		if (replyMessageId > 0) {
@@ -51,7 +51,7 @@ public class AddMessage extends Resource {
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		long senderId = context.getLoginPeopleId();
+		long senderId = context.getCookiePeopleId();
 		long receiverId = context.getIdLong("receiverId");
 		if (senderId == 0)
 			throw new RequestParameterInvalidException("loginId invalid");

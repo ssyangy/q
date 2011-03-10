@@ -39,7 +39,7 @@ public class AddReplyFavorite extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long replyId = context.getResourceIdLong();
-		long creatorId = context.getLoginPeopleId();
+		long creatorId = context.getCookiePeopleId();
 		Favorite old = this.favoriteDao.getReplyFavoriteByReplyIdAndCreatorId(replyId, creatorId);
 		if (old == null) {
 			WeiboReply reply = this.weiboDao.getWeiboReplyById(replyId);

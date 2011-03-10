@@ -55,7 +55,7 @@ public class GetFavoriteIndex extends Resource {
 		FavoritePage page = new FavoritePage();
 		page.setSize(20);
 		page.setStartIndex(0);
-		page.setCreatorId(context.getLoginPeopleId());
+		page.setCreatorId(context.getCookiePeopleId());
 		List<Favorite> favorites = this.favoriteDao.getPageFavorites(page);
 		DaoHelper.injectFavoritesWithSource(peopleDao, groupDao, weiboDao, favorites);
 		context.setModel("favorites", favorites);
@@ -63,7 +63,7 @@ public class GetFavoriteIndex extends Resource {
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		if(context.getLoginPeopleId() == 0) {
+		if(context.getCookiePeopleId() == 0) {
 			throw new RequestParameterInvalidException("loginId invalid");
 		}
 	}

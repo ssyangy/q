@@ -63,7 +63,7 @@ public class GetWeibo extends Resource {
 		page.setSize(20);
 		page.setStartIndex(0);
 		List<WeiboReply> replies = weiboDao.getPageWeiboReply(page);
-		long loginPeopleId = context.getLoginPeopleId();
+		long loginPeopleId = context.getCookiePeopleId();
 		DaoHelper.injectWeiboRepliesWithSenderRealNameAndFrom(peopleDao, groupDao, replies);
 		DaoHelper.injectWeiboRepliesWithFavorite(favoriteDao, replies, loginPeopleId);
 		context.setModel("replies", replies);

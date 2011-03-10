@@ -32,7 +32,7 @@ public class AddWeiboRetweet extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		long senderId = context.getLoginPeopleId();
+		long senderId = context.getCookiePeopleId();
 		String content = context.getString("content");
 		String from = context.getString("from");
 

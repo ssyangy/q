@@ -47,7 +47,7 @@ public class GetPeopleFeed extends Resource {
 
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		long loginPeopleId = context.getLoginPeopleId();
+		long loginPeopleId = context.getCookiePeopleId();
 		List<Long> senderIds = peopleDao.getAllFollowingId(loginPeopleId);
 		if (CollectionKit.isNotEmpty(senderIds)) {
 			WeiboPage page = new WeiboPage();

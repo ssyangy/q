@@ -28,7 +28,7 @@ public class DeleteWeiboFavorite extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		long creatorId = context.getLoginPeopleId();
+		long creatorId = context.getCookiePeopleId();
 		long weiboId = context.getResourceIdLong();
 		this.favoriteDao.unFavWeiboFavorite(weiboId, creatorId);
 		context.redirectReffer();

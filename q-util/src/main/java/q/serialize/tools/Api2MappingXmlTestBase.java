@@ -99,7 +99,8 @@ public class Api2MappingXmlTestBase {
 
 		if (beanNode == null) {
 			System.out.println("Miss node : methodResponse --> No response bean: " + apiBeanName);
-			return isRight = false;
+			isRight = false;
+			return isRight;
 		}
 
 		beanNode = getChildElement(beanNode, "type");

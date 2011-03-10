@@ -31,7 +31,7 @@ public class AddGroupJoin extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 
-		long peopleId = context.getLoginPeopleId();
+		long peopleId = context.getCookiePeopleId();
 		long groupId = context.getResourceIdLong();
 		PeopleJoinGroup join = groupDao.getPeopleJoinGroup(peopleId, groupId);
 		if (join == null) {

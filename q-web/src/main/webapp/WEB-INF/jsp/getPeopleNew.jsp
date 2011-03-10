@@ -102,7 +102,6 @@ function check() {
  }
 function emailExistCheck(){
 	var emailtext=document.getElementById("email").value;
-//	alert(emailtext);
 	$.ajax({
     url: '${urlPrefix}/people/check',
     type: 'POST',
@@ -115,8 +114,8 @@ function emailExistCheck(){
          return true;
     },
     success: function(json){
+    //  alert(json);
    // var data="{'error_code':'403309','error':'该邮箱地址已被注册.'}";
-    //var json=eval("("+data+")");
       if(json.error_code!=null){
           $("#emailcorrect").css("display","none");
           $("#emailwrong").css("display","block");
@@ -152,7 +151,7 @@ $("#authimg").attr("src","${urlPrefix}/authcode/new?authImgId="+value);
 			<div class="wrapper">
 			<div class="content-heading">
 			<div class="heading">
-			<p class="sign-in">已经是圈里人了？<a href="">登录</a></p>
+			<p class="sign-in">已经是圈里人了？<a href="${urlPrefix}/login/new">登录</a></p>
 			<h2>加入圈子</h2>
 			</div>
 			</div>

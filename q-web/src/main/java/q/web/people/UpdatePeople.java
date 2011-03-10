@@ -27,7 +27,7 @@ public class UpdatePeople extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		long peopleId = context.getLoginPeopleId();
+		long peopleId = context.getCookiePeopleId();
 		People newpeople = new People();
 		newpeople.setId(peopleId);
 		newpeople.setYear(Integer.parseInt(context.getString("year")));

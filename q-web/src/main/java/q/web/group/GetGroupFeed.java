@@ -55,7 +55,7 @@ public class GetGroupFeed extends Resource {
 
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		long loginPeopleId = context.getLoginPeopleId();
+		long loginPeopleId = context.getCookiePeopleId();
 		List<Long> groupIds = this.groupDao.getGroupIdsByPeopleId(loginPeopleId);
 		if (CollectionKit.isNotEmpty(groupIds)) {
 			WeiboPage page = new WeiboPage();

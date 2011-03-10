@@ -21,7 +21,7 @@ public class DeleteLogin extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		((q.web.DefaultResourceContext) context).removeLoginToken();
+		((q.web.DefaultResourceContext) context).removeLoginCookie();
 	}
 
 	/* (non-Javadoc)

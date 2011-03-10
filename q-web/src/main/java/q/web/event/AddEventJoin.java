@@ -15,7 +15,7 @@ public class AddEventJoin extends Resource {
 
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		long peopleId = context.getLoginPeopleId();
+		long peopleId = context.getCookiePeopleId();
 		long eventId = context.getResourceIdLong();
 		PeopleJoinEvent join = eventDao.getPeopleJoinEvent(peopleId, eventId);
 		if (join == null) {

@@ -56,9 +56,9 @@ public class MemberMapping<T> implements Serializable {
 	private String outputApiName;
 
 	/** reflected method cache by zixue */
-	private Method setter;
+	private transient Method setter;
 
-	private Method getter;
+	private transient Method getter;
 
 	/**
 	 * Gets the switcher.

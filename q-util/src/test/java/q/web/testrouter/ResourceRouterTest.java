@@ -23,6 +23,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.ModelAndView;
 
 import q.web.DefaultResourceContext;
+import q.web.LoginCookie;
 import q.web.ResourceContext;
 import q.web.ResourceRouter;
 import q.web.ViewResolver;
@@ -59,7 +60,8 @@ public class ResourceRouterTest extends ServletTestCase {
 				Enumeration<String> attributeNames = request.getAttributeNames();
 				for (; attributeNames.hasMoreElements();) {
 					String key = (String) attributeNames.nextElement();
-					response.getWriter().write((String) request.getAttribute(key));
+					if (!(request.getAttribute(key) instanceof LoginCookie))
+						response.getWriter().write(request.getAttribute(key).toString());
 				}
 				response.getWriter().flush();
 				response.getWriter().close();

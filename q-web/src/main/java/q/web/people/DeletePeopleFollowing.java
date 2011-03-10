@@ -26,7 +26,7 @@ public class DeletePeopleFollowing extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		long fromPeopleId = context.getLoginPeopleId();
+		long fromPeopleId = context.getCookiePeopleId();
 		long toPeopleId = context.getResourceIdLong();
 		this.peopleDao.updatePeopleRelationStatusByFromIdAndToId(PeopleRelationStatus.STRANGER, fromPeopleId, toPeopleId);
 		

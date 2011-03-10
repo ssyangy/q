@@ -58,7 +58,7 @@ public class GetPeople extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws SQLException {
 		long peopleId = context.getResourceIdLong();
-		long loginPeopleId = context.getLoginPeopleId();
+		long loginPeopleId = context.getCookiePeopleId();
 
 		People people = peopleDao.getPeopleById(peopleId);
 		people.setFollowingNum(peopleDao.getPeopleFollowingNumById(peopleId));

@@ -40,7 +40,7 @@ public class GetMessageIndex extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		MessagePage page = new MessagePage();
-		long loginPeopleId = context.getLoginPeopleId();
+		long loginPeopleId = context.getCookiePeopleId();
 		page.setMyId(loginPeopleId);
 		page.setStartIndex(0);
 		page.setSize(20);

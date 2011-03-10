@@ -28,7 +28,7 @@ public class DeleteGroupJoin extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		groupDao.unjoinPeopleJoinGroup(context.getLoginPeopleId(), context.getResourceIdLong());
+		groupDao.unjoinPeopleJoinGroup(context.getCookiePeopleId(), context.getResourceIdLong());
 		context.redirectReffer();
 	}
 

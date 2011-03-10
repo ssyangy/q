@@ -32,7 +32,7 @@ public class AddGroup extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws SQLException, IOException {
 		Group group = new Group();
-		group.setCreatorId(context.getLoginPeopleId()); // set group creator id from cookie
+		group.setCreatorId(context.getCookiePeopleId()); // set group creator id from cookie
 		group.setName(context.getString("name"));
 		group.setIntro(context.getString("intro"));
 		groupDao.addGroup(group); // create group

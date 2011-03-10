@@ -21,7 +21,7 @@ public class GetMineIndex extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		context.redirectServletPath("/people/" + context.getLoginPeopleId());
+		context.redirectServletPath("/people/" + context.getCookiePeopleId());
 	}
 
 	/* (non-Javadoc)

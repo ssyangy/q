@@ -39,7 +39,7 @@ public class AddWeiboFavorite extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long weiboId = context.getResourceIdLong();
-		long creatorId = context.getLoginPeopleId();
+		long creatorId = context.getCookiePeopleId();
 		Favorite old = this.favoriteDao.getWeiboFavoriteByWeiboIdAndCreatorId(weiboId, creatorId);
 		if (old == null) {
 			Weibo weibo = this.weiboDao.getWeiboById(weiboId);

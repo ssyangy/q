@@ -314,7 +314,7 @@ public class StringKit {
 	 * @return
 	 */
 	public static String capitalize(String str) {
-		if (str == null || str == "")
+		if (StringKit.isEmpty(str))
 			return str;
 		char[] chars = str.toCharArray();
 		char c = chars[0];
@@ -663,7 +663,6 @@ public class StringKit {
 		str = strip(str, null);
 		return str.length() == 0 ? null : str;
 	}
-
 
 	/**
 	 * <p>

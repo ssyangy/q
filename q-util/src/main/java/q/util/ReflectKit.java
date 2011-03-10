@@ -97,7 +97,7 @@ public class ReflectKit {
 	public static void invokeSetter(Object source, Method method,
 			Object propValue) throws MappingException {
 		if(method == null) {
-			throw new MappingException("Method not exist:" + method);
+			throw new MappingException("Method not exist");
 		}
 		try {
 			method.invoke(source, new Object[] { propValue });

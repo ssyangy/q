@@ -31,7 +31,7 @@ public class AddWeibo extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		Weibo weibo = new Weibo();
-		long senderId = context.getLoginPeopleId();
+		long senderId = context.getCookiePeopleId();
 		weibo.setSenderId(senderId);
 		String content = context.getString("content");
 		weibo.setContent(content);

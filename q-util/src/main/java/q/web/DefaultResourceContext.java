@@ -5,7 +5,6 @@ import java.io.OutputStream;
 import java.io.Writer;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -114,52 +113,46 @@ public class DefaultResourceContext implements ResourceContext {
 		return request.getAttribute(key);
 	}
 
+	private LoginCookie loginCookie;
+
+	private final LoginCookie emptyLoginCookie = LoginCookie.getEmpty();
+
+	@Override
+	public LoginCookie getLoginCookie() {
+		if (loginCookie == null) {
+			loginCookie = LoginCookie.get(request, response);
+			if (loginCookie == null) {
+				loginCookie = emptyLoginCookie;
+			}
+		}
+		return loginCookie;
+	}
+
 	/*
-	 *
-	 *
+	 * 
+	 * 
 	 * @see q.web.ResourceContext#getLoginPeopleId()
 	 */
 	@Override
-	public long getLoginPeopleId() {
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (int i = 0; i < cookies.length; i++) {
-				Cookie cookie = cookies[i];
-				if ("u".equals(cookie.getName())) { // login user
-					if (StringKit.isNotEmpty(cookie.getValue())) {
-						return Long.valueOf(cookie.getValue());
-					}
-				}
-			}
-		}
-		return -1;
+	public long getCookiePeopleId() {
+		LoginCookie loginCookie = getLoginCookie();
+		long peopleId = loginCookie.getPeopleId();
+		return peopleId;
 	}
 
-	public void setLoginToken(long userId, String username) {
-		Cookie cookie = new Cookie("u", String.valueOf(userId));
-		cookie.setMaxAge(3600 * 24 * 7); // one week
-		cookie.setPath("/");
-		response.addCookie(cookie);
+	public void addLoginCookie(LoginCookie loginCookie) {
+		loginCookie.add(response);
+		this.loginCookie = null;
 	}
 
-	public void removeLoginToken() {
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (int i = 0; i < cookies.length; i++) {
-				if ("u".equals(cookies[i].getName())) {
-					Cookie cookie = new Cookie("u", null);
-					cookie.setMaxAge(0);// clear login token
-					cookie.setPath("/");
-					response.addCookie(cookie);
-					break;
-				}
-			}
-		}
+	public void removeLoginCookie() {
+		LoginCookie.delete(response);
+		this.loginCookie = null;
 	}
 
 	/*
 	 * redirect to reffer
-	 *
+	 * 
 	 * @see q.web.ResourceContext#redirectRefferUrl()
 	 */
 	@Override
@@ -202,10 +195,10 @@ public class DefaultResourceContext implements ResourceContext {
 		log.debug("forward to %s", path);
 	}
 
-
 	public OutputStream getOutputStream() throws IOException {
 		return response.getOutputStream();
 	}
+
 	@Override
 	public Writer getWriter() throws IOException {
 		return response.getWriter();

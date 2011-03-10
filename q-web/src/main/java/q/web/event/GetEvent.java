@@ -45,7 +45,7 @@ public class GetEvent extends Resource {
 		People sendperson = this.peopleDao.getPeopleById(event.getCreatorId());
 		context.setModel("senderperson", sendperson);
 
-		long peopleId = context.getLoginPeopleId();
+		long peopleId = context.getCookiePeopleId();
 		if (peopleId > 0) {
 			PeopleJoinEvent join = eventDao.getPeopleJoinEvent(peopleId, eventId);
 			if (join != null && join.getStatus() == Status.COMMON.getValue()) {

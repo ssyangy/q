@@ -13,36 +13,53 @@
 	<div id="page-outer">
 		<div id="page-container">
 			<div class="main-content" style="min-height:400px">
-				<c:out value="${people.realName}" /><br />
-				<%--  c:out value="${people.district.level1}" /--%>
-				<%--  c:out value="${people.district.level2}" /--%>
-				<c:out value="${people.intro}" /><br />
-				生日<c:out value="${people.birthdayString}"></c:out><br />
-				关注数<a href="<c:out value="${urlPrefix}/people/${people.id}/following"/>"><c:out value="${people.followingNum}" /></a>
-				粉丝数<a href="<c:out value="${urlPrefix}/people/${people.id}/follower"/>"><c:out value="${people.followerNum}" /></a>
-				微博数<c:out value="${people.weiboNum}" />
-				<br />
-				<c:if test="${isMe == false}">
-					<c:choose>
-						<c:when test="${isFollowing == false}">
-							<form
-								action="<c:out value="${urlPrefix}/people/${people.id}/following"/>"
-								method="post">
-								<button>关注<c:out value="${people.gender.cncall}"/></button>
-							</form>
-						</c:when>
-						<c:otherwise>
-							<form
-								action="<c:out value="${urlPrefix}/people/${people.id}/following"/>"
-								method="post">
-								<input type="hidden" name="_method" value="delete"/>
-								<button>取消关注</button>
-							</form>
-						</c:otherwise>
-					</c:choose>
-					<a href="<c:out value="${urlPrefix}/message/new?receiverId=${people.id}" />">私信<c:out value="${people.gender.cncall}" /></a>
-					<a href="<c:out value="${urlPrefix}/weibo/new?receiverId=${people.id}&from=${contextPath}/people/${people.id}" />">@<c:out value="${people.gender.cncall}" /></a>
-				</c:if>
+				<div class="profile-header">
+					<div class="profile-info clearfix">
+						<div class="profile-image-container"><a href=""><img width="128" height="128" src="images/1.png"></a></div>
+						<div class="profile-details">
+							<div class="full-name"><h2>${people.realName}</h2></div>
+							<div class="screen-name-and-location">$-{people.district.level1} $-{people.district.level2}</div>
+							<div class="bio">${people.intro}</div>
+							<div class="url"><a href="">http://imnotav.com/</a></div>
+						</div>
+					</div>
+					<div class="groups">
+						${people.gender.cncall}在这些圈子里玩：
+						<c:forEach items="${groups}" var="group" varStatus="status">
+						<a href="${urlPrefix}/group/${group.id}">${group.name}</a>
+						</c:forEach>						
+					</div>
+					<c:if test="${isMe == false}">
+					<div class="profile-actions-container">
+						<div class="component">
+							<div class="profile-actions clearfix">
+								<div class="buttons">
+								<c:choose>
+								<c:when test="${isFollowing == false}">
+									<form action="${urlPrefix}/people/${people.id}/following" method="post">
+										<div class="button"><button>关注${people.gender.cncall}</button></div>
+									</form>
+								</c:when>
+								<c:otherwise>
+									<form action="${urlPrefix}/people/${people.id}/following" method="post">
+										<input type="hidden" name="_method" value="delete"/>
+										<div class="button"><button>取消关注</button></div>
+									</form>
+								</c:otherwise>
+								</c:choose>								
+								<div class="button">
+									<a href="${urlPrefix}/weibo/new?receiverId=${people.id}&from=${contextPath}/people/${people.id}">@${people.gender.cncall}</a>
+								</div>
+								<div class="button">
+									<a href="${urlPrefix}/message/new?receiverId=${people.id}">发私信</a>
+								</div>
+								</div>
+								<div class="kimoji">向${people.gender.cncall}表达：</div>
+							</div>
+						</div>
+					</div>									
+					</c:if>	
+				</div>
 				
 				<div>发言 | 关注</div>
 				<div>
@@ -82,12 +99,12 @@
 			</div>
 			<div class="dashboard" style="display:block;">
 				<div>
-					<c:out value="${people.gender.cncall}" />加入的圈子: <br />
-					<c:forEach items="${groups}" var="group" varStatus="status">
-					<a href="<c:out value="${urlPrefix}/group/${group.id}"/>">
-						<c:out value="${group.name}" />
-					</a><br />
-					</c:forEach>
+					<div class="">生日${people.birthdayString}</div>
+					<div class="">
+						关注数<a href="${urlPrefix}/people/${people.id}/following">${people.followingNum}</a>
+						粉丝数<a href="${urlPrefix}/people/${people.id}/follower">${people.followerNum}</a>
+						微博数${people.weiboNum}							
+					</div>				
 				</div>
 				<div>
 					<c:out value="${people.gender.cncall}" />参与的活动: <br />

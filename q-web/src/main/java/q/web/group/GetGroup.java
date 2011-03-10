@@ -69,7 +69,7 @@ public class GetGroup extends Resource {
 		Group group = groupDao.getGroupById(groupId);
 		context.setModel("group", group);
 
-		long loginPeopleId = context.getLoginPeopleId();
+		long loginPeopleId = context.getCookiePeopleId();
 		if (loginPeopleId > 0) {
 			PeopleJoinGroup join = groupDao.getPeopleJoinGroup(loginPeopleId, groupId);
 			if (join != null && join.getStatus() == Status.COMMON.getValue()) {
