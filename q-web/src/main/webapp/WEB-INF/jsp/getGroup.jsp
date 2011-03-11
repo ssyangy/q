@@ -34,13 +34,13 @@
 									<c:choose>
 										<c:when test="${join == null}">
 											<form action="${urlPrefix}/group/${group.id}/join" method="post">
-												<button>加入</button>
+												<a href="#" class="button"><button>加入</button></a>
 											</form>
 										</c:when>
 										<c:otherwise>我已加入这个圈子
 											<form action="${contextPath}/group/${group.id}/join" method="post">
 												<input type="hidden" name="_method" value="delete" />
-												<button>不参加了</button>
+												<a href="#" class="button"><button>不参加了</button></a>
 											</form>
 										</c:otherwise>
 									</c:choose>
@@ -76,7 +76,7 @@
 								<textarea name="content" class="twitter-anywhere-tweet-box-editor" style="width: 482px; height: 56px; "></textarea>
 							</div>
 							<div class="tweet-button-container">
-								<button>发表</button>
+								<a href="#" class="button"><button>发表</button></a>
 							</div>
 						</form>
 					</div>
@@ -99,7 +99,7 @@
 						<div id="tabs-5">tabs5</div>
 					</div>
 				</div>	
-</div>
+			</div>
 			<div class="dashboard" style="display:block;">
 					最新活动: <br />
 					<c:forEach items="${events}" var="event" varStatus="status">

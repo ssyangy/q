@@ -4,7 +4,7 @@
 <c:forEach items="${weibos}" var="weibo" varStatus="status">
 	<div class="stream-item tweet">
 		<div class="tweet-image">
-			<img height="48" width="48" src="images/1.png">
+			<img height="48" width="48" src="${avatarUrlPrefix}/1.png">
 		</div>
 		<div class="tweet-content">
 			<div class="tweet-row">

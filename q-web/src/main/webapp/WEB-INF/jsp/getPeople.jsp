@@ -22,7 +22,7 @@
 			<div class="main-content" style="min-height:400px">
 				<div class="profile-header">
 					<div class="profile-info clearfix">
-						<div class="profile-image-container"><a href=""><img width="128" height="128" src="images/1.png"></a></div>
+						<div class="profile-image-container"><a href=""><img width="128" height="128" src="${avatarUrlPrefix}/1.png"></a></div>
 						<div class="profile-details">
 							<div class="full-name"><h2>${people.realName}</h2></div>
 							<div class="screen-name-and-location">$-{people.district.level1} $-{people.district.level2}</div>
