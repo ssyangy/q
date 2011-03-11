@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="authcodes">
+	<update id="updateAuthcodeById">
+		update authcode set
+		value = #value#
+		where id=#id#
+	</update>
+    <select id="selectAuthcodeById" resultClass="java.lang.String">
+		select
+		value
+		from
+		authcode
+		where id = #value#
+	</select>
+
+</sqlMap>
+

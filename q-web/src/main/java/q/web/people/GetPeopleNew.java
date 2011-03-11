@@ -15,7 +15,7 @@ public class GetPeopleNew extends Resource{
 @Override
 public void execute(ResourceContext context) throws SQLException{
 
-    
+
 }
 
 /* (non-Javadoc)
@@ -23,7 +23,7 @@ public void execute(ResourceContext context) throws SQLException{
  */
 @Override
 public void validate(ResourceContext context) throws Exception {
-	// TODO Auto-generated method stub
-	
+	context.setModel("authcodeNum", 100000);
+
 }
 }

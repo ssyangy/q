@@ -23,6 +23,13 @@ create table people(
 	)
 default character set utf8 engine = innodb;
 
+create table authcode(
+   id bigint unsigned not null primary key,
+   value varchar(8) not null
+)
+default character set utf8 engine = innodb;
+
+
 create table people_certify (
 	id bigint unsigned not null primary key,
 	people_id bigint unsigned not null,

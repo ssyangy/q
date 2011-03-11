@@ -29,7 +29,9 @@ public class AddPeopleCheck extends Resource {
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+
 		String email = context.getString("email");
+		log.error(email);
 		if (StringKit.isEmpty(email)) {
 			throw new RequestParameterInvalidException("email参数丢失");
 		}
