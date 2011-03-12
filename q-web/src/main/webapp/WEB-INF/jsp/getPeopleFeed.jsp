@@ -1,55 +1,63 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>好友新鲜事</title>
+	<jsp:include page="head.jsp" flush="true"/>
+	<title>好友新鲜事</title>
+	<script type="text/javascript">
+		$(function(){
+			// Tabs
+			$('#tabs').tabs();
+			$tabs.tabs('select', 0);
+		});
+	</script>	
 </head>
 <body>
-<div id="content">
-	<div>新动态 | @提到我 | 回复我</div>
-	<div>
-	<c:forEach items="${weibos}" var="weibo" varStatus="status">
-		<br/><c:out value="${weibo.content}" /><br/>
-		<c:if test="${weibo.quoteWeiboId >0}">
-			<a href="<c:out value="${urlPrefix}/weibo/${weibo.quoteWeiboId}"/>">原文</a>&nbsp;
-		</c:if>
-		<form action="${urlPrefix}/weibo/${weibo.id}/favorite" method="post">
-				<c:choose>
-					<c:when test="${weibo.unFav}">
-					<button>收藏</button>
-					</c:when>
-					<c:otherwise>
-					<input type="hidden" name="_method"  value="delete"/>
-					<button>取消收藏</button>
-					</c:otherwise>
-				</c:choose>	
-		</form>						
-		<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}/retweet?from=${contextPath}/people/feed"/>">
-		<c:choose>
-			<c:when test="${weibo.inGroup}">分享给好友</c:when>
-			<c:otherwise>转发</c:otherwise>
-		</c:choose>
-		</a>&nbsp;
-		<a href="<c:out value="${urlPrefix}/weibo/${weibo.id}"/>">回复</a>&nbsp;
-		<a href="<c:out value="${urlPrefix}/people/${weibo.senderId}"/>">
-			<c:out value="${weibo.senderRealName}" />
-		</a>&nbsp;
-		<c:out value="${weibo.time}" />&nbsp;
-		<a href="<c:out value="${urlPrefix}${weibo.fromUrl}" />">
-			<c:out value="${weibo.fromName}" />
-		</a>
-		<br />
-	</c:forEach>
+	<div id="doc">
+		<jsp:include page="top.jsp" flush="true"/>
+		<div id="page-outer">
+			<div id="page-container">
+				<div class="main-content" style="min-height:400px">
+					<div class="home-header">
+						<div class="main-tweet-box">
+							<div class="tweet-box">
+								<div class="tweet-box-title"><h2>我说</h2></div>
+								<div class="text-area">
+									<textarea class="twitter-anywhere-tweet-box-editor" style="width: 482px; height: 56px; "></textarea>
+								</div>
+								<div class="tweet-button-container">
+									<a href="" class="tweet-button button">发表</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="stream-manager">
+						<div id="tabs">
+							<ul class="stream-tabs">
+								<li class="stream-tab"><a class="tab-text" href="#tabs-1">新微博</a></li>
+								<li class="stream-tab"><a class="tab-text" href="#tabs-2">@我的</a></li>
+								<li class="stream-tab"><a class="tab-text" href="#tabs-3">我回复的</a></li>
+								<li class="stream-tab"><a class="tab-text" href="#tabs-4">我收藏的</a></li>
+							</ul>
+							<div id="tabs-1">
+								<div id="new-tweets-bar" style="display:block;">17条新微博</div>
+								<jsp:include page="weiboList.jsp" flush="true"/>
+							</div>
+							<div id="tabs-2">tabs2</div>
+							<div id="tabs-3">tabs3</div>
+							<div id="tabs-4">tabs4</div>
+						</div>
+					</div>
+				</div>
+				<div class="dashboard" style="display:block;">
+					<div>好友地图 
+						<div>附近好友 | 全部好友 | 附近陌生人</div> 
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
-<div id="content2">
-<div>好友地图 
-	<div>附近好友 | 全部好友 | 附近陌生人</div> 
-</div>
-</div>
 </body>
 </html>
