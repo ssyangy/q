@@ -8,6 +8,7 @@ import q.dao.AuthcodeDao;
 import q.dao.PeopleDao;
 import q.domain.Gender;
 import q.domain.People;
+import q.util.StringKit;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -67,8 +68,8 @@ public class AddPeople extends Resource {
 			throw new PeopleAlreadyExistException("email:该邮箱地址已经被使用。");
 		}
 		long authcodeId = context.getIdLong("authcodeId");
-		String value = authcodeDao.getValueById(authcodeId);
-		if (!context.getString("authcode").equals(value)) {
+		String authcodeValue = authcodeDao.getValueById(authcodeId);
+		if(StringKit.isEmpty(authcodeValue) || !authcodeValue.equals(context.getString("authcode"))) {
 			throw new RequestParameterInvalidException("authcode:验证码不对,请重新输入。");
 		}
 		authcodeDao.updateValueById(authcodeId);
