@@ -11,4 +11,5 @@
 	<sqlMap resource="sql/weibo.xml" />
 	<sqlMap resource="sql/message.xml" />
 	<sqlMap resource="sql/favorite.xml" />
+	<sqlMap resource="sql/authcode.xml"/>
 </sqlMapConfig>

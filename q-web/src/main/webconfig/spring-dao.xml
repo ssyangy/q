@@ -23,4 +23,7 @@
 	<bean id="messageDao" class="q.dao.ibatis.MessageDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
+	<bean id="authcodeDao" class="q.dao.ibatis.AuthcodeDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
 </beans>

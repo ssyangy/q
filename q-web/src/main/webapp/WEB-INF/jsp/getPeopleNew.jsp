@@ -4,16 +4,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<jsp:include page="head.jsp" flush="true"/>	
+<jsp:include page="head.jsp" flush="true"/>
 <title>登陆注册</title>
 <script type="text/javascript">
+
+var newEmail = true;
 function checkEmail(a)
 {
     var emailtest= /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
     if(emailtest.test(a)){
          $("#emailcorrect").css("display","block");
          $("#emailwrong").css("display","none");
-         return emailExistCheck();
+       //  alert(emailExistCheck());
+          emailExistCheck();
+         return true;
     }
     $("#emailcorrect").css("display","none");
     $("#emailwrong").css("display","block");
@@ -91,52 +95,52 @@ function check() {
   var cp=checkPassword($("#password").val());
   var cu=checkUserName($("#username").val());
   var cr=checkrealName($("#realName").val());
-  var cv=checkauthcode($("#authcode").val());
-  if(ce==true&&cp==true){
-   var crp=recheckPassword($("#confirmPassword").val());
-   if(crp==true){
-     return true;
-   }
+  var ca=checkauthcode($("#authcode").val());
+  var crp=true;
+  if(cp==true){
+   crp=recheckPassword($("#confirmPassword").val());
   }
-     return false;
+  if(!ce || !cp || !cu || !cr || !ca || !crp||!newEmail )
+  	return false;
+  else
+  	return true;
  }
+
 function emailExistCheck(){
 	var emailtext=document.getElementById("email").value;
 	$.ajax({
     url: '${urlPrefix}/people/check',
     type: 'POST',
     dataType: 'json',
-	//contentType: 'application/json',
     data:{email: emailtext},
     timeout: 5000,
     error: function(){
-         alert('Check the network!');
-         return true;
+
+         newEmail = true;
     },
     success: function(json){
-    //  alert(json);
    // var data="{'error_code':'403309','error':'该邮箱地址已被注册.'}";
-      if(json.error_code!=null){
+      if(json == null){
+          $("#emailcorrect").css("display","block");
+          $("#emailwrong").css("display","none");
+          newEmail = true;
+      } else {
           $("#emailcorrect").css("display","none");
           $("#emailwrong").css("display","block");
           $("#emailwrong").html(json.error);
-          return true;
+          newEmail = false;
       }
-      else{
-           $("#emailcorrect").css("display","block");
-           $("#emailwrong").css("display","none");
-      }
-      return false;
     }
 });
 }
 function randomInt(){
-  var num= Math.floor(Math.random()*100000+1); 　
+  var num= Math.floor(Math.random()*${authcodeNum}+1); 　
   return num;
 }
 function reloadVerify_img(){
 var value=randomInt();
-$("#authimg").attr("src","${urlPrefix}/authcode/new?authImgId="+value);
+$("#authimg").attr("src","${urlPrefix}/authcode/new?authcodeId="+value);
+$("#authcodeId").attr("value",value);
 }
 </script>
 </head>
@@ -270,8 +274,11 @@ $("#authimg").attr("src","${urlPrefix}/authcode/new?authImgId="+value);
 						</td>
 					</tr>
 				</tbody>
+
 			</table>
 			</fieldset>
+                 <input type="hidden" name="authcodeId" id="authcodeId" value="0">
+
 			</form>
 			</div>
 			</div>
@@ -280,5 +287,6 @@ $("#authimg").attr("src","${urlPrefix}/authcode/new?authImgId="+value);
 	</tbody>
 </table>
 </div>
+
 </body>
 </html>

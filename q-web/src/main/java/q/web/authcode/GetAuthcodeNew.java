@@ -6,8 +6,12 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Random;
 
+import q.dao.AuthcodeDao;
+import q.dao.PeopleDao;
+import q.log.Logger;
 import q.web.DefaultResourceContext;
 import q.web.Resource;
 import q.web.ResourceContext;
@@ -16,7 +20,11 @@ import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 public class GetAuthcodeNew extends Resource {
-
+	private AuthcodeDao authcodeDao;
+	private final static Logger log = Logger.getLogger();
+	public void setAuthcodeDao(AuthcodeDao authcodeDao) {
+		this.authcodeDao=authcodeDao;
+	}
 	Color getRandColor(int fc, int bc) {// 给定范围获得随机颜色
 		Random random = new Random();
 		if (fc > 255)
@@ -30,7 +38,10 @@ public class GetAuthcodeNew extends Resource {
 	}
 
 	@Override
-	public void execute(ResourceContext context) {
+	public void execute(ResourceContext context)throws SQLException  {
+		long imgid=Long.parseLong(context.getString("authcodeId"));
+        String value=authcodeDao.getValueById(imgid);
+
 		// 在内存中创建图象
 		int width = 90, height = 30;
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -56,13 +67,20 @@ public class GetAuthcodeNew extends Resource {
 			g.drawLine(x, y, x + xl, y + yl);
 		}
 		// 取随机产生的认证码(4位数字)
-		String sRand = "";
-		for (int i = 0; i < 4; i++) {
-			String rand = String.valueOf(random.nextInt(10));
-			sRand += rand;
+		//StringBuilder sRand = new StringBuilder();
+		if(value==null){
+           log.error("authcode id not exsits: %s", imgid);
+           g.setColor(new Color(20 + random.nextInt(110), 20 + random.nextInt(110), 20 + random.nextInt(110)));
+           g.drawString("Null", 5, 29);
+		}
+		else{
+		for (int i = 0; i < value.length(); i++) {
+			String rand = value.substring(i,i+1);
+		//	sRand.append(rand);
 			// 将认证码显示到图象中
 			g.setColor(new Color(20 + random.nextInt(110), 20 + random.nextInt(110), 20 + random.nextInt(110)));// 调用函数出来的颜色相同，可能是因为种子太接近，所以只能直接生成
-			g.drawString(rand, 20 * i + 5, 28);
+			g.drawString(rand, 20 * i + 5, 29);
+		}
 		}
 		BufferedOutputStream bos = null;
 		try {

@@ -11,8 +11,7 @@ public class MailTest {
 	      mailInfo.setToAddress("iceball1@163.com");
 	      mailInfo.setSubject("测试");
 	      mailInfo.setContent("来自iceball1@163.com的邮件,密码为123456<img id='authimg'  src='http://www.baidu.com/img/baidu_sylogo1.gif' />");
-	      SimpleMailSender sms = new SimpleMailSender();
 	       //   sms.sendTextMail(mailInfo);
-	          sms.sendHtmlMail(mailInfo);
+	      SimpleMailSender.sendHtmlMail(mailInfo);
 	}
 }
