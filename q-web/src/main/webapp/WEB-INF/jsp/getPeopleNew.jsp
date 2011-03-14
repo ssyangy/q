@@ -16,7 +16,7 @@ function checkEmail(a)
          $("#emailcorrect").css("display","block");
          $("#emailwrong").css("display","none");
        //  alert(emailExistCheck());
-          emailExistCheck();
+       //   emailExistCheck();
          return true;
     }
     $("#emailcorrect").css("display","none");
@@ -78,6 +78,63 @@ function checkrealName(a){
       return true;
 
 }
+function allDataCheck(){
+  var email=$("#email").val();
+  var password=$("#password").val();
+  var username=$("#username").val();
+  var realName=$("#realName").val();
+  var authcode=$("#authcode").val();
+  var confirmPassword=$("#confirmPassword").val();
+  var authcodeId=$("#authcodeId").val();
+  $.ajax({
+    url: '${urlPrefix}/people',
+    type: 'POST',
+    dataType: 'json',
+    data:{email: email,password:password,username:username,realName:realName,authcode:authcode,confirmPassword:confirmPassword,authcodeId:authcodeId},
+    timeout: 5000,
+    error: function(){
+    },
+   success: function(json){
+   alert(json);
+        if(json.id!= null){
+            document.location.href="${urlPrefix}/people/"+json.id+"/full" //跳转
+         }
+       else {
+          var errorkind=errorType(json.error);
+          if(errorkind=="email"){
+            $("#emailcorrect").css("display","none");
+            $("#emailwrong").css("display","block");
+            $("#emailwrong").html(errorContext(json.error));
+          }
+          else if(errorkind=="password"){
+            $("#passwordcorrect").css("display","none");
+            $("#passwordwrong").css("display","block");
+            $("#passwordwrong").html(errorContext(json.error));
+          }
+          else if(errorkind=="confirmPassword"){
+            $("#repasswordcorrect").css("display","none");
+            $("#repasswordwrong").css("display","block");
+            $("#repasswordwrong").html(errorContext(json.error));
+          }
+          else if(errorkind=="authcode"){
+            $("#authcodecorrect").css("display","none");
+            $("#authcodewrong").css("display","block");
+            $("#authcodewrong").html(errorContext(json.error));
+          }
+          else if(errorkind=="username"){
+            $("#usernamecorrect").css("display","none");
+            $("#usernamewrong").css("display","block");
+            $("#usernamewrong").html(errorContext(json.error));
+          }
+          else if(errorkind=="real_name"){
+            $("#realNamecorrect").css("display","none");
+            $("#realNamewrong").css("display","block");
+            $("#realNamewrong").html(errorContext(json.error));
+          }
+      }
+    }
+});
+}
 function checkauthcode(a){
        if(a==""){
        $("#authcodecorrect").css("display","none");
@@ -97,17 +154,21 @@ function check() {
   var cr=checkrealName($("#realName").val());
   var ca=checkauthcode($("#authcode").val());
   var crp=true;
+  if(!newEmail){
+          $("#emailcorrect").css("display","none");
+          $("#emailwrong").css("display","block");
+          $("#emailwrong").html("该邮箱已被注册。");
+  }
   if(cp==true){
    crp=recheckPassword($("#confirmPassword").val());
   }
   if(!ce || !cp || !cu || !cr || !ca || !crp||!newEmail )
-  	return false;
+  	return ;
   else
-  	return true;
+  allDataCheck();
  }
-
 function emailExistCheck(){
-	var emailtext=document.getElementById("email").value;
+	var emailtext=$("#email").val();
 	$.ajax({
     url: '${urlPrefix}/people/check',
     type: 'POST',
@@ -132,6 +193,27 @@ function emailExistCheck(){
       }
     }
 });
+}
+function errorType(error){
+  var exist=error.indexOf(':');
+  if(exist>-1){
+    var errorkind=error.substring(0, exist);
+    return errorkind;
+  }
+  else{
+
+  }
+}
+function errorContext(error){
+ var exist=error.indexOf(':');
+  if(exist>-1){
+    var errorcontext=error.substring(exist+1, error.length);
+    return errorcontext;
+
+  }
+  else{
+
+  }
 }
 function randomInt(){
   var num= Math.floor(Math.random()*${authcodeNum}+1); 　
@@ -160,8 +242,6 @@ $("#authcodeId").attr("value",value);
 			</div>
 			</div>
 			<div id="signup-form">
-			<form method="post" action="${urlPrefix}/people"
-				onSubmit="return check()">
 			<fieldset>
 			<table class="input-form">
 				<tbody>
@@ -169,7 +249,7 @@ $("#authcodeId").attr("value",value);
 						<th><label for="">邮箱：</label></th>
 						<td class="col-field"><input name="email" id="email"
 							type="text" class="text_field" size="20"
-							onblur="checkEmail(this.value)" runat="server"></td>
+							onblur="checkEmail(this.value),emailExistCheck()" ></td>
 						<td class="col-help">
 						<div class="label-box-good" style="display: none;"
 							id="emailcorrect"></div>
@@ -270,7 +350,7 @@ $("#authcodeId").attr("value",value);
 					<tr>
 						<th></th>
 						<td colspan="2">
-						<button class="btn-x" type="submit">立即注册</button>
+						<button class="btn-x" type="button" onclick="check()"  >立即注册</button>
 						</td>
 					</tr>
 				</tbody>
@@ -278,8 +358,6 @@ $("#authcodeId").attr("value",value);
 			</table>
 			</fieldset>
                  <input type="hidden" name="authcodeId" id="authcodeId" value="0">
-
-			</form>
 			</div>
 			</div>
 			</td>

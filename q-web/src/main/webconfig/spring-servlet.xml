@@ -45,7 +45,7 @@
 								<value>addPeople:people</value>
 							</key>
 							<value>/WEB-INF/json/check.xml</value>
-						</entry>						
+						</entry>
 					</map>
 				</property>
 			</bean>
@@ -139,6 +139,9 @@
 	<bean id="getPeopleIndex" class="q.web.people.GetPeopleIndex">
 	</bean>
 	<bean id="addPeopleCheck" class="q.web.check.AddPeopleCheck">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="getPeopleFull" class="q.web.people.GetPeopleFull">
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 
@@ -299,5 +302,6 @@
 
 	<!-- auth web -->
 	<bean id="getAuthcodeNew" class="q.web.authcode.GetAuthcodeNew">
+	    <property name="authcodeDao" ref="authcodeDao" />
 	</bean>
 </beans>
