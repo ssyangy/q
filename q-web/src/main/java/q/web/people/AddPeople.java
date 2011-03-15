@@ -16,7 +16,7 @@ import q.web.ResourceContext;
  * @author Zhehao
  * @author alin
  * @date Feb 14, 2011
- * 
+ *
  */
 
 public class AddPeople extends Resource {
@@ -38,7 +38,7 @@ public class AddPeople extends Resource {
 		people.setEmail(context.getString("email"));
 		people.setPassword(context.getString("password"));
 		people.setUsername(context.getString("username"));
-		people.setRealName(context.getString("real_name"));
+		people.setRealName(context.getString("realName"));
 		people.setGender(Gender.convertValue(context.getInt("gender", 0)));
 		people.setLoginToken("xxxx");// FIXME wanglin
 		peopleDao.addPeople(people);
