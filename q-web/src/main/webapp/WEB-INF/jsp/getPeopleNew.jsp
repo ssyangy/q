@@ -95,7 +95,6 @@ function allDataCheck(){
     error: function(){
     },
    success: function(json){
-   alert(json);
         if(json.id!= null){
             document.location.href="${urlPrefix}/people/"+json.id+"/full" //跳转
          }
