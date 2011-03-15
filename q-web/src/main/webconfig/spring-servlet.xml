@@ -143,6 +143,7 @@
 	</bean>
 	<bean id="getPeopleFull" class="q.web.people.GetPeopleFull">
 		<property name="peopleDao" ref="peopleDao" />
+		<property name="areaDao" ref="areaDao" />
 	</bean>
 
 
@@ -151,7 +152,7 @@
 	</bean>
 	<bean id="addLogin" class="q.web.login.AddLogin">
 		<property name="peopleDao" ref="peopleDao" />
-		<property name="redirectPath" value="/" />
+		<property name="redirectPath" value="/group/feed" />
 	</bean>
 	<bean id="getLoginDelete" class="q.web.login.DeleteLogin">
 		<property name="redirectPath" value="/" />

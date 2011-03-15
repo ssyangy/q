@@ -5,6 +5,7 @@
 	<bean id="peopleDao" class="q.dao.ibatis.PeopleDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
+	<bean id="areaDao" class="q.dao.ibatis.AreaDaoImpl" init-method="init"/>
 	<bean id="groupDao" class="q.dao.ibatis.GroupDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>

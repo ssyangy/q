@@ -1,37 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" href="stylesheets/q.css" type="text/css" media="screen, projection">
-
-<jsp:include page="head.jsp" flush="true"/>
-<title>资料完善</title>
-<script type="text/javascript">
-var sex=false;
-function checkLocation(){
-    $("#locationcorrect").css("display","block");
-    $("#locationwrong").css("display","none");
-}
-function checkGender(){
-    sex=true;
-    $("#sexcorrect").css("display","block");
-    $("#sexwrong").css("display","none");
-}
-function init(){
-
-
-}
-
-</script>
+	<jsp:include page="head.jsp" flush="true"/>
+	<title>补充个人资料</title>
+	<script type="text/javascript">
+	<jsp:include page="js-areas.jsp" flush="true"/>
+	var sex=false;
+	function checkLocation(){
+	    $("#locationcorrect").css("display","block");
+	    $("#locationwrong").css("display","none");
+	}
+	function checkGender(){
+	    sex=true;
+	    $("#sexcorrect").css("display","block");
+	    $("#sexwrong").css("display","none");
+	}
+	</script>
 </head>
-  <body onload="init()">
+  <body>
 	<div id='container'>
 		<div id='header'>
-
 			<span class='logo-zh'>圈子</span><span class='logo-en'>Q.com.cn</span>
 		</div>
 		<table cellspacing='0' class='columns'>
@@ -40,7 +30,6 @@ function init(){
 					<td id='content' class='round-left column wide'>
 						<div class='wrapper'>
 							<div class='content-heading'>
-
 								<div class='heading'>
 									<h2>帐号创建成功！再花几秒钟丰富以下资料就可以开始玩了！</h2>
 								</div>
@@ -53,15 +42,9 @@ function init(){
 												<tr>
 													<th><label for=''><span class="required-field">*</span>所在地：</label></th>
 													<td class='col-field'>
-														<select class='select' name="location" id="location"  onchange="checkLocation()">
-															<option value='shanghai'>上海</option>
-															<option value='beijing'>北京</option>
-															<option value='guangzhou'>广州</option>
+														<select class='select' name="province" id="selProvince"  onchange="changeCity()">
 														</select>
-														<select class='select'>
-															<option value=''>长宁区</option>
-															<option value=''>徐汇区</option>
-															<option value=''>浦东新区</option>
+														<select class='select' name="city" id="selCity">
 														</select>
 													</td>
 													<td class='col-help'>
@@ -77,8 +60,10 @@ function init(){
 												<tr>
 													<th><label for=''><span class="required-field">*</span>性别：</label></th>
 													<td class='col-field'>
-														<input type='radio' name="sex" value="male" onclick="checkGender()" ><span class='value-label' >男</span>&nbsp;&nbsp;
-														<input type='radio' name="sex" value="female" onclick="checkGender()" ><span class='value-label'>女</span>
+														<input type='radio' name="sex" value="male" onclick="checkGender()" />
+														<span class='value-label' >男</span>&nbsp;
+														<input type='radio' name="sex" value="female" onclick="checkGender()" />
+														<span class='value-label'>女</span>
 													</td>
 													<td class='col-help'>
 														<div class='label-box-good' style='display:none;' id="sexcorrect"></div>
@@ -137,7 +122,7 @@ function init(){
 												<tr>
 													<th><label for=''>手机：</label></th>
 
-													<td class='col-field'><input type='text' class='text_field' size='20'></td>
+													<td class='col-field'><input type='text' class='text_field' size='20'/></td>
 													<td class='col-help'></td>
 												</tr>
 												<tr>
@@ -194,10 +179,9 @@ function init(){
 									</fieldset>
 								</form>
 							</div>
-						</td>
+						</div>
 					</td>
 				</tr>
-
 			</tbody>
 		</table>
 	</div>
