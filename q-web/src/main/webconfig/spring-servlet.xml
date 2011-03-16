@@ -56,6 +56,8 @@
 				<value>getMineIndex</value>
 				<value>getSettingIndex</value>
 				<value>getPeopleFeed</value>
+				<value>getPeopleFull</value>
+				<value>addPeopleFull</value>
 				<value>updatePeople</value>
 				<value>addPeopleFollowing</value>
 				<value>deletePeopleFollowing</value>
@@ -144,8 +146,13 @@
 	<bean id="getPeopleFull" class="q.web.people.GetPeopleFull">
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="areaDao" ref="areaDao" />
+		<property name="groupDao" ref="groupDao" />
 	</bean>
-
+	<bean id="addPeopleFull" class="q.web.people.AddPeopleFull">
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="areaDao" ref="areaDao" />
+		<property name="groupDao" ref="groupDao" />
+	</bean>
 
 	<!-- login web -->
 	<bean id="getLoginNew" class="q.web.login.GetLoginNew">

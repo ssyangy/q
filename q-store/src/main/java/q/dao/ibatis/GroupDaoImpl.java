@@ -115,6 +115,11 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 	}
 
 	@Override
+	public List<Group> getHotGroups(int limit) throws SQLException {
+		return this.getNewGroups(limit);
+	}
+
+	@Override
 	public Map<Long, String> getGroupIdNameMapByIds(Set<Long> groupIds) throws SQLException {
 		@SuppressWarnings("unchecked")
 		List<Group> groups = (List<Group>)this.sqlMapClient.queryForList("selectIdNamesByIds", groupIds.toArray());

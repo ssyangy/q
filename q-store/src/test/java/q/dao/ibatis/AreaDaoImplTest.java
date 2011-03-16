@@ -4,6 +4,7 @@
 package q.dao.ibatis;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
@@ -25,7 +26,7 @@ public class AreaDaoImplTest {
 
 	AreaDaoImpl areaDao = new AreaDaoImpl();
 	{
-		//File file = new File(System.getProperty("user.dir") + "/src/main/resources/area/area.txt");
+		// File file = new File(System.getProperty("user.dir") + "/src/main/resources/area/area.txt");
 		try {
 			areaDao.init();
 		} catch (IOException e) {
@@ -70,13 +71,63 @@ public class AreaDaoImplTest {
 		assertEquals(34, root.getChilds().size()); // 我国有23个省、５个自治区、４个直辖市２个特别行政区共３４个省级行政区。
 	}
 
+	/**
+	 * <ul>
+	 * <li>331000 台州市</li>
+	 * <li>331001 市辖区 *</li>
+	 * <li>331002 椒江区</li>
+	 * <li>331003 黄岩区</li>
+	 * <li>331004 路桥区</li>
+	 * <li>331021 玉环县</li>
+	 * <li>331022 三门县</li>
+	 * <li>331023 天台县</li>
+	 * <li>331024 仙居县</li>
+	 * <li>331081 温岭市</li>
+	 * <li>331082 临海市</li>
+	 * </ul>
+	 */
 	@Test
 	public void testGetAreaById() {
 		Area area = areaDao.getAreaById(331000); // 台州市
-		// 331002椒江区;331003黄岩区;331004路桥区;331021玉环县;331022三门县;331023天台县;331024仙居县;331081温岭市;331082临海市
 		assertEquals(9, area.getChilds().size());
 		area = areaDao.getAreaById(331022); // 三门县
 		assertEquals(331000, area.getParent().getId());
+	}
+
+	/**
+	 * <ul>
+	 * <li>310000 上海市 上海</li>
+	 * <li>310100 市辖区 *</li>
+	 * <li>310101 黄浦区</li>
+	 * <li>310103 卢湾区</li>
+	 * <li>310104 徐汇区</li>
+	 * <li>310105 长宁区</li>
+	 * <li>310106 静安区</li>
+	 * <li>310107 普陀区</li>
+	 * <li>310108 闸北区</li>
+	 * <li>310109 虹口区</li>
+	 * <li>310110 杨浦区</li>
+	 * <li>310112 闵行区</li>
+	 * <li>310113 宝山区</li>
+	 * <li>310114 嘉定区</li>
+	 * <li>310115 浦东新区</li>
+	 * <li>310116 金山区</li>
+	 * <li>310117 松江区</li>
+	 * <li>310118 青浦区</li>
+	 * <li>310120 奉贤区</li>
+	 * <li>310200 县 *</li>
+	 * <li>310230 崇明县</li>
+	 * </ul>
+	 */
+	@Test
+	public void testIgnoreCity() {
+		Area shanghai = areaDao.getAreaById(310000);// 上海市
+		assertEquals("上海", shanghai.getName());
+		assertEquals(18, shanghai.getChilds().size());
+		Area luwan = areaDao.getAreaById(310103);// 卢湾区
+		assertTrue(luwan.isChild(shanghai));
+		Area congming = areaDao.getAreaById(310230);// 崇明县
+		assertTrue(congming.isChild(shanghai));
 	}
 
 	@Test

@@ -37,7 +37,7 @@ public interface PeopleDao {
 	 * @param p
 	 * @throws SQLException
 	 */
-	void updatePeople(People p) throws SQLException;
+	void updatePeopleById(People p) throws SQLException;
 
 	/**
 	 * @param username

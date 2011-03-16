@@ -47,4 +47,12 @@ public enum Gender {
 		}
 	}
 
+	/**
+	 * @param int1
+	 * @return
+	 */
+	public static boolean valid(int value) {
+		return null == convertValue(value) ? false : true;
+	}
+
 }

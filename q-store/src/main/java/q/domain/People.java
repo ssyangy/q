@@ -31,7 +31,7 @@ public class People extends AbstractDomain implements Serializable {
 
 	private int bloodTypeId;
 
-	private int educationId;
+	private Degree degree;
 
 	private int roleId;
 
@@ -140,12 +140,12 @@ public class People extends AbstractDomain implements Serializable {
 		this.bloodTypeId = bloodTypeId;
 	}
 
-	public int getEducationId() {
-		return educationId;
+	public Degree getDegree() {
+		return degree;
 	}
 
-	public void setEducationId(byte educationId) {
-		this.educationId = educationId;
+	public void setDegree(Degree degree) {
+		this.degree = degree;
 	}
 
 	public int getDistrictId() {
@@ -226,7 +226,7 @@ public class People extends AbstractDomain implements Serializable {
 
 	@Override
 	public String toString() {
-		return "People [id=" + id + ", username=" + username + ", password=" + password + ", loginToken=" + loginToken + ", realName=" + realName + ", email=" + email + ", mobile=" + mobile + ", year=" + year + ", month=" + month + ", day=" + day + ", countryCode=" + countryCode + ", districtId=" + districtId + ", gender=" + gender + ", bloodTypeId=" + bloodTypeId + ", educationId=" + educationId + ", roleId=" + roleId + ", status=" + status + ", created=" + created + ", modified=" + modified + ", friendNum=" + friendNum + ", followNum=" + followerNum + ", followingNum=" + followingNum + ", weiboNum=" + weiboNum + ", intro=" + intro + "]";
+		return "People [id=" + id + ", username=" + username + ", password=" + password + ", loginToken=" + loginToken + ", realName=" + realName + ", email=" + email + ", mobile=" + mobile + ", year=" + year + ", month=" + month + ", day=" + day + ", countryCode=" + countryCode + ", districtId=" + districtId + ", gender=" + gender + ", bloodTypeId=" + bloodTypeId + ", degree=" + degree + ", roleId=" + roleId + ", status=" + status + ", created=" + created + ", modified=" + modified + ", friendNum=" + friendNum + ", followNum=" + followerNum + ", followingNum=" + followingNum + ", weiboNum=" + weiboNum + ", intro=" + intro + "]";
 	}
 
 }

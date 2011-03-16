@@ -47,6 +47,13 @@ public interface GroupDao {
 	 * @return
 	 */
 	List<Group> getNewGroups(int limit) throws SQLException;
+	
+	/**
+	 * @param limit
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Group> getHotGroups(int limit) throws SQLException;
 
 	/**
 	 * @param groupIds

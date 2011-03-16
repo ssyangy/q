@@ -9,7 +9,7 @@
 		<result property="day" column="day" />
 		<result property="gender" column="gender_id" typeHandler="q.dao.ibatis.GenderHandler" />
 		<result property="bloodTypeId" column="blood_type_id" />
-		<result property="educationId" column="education_id" />
+		<result property="degree" column="degree_id" typeHandler="q.dao.ibatis.DegreeHandler" />
 		<result property="roleId" column="role_id" />
 		<result property="countryCode" column="country_code" />
 		<result property="districtId" column="district_id" />
@@ -28,7 +28,7 @@
 		<result property="id" column="id" />
 		<result property="realName" column="real_name" />
 	</resultMap>
-	
+
 	<typeAlias alias="relation" type="q.domain.PeopleRelation" />
 	<resultMap id="relationResult" class="relation">
 		<result property="id" column="id" />
@@ -48,7 +48,7 @@
 		day,
 		gender_id,
 		blood_type_id,
-		education_id,
+		degree_id,
 		role_id,
 		country_code,
 		district_id,
@@ -74,16 +74,18 @@
 	</sql>
 
 	<select id="selectPeopleFollowingNumById" resultClass="int">
-		select count(id) 
+		select
+		count(id)
 		from people_relation
 		where status = 3
 		and from_people_id = #value# 
 	</select>
 
 	<select id="selectPeopleFollowerNumById" resultClass="int">
-		select count(id)
+		select
+		count(id)
 		from people_relation
-		where status = 3 
+		where status = 3
 		and to_people_id = #value#
 	</select>
 
@@ -108,7 +110,7 @@
 		#day#,
 		#gender,handler=q.dao.ibatis.GenderHandler#,
 		#bloodTypeId#,
-		#educationId#,
+		#degree,handler=q.dao.ibatis.DegreeHandler#,
 		#roleId#,
 		#countryCode#,
 		#districtId#,
@@ -126,16 +128,27 @@
 	</insert>
 
 	<update id="updatePeopleById">
-		update people set
-		year = #year#,
-		month =#month#,
-		day=#day#,
-		blood_type_id=#bloodTypeId#,
-		education_id=#educationId#,
-		role_id=#roleId#,
-		country_code=#countryCode#,
-		district_id=#districtId#,
-		mobile=#mobile#
+		update people
+		<dynamic prepend="set">
+			<isGreaterThan prepend="," property="year" compareValue="0">  
+	           	year = #year# 
+	        </isGreaterThan> 
+			<isGreaterThan prepend="," property="month" compareValue="0">
+				month =#month#
+			</isGreaterThan>
+			<isGreaterThan prepend="," property="day" compareValue="0"> 
+				day=#day#
+			</isGreaterThan>
+			<isNotNull prepend="," property="degree"> 
+				degree_id=#degree,handler=q.dao.ibatis.DegreeHandler#
+			</isNotNull>
+			<isGreaterThan prepend="," property="districtId" compareValue="0">
+				district_id=#districtId#
+			</isGreaterThan>
+			<isGreaterThan prepend="," property="mobile" compareValue="0">
+				mobile=#mobile#
+			</isGreaterThan>
+		</dynamic>
 		where id=#id#
 	</update>
 
@@ -143,8 +156,7 @@
 		update people_relation set
 		status =
 		#status,handler=q.dao.ibatis.PeopleRelationStatusHandler#
-		where id =
-		#id#;
+		where id = #id#;
 	</update>
 
 	<update id="updatePeopleRelationStatusByFromIdToId">
@@ -177,16 +189,20 @@
 		from people_relation
 		<dynamic prepend="where">
 			<isNotNull prepend="and" property="status">
-				status = #status,handler=q.dao.ibatis.PeopleRelationStatusHandler#
+				status =
+				#status,handler=q.dao.ibatis.PeopleRelationStatusHandler#
 			</isNotNull>
 			<isNotNull prepend="and" property="fromPeopleId">
-				from_people_id = #fromPeopleId#
+				from_people_id =
+				#fromPeopleId#
 			</isNotNull>
 			<isNotNull prepend="and" property="toPeopleId">
-				to_people_id = #toPeopleId#
+				to_people_id =
+				#toPeopleId#
 			</isNotNull>
 			<isNotNull prepend="and" property="startCreated">
-				created &lt;= #startCreated#
+				created &lt;=
+				#startCreated#
 			</isNotNull>
 			<isNotNull prepend="and" property="startId">
 				id &lt;= #startId#
@@ -195,12 +211,15 @@
 		order by created desc
 		limit #startIndex#, #size#
 	</select>
-	
+
 	<select id="selectAllToPeopleIds" resultClass="long">
-		select to_people_id
+		select
+		to_people_id
 		from people_relation
-		where status = #status,handler=q.dao.ibatis.PeopleRelationStatusHandler#
-		and from_people_id = #fromPeopleId#
+		where status =
+		#status,handler=q.dao.ibatis.PeopleRelationStatusHandler#
+		and
+		from_people_id = #fromPeopleId#
 	</select>
 
 	<select id="selectPeopleRelationByFromIdToId" resultMap="relationResult">
@@ -212,7 +231,7 @@
 		and
 		to_people_id = #toPeopleId#
 	</select>
-	
+
 	<select id="selectPeopleByPage" resultMap="peopleResult">
 		select
 		<include refid="people.columns" />
@@ -232,5 +251,5 @@
 			</isNotNull>
 		</dynamic>
 	</select>
-	
+
 </sqlMap>

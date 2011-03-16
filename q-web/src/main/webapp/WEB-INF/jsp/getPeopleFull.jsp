@@ -35,7 +35,7 @@
 								</div>
 							</div>
 							<div id='signup-form'>
-								<form method='post' action=''>
+								<form method='post' action='${urlPrefix}/people/${people.id}/full'>
 									<fieldset>
 										<table class='input-form'>
 											<tbody>
@@ -44,7 +44,9 @@
 													<td class='col-field'>
 														<select class='select' name="province" id="selProvince"  onchange="changeCity()">
 														</select>
-														<select class='select' name="city" id="selCity">
+														<select class='select' name="city" id="selCity" onchange="changeCounty()">
+														</select>
+														<select class='select' name="county" id="selCounty">
 														</select>
 													</td>
 													<td class='col-help'>
@@ -60,9 +62,9 @@
 												<tr>
 													<th><label for=''><span class="required-field">*</span>性别：</label></th>
 													<td class='col-field'>
-														<input type='radio' name="sex" value="male" onclick="checkGender()" />
+														<input type='radio' name="gender" value="1" onclick="checkGender()" />
 														<span class='value-label' >男</span>&nbsp;
-														<input type='radio' name="sex" value="female" onclick="checkGender()" />
+														<input type='radio' name="gender" value="2" onclick="checkGender()" />
 														<span class='value-label'>女</span>
 													</td>
 													<td class='col-help'>
@@ -78,24 +80,24 @@
 												<tr>
 													<th><label for=''>生日：</label></th>
 													<td class='col-field' colspan='2'>
-														<select class='select'>
-															<option value='shanghai'>1979</option>
-															<option value='beijing'>1980</option>
-
-															<option value='guangzhou'>1981</option>
-														</select><span class='value-label'>年</span>
-														<select class='select'>
-															<option value='shanghai'>1</option>
-															<option value='beijing'>2</option>
-															<option value='guangzhou'>3</option>
-
-														</select><span class='value-label'>月</span>
-														<select class='select'>
-															<option value='shanghai'>1</option>
-															<option value='beijing'>2</option>
-															<option value='guangzhou'>3</option>
-														</select><span class='value-label'>日</span>
-
+														<select name="year" class='select'>
+															<option value='1979'>1979</option>
+															<option value='1980'>1980</option>
+															<option value='1981'>1981</option>
+														</select>
+														<span class='value-label'>年</span>
+														<select name="month" class='select'>
+															<option value='1'>1</option>
+															<option value='2'>2</option>
+															<option value='3'>3</option>
+														</select>
+														<span class='value-label'>月</span>
+														<select name="day" class='select'>
+															<option value='1'>1</option>
+															<option value='2'>2</option>
+															<option value='3'>3</option>
+														</select>
+														<span class='value-label'>日</span>
 													</td>
 												</tr>
 												<tr>
@@ -106,10 +108,10 @@
 													<th><label for=''>学历：</label></th>
 
 													<td class='col-field'>
-														<select class='select'>
-															<option value='shanghai'>本科</option>
-															<option value='beijing'>大专</option>
-															<option value='guangzhou'>研究生</option>
+														<select name="degree" class='select'>
+															<c:forEach items="${degrees}" var="degree">
+																<option value="${degree.value}">${degree.name}</option>
+															</c:forEach>
 														</select>
 													</td>
 
@@ -122,7 +124,7 @@
 												<tr>
 													<th><label for=''>手机：</label></th>
 
-													<td class='col-field'><input type='text' class='text_field' size='20'/></td>
+													<td class='col-field'><input name="mobile" type='text' class='text_field' size='20'/></td>
 													<td class='col-help'></td>
 												</tr>
 												<tr>
@@ -133,36 +135,9 @@
 													<th><label for=''><span class="required-field">*</span>感兴趣的圈子：</label></th>
 
 													<td class='col-field' colspan='2'>
-														<p>
-															<input type='checkbox' checked='checked'><span class='group-name'>吃好喝好</span>
-															<input type='checkbox' checked='checked'><span class='group-name'>泡吧</span>
-															<input type='checkbox' checked='checked'><span class='group-name'>麻将</span>
-															<input type='checkbox' checked='checked'><span class='group-name'>扑克</span>
-															<input type='checkbox' checked='checked'><span class='group-name'>桌游</span>
-
-															<input type='checkbox' checked='checked'><span class='group-name'>三国杀</span>
-															<input type='checkbox' checked='checked'><span class='group-name'>旅行</span>
-														</p>
-														<p>
-															<input type='checkbox' checked='checked'><span class='group-name'>过家家</span>
-															<input type='checkbox' checked='checked'><span class='group-name'>去看海</span>
-															<input type='checkbox' ><span class='group-name'>网页设计</span>
-
-															<input type='checkbox' checked='checked'><span class='group-name'>Java</span>
-															<input type='checkbox' checked='checked'><span class='group-name'>产品经理</span>
-															<input type='checkbox' checked='checked'><span class='group-name'>市场营销</span>
-														</p>
-														<p>
-															<input type='checkbox' ><span class='group-name'>摄影</span>
-															<input type='checkbox' ><span class='group-name'>魔兽</span>
-
-															<input type='checkbox' ><span class='group-name'>LV</span>
-															<input type='checkbox' checked='checked'><span class='group-name'>股票</span>
-															<input type='checkbox' checked='checked'><span class='group-name'>房地产</span>
-															<input type='checkbox' checked='checked'><span class='group-name'>基金</span>
-															<input type='checkbox' checked='checked'><span class='group-name'>PSP</span>
-														</p>
-
+														<c:forEach items="${groups}" var="group">
+															<input name="group" type='checkbox' value="${group.id}"/><span class='group-name'>${group.name}</span>
+														</c:forEach>
 													</td>
 												</tr>
 												<tr>

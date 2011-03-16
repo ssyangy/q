@@ -93,4 +93,11 @@ public interface ResourceContext {
 	 * @return
 	 */
 	ErrorCodeException getErrorModel();
+
+	/**
+	 * @param string
+	 * @param i
+	 * @return
+	 */
+	long getLong(String key, long defaultValue);
 }

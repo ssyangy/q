@@ -25,7 +25,6 @@ import q.util.IdCreator;
  * 
  */
 public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -38,7 +37,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 	}
 
 	@Override
-	public void updatePeople(People p) throws SQLException {
+	public void updatePeopleById(People p) throws SQLException {
 		this.sqlMapClient.update("updatePeopleById", p);
 
 	}

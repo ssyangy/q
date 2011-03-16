@@ -3,6 +3,8 @@ package q.domain;
 import java.io.Serializable;
 
 /**
+ * Group category.
+ * 
  * @author Zhehao
  * @date Feb 15, 2011
  * 

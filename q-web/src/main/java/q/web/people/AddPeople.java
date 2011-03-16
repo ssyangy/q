@@ -9,6 +9,8 @@ import q.dao.PeopleDao;
 import q.domain.Gender;
 import q.domain.People;
 import q.util.StringKit;
+import q.web.DefaultResourceContext;
+import q.web.LoginCookie;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -16,7 +18,7 @@ import q.web.ResourceContext;
  * @author Zhehao
  * @author alin
  * @date Feb 14, 2011
- *
+ * 
  */
 
 public class AddPeople extends Resource {
@@ -43,6 +45,7 @@ public class AddPeople extends Resource {
 		people.setLoginToken("xxxx");// FIXME wanglin
 		peopleDao.addPeople(people);
 		context.setModel("people", people);
+		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), people.getRealName(), people.getUsername())); // set login cookie
 	}
 
 	@Override
@@ -69,7 +72,7 @@ public class AddPeople extends Resource {
 		}
 		long authcodeId = context.getIdLong("authcodeId");
 		String authcodeValue = authcodeDao.getValueById(authcodeId);
-		if(StringKit.isEmpty(authcodeValue) || !authcodeValue.equals(context.getString("authcode"))) {
+		if (StringKit.isEmpty(authcodeValue) || !authcodeValue.equals(context.getString("authcode"))) {
 			throw new RequestParameterInvalidException("authcode:验证码不对,请重新输入。");
 		}
 		authcodeDao.updateValueById(authcodeId);

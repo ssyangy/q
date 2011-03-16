@@ -50,6 +50,29 @@ public class DefaultResourceContext implements ResourceContext {
 		return getIntFromValue(value, defaultValue);
 	}
 
+	@Override
+	public long getLong(String key, long defaultValue) {
+		String value = getString(key);
+		return getLongFromValue(value, defaultValue);
+	}
+
+	/**
+	 * @param value
+	 * @param defaultValue
+	 * @return
+	 */
+	private long getLongFromValue(String value, long defaultValue) {
+		long v = defaultValue;
+		if (StringKit.isEmpty(value)) {
+			return v;
+		}
+		try {
+			v = Long.valueOf(value);
+		} catch (NumberFormatException e) {
+		}
+		return v;
+	}
+
 	private int getIntFromValue(String value, int defaultValue) {
 		int v = defaultValue;
 		if (StringKit.isEmpty(value)) {

@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import q.util.CollectionKit;
+
 /**
  * @author seanlinwang
  * @email xalinx at gmail dot com
@@ -62,7 +64,7 @@ public class Area extends AbstractDomain implements Serializable {
 		buildJson(sb);
 		return sb.toString();
 	}
-	
+
 	public String getChildsJson() {
 		StringBuilder sb = new StringBuilder();
 		buildChildsJson(sb);
@@ -99,5 +101,26 @@ public class Area extends AbstractDomain implements Serializable {
 			buildChildsJson(sb);
 		}
 		sb.append('}');
+	}
+
+	/**
+	 * @return
+	 */
+	public boolean hasChilds() {
+		return CollectionKit.isNotEmpty(childs);
+	}
+
+	/**
+	 * @param city
+	 * @return
+	 */
+	public boolean isChild(Area father) {
+		if (father == null) {
+			return false;
+		}
+		if (this.parent == null) {
+			return false;
+		}
+		return this.parent.getId() == father.getId();
 	}
 }

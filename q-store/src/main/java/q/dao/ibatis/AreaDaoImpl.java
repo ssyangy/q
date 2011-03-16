@@ -52,21 +52,24 @@ public class AreaDaoImpl extends AbstractDaoImpl implements AreaDao {
 					throw new IllegalArgumentException(strLine);
 				}
 				Area area = new Area();
+				Long areaId = Long.valueOf(segs[0]);
 				String name = segs[1]; // 阿勒泰地区
 				if (segs.length == 3) {
 					if (segs[2].equals("*")) { // ignore 120100 市辖区 *
+						if (areaId % 100 == 0) {
+							city = null; // ignore city
+						}
 						continue;
 					}
 					name = segs[2]; // 阿勒泰
 				}
 				area.setName(name);
-				Long areaId = Long.valueOf(segs[0]);
 				area.setId(areaId);
 				this.areas.put(areaId, area); // put area into map
 				if (areaId % 10000 == 0) { // province: 120000 天津市
 					this.rootArea.addChild(area);
 					province = area;
-				} else if (areaId % 100 == 0) { // city: 110103 崇文区
+				} else if (areaId % 100 == 0) { // city: 320100 南京市
 					province.addChild(area);
 					city = area;
 				} else {
