@@ -30,7 +30,7 @@ public class DeletePeopleFollowing extends Resource {
 		long toPeopleId = context.getResourceIdLong();
 		this.peopleDao.updatePeopleRelationStatusByFromIdAndToId(PeopleRelationStatus.STRANGER, fromPeopleId, toPeopleId);
 		
-		context.redirectServletPath("/people/" + toPeopleId);
+		//context.redirectServletPath("/people/" + toPeopleId);
 	}
 
 	/* (non-Javadoc)

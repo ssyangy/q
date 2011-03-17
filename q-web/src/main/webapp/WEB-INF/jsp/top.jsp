@@ -24,7 +24,7 @@
 	<div id="top-bar">
 		<div id="top-bar-inside">
 			<div id="logo">
-				<span class="logo-zh">圈子</span><span class="logo-en">Q.com.cn</span>
+				<a href="${urlPrefix}"><span class="logo-zh">圈子</span><span class="logo-en">Q.com.cn</span></a>
 			</div>
 			<div id="nav">
 				<ul>

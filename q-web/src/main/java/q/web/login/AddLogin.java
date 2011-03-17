@@ -3,9 +3,9 @@
  */
 package q.web.login;
 
+import q.biz.exception.PeopleNotLoginException;
 import q.dao.PeopleDao;
 import q.domain.People;
-import q.log.Logger;
 import q.web.DefaultResourceContext;
 import q.web.LoginCookie;
 import q.web.Resource;
@@ -18,8 +18,6 @@ import q.web.ResourceContext;
  * 
  */
 public class AddLogin extends Resource {
-	private final static Logger log = Logger.getLogger();
-
 	private PeopleDao peopleDao;
 
 	public void setPeopleDao(PeopleDao peopleDao) {
@@ -35,17 +33,22 @@ public class AddLogin extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		String username = context.getString("username");
 		String password = context.getString("password");
-		String fromPath = context.getString("from");
-		log.debug("execute AddLogin.java using username:%s password:%s from:%s", username, password, fromPath);
+//		String fromPath = context.getString("from");
 
 		People p = this.peopleDao.getPeopleByUsername(username);
-		if (!p.getPassword().equals(password)) { // FIXME incorrect password
-			throw new IncorrectPasswordLoginException(username);
+		if (null == p) {
+			throw new PeopleNotLoginException("username:用户不存在");
 		}
+		if (!p.getPassword().equals(password)) { // FIXME incorrect password, wanglin
+			throw new IncorrectPasswordLoginException("password:密码错误");
+		}
+		context.setModel("people", p);
 		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(p.getId(), p.getRealName(), p.getUsername())); // set login cookie
-		if (fromPath != null) {
-			context.redirectContextPath(fromPath);
-		}
+//		if (fromPath != null) {
+//			context.redirectContextPath(fromPath);
+//		} else {
+//			context.redirectServletPath("/group/feed");
+//		}
 	}
 
 	/*

@@ -12,7 +12,7 @@
 		<result property="degree" column="degree_id" typeHandler="q.dao.ibatis.DegreeHandler" />
 		<result property="roleId" column="role_id" />
 		<result property="countryCode" column="country_code" />
-		<result property="areaId" column="area_id" />
+		<result property="area" column="area_id" typeHandler="q.dao.ibatis.AreaHandler" />
 		<result property="mobile" column="mobile" />
 		<result property="email" column="email" />
 		<result property="username" column="username" />
@@ -113,7 +113,7 @@
 		#degree,handler=q.dao.ibatis.DegreeHandler#,
 		#roleId#,
 		#countryCode#,
-		#areaId#,
+		#area,handler=q.dao.ibatis.AreaHandler#,
 		#mobile#,
 		#email#,
 		#username#,
@@ -142,9 +142,9 @@
 			<isNotNull prepend="," property="degree"> 
 				degree_id=#degree,handler=q.dao.ibatis.DegreeHandler#
 			</isNotNull>
-			<isGreaterThan prepend="," property="areaId" compareValue="0">
-				area_id=#areaId#
-			</isGreaterThan>
+			<isNotNull prepend="," property="area">
+				area_id=#area,handler=q.dao.ibatis.AreaHandler#
+			</isNotNull>
 			<isGreaterThan prepend="," property="mobile" compareValue="0">
 				mobile=#mobile#
 			</isGreaterThan>
@@ -232,7 +232,7 @@
 		to_people_id = #toPeopleId#
 	</select>
 
-	<select id="selectPeopleByPage" resultMap="peopleResult">
+	<select id="selectPeoplesByPage" resultMap="peopleResult">
 		select
 		<include refid="people.columns" />
 		from people
@@ -243,13 +243,19 @@
 			<isNotNull prepend="and" property="username">
 				username = #username#
 			</isNotNull>
-			<isNotNull prepend="and" property="startCreated">
+			<isNotNull prepend="and" property="password">
 				password = #password#
 			</isNotNull>
 			<isNotNull prepend="and" property="email">
 				email = #email#
 			</isNotNull>
+			<isNotNull prepend="and" property="area">
+				area_id = #area,handler=q.dao.ibatis.AreaHandler#
+			</isNotNull>
 		</dynamic>
+		<isNotNull property="size">
+				order by created desc limit #startIndex#, #size#
+		</isNotNull>
 	</select>
 
 </sqlMap>

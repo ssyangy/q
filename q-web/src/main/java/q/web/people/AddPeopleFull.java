@@ -11,6 +11,7 @@ import q.domain.Gender;
 import q.domain.People;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.area.AreaValidator;
 
 public class AddPeopleFull extends Resource {
 	private PeopleDao peopleDao;
@@ -30,14 +31,11 @@ public class AddPeopleFull extends Resource {
 		People people = new People();
 		people.setId(context.getResourceIdLong());
 		people.setGender(Gender.convertValue(context.getInt("gender", -1)));
-		int areaId = context.getInt("county", -1);
-		if (areaId <= 0) {
-			areaId = context.getInt("city", -1); // only province, city
-		}
-		if (areaId <= 0) {
-			areaId = context.getInt("province", -1); // only province
-		}
-		people.setAreaId(areaId);
+		int provinceId = context.getInt("province", -1);
+		int cityId = context.getInt("city", -1);
+		int countyId = context.getInt("county", -1);
+		int areaId = AreaValidator.getAreaId(provinceId, cityId, countyId);
+		people.setArea(Area.getAreaById(areaId));
 		long mobile = context.getLong("mobile", -1);
 		if (mobile > 0) {
 			people.setMobile(mobile);
@@ -59,40 +57,7 @@ public class AddPeopleFull extends Resource {
 		int provinceId = context.getInt("province", -1);
 		int cityId = context.getInt("city", -1);
 		int countyId = context.getInt("county", -1);
-		Area province = null;
-		Area city = null;
-		Area county = null;
-		if (provinceId <= 0) {
-			throw new RequestParameterInvalidException("province:省份必填");
-		}
-		province = Area.getAreaById(provinceId);
-		if (null == province) {
-			throw new RequestParameterInvalidException("province:该省份不存在");
-		}
-		if (cityId > 0) {
-			city = Area.getAreaById(cityId);
-			if (null == city) {
-				throw new RequestParameterInvalidException("city:该城市不存在");
-			}
-		}
-		if (countyId > 0) {// county, city, province all exsit.
-			county = Area.getAreaById(countyId);
-			if (null == county) {
-				throw new RequestParameterInvalidException("county:该县/区不存在");
-			}
-		}
-		if (city == null && province.hasChilds()) { // need city after province
-			throw new RequestParameterInvalidException("city:该省份下必填城市");
-		}
-		if (county == null && city.hasChilds()) { // need county after city
-			throw new RequestParameterInvalidException("county:该城市下必填县/区");
-		}
-		if (city != null && province != null && !city.isChild(province)) {
-			throw new RequestParameterInvalidException("city:该城市不属于该省份");
-		}
-		if (county != null && city != null && !county.isChild(city)) {
-			throw new RequestParameterInvalidException("county:该县/区不属于该城市");
-		}
+		AreaValidator.check(provinceId, cityId, countyId);
 
 		if (!Gender.valid(context.getInt("gender", -1))) {
 			throw new RequestParameterInvalidException("gender:性别必选");

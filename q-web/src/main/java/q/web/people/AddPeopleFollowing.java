@@ -40,7 +40,7 @@ public class AddPeopleFollowing extends Resource {
 			this.peopleDao.updatePeopleRelationStatusById(PeopleRelationStatus.FOLLOWING, oldRelation.getId());
 		}
 
-		context.redirectServletPath("/people/" + toPeopleId);
+		//context.redirectServletPath("/people/" + toPeopleId);
 	}
 
 	/* (non-Javadoc)

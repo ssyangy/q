@@ -3,7 +3,6 @@ package q.web.people;
 import java.sql.SQLException;
 import java.util.List;
 
-import q.dao.AreaDao;
 import q.dao.DaoHelper;
 import q.dao.EventDao;
 import q.dao.FavoriteDao;
@@ -65,7 +64,6 @@ public class GetPeople extends Resource {
 		people.setFollowingNum(peopleDao.getPeopleFollowingNumById(peopleId));
 		people.setFollowerNum(peopleDao.getPeopleFollowerNumById(peopleId));
 		people.setWeiboNum(weiboDao.getPeopleWeiboNumByPeopleId(peopleId));
-		DaoHelper.injectPeopleWithArea(people);
 		context.setModel("people", people);
 
 		WeiboPage page = new WeiboPage();
@@ -73,7 +71,8 @@ public class GetPeople extends Resource {
 		page.setSize(20);
 		page.setStartIndex(0);
 		List<Weibo> weibos = weiboDao.getPageWeibo(page);
-		DaoHelper.injectWeibosWithSenderRealNameAndFrom(peopleDao, groupDao, weibos);
+		DaoHelper.injectWeibosWithSenderRealName(peopleDao, weibos);
+		DaoHelper.injectWeibosWithFrom(groupDao, weibos); 
 		if (loginPeopleId > 0) {
 			DaoHelper.injectWeibosWithFavorite(favoriteDao, weibos, loginPeopleId);
 		}

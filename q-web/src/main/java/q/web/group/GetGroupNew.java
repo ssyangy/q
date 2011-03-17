@@ -24,7 +24,7 @@ public class GetGroupNew extends Resource {
 
 	@Override
 	public void execute(ResourceContext context) throws SQLException {
-		List<Category> categorys = categoryDao.getCategorys();
+		List<Category> categorys = categoryDao.getAllCategorys();
 		context.setModel("categorys", categorys);
 
 	}

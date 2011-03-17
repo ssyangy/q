@@ -9,7 +9,7 @@
 		<result property="groupId" column="group_id" />
 		<result property="name" column="name" />
 		<result property="intro" column="intro" />
-		<result property="districtId" column="district_id" />
+		<result property="area" column="area_id" typeHandler="q.dao.ibatis.AreaHandler" />
 		<result property="address" column="address" />
 		<result property="cost" column="cost" />
 		<result property="number" column="number" />
@@ -40,7 +40,7 @@
 		group_id,
 		name,
 		intro,
-		district_id,
+		area_id,
 		address,
 		cost,
 		number,
@@ -91,7 +91,7 @@
 		#groupId#,
 		#name#,
 		#intro#,
-		#districtId#,
+		#area,handler=q.dao.ibatis.AreaHandler#,
 		#address#,
 		#cost#,
 		#number#,

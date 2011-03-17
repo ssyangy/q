@@ -17,11 +17,11 @@ public class Page implements Serializable{
 
 	private Date startCreated;
 
-	private Integer startIndex = 0;
+	private Integer startIndex;
 
 	private Integer startId;
 
-	private Integer size = 20;
+	private Integer size;
 
 	public Date getStartCreated() {
 		return startCreated;

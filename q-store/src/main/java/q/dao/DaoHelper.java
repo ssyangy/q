@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import q.domain.Area;
 import q.domain.Favorite;
 import q.domain.Group;
 import q.domain.Message;
@@ -91,23 +90,15 @@ public class DaoHelper {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static void injectWeibosWithSenderRealNameAndFrom(PeopleDao peopleDao, GroupDao groupDao, List<Weibo> weibos) throws SQLException {
+	public static void injectWeibosWithFrom(GroupDao groupDao, List<Weibo> weibos) throws SQLException {
 		if (CollectionKit.isNotEmpty(weibos)) {
-			Set<Long> senderIds = new HashSet<Long>(weibos.size());
 			Set<Long> groupIds = null;
 			for (Weibo weibo : weibos) {
-				senderIds.add(weibo.getSenderId());
 				if (weibo.isFromGroup()) {
 					if (groupIds == null) {
 						groupIds = new HashSet<Long>(weibos.size());// lazy init
 					}
 					groupIds.add(weibo.getFromId());
-				}
-			}
-			if (CollectionKit.isNotEmpty(senderIds)) {
-				Map<Long, String> peopleIdRealNameMap = peopleDao.getIdRealNameMapByIds(senderIds);
-				for (Weibo weibo : weibos) {
-					weibo.setSenderRealName(peopleIdRealNameMap.get(weibo.getSenderId()));
 				}
 			}
 			if (CollectionKit.isNotEmpty(groupIds)) {
@@ -116,6 +107,26 @@ public class DaoHelper {
 					if (weibo.isFromGroup()) {
 						weibo.setFromPostfix(groupIdNameMap.get(weibo.getFromId()));
 					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * @param peopleDao
+	 * @param hotWeibos
+	 * @throws SQLException 
+	 */
+	public static void injectWeibosWithSenderRealName(PeopleDao peopleDao, List<Weibo> weibos) throws SQLException {
+		if (CollectionKit.isNotEmpty(weibos)) {
+			Set<Long> senderIds = new HashSet<Long>(weibos.size());
+			for (Weibo weibo : weibos) {
+				senderIds.add(weibo.getSenderId());
+			}
+			if (CollectionKit.isNotEmpty(senderIds)) {
+				Map<Long, String> peopleIdRealNameMap = peopleDao.getIdRealNameMapByIds(senderIds);
+				for (Weibo weibo : weibos) {
+					weibo.setSenderRealName(peopleIdRealNameMap.get(weibo.getSenderId()));
 				}
 			}
 		}
@@ -246,29 +257,7 @@ public class DaoHelper {
 		}
 	}
 
-	/**
-	 * @param areaDao
-	 * @param people
-	 */
-	public static void injectPeopleWithArea(People people) {
-		int areaId = people.getAreaId();
-		Area area = Area.getAreaById(areaId);
-		Area province = null;
-		Area city = null;
-		Area county = null;
-		if (area.isProvince()) {
-			province = area;
-		} else if (area.isCity()) {
-			city = area;
-			province = city.getParent();
-		} else if (area.isCounty()) {
-			county = area;
-			city = county.getParent();
-			province = city.getParent();
-		}
-		people.setProvince(province);
-		people.setCity(city);
-		people.setCounty(county);
-	}
+
+	
 
 }

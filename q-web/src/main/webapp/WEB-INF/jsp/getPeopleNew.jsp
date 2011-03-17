@@ -193,27 +193,6 @@ function emailExistCheck(){
     }
 });
 }
-function errorType(error){
-  var exist=error.indexOf(':');
-  if(exist>-1){
-    var errorkind=error.substring(0, exist);
-    return errorkind;
-  }
-  else{
-
-  }
-}
-function errorContext(error){
- var exist=error.indexOf(':');
-  if(exist>-1){
-    var errorcontext=error.substring(exist+1, error.length);
-    return errorcontext;
-
-  }
-  else{
-
-  }
-}
 function randomInt(){
   var num= Math.floor(Math.random()*${authcodeNum}+1); 　
   return num;

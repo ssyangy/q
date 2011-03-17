@@ -2,11 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
 	<jsp:include page="head.jsp" flush="true"/>
 	<title>补充个人资料</title>
-	<script type="text/javascript">
 	<jsp:include page="js-areas.jsp" flush="true"/>
+	<script type="text/javascript">
 	var sex=false;
 	function checkLocation(){
 	    $("#locationcorrect").css("display","block");
@@ -18,7 +18,7 @@
 	    $("#sexwrong").css("display","none");
 	}
 	</script>
-</head>
+  </head>
   <body>
 	<div id='container'>
 		<div id='header'>

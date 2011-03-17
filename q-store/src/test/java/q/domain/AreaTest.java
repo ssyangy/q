@@ -1,7 +1,7 @@
 /**
  * 
  */
-package q.dao.ibatis;
+package q.domain;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import q.dao.ibatis.AreaDaoImpl;
 import q.domain.Area;
 
 /**
@@ -23,7 +24,7 @@ import q.domain.Area;
  * @date Mar 15, 2011
  * 
  */
-public class AreaDaoImplTest {
+public class AreaTest {
 
 	AreaDaoImpl areaDao = new AreaDaoImpl();
 	{
@@ -89,10 +90,14 @@ public class AreaDaoImplTest {
 	 */
 	@Test
 	public void testGetAreaById() {
-		Area area = Area.getAreaById(331000); // 台州市
-		assertEquals(9, area.getChilds().size());
-		area = Area.getAreaById(331022); // 三门县
-		assertEquals(331000, area.getParent().getId());
+		Area city = Area.getAreaById(331000); // 台州市
+		assertEquals(9, city.getChilds().size());
+		assertEquals(city, city.getMyCity());
+		assertEquals(city.getParent(), city.getMyProvince());
+		Area county = Area.getAreaById(331022); // 三门县
+		assertEquals(city, county.getParent());
+		assertEquals(city, county.getMyCity());
+		assertEquals(county, county.getMyCounty());
 	}
 
 	/**

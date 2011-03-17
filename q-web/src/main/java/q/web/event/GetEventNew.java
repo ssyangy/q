@@ -3,9 +3,10 @@
  */
 package q.web.event;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import q.domain.Area;
+import q.util.DateKit;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -25,9 +26,9 @@ public class GetEventNew extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		context.setModel("groupId", context.getString("groupId"));
-		
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String datetime = df.format(new Date());
+		context.setModel("rootArea", Area.getRootArea());
+		//SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String datetime = DateKit.date2Ymdhms(new Date());
 		String date = datetime.substring(0, 10);
 		String time = datetime.substring(10);
 		context.setModel("day", date);

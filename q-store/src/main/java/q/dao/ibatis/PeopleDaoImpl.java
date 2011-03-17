@@ -13,6 +13,7 @@ import java.util.Set;
 import q.dao.PeopleDao;
 import q.dao.page.PeoplePage;
 import q.dao.page.PeopleRelationPage;
+import q.domain.Area;
 import q.domain.People;
 import q.domain.PeopleRelation;
 import q.domain.PeopleRelationStatus;
@@ -51,14 +52,14 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 	public People getPeopleById(long pid) throws SQLException {
 		PeoplePage page = new PeoplePage();
 		page.setId(pid);
-		return queryPeople(page);
+		return getPeopleByPage(page);
 	}
 
 	@Override
 	public People getPeopleByEmail(String email) throws SQLException {
 		PeoplePage page = new PeoplePage();
 		page.setEmail(email);
-		return queryPeople(page);
+		return getPeopleByPage(page);
 	}
 
 	/*
@@ -70,11 +71,25 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 	public People getPeopleByUsername(String username) throws SQLException {
 		PeoplePage page = new PeoplePage();
 		page.setUsername(username);
-		return queryPeople(page);
+		return getPeopleByPage(page);
+	}
+	
+	@Override
+	public List<People> getHotPeoplesByArea(Area area, int limit) throws SQLException {
+		PeoplePage page = new PeoplePage();
+		page.setArea(area);
+		page.setSize(limit);
+		page.setStartIndex(0);
+		return this.getPeoplesByPage(page);
 	}
 
-	private People queryPeople(PeoplePage page) throws SQLException {
-		return (People) this.sqlMapClient.queryForObject("selectPeopleByPage", page);
+	private People getPeopleByPage(PeoplePage page) throws SQLException {
+		return (People) this.sqlMapClient.queryForObject("selectPeoplesByPage", page);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private List<People> getPeoplesByPage(PeoplePage page) throws SQLException {
+		return (List<People>) this.sqlMapClient.queryForList("selectPeoplesByPage", page);
 	}
 
 	@Override

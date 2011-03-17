@@ -35,6 +35,7 @@ public class GetPeopleFollower extends Resource {
 		page.setToPeopleId(toPeopleId);
 		page.setStatus(PeopleRelationStatus.FOLLOWING);
 		page.setSize(20);
+		page.setStartIndex(0);
 		List<PeopleRelation> relations = this.peopleDao.getPagePeopleRelationWithFromRealName(page);
 		context.setModel("relations", relations);
 	}

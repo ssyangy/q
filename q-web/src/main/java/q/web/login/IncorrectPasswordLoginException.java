@@ -3,6 +3,8 @@
  */
 package q.web.login;
 
+import q.web.ErrorCodeException;
+
 /**
  * Resource login exception.
  * 
@@ -11,23 +13,15 @@ package q.web.login;
  * @date Feb 20, 2011
  * 
  */
-public class IncorrectPasswordLoginException extends Exception {
+public class IncorrectPasswordLoginException extends ErrorCodeException {
 	private static final long serialVersionUID = -3080434513698835125L;
 
-	/**
-	 * login username
-	 */
-	private String username;
-
-	public String getUsername() {
-		return username;
+	public IncorrectPasswordLoginException(String error) {
+		super("40003", error);
 	}
 
-	/**
-	 * @param username
-	 */
-	public IncorrectPasswordLoginException(String username) {
-		this.username = username;
+	public IncorrectPasswordLoginException(String message, Throwable cause) {
+		super(message, cause);
 	}
 
 }

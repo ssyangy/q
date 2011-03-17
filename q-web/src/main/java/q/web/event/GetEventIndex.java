@@ -3,7 +3,6 @@ package q.web.event;
 import java.util.List;
 
 import q.dao.EventDao;
-import q.dao.page.EventPage;
 import q.domain.Event;
 import q.web.Resource;
 import q.web.ResourceContext;
@@ -19,9 +18,7 @@ public class GetEventIndex extends Resource{
 
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		EventPage page = new EventPage();
-		page.setSize(10);
-		List<Event> groups = eventDao.getPageEvents(page);
+		List<Event> groups = eventDao.getHotEvents(10);
 		context.setModel("newEvents", groups);
 	}
 

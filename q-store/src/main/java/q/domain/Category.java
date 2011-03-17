@@ -1,6 +1,7 @@
 package q.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Group category.
@@ -17,6 +18,16 @@ public class Category extends AbstractDomain implements Serializable {
 	private String intro;
 
 	private String status;
+	
+	private List<Group> groups;
+	
+	public List<Group> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(List<Group> groups) {
+		this.groups = groups;
+	}
 
 	public String getName() {
 		return name;

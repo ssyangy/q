@@ -6,6 +6,8 @@ package q.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import q.util.DateKit;
+
 /**
  * @author seanlinwang
  * @email xalinx at gmail dot com
@@ -24,7 +26,7 @@ public class Event extends AbstractDomain implements Serializable {
 
 	private String intro;
 	
-	private long districtId;
+	private Area area;
 	
 	private String address;
 	
@@ -78,12 +80,12 @@ public class Event extends AbstractDomain implements Serializable {
 		this.status = status;
 	}
 
-	public long getDistrictId() {
-		return districtId;
+	public Area getArea() {
+		return area;
 	}
 
-	public void setDistrictId(long districtId) {
-		this.districtId = districtId;
+	public void setArea(Area area) {
+		this.area = area;
 	}
 
 	public String getAddress() {
@@ -96,6 +98,10 @@ public class Event extends AbstractDomain implements Serializable {
 
 	public Date getStarted() {
 		return started;
+	}
+	
+	public String getStartedMd(){
+		return DateKit.date2md(started);
 	}
 
 	public void setStarted(Date started) {
@@ -128,7 +134,7 @@ public class Event extends AbstractDomain implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Event [creatorId=" + creatorId + ", groupId=" + groupId + ", name=" + name + ", intro=" + intro + ", districtId=" + districtId + ", address=" + address + ", started=" + started + ", ended=" + ended + ", cost=" + cost + ", number=" + number + ", status=" + status + ", id=" + id + ", created=" + created + ", modified=" + modified + "]";
+		return "Event [creatorId=" + creatorId + ", groupId=" + groupId + ", name=" + name + ", intro=" + intro + ", area=" + area + ", address=" + address + ", started=" + started + ", ended=" + ended + ", cost=" + cost + ", number=" + number + ", status=" + status + ", id=" + id + ", created=" + created + ", modified=" + modified + "]";
 	}
 
 }

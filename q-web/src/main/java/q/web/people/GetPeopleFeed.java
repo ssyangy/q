@@ -55,7 +55,8 @@ public class GetPeopleFeed extends Resource {
 			page.setSize(20);
 			page.setSenderIds(senderIds);
 			List<Weibo> weibos = weiboDao.getPageFollowingWeibos(page);
-			DaoHelper.injectWeibosWithSenderRealNameAndFrom(peopleDao, groupDao, weibos);
+			DaoHelper.injectWeibosWithSenderRealName(peopleDao, weibos);
+			DaoHelper.injectWeibosWithFrom(groupDao, weibos);
 			DaoHelper.injectWeibosWithFavorite(favoriteDao, weibos, loginPeopleId);
 			context.setModel("weibos", weibos);
 

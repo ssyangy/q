@@ -162,6 +162,36 @@ public class Area extends AbstractDomain implements Serializable {
 	 * @return
 	 */
 	public static Area getAreaById(long areaId) {
+		if(areaId <= 0) {
+			return null;
+		}
 		return AREAS.get(areaId);
+	}
+	
+	public Area getMyProvince() {
+		if (isProvince()) {
+			return this;
+		} else if (isCity()) {
+			return this.getParent();
+		} else if (isCounty()) {
+			return this.getParent().getParent();
+		}
+		return null;
+	}
+
+	public Area getMyCity() {
+		if (isCity()) {
+			return this;
+		} else if (isCounty()) {
+			return this.getParent();
+		}
+		return null;
+	}
+
+	public Area getMyCounty() {
+		if (isCounty()) {
+			return this;
+		}
+		return null;
 	}
 }

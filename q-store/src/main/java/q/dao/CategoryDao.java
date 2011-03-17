@@ -12,7 +12,7 @@ import q.domain.Category;
  */
 public interface CategoryDao {
 
-	List<Category> getCategorys() throws SQLException;
+	List<Category> getAllCategorys() throws SQLException;
 
 	void addCategory(Category p) throws SQLException;
 

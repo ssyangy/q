@@ -47,6 +47,14 @@ public class EventDaoImpl extends AbstractDaoImpl implements EventDao {
 	public List<Event> getPageEvents(EventPage page) throws SQLException {
 		return (List<Event>) this.sqlMapClient.queryForList("selectPageEvents", page);
 	}
+	
+	@Override
+	public List<Event> getHotEvents(int i) throws SQLException {
+		EventPage page = new EventPage();
+		page.setSize(10);
+		page.setStartIndex(0);
+		return this.getPageEvents(page);
+	}
 
 	/*
 	 * (non-Javadoc)

@@ -25,7 +25,7 @@ public class CategoryDaoImpl extends AbstractDaoImpl implements CategoryDao{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Category> getCategorys() throws SQLException {
+	public List<Category> getAllCategorys() throws SQLException {
 		return  (List<Category>)this.sqlMapClient.queryForList("selectCategorys");
 	}
 

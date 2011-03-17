@@ -3,6 +3,8 @@
  */
 package q.dao.page;
 
+import q.domain.Area;
+
 /**
  * @author seanlinwang
  * @email xalinx at gmail dot com
@@ -20,6 +22,8 @@ public class PeoplePage extends Page {
 	private String password;
 
 	private String email;
+
+	private Area area;
 
 	public Long getId() {
 		return id;
@@ -51,6 +55,17 @@ public class PeoplePage extends Page {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Area getArea() {
+		return area;
+	}
+
+	/**
+	 * @param area
+	 */
+	public void setArea(Area area) {
+		this.area = area;
 	}
 
 }

@@ -126,7 +126,7 @@ public class DateKit {
 	public static String date2SinaStyle(Date before, Date base) {
 		StringBuilder sb = new StringBuilder(16); // "2011-11-12 24:24".length==16
 		long seconds = (base.getTime() - before.getTime()) / 1000;
-		if (seconds == 0) {
+		if (seconds <= 0) {
 			sb.append("10秒前");
 		} else if (seconds <= 50) {
 			sb.append(seconds % 10 == 0 ? seconds : seconds / 10 * 10 + 10);
@@ -170,6 +170,23 @@ public class DateKit {
 			}
 			sb.append(min);
 		}
+		return sb.toString();
+	}
+
+	/**
+	 * @param started
+	 * @return
+	 */
+	public static String date2md(Date date) {
+		Calendar c = new GregorianCalendar();
+		c.setTime(date);
+		int m = c.get(GregorianCalendar.MONTH) + 1;
+		int d = c.get(GregorianCalendar.DAY_OF_MONTH);
+		StringBuilder sb = new StringBuilder(6);
+		sb.append(m);
+		sb.append('月');
+		sb.append(d);
+		sb.append('日');
 		return sb.toString();
 	}
 

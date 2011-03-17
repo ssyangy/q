@@ -138,17 +138,22 @@ public class DefaultResourceContext implements ResourceContext {
 
 	private LoginCookie loginCookie;
 
-	private final LoginCookie emptyLoginCookie = LoginCookie.getEmpty();
+	private static final LoginCookie EMPTY_LOGIN_COOKIE = LoginCookie.getEmpty();
 
 	@Override
 	public LoginCookie getLoginCookie() {
 		if (loginCookie == null) {
 			loginCookie = LoginCookie.get(request, response);
 			if (loginCookie == null) {
-				loginCookie = emptyLoginCookie;
+				loginCookie = EMPTY_LOGIN_COOKIE;
 			}
 		}
 		return loginCookie;
+	}
+	
+	@Override
+	public boolean isLogin() {
+		return getLoginCookie() != EMPTY_LOGIN_COOKIE;
 	}
 
 	/*

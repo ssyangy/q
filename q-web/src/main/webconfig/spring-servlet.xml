@@ -26,7 +26,7 @@
 		<property name="urlPrefix" value="${q.url.prefix}" />
 		<property name="contextPath" value="${q.context.path}" />
 		<property name="staticUrlPrefix" value="${q.static.url.prefix}" />
-		<property name="avatarUrlPrefix" value="${q.avatar.url.prefix}"/>
+		<property name="avatarUrlPrefix" value="${q.avatar.url.prefix}" />
 		<property name="defaultViewResolver">
 			<bean class="q.web.DefaultViewResolver" />
 		</property>
@@ -46,6 +46,36 @@
 							</key>
 							<value>/WEB-INF/json/check.xml</value>
 						</entry>
+						<entry>
+							<key>
+								<value>addLogin:people</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>addWeiboFavorite:favorite</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>deleteWeiboFavorite:favorite</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>addPeopleFollowing:people</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>deletePeopleFollowing:people</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>																								
 					</map>
 				</property>
 			</bean>
@@ -96,7 +126,14 @@
 		</property>
 	</bean>
 	<!-- global web -->
-	<bean id="default" class="q.web.Default" />
+	<bean id="default" class="q.web.GetHomePage">
+		<property name="categoryDao" ref="categoryDao" />
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="eventDao" ref="eventDao" />
+		<property name="groupDao" ref="groupDao" />
+		<property name="favoriteDao" ref="favoriteDao" />
+	</bean>
 
 	<!-- setting web -->
 	<bean id="getSettingIndex" class="q.web.setting.GetSettingIndex" />
@@ -157,7 +194,6 @@
 	</bean>
 	<bean id="addLogin" class="q.web.login.AddLogin">
 		<property name="peopleDao" ref="peopleDao" />
-		<property name="redirectPath" value="/group/feed" />
 	</bean>
 	<bean id="getLoginDelete" class="q.web.login.DeleteLogin">
 		<property name="redirectPath" value="/" />
@@ -308,6 +344,6 @@
 
 	<!-- auth web -->
 	<bean id="getAuthcodeNew" class="q.web.authcode.GetAuthcodeNew">
-	    <property name="authcodeDao" ref="authcodeDao" />
+		<property name="authcodeDao" ref="authcodeDao" />
 	</bean>
 </beans>

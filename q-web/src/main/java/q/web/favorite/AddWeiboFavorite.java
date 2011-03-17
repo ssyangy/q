@@ -44,20 +44,21 @@ public class AddWeiboFavorite extends Resource {
 		if (old == null) {
 			Weibo weibo = this.weiboDao.getWeiboById(weiboId);
 			if (null == weibo) {
-				throw new RequestParameterInvalidException("fromId" + weiboId);
+				throw new RequestParameterInvalidException("weibo:not exist " + weiboId);
 			}
 			this.favoriteDao.addWeiboFavorite(weiboId, creatorId);
 		} else if (old.isUnFav()) {
 			this.favoriteDao.favWeiboById(old.getId());
 		}
-		context.redirectReffer();
+		//context.setModel("favorite", old);
+		//context.redirectReffer();
 	}
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		long weiboId = context.getResourceIdLong();
 		if (weiboId == 0) {
-			throw new RequestParameterInvalidException("fromId" + weiboId);
+			throw new RequestParameterInvalidException("weibo:" + weiboId);
 		}
 	}
 

@@ -31,7 +31,8 @@ public class DeleteWeiboFavorite extends Resource {
 		long creatorId = context.getCookiePeopleId();
 		long weiboId = context.getResourceIdLong();
 		this.favoriteDao.unFavWeiboFavorite(weiboId, creatorId);
-		context.redirectReffer();
+		//context.setModel("favorite", new Favorite);
+		//context.redirectReffer();
 	}
 
 	@Override

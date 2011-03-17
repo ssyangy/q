@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import q.dao.page.PeopleRelationPage;
+import q.domain.Area;
 import q.domain.People;
 import q.domain.PeopleRelation;
 import q.domain.PeopleRelationStatus;
@@ -123,5 +124,12 @@ public interface PeopleDao {
 	 * @return
 	 */
 	People getPeopleByEmail(String email) throws SQLException;
+
+	/**
+	 * @param areaId
+	 * @param i
+	 * @return
+	 */
+	List<People> getHotPeoplesByArea(Area area, int limit) throws SQLException;
 
 }

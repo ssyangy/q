@@ -63,7 +63,8 @@ public class GetGroupFeed extends Resource {
 			page.setSize(20);
 			page.setGroupIds(groupIds);
 			List<Weibo> weibos = this.weiboDao.getPageGroupFeedWeibo(page);
-			DaoHelper.injectWeibosWithSenderRealNameAndFrom(peopleDao, groupDao, weibos);
+			DaoHelper.injectWeibosWithSenderRealName(peopleDao, weibos);
+			DaoHelper.injectWeibosWithFrom(groupDao, weibos);
 			DaoHelper.injectWeibosWithFavorite(favoriteDao, weibos, loginPeopleId);
 			context.setModel("weibos", weibos);
 			

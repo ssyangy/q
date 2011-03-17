@@ -82,7 +82,8 @@ public class GetGroup extends Resource {
 		page.setSize(20);
 		page.setStartIndex(0);
 		List<Weibo> weibos = weiboDao.getPageGroupWeibo(page);
-		DaoHelper.injectWeibosWithSenderRealNameAndFrom(peopleDao, groupDao, weibos);
+		DaoHelper.injectWeibosWithSenderRealName(peopleDao, weibos);
+		DaoHelper.injectWeibosWithFrom(groupDao, weibos);
 		if (loginPeopleId > 0) {
 			DaoHelper.injectWeibosWithFavorite(favoriteDao, weibos, loginPeopleId);
 		}
@@ -91,6 +92,7 @@ public class GetGroup extends Resource {
 		EventPage epage = new EventPage();
 		epage.setGroupId(groupId);
 		epage.setSize(10);
+		epage.setStartIndex(0);
 		List<Event> events = eventDao.getPageEvents(epage);
 		context.setModel("events", events);
 	}

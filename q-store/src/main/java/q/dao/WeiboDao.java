@@ -120,4 +120,10 @@ public interface WeiboDao {
 	 */
 	List<WeiboReply> getWeiboRepliesByIds(List<Long> replyIds, boolean needDesc) throws SQLException;
 
+	/**
+	 * @param i
+	 * @return
+	 */
+	List<Weibo> getHotWeibos(int i) throws SQLException;
+
 }

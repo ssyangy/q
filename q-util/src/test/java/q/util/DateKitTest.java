@@ -147,5 +147,18 @@ public class DateKitTest {
 		now = beforeCal.getTime();
 		Assert.assertEquals("1分钟前", DateKit.date2SinaStyle(before, now));
 	}
+	
+	/**
+	 * 创建时间超前于web服务器
+	 */
+	@Test
+	public void testDate2SinaStyleViewBeforeCreate() {
+		Calendar beforeCal = Calendar.getInstance();
+		beforeCal.set(2010, 5, 25, 22, 22, 0);
+		Date before = beforeCal.getTime();
+		beforeCal.set(Calendar.HOUR_OF_DAY, 1);
+		Date now = beforeCal.getTime();
+		Assert.assertEquals("10秒前", DateKit.date2SinaStyle(before, now));
+	}
 
 }

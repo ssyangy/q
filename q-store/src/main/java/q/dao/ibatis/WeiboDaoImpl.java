@@ -96,6 +96,14 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 		return (List<Weibo>) this.sqlMapClient.queryForList("selectPageWeibos", page);
 	}
 
+	@Override
+	public List<Weibo> getHotWeibos(int limit) throws SQLException {
+		WeiboPage page = new WeiboPage();
+		page.setSize(limit);
+		page.setStartIndex(0);
+		return this.getPageWeibo(page);
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<Weibo> getPageFollowingWeibos(WeiboPage page) throws SQLException {
 		return (List<Weibo>) this.sqlMapClient.queryForList("selectPageFollowingWeibos", page);

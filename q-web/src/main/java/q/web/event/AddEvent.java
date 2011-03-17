@@ -3,9 +3,11 @@ package q.web.event;
 import java.text.SimpleDateFormat;
 
 import q.dao.EventDao;
+import q.domain.Area;
 import q.domain.Event;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.area.AreaValidator;
 
 public class AddEvent extends Resource {
 	private EventDao eventDao;
@@ -23,7 +25,11 @@ public class AddEvent extends Resource {
 		event.setCreatorId(context.getCookiePeopleId());
 		event.setAddress(context.getString("address"));
 		event.setCost(context.getString("cost"));
-		// event.setDistrictId(1); FIXME
+		int provinceId = context.getInt("province", -1);
+		int cityId = context.getInt("city", -1);
+		int countyId = context.getInt("county", -1);
+		int areaId = AreaValidator.getAreaId(provinceId, cityId, countyId);
+		event.setArea(Area.getAreaById(areaId)); 
 		event.setNumber(context.getInt("number", 0));
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");
 		event.setStarted(df.parse(context.getString("startDate") + context.getString("endTime")));
@@ -37,8 +43,10 @@ public class AddEvent extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-		
+		int provinceId = context.getInt("province", -1);
+		int cityId = context.getInt("city", -1);
+		int countyId = context.getInt("county", -1);
+		AreaValidator.check(provinceId, cityId, countyId);
 	}
 
 }

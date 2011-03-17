@@ -32,7 +32,7 @@ public class GetGroupIndex extends Resource {
 
 	@Override
 	public void execute(ResourceContext context) throws SQLException {
-		List<Category> categorys = categoryDao.getCategorys();
+		List<Category> categorys = categoryDao.getAllCategorys();
 		context.setModel("categorys", categorys);
 		List<Group> groups = groupDao.getNewGroups(10);
 		context.setModel("newGroups", groups);

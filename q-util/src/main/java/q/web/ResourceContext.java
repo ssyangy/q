@@ -100,4 +100,9 @@ public interface ResourceContext {
 	 * @return
 	 */
 	long getLong(String key, long defaultValue);
+
+	/**
+	 * @return
+	 */
+	boolean isLogin();
 }

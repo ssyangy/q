@@ -34,17 +34,14 @@
 						<c:otherwise>转发</c:otherwise>
 					</c:choose>
 					</a>&nbsp;
-					<form action="${urlPrefix}/weibo/${weibo.id}/favorite" method="post">
 					<c:choose>
 						<c:when test="${weibo.unFav}">
-						<button>收藏</button>
+						<button onclick="favWeibo(this,${weibo.id})">收藏</button>
 						</c:when>
 						<c:otherwise>
-						<input type="hidden" name="_method"  value="delete"/>
-						<button>取消收藏</button>
+						<button onclick="unFavWeibo(this,${weibo.id})">取消收藏</button>
 						</c:otherwise>
 					</c:choose>	
-					</form>
 					<a href="${urlPrefix}/weibo/${weibo.id}">回复</a>&nbsp;
 				</span>
 			</div>
