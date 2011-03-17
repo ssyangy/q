@@ -22,18 +22,11 @@
 	        if(json.id != null){
 	            document.location.href="${urlPrefix}/group/feed"
 	         } else {
-	         	//alert(json);
 	          var errorkind = errorType(json.error);
-	          //alert(errorContext);
 	          var errormsg = errorContext(json.error);
 	          var loginWrong = $("#loginWrong");
-	          //if (errorkind == "password"){
-	           loginWrong.css("display","block");
-	           loginWrong.html(errormsg);
-	         // } else if(errorkind == "username"){
-	         //   loginWrong.css("display","block");
-	          //  loginWrong.html(errorContext);
-	         // }
+	          loginWrong.css("display","block");
+	          loginWrong.html(errormsg);
 	      }
 	    }
 	  });

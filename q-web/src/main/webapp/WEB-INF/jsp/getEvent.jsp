@@ -30,6 +30,7 @@
 		</c:choose>
 	</div>
 	时间:${event.started}&nbsp;~&nbsp;${event.ended}<br />
+	城市:${event.area.myProvince.name}&nbsp;${event.area.myCity.name}&nbsp;${event.area.myCounty.name}<br/>
 	地点:${event.address}<br />
 	费用:${event.cost}<br />
 	人数限制:${event.number}<br />
