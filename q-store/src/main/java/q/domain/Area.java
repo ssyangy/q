@@ -5,8 +5,10 @@ package q.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import q.util.CollectionKit;
 
@@ -18,6 +20,10 @@ import q.util.CollectionKit;
  */
 public class Area extends AbstractDomain implements Serializable {
 	private static final long serialVersionUID = -7895347057802203037L;
+
+	private static final Area ROOT_AREA = new Area();
+	
+	private static final Map<Long, Area> AREAS = new HashMap<Long, Area>();
 
 	private String name;
 
@@ -122,5 +128,40 @@ public class Area extends AbstractDomain implements Serializable {
 			return false;
 		}
 		return this.parent.getId() == father.getId();
+	}
+
+	public boolean isProvince() {
+		return this.parent == ROOT_AREA;
+	}
+
+	public boolean isCity() {
+		return this.parent != null && this.parent.isProvince();
+	}
+
+	public boolean isCounty() {
+		return this.parent != null && this.parent.isCity();
+	}
+
+	/**
+	 * @return
+	 */
+	public static Area getRootArea() {
+		return ROOT_AREA;
+	}
+
+	/**
+	 * @param areaId
+	 * @param area
+	 */
+	public static void addArea(Area area) {
+		AREAS.put(area.getId(), area);
+	}
+
+	/**
+	 * @param areaId
+	 * @return
+	 */
+	public static Area getAreaById(long areaId) {
+		return AREAS.get(areaId);
 	}
 }

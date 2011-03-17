@@ -6,8 +6,6 @@ package q.dao.ibatis;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
 
 import q.dao.AreaDao;
 import q.domain.Area;
@@ -34,13 +32,8 @@ import q.util.StringKit;
  */
 public class AreaDaoImpl extends AbstractDaoImpl implements AreaDao {
 
-	private Area rootArea;
-
-	private Map<Long, Area> areas;
-
 	public void init() throws IOException {
-		this.rootArea = new Area();
-		this.areas = new HashMap<Long, Area>();
+		Area rootArea = Area.getRootArea();
 		BufferedReader br = new BufferedReader(new InputStreamReader(AreaDaoImpl.class.getClassLoader().getResourceAsStream("data/area.txt"), "utf-8"));
 		String strLine;
 		Area province = null;
@@ -65,9 +58,9 @@ public class AreaDaoImpl extends AbstractDaoImpl implements AreaDao {
 				}
 				area.setName(name);
 				area.setId(areaId);
-				this.areas.put(areaId, area); // put area into map
+				Area.addArea(area); // put area into map
 				if (areaId % 10000 == 0) { // province: 120000 天津市
-					this.rootArea.addChild(area);
+					rootArea.addChild(area);
 					province = area;
 				} else if (areaId % 100 == 0) { // city: 320100 南京市
 					province.addChild(area);
@@ -83,16 +76,6 @@ public class AreaDaoImpl extends AbstractDaoImpl implements AreaDao {
 			}
 		}
 
-	}
-
-	@Override
-	public Area getRootArea() {
-		return rootArea;
-	}
-
-	@Override
-	public Area getAreaById(long id) {
-		return this.areas.get(id);
 	}
 
 }

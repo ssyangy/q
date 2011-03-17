@@ -3,6 +3,7 @@ package q.web.people;
 import java.sql.SQLException;
 import java.util.List;
 
+import q.dao.AreaDao;
 import q.dao.DaoHelper;
 import q.dao.EventDao;
 import q.dao.FavoriteDao;
@@ -48,9 +49,9 @@ public class GetPeople extends Resource {
 	public void setGroupDao(GroupDao groupDao) {
 		this.groupDao = groupDao;
 	}
-	
+
 	private FavoriteDao favoriteDao;
-	
+
 	public void setFavoriteDao(FavoriteDao favoriteDao) {
 		this.favoriteDao = favoriteDao;
 	}
@@ -64,6 +65,7 @@ public class GetPeople extends Resource {
 		people.setFollowingNum(peopleDao.getPeopleFollowingNumById(peopleId));
 		people.setFollowerNum(peopleDao.getPeopleFollowerNumById(peopleId));
 		people.setWeiboNum(weiboDao.getPeopleWeiboNumByPeopleId(peopleId));
+		DaoHelper.injectPeopleWithArea(people);
 		context.setModel("people", people);
 
 		WeiboPage page = new WeiboPage();
@@ -72,7 +74,7 @@ public class GetPeople extends Resource {
 		page.setStartIndex(0);
 		List<Weibo> weibos = weiboDao.getPageWeibo(page);
 		DaoHelper.injectWeibosWithSenderRealNameAndFrom(peopleDao, groupDao, weibos);
-		if(loginPeopleId > 0) {
+		if (loginPeopleId > 0) {
 			DaoHelper.injectWeibosWithFavorite(favoriteDao, weibos, loginPeopleId);
 		}
 		context.setModel("weibos", weibos);
@@ -83,7 +85,6 @@ public class GetPeople extends Resource {
 		List<Group> groups = groupDao.getGroupsByPeopleId(peopleId);
 		context.setModel("groups", groups);
 
-		
 		boolean isMe = false;
 		if (loginPeopleId > 0 && peopleId == loginPeopleId) {
 			isMe = true;
@@ -100,12 +101,14 @@ public class GetPeople extends Resource {
 		context.setModel("isFollowing", isFollowing);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

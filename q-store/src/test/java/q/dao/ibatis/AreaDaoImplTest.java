@@ -4,6 +4,7 @@
 package q.dao.ibatis;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -67,7 +68,7 @@ public class AreaDaoImplTest {
 	 */
 	@Test
 	public void testGetRootArea() {
-		Area root = areaDao.getRootArea();
+		Area root = Area.getRootArea();
 		assertEquals(34, root.getChilds().size()); // 我国有23个省、５个自治区、４个直辖市２个特别行政区共３４个省级行政区。
 	}
 
@@ -88,9 +89,9 @@ public class AreaDaoImplTest {
 	 */
 	@Test
 	public void testGetAreaById() {
-		Area area = areaDao.getAreaById(331000); // 台州市
+		Area area = Area.getAreaById(331000); // 台州市
 		assertEquals(9, area.getChilds().size());
-		area = areaDao.getAreaById(331022); // 三门县
+		area = Area.getAreaById(331022); // 三门县
 		assertEquals(331000, area.getParent().getId());
 	}
 
@@ -121,24 +122,30 @@ public class AreaDaoImplTest {
 	 */
 	@Test
 	public void testIgnoreCity() {
-		Area shanghai = areaDao.getAreaById(310000);// 上海市
+		Area shanghai = Area.getAreaById(310000);// 上海市
 		assertEquals("上海", shanghai.getName());
 		assertEquals(18, shanghai.getChilds().size());
-		Area luwan = areaDao.getAreaById(310103);// 卢湾区
+		assertTrue(shanghai.isProvince());
+		assertFalse(shanghai.isCity());
+		assertFalse(shanghai.isCounty());
+		Area luwan = Area.getAreaById(310103);// 卢湾区
 		assertTrue(luwan.isChild(shanghai));
-		Area congming = areaDao.getAreaById(310230);// 崇明县
+		Area congming = Area.getAreaById(310230);// 崇明县
 		assertTrue(congming.isChild(shanghai));
+		assertFalse(congming.isCounty());
+		assertTrue(congming.isCity());
+		assertFalse(congming.isProvince());
 	}
 
 	@Test
 	public void testGetDistrictJson() {
-		Area area = areaDao.getAreaById(331022); // 三门县
+		Area area = Area.getAreaById(331022); // 三门县
 		assertEquals("{\"id\":331022,\"name\":\"三门县\"}", area.getJson());
 	}
 
 	@Test
 	public void testGetCityJson() {
-		Area area = areaDao.getAreaById(330900); // 舟山市
+		Area area = Area.getAreaById(330900); // 舟山市
 		assertEquals("{\"id\":330900,\"name\":\"舟山市\",\"childs\":[" + "{\"id\":330902,\"name\":\"定海区\"}," + "{\"id\":330903,\"name\":\"普陀区\"}," + "{\"id\":330921,\"name\":\"岱山县\"}," + "{\"id\":330922,\"name\":\"嵊泗县\"}]}", area.getJson());
 	}
 

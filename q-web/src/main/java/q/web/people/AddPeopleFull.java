@@ -3,7 +3,6 @@ package q.web.people;
 import org.apache.commons.lang.ArrayUtils;
 
 import q.biz.exception.RequestParameterInvalidException;
-import q.dao.AreaDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.domain.Area;
@@ -18,12 +17,6 @@ public class AddPeopleFull extends Resource {
 
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
-	}
-
-	private AreaDao areaDao;
-
-	public void setAreaDao(AreaDao areaDao) {
-		this.areaDao = areaDao;
 	}
 
 	private GroupDao groupDao;
@@ -41,19 +34,22 @@ public class AddPeopleFull extends Resource {
 		if (areaId <= 0) {
 			areaId = context.getInt("city", -1); // only province, city
 		}
-		people.setDistrictId(areaId);
+		if (areaId <= 0) {
+			areaId = context.getInt("province", -1); // only province
+		}
+		people.setAreaId(areaId);
 		long mobile = context.getLong("mobile", -1);
 		if (mobile > 0) {
 			people.setMobile(mobile);
 		}
 		int degree = context.getInt("degree", -1);
 		people.setDegree(Degree.convertValue(degree));
-		//FIXME add birthday check
+		// FIXME add birthday check
 		people.setYear(context.getInt("year", -1));
 		people.setMonth(context.getInt("month", -1));
 		people.setDay(context.getInt("day", -1));
 		peopleDao.updatePeopleById(people);
-		//FIXME add people join groups
+		// FIXME add people join groups
 		context.setModel("people", people);
 		context.redirectServletPath("/group/feed");
 	}
@@ -69,17 +65,18 @@ public class AddPeopleFull extends Resource {
 		if (provinceId <= 0) {
 			throw new RequestParameterInvalidException("province:省份必填");
 		}
-		province = areaDao.getAreaById(provinceId);
+		province = Area.getAreaById(provinceId);
 		if (null == province) {
 			throw new RequestParameterInvalidException("province:该省份不存在");
 		}
-		if (countyId <= 0) { // only province and city
-			city = areaDao.getAreaById(cityId);
+		if (cityId > 0) {
+			city = Area.getAreaById(cityId);
 			if (null == city) {
 				throw new RequestParameterInvalidException("city:该城市不存在");
 			}
-		} else { // county, city, province all exsit.
-			county = areaDao.getAreaById(countyId);
+		}
+		if (countyId > 0) {// county, city, province all exsit.
+			county = Area.getAreaById(countyId);
 			if (null == county) {
 				throw new RequestParameterInvalidException("county:该县/区不存在");
 			}

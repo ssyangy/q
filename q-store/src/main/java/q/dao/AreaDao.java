@@ -3,7 +3,6 @@
  */
 package q.dao;
 
-import q.domain.Area;
 
 /**
  * @author seanlinwang
@@ -12,16 +11,5 @@ import q.domain.Area;
  *
  */
 public interface AreaDao {
-
-	/**
-	 * @return
-	 */
-	Area getRootArea();
-
-	/**
-	 * @param id
-	 * @return
-	 */
-	Area getAreaById(long id);
 
 }

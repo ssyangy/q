@@ -12,7 +12,7 @@
 		<result property="degree" column="degree_id" typeHandler="q.dao.ibatis.DegreeHandler" />
 		<result property="roleId" column="role_id" />
 		<result property="countryCode" column="country_code" />
-		<result property="districtId" column="district_id" />
+		<result property="areaId" column="area_id" />
 		<result property="mobile" column="mobile" />
 		<result property="email" column="email" />
 		<result property="username" column="username" />
@@ -51,7 +51,7 @@
 		degree_id,
 		role_id,
 		country_code,
-		district_id,
+		area_id,
 		mobile,
 		email,
 		username,
@@ -113,7 +113,7 @@
 		#degree,handler=q.dao.ibatis.DegreeHandler#,
 		#roleId#,
 		#countryCode#,
-		#districtId#,
+		#areaId#,
 		#mobile#,
 		#email#,
 		#username#,
@@ -142,8 +142,8 @@
 			<isNotNull prepend="," property="degree"> 
 				degree_id=#degree,handler=q.dao.ibatis.DegreeHandler#
 			</isNotNull>
-			<isGreaterThan prepend="," property="districtId" compareValue="0">
-				district_id=#districtId#
+			<isGreaterThan prepend="," property="areaId" compareValue="0">
+				area_id=#areaId#
 			</isGreaterThan>
 			<isGreaterThan prepend="," property="mobile" compareValue="0">
 				mobile=#mobile#

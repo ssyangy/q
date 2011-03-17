@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import q.domain.Area;
 import q.domain.Favorite;
 import q.domain.Group;
 import q.domain.Message;
@@ -243,6 +244,31 @@ public class DaoHelper {
 			Group group = groupDao.getGroupById(reply.getFromId());
 			reply.setFromPostfix(group.getName());
 		}
+	}
+
+	/**
+	 * @param areaDao
+	 * @param people
+	 */
+	public static void injectPeopleWithArea(People people) {
+		int areaId = people.getAreaId();
+		Area area = Area.getAreaById(areaId);
+		Area province = null;
+		Area city = null;
+		Area county = null;
+		if (area.isProvince()) {
+			province = area;
+		} else if (area.isCity()) {
+			city = area;
+			province = city.getParent();
+		} else if (area.isCounty()) {
+			county = area;
+			city = county.getParent();
+			province = city.getParent();
+		}
+		people.setProvince(province);
+		people.setCity(city);
+		people.setCounty(county);
 	}
 
 }

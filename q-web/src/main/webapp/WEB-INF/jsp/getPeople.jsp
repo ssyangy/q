@@ -25,7 +25,7 @@
 						<div class="profile-image-container"><a href=""><img width="128" height="128" src="${avatarUrlPrefix}/1.png"></a></div>
 						<div class="profile-details">
 							<div class="full-name"><h2>${people.realName}</h2></div>
-							<div class="screen-name-and-location">$-{people.district.level1} $-{people.district.level2}</div>
+							<div class="screen-name-and-location">${people.province.name}&nbsp;${people.city.name}&nbsp;${people.county.name}</div>
 							<div class="bio">${people.intro}</div>
 							<div class="url"><a href="">http://imnotav.com/</a></div>
 						</div>

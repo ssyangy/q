@@ -25,7 +25,13 @@ public class People extends AbstractDomain implements Serializable {
 
 	private int countryCode;// contry telephone code
 
-	private int districtId;// people residence disctrictId
+	private int areaId;// people residence disctrictId
+	
+	private Area province;
+	
+	private Area city;
+	
+	private Area county;
 
 	private Gender gender;
 
@@ -148,12 +154,12 @@ public class People extends AbstractDomain implements Serializable {
 		this.degree = degree;
 	}
 
-	public int getDistrictId() {
-		return districtId;
+	public int getAreaId() {
+		return areaId;
 	}
 
-	public void setDistrictId(int districtId) {
-		this.districtId = districtId;
+	public void setAreaId(int areaId) {
+		this.areaId = areaId;
 	}
 
 	public int getRoleId() {
@@ -224,9 +230,33 @@ public class People extends AbstractDomain implements Serializable {
 		return getYear() + 1900 + "-" + getMonth() + "-" + getDay();
 	}
 
+	public Area getProvince() {
+		return province;
+	}
+
+	public void setProvince(Area province) {
+		this.province = province;
+	}
+
+	public Area getCity() {
+		return city;
+	}
+
+	public void setCity(Area city) {
+		this.city = city;
+	}
+
+	public Area getCounty() {
+		return county;
+	}
+
+	public void setCounty(Area county) {
+		this.county = county;
+	}
+
 	@Override
 	public String toString() {
-		return "People [id=" + id + ", username=" + username + ", password=" + password + ", loginToken=" + loginToken + ", realName=" + realName + ", email=" + email + ", mobile=" + mobile + ", year=" + year + ", month=" + month + ", day=" + day + ", countryCode=" + countryCode + ", districtId=" + districtId + ", gender=" + gender + ", bloodTypeId=" + bloodTypeId + ", degree=" + degree + ", roleId=" + roleId + ", status=" + status + ", created=" + created + ", modified=" + modified + ", friendNum=" + friendNum + ", followNum=" + followerNum + ", followingNum=" + followingNum + ", weiboNum=" + weiboNum + ", intro=" + intro + "]";
+		return "People [id=" + id + ", username=" + username + ", password=" + password + ", loginToken=" + loginToken + ", realName=" + realName + ", email=" + email + ", mobile=" + mobile + ", year=" + year + ", month=" + month + ", day=" + day + ", countryCode=" + countryCode + ", districtId=" + areaId + ", gender=" + gender + ", bloodTypeId=" + bloodTypeId + ", degree=" + degree + ", roleId=" + roleId + ", status=" + status + ", created=" + created + ", modified=" + modified + ", friendNum=" + friendNum + ", followNum=" + followerNum + ", followingNum=" + followingNum + ", weiboNum=" + weiboNum + ", intro=" + intro + "]";
 	}
 
 }
