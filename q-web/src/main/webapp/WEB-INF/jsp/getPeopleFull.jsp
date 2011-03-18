@@ -7,15 +7,57 @@
 	<title>补充个人资料</title>
 	<jsp:include page="js-areas.jsp" flush="true"/>
 	<script type="text/javascript">
-	var sex=false;
 	function checkLocation(){
 	    $("#locationcorrect").css("display","block");
 	    $("#locationwrong").css("display","none");
 	}
 	function checkGender(){
-	    sex=true;
+	    var radios=$(":radio");
+	    if(radios[0].checked == true||radios[1].checked == true){
 	    $("#sexcorrect").css("display","block");
 	    $("#sexwrong").css("display","none");
+	    return true;
+	    }
+	    $("#sexcorrect").css("display","none");
+	    $("#sexwrong").css("display","block");
+	    $("#sexwrong").html("性别还没有选择。");
+	    return false;
+	}
+	function checkMobile(a){
+	   var patrn=/^[0-9]{11}$/;
+	   if(patrn.test(a)){
+         $("#mobilewrong").css("display","none");
+         $("#mobilecorrect").css("display","block");
+         return true;
+      }
+
+         $("#mobilewrong").css("display","block");
+         $("#mobilecorrect").css("display","none");
+         $("#mobilewrong").html("手机号码的格式有误。");
+
+      return false;
+	}
+	function checkGroup(){
+      var boxes=$(":checkbox");
+         for (var i = 0; i < boxes.length; i++) {
+             if (boxes[i].checked == true) {
+                 $("#groupwrong").css("display","none");
+                 $("#groupcorrect").css("display","block");
+                return true;
+               }
+          }
+         $("#groupwrong").css("display","block");
+         $("#groupcorrect").css("display","none");
+         $("#groupwrong").html("请至少选择一个您感兴趣的圈子。");
+       return false;
+	}
+	function check(){
+         var cm=checkMobile($("#mobile").val());
+         var cg=checkGroup();
+         var csex=checkGender();
+          if(!cm||!csex||!cg)
+  	       return false;
+	     return true;
 	}
 	</script>
   </head>
@@ -35,7 +77,7 @@
 								</div>
 							</div>
 							<div id='signup-form'>
-								<form method='post' action='${urlPrefix}/people/${people.id}/full'>
+								<form method='post' action='${urlPrefix}/people/${people.id}/full'  onsubmit="return check()">
 									<fieldset>
 										<table class='input-form'>
 											<tbody>
@@ -124,8 +166,14 @@
 												<tr>
 													<th><label for=''>手机：</label></th>
 
-													<td class='col-field'><input name="mobile" type='text' class='text_field' size='20'/></td>
-													<td class='col-help'></td>
+													<td class='col-field'><input name="mobile" id="mobile" type='text' class='text_field' size='20'
+													onblur="checkMobile(this.value)"/></td>
+													<td class="col-help">
+						                                  <div class="label-box-good" style="display: none;"
+						                                       	id="mobilecorrect"></div>
+						                                  <div class="label-box-error"style="display:none;"
+						                                       	id="mobilewrong"></div>
+						                            </td>
 												</tr>
 												<tr>
 													<th></th>
@@ -139,6 +187,12 @@
 															<input name="group" type='checkbox' value="${group.id}"/><span class='group-name'>${group.name}</span>
 														</c:forEach>
 													</td>
+													<td class="col-help">
+						                                  <div class="label-box-good" style="display: none;"
+						                                       	id="groupcorrect"></div>
+						                                  <div class="label-box-error"style="display:none;"
+						                                       	id="groupwrong"></div>
+						                            </td>
 												</tr>
 												<tr>
 													<th></th>
@@ -146,7 +200,7 @@
 												</tr>
 												<tr>
 													<th></th>
-													<td colspan='2'><button class='button btn-x' type='submit'>保存! 开始玩</button></td>
+													<td colspan='2'><button class='button btn-x' type='submit' >保存! 开始玩</button></td>
 
 												</tr>
 											</tbody>
