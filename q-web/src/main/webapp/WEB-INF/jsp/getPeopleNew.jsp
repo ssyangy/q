@@ -9,6 +9,7 @@
 <script type="text/javascript">
 
 var newEmail = true;
+var newUsername=true;
 function checkEmail(a)
 {
     var emailtest= /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
@@ -25,10 +26,10 @@ function checkEmail(a)
    return false;
 }
 function checkPassword(a){
-       if(a.length<6){
+       if(a.length<6||a.length>16){
        $("#passwordcorrect").css("display","none");
        $("#passwordwrong").css("display","block");
-       $("#passwordwrong").html("密码少于6位。");
+       $("#passwordwrong").html("密码少于6位,或大于16位。");
         return false;
        }
       var password=/^\w+$/;
@@ -56,10 +57,10 @@ function recheckPassword(a){
       return false;
 }
 function checkUserName(a){
-     if(a==""){
+     if(a.length<1||a.length>12){
        $("#usernamecorrect").css("display","none");
        $("#usernamewrong").css("display","block");
-       $("#usernamewrong").html("用户名不能为空。");
+       $("#usernamewrong").html("用户名长度要在1-12位之间。");
         return false;
       }
        $("#usernamecorrect").css("display","block");
@@ -67,10 +68,10 @@ function checkUserName(a){
       return true;
 }
 function checkrealName(a){
-       if(a==""){
+       if(a.length<1||a.length>12){
        $("#realNamecorrect").css("display","none");
        $("#realNamewrong").css("display","block");
-       $("#realNamewrong").html("昵称不能为空。");
+       $("#realNamewrong").html("昵称长度要在1-12位之间。");
         return false;
         }
        $("#realNamecorrect").css("display","block");
@@ -158,14 +159,49 @@ function check() {
           $("#emailwrong").css("display","block");
           $("#emailwrong").html("该邮箱已被注册。");
   }
+  if(!newUsername){
+          $("#usernamecorrect").css("display","none");
+          $("#usernamewrong").css("display","block");
+          $("#usernamewrong").html("该用户名已被注册。");
+  }
   if(cp==true){
    crp=recheckPassword($("#confirmPassword").val());
   }
-  if(!ce || !cp || !cu || !cr || !ca || !crp||!newEmail )
+  if(!ce || !cp || !cu || !cr || !ca || !crp||!newEmail||!newUsername )
   	return ;
   else
   allDataCheck();
  }
+function usernameExistCheck(){
+    var usernametext=$("#username").val();
+    $.ajax({
+    url: '${urlPrefix}/people/check',
+    type: 'POST',
+    dataType: 'json',
+    data:{username: usernametext},
+    timeout: 5000,
+    error: function(){
+
+         newUsername = true;
+    },
+    success: function(json){
+   // var data="{'error_code':'403309','error':'该邮箱地址已被注册.'}";
+      if(json == null){
+          $("#usernamecorrect").css("display","block");
+          $("#usernamewrong").css("display","none");
+          newUsername = true;
+      } else {
+          var errorkind=errorType(json.error);
+          if(errorkind=="username"){
+            $("#usernamecorrect").css("display","none");
+            $("#usernamewrong").css("display","block");
+            $("#usernamewrong").html(errorContext(json.error));
+          }
+          newUsername = false;
+      }
+    }
+});
+}
 function emailExistCheck(){
 	var emailtext=$("#email").val();
 	$.ajax({
@@ -187,7 +223,7 @@ function emailExistCheck(){
       } else {
           $("#emailcorrect").css("display","none");
           $("#emailwrong").css("display","block");
-          $("#emailwrong").html(json.error);
+          $("#emailwrong").html(errorContext(json.error));
           newEmail = false;
       }
     }
@@ -274,7 +310,7 @@ $("#authcodeId").attr("value",value);
 					<tr>
 						<th><label for="">用户名：</label></th>
 						<td class="col-field"><input name="username" type="text" id="username"
-							class="text_field" size="20" onblur="checkUserName(this.value)"></td>
+							class="text_field" size="20" onblur="checkUserName(this.value),usernameExistCheck()"></td>
 						<td class="col-help">
 						  <div class="label-box-good" style="display: none;"
 							id="usernamecorrect"></div>
