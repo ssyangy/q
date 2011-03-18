@@ -7,8 +7,7 @@
 	<jsp:include page="head.jsp" flush="true"/>
 	<title>好友新鲜事</title>
 	<script type="text/javascript">
-		$(function(){
-			// Tabs
+		$(document).ready(function(){
 			$('#tabs').tabs();
 			$tabs.tabs('select', 0);
 		});

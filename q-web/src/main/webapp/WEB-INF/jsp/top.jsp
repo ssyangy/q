@@ -37,7 +37,7 @@
 				</ul>
 			</div>
 			<div id="search">
-				<input type="text" class="search_field" size="35" value="搜微博、圈子、好友">
+				<input type="text" class="search_field" size="35" placeholder="搜微博、圈子、好友"/>
 			</div>
 			<div class="clearfix"></div>
 		</div>

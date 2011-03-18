@@ -7,10 +7,6 @@
 	<title>圈子</title>
 	<script type="text/javascript">
 	// <![CDATA[
-	$(document).ready(function(){			
-		$('.input').defaultValue();
-	});
-	
 	function check(){
 	  var username=$("#username").val();
 	  var password=$("#password").val();  
