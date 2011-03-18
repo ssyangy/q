@@ -6,6 +6,11 @@
 	<jsp:include page="head.jsp" flush="true"/>
 	<title>圈子</title>
 	<script type="text/javascript">
+	// <![CDATA[
+	$(document).ready(function(){			
+		$('.input').defaultValue();
+	});
+	
 	function check(){
 	  var username=$("#username").val();
 	  var password=$("#password").val();  
@@ -30,7 +35,8 @@
 	      }
 	    }
 	  });
-	}	
+	}
+	// ]]>	
 	</script>
 </head>
 <body>
@@ -46,10 +52,10 @@
 					<table> 
 						<tbody> 
 							<tr> 
-								<td colspan="2"><input name='username' id="username" type='text' class='text_field' size='32'></td> 
+								<td colspan="2"><input name='username' id="username" placeholder="请输入邮箱或帐号" type='text' class='text_field' size='32'></td> 
 							</tr> 
 							<tr> 
-								<td colspan="2"><input name='password' id="password" type='password' class='text_field' size='32'></td> 
+								<td colspan="2"><input name='password' id="password" placeholder="请输入密码" type='password' class='text_field' size='32'></td> 
 							</tr>
 							<tr> 
 								<th></th> 

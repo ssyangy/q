@@ -80,7 +80,7 @@
 				</property>
 			</bean>
 		</property>
-		<property name="loginPath" value="/login/new" />
+		<property name="loginPath" value="" />
 		<property name="needLoginResources">
 			<set>
 				<value>getMineIndex</value>

@@ -39,7 +39,7 @@ public class AddPeople extends Resource {
 		People people = new People();
 		people.setEmail(context.getString("email"));
 		people.setPassword(context.getString("password"));
-		people.setUsername(context.getString("username"));
+		people.setUsername(context.getString("username").toLowerCase());
 		people.setRealName(context.getString("realName"));
 		people.setGender(Gender.convertValue(context.getInt("gender", 0)));
 		people.setLoginToken("xxxx");// FIXME wanglin
@@ -50,15 +50,9 @@ public class AddPeople extends Resource {
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		if (!PeopleValidator.validateUsername(context.getString("username"))) {
-			throw new RequestParameterInvalidException("username:用户名不能为空。");
-		}
-		if (!PeopleValidator.validateRealName(context.getString("realName"))) {
-			throw new RequestParameterInvalidException("realName:昵称不能为空。");
-		}
-		if (!PeopleValidator.validatePassword(context.getString("password"))) {
-			throw new RequestParameterInvalidException("password:密码由少于6位,或者有包含有数字,字母,下划线以外的字符组成。");
-		}
+		PeopleValidator.validateUsername(context.getString("username"));
+		PeopleValidator.validateRealName(context.getString("realName"));
+		PeopleValidator.validatePassword(context.getString("password"));
 		if (!context.getString("confirmPassword").equals(context.getString("password"))) {
 			throw new RequestParameterInvalidException("confirmPassword:两次输入的密码不同。");
 		}

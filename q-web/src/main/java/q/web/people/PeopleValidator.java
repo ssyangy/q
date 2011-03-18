@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.validator.GenericValidator;
 
+import q.biz.exception.RequestParameterInvalidException;
 import q.util.StringKit;
 
 public class PeopleValidator {
@@ -18,47 +19,47 @@ public class PeopleValidator {
 	}
 
 	/**
-	 * 验证圈子帐号,大小写字母开头，允许6-16字节，允许字母数字下划线
+	 * 验证圈子帐号,
+	 * @throws RequestParameterInvalidException 
 	 */
-	public static boolean validateUsername(String account) {
+	public static void validateUsername(String account) throws RequestParameterInvalidException {
 		if (StringKit.isEmpty(account)) {
-			return false;
+			throw new RequestParameterInvalidException("username:用户名必填");
 		}
-		Pattern p = Pattern.compile("^[a-zA-Z][a-zA-Z0-9_]{5,15}$");
-		return (p.matcher(account).matches());
+		Pattern p = Pattern.compile("^[a-zA-Z0-9_/-]{6,16}$");
+		if(!p.matcher(account).matches()) {
+			throw new RequestParameterInvalidException("username:用户名允许6-16个字符,包括英文字母,数字,下划线,减号");
+		}
 
 	}
 
 	/**
-	 * 验证密码，允许6-16字节，允许字母数字下划线,区分大小写
+	 * 验证密码
+	 * @throws RequestParameterInvalidException 
 	 */
-	public static boolean validatePassword(String password) {
+	public static void validatePassword(String password) throws RequestParameterInvalidException {
 		if (StringKit.isEmpty(password)) {
-			return false;
+			throw new RequestParameterInvalidException("password:密码不能为空");
 		}
-		Pattern p = Pattern.compile("^[0-9a-zA-Z_]{5,15}$");
-		return (p.matcher(password).matches());
+		Pattern p = Pattern.compile("^.{6,16}$");
+		if (!p.matcher(password).matches()){
+			throw new RequestParameterInvalidException("password:密码允许6-16个字符,区分大小写");
+		}
 	}
 
 	/**
-	 * 验证姓名，允许1-12字节，允许汉字字母数字下划线,区分大小写
+	 * 验证姓名
+	 * @throws RequestParameterInvalidException 
 	 */
-	public static boolean validateName(String name) {
-		if (StringKit.isEmpty(name)) {
-			return false;
-		}
-		Pattern p = Pattern.compile("^[a-zA-Z0-9_\u4e00-\u9fa5]+{0,11}$");
-		return (p.matcher(name).matches());
-	}
-
-	/**
-	 * @param string
-	 * @return
-	 */
-	public static boolean validateRealName(String realName) {
+	public static void validateRealName(String realName) throws RequestParameterInvalidException {
 		if (StringKit.isEmpty(realName)) {
-			return false;
+			throw new RequestParameterInvalidException("realName:昵称不能为空");
 		}
-		return true;
+		//Pattern p = Pattern.compile("^[a-zA-Z0-9_/-\u4e00-\u9fa5]+{0,11}$");
+		Pattern p = Pattern.compile("^.{1,12}$");
+		if (!p.matcher(realName).matches()) {
+			throw new RequestParameterInvalidException("realName:昵称允许1-12个字符,区分大小写");
+		}
 	}
+
 }

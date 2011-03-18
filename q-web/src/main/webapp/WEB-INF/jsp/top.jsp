@@ -15,7 +15,7 @@
 				</c:when>
 				<c:otherwise>
 				<li><a href="${urlPrefix}/people/new">注册</a><span class='sep'>|</span></li>
-				<li><a href="${urlPrefix}/login/new">登录</a></li>				
+				<li><a href="${urlPrefix}">登录</a></li>				
 				</c:otherwise>
 				</c:choose>
 			</ul>
@@ -28,9 +28,9 @@
 			</div>
 			<div id="nav">
 				<ul>
-					<c:if test="${loginCookie.peopleId > 0}">
 					<li><a href="${urlPrefix}/group/feed">圈子新鲜事</a><span class='sep2'>|</span></li>
 					<li><a href="${urlPrefix}/people/feed">好友新鲜事</a><span class='sep2'>|</span></li>
+					<c:if test="${loginCookie.peopleId > 0}">
 					<li><a href="${urlPrefix}/people/${loginCookie.peopleId}">我的主页</a><span class='sep2'>|</span></li>
 					</c:if>
 					<li><a href="${urlPrefix}/people">找人</a></li>

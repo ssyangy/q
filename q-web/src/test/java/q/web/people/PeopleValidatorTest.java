@@ -11,11 +11,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import q.biz.exception.RequestParameterInvalidException;
+
 /**
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Mar 14, 2011
- *
+ * 
  */
 public class PeopleValidatorTest {
 
@@ -60,7 +62,19 @@ public class PeopleValidatorTest {
 	 */
 	@Test
 	public void testValidateUsername() {
-		Assert.assertTrue(PeopleValidator.validateUsername("xxxxxx"));
+		try {
+			PeopleValidator.validateUsername("12345");
+			PeopleValidator.validateUsername("12345678901234567");
+			Assert.fail();
+		} catch (RequestParameterInvalidException e) {
+		}
+		try {
+			PeopleValidator.validateUsername("123456");
+			PeopleValidator.validateUsername("abc123456-_");
+			PeopleValidator.validateUsername("1234567890123456");
+		} catch (RequestParameterInvalidException e) {
+			Assert.fail();
+		}
 	}
 
 	/**
@@ -68,9 +82,47 @@ public class PeopleValidatorTest {
 	 */
 	@Test
 	public void testValidatePassword() {
-		Assert.assertTrue(PeopleValidator.validatePassword("123456"));
+		try {
+			PeopleValidator.validateUsername("12345");
+			Assert.fail();
+		} catch (RequestParameterInvalidException e) {
+		}
+		try {
+			PeopleValidator.validateUsername("12345678901234567");
+			Assert.fail();
+		} catch (RequestParameterInvalidException e) {
+		}
+		try {
+			PeopleValidator.validateUsername("中文");
+			Assert.fail();
+		} catch (RequestParameterInvalidException e) {
+		}
+		try {
+			PeopleValidator.validateUsername("123456");
+			PeopleValidator.validateUsername("123456abc-_");
+			PeopleValidator.validateUsername("1234567890123456");
+		} catch (RequestParameterInvalidException e) {
+			Assert.fail();
+		}
 	}
-	
-	
+
+	@Test
+	public void testValidateRealName() {
+		try {
+			PeopleValidator.validateRealName("");
+			PeopleValidator.validateRealName("1234567890123");
+			Assert.fail();
+		} catch (RequestParameterInvalidException e) {
+		}
+		try {
+			PeopleValidator.validateRealName("1");
+			PeopleValidator.validateRealName("1abc-_");
+			PeopleValidator.validateRealName("123456789012");
+			PeopleValidator.validateRealName("中文");
+		} catch (RequestParameterInvalidException e) {
+			Assert.fail();
+		}
+
+	}
 
 }
