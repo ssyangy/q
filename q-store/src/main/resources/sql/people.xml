@@ -142,6 +142,9 @@
 			<isNotNull prepend="," property="degree"> 
 				degree_id=#degree,handler=q.dao.ibatis.DegreeHandler#
 			</isNotNull>
+			<isNotNull prepend="," property="gender"> 
+				gender_id=#gender,handler=q.dao.ibatis.GenderHandler#
+			</isNotNull>			
 			<isNotNull prepend="," property="area">
 				area_id=#area,handler=q.dao.ibatis.AreaHandler#
 			</isNotNull>

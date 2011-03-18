@@ -4,8 +4,8 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.validator.GenericValidator;
 
-import q.biz.exception.RequestParameterInvalidException;
 import q.util.StringKit;
+import q.web.exception.RequestParameterInvalidException;
 
 public class PeopleValidator {
 	/**

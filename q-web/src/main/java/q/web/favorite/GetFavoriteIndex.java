@@ -5,7 +5,6 @@ package q.web.favorite;
 
 import java.util.List;
 
-import q.biz.exception.RequestParameterInvalidException;
 import q.dao.DaoHelper;
 import q.dao.FavoriteDao;
 import q.dao.GroupDao;
@@ -15,6 +14,7 @@ import q.dao.page.FavoritePage;
 import q.domain.Favorite;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.RequestParameterInvalidException;
 
 /**
  * @author seanlinwang

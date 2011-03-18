@@ -16,7 +16,7 @@ public class DeleteEventJoin extends Resource{
 		long peopleId = context.getCookiePeopleId();
 		long eventId = context.getResourceIdLong();
 		eventDao.unjoinPeopleJoinEvent(peopleId, eventId);
-		context.redirectReffer();
+		//context.redirectReffer();
 	}
 	/* (non-Javadoc)
 	 * @see q.web.Resource#validate(q.web.ResourceContext)

@@ -81,6 +81,84 @@ function unFollow(button,peopleId){
     }
   });
 }
+function joinGroup(button,groupId){
+  $.ajax({
+    url: '${urlPrefix}/group/' + groupId + '/join',
+    type: 'POST',
+    dataType: 'json',
+    timeout: 5000,
+    error: function(){
+    	console.log(json);
+    },
+   	success: function(json){
+       if(json == null){
+           	button.innerHTML = "不参加了";
+           	button.onclick = function(event){unJoinGroup(button,groupId);};
+        } else {
+        	console.log(json);
+     	}
+    }
+  });
+}
+function unJoinGroup(button,groupId){
+  $.ajax({
+    url: '${urlPrefix}/group/' + groupId + '/join',
+    type: 'POST',
+    dataType: 'json',
+    data:{_method:'delete'},    
+    timeout: 5000,
+    error: function(){
+    	console.log(json);
+    },
+   	success: function(json){
+       if(json == null){
+           	button.innerHTML = "加入";
+           	button.onclick = function(event){joinGroup(button,groupId);};
+        } else {
+        	console.log(json);
+     	}
+    }
+  });
+}
+function joinEvent(button,eventId){
+  $.ajax({
+    url: '${urlPrefix}/event/' + eventId + '/join',
+    type: 'POST',
+    dataType: 'json',
+    timeout: 5000,
+    error: function(){
+    	console.log(json);
+    },
+   	success: function(json){
+       if(json == null){
+           	button.innerHTML = "不参加了";
+           	button.onclick = function(event){unJoinEvent(button,eventId);};
+        } else {
+        	console.log(json);
+     	}
+    }
+  });
+}
+function unJoinEvent(button,eventId){
+  $.ajax({
+    url: '${urlPrefix}/event/' + eventId + '/join',
+    type: 'POST',
+    dataType: 'json',
+    data:{_method:'delete'},    
+    timeout: 5000,
+    error: function(){
+    	console.log(json);
+    },
+   	success: function(json){
+       if(json == null){
+           	button.innerHTML = "我要参加";
+           	button.onclick = function(event){joinEvent(button,eventId);};
+        } else {
+        	console.log(json);
+     	}
+    }
+  });
+}
 function errorType(error){
   var exist=error.indexOf(':');
   if(exist>-1){

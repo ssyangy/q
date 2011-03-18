@@ -3,13 +3,14 @@
  */
 package q.web.login;
 
-import q.biz.exception.PeopleNotLoginException;
 import q.dao.PeopleDao;
 import q.domain.People;
 import q.web.DefaultResourceContext;
 import q.web.LoginCookie;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleLoginPasswordException;
+import q.web.exception.PeopleNotExistException;
 
 /**
  * @author seanlinwang
@@ -35,15 +36,15 @@ public class AddLogin extends Resource {
 		String password = context.getString("password");
 //		String fromPath = context.getString("from");
 
-		People p = this.peopleDao.getPeopleByUsername(username);
-		if (null == p) {
-			throw new PeopleNotLoginException("username:用户不存在");
+		People people = this.peopleDao.getPeopleByUsername(username);
+		if (null == people) {
+			throw new PeopleNotExistException("username:用户不存在");
 		}
-		if (!p.getPassword().equals(password)) { // FIXME incorrect password, wanglin
-			throw new IncorrectPasswordLoginException("password:密码错误");
+		if (!people.getPassword().equals(password)) { // FIXME incorrect password, wanglin
+			throw new PeopleLoginPasswordException("password:密码错误");
 		}
-		context.setModel("people", p);
-		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(p.getId(), p.getRealName(), p.getUsername())); // set login cookie
+		context.setModel("people", people);
+		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), people.getRealName(), people.getUsername())); // set login cookie
 //		if (fromPath != null) {
 //			context.redirectContextPath(fromPath);
 //		} else {

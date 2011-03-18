@@ -3,8 +3,8 @@
  */
 package q.web.area;
 
-import q.biz.exception.RequestParameterInvalidException;
 import q.domain.Area;
+import q.web.exception.RequestParameterInvalidException;
 
 /**
  * @author seanlinwang

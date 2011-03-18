@@ -3,13 +3,13 @@
  */
 package q.web.weibo;
 
-import q.biz.exception.RequestParameterInvalidException;
 import q.dao.WeiboDao;
 import q.domain.Weibo;
 import q.domain.WeiboFromType;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.RequestParameterInvalidException;
 
 /**
  * @author seanlinwang

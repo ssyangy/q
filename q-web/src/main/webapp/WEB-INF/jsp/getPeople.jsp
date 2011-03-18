@@ -7,7 +7,6 @@
 	<title>我的主页</title>
 	<script type="text/javascript">
 		$(function(){
-			// Tabs
 			$('#tabs').tabs();
 			$tabs.tabs('select', 0);
 		});

@@ -1,41 +1,103 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>活动:<c:out value="${event.name}" /></title>
+	<jsp:include page="head.jsp" flush="true"/>
+	<title>活动:<c:out value="${event.name}" /></title>
+	<script type="text/javascript">
+		$(function(){
+			$('#tabs').tabs();
+			$tabs.tabs('select', 0);
+		});
+	</script>
 </head>
 <body>
-<div id="content">
-	<div>
-		<c:out value="${event.name}" /><br/> 
-		<c:choose>
-			<c:when test="${join == null}">
-				<form action="<c:out value="${contextPath}/event/${event.id}/join"/>"
-					method="post">
-				<button>参加</button>
-				</form>
-			</c:when>
-			<c:otherwise>我已参加这个活动
-				<form
-					action="<c:out value="${contextPath}/event/${event.id}/join"/>"
-					method="post"><input type="hidden" name="_method"
-					value="delete" />
-				<button>不参加了</button>
-				</form>
-			</c:otherwise>
-		</c:choose>
-	</div>
-	时间:${event.started}&nbsp;~&nbsp;${event.ended}<br />
-	城市:${event.area.myProvince.name}&nbsp;${event.area.myCity.name}&nbsp;${event.area.myCounty.name}<br/>
-	地点:${event.address}<br />
-	费用:${event.cost}<br />
-	人数限制:${event.number}<br />
-	简介:${event.intro}<br />
-	发起人:${senderperson.username}<br />
-</div>
+	<div id="doc"> 
+		<jsp:include page="top.jsp" flush="true"/>
+		<div id="page-outer"> 
+			<div id="page-container"> 
+				<div class="main-content" style="min-height:400px"> 
+					<div class="content-wrapper-box event"> 
+						<div class="wrapper-box"> 
+							<div class="content-header event-header"> 
+								<h2>${event.name}</h2> 
+								<div class="second-header"> 
+									<div class="action">
+									<c:choose>
+										<c:when test="${join == null}">
+											<button class="tweet-button button" onclick="joinEvent(this,${event.id})">我要参加</button>
+										</c:when>
+										<c:otherwise>
+											<button class="tweet-button button" onclick="unJoinEvent(this,${event.id})">不参加了</button>
+										</c:otherwise>
+									</c:choose>									
+										
+									</div> 
+									<div class="count">人参加</div> 
+									<div class="clearfix2"></div> 
+								</div> 
+							</div> 
+							<div class="content-body"> 
+								<table cellspacing="10"> 
+									<tbody> 
+										<tr> 
+											<th>城市：</th> 
+											<td>${event.area.myProvince.name}&nbsp;${event.area.myCity.name}&nbsp;${event.area.myCounty.name}</td> 
+										</tr> 									
+										<tr> 
+											<th>时间：</th> 
+											<td>${event.started} - ${event.ended}</td> 
+										</tr> 
+										<tr> 
+											<th>地点：</th> 
+											<td>${event.address}</td> 
+										</tr> 
+										<tr> 
+											<th>费用：</th> 
+											<td>${event.cost}</td> 
+										</tr> 
+										<tr> 
+											<th>人数限制：</th> 
+											<td>${event.number}人</td> 
+										</tr> 
+										<tr> 
+											<th>简介：</th> 
+											<td>${event.intro}</td> 
+										</tr> 
+										<tr> 
+											<th>发起人：</th> 
+											<td> 
+												<div> 
+													<div class="avatar"><img src="${avatarUrlPrefix}/avatar2.jpg"></div> 
+													<div class="name"><a href="">${senderperson.username}</a></div> 
+												</div> 
+											</td> 
+										</tr> 
+									</tbody> 
+								</table> 
+							</div> 
+						</div> 
+					</div> 
+				</div> 
+				<div class="dashboard" style="display:block;"> 
+					<div class="db-block"> 
+						<a href="" class="button">推荐给好友</a> 
+					</div> 
+					<div class="db-block"> 
+						<h3>参加的人：</h3> 
+						<div class="db-block-content"> 
+							<div class="people-cell"> 
+								<div class="avatar"><img src="${avatarUrlPrefix}/avatar0.png"></div> 
+								<div class="name">孟飞</div> 
+							</div> 
+						</div> 
+					</div> 
+				</div> 
+			</div> 
+		</div> 
+		<div id="message-notifications"> 
+		</div> 
+	</div> 
 </body>
 </html>

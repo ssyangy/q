@@ -82,14 +82,14 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 
 	@Override
 	public List<Group> getGroupsByPeopleId(long peopleId) throws SQLException {
-		List<Long> groupIds = this.getGroupIdsByPeopleId(peopleId); 
-		if(CollectionKit.isEmpty(groupIds)) {
+		List<Long> groupIds = this.getGroupIdsByPeopleId(peopleId);
+		if (CollectionKit.isEmpty(groupIds)) {
 			return null;
 		}
 		List<Group> groups = this.getGroupsByIds(groupIds);
 		return groups;
 	}
-	
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Long> getGroupIdsByPeopleId(long peopleId) throws SQLException {
@@ -97,7 +97,20 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 	}
 
 	@Override
+	public List<Long> getExsitGroupIdsByIds(List<Long> groupIds) throws SQLException {
+		if (CollectionKit.isEmpty(groupIds)) {
+			return null;
+		}
+		@SuppressWarnings("unchecked")
+		List<Long> ids = this.sqlMapClient.queryForList("selectGroupIdsByIds", groupIds);
+		return ids;
+	}
+
+	@Override
 	public List<Group> getGroupsByIds(List<Long> groupIds) throws SQLException {
+		if (CollectionKit.isEmpty(groupIds)) {
+			return null;
+		}
 		@SuppressWarnings("unchecked")
 		List<Group> groups = this.sqlMapClient.queryForList("selectGroupsByIds", groupIds);
 		return groups;
@@ -122,7 +135,7 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 	@Override
 	public Map<Long, String> getGroupIdNameMapByIds(Set<Long> groupIds) throws SQLException {
 		@SuppressWarnings("unchecked")
-		List<Group> groups = (List<Group>)this.sqlMapClient.queryForList("selectIdNamesByIds", groupIds.toArray());
+		List<Group> groups = (List<Group>) this.sqlMapClient.queryForList("selectIdNamesByIds", groupIds.toArray());
 		if (CollectionKit.isEmpty(groups)) {
 			return null;
 		}

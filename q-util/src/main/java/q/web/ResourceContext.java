@@ -2,6 +2,7 @@ package q.web;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.List;
 
 import javax.servlet.ServletException;
 
@@ -105,4 +106,10 @@ public interface ResourceContext {
 	 * @return
 	 */
 	boolean isLogin();
+
+	/**
+	 * @param string
+	 * @return
+	 */
+	List<Long> getIdLongList(String string);
 }

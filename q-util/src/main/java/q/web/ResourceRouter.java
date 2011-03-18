@@ -18,13 +18,14 @@ import org.springframework.web.servlet.mvc.Controller;
 
 import q.log.Logger;
 import q.util.StringKit;
+import q.web.exception.PeopleNotLoginException;
 
 /**
  * RESTFUL resource entry
- *
+ * 
  * @author seanlinwang
  * @date Jan 16, 2011
- *
+ * 
  */
 public class ResourceRouter implements Controller, ApplicationContextAware {
 	/**
@@ -41,7 +42,6 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 	public static final String HTTP_METHOD_GET = "get";
 	private final static Logger log = Logger.getLogger();
 
-
 	private ApplicationContext applicationContext;
 
 	@Override
@@ -56,7 +56,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 
 	/**
 	 * set default resource to router
-	 *
+	 * 
 	 * @param defaultResource
 	 */
 	public void setDefaultResource(Resource defaultResource) {
@@ -92,9 +92,9 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 	public void setStaticUrlPrefix(String staticUrlPrefix) {
 		this.staticUrlPrefix = staticUrlPrefix;
 	}
-	
+
 	private String avatarUrlPrefix;
-	
+
 	public void setAvatarUrlPrefix(String avatarUrlPrefix) {
 		this.avatarUrlPrefix = avatarUrlPrefix;
 	}
@@ -124,10 +124,22 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 			return null;
 		} else {
 			ResourceContext context = toResourceContext(request, response, path, segs); // construct resource context
+			String accept = request.getHeader("Accept");
+			boolean isJson = false;
+			if (accept != null) {
+				if (accept.startsWith(MEDIA_TYPE_APPLICATION_JSON) || accept.startsWith(MEDIA_TYPE_APPLICATION_JSON_TEXT)) { // do json mime
+					isJson = true; // is json api call
+				}
+			}
+			
 			if (this.needLoginResources != null && this.needLoginResources.contains(resource.getName())) { // request resource need visitor login first
 				if (context.getCookiePeopleId() <= 0) { // visitor logoff
-					context.redirectServletPath(loginPath + "?from=" + request.getContextPath() + path);
-					return null;
+					if (isJson) {
+						context.setErrorModel(new PeopleNotLoginException("login:用户未登录"));
+					} else {
+						context.redirectServletPath(loginPath + "?from=" + request.getContextPath() + path);
+						return null;
+					}
 				}
 			}
 
@@ -143,14 +155,13 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 				log.error("resource  %s execute exeption", e, resource);
 			}
 
-			ViewResolver viewResolver = this.defaultViewResolver;
-			String accept = request.getHeader("Accept");
-			if (accept != null) {
-				if (accept.startsWith(MEDIA_TYPE_APPLICATION_JSON) || accept.startsWith(MEDIA_TYPE_APPLICATION_JSON_TEXT)) { // do json mime
-					response.setContentType(MEDIA_TYPE_APPLICATION_JSON);
+			ViewResolver viewResolver = null;
+			if (isJson) {
 					viewResolver = this.jsonViewResolver;
-				}
+			} else {
+				viewResolver = this.defaultViewResolver;
 			}
+			
 			ModelAndView view = viewResolver.view(context, resource);// use resource name as view name
 			return view;
 		}

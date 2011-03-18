@@ -5,7 +5,6 @@ package q.dao.ibatis;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import q.dao.EventDao;
@@ -27,8 +26,6 @@ public class EventDaoImpl extends AbstractDaoImpl implements EventDao {
 	@Override
 	public void addEvent(Event event) throws SQLException {
 		event.setId(IdCreator.getLongId());
-		event.setCreated(new Date());
-		event.setStatus(Status.COMMON.getValue());
 		this.sqlMapClient.insert("insertEvent", event);
 	}
 

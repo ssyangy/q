@@ -33,15 +33,10 @@
 									<div class="group-join">
 									<c:choose>
 										<c:when test="${join == null}">
-											<form action="${urlPrefix}/group/${group.id}/join" method="post">
-												<a href="#" class="button"><button>加入</button></a>
-											</form>
+												<button class="button" onclick="joinGroup(this,${group.id})">加入</button>
 										</c:when>
-										<c:otherwise>我已加入这个圈子
-											<form action="${contextPath}/group/${group.id}/join" method="post">
-												<input type="hidden" name="_method" value="delete" />
-												<a href="#" class="button"><button>不参加了</button></a>
-											</form>
+										<c:otherwise>
+												<button class="button" onclick="unJoinGroup(this,${group.id})">不参加了</button>
 										</c:otherwise>
 									</c:choose>
 									</div>
@@ -76,7 +71,7 @@
 								<textarea name="content" class="twitter-anywhere-tweet-box-editor" style="width: 482px; height: 56px; "></textarea>
 							</div>
 							<div class="tweet-button-container">
-								<a href="#" class="button"><button>发表</button></a>
+								<button class="button">发表</button>
 							</div>
 						</form>
 					</div>

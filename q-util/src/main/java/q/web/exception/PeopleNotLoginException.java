@@ -1,7 +1,7 @@
 /**
  * 
  */
-package q.biz.exception;
+package q.web.exception;
 
 import q.web.ErrorCodeException;
 

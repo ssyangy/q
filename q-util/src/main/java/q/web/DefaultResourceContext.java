@@ -3,12 +3,15 @@ package q.web;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import q.log.Logger;
+import q.util.ArrayKit;
 import q.util.IdCreator;
 import q.util.StringKit;
 
@@ -91,6 +94,25 @@ public class DefaultResourceContext implements ResourceContext {
 		return getIdLongFromValue(value);
 	}
 
+	@Override
+	public List<Long> getIdLongList(String key) {
+		String[] values = request.getParameterValues(key);
+		if (ArrayKit.isEmpty(values)) {
+			return null;
+		}
+		List<Long> list = null;
+		for (String value : values) {
+			long id = getIdLongFromValue(value);
+			if (id > 0) {
+				if (list == null) {
+					list = new ArrayList<Long>(values.length);
+				}
+				list.add(id);
+			}
+		}
+		return list;
+	}
+
 	private long getIdLongFromValue(String value) {
 		long v = 0;
 		if (StringKit.isEmpty(value)) {
@@ -150,7 +172,7 @@ public class DefaultResourceContext implements ResourceContext {
 		}
 		return loginCookie;
 	}
-	
+
 	@Override
 	public boolean isLogin() {
 		return getLoginCookie() != EMPTY_LOGIN_COOKIE;

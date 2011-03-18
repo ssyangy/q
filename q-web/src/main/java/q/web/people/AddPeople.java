@@ -2,8 +2,6 @@ package q.web.people;
 
 import java.sql.SQLException;
 
-import q.biz.exception.PeopleAlreadyExistException;
-import q.biz.exception.RequestParameterInvalidException;
 import q.dao.AuthcodeDao;
 import q.dao.PeopleDao;
 import q.domain.Gender;
@@ -13,6 +11,8 @@ import q.web.DefaultResourceContext;
 import q.web.LoginCookie;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleAlreadyExistException;
+import q.web.exception.RequestParameterInvalidException;
 
 /**
  * @author Zhehao

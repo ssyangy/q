@@ -60,4 +60,11 @@ public interface GroupDao {
 	 * @return
 	 */
 	Map<Long, String> getGroupIdNameMapByIds(Set<Long> groupIds) throws SQLException;
+
+	/**
+	 * @param groupIds
+	 * @return
+	 */
+	List<Long> getExsitGroupIdsByIds(List<Long> groupIds) throws SQLException;
+
 }

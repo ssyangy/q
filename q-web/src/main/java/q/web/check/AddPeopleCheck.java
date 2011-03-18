@@ -1,12 +1,12 @@
 package q.web.check;
 
-import q.biz.exception.PeopleAlreadyExistException;
-import q.biz.exception.RequestParameterInvalidException;
 import q.dao.PeopleDao;
 import q.domain.People;
 import q.util.StringKit;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleAlreadyExistException;
+import q.web.exception.RequestParameterInvalidException;
 
 public class AddPeopleCheck extends Resource {
 	private PeopleDao peopleDao;

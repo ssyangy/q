@@ -3,13 +3,13 @@
  */
 package q.web.message;
 
-import q.biz.exception.RequestParameterInvalidException;
 import q.dao.MessageDao;
 import q.dao.PeopleDao;
 import q.domain.Message;
 import q.domain.People;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.RequestParameterInvalidException;
 
 /**
  * @author seanlinwang

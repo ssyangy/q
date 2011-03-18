@@ -1,7 +1,7 @@
 /**
  * 
  */
-package q.web.login;
+package q.web.exception;
 
 import q.web.ErrorCodeException;
 
@@ -13,14 +13,14 @@ import q.web.ErrorCodeException;
  * @date Feb 20, 2011
  * 
  */
-public class IncorrectPasswordLoginException extends ErrorCodeException {
+public class PeopleLoginPasswordException extends ErrorCodeException {
 	private static final long serialVersionUID = -3080434513698835125L;
 
-	public IncorrectPasswordLoginException(String error) {
+	public PeopleLoginPasswordException(String error) {
 		super("40003", error);
 	}
 
-	public IncorrectPasswordLoginException(String message, Throwable cause) {
+	public PeopleLoginPasswordException(String message, Throwable cause) {
 		super(message, cause);
 	}
 

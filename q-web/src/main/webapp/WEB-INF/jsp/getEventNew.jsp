@@ -27,7 +27,7 @@
 			</select>
 			<select class='select' name="county" id="selCounty">
 			</select>
-			<input type="text" name="location" size="10" maxlength="10" value=""><br />
+			<input type="text" name="address" size="10" maxlength="10" value=""><br />
 			简介:
 			<textarea name="intro" cols="50" rows="10"></textarea> <br />
 			费用:

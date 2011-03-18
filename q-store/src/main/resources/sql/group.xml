@@ -45,6 +45,16 @@
         </iterate>
 	</select>
 	
+	<select id="selectGroupIdsByIds" resultClass="long">
+		select
+		id
+		from `group`
+		where id in
+		<iterate open="(" close=")" conjunction=",">
+			#[]#
+        </iterate>
+	</select>	
+	
 	<select id="selectGroupById" resultMap="groupResult">
 		select
 		<include refid="group.columns" />

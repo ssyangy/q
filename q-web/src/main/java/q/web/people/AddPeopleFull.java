@@ -1,17 +1,23 @@
 package q.web.people;
 
+import java.util.List;
+
 import org.apache.commons.lang.ArrayUtils;
 
-import q.biz.exception.RequestParameterInvalidException;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.domain.Area;
 import q.domain.Degree;
 import q.domain.Gender;
 import q.domain.People;
+import q.util.CollectionKit;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.area.AreaValidator;
+import q.web.exception.PeopleNotExistException;
+import q.web.exception.PeopleNotPermitException;
+import q.web.exception.RequestParameterInvalidException;
+import q.web.group.AddGroupJoin;
 
 public class AddPeopleFull extends Resource {
 	private PeopleDao peopleDao;
@@ -29,8 +35,10 @@ public class AddPeopleFull extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		People people = new People();
-		people.setId(context.getResourceIdLong());
-		people.setGender(Gender.convertValue(context.getInt("gender", -1)));
+		long peopleId = context.getResourceIdLong();
+		people.setId(peopleId);
+		Gender gender = Gender.convertValue(context.getInt("gender", -1));
+		people.setGender(gender);
 		int provinceId = context.getInt("province", -1);
 		int cityId = context.getInt("city", -1);
 		int countyId = context.getInt("county", -1);
@@ -47,13 +55,28 @@ public class AddPeopleFull extends Resource {
 		people.setMonth(context.getInt("month", -1));
 		people.setDay(context.getInt("day", -1));
 		peopleDao.updatePeopleById(people);
-		// FIXME add people join groups
+		List<Long> groupIds = context.getIdLongList("group");
+		groupIds = groupDao.getExsitGroupIdsByIds(groupIds); // filter not exists
+		AddGroupJoin action = new AddGroupJoin();
+		action.setGroupDao(groupDao);
+		if (CollectionKit.isNotEmpty(groupIds)) {
+			for(Long groupId : groupIds) {
+				action.addPeopleJoinGroup(peopleId, groupId);
+			}
+		}
 		context.setModel("people", people);
 		context.redirectServletPath("/group/feed");
 	}
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+		long peopleId = context.getResourceIdLong();
+		if (peopleId != context.getCookiePeopleId()) {
+			throw new PeopleNotPermitException("people:无操作权限");
+		}
+		if (this.peopleDao.getPeopleById(peopleId) == null) {
+			throw new PeopleNotExistException("people:用户不存在");
+		}
 		int provinceId = context.getInt("province", -1);
 		int cityId = context.getInt("city", -1);
 		int countyId = context.getInt("county", -1);

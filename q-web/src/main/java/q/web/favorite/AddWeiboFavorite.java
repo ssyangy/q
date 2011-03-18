@@ -3,13 +3,13 @@
  */
 package q.web.favorite;
 
-import q.biz.exception.RequestParameterInvalidException;
 import q.dao.FavoriteDao;
 import q.dao.WeiboDao;
 import q.domain.Favorite;
 import q.domain.Weibo;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.RequestParameterInvalidException;
 
 /**
  * @author seanlinwang

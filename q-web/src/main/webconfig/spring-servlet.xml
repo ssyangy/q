@@ -75,7 +75,31 @@
 								<value>deletePeopleFollowing:people</value>
 							</key>
 							<value>/WEB-INF/json/check.xml</value>
-						</entry>																								
+						</entry>
+						<entry>
+							<key>
+								<value>addGroupJoin:group</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>deleteGroupJoin:group</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>addEventJoin:event</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>deleteEventJoin:event</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>						
 					</map>
 				</property>
 			</bean>

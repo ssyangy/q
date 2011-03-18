@@ -3,11 +3,14 @@
  */
 package q.web.group;
 
+import java.sql.SQLException;
+
 import q.dao.GroupDao;
 import q.domain.PeopleJoinGroup;
 import q.domain.Status;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotPermitException;
 
 /**
  * @author seanlinwang
@@ -32,14 +35,17 @@ public class AddGroupJoin extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long peopleId = context.getCookiePeopleId();
 		long groupId = context.getResourceIdLong();
+		addPeopleJoinGroup(peopleId, groupId);
+		//context.redirectReffer();
+	}
+
+	public void addPeopleJoinGroup(long peopleId, long groupId) throws SQLException {
 		PeopleJoinGroup join = groupDao.getPeopleJoinGroup(peopleId, groupId);
 		if (join == null) {
 			groupDao.addPeopleJoinGroup(peopleId, groupId);
 		} else if (join.getStatus() == Status.DELETE.getValue()) {
 			groupDao.rejoinPeopleJoinGroup(peopleId, groupId);
 		}
-
-		context.redirectReffer();
 	}
 
 	/* (non-Javadoc)
@@ -47,8 +53,9 @@ public class AddGroupJoin extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-		
+		if (context.getCookiePeopleId() <= 0) {
+			throw new PeopleNotPermitException("people:无操作权限");
+		}
 	}
 
 }
