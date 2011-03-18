@@ -24,6 +24,11 @@
 	    return false;
 	}
 	function checkMobile(a){
+	   if(a==""){
+	     $("#mobilewrong").css("display","none");
+         $("#mobilecorrect").css("display","none");
+         return true;
+	   }
 	   var patrn=/^[0-9]{11}$/;
 	   if(patrn.test(a)){
          $("#mobilewrong").css("display","none");
