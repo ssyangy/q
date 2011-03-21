@@ -38,9 +38,9 @@ public class GetPeopleFeed extends Resource {
 	public void setGroupDao(GroupDao groupDao) {
 		this.groupDao = groupDao;
 	}
-	
+
 	private FavoriteDao favoriteDao;
-	
+
 	public void setFavoriteDao(FavoriteDao favoriteDao) {
 		this.favoriteDao = favoriteDao;
 	}
@@ -49,27 +49,27 @@ public class GetPeopleFeed extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
 		List<Long> senderIds = peopleDao.getAllFollowingId(loginPeopleId);
-		if (CollectionKit.isNotEmpty(senderIds)) {
-			WeiboPage page = new WeiboPage();
-			page.setStartIndex(0);
-			page.setSize(20);
-			page.setSenderIds(senderIds);
-			List<Weibo> weibos = weiboDao.getPageFollowingWeibos(page);
-			DaoHelper.injectWeibosWithSenderRealName(peopleDao, weibos);
-			DaoHelper.injectWeibosWithFrom(groupDao, weibos);
-			DaoHelper.injectWeibosWithFavorite(favoriteDao, weibos, loginPeopleId);
-			context.setModel("weibos", weibos);
-
-		}
+		senderIds.add(loginPeopleId);//add login people
+		WeiboPage page = new WeiboPage();
+		page.setStartIndex(0);
+		page.setSize(20);
+		page.setSenderIds(senderIds);
+		List<Weibo> weibos = weiboDao.getPageFollowingWeibos(page);
+		DaoHelper.injectWeibosWithSenderRealName(peopleDao, weibos);
+		DaoHelper.injectWeibosWithFrom(groupDao, weibos);
+		DaoHelper.injectWeibosWithFavorite(favoriteDao, weibos, loginPeopleId);
+		context.setModel("weibos", weibos);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
