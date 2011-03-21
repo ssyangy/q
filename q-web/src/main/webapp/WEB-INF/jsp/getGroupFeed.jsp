@@ -17,41 +17,43 @@
 <body>
 	<div id="doc">
 	<jsp:include page="top.jsp" flush="true"/>
-		<div id="page-outer">
+		<div id="page-outer" class="groups-feed">
 			<div id="page-container">
 				<div class="main-content" style="min-height:400px">
 					<div class="home-header">
 						<div class="main-header-box">
 							<div class="header-box">
-								<div class="group-box-title">
-									<h2>我的圈子</h2>
-								</div>
-								<div class="position" style="display:none;">
-									<span class="desc">所在地：</span>
-								</div>
-								<div class="my-groups">
-									<table width="100%">
-										<tbody>
-											<tr>
-												<td width="20%"><a href="">吃好喝好</a></td>
-												<td width="20%">泡吧</td>
-												<td width="20%">麻将</td>
-												<td width="20%">桌游</td>
-												<td width="20%">旅行</td>
-											</tr>
-											<tr>
-												<td>吃好喝好</td>
-												<td>泡吧</td>
-												<td>麻将</td>
-												<td>桌游</td>
-												<td>旅行</td>
-											</tr>
-										</tbody>
-									</table>
+								<div class="group-box-title"> 
+									<div class="menu"> 
+										<div class="menu-a"> 
+											<ul> 
+												<li><span class="active-entry">讨论区</span></li> 
+												<li class="link-sep">•</li> 
+												<li><a href="groups-events.html">活动</a></li> 
+											</ul> 
+										</div> 
+										<div class="search"> 
+											<input type="text" class="inner-search" size="20" value=""><a href="" class="button">搜索</a> 
+										</div> 
+										<div class="clearfix2"></div> 
+									</div> 
+									<div class="title"><h2>我的圈子</h2></div> 
+									<div class="clearfix2"></div> 
+								</div> 
+								<div class="position" style="display:none;"> 
+									<span class="desc">所在地：</span> 
 								</div>
 							</div>
 						</div>
-					</div>					
+					</div>
+					<div class="my-groups">
+						<div class="links"> 
+							<c:forEach items="${groups}" var="group" varStatus="status">
+							<a href="${urlPrefix}/group/${group.id}"">${group.name}</a><span class="link-sep">·</span>
+							</c:forEach> 
+						</div> 
+						<div class="more"><a href="${urlPrefix}/group">圈子目录 →</a></div> 
+					</div>
 					<div class="stream-manager">
 						<div id="tabs">
 							<ul class="stream-tabs">

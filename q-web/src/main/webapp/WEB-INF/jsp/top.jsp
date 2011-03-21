@@ -4,13 +4,16 @@
 	<div id="quick-link">
 		<div id='quick-link-inside'>
 			<ul>
-				<li><a href="${urlPrefix}/photo">相册</a><span class='sep'>|</span></li>
-				<li><a href="${urlPrefix}/event">活动</a><span class='sep'>|</span></li>
+				<li><a href="${urlPrefix}/photo">相册</a></li>
+				<li><a href="${urlPrefix}/event">活动</a></li>
+				<li><a href="${urlPrefix}/people/${loginCookie.peopleId}">${loginCookie.realName}</a></li>
 				<c:choose>
 				<c:when test="${loginCookie.peopleId > 0}">
-				<li><a href="${urlPrefix}/favorite">收藏</a><span class='sep'>|</span></li>
-				<li><a href="${urlPrefix}/message">私信</a><span class='sep'>|</span></li>
-				<li><a href="${urlPrefix}/setting">${loginCookie.realName}的帐户</a><span class='sep'>|</span></li>
+				<li><a href="${urlPrefix}/favorite">收藏</a></li>
+				<li><a href="${urlPrefix}/message">私信</a></li>
+				<li><a href="${urlPrefix}/notify">通知</a></li>
+				<li><a href="${urlPrefix}/setting">设置</a></li>
+				<li><span class='sep'>|</span></li>
 				<li><a href="${urlPrefix}/login/delete">退出</a></li>				
 				</c:when>
 				<c:otherwise>
@@ -28,16 +31,17 @@
 			</div>
 			<div id="nav">
 				<ul>
-					<li><a href="${urlPrefix}/group/feed">圈子新鲜事</a><span class='sep2'>|</span></li>
-					<li><a href="${urlPrefix}/people/feed">好友新鲜事</a><span class='sep2'>|</span></li>
+					<li><a href="${urlPrefix}/group/feed">圈子新鲜事</a></li>
+					<li><a href="${urlPrefix}/people/feed">好友新鲜事</a></li>
 					<c:if test="${loginCookie.peopleId > 0}">
-					<li><a href="${urlPrefix}/people/${loginCookie.peopleId}">我的主页</a><span class='sep2'>|</span></li>
+					<li><a href="${urlPrefix}/people/${loginCookie.peopleId}">我的主页</a></li>
 					</c:if>
-					<li><a href="${urlPrefix}/people">找人</a></li>
+					<li><a href="${urlPrefix}/people">好友</a></li>
 				</ul>
 			</div>
 			<div id="search">
 				<input type="text" class="search_field" size="35" placeholder="搜微博、圈子、好友"/>
+				<button class="button">搜索</button> 
 			</div>
 			<div class="clearfix"></div>
 		</div>

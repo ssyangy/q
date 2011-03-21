@@ -27,7 +27,8 @@
 			</div>
 			<div class="tweet-row">
 				<a href="" class="tweet-timestamp">${weibo.time}</a>
-				<span class="tweet-actions">
+				<span class="tweet-actions snow">
+					<button onclick="">赞</button>
 					<a href="${urlPrefix}/weibo/${weibo.id}/retweet?from=${contextPath}/people/${people.id}">
 					<c:choose>
 						<c:when test="${weibo.inGroup}">分享给好友</c:when>
