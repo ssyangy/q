@@ -4,6 +4,7 @@ import q.dao.EventDao;
 import q.domain.PeopleJoinEvent;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotPermitException;
 
 public class AddEventJoin extends Resource {
 
@@ -33,8 +34,9 @@ public class AddEventJoin extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-		
+		if (context.getCookiePeopleId() <= 0) {
+			throw new PeopleNotPermitException("login:无操作权限");
+		}
 	}
 
 }

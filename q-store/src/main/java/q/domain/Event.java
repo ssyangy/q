@@ -20,25 +20,31 @@ public class Event extends AbstractDomain implements Serializable {
 
 	private long creatorId;
 
+	private String creatorRealName;
+
 	private long groupId;
+
+	private String groupName;
 
 	private String name;
 
 	private String intro;
-	
+
 	private Area area;
-	
+
 	private String address;
-	
+
 	private Date started;
-	
+
 	private Date ended;
-	
+
 	private String cost;
-	
-	private int number;//people number
-	
+
+	private int number;// people number
+
 	private int status;
+
+	private int joinNumber;
 
 	public long getCreatorId() {
 		return creatorId;
@@ -99,9 +105,13 @@ public class Event extends AbstractDomain implements Serializable {
 	public Date getStarted() {
 		return started;
 	}
-	
-	public String getStartedMd(){
-		return DateKit.date2md(started);
+
+	public String getStartedMd() {
+		return DateKit.date2Md(started);
+	}
+
+	public String getStartedMdhm() {
+		return DateKit.date2Mdhm(started);
 	}
 
 	public void setStarted(Date started) {
@@ -130,6 +140,30 @@ public class Event extends AbstractDomain implements Serializable {
 
 	public void setNumber(int number) {
 		this.number = number;
+	}
+
+	public String getCreatorRealName() {
+		return creatorRealName;
+	}
+
+	public void setCreatorRealName(String creatorRealName) {
+		this.creatorRealName = creatorRealName;
+	}
+
+	public int getJoinNumber() {
+		return joinNumber;
+	}
+
+	public void setJoinNumber(int joinNumber) {
+		this.joinNumber = joinNumber;
+	}
+
+	public String getGroupName() {
+		return groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
 	}
 
 	@Override

@@ -19,63 +19,24 @@
 	<div id="page-outer">
 		<div id="page-container">
 			<div class="main-content" style="min-height:400px">
-				<div class="home-header">
-					<div class="group-header-box">
-						<div class="header-box">
-							<div class="group-info">
-								<div class="group-name">
-									<h2>${group.name}</h2>
-								</div>
-								<div class="group-briefing">
-									<div class="group-member-number">成员数：上海 123,990 / 全站 3,003,900</div>
-								</div>
-								<div class="group-action">
-									<div class="group-join">
-									<c:choose>
-										<c:when test="${join == null}">
-												<button class="button" onclick="joinGroup(this,${group.id})">加入</button>
-										</c:when>
-										<c:otherwise>
-												<button class="button" onclick="unJoinGroup(this,${group.id})">不参加了</button>
-										</c:otherwise>
-									</c:choose>
-									</div>
-								</div>
-								<div class="clearfix2"></div>
-							</div>
-						</div>
-					</div>				
-				</div>
-				<div class="main-tweet-box">
+				<jsp:include page="group-head.jsp" flush="true" />	
+				<div class="main-tweet-box group">
 					<div class="tweet-box">
-						<div class="group-location">所在地：上海 长宁区 (<a href="">切换所在地</a>)&nbsp;&nbsp;&nbsp;<a href="">邀请好友</a></div>
-						<div class="clearfix2"></div>
-						<div class="group-nav">
-							<div class="group-nav-links snow">
-								<ul>
-									<li><span class="active-entry">讨论区</span></li> • 
-									<li><a href="">活动</a></li> • 
-									<li><a href="">相册</a></li> •
-									<li><a href="">成员</a></li>
-								</ul>
-							</div>
-							<div class="group-nav-buttons">
-								<a class="button" href="${urlPrefix}/event/new?groupId=${group.id}">发起活动</a>
-								<a href="" class="button">发照片</a>
-							</div>
-							<div class="clearfix2"></div>
-						</div>
-						<form action="${contextPath}/weibo?from=${contextPath}/group/${group.id}" method="post">
-							<input type="hidden" name="groupId" value="${group.id}" />
+						<div class="bg">
+							<form action="${contextPath}/weibo?from=${contextPath}/group/${group.id}" method="post">
 							<div class="text-area">
-								<textarea name="content" class="twitter-anywhere-tweet-box-editor" style="width: 482px; height: 56px; "></textarea>
+								<textarea name="content" class="twitter-anywhere-tweet-box-editor" style="width: 470px; height: 56px; "></textarea>
 							</div>
 							<div class="tweet-button-container">
-								<button class="button">发表</button>
+								<div class="submit"><button class="button">发表</button></div>
+								<div class="bar">插入：<a href="">表情</a><a href="">图片</a><a href="">视频</a></div>
+								<div class="clearfix2"></div>
 							</div>
-						</form>
+							<input type="hidden" name="groupId" value="${group.id}" />
+							</form>
+						</div>
 					</div>
-				</div>				
+				</div>											
 				<div class="stream-manager">
 					<div id="tabs">
 						<ul class="stream-tabs">
@@ -95,16 +56,8 @@
 					</div>
 				</div>	
 			</div>
-			<div class="dashboard" style="display:block;">
-					最新活动: <br />
-					<c:forEach items="${events}" var="event" varStatus="status">
-						<a href="<c:out value="${urlPrefix}/event/${event.id}"/>">
-							${event.name} 
-						</a>
-						<br />
-					</c:forEach>
-			</div>
 		</div>
+		<jsp:include page="group-dashboard.jsp" flush="true"/>
 	</div>
 </div>
 </html>

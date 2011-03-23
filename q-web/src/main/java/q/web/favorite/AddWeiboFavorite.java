@@ -9,6 +9,7 @@ import q.domain.Favorite;
 import q.domain.Weibo;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotPermitException;
 import q.web.exception.RequestParameterInvalidException;
 
 /**
@@ -50,12 +51,13 @@ public class AddWeiboFavorite extends Resource {
 		} else if (old.isUnFav()) {
 			this.favoriteDao.favWeiboById(old.getId());
 		}
-		//context.setModel("favorite", old);
-		//context.redirectReffer();
 	}
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+		if (context.getCookiePeopleId() <= 0) {
+			throw new PeopleNotPermitException("login:无操作权限");
+		}
 		long weiboId = context.getResourceIdLong();
 		if (weiboId == 0) {
 			throw new RequestParameterInvalidException("weibo:" + weiboId);

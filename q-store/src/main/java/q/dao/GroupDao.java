@@ -26,7 +26,7 @@ public interface GroupDao {
 
 	void addPeopleJoinGroup(long peopleId, long groupId) throws SQLException;
 
-	PeopleJoinGroup getPeopleJoinGroup(long peopleId, long groupId) throws SQLException;
+	PeopleJoinGroup getGroupPeople(long peopleId, long groupId) throws SQLException;
 
 	void unjoinPeopleJoinGroup(long peopleId, long groupId) throws SQLException;
 
@@ -66,5 +66,45 @@ public interface GroupDao {
 	 * @return
 	 */
 	List<Long> getExsitGroupIdsByIds(List<Long> groupIds) throws SQLException;
+
+	/**
+	 * @return
+	 */
+	List<Group> getAllGroupsByCatId(long catId) throws SQLException;
+
+	/**
+	 * @param groupIds
+	 * @param i
+	 * @return
+	 */
+	List<Long> getGroupPeopleIds(List<Long> groupIds, int limit) throws SQLException;
+
+	/**
+	 * @param groupId
+	 * @param i
+	 * @return
+	 */
+	List<Long> getHotGroupPeopleIds(long groupId, int limit) throws SQLException;
+
+	/**
+	 * @param groupId
+	 * @param i
+	 * @return
+	 */
+	List<Group> getRecommendGroupsByGroupId(long groupId, int limit) throws SQLException;
+
+	/**
+	 * @param groupId
+	 * @param limit
+	 * @return
+	 */
+	List<Long> getGroupPeopleIds(long groupId, int limit) throws SQLException;
+
+	/**
+	 * @param groupIds
+	 * @param limit
+	 * @return
+	 */
+	List<Long> getHotGroupPeopleIds(List<Long> groupIds, int limit) throws SQLException;
 
 }

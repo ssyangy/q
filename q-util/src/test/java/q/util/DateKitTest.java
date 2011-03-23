@@ -160,5 +160,19 @@ public class DateKitTest {
 		Date now = beforeCal.getTime();
 		Assert.assertEquals("10秒前", DateKit.date2SinaStyle(before, now));
 	}
+	
+	@Test
+	public void testDate2Mdhm() {
+		Calendar beforeCal = Calendar.getInstance();
+		beforeCal.set(2010, 5, 25, 22, 22, 0);
+		Assert.assertEquals("06-25 22:22", DateKit.date2Mdhm(beforeCal.getTime()));
+	}
+	
+	@Test
+	public void testDate2YMdhms() {
+		Calendar beforeCal = Calendar.getInstance();
+		beforeCal.set(2010, 5, 25, 22, 22, 0);
+		Assert.assertEquals("2010-06-25 22:22:00", DateKit.date2Ymdhms(beforeCal.getTime()));
+	}
 
 }

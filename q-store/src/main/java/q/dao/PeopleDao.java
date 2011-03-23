@@ -132,4 +132,12 @@ public interface PeopleDao {
 	 */
 	List<People> getHotPeoplesByArea(Area area, int limit) throws SQLException;
 
+	/**
+	 * @param ids
+	 * @param limit
+	 * @return
+	 * @throws SQLException
+	 */
+	List<People> getPeoplesByIds(List<Long> ids) throws SQLException;
+
 }

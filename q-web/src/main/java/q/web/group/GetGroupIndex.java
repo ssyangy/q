@@ -33,9 +33,19 @@ public class GetGroupIndex extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws SQLException {
 		List<Category> categorys = categoryDao.getAllCategorys();
-		context.setModel("categorys", categorys);
-		List<Group> groups = groupDao.getNewGroups(10);
-		context.setModel("newGroups", groups);
+		context.setModel("cats", categorys);
+		long catId = context.getIdLong("cat");
+		if(catId > 0) {
+			for(Category cat: categorys) {
+				if(cat.getId() == catId) {
+					context.setModel("cat", cat);
+					break;
+				}
+			}
+			List<Group> groups = groupDao.getAllGroupsByCatId(catId);
+			context.setModel("catGroups", groups);
+		}
+
 	}
 
 	/* (non-Javadoc)

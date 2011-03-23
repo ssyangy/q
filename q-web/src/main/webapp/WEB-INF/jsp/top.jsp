@@ -4,12 +4,12 @@
 	<div id="quick-link">
 		<div id='quick-link-inside'>
 			<ul>
-				<li><a href="${urlPrefix}/photo">相册</a></li>
-				<li><a href="${urlPrefix}/event">活动</a></li>
+				<!--  <li><a href="${urlPrefix}/photo">相册</a></li>-->
+				<!--<li><a href="${urlPrefix}/event">活动</a></li>-->
 				<li><a href="${urlPrefix}/people/${loginCookie.peopleId}">${loginCookie.realName}</a></li>
 				<c:choose>
 				<c:when test="${loginCookie.peopleId > 0}">
-				<li><a href="${urlPrefix}/favorite">收藏</a></li>
+				<!-- <li><a href="${urlPrefix}/favorite">收藏</a></li> -->
 				<li><a href="${urlPrefix}/message">私信</a></li>
 				<li><a href="${urlPrefix}/notify">通知</a></li>
 				<li><a href="${urlPrefix}/setting">设置</a></li>

@@ -86,15 +86,19 @@ public class DateKit {
 		return result;
 	}
 
+	/**
+	 * 2011-03-11 11:24:20
+	 * 
+	 * @param date
+	 * @return
+	 */
 	public static String date2Ymdhms(Date date) {
 		Calendar c = new GregorianCalendar();
 		c.setTime(date);
 		int y = c.get(GregorianCalendar.YEAR);
 		int m = c.get(GregorianCalendar.MONTH) + 1;
 		int d = c.get(GregorianCalendar.DAY_OF_MONTH);
-		int aop = c.get(GregorianCalendar.AM_PM);
-		int h = c.get(GregorianCalendar.HOUR);
-		h = aop == GregorianCalendar.PM ? h + 12 : h;
+		int h = c.get(GregorianCalendar.HOUR_OF_DAY);
 		int minute = c.get(GregorianCalendar.MINUTE);
 		int s = c.get(GregorianCalendar.SECOND);
 
@@ -120,6 +124,35 @@ public class DateKit {
 		str[17] = (char) (s / 10 + '0');
 		str[18] = (char) (s % 10 + '0');
 
+		return new String(str);
+	}
+	
+
+	/**
+	 * 03-12 11:24
+	 * @param date
+	 * @return
+	 */
+	public static String date2Mdhm(Date date) {
+		Calendar c = new GregorianCalendar();
+		c.setTime(date);
+		int m = c.get(GregorianCalendar.MONTH) + 1;
+		int d = c.get(GregorianCalendar.DAY_OF_MONTH);
+		int h = c.get(GregorianCalendar.HOUR_OF_DAY);
+		int minute = c.get(GregorianCalendar.MINUTE);
+
+		char[] str = new char[11];
+		str[0] = (char) (m / 10 + '0');
+		str[1] = (char) (m % 10 + '0');
+		str[2] = '-';
+		str[3] = (char) (d / 10 + '0');
+		str[4] = (char) (d % 10 + '0');
+		str[5] = ' ';
+		str[6] = (char) (h / 10 + '0');
+		str[7] = (char) (h % 10 + '0');
+		str[8] = ':';
+		str[9] = (char) (minute / 10 + '0');
+		str[10] = (char) (minute % 10 + '0');
 		return new String(str);
 	}
 
@@ -177,17 +210,23 @@ public class DateKit {
 	 * @param started
 	 * @return
 	 */
-	public static String date2md(Date date) {
+	public static String date2Md(Date date) {
 		Calendar c = new GregorianCalendar();
 		c.setTime(date);
 		int m = c.get(GregorianCalendar.MONTH) + 1;
 		int d = c.get(GregorianCalendar.DAY_OF_MONTH);
 		StringBuilder sb = new StringBuilder(6);
+		if (m < 10) {
+			sb.append(0);
+		}
 		sb.append(m);
-		sb.append('月');
+		sb.append('-');
+		if (d < 10) {
+			sb.append(0);
+		}
 		sb.append(d);
-		sb.append('日');
 		return sb.toString();
 	}
+
 
 }

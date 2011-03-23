@@ -118,8 +118,7 @@
 				<value>getGroupNew</value>
 				<value>addGroup</value>
 				<value>getGroupFeed</value>
-				<value>getGroupEvent</value>
-				<value>getGroupPhoto</value>
+				<value>getGroupFeedEvent</value>
 				<value>addGroupJoin</value>
 				<value>deleteGroupJoin</value>
 				<value>getCategoryNew</value>
@@ -248,18 +247,29 @@
 		<property name="eventDao" ref="eventDao" />
 		<property name="favoriteDao" ref="favoriteDao" />
 	</bean>
+	<bean id="getGroupEvent" class="q.web.group.GetGroupEvent">
+		<property name="groupDao" ref="groupDao" />
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="eventDao" ref="eventDao" />
+	</bean>	
 	<bean id="getGroupIndex" class="q.web.group.GetGroupIndex">
 		<property name="categoryDao" ref="categoryDao" />
 		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="getGroupFeed" class="q.web.group.GetGroupFeed">
-		<property name="categoryDao" ref="categoryDao" />
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="eventDao" ref="eventDao" />
 		<property name="groupDao" ref="groupDao" />
 		<property name="favoriteDao" ref="favoriteDao" />
 	</bean>
+	<bean id="getGroupFeedEvent" class="q.web.group.GetGroupFeedEvent">
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="eventDao" ref="eventDao" />
+		<property name="groupDao" ref="groupDao" />
+	</bean>	
 	<bean id="addGroupJoin" class="q.web.group.AddGroupJoin">
 		<property name="groupDao" ref="groupDao" />
 	</bean>
@@ -272,15 +282,13 @@
 	</bean>
 
 	<!-- event web -->
-	<bean id="getGroupEvent" class="q.web.event.GetGroupEvent">
-		<property name="eventDao" ref="eventDao" />
-	</bean>
 	<bean id="addEvent" class="q.web.event.AddEvent">
 		<property name="eventDao" ref="eventDao" />
 	</bean>
 	<bean id="getEventNew" class="q.web.event.GetEventNew">
 	</bean>
 	<bean id="getEvent" class="q.web.event.GetEvent">
+		<property name="groupDao" ref="groupDao" />
 		<property name="eventDao" ref="eventDao" />
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>

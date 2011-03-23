@@ -18,23 +18,26 @@
 				</span>
 			</div>
 			<div class="tweet-row">
-				<div class="tweet-text">
-					${weibo.content}
-				<c:if test="${weibo.quoteWeiboId >0}">
-				<a href="${urlPrefix}/weibo/${weibo.quoteWeiboId}">原文</a>&nbsp;
-				</c:if>												
-				</div>
+				<div class="tweet-text">${weibo.content}</div>
 			</div>
+			<c:if test="${weibo.quoteWeiboId >0}">
+			<div class="tweet-ori"> 
+				<div class="tweet-ori-inner"> 
+					<a href="${urlPrefix}/people/${weibo.quoteSenderId}" class="tweet-ori-author">${weibo.quoteSenderRealName}</a>：
+					我们拍照、录像留念某些时刻，在某棵树干上、某个大石头上刻自己的名字，写心情日记，等等。这些举动源自我们需要的存在感，它是安全感的一个分支。
+					<span class="">
+						<a href="${urlPrefix}/weibo/${weibo.quoteWeiboId}">原文转发</a>
+						<span class="link-sep">·</span>
+						<a href="${urlPrefix}/weibo/${weibo.quoteWeiboId}">原文回复</a>
+					</span> 
+				</div> 
+			</div>
+			</c:if> 			
 			<div class="tweet-row">
 				<a href="" class="tweet-timestamp">${weibo.time}</a>
-				<span class="tweet-actions snow">
+				<span class="tweet-actions">
 					<button onclick="">赞</button>
-					<a href="${urlPrefix}/weibo/${weibo.id}/retweet?from=${contextPath}/people/${people.id}">
-					<c:choose>
-						<c:when test="${weibo.inGroup}">分享给好友</c:when>
-						<c:otherwise>转发</c:otherwise>
-					</c:choose>
-					</a>&nbsp;
+					<span class="link-sep">·</span>
 					<c:choose>
 						<c:when test="${weibo.unFav}">
 						<button onclick="favWeibo(this,${weibo.id})">收藏</button>
@@ -42,7 +45,15 @@
 						<c:otherwise>
 						<button onclick="unFavWeibo(this,${weibo.id})">取消收藏</button>
 						</c:otherwise>
-					</c:choose>	
+					</c:choose>
+					<span class="link-sep">·</span>
+					<a href="${urlPrefix}/weibo/${weibo.id}/retweet?from=${contextPath}/people/${people.id}">
+					<c:choose>
+						<c:when test="${weibo.inGroup}">分享给好友</c:when>
+						<c:otherwise>转发</c:otherwise>
+					</c:choose>
+					<span class="link-sep">·</span>
+					</a>
 					<a href="${urlPrefix}/weibo/${weibo.id}">回复</a>&nbsp;
 				</span>
 			</div>

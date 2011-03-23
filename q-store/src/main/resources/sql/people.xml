@@ -243,6 +243,12 @@
 			<isNotNull prepend="and" property="id">
 				id = #id#
 			</isNotNull>
+			<isNotNull prepend="and" property="ids">
+				id in
+				<iterate property="ids" open="(" close=")" conjunction=",">
+					#ids[]#
+        		</iterate>
+			</isNotNull>
 			<isNotNull prepend="and" property="username">
 				username = #username#
 			</isNotNull>

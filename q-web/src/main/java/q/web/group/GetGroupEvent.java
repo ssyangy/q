@@ -7,32 +7,25 @@ import java.util.List;
 
 import q.dao.DaoHelper;
 import q.dao.EventDao;
-import q.dao.FavoriteDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
-import q.dao.page.WeiboPage;
-import q.domain.Weibo;
+import q.domain.Event;
 import q.web.Resource;
 import q.web.ResourceContext;
 
 /**
  * @author seanlinwang
  * @email xalinx at gmail dot com
- * @date Feb 16, 2011
+ * @date Feb 22, 2011
  * 
  */
-public class GetGroup extends Resource {
+public class GetGroupEvent extends Resource {
+
 	private GroupDao groupDao;
 
 	public void setGroupDao(GroupDao groupDao) {
 		this.groupDao = groupDao;
-	}
-
-	private WeiboDao weiboDao;
-
-	public void setWeiboDao(WeiboDao weiboDao) {
-		this.weiboDao = weiboDao;
 	}
 
 	private PeopleDao peopleDao;
@@ -41,16 +34,16 @@ public class GetGroup extends Resource {
 		this.peopleDao = peopleDao;
 	}
 
+	private WeiboDao weiboDao;
+
+	public void setWeiboDao(WeiboDao weiboDao) {
+		this.weiboDao = weiboDao;
+	}
+
 	private EventDao eventDao;
 
 	public void setEventDao(EventDao eventDao) {
 		this.eventDao = eventDao;
-	}
-
-	private FavoriteDao favoriteDao;
-
-	public void setFavoriteDao(FavoriteDao favoriteDao) {
-		this.favoriteDao = favoriteDao;
 	}
 
 	/*
@@ -61,19 +54,10 @@ public class GetGroup extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long groupId = context.getResourceIdLong();
-		long loginPeopleId = context.getCookiePeopleId();
-
-		WeiboPage page = new WeiboPage();
-		page.setGroupId(groupId);
-		page.setSize(20);
-		page.setStartIndex(0);
-		List<Weibo> weibos = weiboDao.getGroupWeibosByPage(page);
-		DaoHelper.injectWeibosWithSenderRealName(peopleDao, weibos);
-		DaoHelper.injectWeibosWithFrom(groupDao, weibos);
-		if (loginPeopleId > 0) {
-			DaoHelper.injectWeibosWithFavorite(favoriteDao, weibos, loginPeopleId);
-		}
-		context.setModel("weibos", weibos);
+		List<Event> events = this.eventDao.getEventsByGroupId(groupId, 20);
+		DaoHelper.injectEventsWithRealName(peopleDao, events);
+		DaoHelper.injectEventsWithGroupName(groupDao, events);
+		context.setModel("events", events);
 
 		GetGroupFrame frame = new GetGroupFrame();
 		frame.setEventDao(eventDao);
@@ -83,13 +67,15 @@ public class GetGroup extends Resource {
 		frame.execute(context);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -64,8 +64,6 @@
 					<div id="tabs">
 						<ul class="stream-tabs">
 							<li class="stream-tab"><a class="tab-text" href="#tabs-1">新微博</a></li>
-							<li class="stream-tab"><a class="tab-text" href="#tabs-2">@我</a></li>
-							<li class="stream-tab"><a class="tab-text" href="#tabs-3">回复</a></li>
 							<li class="stream-tab"><a class="tab-text" href="#tabs-4">收藏</a></li>
 							<li class="stream-tab"><a class="tab-text" href="#tabs-5">好友</a></li>
 							<li class="stream-tab"><a class="tab-text" href="#tabs-6">关注</a></li>

@@ -4,6 +4,7 @@
 package q.web.weibo;
 
 import q.dao.WeiboDao;
+import q.domain.Status;
 import q.domain.Weibo;
 import q.domain.WeiboFromType;
 import q.util.IdCreator;
@@ -32,6 +33,7 @@ public class AddWeibo extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		Weibo weibo = new Weibo();
+		weibo.setStatus(Status.COMMON.getValue());
 		long senderId = context.getCookiePeopleId();
 		weibo.setSenderId(senderId);
 		String content = context.getString("content");

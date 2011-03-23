@@ -18,6 +18,8 @@ public class Group extends AbstractDomain implements Serializable {
 	private String intro;
 
 	private int status;
+	
+	private int memberNum;
 
 	public long getCreatorId() {
 		return creatorId;
@@ -53,6 +55,14 @@ public class Group extends AbstractDomain implements Serializable {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public int getMemberNum() {
+		return memberNum;
+	}
+
+	public void setMemberNum(int memberNum) {
+		this.memberNum = memberNum;
 	}
 
 	@Override

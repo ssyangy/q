@@ -21,7 +21,7 @@
 		<div id="page-outer" class="groups-feed">
 			<div id="page-container"> 
 				<div class="main-content" style="min-height:400px"> 
-					<jsp:include page="group-head.jsp" flush="true" />
+					<jsp:include page="group-feed-head.jsp" flush="true" />
 					<div class="stream-manager"> 
 						<div id="tabs"> 
 							<ul class="stream-tabs"> 
@@ -44,6 +44,7 @@
 												<tr> 
 													<td>${event.startedMdhm}</td> 
 													<td>
+														<p><span class="label">圈子</span>-<a href="${urlPrefix}/group/${event.groupId}">${event.groupName}</a></p>
 														<p>
 															${event.area.myProvince.name}&nbsp;${event.area.myCity.name}&nbsp;${event.area.myCounty.name} - 
 															<a href="${urlPrefix}/event/${event.id}">${event.name}</a>
@@ -63,10 +64,10 @@
 							<div id="tabs-3"> 
 							</div> 
 						</div> 
-					</div>
+					</div> 
 				</div> 
 			</div>		
-			<jsp:include page="group-dashboard.jsp" flush="true"/>
+			<jsp:include page="group-feed-dashboard.jsp" flush="true"/>
 		</div>
 	</div>	
 </body>

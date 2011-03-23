@@ -83,7 +83,7 @@
 										<td>
 											<div class="desc">
 												<div class="action">
-													<a href="${urlPrefix}/group">更多...</a>
+													<a href="${urlPrefix}/group?cat=${cat.id}">更多...</a>
 												</div>
 												<div>${cat.name}</div>
 											</div> 
@@ -123,7 +123,7 @@
 								<tr> 
 									<td width="20%">${event.startedMd}</td> 
 									<td width="23%">${event.area.name}</td> 
-									<td><a href="${urlPrefix}/event/${event.id}"">${event.name}</a></td> 
+									<td><a href="${urlPrefix}/event/${event.id}">${event.name}</a></td> 
 								</tr>
 								</c:forEach>
 							</table> 
