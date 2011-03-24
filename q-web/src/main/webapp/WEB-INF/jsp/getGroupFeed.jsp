@@ -20,7 +20,9 @@
 		<div id="page-outer" class="groups-feed">
 			<div id="page-container">
 				<div class="main-content" style="min-height:400px">
-					<jsp:include page="group-feed-head.jsp" flush="true" />
+					<jsp:include page="group-feed-head.jsp" flush="true">
+						<jsp:param name="tab" value="group" />
+					</jsp:include>
 					<div class="stream-manager">
 						<div id="tabs">
 							<ul class="stream-tabs">

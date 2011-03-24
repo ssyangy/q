@@ -7,9 +7,27 @@
 				<div class="menu"> 
 					<div class="menu-a"> 
 						<ul> 
-							<li><a href="${urlPrefix}/group/feed">讨论区</a></li> 
+							<li>
+							<c:choose>
+								<c:when test="${param['tab']=='group'}">
+								<span class="active-entry">讨论区</span>
+								</c:when>
+								<c:otherwise>
+								<a href="${urlPrefix}/group/feed">讨论区</a>
+								</c:otherwise>
+							</c:choose>
+							</li> 
 							<li class="link-sep">•</li> 
-							<li><span class="active-entry">活动</span></li> 
+							<li>
+							<c:choose>
+								<c:when test="${param['tab']=='groupEvent'}">
+								<span class="active-entry">活动</span>
+								</c:when>
+								<c:otherwise>
+								<a href="${urlPrefix}/group/feed/event">活动</a>
+								</c:otherwise>
+							</c:choose>
+							</li> 
 						</ul> 
 					</div> 
 					<div class="search"> 

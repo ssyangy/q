@@ -26,11 +26,38 @@
 		<div class="nav">
 			<div class="links">
 				<ul>
-					<li><span class="active-entry">讨论区</span></li>
+					<li>
+					<c:choose>
+						<c:when test="${param['tab']=='group'}">
+						<span class="active-entry">讨论区</span>
+						</c:when>
+						<c:otherwise>
+						<a href="${urlPrefix}/group/${group.id}">讨论区</a>
+						</c:otherwise>
+					</c:choose>
+					</li>
 					<li class="link-sep">•</li>
-					<li><a href="${urlPrefix}/group/${group.id}/event">活动</a></li>
+					<li>
+					<c:choose>
+						<c:when test="${param['tab']=='groupEvent'}">
+						<span class="active-entry">活动</span>
+						</c:when>
+						<c:otherwise>
+						<a href="${urlPrefix}/group/${group.id}/event">活动</a>
+						</c:otherwise>
+					</c:choose>
+					</li>
 					<li class="link-sep">•</li>
-					<li><a href="${urlPrefix}/group/${group.id}/people">成员</a></li>
+					<li>
+					<c:choose>
+						<c:when test="${param['tab']=='groupPeople'}">
+						<span class="active-entry">成员</span>
+						</c:when>
+						<c:otherwise>
+						<a href="${urlPrefix}/group/${group.id}/people">成员</a>
+						</c:otherwise>
+					</c:choose>
+					</li>
 				</ul>
 			</div><span class="mr20"></span>
 			<div class="search">

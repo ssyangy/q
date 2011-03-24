@@ -19,7 +19,9 @@
 	<div id="page-outer">
 		<div id="page-container">
 			<div class="main-content" style="min-height:400px">
-				<jsp:include page="group-head.jsp" flush="true" />	
+				<jsp:include page="group-head.jsp" flush="true" >
+					<jsp:param name="tab" value="group" /> 
+				</jsp:include>	
 				<div class="main-tweet-box group">
 					<div class="tweet-box">
 						<div class="bg">
