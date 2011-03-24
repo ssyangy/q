@@ -258,7 +258,7 @@
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="eventDao" ref="eventDao" />
-	</bean>	
+	</bean>
 	<bean id="getGroupIndex" class="q.web.group.GetGroupIndex">
 		<property name="categoryDao" ref="categoryDao" />
 		<property name="groupDao" ref="groupDao" />
@@ -275,7 +275,7 @@
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="eventDao" ref="eventDao" />
 		<property name="groupDao" ref="groupDao" />
-	</bean>	
+	</bean>
 	<bean id="addGroupJoin" class="q.web.group.AddGroupJoin">
 		<property name="groupDao" ref="groupDao" />
 	</bean>
@@ -387,6 +387,9 @@
 
 	<!-- profile web-->
 	<bean id="getProfileBasic" class="q.web.people.GetProfileBasic">
+	    <property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="addProfileBasic" class="q.web.people.AddProfileBasic">
 	    <property name="peopleDao" ref="peopleDao" />
 	</bean>
 </beans>

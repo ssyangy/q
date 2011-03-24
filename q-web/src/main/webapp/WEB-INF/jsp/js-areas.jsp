@@ -7,6 +7,9 @@ var selCity;
 var selCounty;
 var cities;
 var undifined;
+var provinceExist=0;
+var cityExist=0;
+var countyExist=0;
 function changeCounty(){
 	 selCounty.options.length=0;
 	 selCounty.style.display = "none";
@@ -18,6 +21,9 @@ function changeCounty(){
 		 			selCounty.style.display = "block";
 			 		$.each(city.childs, function(index, county) {
 			 			selCounty.options.add(new Option(county.name, county.id));
+			 			  if(county.id==countyExist){
+			    	            selCounty.options[selCounty.options.length-1].selected='selected';
+			 			  }
 			 		});
 		 		}
 		 	}
@@ -35,20 +41,29 @@ function changeCity(){
 	 			cities = area.childs;
 		 		$.each(area.childs, function(index, area) {
 		 			selCity.options.add(new Option(area.name, area.id));
+		 			if(area.id==cityExist){
+		    	        selCity.options[selCity.options.length-1].selected='selected';
+		 			}
 		 		});
 	 		}
 	 	}
 	 });
 	 changeCounty();
 }
-$(document).ready(function() {
+function changeProvince(){
 	selProvince = $("#selProvince")[0];
 	selCity = $("#selCity")[0];
 	selCounty = $("#selCounty")[0];
 	 $.each(areas, function(index, area) {
 	 	selProvince.options.add(new Option(area.name, area.id));
+	 	 if(area.id==provinceExist){
+		    	selProvince.options[selProvince.options.length-1].selected='selected';
+		 	}
 	 });
 	 changeCity();
-});
+}
+function initArea(){
+	changeProvince();
+}
 </script>
 

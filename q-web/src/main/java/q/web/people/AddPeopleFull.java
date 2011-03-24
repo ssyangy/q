@@ -51,9 +51,9 @@ public class AddPeopleFull extends Resource {
 		int degree = context.getInt("degree", -1);
 		people.setDegree(Degree.convertValue(degree));
 		// FIXME add birthday check
-		people.setYear(context.getInt("year", -1));
-		people.setMonth(context.getInt("month", -1));
-		people.setDay(context.getInt("day", -1));
+		people.setYear(context.getInt("selYear", -1));
+		people.setMonth(context.getInt("selMonth", -1));
+		people.setDay(context.getInt("selDay", -1));
 		peopleDao.updatePeopleById(people);
 		List<Long> groupIds = context.getIdLongList("group");
 		groupIds = groupDao.getExsitGroupIdsByIds(groupIds); // filter not exists

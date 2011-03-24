@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
- <select class='select' id="year">
+ <select class='select' id="selYear" name="selYear">
                                          	<option label="2011" value="2011" >2011</option>
 					                  		<option label="2010" value="2010">2010</option>
 											<option label="2009" value="2009">2009</option>
@@ -114,7 +114,7 @@
 											<option label="1901" value="1901">1901</option>
 											<option label="1900" value="1900">1900</option>
 	</select><span class='value-label'>年</span>
-	<select class='select' id="month">
+	<select class='select' id="selMonth" name="selMonth">
           			<option  value="1">1</option>
                     <option  value="2">2</option>
                     <option  value="3">3</option>
@@ -128,7 +128,7 @@
                     <option  value="11">11</option>
                     <option  value="12">12</option>
 	</select><span class='value-label'>月</span>
-	<select class='select' id="day">
+	<select class='select' id="selDay" name="selDay">
 		            <option  value="1">1</option>
                     <option  value="2">2</option>
                     <option  value="3">3</option>

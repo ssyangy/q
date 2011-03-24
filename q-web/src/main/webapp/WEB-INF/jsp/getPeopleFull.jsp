@@ -64,6 +64,9 @@
   	       return false;
 	     return true;
 	}
+	$(document).ready(function(){
+          initArea();
+		});
 	</script>
   </head>
   <body>
@@ -109,9 +112,9 @@
 												<tr>
 													<th><label for=''><span class="required-field">*</span>性别：</label></th>
 													<td class='col-field'>
-														<input type='radio' name="gender" value="1" onclick="checkGender()" />
+														<input type='radio'  name="gender" value="1" onclick="checkGender()" />
 														<span class='value-label' >男</span>&nbsp;
-														<input type='radio' name="gender" value="2" onclick="checkGender()" />
+														<input type='radio'  name="gender" value="2" onclick="checkGender()" />
 														<span class='value-label'>女</span>
 													</td>
 													<td class='col-help'>
@@ -127,24 +130,7 @@
 												<tr>
 													<th><label for=''>生日：</label></th>
 													<td class='col-field' colspan='2'>
-														<select name="year" class='select'>
-															<option value='1979'>1979</option>
-															<option value='1980'>1980</option>
-															<option value='1981'>1981</option>
-														</select>
-														<span class='value-label'>年</span>
-														<select name="month" class='select'>
-															<option value='1'>1</option>
-															<option value='2'>2</option>
-															<option value='3'>3</option>
-														</select>
-														<span class='value-label'>月</span>
-														<select name="day" class='select'>
-															<option value='1'>1</option>
-															<option value='2'>2</option>
-															<option value='3'>3</option>
-														</select>
-														<span class='value-label'>日</span>
+											             <jsp:include page="dateSelect.jsp" flush="true"/>
 													</td>
 												</tr>
 												<tr>
