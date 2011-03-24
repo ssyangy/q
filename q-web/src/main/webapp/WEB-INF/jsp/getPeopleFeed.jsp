@@ -45,7 +45,7 @@
 							</ul>
 							<div id="tabs-1">
 								<div id="new-tweets-bar" style="display:block;">17条新微博</div>
-								<jsp:include page="weiboList.jsp" flush="true"/>
+								<jsp:include page="weibo-list.jsp" flush="true"/>
 							</div>
 							<div id="tabs-2">tabs2</div>
 							<div id="tabs-3">tabs3</div>

@@ -54,19 +54,19 @@ public class EventDaoImpl extends AbstractDaoImpl implements EventDao {
 	}
 
 	@Override
-	public List<Event> getEventsByGroupIds(List<Long> groupIds, int limit) throws SQLException {
+	public List<Event> getEventsByGroupIds(List<Long> groupIds, int limit, int start) throws SQLException {
 		EventPage page = new EventPage();
 		page.setSize(limit);
-		page.setStartIndex(0);
+		page.setStartIndex(start);
 		page.setGroupIds(groupIds);
 		return this.getPageEvents(page);
 	}
 	
 	@Override
-	public List<Event> getEventsByGroupId(long groupId, int limit) throws SQLException {
+	public List<Event> getEventsByGroupId(long groupId, int limit, int start) throws SQLException {
 		EventPage page = new EventPage();
 		page.setSize(limit);
-		page.setStartIndex(0);
+		page.setStartIndex(start);
 		page.setGroupId(groupId);
 		return this.getPageEvents(page);
 	}

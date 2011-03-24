@@ -11,11 +11,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import q.dao.page.PeopleRelationPage;
 import q.domain.Event;
 import q.domain.Favorite;
 import q.domain.Group;
 import q.domain.Message;
 import q.domain.People;
+import q.domain.PeopleRelation;
 import q.domain.Weibo;
 import q.domain.WeiboReply;
 import q.util.CollectionKit;
@@ -136,10 +138,10 @@ public class DaoHelper {
 	/**
 	 * @param groupDao
 	 * @param event
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public static void injectEventWithGroupName(GroupDao groupDao, Event event) throws SQLException {
-		if(event != null) {
+		if (event != null) {
 			Group group = groupDao.getGroupById(event.getGroupId());
 			event.setGroupName(group.getName());
 		}
@@ -325,6 +327,42 @@ public class DaoHelper {
 			Group group = groupDao.getGroupById(reply.getFromId());
 			reply.setFromPostfix(group.getName());
 		}
+	}
+
+	/**
+	 * @param peopleDao
+	 * @param peoples
+	 * @param fromPeopleId
+	 * @throws SQLException
+	 */
+	public static void injectPeoplesWithRelation(PeopleDao peopleDao, List<People> peoples, Long fromPeopleId) throws SQLException {
+		if (CollectionKit.isNotEmpty(peoples)) {
+			Set<Long> peopleIdSet = new HashSet<Long>(peoples.size());
+			for (People people : peoples) {
+				peopleIdSet.add(people.getId());
+			}
+			PeopleRelationPage page = new PeopleRelationPage();
+			page.setToPeopleIds(new ArrayList<Long>(peopleIdSet));
+			page.setFromPeopleId(fromPeopleId);
+			List<PeopleRelation> relations = peopleDao.getPeopleRelationsByPage(page);
+			if (CollectionKit.isNotEmpty(relations)) {
+				Map<Long, PeopleRelation> relationMap = new HashMap<Long, PeopleRelation>();
+				for (PeopleRelation relation : relations) {
+					relationMap.put(relation.getToPeopleId(), relation);
+				}
+				for (People people : peoples) {
+					PeopleRelation relation = relationMap.get(people.getId());
+					if (relation == null) {
+						continue;
+					}
+					if (relation.isFollowing()) {
+						people.setFollowing();
+					}
+				}
+			}
+
+		}
+
 	}
 
 }

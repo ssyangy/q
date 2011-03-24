@@ -2,6 +2,7 @@ package q.web.group;
 
 import java.util.List;
 
+import q.dao.DaoHelper;
 import q.dao.EventDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
@@ -47,18 +48,19 @@ public class GetGroupFeedFrame extends Resource {
 			List<Group> groups = this.groupDao.getGroupsByIds(groupIds);
 			context.setModel("groups", groups);
 			
-			List<Event> newEvents = this.eventDao.getEventsByGroupIds(groupIds, 4);
+			List<Event> newEvents = this.eventDao.getEventsByGroupIds(groupIds, 4, 0);
 			context.setModel("newEvents", newEvents);
 			
-			List<Long> newPeopleIds = this.groupDao.getGroupPeopleIds(groupIds, 3);
+			List<Long> newPeopleIds = this.groupDao.getGroupPeopleIds(groupIds, 3, 0);
 			List<People> newPeoples = this.peopleDao.getPeoplesByIds(newPeopleIds);
 			context.setModel("newPeoples", newPeoples);
 			
-			List<Long> hotPeopleIds = this.groupDao.getHotGroupPeopleIds(groupIds, 3);
+			List<Long> hotPeopleIds = this.groupDao.getHotGroupPeopleIds(groupIds, 3, 0);
 			List<People> hotPeoples = this.peopleDao.getPeoplesByIds(hotPeopleIds);
 			context.setModel("hotPeoples", hotPeoples);
 			
-			List<Weibo> hotWeibos = this.weiboDao.getHotWeibosByGroupIds(groupIds, 4);
+			List<Weibo> hotWeibos = this.weiboDao.getHotWeibosByGroupIds(groupIds, 3, 0);
+			DaoHelper.injectWeibosWithSenderRealName(peopleDao, hotWeibos);
 			context.setModel("hotWeibos", hotWeibos);
 		}
 	}

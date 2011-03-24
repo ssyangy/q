@@ -39,20 +39,20 @@
 						<div class="component">
 							<div class="profile-actions clearfix">
 								<div class="buttons">
-								<c:choose>
-								<c:when test="${isFollowing == false}">
-									<button class="button" onclick="follow(this,${people.id})">关注</button>
-								</c:when>
-								<c:otherwise>
-									<button class="button" onclick="unFollow(this,${people.id})">取消关注</button>
-								</c:otherwise>
-								</c:choose>								
-								<div class="button">
-									<a href="${urlPrefix}/weibo/new?receiverId=${people.id}&from=${contextPath}/people/${people.id}">@${people.gender.cncall}</a>
-								</div>
-								<div class="button">
-									<a href="${urlPrefix}/message/new?receiverId=${people.id}">发私信</a>
-								</div>
+									<c:choose>
+									<c:when test="${isFollowing == false}">
+										<button class="button" onclick="follow(this,${people.id})">关注</button>
+									</c:when>
+									<c:otherwise>
+										<button class="button" onclick="unFollow(this,${people.id})">取消关注</button>
+									</c:otherwise>
+									</c:choose>								
+									<div class="button">
+										<a href="${urlPrefix}/weibo/new?receiverId=${people.id}&from=${contextPath}/people/${people.id}">@${people.gender.cncall}</a>
+									</div>
+									<div class="button">
+										<a href="${urlPrefix}/message/new?receiverId=${people.id}">发私信</a>
+									</div>
 								</div>
 								<div class="kimoji">向${people.gender.cncall}表达：</div>
 							</div>
@@ -70,7 +70,7 @@
 							<li class="stream-tab"><a class="tab-text" href="#tabs-7">粉丝</a></li>
 						</ul>
 						<div id="tabs-1">
-						<jsp:include page="weiboList.jsp" flush="true"/>
+						<jsp:include page="weibo-list.jsp" flush="true"/>
 						</div>
 						<div id="tabs-2">tabs2</div>
 						<div id="tabs-3">tabs3</div>

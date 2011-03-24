@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -133,10 +134,15 @@
 							<c:forEach items="${hotWeibos}" var="weibo">
 							<div class="one-tweet"> 
 								<div class="avatar"> 
-									<img src="${avatarUrlPrefix}/avatar3.jpg"> 
+									<a href="${urlPrefix}/people/${weibo.senderId}">
+										<img src="${avatarUrlPrefix}/avatar3.jpg">
+									</a> 
 								</div> 
 								<div class="brief"> 
-									<a href="${urlPrefix}/people/${weibo.senderId}" class="author">${weibo.senderRealName}</a>：话说每年也只有315的时候，国内的媒体才有功夫打假之类的，不然怎么可能所有的的事情都在315的时候爆出来，平时就没见报过啥呢
+									<a href="${urlPrefix}/people/${weibo.senderId}" class="author">${weibo.senderRealName}</a>
+									<a href="${urlPrefix}/weibo/${weibo.id}">
+										<q:omit maxLength="40">${weibo.content}</q:omit>
+									</a>
 								</div> 
 								<div class="clearfix2"></div> 
 							</div>

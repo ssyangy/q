@@ -77,7 +77,7 @@ public interface PeopleDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	List<PeopleRelation> getPagePeopleRelation(PeopleRelationPage page) throws SQLException;
+	List<PeopleRelation> getPeopleRelationsByPage(PeopleRelationPage page) throws SQLException;
 
 	/**
 	 * @param peopleId
@@ -126,8 +126,8 @@ public interface PeopleDao {
 	People getPeopleByEmail(String email) throws SQLException;
 
 	/**
-	 * @param areaId
-	 * @param i
+	 * @param area
+	 * @param limit
 	 * @return
 	 */
 	List<People> getHotPeoplesByArea(Area area, int limit) throws SQLException;

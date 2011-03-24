@@ -66,11 +66,11 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 	}
 	
 	@Override
-	public List<Weibo> getHotGroupWeibosByPage(long groupId, int limit) throws SQLException {
+	public List<Weibo> getHotGroupWeibosByGroupId(long groupId, int limit, int start) throws SQLException {
 		WeiboPage page = new WeiboPage();
 		page.setGroupId(groupId);
 		page.setSize(limit);
-		page.setStartIndex(0);
+		page.setStartIndex(start);
 		return this.getGroupWeibosByPage(page);
 	}
 
@@ -167,9 +167,13 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 	 * @see q.dao.WeiboDao#getHotWeibosByGroupIds(java.util.List, int)
 	 */
 	@Override
-	public List<Weibo> getHotWeibosByGroupIds(List<Long> groupIds, int i) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Weibo> getHotWeibosByGroupIds(List<Long> groupIds, int limit, int start) throws SQLException {
+		WeiboPage page = new WeiboPage();
+		page.setStartIndex(start);
+		page.setSize(limit);
+		page.setGroupIds(groupIds);
+		List<Weibo> weibos = this.getGroupWeibosByPage(page);
+		return weibos;
 	}
 
 }

@@ -54,7 +54,7 @@ public class GetGroupEvent extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long groupId = context.getResourceIdLong();
-		List<Event> events = this.eventDao.getEventsByGroupId(groupId, 20);
+		List<Event> events = this.eventDao.getEventsByGroupId(groupId, 20, 0);
 		DaoHelper.injectEventsWithRealName(peopleDao, events);
 		DaoHelper.injectEventsWithGroupName(groupDao, events);
 		context.setModel("events", events);

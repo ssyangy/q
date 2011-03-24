@@ -75,14 +75,17 @@ public interface EventDao {
 
 	/**
 	 * @param groupIds
+	 * @param limit
+	 * @param start
 	 * @return
 	 */
-	List<Event> getEventsByGroupIds(List<Long> groupIds, int limit) throws SQLException;
+	List<Event> getEventsByGroupIds(List<Long> groupIds, int limit, int start) throws SQLException;
 
 	/**
 	 * @param groupId
-	 * @param i
+	 * @param limit
+	 * @param start
 	 * @return
 	 */
-	List<Event> getEventsByGroupId(long groupId, int limit) throws SQLException;
+	List<Event> getEventsByGroupId(long groupId, int limit, int start) throws SQLException;
 }

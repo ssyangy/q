@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
 				<div class="dashboard group" style="display:block;">
 					<div class="db-block">
 						<div class="created-at">创建于：${group.time}</div>
@@ -25,8 +26,27 @@
 					<div class="db-block">
 						<div class="more"><a href="${urlPrefix}/group/${group.id}/hot">更多...</a></div> 
 						<h3>热议：</h3> 
-						<div class="db-block-content"> 
-						</div> 
+						<div class="db-block-content">
+							<div class="db-tweet-box2 mb10">
+								<c:forEach items="${hotWeibos}" var="weibo">
+								<div class="avatar">
+									<a href="${urlPrefix}/people/${weibo.senderId}">
+										<img src="${avatarUrlPrefix}/1.png" width="24" height="24"/>
+									</a>
+								</div>
+								<div class="tweet-body">
+									<p>
+										<span class="author"><a href="${urlPrefix}/people/${weibo.senderId}">${weibo.senderRealName}</a>：</span>
+										<a href="${urlPrefix}/weibo/${weibo.id}">
+											<q:omit maxLength="40">${weibo.content}</q:omit>
+										</a>
+									</p>
+								</div>
+								</c:forEach>
+								<div class="clearfix2"></div>
+							</div>
+							<div class="clearfix2"></div>
+						</div>
 					</div> 
 					<div class="db-block">
 						<div class="more"><a href="${urlPrefix}/group/${group.id}/people">更多...</a></div> 

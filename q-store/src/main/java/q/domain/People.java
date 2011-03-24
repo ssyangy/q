@@ -48,6 +48,8 @@ public class People extends AbstractDomain implements Serializable {
 	private String intro;
 
 	private String url;
+	
+	private boolean following = false;
 
 	// =========================================
 
@@ -232,6 +234,18 @@ public class People extends AbstractDomain implements Serializable {
 
 	public String getBirthdayString() {
 		return getYear() + 1900 + "-" + getMonth() + "-" + getDay();
+	}
+	
+	public boolean isFollowing() {
+		return this.following;
+	}
+	
+	public void setFollowing() {
+		this.following = true;
+	}
+	
+	public void setUnFollowing() {
+		this.following = false;
 	}
 
 	@Override

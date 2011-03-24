@@ -10,8 +10,7 @@ import q.dao.EventDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
-import q.domain.Event;
-import q.util.CollectionKit;
+import q.domain.People;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -21,7 +20,7 @@ import q.web.ResourceContext;
  * @date Feb 22, 2011
  * 
  */
-public class GetGroupFeedEvent extends Resource {
+public class GetGroupPeople extends Resource {
 
 	private GroupDao groupDao;
 
@@ -54,21 +53,21 @@ public class GetGroupFeedEvent extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
+		long groupId = context.getResourceIdLong();
 		long loginPeopleId = context.getCookiePeopleId();
-		List<Long> groupIds = this.groupDao.getGroupIdsByPeopleId(loginPeopleId);
-		if (CollectionKit.isNotEmpty(groupIds)) {
-			List<Event> events = this.eventDao.getEventsByGroupIds(groupIds, 20, 0);
-			DaoHelper.injectEventsWithRealName(peopleDao, events);
-			DaoHelper.injectEventsWithGroupName(groupDao, events);
-			context.setModel("events", events);
-			
-			GetGroupFeedFrame frame = new GetGroupFeedFrame();
-			frame.setEventDao(eventDao);
-			frame.setPeopleDao(peopleDao);
-			frame.setGroupDao(groupDao);
-			frame.setWeiboDao(weiboDao);
-			frame.execute(context);
+		List<Long> peopleIds = this.groupDao.getGroupPeopleIds(groupId, 20, 0);
+		List<People> peoples = this.peopleDao.getPeoplesByIds(peopleIds);
+		if (loginPeopleId > 0) {
+			DaoHelper.injectPeoplesWithRelation(peopleDao, peoples, loginPeopleId);
 		}
+		context.setModel("peoples", peoples);
+
+		GetGroupFrame frame = new GetGroupFrame();
+		frame.setEventDao(eventDao);
+		frame.setGroupDao(groupDao);
+		frame.setPeopleDao(peopleDao);
+		frame.setWeiboDao(weiboDao);
+		frame.execute(context);
 	}
 
 	/*

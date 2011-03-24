@@ -121,16 +121,18 @@ public interface WeiboDao {
 
 	/**
 	 * @param groupIds
-	 * @param i
+	 * @param limit
+	 * @param start
 	 * @return
 	 */
-	List<Weibo> getHotWeibosByGroupIds(List<Long> groupIds, int i) throws SQLException;
+	List<Weibo> getHotWeibosByGroupIds(List<Long> groupIds, int limit, int start) throws SQLException;
 
 	/**
 	 * @param groupId
-	 * @param i
+	 * @param limit 
+	 * @param start
 	 * @return
 	 */
-	List<Weibo> getHotGroupWeibosByPage(long groupId, int limit) throws SQLException;
+	List<Weibo> getHotGroupWeibosByGroupId(long groupId, int limit, int start) throws SQLException;
 
 }

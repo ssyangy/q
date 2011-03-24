@@ -49,7 +49,7 @@
 							<li class="stream-tab"><a class="tab-text" href="#tabs-5">我收藏的</a></li>
 						</ul>
 						<div id="tabs-1">
-						<jsp:include page="weiboList.jsp" flush="true"/>
+						<jsp:include page="weibo-list.jsp" flush="true"/>
 						</div>
 						<div id="tabs-2">tabs2</div>
 						<div id="tabs-3">tabs3</div>
