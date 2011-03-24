@@ -7,6 +7,7 @@
 <html>
   <head>
     <jsp:include page="head.jsp" flush="true"/>
+    <jsp:include page="js-areas.jsp" flush="true"/>
 	<script type="text/javascript">
 var areas=${rootArea.childsJson};
 var selProvince;
@@ -14,49 +15,6 @@ var selCity;
 var selCounty;
 var cities;
 var undifined;
-function changeCounty(){
-	 selCounty.options.length=0;
-	 selCounty.style.display = "none";
-
-	 if(cities != undifined) {
-	   var countyId='${people.area.myCounty.id}';
-		 var cityId = parseInt(selCity.value, 10);
-		 $.each(cities, function(index, city) {
-		 	if (city.id == cityId) {
-		 		if(city.childs != undefined) {
-		 			selCounty.style.display = "block";
-			 		$.each(city.childs, function(index, county) {
-			 			selCounty.options.add(new Option(county.name, county.id));
-			 			if(area.id==countyId){
-	    	            selCounty.options[selCounty.options.length-1].selected='selected';
-	 	            }
-			 		});
-		 		}
-		 	}
-		 });
-	 }
-}
-function changeCity(){
-	selCity.options.length=0;
-	selCity.style.display = "none";
-	 var cityId='${people.area.myCity.id}';
-	 var areaId = parseInt(selProvince.value, 10);
-	 $.each(areas, function(index, area) {
-	 	if (area.id == areaId) {
-	 		if(area.childs != undifined) {
-	 			selCity.style.display = "block";
-	 			cities = area.childs;
-		 		$.each(area.childs, function(index, area) {
-		 			selCity.options.add(new Option(area.name, area.id));
-		 			if(area.id==cityId){
-	    	        selCity.options[selCity.options.length-1].selected='selected';
-	 	}
-		 		});
-	 		}
-	 	}
-	 });
-	 changeCounty();
-}
 
 	   function checkrealName(a){
        if(a.length<1||a.length>12){
@@ -95,20 +53,24 @@ function changeCity(){
  }
 function allDataCheck(){//fix me (intro)
   var realName=$("#realName").val();
-  var year=$("#year").val();
-  var month=$("#month").val();
-  var day=$("#day").val();
-  var provinceId=$("#selProvince").val();
-  var cityId=$("#selCity").val();
-  var countyId=$("#selCounty").val();
+  var year=$("#selYear").val();
+  var month=$("#selMonth").val();
+  var day=$("#selDay").val();
+  var province=$("#selProvince").val();
+  var city=$("#selCity").val();
+  var county=$("#selCounty").val();
   var url=$("#url").val();
-  var gender=$("#gender").val();
-  var intro=$("#intro").innerText;
+  if($("#male").attr("checked")==true){
+   var gender=$("#male").val();
+  }else{
+   var gender=$("#female").val();
+  }
+  var intro=$("#intro").val();
   $.ajax({
     url: '${urlPrefix}/profile/basic',
     type: 'POST',
     dataType: 'json',
-    data:{realName: realName,year:year,month:month,day:day,provinceId:provinceId,cityId:cityId,countyId:countyId，url：url,gender:gender,intro:intro},
+    data:{realName:realName,year:year,month:month,day:day,province:province,city:city,county:county,url:url,gender:gender,intro:intro},
     timeout: 5000,
     error: function(){
     },
@@ -118,32 +80,12 @@ function allDataCheck(){//fix me (intro)
          }
        else {
           var errorkind=errorType(json.error);
-          if(errorkind=="email"){
-            $("#emailcorrect").css("display","none");
-            $("#emailwrong").css("display","block");
-            $("#emailwrong").html(errorContext(json.error));
+          if(errorkind=="url"){
+            $("#urlcorrect").css("display","none");
+            $("#urlwrong").css("display","block");
+            $("#urlwrong").html(errorContext(json.error));
           }
-          else if(errorkind=="password"){
-            $("#passwordcorrect").css("display","none");
-            $("#passwordwrong").css("display","block");
-            $("#passwordwrong").html(errorContext(json.error));
-          }
-          else if(errorkind=="confirmPassword"){
-            $("#repasswordcorrect").css("display","none");
-            $("#repasswordwrong").css("display","block");
-            $("#repasswordwrong").html(errorContext(json.error));
-          }
-          else if(errorkind=="authcode"){
-            $("#authcodecorrect").css("display","none");
-            $("#authcodewrong").css("display","block");
-            $("#authcodewrong").html(errorContext(json.error));
-          }
-          else if(errorkind=="username"){
-            $("#usernamecorrect").css("display","none");
-            $("#usernamewrong").css("display","block");
-            $("#usernamewrong").html(errorContext(json.error));
-          }
-          else if(errorkind=="real_name"){
+          else if(errorkind=="realName"){
             $("#realNamecorrect").css("display","none");
             $("#realNamewrong").css("display","block");
             $("#realNamewrong").html(errorContext(json.error));
@@ -152,30 +94,31 @@ function allDataCheck(){//fix me (intro)
     }
 });
 }
-	$(function(){
-	    var yeartemp='${people.year}';
-	    var monthtemp='${people.month}';
-	    var daytemp='${people.day}';
-        year.options[year.options.length-yeartemp-1].selected='selected';
-        month.options[monthtemp-1].selected='selected';
-        day.options[daytemp-1].selected='selected';
-	    var provinceId='${people.area.myProvince.id}';
-	    selProvince = $("#selProvince")[0];
-	    selCity = $("#selCity")[0];
-	    selCounty = $("#selCounty")[0];
-	    $.each(areas, function(index, area) {
-	 	selProvince.options.add(new Option(area.name, area.id));
-	 	 if(area.id==provinceId){
-	    	selProvince.options[selProvince.options.length-1].selected='selected';
-	 	}
-	   });
-	     changeCity();
-			$('#tabs').tabs();
-			$tabs.tabs('select', 0);
+$(document).ready(function(){
+         yeartemp='${people.year}';
+	     monthtemp='${people.month}';
+	     daytemp='${people.day}';
+
+	    var yearx=document.getElementById("selYear");
+	    var monthx=document.getElementById("selMonth");
+	    var dayx=document.getElementById("selDay");
+
+        yearx.options[yearx.options.length-yeartemp-1].selected='selected';
+
+        monthx.options[monthtemp-1].selected='selected';
+        dayx.options[daytemp-1].selected='selected';
+
+         provinceExist='${people.area.myProvince.id}';
+         cityExist='${people.area.myCity.id}';
+         countyExist='${people.area.myCounty.id}';
+        initArea();
+
+		$('#tabs').tabs();
+		$tabs.tabs('select', 0);
 		});
 	</script>
   </head>
-  <body onload="load_saved()">
+  <body >
 	<div id="doc">
 		<div id="top-stuff">
 			<div id="quick-link">
@@ -265,9 +208,9 @@ function allDataCheck(){//fix me (intro)
 								<tr>
 									<th><label for=''>性别：</label></th>
 									<td class='col-field'>
-										<input type='radio' value='1' name="gender" id="gender"<c:choose><c:when test="${people.gender.value == 1}">checked="checked"</c:when></c:choose> />
+										<input type='radio' value='1' name="gender" id="male" <c:choose><c:when test="${people.gender.value == 1}">checked="checked"</c:when></c:choose> />
 										<span class='value-label'>男</span>&nbsp;&nbsp;
-										<input type='radio' value='2' name="gender" id="gender"<c:choose><c:when test="${people.gender.value == 2}">checked="checked"</c:when></c:choose>/>
+										<input type='radio' value='2' name="gender" id="female" <c:choose><c:when test="${people.gender.value == 2}">checked="checked"</c:when></c:choose>/>
 										<span class='value-label'>女</span>
 									</td>
 									<td class='col-help'>

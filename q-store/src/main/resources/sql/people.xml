@@ -151,6 +151,15 @@
 			<isNotNull prepend="," property="area">
 				area_id=#area,handler=q.dao.ibatis.AreaHandler#
 			</isNotNull>
+			<isNotNull prepend="," property="url">
+				url=#url#
+			</isNotNull>
+			<isNotNull prepend="," property="intro">
+				intro=#intro#
+			</isNotNull>
+		    <isNotNull prepend="," property="realName">
+				real_name=#realName#
+			</isNotNull>
 			<isGreaterThan prepend="," property="mobile" compareValue="0">
 				mobile=#mobile#
 			</isGreaterThan>
