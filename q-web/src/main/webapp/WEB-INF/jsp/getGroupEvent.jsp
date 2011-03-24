@@ -24,6 +24,13 @@
 					<jsp:include page="group-head.jsp" flush="true" >
 						<jsp:param name="tab" value="groupEvent" />
 					</jsp:include>
+					<div class="main-tweet-box group">
+						<div class="tweet-box">
+							<div class="submit">
+								<a href="${urlPrefix}/event/new?groupId=${group.id}" class="button" target="_blank">发起活动</a>
+							</div>
+						</div>
+					</div>					
 					<div class="stream-manager"> 
 						<div id="tabs"> 
 							<ul class="stream-tabs"> 
