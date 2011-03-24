@@ -40,7 +40,7 @@ public class AddGroupJoin extends Resource {
 	}
 
 	public void addPeopleJoinGroup(long peopleId, long groupId) throws SQLException {
-		PeopleJoinGroup join = groupDao.getPeopleJoinGroup(peopleId, groupId);
+		PeopleJoinGroup join = groupDao.getGroupPeople(peopleId, groupId);
 		if (join == null) {
 			groupDao.addPeopleJoinGroup(peopleId, groupId);
 		} else if (join.getStatus() == Status.DELETE.getValue()) {
@@ -54,7 +54,7 @@ public class AddGroupJoin extends Resource {
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		if (context.getCookiePeopleId() <= 0) {
-			throw new PeopleNotPermitException("people:无操作权限");
+			throw new PeopleNotPermitException("login:无操作权限");
 		}
 	}
 

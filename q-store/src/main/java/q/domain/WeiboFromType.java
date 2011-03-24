@@ -22,9 +22,9 @@ public enum WeiboFromType {
 	};
 
 	static {
-		WEB.namePrefix = "来自圈子网";
-		GROUP.namePrefix = "来自圈子-";
-		APP.namePrefix = "来自";
+		WEB.namePrefix = "圈子网";
+		GROUP.namePrefix = "";
+		APP.namePrefix = "";
 	}
 
 	private int value;

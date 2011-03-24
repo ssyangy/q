@@ -131,7 +131,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 					isJson = true; // is json api call
 				}
 			}
-			
+
 			if (this.needLoginResources != null && this.needLoginResources.contains(resource.getName())) { // request resource need visitor login first
 				if (context.getCookiePeopleId() <= 0) { // visitor logoff
 					if (isJson) {
@@ -157,11 +157,11 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 
 			ViewResolver viewResolver = null;
 			if (isJson) {
-					viewResolver = this.jsonViewResolver;
+				viewResolver = this.jsonViewResolver;
 			} else {
 				viewResolver = this.defaultViewResolver;
 			}
-			
+
 			ModelAndView view = viewResolver.view(context, resource);// use resource name as view name
 			return view;
 		}
@@ -225,13 +225,15 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 				resourceName += "Index";
 			}
 		} else if (segs.length == 2) {
-			String last = segs[segs.length - 1];
+			String last = segs[1];
 			if (!StringUtils.isNumeric(last)) {
 				resourceName += StringKit.capitalize(last);
 			}
 		} else if (segs.length == 3) {
-			String last = segs[segs.length - 1];
-			resourceName += StringKit.capitalize(last);
+			if (!StringUtils.isNumeric(segs[1])) {
+				resourceName += StringKit.capitalize(segs[1]);
+			}
+			resourceName += StringKit.capitalize(segs[2]);
 		}
 		return resourceName;
 	}

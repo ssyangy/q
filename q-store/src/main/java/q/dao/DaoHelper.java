@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import q.domain.Event;
 import q.domain.Favorite;
 import q.domain.Group;
 import q.domain.Message;
@@ -111,22 +112,73 @@ public class DaoHelper {
 			}
 		}
 	}
-	
+
+	/**
+	 * @param groupDao
+	 * @param events
+	 * @throws SQLException
+	 */
+	public static void injectEventsWithGroupName(GroupDao groupDao, List<Event> events) throws SQLException {
+		if (CollectionKit.isNotEmpty(events)) {
+			Set<Long> groupIds = new HashSet<Long>(events.size());
+			for (Event event : events) {
+				groupIds.add(event.getGroupId());
+			}
+			if (CollectionKit.isNotEmpty(groupIds)) {
+				Map<Long, String> groupIdNameMap = groupDao.getGroupIdNameMapByIds(groupIds);
+				for (Event event : events) {
+					event.setGroupName(groupIdNameMap.get(event.getGroupId()));
+				}
+			}
+		}
+	}
+
+	/**
+	 * @param groupDao
+	 * @param event
+	 * @throws SQLException 
+	 */
+	public static void injectEventWithGroupName(GroupDao groupDao, Event event) throws SQLException {
+		if(event != null) {
+			Group group = groupDao.getGroupById(event.getGroupId());
+			event.setGroupName(group.getName());
+		}
+
+	}
+
+	/**
+	 * @param peopleDao
+	 * @param event
+	 * @throws SQLException
+	 */
+	public static void injectEventWithRealName(PeopleDao peopleDao, Event event) throws SQLException {
+		if (event != null) {
+			People people = peopleDao.getPeopleById(event.getCreatorId());
+			event.setCreatorRealName(people.getRealName());
+		}
+	}
+
 	/**
 	 * @param peopleDao
 	 * @param hotWeibos
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public static void injectWeibosWithSenderRealName(PeopleDao peopleDao, List<Weibo> weibos) throws SQLException {
 		if (CollectionKit.isNotEmpty(weibos)) {
 			Set<Long> senderIds = new HashSet<Long>(weibos.size());
 			for (Weibo weibo : weibos) {
 				senderIds.add(weibo.getSenderId());
+				if (weibo.getQuoteSenderId() > 0) {
+					senderIds.add(weibo.getQuoteSenderId());
+				}
 			}
 			if (CollectionKit.isNotEmpty(senderIds)) {
 				Map<Long, String> peopleIdRealNameMap = peopleDao.getIdRealNameMapByIds(senderIds);
 				for (Weibo weibo : weibos) {
 					weibo.setSenderRealName(peopleIdRealNameMap.get(weibo.getSenderId()));
+					if (weibo.getQuoteSenderId() > 0) {
+						weibo.setQuoteSenderRealName(peopleIdRealNameMap.get(weibo.getQuoteSenderId()));
+					}
 				}
 			}
 		}
@@ -225,6 +277,24 @@ public class DaoHelper {
 
 	/**
 	 * @param peopleDao
+	 * @param events
+	 * @throws SQLException
+	 */
+	public static void injectEventsWithRealName(PeopleDao peopleDao, List<Event> events) throws SQLException {
+		if (CollectionKit.isNotEmpty(events)) {
+			HashSet<Long> peopleIds = new HashSet<Long>(events.size());
+			for (Event event : events) {
+				peopleIds.add(event.getCreatorId());
+			}
+			Map<Long, String> map = peopleDao.getIdRealNameMapByIds(peopleIds);
+			for (Event event : events) {
+				event.setCreatorRealName(map.get(event.getCreatorId()));
+			}
+		}
+	}
+
+	/**
+	 * @param peopleDao
 	 * @param weiboDao
 	 * @param groupDao
 	 * @param weiboId
@@ -256,8 +326,5 @@ public class DaoHelper {
 			reply.setFromPostfix(group.getName());
 		}
 	}
-
-
-	
 
 }

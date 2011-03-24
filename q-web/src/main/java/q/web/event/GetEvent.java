@@ -3,10 +3,11 @@
  */
 package q.web.event;
 
+import q.dao.DaoHelper;
 import q.dao.EventDao;
+import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.domain.Event;
-import q.domain.People;
 import q.domain.PeopleJoinEvent;
 import q.domain.Status;
 import q.web.Resource;
@@ -30,6 +31,12 @@ public class GetEvent extends Resource {
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
 	}
+	
+	private GroupDao groupDao;
+	
+	public void setGroupDao(GroupDao groupDao) {
+		this.groupDao = groupDao;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -41,9 +48,8 @@ public class GetEvent extends Resource {
 		long eventId = context.getResourceIdLong();
 		Event event = this.eventDao.getEventById(eventId);
 		context.setModel("event", event);
-
-		People sendperson = this.peopleDao.getPeopleById(event.getCreatorId());
-		context.setModel("senderperson", sendperson);
+		DaoHelper.injectEventWithRealName(peopleDao, event);
+		DaoHelper.injectEventWithGroupName(groupDao, event);
 
 		long peopleId = context.getCookiePeopleId();
 		if (peopleId > 0) {

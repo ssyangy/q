@@ -18,9 +18,13 @@ public class Category extends AbstractDomain implements Serializable {
 	private String intro;
 
 	private String status;
-	
+
 	private List<Group> groups;
-	
+
+	private int groupNum;
+
+	private int memberNum;
+
 	public List<Group> getGroups() {
 		return groups;
 	}
@@ -51,6 +55,22 @@ public class Category extends AbstractDomain implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public int getGroupNum() {
+		return groupNum;
+	}
+
+	public void setGroupNum(int groupNum) {
+		this.groupNum = groupNum;
+	}
+
+	public int getMemberNum() {
+		return memberNum;
+	}
+
+	public void setMemberNum(int memberNum) {
+		this.memberNum = memberNum;
 	}
 
 	@Override

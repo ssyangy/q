@@ -6,6 +6,7 @@ package q.web.favorite;
 import q.dao.FavoriteDao;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotPermitException;
 
 /**
  * @author seanlinwang
@@ -31,13 +32,13 @@ public class DeleteWeiboFavorite extends Resource {
 		long creatorId = context.getCookiePeopleId();
 		long weiboId = context.getResourceIdLong();
 		this.favoriteDao.unFavWeiboFavorite(weiboId, creatorId);
-		//context.setModel("favorite", new Favorite);
-		//context.redirectReffer();
 	}
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-
+		if (context.getCookiePeopleId() <= 0) {
+			throw new PeopleNotPermitException("login:无操作权限");
+		}
 	}
 
 }

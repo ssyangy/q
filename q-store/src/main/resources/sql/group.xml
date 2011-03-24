@@ -79,6 +79,13 @@
 		where
 		people_id = #value#
 	</select>
+	
+	<select id="selectGroupIdsByCatId" resultClass="long">
+		select group_id 
+		from group_join_category
+		where
+		category_id = #value#
+	</select>	
 
 	<select id="selectNewGroups" resultMap="groupResult">
 		select
@@ -165,6 +172,36 @@
 		people_id=#peopleId#
 		and
 		group_id=#groupId#
+	</select>
+	
+	<select id="selectGroupPeopleIdsByPage" resultClass="long">
+		select people_id
+		from
+		people_join_group
+		<dynamic prepend="where"> 
+			<isNotNull prepend="and" property="groupIds">
+				group_id in
+				<iterate property="groupIds" open="(" close=")" conjunction=",">
+					#groupIds[]#
+	        	</iterate>
+	        </isNotNull>
+			<isNotNull prepend="and" property="groupId">
+				group_id = #groupId#
+			</isNotNull>
+			<isNotNull prepend="and" property="startCreated">
+				created &lt;= #startCreated#
+			</isNotNull>
+			<isNotNull prepend="and" property="startId">
+				id &lt;= #startId#
+			</isNotNull>
+		</dynamic>
+		<isNotNull property="groupIds">
+			group by people_id 	
+	    </isNotNull>
+			order by created desc
+		<isNotNull property="size">
+			limit #startIndex#, #size#
+		</isNotNull>
 	</select>
 
 

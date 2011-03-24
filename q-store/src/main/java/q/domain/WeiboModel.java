@@ -22,11 +22,17 @@ public abstract class WeiboModel extends AbstractDomain implements Serializable 
 	private long quoteWeiboId;
 
 	private long quoteSenderId;
+	
+	private String quoteSenderRealName;
+
+	private long quoteWeiboContent;
+
+	private int quoteWeiboStatus;
 
 	private long replyWeiboId;
 
 	private long replySenderId;
-	
+
 	private WeiboFromType fromType;
 
 	private long fromId;
@@ -34,9 +40,9 @@ public abstract class WeiboModel extends AbstractDomain implements Serializable 
 	private String content;
 
 	private int status;
-	
+
 	private String fromPostfix;
-	
+
 	private boolean fav;
 
 	public void setFromPostfix(String fromPostfix) {
@@ -138,27 +144,27 @@ public abstract class WeiboModel extends AbstractDomain implements Serializable 
 	public boolean isFromGroup() {
 		return this.fromType.isFromGroup();
 	}
-	
+
 	public boolean isInGroup() {
 		return isFromGroup();
 	}
-	
+
 	public boolean isUnFav() {
 		return !this.fav;
 	}
-	
+
 	public boolean isFav() {
 		return this.fav;
 	}
-	
+
 	public boolean isDelete() {
 		return this.status == Status.DELETE.getValue();
 	}
-	
+
 	public boolean isCommon() {
 		return this.status == Status.COMMON.getValue();
 	}
-	
+
 	public void setFav(boolean fav) {
 		this.fav = fav;
 	}
@@ -166,8 +172,32 @@ public abstract class WeiboModel extends AbstractDomain implements Serializable 
 	public String getFromPostfix() {
 		return fromPostfix;
 	}
-	
-	public abstract String getViewName() ;
+
+	public abstract String getViewName();
+
+	public long getQuoteWeiboContent() {
+		return quoteWeiboContent;
+	}
+
+	public void setQuoteWeiboContent(long quoteContent) {
+		this.quoteWeiboContent = quoteContent;
+	}
+
+	public int getQuoteWeiboStatus() {
+		return quoteWeiboStatus;
+	}
+
+	public void setQuoteWeiboStatus(int quoteStatus) {
+		this.quoteWeiboStatus = quoteStatus;
+	}
+
+	public String getQuoteSenderRealName() {
+		return quoteSenderRealName;
+	}
+
+	public void setQuoteSenderRealName(String quoteSenderRealName) {
+		this.quoteSenderRealName = quoteSenderRealName;
+	}
 
 	@Override
 	public String toString() {

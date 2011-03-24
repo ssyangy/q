@@ -3,6 +3,8 @@
  */
 package q.dao.page;
 
+import java.util.List;
+
 import q.domain.Area;
 
 /**
@@ -24,6 +26,8 @@ public class PeoplePage extends Page {
 	private String email;
 
 	private Area area;
+
+	private List<Long> ids;
 
 	public Long getId() {
 		return id;
@@ -66,6 +70,18 @@ public class PeoplePage extends Page {
 	 */
 	public void setArea(Area area) {
 		this.area = area;
+	}
+
+	/**
+	 * @param ids
+	 */
+	public void setIds(List<Long> ids) {
+		this.ids = ids;
+		
+	}
+
+	public List<Long> getIds() {
+		return ids;
 	}
 
 }

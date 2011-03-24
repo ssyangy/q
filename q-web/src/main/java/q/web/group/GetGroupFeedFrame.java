@@ -2,20 +2,19 @@ package q.web.group;
 
 import java.util.List;
 
-import q.dao.DaoHelper;
 import q.dao.EventDao;
-import q.dao.FavoriteDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
-import q.dao.page.WeiboPage;
+import q.domain.Event;
+import q.domain.Group;
+import q.domain.People;
 import q.domain.Weibo;
 import q.util.CollectionKit;
 import q.web.Resource;
 import q.web.ResourceContext;
 
-public class GetGroupFeed extends Resource {
-
+public class GetGroupFeedFrame extends Resource {
 	private GroupDao groupDao;
 
 	public void setGroupDao(GroupDao groupDao) {
@@ -28,45 +27,39 @@ public class GetGroupFeed extends Resource {
 		this.peopleDao = peopleDao;
 	}
 
-	private WeiboDao weiboDao;
-
-	public void setWeiboDao(WeiboDao weiboDao) {
-		this.weiboDao = weiboDao;
-	}
-
 	private EventDao eventDao;
 
 	public void setEventDao(EventDao eventDao) {
 		this.eventDao = eventDao;
 	}
 	
-	private FavoriteDao favoriteDao;
-	
-	public void setFavoriteDao(FavoriteDao favoriteDao) {
-		this.favoriteDao = favoriteDao;
-	}
+	private WeiboDao weiboDao;
 
+	public void setWeiboDao(WeiboDao weiboDao) {
+		this.weiboDao = weiboDao;
+	}
+	
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
 		List<Long> groupIds = this.groupDao.getGroupIdsByPeopleId(loginPeopleId);
 		if (CollectionKit.isNotEmpty(groupIds)) {
-			WeiboPage page = new WeiboPage();
-			page.setStartIndex(0);
-			page.setSize(20);
-			page.setGroupIds(groupIds);
-			List<Weibo> weibos = this.weiboDao.getGroupWeibosByPage(page);
-			DaoHelper.injectWeibosWithSenderRealName(peopleDao, weibos);
-			DaoHelper.injectWeibosWithFrom(groupDao, weibos);
-			DaoHelper.injectWeibosWithFavorite(favoriteDao, weibos, loginPeopleId);
-			context.setModel("weibos", weibos);
+			List<Group> groups = this.groupDao.getGroupsByIds(groupIds);
+			context.setModel("groups", groups);
 			
-			GetGroupFeedFrame frame = new GetGroupFeedFrame();
-			frame.setEventDao(eventDao);
-			frame.setPeopleDao(peopleDao);
-			frame.setGroupDao(groupDao);
-			frame.setWeiboDao(weiboDao);
-			frame.execute(context);
+			List<Event> newEvents = this.eventDao.getEventsByGroupIds(groupIds, 4);
+			context.setModel("newEvents", newEvents);
+			
+			List<Long> newPeopleIds = this.groupDao.getGroupPeopleIds(groupIds, 3);
+			List<People> newPeoples = this.peopleDao.getPeoplesByIds(newPeopleIds);
+			context.setModel("newPeoples", newPeoples);
+			
+			List<Long> hotPeopleIds = this.groupDao.getHotGroupPeopleIds(groupIds, 3);
+			List<People> hotPeoples = this.peopleDao.getPeoplesByIds(hotPeopleIds);
+			context.setModel("hotPeoples", hotPeoples);
+			
+			List<Weibo> hotWeibos = this.weiboDao.getHotWeibosByGroupIds(groupIds, 4);
+			context.setModel("hotWeibos", hotWeibos);
 		}
 	}
 

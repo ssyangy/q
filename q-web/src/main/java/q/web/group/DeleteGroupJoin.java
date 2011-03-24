@@ -41,7 +41,7 @@ public class DeleteGroupJoin extends Resource {
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		if (context.getCookiePeopleId() <= 0) {
-			throw new PeopleNotPermitException("people:无操作权限");
+			throw new PeopleNotPermitException("login:无操作权限");
 		}
 	}
 

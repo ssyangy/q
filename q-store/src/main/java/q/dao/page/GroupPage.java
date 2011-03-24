@@ -9,13 +9,13 @@ import java.util.List;
 /**
  * @author seanlinwang
  * @email xalinx at gmail dot com
- * @date Feb 24, 2011
- * 
+ * @date Mar 23, 2011
+ *
  */
-public class EventPage extends Page implements Serializable {
+public class GroupPage extends Page implements Serializable {
 
-	private static final long serialVersionUID = 2901485653738227972L;
-
+	private static final long serialVersionUID = -8036492011793676375L;
+	
 	private Long groupId;
 
 	public Long getGroupId() {

@@ -82,7 +82,17 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 		page.setStartIndex(0);
 		return this.getPeoplesByPage(page);
 	}
-
+	
+	@Override
+	public List<People> getPeoplesByIds(List<Long> ids) throws SQLException {
+		if(CollectionKit.isEmpty(ids)) {
+			return null;
+		}
+		PeoplePage page = new PeoplePage();
+		page.setIds(ids);
+		return this.getPeoplesByPage(page);
+	}
+	
 	private People getPeopleByPage(PeoplePage page) throws SQLException {
 		return (People) this.sqlMapClient.queryForObject("selectPeoplesByPage", page);
 	}

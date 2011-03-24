@@ -75,7 +75,13 @@
 		<include refid="event.columns" />
 		from event
 		<dynamic prepend="where">
-			<isNotNull property="groupId">group_id = #groupId#</isNotNull>
+			<isNotNull property="groupId" prepend="and">group_id = #groupId#</isNotNull>
+			<isNotNull property="groupIds" prepend="and">
+				group_id in
+				<iterate property="groupIds" open="(" close=")" conjunction=",">
+					#groupIds[]#
+        		</iterate>
+			</isNotNull>
 		</dynamic>
 		order by created desc
 		limit #startIndex#, #size#

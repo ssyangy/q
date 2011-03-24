@@ -73,7 +73,7 @@ public class GetHomePage extends Resource {
 		List<Category> allCats = this.categoryDao.getAllCategorys();
 		context.setModel("cats", allCats);//FIXME need inject groups into categories, wanglin
 		List<Event> hotEvents = this.eventDao.getHotEvents(10);
-		context.setModel("hotEvents", hotEvents); //FIXME need inject areas into events, wanglin
+		context.setModel("hotEvents", hotEvents);
 		List<People> hotLocals = this.peopleDao.getHotPeoplesByArea(area, 5);
 		context.setModel("hotLocals", hotLocals);
 		List<q.domain.Weibo> hotWeibos = this.weiboDao.getHotWeibos(5);

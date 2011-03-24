@@ -1,20 +1,27 @@
+/**
+ * 
+ */
 package q.web.group;
 
 import java.util.List;
 
 import q.dao.DaoHelper;
 import q.dao.EventDao;
-import q.dao.FavoriteDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
-import q.dao.page.WeiboPage;
-import q.domain.Weibo;
+import q.domain.Event;
 import q.util.CollectionKit;
 import q.web.Resource;
 import q.web.ResourceContext;
 
-public class GetGroupFeed extends Resource {
+/**
+ * @author seanlinwang
+ * @email xalinx at gmail dot com
+ * @date Feb 22, 2011
+ * 
+ */
+public class GetGroupFeedEvent extends Resource {
 
 	private GroupDao groupDao;
 
@@ -39,27 +46,21 @@ public class GetGroupFeed extends Resource {
 	public void setEventDao(EventDao eventDao) {
 		this.eventDao = eventDao;
 	}
-	
-	private FavoriteDao favoriteDao;
-	
-	public void setFavoriteDao(FavoriteDao favoriteDao) {
-		this.favoriteDao = favoriteDao;
-	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see q.web.Resource#execute(q.web.ResourceContext)
+	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
 		List<Long> groupIds = this.groupDao.getGroupIdsByPeopleId(loginPeopleId);
 		if (CollectionKit.isNotEmpty(groupIds)) {
-			WeiboPage page = new WeiboPage();
-			page.setStartIndex(0);
-			page.setSize(20);
-			page.setGroupIds(groupIds);
-			List<Weibo> weibos = this.weiboDao.getGroupWeibosByPage(page);
-			DaoHelper.injectWeibosWithSenderRealName(peopleDao, weibos);
-			DaoHelper.injectWeibosWithFrom(groupDao, weibos);
-			DaoHelper.injectWeibosWithFavorite(favoriteDao, weibos, loginPeopleId);
-			context.setModel("weibos", weibos);
+			List<Event> events = this.eventDao.getEventsByGroupIds(groupIds, 20);
+			DaoHelper.injectEventsWithRealName(peopleDao, events);
+			DaoHelper.injectEventsWithGroupName(groupDao, events);
+			context.setModel("events", events);
 			
 			GetGroupFeedFrame frame = new GetGroupFeedFrame();
 			frame.setEventDao(eventDao);
@@ -70,12 +71,15 @@ public class GetGroupFeed extends Resource {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 }

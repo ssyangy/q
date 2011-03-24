@@ -40,7 +40,11 @@
 							</div> 
 							<div class="content-body"> 
 								<table cellspacing="10"> 
-									<tbody> 
+									<tbody>
+										<tr> 
+											<th>圈子：</th> 
+											<td><a href="${urlPrefix}/group/${event.groupId}">${event.groupName}</a></td> 
+										</tr> 									 
 										<tr> 
 											<th>城市：</th> 
 											<td>${event.area.myProvince.name}&nbsp;${event.area.myCity.name}&nbsp;${event.area.myCounty.name}</td> 
@@ -70,7 +74,7 @@
 											<td> 
 												<div> 
 													<div class="avatar"><img src="${avatarUrlPrefix}/avatar2.jpg"></div> 
-													<div class="name"><a href="">${senderperson.username}</a></div> 
+													<div class="name"><a href="${urlPrefix}/people/${event.creatorId}">${event.creatorRealName}</a></div> 
 												</div> 
 											</td> 
 										</tr> 

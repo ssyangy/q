@@ -58,7 +58,7 @@
 									<th></th> 
 									<td class='col-field'>
 										<button class="tweet-button button">创建圈子</button>
-										<a href="${urlPrefix}/groups" class="cancel">取消</a>
+										<a href="${urlPrefix}/group" class="cancel">取消</a>
 									</td> 
 								</tr> 
 							</tbody> 
