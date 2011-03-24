@@ -41,7 +41,7 @@ function changeCity(){
 	 });
 	 changeCounty();
 }
-$(document).ready(function() {  
+$(document).ready(function() {
 	selProvince = $("#selProvince")[0];
 	selCity = $("#selCity")[0];
 	selCounty = $("#selCounty")[0];
@@ -49,6 +49,6 @@ $(document).ready(function() {
 	 	selProvince.options.add(new Option(area.name, area.id));
 	 });
 	 changeCity();
-}); 
+});
 </script>
 

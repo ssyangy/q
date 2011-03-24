@@ -1,5 +1,4 @@
 package q.web.check;
-
 import q.dao.PeopleDao;
 import q.domain.People;
 import q.util.StringKit;
@@ -7,10 +6,8 @@ import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.exception.PeopleAlreadyExistException;
 import q.web.exception.RequestParameterInvalidException;
-
 public class AddPeopleCheck extends Resource {
 	private PeopleDao peopleDao;
-
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
 	}
@@ -32,7 +29,6 @@ public class AddPeopleCheck extends Resource {
 			}
 		}
 	}
-
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		String email = context.getString("email");
@@ -41,5 +37,4 @@ public class AddPeopleCheck extends Resource {
 			throw new RequestParameterInvalidException("all:参数丢失");
 		}
 	}
-
 }

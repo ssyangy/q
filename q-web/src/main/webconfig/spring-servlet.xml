@@ -99,7 +99,13 @@
 								<value>deleteEventJoin:event</value>
 							</key>
 							<value>/WEB-INF/json/check.xml</value>
-						</entry>						
+						</entry>
+						<entry>
+							<key>
+								<value>addProfileBasic:people</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
 					</map>
 				</property>
 			</bean>
@@ -377,5 +383,10 @@
 	<!-- auth web -->
 	<bean id="getAuthcodeNew" class="q.web.authcode.GetAuthcodeNew">
 		<property name="authcodeDao" ref="authcodeDao" />
+	</bean>
+
+	<!-- profile web-->
+	<bean id="getProfileBasic" class="q.web.people.GetProfileBasic">
+	    <property name="peopleDao" ref="peopleDao" />
 	</bean>
 </beans>

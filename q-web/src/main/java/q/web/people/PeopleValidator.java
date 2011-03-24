@@ -20,7 +20,7 @@ public class PeopleValidator {
 
 	/**
 	 * 验证圈子帐号,
-	 * @throws RequestParameterInvalidException 
+	 * @throws RequestParameterInvalidException
 	 */
 	public static void validateUsername(String account) throws RequestParameterInvalidException {
 		if (StringKit.isEmpty(account)) {
@@ -35,7 +35,7 @@ public class PeopleValidator {
 
 	/**
 	 * 验证密码
-	 * @throws RequestParameterInvalidException 
+	 * @throws RequestParameterInvalidException
 	 */
 	public static void validatePassword(String password) throws RequestParameterInvalidException {
 		if (StringKit.isEmpty(password)) {
@@ -49,7 +49,7 @@ public class PeopleValidator {
 
 	/**
 	 * 验证姓名
-	 * @throws RequestParameterInvalidException 
+	 * @throws RequestParameterInvalidException
 	 */
 	public static void validateRealName(String realName) throws RequestParameterInvalidException {
 		if (StringKit.isEmpty(realName)) {
@@ -61,5 +61,23 @@ public class PeopleValidator {
 			throw new RequestParameterInvalidException("realName:昵称允许1-12个字符,区分大小写");
 		}
 	}
-
+	/**
+	 * 验证url
+	 * @throws RequestParameterInvalidException
+	 */
+	public static void validateUrl(String url) throws RequestParameterInvalidException {
+		//正则表达式检验ip地址
+        String ipRegex = "((25[0-5]|2[0-4]\\d|1\\d\\d|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d\\d|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d\\d|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d\\d|\\d{1,2}))";
+        //正则表达式检验域名
+        String domain = "([0-9a-z][0-9a-z-]*\\.)*[a-z]{2,6}|localhost";
+        //检验端口
+        String port = "(:[0-9]{1,4})";
+        //检验剩余的URL是否合法其中[\u4e00-\u9fa5]表示中文
+        String remain = "(/[\\w!~*'()\\.;?:@&=+$,%#-[\u4e00-\u9fa5]]*)+/?$";
+        //该表达式用于检验http格式的URL是否合法
+        Pattern httpRegex =  Pattern.compile("^http://"+"("+ipRegex+"|"+domain+")"+port+"?"+remain);
+		if (!httpRegex.matcher(url).matches()) {
+			throw new RequestParameterInvalidException("url:这不是一个合法的url地址");
+		}
+	}
 }
