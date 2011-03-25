@@ -7,9 +7,14 @@
 	<title>发起活动</title>
 	<jsp:include page="js-areas.jsp" flush="true"/>
 	</head>
+	<script type="text/javascript">
+	$(document).ready(function(){
+        initArea();
+		});
+	</script>
 	<body>
 		<div id="doc">
-			<jsp:include page="top.jsp" flush="true"/>	
+			<jsp:include page="top.jsp" flush="true"/>
 			<div id="page-outer">
 				<div id="page-container">
 					<div class="main-content" style="min-height:400px">

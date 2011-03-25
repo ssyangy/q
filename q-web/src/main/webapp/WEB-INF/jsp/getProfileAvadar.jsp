@@ -21,7 +21,11 @@
            return;
        }
         $("#imgwrong").css("display","none");
-      jQuery('#myImage').Jcrop();
+        var api=$.Jcrop('#myImage',{
+
+        aspectRatio:1
+        });
+
     }
     $(document).ready(function(){
 		$('#tabs').tabs();
