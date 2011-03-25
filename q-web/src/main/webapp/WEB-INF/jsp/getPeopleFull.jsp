@@ -3,9 +3,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-	<jsp:include page="head.jsp" flush="true"/>
+	<jsp:include page="head.jsp" />
 	<title>补充个人资料</title>
-	<jsp:include page="js-areas.jsp" flush="true"/>
+	<jsp:include page="js-areas.jsp" />
 	<script type="text/javascript">
 	function checkLocation(){
 	    $("#locationcorrect").css("display","block");
@@ -130,7 +130,7 @@
 												<tr>
 													<th><label for=''>生日：</label></th>
 													<td class='col-field' colspan='2'>
-											             <jsp:include page="dateSelect.jsp" flush="true"/>
+											             <jsp:include page="dateSelect.jsp" />
 													</td>
 												</tr>
 												<tr>

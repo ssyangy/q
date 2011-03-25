@@ -40,7 +40,7 @@ public interface EventDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	List<Event> getEventsByParticipantId(long peopleId) throws SQLException;
+	List<Event> getAllEventsByPeopleId(long peopleId) throws SQLException;
 
 	/**
 	 * @param eventIds
@@ -88,4 +88,18 @@ public interface EventDao {
 	 * @return
 	 */
 	List<Event> getEventsByGroupId(long groupId, int limit, int start) throws SQLException;
+
+	/**
+	 * @param eventId
+	 * @return
+	 */
+	int getJoinNumberById(long eventId) throws SQLException;
+
+	/**
+	 * @param eventId
+	 * @param limit
+	 * @param start
+	 * @return
+	 */
+	List<PeopleJoinEvent> getPeopleJoinEventsById(long eventId, int limit, int start) throws SQLException;
 }

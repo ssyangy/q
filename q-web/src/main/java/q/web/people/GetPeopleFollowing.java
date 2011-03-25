@@ -3,10 +3,15 @@
  */
 package q.web.people;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import q.dao.EventDao;
+import q.dao.GroupDao;
 import q.dao.PeopleDao;
+import q.dao.WeiboDao;
 import q.dao.page.PeopleRelationPage;
+import q.domain.People;
 import q.domain.PeopleRelation;
 import q.domain.PeopleRelationStatus;
 import q.web.Resource;
@@ -25,19 +30,51 @@ public class GetPeopleFollowing extends Resource {
 		this.peopleDao = peopleDao;
 	}
 
+	private WeiboDao weiboDao;
+
+	public void setWeiboDao(WeiboDao weiboDao) {
+		this.weiboDao = weiboDao;
+	}
+
+	private EventDao eventDao;
+
+	public void setEventDao(EventDao eventDao) {
+		this.eventDao = eventDao;
+	}
+
+	private GroupDao groupDao;
+
+	public void setGroupDao(GroupDao groupDao) {
+		this.groupDao = groupDao;
+	}
+
 	/* (non-Javadoc)
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long fromPeopleId = context.getResourceIdLong();
+		
+		GetPeopleFrame frame = new GetPeopleFrame();
+		frame.setEventDao(eventDao);
+		frame.setGroupDao(groupDao);
+		frame.setPeopleDao(peopleDao);
+		frame.setWeiboDao(weiboDao);
+		frame.validate(context);
+		frame.execute(context);
+		
 		PeopleRelationPage page = new PeopleRelationPage();
 		page.setFromPeopleId(fromPeopleId);
 		page.setStatus(PeopleRelationStatus.FOLLOWING);
 		page.setSize(20);
 		page.setStartIndex(0);
-		List<PeopleRelation> relations = this.peopleDao.getPagePeopleRelationWithToRealName(page);
-		context.setModel("relations", relations);
+		List<PeopleRelation> relations = this.peopleDao.getPeopleRelationsByPage(page);
+		List<Long> followingIds = new ArrayList<Long>();
+		for(PeopleRelation relation: relations) {
+			followingIds.add(relation.getToPeopleId());
+		}
+		List<People> peoples = this.peopleDao.getPeoplesByIds(followingIds);
+		context.setModel("peoples", peoples);
 	}
 
 	/* (non-Javadoc)

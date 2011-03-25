@@ -5,7 +5,6 @@ package q.dao.ibatis;
 
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -120,43 +119,6 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 	public void addPeopleRelation(PeopleRelation relation) throws SQLException {
 		relation.setId(IdCreator.getLongId());
 		this.sqlMapClient.insert("insertPeopleRelation", relation);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see q.dao.PeopleDao#getPagePeopleRelation(q.dao.page.PeopleRelationPage)
-	 */
-	@Override
-	public List<PeopleRelation> getPagePeopleRelationWithFromRealName(PeopleRelationPage page) throws SQLException {
-		List<PeopleRelation> relations = getPeopleRelationsByPage(page);
-		if (CollectionKit.isNotEmpty(relations)) {
-			HashSet<Long> peopleIds = new HashSet<Long>(relations.size());
-			for (PeopleRelation relation : relations) {
-				peopleIds.add(relation.getFromPeopleId());
-			}
-			Map<Long, String> map = getIdRealNameMapByIds(peopleIds);
-			for (PeopleRelation relation : relations) {
-				relation.setFromPeopleRealName(map.get(relation.getFromPeopleId()));
-			}
-		}
-		return relations;
-	}
-
-	@Override
-	public List<PeopleRelation> getPagePeopleRelationWithToRealName(PeopleRelationPage page) throws SQLException {
-		List<PeopleRelation> relations = getPeopleRelationsByPage(page);
-		if (CollectionKit.isNotEmpty(relations)) {
-			HashSet<Long> peopleIds = new HashSet<Long>(relations.size());
-			for (PeopleRelation relation : relations) {
-				peopleIds.add(relation.getToPeopleId());
-			}
-			Map<Long, String> map = getIdRealNameMapByIds(peopleIds);
-			for (PeopleRelation relation : relations) {
-				relation.setToPeopleRealName(map.get(relation.getToPeopleId()));
-			}
-		}
-		return relations;
 	}
 
 	@Override

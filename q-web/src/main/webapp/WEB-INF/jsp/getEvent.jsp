@@ -3,18 +3,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<jsp:include page="head.jsp" flush="true"/>
+	<jsp:include page="head.jsp" />
 	<title>活动:<c:out value="${event.name}" /></title>
-	<script type="text/javascript">
-		$(function(){
-			$('#tabs').tabs();
-			$tabs.tabs('select', 0);
-		});
-	</script>
 </head>
 <body>
 	<div id="doc"> 
-		<jsp:include page="top.jsp" flush="true"/>
+		<jsp:include page="top.jsp" />
 		<div id="page-outer"> 
 			<div id="page-container"> 
 				<div class="main-content" style="min-height:400px"> 
@@ -34,7 +28,7 @@
 									</c:choose>									
 										
 									</div> 
-									<div class="count">人参加</div> 
+									<div class="count">${event.joinNumber}人参加</div> 
 									<div class="clearfix2"></div> 
 								</div> 
 							</div> 
@@ -73,8 +67,14 @@
 											<th>发起人：</th> 
 											<td> 
 												<div> 
-													<div class="avatar"><img src="${avatarUrlPrefix}/avatar2.jpg"></div> 
-													<div class="name"><a href="${urlPrefix}/people/${event.creatorId}">${event.creatorRealName}</a></div> 
+													<div class="avatar">
+														<a href="${urlPrefix}/people/${event.creatorId}">
+															<img src="${avatarUrlPrefix}/avatar2.jpg">
+														</a>
+													</div> 
+													<div class="name">
+														<a href="${urlPrefix}/people/${event.creatorId}">${event.creatorRealName}</a>
+													</div> 
 												</div> 
 											</td> 
 										</tr> 
@@ -91,10 +91,18 @@
 					<div class="db-block"> 
 						<h3>参加的人：</h3> 
 						<div class="db-block-content"> 
+							<c:forEach items="${eventPeoples}" var="join">
 							<div class="people-cell"> 
-								<div class="avatar"><img src="${avatarUrlPrefix}/avatar0.png"></div> 
-								<div class="name">孟飞</div> 
-							</div> 
+								<div class="avatar">
+									<a href="${urlPrefix}/people/${join.peopleId}">
+										<img src="${avatarUrlPrefix}/avatar0.png">
+									</a>
+								</div> 
+								<div class="name">
+									<a href="${urlPrefix}/people/${join.peopleId}">${join.peopleRealName}</a>
+								</div> 
+							</div>
+							</c:forEach> 
 						</div> 
 					</div> 
 				</div> 

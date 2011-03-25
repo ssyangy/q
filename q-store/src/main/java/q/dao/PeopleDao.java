@@ -63,20 +63,6 @@ public interface PeopleDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	List<PeopleRelation> getPagePeopleRelationWithFromRealName(PeopleRelationPage page) throws SQLException;
-
-	/**
-	 * @param page
-	 * @return
-	 * @throws SQLException
-	 */
-	List<PeopleRelation> getPagePeopleRelationWithToRealName(PeopleRelationPage page) throws SQLException;
-
-	/**
-	 * @param page
-	 * @return
-	 * @throws SQLException
-	 */
 	List<PeopleRelation> getPeopleRelationsByPage(PeopleRelationPage page) throws SQLException;
 
 	/**

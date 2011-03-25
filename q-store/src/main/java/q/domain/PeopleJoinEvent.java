@@ -13,6 +13,8 @@ public class PeopleJoinEvent implements Serializable {
 	private long id;
 
 	private long peopleId;
+	
+	private String peopleRealName;
 
 	private long eventId;
 
@@ -97,6 +99,14 @@ public class PeopleJoinEvent implements Serializable {
 
 	public boolean isJoinStatus() {
 		return this.getStatus() == Status.COMMON.getValue();
+	}
+
+	public String getPeopleRealName() {
+		return peopleRealName;
+	}
+
+	public void setPeopleRealName(String peopleRealName) {
+		this.peopleRealName = peopleRealName;
 	}
 
 }

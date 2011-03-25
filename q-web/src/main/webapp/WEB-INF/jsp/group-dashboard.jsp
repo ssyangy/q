@@ -55,11 +55,11 @@
 							<c:forEach items="${newPeoples}" var="people"> 
 							<div class="member-cell"> 
 								<div class="avatar">
-									<a href="${urlPrefix}/people/${people.id}" target="_blank"><img src="${avatarUrlPrefix}/avatar3.jpg"></a>
+									<a href="${urlPrefix}/people/${people.id}"><img src="${avatarUrlPrefix}/avatar3.jpg"></a>
 								</div> 
 								<div class="name-action"> 
 									<div class="name">
-										<a href="${urlPrefix}/people/${people.id}" target="_blank">${people.realName}</a>
+										<a href="${urlPrefix}/people/${people.id}">${people.realName}</a>
 									</div> 
 									<div class="action"><button class="mini-button">向${people.gender.cncall}示好</button></div> 
 								</div> 

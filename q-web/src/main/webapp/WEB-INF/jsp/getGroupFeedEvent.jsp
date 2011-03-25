@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<jsp:include page="head.jsp" flush="true"/>
+<jsp:include page="head.jsp" />
 <title>我的圈子-活动</title>
 <script type="text/javascript">
 	$(function(){
@@ -17,11 +17,11 @@
 </head>
 <body>
 	<div id="doc">
-	<jsp:include page="top.jsp" flush="true"/>
+	<jsp:include page="top.jsp" />
 		<div id="page-outer" class="groups-feed">
 			<div id="page-container"> 
 				<div class="main-content" style="min-height:400px"> 
-					<jsp:include page="group-feed-head.jsp" flush="true">
+					<jsp:include page="group-feed-head.jsp" >
 						<jsp:param name="tab" value="groupEvent" />
 					</jsp:include>
 					<div class="stream-manager"> 
@@ -69,7 +69,7 @@
 					</div> 
 				</div> 
 			</div>		
-			<jsp:include page="group-feed-dashboard.jsp" flush="true"/>
+			<jsp:include page="group-feed-dashboard.jsp" />
 		</div>
 	</div>	
 </body>
