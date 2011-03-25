@@ -70,7 +70,7 @@ public class GetPeopleFrame extends Resource {
 		}
 		context.setModel("isFollowing", isFollowing);
 		
-		List<Event> events = eventDao.getEventsByParticipantId(peopleId);
+		List<Event> events = eventDao.getAllEventsByPeopleId(peopleId);
 		context.setModel("newEvents", events);
 
 		PeopleRelationPage page = new PeopleRelationPage();

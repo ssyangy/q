@@ -397,20 +397,20 @@
 		<property name="authcodeDao" ref="authcodeDao" />
 	</bean>
 
-	<!-- profile web-->
+	<!-- profile web -->
 	<bean id="getProfileBasic" class="q.web.people.GetProfileBasic">
-	    <property name="peopleDao" ref="peopleDao" />
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="addProfileBasic" class="q.web.people.AddProfileBasic">
-	    <property name="peopleDao" ref="peopleDao" />
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
-    <bean id="getProfileAvatar" class="q.web.people.GetProfileAvatar">
+	<bean id="getProfileAvatar" class="q.web.people.GetProfileAvatar">
 	</bean>
 	<bean id="addProfileAvatar" class="q.web.people.AddProfileAvatar">
 	</bean>
 	<bean id="addAvatarEdit" class="q.web.people.AddAvatarEdit">
 	</bean>
-    <bean id="addAvatar" class="q.web.people.AddAvatar">
+	<bean id="addAvatar" class="q.web.people.AddAvatar">
 	</bean>
 
 

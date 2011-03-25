@@ -3,6 +3,8 @@
  */
 package q.web.event;
 
+import java.util.List;
+
 import q.dao.DaoHelper;
 import q.dao.EventDao;
 import q.dao.GroupDao;
@@ -58,6 +60,13 @@ public class GetEvent extends Resource {
 				context.setModel("join", join);
 			}
 		}
+		
+		event.setJoinNumber(this.eventDao.getJoinNumberById(eventId));
+		int limit = 20;
+		int start = 0;
+		List<PeopleJoinEvent> peopleJoinEvents = this.eventDao.getPeopleJoinEventsById(eventId, limit, start);
+		DaoHelper.injectPeopleJoinEventsWithRealName(peopleDao, peopleJoinEvents);
+		context.setModel("eventPeoples", peopleJoinEvents);
 	}
 
 	/* (non-Javadoc)

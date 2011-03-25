@@ -58,7 +58,7 @@ public class GetGroupPeople extends Resource {
 		List<Long> peopleIds = this.groupDao.getGroupPeopleIds(groupId, 20, 0);
 		List<People> peoples = this.peopleDao.getPeoplesByIds(peopleIds);
 		if (loginPeopleId > 0) {
-			DaoHelper.injectPeoplesWithRelation(peopleDao, peoples, loginPeopleId);
+			DaoHelper.injectPeoplesWithRelation(peopleDao, peoples, loginPeopleId); //TODO not complete
 		}
 		context.setModel("peoples", peoples);
 

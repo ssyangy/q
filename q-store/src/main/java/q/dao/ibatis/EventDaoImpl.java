@@ -9,6 +9,7 @@ import java.util.List;
 
 import q.dao.EventDao;
 import q.dao.page.EventPage;
+import q.dao.page.PeopleJoinEventPage;
 import q.domain.Event;
 import q.domain.PeopleJoinEvent;
 import q.domain.Status;
@@ -80,11 +81,28 @@ public class EventDaoImpl extends AbstractDaoImpl implements EventDao {
 	public PeopleJoinEvent getPeopleJoinEvent(long peopleId, long eventId) throws SQLException {
 		return (PeopleJoinEvent) this.sqlMapClient.queryForObject("selectPeopleJoinEventByPeopleIdAndEventId", new PeopleJoinEvent(peopleId, eventId));
 	}
+	
+	@Override
+	public List<PeopleJoinEvent> getPeopleJoinEventsById(long eventId, int limit, int start) throws SQLException {
+		PeopleJoinEventPage page = new PeopleJoinEventPage();
+		page.setEventId(eventId);
+		page.setSize(limit);
+		page.setStartIndex(start);
+		List<PeopleJoinEvent> joins = getPeopleJoinEventByPage(page);
+		return joins;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<PeopleJoinEvent> getPeopleJoinEventByPage(PeopleJoinEventPage page) throws SQLException {
+		return this.sqlMapClient.queryForList("selectPeopleJoinEventsByPage", page);
+	}
 
 	@Override
-	public List<Event> getEventsByParticipantId(long peopleId) throws SQLException {
-		@SuppressWarnings("unchecked")
-		List<PeopleJoinEvent> joins = this.sqlMapClient.queryForList("selectPeopleJoinEventsByPeopleId", peopleId);
+	public List<Event> getAllEventsByPeopleId(long peopleId) throws SQLException {
+		PeopleJoinEventPage page = new PeopleJoinEventPage();
+		page.setPeopleId(peopleId);
+		List<PeopleJoinEvent> joins = getPeopleJoinEventByPage(page);
+		
 		if (CollectionKit.isEmpty(joins)) {
 			return null;
 		}
@@ -147,6 +165,14 @@ public class EventDaoImpl extends AbstractDaoImpl implements EventDao {
 		join.setEventId(eventId);
 		join.setStatus(Status.DELETE.getValue());
 		this.sqlMapClient.update("updatePeopleJoinEventStatusByPeopleIdAndEventId", join);
+	}
+
+	/* (non-Javadoc)
+	 * @see q.dao.EventDao#getJoinNumberByEventId(long)
+	 */
+	@Override
+	public int getJoinNumberById(long eventId) throws SQLException {
+		return (Integer) this.sqlMapClient.queryForObject("selectJoinNumberById", eventId);
 	}
 
 }

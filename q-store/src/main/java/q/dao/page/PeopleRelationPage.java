@@ -20,7 +20,7 @@ public class PeopleRelationPage extends Page implements Serializable {
 	private Long fromPeopleId;
 
 	private Long toPeopleId;
-	
+
 	private PeopleRelationStatus status;
 
 	private List<Long> toPeopleIds;
@@ -49,11 +49,12 @@ public class PeopleRelationPage extends Page implements Serializable {
 		this.status = status;
 	}
 
-	/**
-	 * @param arrayList
-	 */
 	public void setToPeopleIds(List<Long> toPeopleIds) {
 		this.toPeopleIds = toPeopleIds;
-		
 	}
+
+	public List<Long> getToPeopleIds() {
+		return toPeopleIds;
+	}
+
 }

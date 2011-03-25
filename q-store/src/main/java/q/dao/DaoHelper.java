@@ -17,6 +17,7 @@ import q.domain.Favorite;
 import q.domain.Group;
 import q.domain.Message;
 import q.domain.People;
+import q.domain.PeopleJoinEvent;
 import q.domain.PeopleRelation;
 import q.domain.Weibo;
 import q.domain.WeiboReply;
@@ -395,6 +396,25 @@ public class DaoHelper {
 			}
 
 		}
+	}
+
+	/**
+	 * @param peopleDao
+	 * @param peopleJoinEvents
+	 * @throws SQLException 
+	 */
+	public static void injectPeopleJoinEventsWithRealName(PeopleDao peopleDao, List<PeopleJoinEvent> joins) throws SQLException {
+		if(CollectionKit.isNotEmpty(joins)) {
+			HashSet<Long> peopleIds = new HashSet<Long>(joins.size());
+			for (PeopleJoinEvent join : joins) {
+				peopleIds.add(join.getPeopleId());
+			}
+			Map<Long, String> map = peopleDao.getIdRealNameMapByIds(peopleIds);
+			for (PeopleJoinEvent join : joins) {
+				join.setPeopleRealName(map.get(join.getPeopleId()));
+			}
+		}
+		
 	}
 
 }

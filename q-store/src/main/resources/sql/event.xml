@@ -149,17 +149,30 @@
 		event_id=#eventId#
 	</select>
 
-	<select id="selectPeopleJoinEventsByPeopleId" resultMap="pjeResult">
+	<select id="selectPeopleJoinEventsByPage" resultMap="pjeResult">
 		select
 		<include refid="pje.columns" />
 		from
 		people_join_event
 		where
 		status = 0
-		and
-		people_id=#peopleId#
-		order by
-		created desc
+		<isNotNull prepend="and" property="peopleId">
+			people_id=#peopleId#
+		</isNotNull>
+		<isNotNull prepend="and" property="eventId">
+			event_id=#eventId#
+		</isNotNull>		
+		order by created desc
+		<isNotNull property="size">
+			limit #startIndex#, #size#
+		</isNotNull>
 	</select>
 
+	<select id="selectJoinNumberById" resultClass="int">
+		select
+		count(id)
+		from people_join_event
+		where status = 0
+		and event_id = #value#
+	</select>
 </sqlMap>
