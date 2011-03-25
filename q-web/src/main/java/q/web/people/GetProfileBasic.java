@@ -15,10 +15,8 @@ public class GetProfileBasic extends Resource{
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		context.setModel("rootArea", Area.getRootArea());
-	//	long loginPeopleId = context.getResourceIdLong();
-	//	People people = peopleDao.getPeopleById(loginPeopleId);
-		long temp=1300368092229L;
-		People people = peopleDao.getPeopleById(temp);
+		long peopleId = context.getCookiePeopleId();
+		People people = peopleDao.getPeopleById(peopleId);
 		context.setModel("people", people);
 	}
 

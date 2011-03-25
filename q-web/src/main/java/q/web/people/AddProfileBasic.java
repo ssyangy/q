@@ -20,8 +20,8 @@ public class AddProfileBasic extends Resource{
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		People people = new People();
-		//long PeopleId = context.getCookiePeopleId();
-		long peopleId=1300368092229L;
+		long peopleId = context.getCookiePeopleId();
+		//long peopleId=1300368092229L;
 		people.setId(peopleId);
 		Gender gender = Gender.convertValue(context.getInt("gender", -1));
 		people.setGender(gender);
