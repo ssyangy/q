@@ -163,7 +163,7 @@ $(document).ready(function(){
 						<li><a href="#tabs-1">基本信息</a></li>
 						<li><a href="#tabs-2">头像</a></li>
 						<li><a href="#tabs-3">喜好</a></li>
-						<li><a href="#tabs-4">教育与工作</a></li>
+
 					</ul>
 					<div id="tabs-1" class="tab-canvas">
 						<table id="setting-form" class='input-form'>
@@ -267,8 +267,7 @@ $(document).ready(function(){
 					</div>
 					<div id="tabs-3" class="tab-canvas">
 					</div>
-					<div id="tabs-4" class="tab-canvas">
-					</div>
+
 				</div>
 			</div>
 		</div>

@@ -11,8 +11,11 @@
     <link rel="stylesheet" type="text/css" href="${staticUrlPrefix}/style/jcrop/jquery-jcrop-0.9.8.css"  />
     <script type="text/javascript" src="${staticUrlPrefix}/js/jquery-jcrop-0.9.8.min.js"></script>
 	<script type="text/javascript">
-
+    var realWidth;
+    var realHeight;
 	var isImg=false;
+	var imgWidth;
+	var imgHeight;
     var cutter;
 	function up(){
 	if(isImg==true){
@@ -33,25 +36,68 @@
 
 	return isImg;
 	}
+	function save(){
+	var data = cutter.submit();
+	var x1=data.x;
+	var y1=data.y;
+	var x2=x1+data.w;
+	var y2=y1+data.h;
+    var realx1=Number(x1/imgWidth*realWidth);
+    var realy1=Number(y1/imgHeight*realHeight);
+    var realx2=Number(x2/imgWidth*realWidth);
+    var realy2=Number(y2/imgHeight*realHeight);
+    alert(realx1+" "+realy1+" "+realx2+" "+realy2);
+    	var emailtext=$("#email").val();
+	$.ajax({
+    url: '${urlPrefix}/avatar/edit',
+    type: 'POST',
+    dataType: 'json',
+    data:{realx1: realx1,realy1:realy1,realx2:realx2,realy2:realy2},
+    timeout: 5000,
+    error: function(){
+          $("#savecorrect").css("display","none");
+          $("#savewrong").css("display","block");
+          $("#savewrong").html("服务器忙，请稍后再尝试");
+    },
+    success: function(json){
+      if(json == null){
+          $("#savecorrect").css("display","block");
+          $("#savewrong").css("display","none");
+          $("#savecorrect").html("修改头像图片成功");
+
+      } else {
+          $("#savecorrect").css("display","none");
+          $("#savewrong").css("display","block");
+          $("#savewrong").html(errorContext(json.error));
+
+      }
+    }
+});
+	}
     function notAImg(){
          $("#imgwrong").css("display","block");
          $("#imgwrong").html("这不是一个图片文件!");
     }
     function reloadImg(x,y,z){
-    alert();
-    var imgHeight=x;
-	var imgWidth=y;
+    realHeight=x;
+	realWidth=y;
 	var imgPath=z;
-      var tempImg=document.getElementById("tempImg");
-      if(imgHeight>imgWidth){
+      var tempImg= $("#tempImg");
+      if(realHeight>realWidth){
          tempImg.height=200;
-         tempImg.width=imgWidth*200/imgHeight;
+         tempImg.width=realWidth*200/realHeight;
+         imgHeight=200;
+         imgWidth=tempImg.width;
       }
       else{
          tempImg.width=200;
-         tempImg.height=imgHeight*200/imgWidth;
+         tempImg.height=realHeight*200/realWidth;
+         imgHeight=tempImg.height;
+         imgWidth=200;
       }
+
       cutter.reload(imgPath);
+
 	}
     function check(){
      var filepath=document.getElementById("file").value;
@@ -234,7 +280,7 @@
 						<li><a href="#tabs-1">基本信息</a></li>
 						<li><a href="#tabs-2">头像</a></li>
 						<li><a href="#tabs-3">喜好</a></li>
-						<li><a href="#tabs-4">教育与工作</a></li>
+
 					</ul>
 					<div id="tabs-1" class="tab-canvas">
 	                aaa
@@ -250,8 +296,8 @@
                     <div style='display:none;' id="imgWrong"></div>
                     <iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>
                     </form>
-					<div id="myImage">
-                       <img   alt="xxxxx" id="tempImg"/>
+			    	<div id="myImage">
+                    <img   alt="xxxxx" id="tempImg"/>
                     </div>
 
                     <!---
@@ -260,13 +306,14 @@
 	                    	<div id="picture_24"></div>
 		                    <div id="picture_48"></div>
 		                    <div id="picture_128"></div>
-		                     <input type="button" value="保存"></input>
-                     <input type="button" value="取消"></input>
+		                    <div style='display:none;' id="savewrong"></div>
+		                    <div style='display:none;' id="savecorrect"></div>
+		                     <input type="button" value="保存" onclick="save()"></input>
+                             <input type="button" value="取消"></input>
 				    </div>
 					<div id="tabs-3" class="tab-canvas">
 					</div>
-					<div id="tabs-4" class="tab-canvas">
-					</div>
+
 				</div>
 			</div>
 		</div>

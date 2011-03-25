@@ -5,12 +5,14 @@
 <script type='text/javascript'>
    var isImg='<%=request.getAttribute("isImg")%>' ;
    if(isImg){
+
 	   var imgHeight='<%=request.getAttribute("imgHeight")%>';
 	   var imgWidth='<%=request.getAttribute("imgWidth")%>';
 	   var imgPath='<%=request.getAttribute("imgPath")%>';
 	   parent.reloadImg(imgHeight,imgWidth,imgPath);
    }
    else{
+
 	   parent.notAImg();
    }
 

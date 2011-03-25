@@ -17,6 +17,7 @@ public class AddAvatar extends Resource{
 		context.setModel("imgWidth", 100);
 		context.setModel("imgPath", "http://www.q.net/a/1.png");
         context.setModel("isImg", true);
+        //这个根据 实际 传上来的图片参数传 吧
 	}
 
 }

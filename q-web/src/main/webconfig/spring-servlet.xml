@@ -406,6 +406,10 @@
 	</bean>
     <bean id="addAvatar" class="q.web.people.AddAvatar">
 	</bean>
+	<bean id="getProfileInterest" class="q.web.people.GetProfileInterest">
+	</bean>
+	<bean id="addProfileInterest" class="q.web.people.AddProfileInterest">
+	</bean>
 
 
 </beans>
