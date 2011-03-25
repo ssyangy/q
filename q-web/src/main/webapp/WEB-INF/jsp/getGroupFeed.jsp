@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<jsp:include page="head.jsp" flush="true"/>
+<jsp:include page="head.jsp" />
 <title>圈子新鲜事</title>
 <script type="text/javascript">
 	$(function(){
@@ -16,11 +16,11 @@
 </head>
 <body>
 	<div id="doc">
-	<jsp:include page="top.jsp" flush="true"/>
+	<jsp:include page="top.jsp" />
 		<div id="page-outer" class="groups-feed">
 			<div id="page-container">
 				<div class="main-content" style="min-height:400px">
-					<jsp:include page="group-feed-head.jsp" flush="true">
+					<jsp:include page="group-feed-head.jsp" >
 						<jsp:param name="tab" value="group" />
 					</jsp:include>
 					<div class="stream-manager">
@@ -33,7 +33,7 @@
 								<li class="stream-tab"><a class="tab-text" href="#tabs-5">我收藏的</a></li>
 							</ul>
 							<div id="tabs-1">
-							<jsp:include page="weibo-list.jsp" flush="true"/>
+							<jsp:include page="weibo-list.jsp" />
 							</div>
 							<div id="tabs-2">tabs2</div>
 							<div id="tabs-3">tabs3</div>
@@ -43,7 +43,7 @@
 					</div>
 				</div>
 			</div>
-			<jsp:include page="group-feed-dashboard.jsp" flush="true"/>
+			<jsp:include page="group-feed-dashboard.jsp" />
 		</div>
 	</div>	
 </body>

@@ -184,9 +184,15 @@
 	</bean>
 	<bean id="getPeopleFollowing" class="q.web.people.GetPeopleFollowing">
 		<property name="peopleDao" ref="peopleDao" />
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="eventDao" ref="eventDao" />
+		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="getPeopleFollower" class="q.web.people.GetPeopleFollower">
 		<property name="peopleDao" ref="peopleDao" />
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="eventDao" ref="eventDao" />
+		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="addPeopleFollowing" class="q.web.people.AddPeopleFollowing">
 		<property name="peopleDao" ref="peopleDao" />

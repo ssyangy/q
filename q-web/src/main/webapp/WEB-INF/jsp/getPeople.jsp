@@ -3,8 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<jsp:include page="head.jsp" flush="true"/>
-	<title>我的主页</title>
+	<jsp:include page="head.jsp" />
+	<title>个人主页</title>
 	<script type="text/javascript">
 		$(function(){
 			$('#tabs').tabs();
@@ -14,76 +14,22 @@
 </head>
 <body>
 	<div id="doc">
-	<jsp:include page="top.jsp" flush="true"/>	
+	<jsp:include page="top.jsp"/>	
 	<div id="page-outer">
 		<div id="page-container">
 			<div class="main-content" style="min-height:400px">
-				<div class="profile-header">
-					<div class="profile-info clearfix">
-						<div class="profile-image-container"><a href=""><img width="128" height="128" src="${avatarUrlPrefix}/1.png"></a></div>
-						<div class="profile-details">
-							<div class="profile-edit"><a href="${urlPrefix}/profile/basic" class="button">修改我的资料</a></div>
-							<div class="full-name"><h2>${people.realName}</h2></div>
-							<div class="screen-name-and-location">${people.area.myProvince.name}&nbsp;${people.area.myCity.name}&nbsp;${people.area.myCounty.name}</div>
-							<div class="bio">${people.intro}</div>
-							<div class="url">
-								<a href="${people.url}" target="_blank">${people.url}</a>
-							</div>
-						</div>
-					</div>
-					<div class="groups">
-						${people.gender.cncall}的圈子：
-						<c:forEach items="${groups}" var="group" varStatus="status">
-						<a href="${urlPrefix}/group/${group.id}">${group.name}</a>
-						</c:forEach>						
-					</div>
-					<c:if test="${isMe == false}">
-					<div class="profile-actions-container">
-						<div class="component">
-							<div class="profile-actions clearfix">
-								<div class="buttons">
-									<c:choose>
-									<c:when test="${isFollowing == false}">
-										<button class="button" onclick="follow(this,${people.id})">关注</button>
-									</c:when>
-									<c:otherwise>
-										<button class="button" onclick="unFollow(this,${people.id})">取消关注</button>
-									</c:otherwise>
-									</c:choose>								
-									<div class="button">
-										<a href="${urlPrefix}/weibo/new?receiverId=${people.id}&from=${contextPath}/people/${people.id}">@${people.gender.cncall}</a>
-									</div>
-									<div class="button">
-										<a href="${urlPrefix}/message/new?receiverId=${people.id}">发私信</a>
-									</div>
-								</div>
-								<div class="kimoji">向${people.gender.cncall}表达：</div>
-							</div>
-						</div>
-					</div>									
-					</c:if>	
-				</div>
+				<jsp:include page="people-head.jsp"/>
 				<div class="stream-manager">
 					<div id="tabs">
-						<ul class="stream-tabs">
-							<li class="stream-tab"><a class="tab-text" href="#tabs-1">新微博</a></li>
-							<li class="stream-tab"><a class="tab-text" href="#tabs-4">收藏</a></li>
-							<li class="stream-tab"><a class="tab-text" href="#tabs-5">好友</a></li>
-							<li class="stream-tab"><a class="tab-text" href="#tabs-6">关注</a></li>
-							<li class="stream-tab"><a class="tab-text" href="#tabs-7">粉丝</a></li>
-						</ul>
+						<jsp:include page="people-tag.jsp"/>
 						<div id="tabs-1">
-						<jsp:include page="weibo-list.jsp" flush="true"/>
+						<jsp:include page="weibo-list.jsp"/>
 						</div>
-						<div id="tabs-2">tabs2</div>
-						<div id="tabs-3">tabs3</div>
-						<div id="tabs-4">tabs4</div>
-						<div id="tabs-5">tabs5</div>
 					</div>
 				</div>				
 			</div>
 		</div>
-		<jsp:include page="people-dashboard.jsp" flush="true"/>
+		<jsp:include page="people-dashboard.jsp"/>
 	</div>
 </div>
 </body>

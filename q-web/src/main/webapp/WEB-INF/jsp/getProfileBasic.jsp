@@ -6,8 +6,8 @@
 
 <html>
   <head>
-    <jsp:include page="head.jsp" flush="true"/>
-    <jsp:include page="js-areas.jsp" flush="true"/>
+    <jsp:include page="head.jsp" />
+    <jsp:include page="js-areas.jsp" />
 	<script type="text/javascript">
 var areas=${rootArea.childsJson};
 var selProvince;
@@ -224,7 +224,7 @@ $(document).ready(function(){
 								<tr>
 									<th><label for=''>生日：</label></th>
 									<td class='col-field' colspan='2'>
-										 <jsp:include page="dateSelect.jsp" flush="true"/>
+										 <jsp:include page="dateSelect.jsp" />
 									</td>
 								</tr>
 								<tr>

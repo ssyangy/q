@@ -5,17 +5,33 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>关注者</title>
+	<jsp:include page="head.jsp" />
+	<title>粉丝</title>
+	<script type="text/javascript">
+		$(function(){
+			$('#tabs').tabs();
+			$tabs.tabs('select', 4);
+		});
+	</script>
 </head>
 <body>
-<div id="content">
-<c:forEach items="${relations}" var="relation">
-	<a href="<c:out value="${urlPrefix}/people/${relation.fromPeopleId}"/>">
-		<c:out value="${relation.fromPeopleRealName}" />
-	</a>
-	<br />
-</c:forEach>
+	<div id="doc">
+	<jsp:include page="top.jsp"/>	
+	<div id="page-outer">
+		<div id="page-container">
+			<div class="main-content" style="min-height:400px">
+				<jsp:include page="people-head.jsp"/>
+				<div class="stream-manager">
+					<div id="tabs">
+						<jsp:include page="people-tag.jsp"/>
+						<div id="tabs-5">
+						<jsp:include page="people-list.jsp"></jsp:include>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+		<jsp:include page="people-dashboard.jsp"/>
+	</div>
 </div>
-</body>
 </html>
