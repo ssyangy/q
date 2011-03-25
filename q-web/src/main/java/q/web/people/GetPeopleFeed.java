@@ -8,7 +8,11 @@ import q.dao.FavoriteDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
+import q.dao.page.PeopleRelationPage;
 import q.dao.page.WeiboPage;
+import q.domain.People;
+import q.domain.PeopleRelation;
+import q.domain.PeopleRelationStatus;
 import q.domain.Weibo;
 import q.util.CollectionKit;
 import q.web.Resource;
@@ -48,6 +52,28 @@ public class GetPeopleFeed extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
+		
+		People login = this.peopleDao.getPeopleById(loginPeopleId);
+		context.setModel("people", login);
+		
+		PeopleRelationPage followerPage = new PeopleRelationPage();
+		followerPage.setToPeopleId(loginPeopleId);
+		followerPage.setStatus(PeopleRelationStatus.FOLLOWING);
+		followerPage.setSize(7);
+		followerPage.setStartIndex(0);
+		List<PeopleRelation> followers = this.peopleDao.getPeopleRelationsByPage(followerPage);
+		DaoHelper.injectPeopleRelationsWithFromRealName(peopleDao, followers);
+		context.setModel("newFollowers", followers);
+		
+		PeopleRelationPage followingPage = new PeopleRelationPage();
+		followingPage.setFromPeopleId(loginPeopleId);
+		followingPage.setStatus(PeopleRelationStatus.FOLLOWING);
+		followingPage.setSize(3);
+		followingPage.setStartIndex(0);
+		List<PeopleRelation> followings = this.peopleDao.getPeopleRelationsByPage(followingPage);
+		DaoHelper.injectPeopleRelationsWithToRealName(peopleDao, followings);
+		context.setModel("newFollowings", followings);
+		
 		List<Long> senderIds = peopleDao.getAllFollowingId(loginPeopleId);
 		senderIds.add(loginPeopleId);//add login people
 		WeiboPage page = new WeiboPage();

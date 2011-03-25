@@ -365,4 +365,36 @@ public class DaoHelper {
 
 	}
 
+	/**
+	 * @param peopleDao
+	 * @param relations
+	 * @throws SQLException
+	 */
+	public static void injectPeopleRelationsWithFromRealName(PeopleDao peopleDao, List<PeopleRelation> relations) throws SQLException {
+		if (CollectionKit.isNotEmpty(relations)) {
+			HashSet<Long> peopleIds = new HashSet<Long>(relations.size());
+			for (PeopleRelation relation : relations) {
+				peopleIds.add(relation.getFromPeopleId());
+			}
+			Map<Long, String> map = peopleDao.getIdRealNameMapByIds(peopleIds);
+			for (PeopleRelation relation : relations) {
+				relation.setFromPeopleRealName(map.get(relation.getFromPeopleId()));
+			}
+		}
+	}
+
+	public static void injectPeopleRelationsWithToRealName(PeopleDao peopleDao, List<PeopleRelation> relations) throws SQLException {
+		if (CollectionKit.isNotEmpty(relations)) {
+			HashSet<Long> peopleIds = new HashSet<Long>(relations.size());
+			for (PeopleRelation relation : relations) {
+				peopleIds.add(relation.getToPeopleId());
+			}
+			Map<Long, String> map = peopleDao.getIdRealNameMapByIds(peopleIds);
+			for (PeopleRelation relation : relations) {
+				relation.setToPeopleRealName(map.get(relation.getToPeopleId()));
+			}
+
+		}
+	}
+
 }

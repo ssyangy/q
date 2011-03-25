@@ -134,6 +134,7 @@ public class DateKit {
 	 * @return
 	 */
 	public static String date2Mdhm(Date date) {
+		if(null == date) return null;
 		Calendar c = new GregorianCalendar();
 		c.setTime(date);
 		int m = c.get(GregorianCalendar.MONTH) + 1;
@@ -211,6 +212,7 @@ public class DateKit {
 	 * @return
 	 */
 	public static String date2Md(Date date) {
+		if(null == date) return null;
 		Calendar c = new GregorianCalendar();
 		c.setTime(date);
 		int m = c.get(GregorianCalendar.MONTH) + 1;

@@ -5,6 +5,7 @@ package q.web.people;
 
 import java.util.List;
 
+import q.dao.DaoHelper;
 import q.dao.PeopleDao;
 import q.dao.page.PeopleRelationPage;
 import q.domain.PeopleRelation;
@@ -36,7 +37,8 @@ public class GetPeopleFollowing extends Resource {
 		page.setStatus(PeopleRelationStatus.FOLLOWING);
 		page.setSize(20);
 		page.setStartIndex(0);
-		List<PeopleRelation> relations = this.peopleDao.getPagePeopleRelationWithToRealName(page);
+		List<PeopleRelation> relations = this.peopleDao.getPeopleRelationsByPage(page);
+		DaoHelper.injectPeopleRelationsWithToRealName(peopleDao, relations);
 		context.setModel("relations", relations);
 	}
 

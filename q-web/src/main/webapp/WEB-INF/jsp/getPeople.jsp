@@ -22,14 +22,17 @@
 					<div class="profile-info clearfix">
 						<div class="profile-image-container"><a href=""><img width="128" height="128" src="${avatarUrlPrefix}/1.png"></a></div>
 						<div class="profile-details">
+							<div class="profile-edit"><a href="${urlPrefix}/profile/basic" class="button">修改我的资料</a></div>
 							<div class="full-name"><h2>${people.realName}</h2></div>
 							<div class="screen-name-and-location">${people.area.myProvince.name}&nbsp;${people.area.myCity.name}&nbsp;${people.area.myCounty.name}</div>
 							<div class="bio">${people.intro}</div>
-							<div class="url"><a href="">http://imnotav.com/</a></div>
+							<div class="url">
+								<a href="${people.url}" target="_blank">${people.url}</a>
+							</div>
 						</div>
 					</div>
 					<div class="groups">
-						${people.gender.cncall}在这些圈子里玩：
+						${people.gender.cncall}的圈子：
 						<c:forEach items="${groups}" var="group" varStatus="status">
 						<a href="${urlPrefix}/group/${group.id}">${group.name}</a>
 						</c:forEach>						
@@ -79,26 +82,8 @@
 					</div>
 				</div>				
 			</div>
-			<div class="dashboard" style="display:block;">
-				<div>
-					<div class="">生日${people.birthdayString}</div>
-					<div class="">
-						关注数<a href="${urlPrefix}/people/${people.id}/following">${people.followingNum}</a>
-						粉丝数<a href="${urlPrefix}/people/${people.id}/follower">${people.followerNum}</a>
-						微博数${people.weiboNum}							
-					</div>				
-				</div>
-				<div>
-					<c:out value="${people.gender.cncall}" />参与的活动: <br />
-					<c:forEach items="${events}" var="event" varStatus="status">
-						<a href="${urlPrefix}/event/${event.id}">
-							${event.name}
-						</a>
-						<br />
-					</c:forEach>
-				</div>
-			</div>
 		</div>
+		<jsp:include page="people-dashboard.jsp" flush="true"/>
 	</div>
 </div>
 </body>

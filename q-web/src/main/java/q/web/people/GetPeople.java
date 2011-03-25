@@ -1,6 +1,5 @@
 package q.web.people;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import q.dao.DaoHelper;
@@ -10,10 +9,6 @@ import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.dao.page.WeiboPage;
-import q.domain.Event;
-import q.domain.Group;
-import q.domain.People;
-import q.domain.PeopleRelation;
 import q.domain.Weibo;
 import q.web.Resource;
 import q.web.ResourceContext;
@@ -56,15 +51,17 @@ public class GetPeople extends Resource {
 	}
 
 	@Override
-	public void execute(ResourceContext context) throws SQLException {
+	public void execute(ResourceContext context) throws Exception {
 		long peopleId = context.getResourceIdLong();
 		long loginPeopleId = context.getCookiePeopleId();
-
-		People people = peopleDao.getPeopleById(peopleId);
-		people.setFollowingNum(peopleDao.getPeopleFollowingNumById(peopleId));
-		people.setFollowerNum(peopleDao.getPeopleFollowerNumById(peopleId));
-		people.setWeiboNum(weiboDao.getPeopleWeiboNumByPeopleId(peopleId));
-		context.setModel("people", people);
+		
+		GetPeopleFrame frame = new GetPeopleFrame();
+		frame.setEventDao(eventDao);
+		frame.setGroupDao(groupDao);
+		frame.setPeopleDao(peopleDao);
+		frame.setWeiboDao(weiboDao);
+		frame.validate(context);
+		frame.execute(context);
 
 		WeiboPage page = new WeiboPage();
 		page.setSenderId(peopleId);
@@ -77,27 +74,6 @@ public class GetPeople extends Resource {
 			DaoHelper.injectWeibosWithFavorite(favoriteDao, weibos, loginPeopleId);
 		}
 		context.setModel("weibos", weibos);
-
-		List<Event> events = eventDao.getEventsByParticipantId(peopleId);
-		context.setModel("events", events);
-
-		List<Group> groups = groupDao.getGroupsByPeopleId(peopleId);
-		context.setModel("groups", groups);
-
-		boolean isMe = false;
-		if (loginPeopleId > 0 && peopleId == loginPeopleId) {
-			isMe = true;
-		}
-		context.setModel("isMe", isMe);
-
-		boolean isFollowing = false;
-		if (isMe == false) {
-			PeopleRelation relation = peopleDao.getPeopleRelationByFromIdToId(loginPeopleId, peopleId);
-			if (relation != null && relation.isFollowing()) {
-				isFollowing = true;
-			}
-		}
-		context.setModel("isFollowing", isFollowing);
 	}
 
 	/*

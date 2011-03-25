@@ -53,11 +53,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="dashboard" style="display:block;">
-					<div>好友地图 
-						<div>附近好友 | 全部好友 | 附近陌生人</div> 
-					</div>
-				</div>
+				<jsp:include page="people-feed-dashboard.jsp"/>
 			</div>
 		</div>
 	</div>
