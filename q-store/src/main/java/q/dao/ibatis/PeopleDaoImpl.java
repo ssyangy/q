@@ -61,7 +61,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 		page.setEmail(email);
 		return getPeopleByPage(page);
 	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -129,7 +129,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 	 */
 	@Override
 	public List<PeopleRelation> getPagePeopleRelationWithFromRealName(PeopleRelationPage page) throws SQLException {
-		List<PeopleRelation> relations = getPagePeopleRelation(page);
+		List<PeopleRelation> relations = getPeopleRelationsByPage(page);
 		if (CollectionKit.isNotEmpty(relations)) {
 			HashSet<Long> peopleIds = new HashSet<Long>(relations.size());
 			for (PeopleRelation relation : relations) {
@@ -145,7 +145,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	@Override
 	public List<PeopleRelation> getPagePeopleRelationWithToRealName(PeopleRelationPage page) throws SQLException {
-		List<PeopleRelation> relations = getPagePeopleRelation(page);
+		List<PeopleRelation> relations = getPeopleRelationsByPage(page);
 		if (CollectionKit.isNotEmpty(relations)) {
 			HashSet<Long> peopleIds = new HashSet<Long>(relations.size());
 			for (PeopleRelation relation : relations) {
@@ -160,9 +160,9 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 	}
 
 	@Override
-	public List<PeopleRelation> getPagePeopleRelation(PeopleRelationPage page) throws SQLException {
+	public List<PeopleRelation> getPeopleRelationsByPage(PeopleRelationPage page) throws SQLException {
 		@SuppressWarnings("unchecked")
-		List<PeopleRelation> relations = (List<PeopleRelation>) this.sqlMapClient.queryForList("selectPagePeopleRelation", page);
+		List<PeopleRelation> relations = (List<PeopleRelation>) this.sqlMapClient.queryForList("selectPeopleRelationsByPage", page);
 		return relations;
 	}
 

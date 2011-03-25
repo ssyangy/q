@@ -198,35 +198,6 @@
 		)
 	</insert>
 
-	<select id="selectPagePeopleRelation" resultMap="relationResult">
-		select
-		<include refid="relation.columns" />
-		from people_relation
-		<dynamic prepend="where">
-			<isNotNull prepend="and" property="status">
-				status =
-				#status,handler=q.dao.ibatis.PeopleRelationStatusHandler#
-			</isNotNull>
-			<isNotNull prepend="and" property="fromPeopleId">
-				from_people_id =
-				#fromPeopleId#
-			</isNotNull>
-			<isNotNull prepend="and" property="toPeopleId">
-				to_people_id =
-				#toPeopleId#
-			</isNotNull>
-			<isNotNull prepend="and" property="startCreated">
-				created &lt;=
-				#startCreated#
-			</isNotNull>
-			<isNotNull prepend="and" property="startId">
-				id &lt;= #startId#
-			</isNotNull>
-		</dynamic>
-		order by created desc
-		limit #startIndex#, #size#
-	</select>
-
 	<select id="selectAllToPeopleIds" resultClass="long">
 		select
 		to_people_id
@@ -247,6 +218,39 @@
 		to_people_id = #toPeopleId#
 	</select>
 
+	<select id="selectPeopleRelationsByPage" resultMap="relationResult">
+		select
+		<include refid="relation.columns" />
+		from people_relation
+		<dynamic prepend="where">
+			<isNotNull prepend="and" property="status">
+				status = #status,handler=q.dao.ibatis.PeopleRelationStatusHandler#
+			</isNotNull>
+			<isNotNull prepend="and" property="fromPeopleId">
+				from_people_id = #fromPeopleId#
+			</isNotNull>
+			<isNotNull prepend="and" property="toPeopleId">
+				to_people_id = #toPeopleId#
+			</isNotNull>
+			<isNotNull prepend="and" property="toPeopleIds">
+				to_people_id in 
+				<iterate property="toPeopleIds" open="(" close=")" conjunction=",">
+					#toPeopleIds[]#
+        		</iterate>
+			</isNotNull>			
+			<isNotNull prepend="and" property="startCreated">
+				created &lt;= #startCreated#
+				
+			</isNotNull>
+			<isNotNull prepend="and" property="startId">
+				id &lt;= #startId#
+			</isNotNull>
+		</dynamic>
+		<isNotNull property="size">
+				order by created desc limit #startIndex#, #size#
+		</isNotNull>
+	</select>
+	
 	<select id="selectPeoplesByPage" resultMap="peopleResult">
 		select
 		<include refid="people.columns" />

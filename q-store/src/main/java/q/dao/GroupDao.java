@@ -74,37 +74,42 @@ public interface GroupDao {
 
 	/**
 	 * @param groupIds
-	 * @param i
+	 * @param limit 
+	 * @param start
 	 * @return
 	 */
-	List<Long> getGroupPeopleIds(List<Long> groupIds, int limit) throws SQLException;
-
-	/**
-	 * @param groupId
-	 * @param i
-	 * @return
-	 */
-	List<Long> getHotGroupPeopleIds(long groupId, int limit) throws SQLException;
-
-	/**
-	 * @param groupId
-	 * @param i
-	 * @return
-	 */
-	List<Group> getRecommendGroupsByGroupId(long groupId, int limit) throws SQLException;
+	List<Long> getGroupPeopleIds(List<Long> groupIds, int limit, int start) throws SQLException;
 
 	/**
 	 * @param groupId
 	 * @param limit
+	 * @param start
 	 * @return
 	 */
-	List<Long> getGroupPeopleIds(long groupId, int limit) throws SQLException;
+	List<Long> getHotGroupPeopleIds(long groupId, int limit, int start) throws SQLException;
+
+	/**
+	 * @param groupId
+	 * @param limit
+	 * @param start
+	 * @return
+	 */
+	List<Group> getRecommendGroupsByGroupId(long groupId, int limit, int start) throws SQLException;
+
+	/**
+	 * @param groupId
+	 * @param limit
+	 * @param start 
+	 * @return
+	 */
+	List<Long> getGroupPeopleIds(long groupId, int limit, int start) throws SQLException;
 
 	/**
 	 * @param groupIds
 	 * @param limit
+	 * @param start
 	 * @return
 	 */
-	List<Long> getHotGroupPeopleIds(List<Long> groupIds, int limit) throws SQLException;
+	List<Long> getHotGroupPeopleIds(List<Long> groupIds, int limit, int start) throws SQLException;
 
 }

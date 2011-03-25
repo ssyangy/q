@@ -92,7 +92,7 @@ function joinGroup(button,groupId){
     },
    	success: function(json){
        if(json == null){
-           	button.innerHTML = "不参加了";
+           	button.innerHTML = "退出";
            	button.onclick = function(event){unJoinGroup(button,groupId);};
         } else {
         	console.log(json);

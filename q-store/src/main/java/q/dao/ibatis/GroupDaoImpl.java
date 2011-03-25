@@ -65,32 +65,32 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Long> getGroupPeopleIds(long groupId, int limit) throws SQLException {
+	public List<Long> getGroupPeopleIds(long groupId, int limit, int start) throws SQLException {
 		GroupPage page = new GroupPage();
 		page.setSize(limit);
-		page.setStartIndex(0);
+		page.setStartIndex(start);
 		page.setGroupId(groupId);
 		return (List<Long>) this.sqlMapClient.queryForList("selectGroupPeopleIdsByPage", page);
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Long> getGroupPeopleIds(List<Long> groupIds, int limit) throws SQLException {
+	public List<Long> getGroupPeopleIds(List<Long> groupIds, int limit, int start) throws SQLException {
 		GroupPage page = new GroupPage();
 		page.setSize(limit);
-		page.setStartIndex(0);
+		page.setStartIndex(start);
 		page.setGroupIds(groupIds);
 		return (List<Long>) this.sqlMapClient.queryForList("selectGroupPeopleIdsByPage", page);
 	}
 
 	@Override
-	public List<Long> getHotGroupPeopleIds(long groupId, int limit) throws SQLException {
-		return this.getGroupPeopleIds(groupId, limit);
+	public List<Long> getHotGroupPeopleIds(long groupId, int limit, int start) throws SQLException {
+		return this.getGroupPeopleIds(groupId, limit, start);
 	}
 	
 	@Override
-	public List<Long> getHotGroupPeopleIds(List<Long> groupIds, int limit) throws SQLException {
-		return this.getGroupPeopleIds(groupIds, limit);
+	public List<Long> getHotGroupPeopleIds(List<Long> groupIds, int limit, int start) throws SQLException {
+		return this.getGroupPeopleIds(groupIds, limit, start);
 	}
 
 	@Override
@@ -189,7 +189,7 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 	 * @see q.dao.GroupDao#getRecommendGroupsByGroupId(long, int)
 	 */
 	@Override
-	public List<Group> getRecommendGroupsByGroupId(long groupId, int limit) throws SQLException {
+	public List<Group> getRecommendGroupsByGroupId(long groupId, int limit, int start) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

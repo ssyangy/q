@@ -2,6 +2,7 @@ package q.web.group;
 
 import java.util.List;
 
+import q.dao.DaoHelper;
 import q.dao.EventDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
@@ -54,21 +55,22 @@ public class GetGroupFrame extends Resource {
 			}
 		}
 		
-		List<Event> newEvents = this.eventDao.getEventsByGroupId(groupId, 4);
+		List<Event> newEvents = this.eventDao.getEventsByGroupId(groupId, 4, 0);
 		context.setModel("newEvents", newEvents);
 
-		List<Long> groupPeopleIds = this.groupDao.getGroupPeopleIds(groupId, 3);
+		List<Long> groupPeopleIds = this.groupDao.getGroupPeopleIds(groupId, 3, 0);
 		List<People> groupPeoples = this.peopleDao.getPeoplesByIds(groupPeopleIds);
 		context.setModel("newPeoples", groupPeoples);
 
-		List<Long> hotGroupPeopleIds = this.groupDao.getHotGroupPeopleIds(groupId, 3);
+		List<Long> hotGroupPeopleIds = this.groupDao.getHotGroupPeopleIds(groupId, 3, 0);
 		List<People> hotGroupPeoples = this.peopleDao.getPeoplesByIds(hotGroupPeopleIds);
 		context.setModel("hotPeoples", hotGroupPeoples);
 
-		List<Weibo> hotWeibos = this.weiboDao.getHotGroupWeibosByPage(groupId, 4);
+		List<Weibo> hotWeibos = this.weiboDao.getHotGroupWeibosByGroupId(groupId, 3, 0);
+		DaoHelper.injectWeibosWithSenderRealName(peopleDao, hotWeibos);
 		context.setModel("hotWeibos", hotWeibos);
 
-		List<Group> recommendGroups = this.groupDao.getRecommendGroupsByGroupId(groupId, 4);
+		List<Group> recommendGroups = this.groupDao.getRecommendGroupsByGroupId(groupId, 4, 0);
 		context.setModel("recommendGroups", recommendGroups);
 	}
 

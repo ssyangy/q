@@ -251,7 +251,7 @@ $("#authcodeId").attr("value",value);
 			<div class="wrapper">
 			<div class="content-heading">
 			<div class="heading">
-			<p class="sign-in">已经是圈里人了？<a href="${urlPrefix}/login/new">登录</a></p>
+			<p class="sign-in">已经是圈里人了？<a href="${urlPrefix}">登录</a></p>
 			<h2>加入圈子</h2>
 			</div>
 			</div>

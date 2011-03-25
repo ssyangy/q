@@ -4,6 +4,7 @@
 package q.dao.page;
 
 import java.io.Serializable;
+import java.util.List;
 
 import q.domain.PeopleRelationStatus;
 
@@ -21,6 +22,8 @@ public class PeopleRelationPage extends Page implements Serializable {
 	private Long toPeopleId;
 	
 	private PeopleRelationStatus status;
+
+	private List<Long> toPeopleIds;
 
 	public Long getFromPeopleId() {
 		return fromPeopleId;
@@ -44,5 +47,13 @@ public class PeopleRelationPage extends Page implements Serializable {
 
 	public void setStatus(PeopleRelationStatus status) {
 		this.status = status;
+	}
+
+	/**
+	 * @param arrayList
+	 */
+	public void setToPeopleIds(List<Long> toPeopleIds) {
+		this.toPeopleIds = toPeopleIds;
+		
 	}
 }
