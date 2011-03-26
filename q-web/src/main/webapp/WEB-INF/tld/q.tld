@@ -13,11 +13,28 @@
 		<attribute>
 			<name>maxLength</name>
 			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<name>omitPostfix</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 		</attribute>
+	</tag>
 
+	<tag>
+		<name>starSign</name>
+		<tag-class>q.jsp.tag.StarSignTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>month</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>day</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
 	</tag>
 </taglib>

@@ -3,11 +3,14 @@
 <%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
 <div class="dashboard" style="display:block;">
 					<div id="profile-more" class="db-block">
-						<h3>更多关于她：</h3>
+						<h3>更多关于${people.gender.cncall}：</h3>
 						<div class="db-block-content">
-							<div class="profile-line"><a href="">85后</a>，<a href="">天蝎</a>，来自<a href="">江西上饶</a>。毕业于<a href="">上海交通大学</a><a href="">生物系</a>，受雇于<a href="">淘宝</a>。专长<a href="">商业分析</a>，<a href="">iOS开发</a>。</div>
+							<div class="profile-line">
+								<a href="">85后</a>，
+								<a href=""><q:starSign day="${people.day}" month="${people.month}"/></a>，
+								来自${people.area.myProvince.name}&nbsp;${people.area.myCity.name}&nbsp;${people.area.myCounty.name}。毕业于<a href="">上海交通大学</a><a href="">生物系</a>，受雇于<a href="">淘宝</a>。专长<a href="">商业分析</a>，<a href="">iOS开发</a>。</div>
 							<div class="profile-line"><span class="label">喜欢的书：</span><a href="" class="with-margin">哈利波特</a><a href="" class="with-margin">光荣与梦想</a></div>
-							<div class="profile-line"><span class="label">喜欢的音乐：</span><span class="value">香气</span><span class="value">忐忑</span></div>
+							<div class="profile-line"><span class="label">喜欢的音乐：</span><span class="value"><a href="">香气</a></span><span class="value"><a href="">忐忑</a></span></div>
 							<div class="profile-line"><span class="label">喜欢的电影：</span><a href="" class="with-margin">国王的演讲</a><a href="" class="with-margin">撞车</a></div>
 							<div class="profile-line"><span class="label">最近的愿望：</span>去香港看王菲演唱会</div>
 						</div>

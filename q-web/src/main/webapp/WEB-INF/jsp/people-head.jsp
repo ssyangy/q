@@ -5,7 +5,9 @@
 	<div class="profile-info clearfix">
 		<div class="profile-image-container"><a href=""><img width="128" height="128" src="${avatarUrlPrefix}/1.png"></a></div>
 		<div class="profile-details">
+			<c:if test="${loginCookie.peopleId == people.id }">
 			<div class="profile-edit"><a href="${urlPrefix}/profile/basic" class="button">修改我的资料</a></div>
+			</c:if>
 			<div class="full-name"><h2>${people.realName}</h2></div>
 			<div class="screen-name-and-location">${people.area.myProvince.name}&nbsp;${people.area.myCity.name}&nbsp;${people.area.myCounty.name}</div>
 			<div class="bio">${people.intro}</div>
@@ -20,7 +22,7 @@
 		<a href="${urlPrefix}/group/${group.id}">${group.name}</a>
 		</c:forEach>						
 	</div>
-	<c:if test="${isMe == false}">
+	<c:if test="${loginCookie.peopleId != people.id }">
 	<div class="profile-actions-container">
 		<div class="component">
 			<div class="profile-actions clearfix">
