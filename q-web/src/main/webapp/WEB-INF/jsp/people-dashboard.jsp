@@ -30,10 +30,10 @@
 						</div>						
 					</div>
 					<div class="db-block">
-						<div class="more"><a href="${urlPrefix}/people/${people.id}/friend">更多...</a></div>
-						<h3>新结交的朋友：</h3>
+						<div class="more"><a href="${urlPrefix}/people/${people.id}/following">更多...</a></div>
+						<h3>${people.gender.cncall}的关注：</h3>
 						<div class="db-block-content">
-							<c:forEach items="${newFriends}" var="relation">
+							<c:forEach items="${hotFollowings}" var="relation">
 							<div class="people-cell">
 								<div class="avatar">
 									<a href="${urlPrefix}/people/${relation.toPeopleId}">
@@ -49,18 +49,18 @@
 						</div>
 					</div>
 					<div class="db-block">
-						<div class="more"><a href="${urlPrefix}/people/${people.id}/friend">更多...</a></div>
-						<h3>她的好友：</h3>
+						<div class="more"><a href="${urlPrefix}/people/${people.id}/follower">更多...</a></div>
+						<h3>${people.gender.cncall}的粉丝：</h3>
 						<div class="db-block-content">
-							<c:forEach items="${hotFriends}" var="relation">
+							<c:forEach items="${hotFollowers}" var="relation">
 							<div class="people-cell">
 								<div class="avatar">
-									<a href="${urlPrefix}/people/${relation.toPeopleId}">
+									<a href="${urlPrefix}/people/${relation.fromPeopleId}">
 										<img src="${avatarUrlPrefix}/avatar3.jpg">
 									</a>
 								</div>
 								<div class="name">
-									<a href="${urlPrefix}/people/${relation.toPeopleId}">${relation.toPeopleRealName}</a>
+									<a href="${urlPrefix}/people/${relation.fromPeopleId}">${relation.fromPeopleRealName}</a>
 								</div>
 							</div>
 							</c:forEach>

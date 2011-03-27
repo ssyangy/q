@@ -68,7 +68,7 @@ public class GetPeopleFeed extends Resource {
 		PeopleRelationPage followingPage = new PeopleRelationPage();
 		followingPage.setFromPeopleId(loginPeopleId);
 		followingPage.setStatus(PeopleRelationStatus.FOLLOWING);
-		followingPage.setSize(3);
+		followingPage.setSize(7);
 		followingPage.setStartIndex(0);
 		List<PeopleRelation> followings = this.peopleDao.getPeopleRelationsByPage(followingPage);
 		DaoHelper.injectPeopleRelationsWithToRealName(peopleDao, followings);

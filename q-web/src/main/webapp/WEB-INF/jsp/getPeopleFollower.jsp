@@ -9,8 +9,8 @@
 	<title>粉丝</title>
 	<script type="text/javascript">
 		$(function(){
-			$('#tabs').tabs();
-			$tabs.tabs('select', 4);
+			//$('#tabs').tabs();
+			//$tabs.tabs('select', 4);
 		});
 	</script>
 </head>
@@ -22,8 +22,10 @@
 			<div class="main-content" style="min-height:400px">
 				<jsp:include page="people-head.jsp"/>
 				<div class="stream-manager">
-					<div id="tabs">
-						<jsp:include page="people-tag.jsp"/>
+					<div id="tabs" class="ui-tabs ui-widget">
+						<jsp:include page="people-tag.jsp">
+							<jsp:param value="follower" name="tab"/>
+						</jsp:include>
 						<div id="tabs-5">
 						<jsp:include page="people-list.jsp"></jsp:include>
 						</div>

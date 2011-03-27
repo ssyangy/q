@@ -337,33 +337,37 @@ public class DaoHelper {
 	 * @throws SQLException
 	 */
 	public static void injectPeoplesWithRelation(PeopleDao peopleDao, List<People> peoples, Long fromPeopleId) throws SQLException {
-		if (CollectionKit.isNotEmpty(peoples)) {
-			Set<Long> peopleIdSet = new HashSet<Long>(peoples.size());
-			for (People people : peoples) {
+		if (CollectionKit.isEmpty(peoples)) {
+			return;
+		}
+		Set<Long> peopleIdSet = new HashSet<Long>(peoples.size());
+		for (People people : peoples) {
+			if (people.getId() != fromPeopleId) {
 				peopleIdSet.add(people.getId());
 			}
-			PeopleRelationPage page = new PeopleRelationPage();
-			page.setToPeopleIds(new ArrayList<Long>(peopleIdSet));
-			page.setFromPeopleId(fromPeopleId);
-			List<PeopleRelation> relations = peopleDao.getPeopleRelationsByPage(page);
-			if (CollectionKit.isNotEmpty(relations)) {
-				Map<Long, PeopleRelation> relationMap = new HashMap<Long, PeopleRelation>();
-				for (PeopleRelation relation : relations) {
-					relationMap.put(relation.getToPeopleId(), relation);
+		}
+		if (CollectionKit.isEmpty(peopleIdSet)) {
+			return;
+		}
+		PeopleRelationPage page = new PeopleRelationPage();
+		page.setToPeopleIds(new ArrayList<Long>(peopleIdSet));
+		page.setFromPeopleId(fromPeopleId);
+		List<PeopleRelation> relations = peopleDao.getPeopleRelationsByPage(page);
+		if (CollectionKit.isNotEmpty(relations)) {
+			Map<Long, PeopleRelation> relationMap = new HashMap<Long, PeopleRelation>();
+			for (PeopleRelation relation : relations) {
+				relationMap.put(relation.getToPeopleId(), relation);
+			}
+			for (People people : peoples) {
+				PeopleRelation relation = relationMap.get(people.getId());
+				if (relation == null) {
+					continue;
 				}
-				for (People people : peoples) {
-					PeopleRelation relation = relationMap.get(people.getId());
-					if (relation == null) {
-						continue;
-					}
-					if (relation.isFollowing()) {
-						people.setFollowing();
-					}
+				if (relation.isFollowing()) {
+					people.setFollowing();
 				}
 			}
-
 		}
-
 	}
 
 	/**
@@ -401,10 +405,10 @@ public class DaoHelper {
 	/**
 	 * @param peopleDao
 	 * @param peopleJoinEvents
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public static void injectPeopleJoinEventsWithRealName(PeopleDao peopleDao, List<PeopleJoinEvent> joins) throws SQLException {
-		if(CollectionKit.isNotEmpty(joins)) {
+		if (CollectionKit.isNotEmpty(joins)) {
 			HashSet<Long> peopleIds = new HashSet<Long>(joins.size());
 			for (PeopleJoinEvent join : joins) {
 				peopleIds.add(join.getPeopleId());
@@ -414,7 +418,7 @@ public class DaoHelper {
 				join.setPeopleRealName(map.get(join.getPeopleId()));
 			}
 		}
-		
+
 	}
 
 }

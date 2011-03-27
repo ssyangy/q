@@ -7,8 +7,8 @@
 	<title>个人主页</title>
 	<script type="text/javascript">
 		$(function(){
-			$('#tabs').tabs();
-			$tabs.tabs('select', 0);
+			//$('#tabs').tabs();
+			//$tabs.tabs('select', 0);
 		});
 	</script>
 </head>
@@ -20,8 +20,10 @@
 			<div class="main-content" style="min-height:400px">
 				<jsp:include page="people-head.jsp"/>
 				<div class="stream-manager">
-					<div id="tabs">
-						<jsp:include page="people-tag.jsp"/>
+					<div id="tabs" class="ui-tabs ui-widget">
+						<jsp:include page="people-tag.jsp">
+							<jsp:param value="weibo" name="tab"/>
+						</jsp:include>
 						<div id="tabs-1">
 						<jsp:include page="weibo-list.jsp"/>
 						</div>

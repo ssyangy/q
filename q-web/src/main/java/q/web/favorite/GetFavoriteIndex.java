@@ -3,18 +3,22 @@
  */
 package q.web.favorite;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import q.dao.DaoHelper;
+import q.dao.EventDao;
 import q.dao.FavoriteDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.dao.page.FavoritePage;
 import q.domain.Favorite;
+import q.domain.WeiboModel;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.exception.RequestParameterInvalidException;
+import q.web.people.GetPeopleFrame;
 
 /**
  * @author seanlinwang
@@ -30,6 +34,12 @@ public class GetFavoriteIndex extends Resource {
 	private WeiboDao weiboDao;
 
 	private GroupDao groupDao;
+	
+	private EventDao eventDao;
+
+	public void setEventDao(EventDao eventDao) {
+		this.eventDao = eventDao;
+	}
 
 	public void setFavoriteDao(FavoriteDao favoriteDao) {
 		this.favoriteDao = favoriteDao;
@@ -52,13 +62,27 @@ public class GetFavoriteIndex extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
+		long loginPeopleId = context.getCookiePeopleId();
+		
+		GetPeopleFrame frame = new GetPeopleFrame();
+		frame.setEventDao(eventDao);
+		frame.setGroupDao(groupDao);
+		frame.setPeopleDao(peopleDao);
+		frame.setWeiboDao(weiboDao);
+		frame.validate(context);
+		frame.execute(context);
+		
 		FavoritePage page = new FavoritePage();
 		page.setSize(20);
 		page.setStartIndex(0);
-		page.setCreatorId(context.getCookiePeopleId());
+		page.setCreatorId(loginPeopleId);
 		List<Favorite> favorites = this.favoriteDao.getPageFavorites(page);
 		DaoHelper.injectFavoritesWithSource(peopleDao, groupDao, weiboDao, favorites);
-		context.setModel("favorites", favorites);
+		List<WeiboModel> weiboModels = new ArrayList<WeiboModel>(favorites.size());
+		for(Favorite fav: favorites) {
+			weiboModels.add(fav.getSource());
+		}
+		context.setModel("weibos", weiboModels);
 	}
 
 	@Override

@@ -6,6 +6,7 @@ package q.web.people;
 import java.util.ArrayList;
 import java.util.List;
 
+import q.dao.DaoHelper;
 import q.dao.EventDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
@@ -54,6 +55,7 @@ public class GetPeopleFollowing extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long fromPeopleId = context.getResourceIdLong();
+		long loginPeopleId = context.getCookiePeopleId();
 		
 		GetPeopleFrame frame = new GetPeopleFrame();
 		frame.setEventDao(eventDao);
@@ -74,6 +76,9 @@ public class GetPeopleFollowing extends Resource {
 			followingIds.add(relation.getToPeopleId());
 		}
 		List<People> peoples = this.peopleDao.getPeoplesByIds(followingIds);
+		if (loginPeopleId > 0) {
+			DaoHelper.injectPeoplesWithRelation(peopleDao, peoples, loginPeopleId);
+		}
 		context.setModel("peoples", peoples);
 	}
 

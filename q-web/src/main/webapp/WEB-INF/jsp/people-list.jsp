@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
-<div class="stream-items search members ui-widget">
+<div class="stream-items search members">
 <c:forEach items="${peoples}" var="people">
 	<div class="stream-item">
 		<c:if test="${loginCookie.peopleId != people.id}">

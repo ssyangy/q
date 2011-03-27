@@ -6,7 +6,7 @@
 <html>
 <head>
 <jsp:include page="head.jsp" />
-<title>我的圈子-活动</title>
+<title>${group.name}-活动</title>
 <script type="text/javascript">
 	$(function(){
 		// Tabs
@@ -27,7 +27,7 @@
 					<div class="main-tweet-box group">
 						<div class="tweet-box">
 							<div class="submit">
-								<a href="${urlPrefix}/event/new?groupId=${group.id}" class="button" target="_blank">发起活动</a>
+								<a href="${urlPrefix}/event/new?groupId=${group.id}" class="button" >发起活动</a>
 							</div>
 						</div>
 					</div>					

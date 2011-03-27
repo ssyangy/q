@@ -42,7 +42,7 @@
 				</div>
 			</div>
 			<div>
-				<div class="db-block" style="float:left; margin-right:30px;">
+				<div class="db-block">
 					<h3>新关注：</h3>
 					<div class="db-block-content">
 					<c:forEach items="${newFollowings}" var="relation">
@@ -60,17 +60,6 @@
 						<div class="clearfix2"></div>
 					</div>
 				</div>
-				<div class="db-block" style="float:left;">
-					<h3>新好友：</h3><!--只显示1行 1行最多7个-->
-					<div class="db-block-content">
-						<div class="people-cell">
-							<div class="avatar"><img src="${avatarUrlPrefix}/avatar0.png"></div>
-							<div class="name">湿巾非</div>
-						</div>
-						<div class="clearfix2"></div>
-					</div>
-				</div>
-				<div class="clearfix2"></div>
 			</div>
 			<div class="db-block">
 				<h3>可能感兴趣的人：</h3><!--只显示1行-->

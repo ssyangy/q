@@ -6,7 +6,7 @@
 <html>
 <head>
 <jsp:include page="head.jsp" />
-<title>我的圈子-活动</title>
+<title>${group.name}-成员</title>
 <script type="text/javascript">
 	$(function(){
 		// Tabs

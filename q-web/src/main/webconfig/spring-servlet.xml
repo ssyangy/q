@@ -359,6 +359,7 @@
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="groupDao" ref="groupDao" />
+		<property name="eventDao" ref="eventDao" />
 	</bean>
 	<bean id="addWeiboFavorite" class="q.web.favorite.AddWeiboFavorite">
 		<property name="favoriteDao" ref="favoriteDao" />

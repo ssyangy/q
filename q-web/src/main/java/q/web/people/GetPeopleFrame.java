@@ -45,6 +45,9 @@ public class GetPeopleFrame extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long peopleId = context.getResourceIdLong();
 		long loginPeopleId = context.getCookiePeopleId();
+		if (peopleId == 0) {
+			peopleId = loginPeopleId;
+		}
 		
 		People people = peopleDao.getPeopleById(peopleId);
 		people.setFollowingNum(peopleDao.getPeopleFollowingNumById(peopleId));
@@ -73,16 +76,23 @@ public class GetPeopleFrame extends Resource {
 		List<Event> events = eventDao.getAllEventsByPeopleId(peopleId);
 		context.setModel("newEvents", events);
 
-		PeopleRelationPage page = new PeopleRelationPage();
-		page.setFromPeopleId(peopleId);
-		page.setStatus(PeopleRelationStatus.FOLLOWING);
-		page.setSize(20);
-		page.setStartIndex(0);
-		List<PeopleRelation> relations = this.peopleDao.getPeopleRelationsByPage(page);
-		DaoHelper.injectPeopleRelationsWithToRealName(peopleDao, relations);
-		context.setModel("newFriends", relations); //FIXME wrong, wanglin
+		PeopleRelationPage followingPage = new PeopleRelationPage();
+		followingPage.setFromPeopleId(peopleId);
+		followingPage.setStatus(PeopleRelationStatus.FOLLOWING);
+		followingPage.setSize(6);
+		followingPage.setStartIndex(0);
+		List<PeopleRelation> followings = this.peopleDao.getPeopleRelationsByPage(followingPage);
+		DaoHelper.injectPeopleRelationsWithToRealName(peopleDao, followings);
+		context.setModel("hotFollowings", followings);
 
-		context.setModel("hotFriends", relations); //FIXME wrong, wanglin
+		PeopleRelationPage followerPage = new PeopleRelationPage();
+		followerPage.setToPeopleId(peopleId);
+		followerPage.setStatus(PeopleRelationStatus.FOLLOWING);
+		followerPage.setSize(6);
+		followerPage.setStartIndex(0);
+		List<PeopleRelation> followers = this.peopleDao.getPeopleRelationsByPage(followerPage);
+		DaoHelper.injectPeopleRelationsWithFromRealName(peopleDao, followers);
+		context.setModel("hotFollowers", followers);
 	}
 
 	/*
