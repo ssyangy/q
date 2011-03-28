@@ -22,43 +22,116 @@
          $("#bookcorrect").css("display","block");
          return true;
      }
+     function checkFilm(a){
+       if(a.length>1000){
+       $("#filmcorrect").css("display","none");
+       $("#filmwrong").css("display","block");
+       $("#filmwrong").html("长度不能超过1000位。");
+        return false;
+       }
+         $("#filmwrong").css("display","none");
+         $("#filmcorrect").css("display","block");
+         return true;
+     }
+     function checkMusic(a){
+       if(a.length>1000){
+       $("#musiccorrect").css("display","none");
+       $("#musicwrong").css("display","block");
+       $("#musicwrong").html("长度不能超过1000位。");
+        return false;
+       }
+         $("#musicwrong").css("display","none");
+         $("#musiccorrect").css("display","block");
+         return true;
+     }
+      function checkIdol(a){
+       if(a.length>1000){
+       $("#idolcorrect").css("display","none");
+       $("#idolwrong").css("display","block");
+       $("#idolwrong").html("长度不能超过1000位。");
+        return false;
+       }
+         $("#idolwrong").css("display","none");
+         $("#idolcorrect").css("display","block");
+         return true;
+     }
+      function checkHope(a){
+       if(a.length>1000){
+       $("#hopecorrect").css("display","none");
+       $("#hopewrong").css("display","block");
+       $("#hopewrong").html("长度不能超过1000位。");
+        return false;
+       }
+         $("#hopewrong").css("display","none");
+         $("#hopecorrect").css("display","block");
+         return true;
+     }
+       function check() {
+
+     var cb=checkBook($("#book").val());
+     var cf=checkFilm($("#film").val());
+     var cm=checkMusic($("#music").val());
+     var ci=checkIdol($("#idol").val());
+     var ch=checkHope($("#hope").val());
+     if(!cb || !cf || !cm || !ci || !ch )
+  	   return ;
+     else
+       allDataCheck();
+     }
+  function allDataCheck(){
+  var book=$("#book").val();
+  var film=$("#film").val();
+  var music=$("#music").val();
+  var idol=$("#idol").val();
+  var hope=$("#hope").val();
+  $.ajax({
+    url: '${urlPrefix}/profile/interest',
+    type: 'POST',
+    dataType: 'json',
+    data:{book:book,film:film,music:music,idol:idol,hope:hope},
+    timeout: 5000,
+    error: function(){
+    },
+   success: function(json){
+        if(json.id!= null){
+            document.location.href="${urlPrefix}/profile/avator"; //跳转
+         }
+       else {
+          var errorkind=errorType(json.error);
+          if(errorkind=="book"){
+            $("#bookcorrect").css("display","none");
+            $("#bookwrong").css("display","block");
+            $("#bookwrong").html(errorContext(json.error));
+          }
+          else if(errorkind=="film"){
+            $("#filmcorrect").css("display","none");
+            $("#filmwrong").css("display","block");
+            $("#filmwrong").html(errorContext(json.error));
+          }
+            else if(errorkind=="music"){
+            $("#musiccorrect").css("display","none");
+            $("#musicwrong").css("display","block");
+            $("#musicwrong").html(errorContext(json.error));
+          }
+            else if(errorkind=="idol"){
+            $("#idolcorrect").css("display","none");
+            $("#idolwrong").css("display","block");
+            $("#idolwrong").html(errorContext(json.error));
+          }
+            else if(errorkind=="hope"){
+            $("#hopecorrect").css("display","none");
+            $("#hopewrong").css("display","block");
+            $("#hopewrong").html(errorContext(json.error));
+          }
+      }
+    }
+});
+}
 </script>
 </head>
 <body >
 	<div id="doc">
-		<div id="top-stuff">
-			<div id="quick-link">
-				<div id='quick-link-inside'>
-					<ul>
-						<li><a href="profile.html">彪马拖鞋</a></li>
-						<li><a href="messages.html">私信</a></li>
-						<li><a href="notifications.html">通知</a></li>
-						<li><a href="account_setting.html">设置</a></li>
-						<li><span class='sep'>|</span></li>
-						<li><a href="index.html">退出</a></li>
-					</ul>
-				</div>
-			</div>
-			<div id="top-bar">
-				<div id="top-bar-inside">
-					<div id="logo">
-						<span class="logo-zh">圈子</span><span class="logo-en">Q.com.cn</span>
-					</div>
-					<div id="nav">
-						<ul>
-							<li><a href="groups-feed.html">圈子新鲜事</a></li>
-							<li><a href="friends-feed.html">好友新鲜事</a></li>
-							<li><a href="profile.html">我的主页</a></li>
-							<li><a href="#friends">好友</a></li>
-						</ul>
-					</div>
-					<div id="search">
-						<input type="text" class="search_field" size="35" value="搜微博、圈子、好友"><a href="" class="button">搜索</a>
-					</div>
-					<div class="clearfix"></div>
-				</div>
-			</div>
-		</div>
+	  <jsp:include page="top.jsp"/>
 		<div id="settings">
 			<div id="settings-container">
 				<div class="heading">
@@ -75,12 +148,12 @@
 					<div id="tabs-2" class="tab-canvas">
 					</div>
 					<div id="tabs-3" class="tab-canvas">
-					<form>
+
 							<table id="setting-form" class='input-form'>
 							<tbody>
 								<tr>
 									<th><label for=''>喜欢的书：</label></th>
-									<td class='col-field'><textarea cols="50" rows="4"></textarea></td>
+									<td class='col-field'><textarea id="book" cols="50" rows="4" onblur="checkBook(this.value)">${people.book}</textarea></td>
 									<td class='col-help'>
 
 										<div class='label-box-good' id="bookcorrect" style='display:none;'></div>
@@ -89,38 +162,38 @@
 								</tr>
 								<tr>
 									<th><label for=''>喜欢的电影：</label></th>
-									<td class='col-field'><textarea cols="50" rows="4"></textarea></td>
+									<td class='col-field'><textarea cols="50" id="film" rows="4" onblur="checkFilm(this.value)">${people.film}</textarea></td>
 									<td class='col-help'>
 
-										<div class='label-box-good' style='display:none;'></div>
-										<div class='label-box-error' style=''></div>
+										<div class='label-box-good' id="filmcorrect" style='display:none;'></div>
+										<div class='label-box-error' id="filmwrong" style='display:none;'></div>
 									</td>
 								</tr>
 								<tr>
 									<th><label for=''>喜欢的音乐：</label></th>
-									<td class='col-field'><textarea cols="50" rows="4"></textarea></td>
+									<td class='col-field'><textarea cols="50"  id="music" rows="4" onblur="checkMusic(this.value)">${people.music}</textarea></td>
 									<td class='col-help'>
 
-										<div class='label-box-good' style='display:none;'></div>
-										<div class='label-box-error' style=''></div>
+										<div class='label-box-good' id="musiccorrect" style='display:none;'></div>
+										<div class='label-box-error' id="musicwrong" style='display:none;'></div>
 									</td>
 								</tr>
 								<tr>
 									<th><label for=''>影响我的人：</label></th>
-									<td class='col-field'><textarea cols="50" rows="4"></textarea></td>
+									<td class='col-field'><textarea cols="50" id="idol" rows="4" onblur="checkPeople(this.value)">${people.idol}</textarea></td>
 									<td class='col-help'>
 
-										<div class='label-box-good' style='display:none;'></div>
-										<div class='label-box-error' style=''></div>
+										<div class='label-box-good' id="idolcorrect" style='display:none;'></div>
+										<div class='label-box-error' id="idolwrong" style='display:none;'></div>
 									</td>
 								</tr>
 								<tr>
 									<th><label for=''>最近的愿望：</label></th>
-									<td class='col-field'><textarea cols="50" rows="4"></textarea></td>
+									<td class='col-field'><textarea cols="50" id="hope" rows="4" onblur="checkHope(this.value)">${people.hope}</textarea></td>
 									<td class='col-help'>
 
-										<div class='label-box-good' style='display:none;'></div>
-										<div class='label-box-error' style=''></div>
+										<div class='label-box-good' id="hopecorrect" style='display:none;'></div>
+										<div class='label-box-error' id="hopewrong" style='display:none;'></div>
 									</td>
 								</tr>
 								<tr>
@@ -130,11 +203,11 @@
 								<tr>
 
 									<th></th>
-									<td colspan='2'><button class='button tweet-button' type='submit'>保存</button></td>
+									<td colspan='2'><button class='button btn-x' type="button" onclick="check()" >保存修改</button></td>
 								</tr>
 							</tbody>
 						</table>
-						</form>
+
 
 					</div>
 				</div>

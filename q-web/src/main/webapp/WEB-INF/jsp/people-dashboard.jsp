@@ -9,25 +9,27 @@
 								<a href="">85后</a>，
 								<a href=""><q:starSign day="${people.day}" month="${people.month}"/></a>，
 								来自${people.area.myProvince.name}&nbsp;${people.area.myCity.name}&nbsp;${people.area.myCounty.name}。毕业于<a href="">上海交通大学</a><a href="">生物系</a>，受雇于<a href="">淘宝</a>。专长<a href="">商业分析</a>，<a href="">iOS开发</a>。</div>
-							<div class="profile-line"><span class="label">喜欢的书：</span><a href="" class="with-margin">哈利波特</a><a href="" class="with-margin">光荣与梦想</a></div>
-							<div class="profile-line"><span class="label">喜欢的音乐：</span><span class="value"><a href="">香气</a></span><span class="value"><a href="">忐忑</a></span></div>
-							<div class="profile-line"><span class="label">喜欢的电影：</span><a href="" class="with-margin">国王的演讲</a><a href="" class="with-margin">撞车</a></div>
-							<div class="profile-line"><span class="label">最近的愿望：</span>去香港看王菲演唱会</div>
+							<div class="profile-line"><span class="label">喜欢的书：${interest.book}</span></div>
+							<div class="profile-line"><span class="label">喜欢的音乐：${interest.music}</span></div>
+							<div class="profile-line"><span class="label">喜欢的电影：${interest.film}</span></div>
+							<div class="profile-line"><span class="label">影响我的人：${interest.idol}</span></div>
+							<div class="profile-line"><span class="label">最近的愿望：${interest.hope}</span></div>
+
 						</div>
 					</div>
 					<div class="db-block">
 						<h3>最近参加的活动：</h3>
-						<div class="db-block-content"> 
+						<div class="db-block-content">
 							<c:forEach items="${newEvents}" var="event">
 							<div class="event-cell-box">
 								<div class="event-cell">
 									<span class="date">${event.startedMd}</span>
 									<span class="topic"><a href="${urlPrefix}/event/${event.id}">${event.name}</a></span>
 								</div>
-							</div> 
+							</div>
 							</c:forEach>
-							<div class="clearfix2"></div> 
-						</div>						
+							<div class="clearfix2"></div>
+						</div>
 					</div>
 					<div class="db-block">
 						<div class="more"><a href="${urlPrefix}/people/${people.id}/following">更多...</a></div>

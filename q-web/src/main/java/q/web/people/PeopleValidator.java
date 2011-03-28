@@ -80,4 +80,29 @@ public class PeopleValidator {
 			throw new RequestParameterInvalidException("url:这不是一个合法的url地址");
 		}
 	}
+	public static void validateBook(String interest) throws RequestParameterInvalidException {
+		if(interest.length()>1000){
+			throw new RequestParameterInvalidException("book:长度大于1000了");
+		}
+	}
+	public static void validateFilm(String interest) throws RequestParameterInvalidException {
+		if(interest.length()>1000){
+			throw new RequestParameterInvalidException("film:长度大于1000了");
+		}
+	}
+	public static void validateMusic(String interest) throws RequestParameterInvalidException {
+		if(interest.length()>1000){
+			throw new RequestParameterInvalidException("music:长度大于1000了");
+		}
+	}
+	public static void validateIdol(String interest) throws RequestParameterInvalidException {
+		if(interest.length()>1000){
+			throw new RequestParameterInvalidException("idol:长度大于1000了");
+		}
+	}
+	public static void validateHope(String interest) throws RequestParameterInvalidException {
+		if(interest.length()>1000){
+			throw new RequestParameterInvalidException("hope:长度大于1000了");
+		}
+	}
 }

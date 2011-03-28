@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.dao.ibatis;
 
@@ -22,12 +22,12 @@ import q.util.IdCreator;
 /**
  * @author alin
  * @date Feb 10, 2011
- * 
+ *
  */
 public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.PeoplesDao#addPeople(q.domain.People)
 	 */
 	@Override
@@ -44,7 +44,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.PeoplesDao#getPeopleById(int)
 	 */
 	@Override
@@ -60,10 +60,10 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 		page.setEmail(email);
 		return getPeopleByPage(page);
 	}
-	
+
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.PeopleDao#getPeopleByUsername(java.lang.String)
 	 */
 	@Override
@@ -72,7 +72,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 		page.setUsername(username);
 		return getPeopleByPage(page);
 	}
-	
+
 	@Override
 	public List<People> getHotPeoplesByArea(Area area, int limit) throws SQLException {
 		PeoplePage page = new PeoplePage();
@@ -81,7 +81,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 		page.setStartIndex(0);
 		return this.getPeoplesByPage(page);
 	}
-	
+
 	@Override
 	public List<People> getPeoplesByIds(List<Long> ids) throws SQLException {
 		if(CollectionKit.isEmpty(ids)) {
@@ -91,11 +91,11 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 		page.setIds(ids);
 		return this.getPeoplesByPage(page);
 	}
-	
+
 	private People getPeopleByPage(PeoplePage page) throws SQLException {
 		return (People) this.sqlMapClient.queryForObject("selectPeoplesByPage", page);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private List<People> getPeoplesByPage(PeoplePage page) throws SQLException {
 		return (List<People>) this.sqlMapClient.queryForList("selectPeoplesByPage", page);
@@ -145,7 +145,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.PeopleDao#updatePeopleRelationStatus(q.domain.PeopleRelation)
 	 */
 	@Override
@@ -158,7 +158,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.PeopleDao#updatePeopleRelationStatusByFromIdAndToId(q.domain.PeopleRelationStatus, long, long)
 	 */
 	@Override
@@ -178,6 +178,16 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 	@Override
 	public int getPeopleFollowerNumById(long peopleId) throws SQLException {
 		return (Integer) this.sqlMapClient.queryForObject("selectPeopleFollowerNumById", peopleId);
+	}
+
+	@Override
+	public People getInterestById(long pid) throws SQLException {
+		return (People)this.sqlMapClient.queryForObject("selectPeopleInterestsById",pid);
+	}
+
+	@Override
+	public void updateInterestById(People p) throws SQLException {
+		this.sqlMapClient.update("updatePeopleInterestsById", p);
 	}
 
 }

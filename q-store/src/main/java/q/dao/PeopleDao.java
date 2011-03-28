@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.dao;
 
@@ -17,7 +17,7 @@ import q.domain.PeopleRelationStatus;
 /**
  * @author alin
  * @date Feb 10, 2011
- * 
+ *
  */
 public interface PeopleDao {
 
@@ -126,4 +126,16 @@ public interface PeopleDao {
 	 */
 	List<People> getPeoplesByIds(List<Long> ids) throws SQLException;
 
+	/**
+	 * @param pid
+	 * @return
+	 * @throws SQLException
+	 */
+	People getInterestById(long pid) throws SQLException;
+
+	/**
+	 * @param p
+	 * @throws SQLException
+	 */
+	void updateInterestById(People p) throws SQLException;
 }

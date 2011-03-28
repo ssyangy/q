@@ -21,6 +21,7 @@
 		<result property="realName" column="real_name" />
 		<result property="url" column="url" />
 		<result property="intro" column="intro" />
+		<result property="avatarUrl" column="avatar_url"/>
 		<result property="status" column="status" />
 		<result property="created" column="created" />
 		<result property="modified" column="modified" />
@@ -29,7 +30,13 @@
 		<result property="id" column="id" />
 		<result property="realName" column="real_name" />
 	</resultMap>
-
+    <resultMap id="peopleInterestResult" class="people">
+		<result property="book" column="book" />
+		<result property="film" column="film" />
+		<result property="music" column="music" />
+		<result property="idol" column="idol" />
+		<result property="hope" column="hope" />
+	</resultMap>
 	<typeAlias alias="relation" type="q.domain.PeopleRelation" />
 	<resultMap id="relationResult" class="relation">
 		<result property="id" column="id" />
@@ -61,6 +68,7 @@
 		real_name,
 		url,
 		intro,
+		avatar_url,
 		status,
 		created,
 		modified
@@ -73,6 +81,13 @@
 		status,
 		created,
 		modified
+	</sql>
+	<sql id="interest.columns">
+		book,
+		film,
+		music,
+		idol,
+		hope
 	</sql>
 
 	<select id="selectPeopleFollowingNumById" resultClass="int">
@@ -124,6 +139,7 @@
 		#realName#,
 		#url#,
 		#intro#,
+		#avatarUrl#,
 		0,
 		now(),
 		null
@@ -156,6 +172,9 @@
 			</isNotNull>
 			<isNotNull prepend="," property="intro">
 				intro=#intro#
+			</isNotNull>
+			<isNotNull prepend="," property="avatarUrl">
+				avatar_url=#avatarUrl#
 			</isNotNull>
 		    <isNotNull prepend="," property="realName">
 				real_name=#realName#
@@ -233,14 +252,14 @@
 				to_people_id = #toPeopleId#
 			</isNotNull>
 			<isNotNull prepend="and" property="toPeopleIds">
-				to_people_id in 
+				to_people_id in
 				<iterate property="toPeopleIds" open="(" close=")" conjunction=",">
 					#toPeopleIds[]#
         		</iterate>
-			</isNotNull>			
+			</isNotNull>
 			<isNotNull prepend="and" property="startCreated">
 				created &lt;= #startCreated#
-				
+
 			</isNotNull>
 			<isNotNull prepend="and" property="startId">
 				id &lt;= #startId#
@@ -250,7 +269,7 @@
 				order by created desc limit #startIndex#, #size#
 		</isNotNull>
 	</select>
-	
+
 	<select id="selectPeoplesByPage" resultMap="peopleResult">
 		select
 		<include refid="people.columns" />
@@ -282,5 +301,31 @@
 				order by created desc limit #startIndex#, #size#
 		</isNotNull>
 	</select>
-
+    <select id="selectPeopleInterestsById" resultMap="peopleInterestResult">
+		select
+		<include refid="interest.columns" />
+		from people
+	   where id = #id#
+	</select>
+	<update id="updatePeopleInterestsById">
+		update people
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="book">
+				book=#book#
+			</isNotNull>
+			<isNotNull prepend="," property="film">
+				film=#film#
+			</isNotNull>
+			<isNotNull prepend="," property="music">
+				music=#music#
+			</isNotNull>
+			<isNotNull prepend="," property="idol">
+				idol=#idol#
+			</isNotNull>
+			<isNotNull prepend="," property="hope">
+				hope=#hope#
+			</isNotNull>
+			</dynamic>
+		       where id=#id#
+	</update>
 </sqlMap>

@@ -150,6 +150,8 @@
 				<value>addReplyFavorite</value>
 				<value>deleteWeiboFavorite</value>
 				<value>deleteReplyFavorite</value>
+				<value>getProfileBasic</value>
+				<value>getProfileAvatar</value>
 				<value>getFavoriteIndex</value>
 			</set>
 		</property>
@@ -414,8 +416,10 @@
 	<bean id="addAvatar" class="q.web.people.AddAvatar">
 	</bean>
 	<bean id="getProfileInterest" class="q.web.people.GetProfileInterest">
+	    <property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="addProfileInterest" class="q.web.people.AddProfileInterest">
+	    <property name="peopleDao" ref="peopleDao" />
 	</bean>
 
 

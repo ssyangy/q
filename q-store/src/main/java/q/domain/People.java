@@ -47,8 +47,20 @@ public class People extends AbstractDomain implements Serializable {
 
 	private String intro;
 
+	private String avatarUrl;
+
+	private String book;
+
+    private String film;
+
+	private String idol;
+
+	private String hope;
+
+	private String music;
+
 	private String url;
-	
+
 	private boolean following = false;
 
 	// =========================================
@@ -235,22 +247,69 @@ public class People extends AbstractDomain implements Serializable {
 	public String getBirthdayString() {
 		return getYear() + 1900 + "-" + getMonth() + "-" + getDay();
 	}
-	
+
 	public boolean isFollowing() {
 		return this.following;
 	}
-	
+
 	public void setFollowing() {
 		this.following = true;
 	}
-	
+
 	public void setUnFollowing() {
 		this.following = false;
 	}
 
+	public String getAvatarUrl() {
+		return avatarUrl;
+	}
+
+	public void setAvatarUrl(String avatarUrl) {
+		this.avatarUrl = avatarUrl;
+	}
+
+	public String getBook() {
+		return book;
+	}
+
+	public void setBook(String book) {
+		this.book = book;
+	}
+
+	public String getFilm() {
+		return film;
+	}
+
+	public void setFilm(String film) {
+		this.film = film;
+	}
+
+	public String getIdol() {
+		return idol;
+	}
+
+	public void setIdol(String idol) {
+		this.idol = idol;
+	}
+
+	public String getHope() {
+		return hope;
+	}
+
+	public void setHope(String hope) {
+		this.hope = hope;
+	}
+
+	public String getMusic() {
+		return music;
+	}
+
+	public void setMusic(String music) {
+		this.music = music;
+	}
 	@Override
 	public String toString() {
-		return "People [id=" + id + ", username=" + username + ", password=" + password + ", loginToken=" + loginToken + ", realName=" + realName + ", email=" + email + ", mobile=" + mobile + ", year=" + year + ", month=" + month + ", day=" + day + ", countryCode=" + countryCode + ", area=" + area + ", gender=" + gender + ", bloodTypeId=" + bloodTypeId + ", degree=" + degree + ", roleId=" + roleId + ", status=" + status + ", created=" + created + ", modified=" + modified + ", friendNum=" + friendNum + ", followNum=" + followerNum + ", followingNum=" + followingNum + ", weiboNum=" + weiboNum + ", url=" + url +", intro=" + intro + "]";
+		return "People [id=" + id + ", username=" + username + ", password=" + password + ", loginToken=" + loginToken + ", realName=" + realName + ", email=" + email + ", mobile=" + mobile + ", year=" + year + ", month=" + month + ", day=" + day + ", countryCode=" + countryCode + ", area=" + area + ", gender=" + gender + ", bloodTypeId=" + bloodTypeId + ", degree=" + degree + ", roleId=" + roleId + ", status=" + status + ", created=" + created + ", modified=" + modified + ", friendNum=" + friendNum + ", followNum=" + followerNum + ", followingNum=" + followingNum + ", weiboNum=" + weiboNum + ", url=" + url +", intro=" + intro + ", avatarUrl=" + avatarUrl +", book=" + book +", film=" + film +", music=" + music +", idol=" + idol +", hope=" + hope +"]";
 	}
 
 }

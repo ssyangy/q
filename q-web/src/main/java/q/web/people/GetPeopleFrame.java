@@ -48,13 +48,16 @@ public class GetPeopleFrame extends Resource {
 		if (peopleId == 0) {
 			peopleId = loginPeopleId;
 		}
-		
+		People interest=peopleDao.getInterestById(peopleId);
 		People people = peopleDao.getPeopleById(peopleId);
 		people.setFollowingNum(peopleDao.getPeopleFollowingNumById(peopleId));
 		people.setFollowerNum(peopleDao.getPeopleFollowerNumById(peopleId));
 		people.setWeiboNum(weiboDao.getPeopleWeiboNumByPeopleId(peopleId));
+
+
+
 		context.setModel("people", people);
-		
+        context.setModel("interest", interest);
 		List<Group> groups = groupDao.getGroupsByPeopleId(peopleId);
 		context.setModel("groups", groups);
 
@@ -72,7 +75,7 @@ public class GetPeopleFrame extends Resource {
 			}
 		}
 		context.setModel("isFollowing", isFollowing);
-		
+
 		List<Event> events = eventDao.getAllEventsByPeopleId(peopleId);
 		context.setModel("newEvents", events);
 
@@ -97,7 +100,7 @@ public class GetPeopleFrame extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override

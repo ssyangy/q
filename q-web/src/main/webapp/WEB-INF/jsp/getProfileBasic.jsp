@@ -120,39 +120,7 @@ $(document).ready(function(){
   </head>
   <body >
 	<div id="doc">
-		<div id="top-stuff">
-			<div id="quick-link">
-				<div id='quick-link-inside'>
-					<ul>
-						<li><a href="profile.html">彪马拖鞋</a></li>
-						<li><a href="messages.html">私信</a></li>
-						<li><a href="notifications.html">通知</a></li>
-						<li><a href="account_setting.html">设置</a></li>
-						<li><span class='sep'>|</span></li>
-						<li><a href="index.html">退出</a></li>
-					</ul>
-				</div>
-			</div>
-			<div id="top-bar">
-				<div id="top-bar-inside">
-					<div id="logo">
-						<span class="logo-zh">圈子</span><span class="logo-en">Q.com.cn</span>
-					</div>
-					<div id="nav">
-						<ul>
-							<li><a href="groups-feed.html">圈子新鲜事</a></li>
-							<li><a href="friends-feed.html">好友新鲜事</a></li>
-							<li><a href="profile.html">我的主页</a></li>
-							<li><a href="#friends">好友</a></li>
-						</ul>
-					</div>
-					<div id="search">
-						<input type="text" class="search_field" size="35" value="搜微博、圈子、好友"><a href="" class="button">搜索</a>
-					</div>
-					<div class="clearfix"></div>
-				</div>
-			</div>
-		</div>
+	      <jsp:include page="top.jsp"/>
 		<div id="settings">
 			<div id="settings-container">
 				<div class="heading">
