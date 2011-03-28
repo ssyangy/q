@@ -7,6 +7,7 @@
 		<result property="fromType" column="from_type" typeHandler="q.dao.ibatis.FavoriteFromTypeHandler"/>
 		<result property="fromId" column="from_id" />
 		<result property="creatorId" column="creator_id" />
+		<result property="senderId" column="sender_id" />
 		<result property="status" column="status" typeHandler="q.dao.ibatis.FavoriteStatusHandler"/>
 		<result property="created" column="created" />
 		<result property="modified" column="modified" />
@@ -16,6 +17,7 @@
 		from_type,
 		from_id,
 		creator_id,
+		sender_id,
 		status,
 		created,
 		modified
@@ -79,12 +81,20 @@
 		select
 		<include refid="favorite.columns" />
 		from favorite
-		where creator_id = #creatorId#
-		and status = 1
-		<isNotNull prepend="and" property="startCreated">
+		where status = 1
+		<isNotNull prepend="and " property="creatorId">
+			creator_id = #creatorId#
+		</isNotNull>
+		<isNotNull prepend="and " property="senderIds">
+				sender_id in
+				<iterate property="senderIds" open="(" close=")" conjunction=",">
+					#senderIds[]#
+	        	</iterate>
+		</isNotNull>		
+		<isNotNull prepend="and " property="startCreated">
 			created &lt;= #startCreated#
 		</isNotNull>
-		<isNotNull prepend="and" property="startId">
+		<isNotNull prepend="and " property="startId">
 			id &lt;= #startId#
 		</isNotNull>
 		order by created desc
@@ -120,6 +130,7 @@
 		#fromType,handler=q.dao.ibatis.FavoriteFromTypeHandler#,
 		#fromId#,
 		#creatorId#,
+		#senderId#,
 		#status,handler=q.dao.ibatis.FavoriteStatusHandler#,
 		now(),
 		null

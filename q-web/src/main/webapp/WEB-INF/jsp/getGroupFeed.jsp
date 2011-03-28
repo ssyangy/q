@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -9,8 +8,8 @@
 <script type="text/javascript">
 	$(function(){
 		// Tabs
-		$('#tabs').tabs();
-		$tabs.tabs('select', 0);
+		//$('#tabs').tabs();
+		//$tabs.tabs('select', 0);
 	});
 </script>	
 </head>
@@ -24,21 +23,13 @@
 						<jsp:param name="tab" value="group" />
 					</jsp:include>
 					<div class="stream-manager">
-						<div id="tabs">
-							<ul class="stream-tabs">
-								<li class="stream-tab"><a class="tab-text" href="#tabs-1">新话题</a></li>
-								<li class="stream-tab"><a class="tab-text" href="#tabs-2">热议</a></li>
-								<li class="stream-tab"><a class="tab-text" href="#tabs-3">我发起的</a></li>
-								<li class="stream-tab"><a class="tab-text" href="#tabs-4">我回复的</a></li>
-								<li class="stream-tab"><a class="tab-text" href="#tabs-5">我收藏的</a></li>
-							</ul>
+						<div id="tabs" class="ui-tabs ui-widget">
+							<jsp:include page="group-feed-tag.jsp">
+								<jsp:param value="${param['tab']}" name="tab"/>
+							</jsp:include>
 							<div id="tabs-1">
-							<jsp:include page="weibo-list.jsp" />
+								<jsp:include page="weibo-list.jsp" />
 							</div>
-							<div id="tabs-2">tabs2</div>
-							<div id="tabs-3">tabs3</div>
-							<div id="tabs-4">tabs4</div>
-							<div id="tabs-5">tabs5</div>
 						</div>
 					</div>
 				</div>

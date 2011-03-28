@@ -22,14 +22,19 @@ public class FavoritePage extends Page implements Serializable {
 	private Long id;
 
 	private Long creatorId;
+	
+	private Long senderId;
+	
+	private List<Long> senderIds;
 
 	private Long fromId;
+	
+	private List<Long> fromIds;
 
 	private FavoriteStatus status;
 
 	private FavoriteFromType fromType;
 
-	private List<Long> fromIds;
 
 	/**
 	 * @param fromIds
@@ -80,6 +85,22 @@ public class FavoritePage extends Page implements Serializable {
 
 	public void setFromType(FavoriteFromType fromType) {
 		this.fromType = fromType;
+	}
+
+	public Long getSenderId() {
+		return senderId;
+	}
+
+	public void setSenderId(Long senderId) {
+		this.senderId = senderId;
+	}
+
+	public List<Long> getSenderIds() {
+		return senderIds;
+	}
+
+	public void setSenderIds(List<Long> senderIds) {
+		this.senderIds = senderIds;
 	}
 
 }

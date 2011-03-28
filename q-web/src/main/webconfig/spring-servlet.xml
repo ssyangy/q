@@ -163,7 +163,6 @@
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="eventDao" ref="eventDao" />
 		<property name="groupDao" ref="groupDao" />
-		<property name="favoriteDao" ref="favoriteDao" />
 	</bean>
 
 	<!-- setting web -->

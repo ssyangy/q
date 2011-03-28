@@ -7,7 +7,6 @@ import java.util.List;
 import q.dao.CategoryDao;
 import q.dao.DaoHelper;
 import q.dao.EventDao;
-import q.dao.FavoriteDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
@@ -15,8 +14,6 @@ import q.domain.Area;
 import q.domain.Category;
 import q.domain.Event;
 import q.domain.People;
-import q.web.Resource;
-import q.web.ResourceContext;
 
 /**
  * @author seanlinwang
@@ -54,12 +51,6 @@ public class GetHomePage extends Resource {
 		this.eventDao = eventDao;
 	}
 	
-	private FavoriteDao favoriteDao;
-	
-	public void setFavoriteDao(FavoriteDao favoriteDao) {
-		this.favoriteDao = favoriteDao;
-	}
-
 	@Override
 	public void execute(ResourceContext context) throws IOException, SQLException {
 		if(context.isLogin()) {
@@ -77,7 +68,7 @@ public class GetHomePage extends Resource {
 		List<People> hotLocals = this.peopleDao.getHotPeoplesByArea(area, 5);
 		context.setModel("hotLocals", hotLocals);
 		List<q.domain.Weibo> hotWeibos = this.weiboDao.getHotWeibos(5);
-		DaoHelper.injectWeibosWithSenderRealName(peopleDao, hotWeibos);
+		DaoHelper.injectWeiboModelsWithSenderRealName(peopleDao, hotWeibos);
 		context.setModel("hotWeibos", hotWeibos);
 	}
 

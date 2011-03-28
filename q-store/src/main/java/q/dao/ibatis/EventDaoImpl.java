@@ -45,7 +45,7 @@ public class EventDaoImpl extends AbstractDaoImpl implements EventDao {
 	public List<Event> getPageEvents(EventPage page) throws SQLException {
 		return (List<Event>) this.sqlMapClient.queryForList("selectPageEvents", page);
 	}
-	
+
 	@Override
 	public List<Event> getHotEvents(int limit) throws SQLException {
 		EventPage page = new EventPage();
@@ -62,7 +62,7 @@ public class EventDaoImpl extends AbstractDaoImpl implements EventDao {
 		page.setGroupIds(groupIds);
 		return this.getPageEvents(page);
 	}
-	
+
 	@Override
 	public List<Event> getEventsByGroupId(long groupId, int limit, int start) throws SQLException {
 		EventPage page = new EventPage();
@@ -81,19 +81,20 @@ public class EventDaoImpl extends AbstractDaoImpl implements EventDao {
 	public PeopleJoinEvent getPeopleJoinEvent(long peopleId, long eventId) throws SQLException {
 		return (PeopleJoinEvent) this.sqlMapClient.queryForObject("selectPeopleJoinEventByPeopleIdAndEventId", new PeopleJoinEvent(peopleId, eventId));
 	}
-	
+
 	@Override
 	public List<PeopleJoinEvent> getPeopleJoinEventsById(long eventId, int limit, int start) throws SQLException {
 		PeopleJoinEventPage page = new PeopleJoinEventPage();
 		page.setEventId(eventId);
 		page.setSize(limit);
 		page.setStartIndex(start);
-		List<PeopleJoinEvent> joins = getPeopleJoinEventByPage(page);
+		List<PeopleJoinEvent> joins = getPeopleJoinEventsByPage(page);
 		return joins;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
-	public List<PeopleJoinEvent> getPeopleJoinEventByPage(PeopleJoinEventPage page) throws SQLException {
+	public List<PeopleJoinEvent> getPeopleJoinEventsByPage(PeopleJoinEventPage page) throws SQLException {
 		return this.sqlMapClient.queryForList("selectPeopleJoinEventsByPage", page);
 	}
 
@@ -101,8 +102,8 @@ public class EventDaoImpl extends AbstractDaoImpl implements EventDao {
 	public List<Event> getAllEventsByPeopleId(long peopleId) throws SQLException {
 		PeopleJoinEventPage page = new PeopleJoinEventPage();
 		page.setPeopleId(peopleId);
-		List<PeopleJoinEvent> joins = getPeopleJoinEventByPage(page);
-		
+		List<PeopleJoinEvent> joins = getPeopleJoinEventsByPage(page);
+
 		if (CollectionKit.isEmpty(joins)) {
 			return null;
 		}
@@ -130,11 +131,11 @@ public class EventDaoImpl extends AbstractDaoImpl implements EventDao {
 	 * @see q.dao.EventDao#addPeopleJoinEvent(long, long)
 	 */
 	@Override
-	public void addPeopleJoinEvent(long peopleId, long eventId) throws SQLException {
+	public void addPeopleJoinEvent(long peopleId, long eventId, long groupId) throws SQLException {
 		PeopleJoinEvent join = new PeopleJoinEvent();
 		join.setPeopleId(peopleId);
 		join.setEventId(eventId);
-
+		join.setGroupId(groupId);
 		join.setId(IdCreator.getLongId());
 		this.sqlMapClient.insert("insertPeopleJoinEvent", join);
 	}
@@ -167,7 +168,9 @@ public class EventDaoImpl extends AbstractDaoImpl implements EventDao {
 		this.sqlMapClient.update("updatePeopleJoinEventStatusByPeopleIdAndEventId", join);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.dao.EventDao#getJoinNumberByEventId(long)
 	 */
 	@Override

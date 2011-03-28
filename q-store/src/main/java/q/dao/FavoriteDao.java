@@ -44,15 +44,16 @@ public interface FavoriteDao {
 	/**
 	 * @param replyId
 	 * @param creatorId
+	 * @param senderId 
 	 */
-	void addReplyFavorite(long replyId, long creatorId) throws SQLException;
+	void addReplyFavorite(long replyId, long creatorId, long senderId) throws SQLException;
 
 	/**
 	 * @param weiboId
 	 * @param creatorId
 	 * @throws SQLException
 	 */
-	void addWeiboFavorite(long weiboId, long creatorId) throws SQLException;
+	void addWeiboFavorite(long weiboId, long creatorId, long senderId) throws SQLException;
 
 	/**
 	 * @param replyId

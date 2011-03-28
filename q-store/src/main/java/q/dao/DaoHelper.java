@@ -20,6 +20,7 @@ import q.domain.People;
 import q.domain.PeopleJoinEvent;
 import q.domain.PeopleRelation;
 import q.domain.Weibo;
+import q.domain.WeiboModel;
 import q.domain.WeiboReply;
 import q.util.CollectionKit;
 
@@ -31,54 +32,16 @@ import q.util.CollectionKit;
  */
 public class DaoHelper {
 
-	/**
-	 * @param peopleDao
-	 * @param weiboDao
-	 * @param groupDao
-	 * @param page
-	 * @return
-	 * @throws SQLException
-	 */
-	public static void injectWeiboRepliesWithSenderRealNameAndFrom(PeopleDao peopleDao, GroupDao groupDao, List<WeiboReply> replies) throws SQLException {
-		if (CollectionKit.isNotEmpty(replies)) {
-			Set<Long> senderIds = new HashSet<Long>(replies.size());
-			Set<Long> groupIds = null;
-			for (WeiboReply reply : replies) {
-				senderIds.add(reply.getSenderId());
-				if (reply.isFromGroup()) {
-					if (groupIds == null) {
-						groupIds = new HashSet<Long>(replies.size());// lazy init
-					}
-					groupIds.add(reply.getFromId());
-				}
-			}
-			if (CollectionKit.isNotEmpty(senderIds)) {
-				Map<Long, String> peopleIdRealNameMap = peopleDao.getIdRealNameMapByIds(senderIds);
-				for (WeiboReply reply : replies) {
-					reply.setSenderRealName(peopleIdRealNameMap.get(reply.getSenderId()));
-				}
-			}
-			if (CollectionKit.isNotEmpty(groupIds)) {
-				Map<Long, String> groupIdNameMap = groupDao.getGroupIdNameMapByIds(groupIds);
-				for (WeiboReply reply : replies) {
-					if (reply.isFromGroup()) {
-						reply.setFromPostfix(groupIdNameMap.get(reply.getFromId()));
-					}
-				}
-			}
-		}
-	}
-
-	public static void injectWeiboRepliesWithFavorite(FavoriteDao favoriteDao, List<WeiboReply> replies, long peopleId) throws SQLException {
+	public static void injectWeiboModelsWithFavorite(FavoriteDao favoriteDao, List<? extends WeiboModel> replies, long peopleId) throws SQLException {
 		if (CollectionKit.isNotEmpty(replies)) {
 			List<Long> replyIds = new ArrayList<Long>(replies.size());
-			for (WeiboReply reply : replies) {
+			for (WeiboModel reply : replies) {
 				replyIds.add(reply.getId());
 			}
 			List<Long> favIds = favoriteDao.getFavReplyIds(replyIds, peopleId);
 			if (CollectionKit.isNotEmpty(favIds)) {
 				Set<Long> favSet = new HashSet<Long>(favIds);
-				for (WeiboReply reply : replies) {
+				for (WeiboModel reply : replies) {
 					if (favSet.contains(reply.getId())) {
 						reply.setFav(true);
 					}
@@ -94,10 +57,10 @@ public class DaoHelper {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static void injectWeibosWithFrom(GroupDao groupDao, List<Weibo> weibos) throws SQLException {
+	public static void injectWeiboModelsWithFrom(GroupDao groupDao, List<? extends WeiboModel> weibos) throws SQLException {
 		if (CollectionKit.isNotEmpty(weibos)) {
 			Set<Long> groupIds = null;
-			for (Weibo weibo : weibos) {
+			for (WeiboModel weibo : weibos) {
 				if (weibo.isFromGroup()) {
 					if (groupIds == null) {
 						groupIds = new HashSet<Long>(weibos.size());// lazy init
@@ -107,7 +70,7 @@ public class DaoHelper {
 			}
 			if (CollectionKit.isNotEmpty(groupIds)) {
 				Map<Long, String> groupIdNameMap = groupDao.getGroupIdNameMapByIds(groupIds);
-				for (Weibo weibo : weibos) {
+				for (WeiboModel weibo : weibos) {
 					if (weibo.isFromGroup()) {
 						weibo.setFromPostfix(groupIdNameMap.get(weibo.getFromId()));
 					}
@@ -166,10 +129,10 @@ public class DaoHelper {
 	 * @param hotWeibos
 	 * @throws SQLException
 	 */
-	public static void injectWeibosWithSenderRealName(PeopleDao peopleDao, List<Weibo> weibos) throws SQLException {
-		if (CollectionKit.isNotEmpty(weibos)) {
-			Set<Long> senderIds = new HashSet<Long>(weibos.size());
-			for (Weibo weibo : weibos) {
+	public static void injectWeiboModelsWithSenderRealName(PeopleDao peopleDao, List<? extends WeiboModel> weiboModels) throws SQLException {
+		if (CollectionKit.isNotEmpty(weiboModels)) {
+			Set<Long> senderIds = new HashSet<Long>(weiboModels.size());
+			for (WeiboModel weibo : weiboModels) {
 				senderIds.add(weibo.getSenderId());
 				if (weibo.getQuoteSenderId() > 0) {
 					senderIds.add(weibo.getQuoteSenderId());
@@ -177,7 +140,7 @@ public class DaoHelper {
 			}
 			if (CollectionKit.isNotEmpty(senderIds)) {
 				Map<Long, String> peopleIdRealNameMap = peopleDao.getIdRealNameMapByIds(senderIds);
-				for (Weibo weibo : weibos) {
+				for (WeiboModel weibo : weiboModels) {
 					weibo.setSenderRealName(peopleIdRealNameMap.get(weibo.getSenderId()));
 					if (weibo.getQuoteSenderId() > 0) {
 						weibo.setQuoteSenderRealName(peopleIdRealNameMap.get(weibo.getQuoteSenderId()));
@@ -187,31 +150,11 @@ public class DaoHelper {
 		}
 	}
 
-	public static void injectWeibosWithFavorite(FavoriteDao favoriteDao, List<Weibo> weibos, long peopleId) throws SQLException {
-		if (CollectionKit.isNotEmpty(weibos)) {
-			List<Long> replyIds = new ArrayList<Long>(weibos.size());
-			for (Weibo weibo : weibos) {
-				replyIds.add(weibo.getId());
-			}
-			List<Long> favIds = favoriteDao.getFavWeiboIds(replyIds, peopleId);
-			if (CollectionKit.isNotEmpty(favIds)) {
-				Set<Long> favSet = new HashSet<Long>(favIds);
-				for (Weibo weibo : weibos) {
-					if (favSet.contains(weibo.getId())) {
-						weibo.setFav(true);
-					}
-				}
-			}
-		}
-	}
-
 	/**
-	 * @param peopleDao
-	 * @param groupDao
 	 * @param weiboDao
 	 * @param favorites
 	 */
-	public static void injectFavoritesWithSource(PeopleDao peopleDao, GroupDao groupDao, WeiboDao weiboDao, List<Favorite> favorites) throws SQLException {
+	public static void injectFavoritesWithSource(WeiboDao weiboDao, List<Favorite> favorites) throws SQLException {
 		if (CollectionKit.isNotEmpty(favorites)) {
 			List<Long> sourceWeiboIds = null; // lazy init
 			List<Long> sourceReplyIds = null; // lazy inti

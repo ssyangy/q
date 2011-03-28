@@ -1,5 +1,6 @@
 package q.web.people;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import q.dao.DaoHelper;
@@ -8,15 +9,15 @@ import q.dao.FavoriteDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
-import q.dao.page.PeopleRelationPage;
+import q.dao.page.FavoritePage;
 import q.dao.page.WeiboPage;
-import q.domain.People;
-import q.domain.PeopleRelation;
-import q.domain.PeopleRelationStatus;
-import q.domain.Weibo;
+import q.dao.page.WeiboReplyPage;
+import q.domain.Favorite;
+import q.domain.WeiboModel;
 import q.util.CollectionKit;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.group.GetPeopleFeedFrame;
 
 public class GetPeopleFeed extends Resource {
 	private PeopleDao peopleDao;
@@ -52,39 +53,53 @@ public class GetPeopleFeed extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
-		
-		People login = this.peopleDao.getPeopleById(loginPeopleId);
-		context.setModel("people", login);
-		
-		PeopleRelationPage followerPage = new PeopleRelationPage();
-		followerPage.setToPeopleId(loginPeopleId);
-		followerPage.setStatus(PeopleRelationStatus.FOLLOWING);
-		followerPage.setSize(7);
-		followerPage.setStartIndex(0);
-		List<PeopleRelation> followers = this.peopleDao.getPeopleRelationsByPage(followerPage);
-		DaoHelper.injectPeopleRelationsWithFromRealName(peopleDao, followers);
-		context.setModel("newFollowers", followers);
-		
-		PeopleRelationPage followingPage = new PeopleRelationPage();
-		followingPage.setFromPeopleId(loginPeopleId);
-		followingPage.setStatus(PeopleRelationStatus.FOLLOWING);
-		followingPage.setSize(7);
-		followingPage.setStartIndex(0);
-		List<PeopleRelation> followings = this.peopleDao.getPeopleRelationsByPage(followingPage);
-		DaoHelper.injectPeopleRelationsWithToRealName(peopleDao, followings);
-		context.setModel("newFollowings", followings);
-		
+		String tab = context.getString("tab");
+
 		List<Long> senderIds = peopleDao.getAllFollowingId(loginPeopleId);
-		senderIds.add(loginPeopleId);//add login people
-		WeiboPage page = new WeiboPage();
-		page.setStartIndex(0);
-		page.setSize(20);
-		page.setSenderIds(senderIds);
-		List<Weibo> weibos = weiboDao.getPageFollowingWeibos(page);
-		DaoHelper.injectWeibosWithSenderRealName(peopleDao, weibos);
-		DaoHelper.injectWeibosWithFrom(groupDao, weibos);
-		DaoHelper.injectWeibosWithFavorite(favoriteDao, weibos, loginPeopleId);
-		context.setModel("weibos", weibos);
+		List<? extends WeiboModel> weibos = null;
+		if (null == tab) {
+			senderIds.add(loginPeopleId);// add login people
+			WeiboPage page = new WeiboPage();
+			page.setStartIndex(0);
+			page.setSize(20);
+			page.setSenderIds(senderIds);
+			weibos = weiboDao.getPageFollowingWeibos(page);
+			DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
+		} else if ("at".equals(tab)) {
+
+		} else if ("replied".equals(tab)) {
+			WeiboReplyPage page = new WeiboReplyPage();
+			page.setStartIndex(0);
+			page.setSize(20);
+			page.setQuoteSenderIds(senderIds);
+			page.setSenderId(loginPeopleId);
+			weibos = weiboDao.getPageWeiboReply(page);
+			DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
+		} else if( "favorite".equals(tab)) {
+			FavoritePage page = new FavoritePage();
+			page.setSize(20);
+			page.setStartIndex(0);
+			page.setCreatorId(loginPeopleId);
+			page.setSenderIds(senderIds);
+			List<Favorite> favorites = this.favoriteDao.getPageFavorites(page);
+			DaoHelper.injectFavoritesWithSource(weiboDao, favorites);
+			List<WeiboModel> weiboModels = new ArrayList<WeiboModel>(favorites.size());
+			for(Favorite fav: favorites) {
+				weiboModels.add(fav.getSource());
+			}
+			weibos = weiboModels;
+		}
+
+		if (CollectionKit.isNotEmpty(weibos)) {
+			DaoHelper.injectWeiboModelsWithSenderRealName(peopleDao, weibos);
+			DaoHelper.injectWeiboModelsWithFrom(groupDao, weibos);
+			context.setModel("weibos", weibos);
+		}
+
+		GetPeopleFeedFrame frame = new GetPeopleFeedFrame();
+		frame.setPeopleDao(peopleDao);
+		frame.validate(context);
+		frame.execute(context);
 	}
 
 	/*

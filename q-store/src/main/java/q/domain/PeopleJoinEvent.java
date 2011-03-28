@@ -13,10 +13,12 @@ public class PeopleJoinEvent implements Serializable {
 	private long id;
 
 	private long peopleId;
-	
+
 	private String peopleRealName;
 
 	private long eventId;
+
+	private long groupId;
 
 	private int status;
 
@@ -107,6 +109,14 @@ public class PeopleJoinEvent implements Serializable {
 
 	public void setPeopleRealName(String peopleRealName) {
 		this.peopleRealName = peopleRealName;
+	}
+
+	public long getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(long groupId) {
+		this.groupId = groupId;
 	}
 
 }

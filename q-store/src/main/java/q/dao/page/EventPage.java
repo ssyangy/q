@@ -35,5 +35,15 @@ public class EventPage extends Page implements Serializable {
 	public void setGroupIds(List<Long> groupIds) {
 		this.groupIds = groupIds;
 	}
+	
+	private Long creatorId;
 
+	public Long getCreatorId() {
+		return creatorId;
+	}
+
+	public void setCreatorId(Long creatorId) {
+		this.creatorId = creatorId;
+	}
+	
 }

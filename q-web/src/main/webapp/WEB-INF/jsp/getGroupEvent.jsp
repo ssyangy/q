@@ -10,8 +10,8 @@
 <script type="text/javascript">
 	$(function(){
 		// Tabs
-		$('#tabs').tabs();
-		$tabs.tabs('select', 0);
+		//$('#tabs').tabs();
+		//$tabs.tabs('select', 0);
 	});
 </script>	
 </head>
@@ -31,45 +31,13 @@
 							</div>
 						</div>
 					</div>					
-					<div class="stream-manager"> 
-						<div id="tabs"> 
-							<ul class="stream-tabs"> 
-								<li class="stream-tab"><a class="tab-text" href="#tabs-1">最新活动</a></li> 
-								<li class="stream-tab"><a class="tab-text" href="#tabs-2">我参加的</a></li> 
-								<li class="stream-tab"><a class="tab-text" href="#tabs-3">我发起的</a></li> 
-							</ul> 
-							<div id="tabs-1"> 
-								<div class="content-outer"> 
-									<div class="content-inner"> 
-										<table width="100%" class="tbl-events" cellspacing="0"> 
-											<tbody> 
-												<tr> 
-													<th width="18%">开始时间</th> 
-													<th>主题</th> 
-													<th width="11%">报名人数</th> 
-													<th width="16%">发起人</th> 
-												</tr>
-												<c:forEach items="${events}" var="event"> 
-												<tr> 
-													<td>${event.startedMdhm}</td> 
-													<td>
-														<p>
-															${event.area.myProvince.name}&nbsp;${event.area.myCity.name}&nbsp;${event.area.myCounty.name} - 
-															<a href="${urlPrefix}/event/${event.id}">${event.name}</a>
-														</p>
-													</td> 
-													<td align="center">${event.joinNumber}/${event.number}</td> 
-													<td align="center"><a href="${urlPrefix}/people/${event.creatorId}">${event.creatorRealName}</a></td> 
-												</tr> 
-												</c:forEach>
-											</tbody> 
-										</table> 
-									</div> 
-								</div> 
-							</div> 
-							<div id="tabs-2"> 
-							</div> 
-							<div id="tabs-3"> 
+					<div class="stream-manager">
+						<div id="tabs" class="ui-tabs ui-widget">
+							<jsp:include page="group-event-tag.jsp">
+								<jsp:param value="${param['tab']}" name="tab"/>
+							</jsp:include> 
+							<div id="tabs-1">
+								<jsp:include page="event-list.jsp" /> 
 							</div> 
 						</div> 
 					</div>

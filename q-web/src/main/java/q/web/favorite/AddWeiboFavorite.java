@@ -47,7 +47,7 @@ public class AddWeiboFavorite extends Resource {
 			if (null == weibo) {
 				throw new RequestParameterInvalidException("weibo:not exist " + weiboId);
 			}
-			this.favoriteDao.addWeiboFavorite(weiboId, creatorId);
+			this.favoriteDao.addWeiboFavorite(weiboId, creatorId, weibo.getSenderId());
 		} else if (old.isUnFav()) {
 			this.favoriteDao.favWeiboById(old.getId());
 		}

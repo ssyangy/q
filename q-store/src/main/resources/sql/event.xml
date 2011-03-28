@@ -24,6 +24,7 @@
 		<result property="id" column="id" />
 		<result property="peopleId" column="people_id" />
 		<result property="eventId" column="event_id" />
+		<result property="groupId" column="group_id" />
 		<result property="status" column="status" />
 		<result property="created" column="created" />
 		<result property="modified" column="modified" />
@@ -63,15 +64,21 @@
 		<iterate open="(" close=")" conjunction=",">
 			#[]#
         </iterate>
+        order by created desc
 	</select>
 
 	<select id="selectPageEvents" resultMap="eventResult">
 		select
 		<include refid="event.columns" />
 		from event
-		<dynamic prepend="where">
-			<isNotNull property="groupId" prepend="and">group_id = #groupId#</isNotNull>
-			<isNotNull property="groupIds" prepend="and">
+		<dynamic prepend="where ">
+			<isNotNull property="groupId" prepend="and ">
+				group_id = #groupId#
+			</isNotNull>
+			<isNotNull property="creatorId" prepend="and ">
+				creator_id = #creatorId#
+			</isNotNull>
+			<isNotNull property="groupIds" prepend="and ">
 				group_id in
 				<iterate property="groupIds" open="(" close=")" conjunction=",">
 					#groupIds[]#
@@ -108,6 +115,7 @@
 		id,
 		people_id,
 		event_id,
+		group_id,
 		status,
 		created,
 		modified
@@ -121,6 +129,7 @@
 		#id#,
 		#peopleId#,
 		#eventId#,
+		#groupId#,
 		0,
 		now(),
 		null
@@ -157,11 +166,20 @@
 		where
 		status = 0
 		<isNotNull prepend="and" property="peopleId">
-			people_id=#peopleId#
+			people_id = #peopleId#
 		</isNotNull>
 		<isNotNull prepend="and" property="eventId">
-			event_id=#eventId#
-		</isNotNull>		
+			event_id = #eventId#
+		</isNotNull>
+		<isNotNull property="groupId" prepend="and">
+			group_id = #groupId#
+       	</isNotNull>		
+		<isNotNull property="groupIds" prepend="and">
+			group_id in
+			<iterate property="groupIds" open="(" close=")" conjunction=",">
+				#groupIds[]#
+       		</iterate>
+       	</isNotNull>				
 		order by created desc
 		<isNotNull property="size">
 			limit #startIndex#, #size#

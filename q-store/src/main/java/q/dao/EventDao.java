@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import q.dao.page.EventPage;
+import q.dao.page.PeopleJoinEventPage;
 import q.domain.Event;
 import q.domain.PeopleJoinEvent;
 
@@ -53,7 +54,7 @@ public interface EventDao {
 	 * @param peopleId
 	 * @param eventId
 	 */
-	void addPeopleJoinEvent(long peopleId, long eventId) throws SQLException;
+	void addPeopleJoinEvent(long peopleId, long eventId, long groupId) throws SQLException;
 
 	/**
 	 * @param peopleId
@@ -102,4 +103,11 @@ public interface EventDao {
 	 * @return
 	 */
 	List<PeopleJoinEvent> getPeopleJoinEventsById(long eventId, int limit, int start) throws SQLException;
+
+	/**
+	 * @param page
+	 * @return
+	 * @throws SQLException
+	 */
+	List<PeopleJoinEvent> getPeopleJoinEventsByPage(PeopleJoinEventPage page) throws SQLException;
 }

@@ -31,14 +31,14 @@ public interface WeiboDao {
 	 * @param groupId
 	 * @throws SQLException
 	 */
-	void addWeiboJoinGroup(long weiboId, long groupId) throws SQLException;
+	void addWeiboJoinGroup(long weiboId, long senderId, long groupId) throws SQLException;
 
 	/**
 	 * @param page
 	 * @return
 	 * @throws SQLException
 	 */
-	List<Weibo> getGroupWeibosByPage(WeiboPage page) throws SQLException;
+	List<Weibo> getWeibosByPage(WeiboPage page) throws SQLException;
 	
 	/**
 	 * @param page

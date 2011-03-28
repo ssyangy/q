@@ -39,9 +39,9 @@ public class GetGroupFeed extends Resource {
 	public void setEventDao(EventDao eventDao) {
 		this.eventDao = eventDao;
 	}
-	
+
 	private FavoriteDao favoriteDao;
-	
+
 	public void setFavoriteDao(FavoriteDao favoriteDao) {
 		this.favoriteDao = favoriteDao;
 	}
@@ -50,17 +50,22 @@ public class GetGroupFeed extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
 		List<Long> groupIds = this.groupDao.getGroupIdsByPeopleId(loginPeopleId);
+		String tab = context.getString("tab");
+
 		if (CollectionKit.isNotEmpty(groupIds)) {
 			WeiboPage page = new WeiboPage();
 			page.setStartIndex(0);
 			page.setSize(20);
 			page.setGroupIds(groupIds);
-			List<Weibo> weibos = this.weiboDao.getGroupWeibosByPage(page);
-			DaoHelper.injectWeibosWithSenderRealName(peopleDao, weibos);
-			DaoHelper.injectWeibosWithFrom(groupDao, weibos);
-			DaoHelper.injectWeibosWithFavorite(favoriteDao, weibos, loginPeopleId);
+			if ("created".equals(tab)) {
+				page.setSenderId(loginPeopleId);
+			}
+			List<Weibo> weibos = this.weiboDao.getWeibosByPage(page);
+			DaoHelper.injectWeiboModelsWithSenderRealName(peopleDao, weibos);
+			DaoHelper.injectWeiboModelsWithFrom(groupDao, weibos);
+			DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
 			context.setModel("weibos", weibos);
-			
+
 			GetGroupFeedFrame frame = new GetGroupFeedFrame();
 			frame.setEventDao(eventDao);
 			frame.setPeopleDao(peopleDao);
@@ -70,12 +75,14 @@ public class GetGroupFeed extends Resource {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

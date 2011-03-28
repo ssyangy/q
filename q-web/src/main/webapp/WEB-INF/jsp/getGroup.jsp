@@ -8,8 +8,8 @@
 <title>圈子:${group.name}</title>
 	<script type="text/javascript">
 		$(function(){
-			$( "#radio" ).buttonset();
-			$('#tabs').tabs();
+			//$( "#radio" ).buttonset();
+			//$('#tabs').tabs();
 		});
 	</script>	
 </head>
@@ -40,21 +40,13 @@
 					</div>
 				</div>											
 				<div class="stream-manager">
-					<div id="tabs">
-						<ul class="stream-tabs">
-							<li class="stream-tab"><a class="tab-text" href="#tabs-1">新话题</a></li>
-							<li class="stream-tab"><a class="tab-text" href="#tabs-2">热议</a></li>
-							<li class="stream-tab"><a class="tab-text" href="#tabs-3">我发起的</a></li>
-							<li class="stream-tab"><a class="tab-text" href="#tabs-4">我回复的</a></li>
-							<li class="stream-tab"><a class="tab-text" href="#tabs-5">我收藏的</a></li>
-						</ul>
+						<div id="tabs" class="ui-tabs ui-widget">
+							<jsp:include page="group-tag.jsp">
+								<jsp:param value="${param['tab']}" name="tab"/>
+							</jsp:include>
 						<div id="tabs-1">
 						<jsp:include page="weibo-list.jsp" />
 						</div>
-						<div id="tabs-2">tabs2</div>
-						<div id="tabs-3">tabs3</div>
-						<div id="tabs-4">tabs4</div>
-						<div id="tabs-5">tabs5</div>
 					</div>
 				</div>	
 			</div>

@@ -18,7 +18,7 @@ public class GetEventIndex extends Resource{
 
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		List<Event> groups = eventDao.getHotEvents(10);
+		List<Event> groups = eventDao.getHotEvents(100);
 		context.setModel("newEvents", groups);
 	}
 

@@ -27,22 +27,24 @@ public class FavoriteDaoImpl extends AbstractDaoImpl implements FavoriteDao {
 	}
 
 	@Override
-	public void addReplyFavorite(long replyId, long creatorId) throws SQLException {
+	public void addReplyFavorite(long replyId, long creatorId, long senderId) throws SQLException {
 		Favorite favorite = new Favorite();
 		favorite.setCreatorId(creatorId);
 		favorite.setStatus(FavoriteStatus.FAV);
 		favorite.setFromType(FavoriteFromType.REPLY);
 		favorite.setFromId(replyId);
+		favorite.setSenderId(senderId);
 		this.addFavorite(favorite);
 	}
 
 	@Override
-	public void addWeiboFavorite(long weiboId, long creatorId) throws SQLException {
+	public void addWeiboFavorite(long weiboId, long creatorId, long senderId) throws SQLException {
 		Favorite favorite = new Favorite();
 		favorite.setCreatorId(creatorId);
 		favorite.setStatus(FavoriteStatus.FAV);
 		favorite.setFromType(FavoriteFromType.WEIBO);
 		favorite.setFromId(weiboId);
+		favorite.setSenderId(senderId);
 		this.addFavorite(favorite);
 	}
 

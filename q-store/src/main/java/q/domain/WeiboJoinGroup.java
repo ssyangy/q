@@ -24,6 +24,8 @@ public class WeiboJoinGroup implements Serializable {
 	private Date modified;
 
 	private long weiboId;
+	
+	private long senderId;
 
 	private long groupId;
 
@@ -65,6 +67,14 @@ public class WeiboJoinGroup implements Serializable {
 
 	public void setWeiboId(long weiboId) {
 		this.weiboId = weiboId;
+	}
+
+	public long getSenderId() {
+		return senderId;
+	}
+
+	public void setSenderId(long senderId) {
+		this.senderId = senderId;
 	}
 
 	public long getGroupId() {

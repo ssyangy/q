@@ -77,11 +77,13 @@ public class GetFavoriteIndex extends Resource {
 		page.setStartIndex(0);
 		page.setCreatorId(loginPeopleId);
 		List<Favorite> favorites = this.favoriteDao.getPageFavorites(page);
-		DaoHelper.injectFavoritesWithSource(peopleDao, groupDao, weiboDao, favorites);
+		DaoHelper.injectFavoritesWithSource(weiboDao, favorites);
 		List<WeiboModel> weiboModels = new ArrayList<WeiboModel>(favorites.size());
 		for(Favorite fav: favorites) {
 			weiboModels.add(fav.getSource());
 		}
+		DaoHelper.injectWeiboModelsWithFrom(groupDao, weiboModels);
+		DaoHelper.injectWeiboModelsWithSenderRealName(peopleDao, weiboModels);
 		context.setModel("weibos", weiboModels);
 	}
 

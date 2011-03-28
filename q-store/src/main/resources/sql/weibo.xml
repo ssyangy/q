@@ -128,35 +128,40 @@
 	<sql id="wjg.columns">
 		id,
 		weibo_id,
+		sender_id,
 		group_id,
 		status,
 		created,
 		modified
 	</sql>
 	
-	<select id="selectPageGroupWeiboIds" resultClass="long">
+	<select id="selectWeiboIdsByPage" resultClass="long">
 		select weibo_id
 		from weibo_join_group
-		<dynamic prepend="where"> 
-			<isNotNull property="groupIds">
+		<dynamic prepend="where "> 
+			<isNotNull prepend="and " property="groupIds">
 				group_id in
 				<iterate property="groupIds" open="(" close=")" conjunction=",">
 					#groupIds[]#
 	        	</iterate>
 	        </isNotNull>
-			<isNotNull prepend="and" property="groupId">
+			<isNotNull prepend="and " property="groupId">
 				group_id = #groupId#
 			</isNotNull>
-			<isNotNull prepend="and" property="startCreated">
+			<isNotNull prepend="and " property="senderId">
+				sender_id = #senderId#
+			</isNotNull>			
+			<isNotNull prepend="and " property="startCreated">
 				created &lt;= #startCreated#
 			</isNotNull>
-			<isNotNull prepend="and" property="startId">
+			<isNotNull prepend="and " property="startId">
 				id &lt;= #startId#
 			</isNotNull>
 		</dynamic>
 		order by created desc
 		limit #startIndex#, #size#
 	</select>
+	
 	
 	<select id="selectWeiboJoinGroupByWeiboIdGroupId" resultMap="wjgResult">
 		select
@@ -182,6 +187,7 @@
 		) values (
 		#id#,
 		#weiboId#,
+		#senderId#,
 		#groupId#,
 		0,
 		now(),
@@ -244,15 +250,26 @@
 		select
 		<include refid="reply.columns" />
 		from weibo_reply
-		where
-		quote_weibo_id = #quoteWeiboId#
-		<isNotNull prepend="and" property="startCreated">
-			created &lt;=
-			#startCreated#
-		</isNotNull>
-		<isNotNull prepend="and" property="startId">
-			id &lt;= #startId#
-		</isNotNull>
+		<dynamic prepend="where ">
+			<isNotNull prepend = "and " property="quoteWeiboId">
+				quote_weibo_id = #quoteWeiboId#
+			</isNotNull>
+			<isNotNull prepend = "and " property="quoteSenderIds">
+				quote_sender_id in
+				<iterate property="quoteSenderIds" open="(" close=")" conjunction=",">
+					#quoteSenderIds[]#
+		        </iterate>			
+			</isNotNull>
+			<isNotNull prepend = "and " property="senderId">
+				sender_id = #senderId#
+			</isNotNull>			
+			<isNotNull prepend = "and " property="startCreated">
+				created &lt;= #startCreated#
+			</isNotNull>
+			<isNotNull prepend = "and " property="startId">
+				id &lt;= #startId#
+			</isNotNull>
+		</dynamic>
 		order by created desc
 		limit #startIndex#, #size#
 	</select>

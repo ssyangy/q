@@ -9,6 +9,7 @@ import q.domain.Favorite;
 import q.domain.WeiboReply;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotPermitException;
 import q.web.exception.RequestParameterInvalidException;
 
 /**
@@ -46,7 +47,7 @@ public class AddReplyFavorite extends Resource {
 			if (null == reply) {
 				throw new RequestParameterInvalidException("fromId:" + replyId);
 			}
-			this.favoriteDao.addReplyFavorite(replyId, creatorId);
+			this.favoriteDao.addReplyFavorite(replyId, creatorId, reply.getSenderId());
 		} else if (old.isUnFav()) {
 			this.favoriteDao.favReplyById(old.getId());
 		}
@@ -55,6 +56,9 @@ public class AddReplyFavorite extends Resource {
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+		if (context.getCookiePeopleId() <= 0) {
+			throw new PeopleNotPermitException("login:无操作权限");
+		}
 		long replyId = context.getResourceIdLong();
 		if (replyId == 0) {
 			throw new RequestParameterInvalidException("fromId:" + replyId);

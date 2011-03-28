@@ -39,14 +39,11 @@ public class AddWeibo extends Resource {
 		String content = context.getString("content");
 		weibo.setContent(content);
 		long groupId = context.getIdLong("groupId");
-		if (groupId > 0) {
+		if (IdCreator.isValidIds(groupId)) {
 			weibo.setFromType(WeiboFromType.GROUP);
 			weibo.setFromId(groupId);
-		}
-		this.weiboDao.addWeibo(weibo);
-
-		if (IdCreator.isValidIds(groupId)) {
-			this.weiboDao.addWeiboJoinGroup(weibo.getId(), groupId);
+			this.weiboDao.addWeibo(weibo);
+			this.weiboDao.addWeiboJoinGroup(weibo.getId(), weibo.getSenderId(), groupId);
 		}
 
 		String from = context.getString("from");

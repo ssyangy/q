@@ -60,7 +60,7 @@ public class GetGroupFeedFrame extends Resource {
 			context.setModel("hotPeoples", hotPeoples);
 			
 			List<Weibo> hotWeibos = this.weiboDao.getHotWeibosByGroupIds(groupIds, 3, 0);
-			DaoHelper.injectWeibosWithSenderRealName(peopleDao, hotWeibos);
+			DaoHelper.injectWeiboModelsWithSenderRealName(peopleDao, hotWeibos);
 			context.setModel("hotWeibos", hotWeibos);
 		}
 	}

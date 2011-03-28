@@ -66,8 +66,9 @@ public class GetWeibo extends Resource {
 		List<WeiboReply> replies = weiboDao.getPageWeiboReply(page);
 		if (CollectionKit.isNotEmpty(replies)) {
 			long loginPeopleId = context.getCookiePeopleId();
-			DaoHelper.injectWeiboRepliesWithSenderRealNameAndFrom(peopleDao, groupDao, replies);
-			DaoHelper.injectWeiboRepliesWithFavorite(favoriteDao, replies, loginPeopleId);
+			DaoHelper.injectWeiboModelsWithSenderRealName(peopleDao, replies);
+			DaoHelper.injectWeiboModelsWithFrom(groupDao, replies);
+			DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, replies, loginPeopleId);
 			context.setModel("replies", replies);
 		}
 	}

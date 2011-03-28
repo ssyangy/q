@@ -11,7 +11,7 @@
 				<c:when test="${loginCookie.peopleId > 0}">
 				<!-- <li><a href="${urlPrefix}/favorite">收藏</a></li> -->
 				<li><a href="${urlPrefix}/message">私信</a></li>
-				<li><a href="${urlPrefix}/notify">通知</a></li>
+				<!-- li><a href="${urlPrefix}/notify">通知</a></li-->
 				<li><a href="${urlPrefix}/setting">设置</a></li>
 				<li><span class='sep'>|</span></li>
 				<li><a href="${urlPrefix}/login/delete">退出</a></li>				
@@ -31,12 +31,11 @@
 			</div>
 			<div id="nav">
 				<ul>
-					<li><a href="${urlPrefix}/group/feed">圈子新鲜事</a></li>
-					<li><a href="${urlPrefix}/people/feed">好友新鲜事</a></li>
+					<li><a href="${urlPrefix}/group/feed">首页</a></li>
+					<li><a href="${urlPrefix}/people/feed">好友</a></li>
 					<c:if test="${loginCookie.peopleId > 0}">
-					<li><a href="${urlPrefix}/people/${loginCookie.peopleId}">我的主页</a></li>
+					<li><a href="${urlPrefix}/people/${loginCookie.peopleId}">${loginCookie.realName}</a></li>
 					</c:if>
-					<li><a href="${urlPrefix}/people">好友</a></li>
 				</ul>
 			</div>
 			<div id="search">

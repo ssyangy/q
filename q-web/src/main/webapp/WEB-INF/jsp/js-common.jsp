@@ -42,6 +42,45 @@ function unFavWeibo(button,weiboId){
     }
   });
 }
+function favWeiboReply(button,weiboId){
+  $.ajax({
+    url: '${urlPrefix}/reply/' + weiboId + '/favorite',
+    type: 'POST',
+    dataType: 'json',
+    timeout: 5000,
+    error: function(){
+    	console.log(json);
+    },
+   	success: function(json){
+       if(json == null){
+           	button.innerHTML = "取消收藏";
+           	button.onclick = function(event){unFavWeiboReply(button,weiboId);};
+        } else {
+        	console.log(json);
+     	}
+    }
+  });
+}
+function unFavWeiboReply(button,weiboId){
+  $.ajax({
+    url: '${urlPrefix}/reply/' + weiboId + '/favorite',
+    type: 'POST',
+    dataType: 'json',
+    data:{_method:'delete'},
+    timeout: 5000,
+    error: function(){
+    	console.log(json);
+    },
+   	success: function(json){
+       if(json == null){
+           	button.innerHTML = "收藏";
+           	button.onclick =  function(event){favWeiboReply(button,weiboId);};
+        } else {
+        	console.log(json);
+     	}
+    }
+  });
+}
 function follow(button,peopleId){
   $.ajax({
     url: '${urlPrefix}/people/' + peopleId + '/following',

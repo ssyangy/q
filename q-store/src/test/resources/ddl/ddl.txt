@@ -71,6 +71,7 @@ create table people_join_event(
 	id bigint unsigned not null primary key,
 	people_id bigint unsigned not null,
 	event_id bigint unsigned not null,
+	group_id bigint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null)
@@ -128,6 +129,7 @@ default character set utf8 engine = innodb;
 create table weibo_join_group(
 	id bigint unsigned not null primary key,
 	weibo_id bigint unsigned not null,
+	sender_id bigint unsigned not null,
 	group_id bigint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
@@ -140,6 +142,7 @@ create table favorite (
 	from_type tinyint unsigned not null,
 	from_id bigint unsigned not null,
 	creator_id bigint unsigned not null,
+	sender_id bigint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null)
