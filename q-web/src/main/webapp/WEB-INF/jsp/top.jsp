@@ -34,7 +34,7 @@
 					<li><a href="${urlPrefix}/group/feed">首页</a></li>
 					<li><a href="${urlPrefix}/people/feed">好友</a></li>
 					<c:if test="${loginCookie.peopleId > 0}">
-					<li><a href="${urlPrefix}/people/${loginCookie.peopleId}">${loginCookie.realName}</a></li>
+					<li><a href="${urlPrefix}/people/${loginCookie.peopleId}">个人主页</a></li>
 					</c:if>
 				</ul>
 			</div>

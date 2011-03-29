@@ -37,4 +37,15 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+
+	<tag>
+		<name>age</name>
+		<tag-class>q.jsp.tag.AgeTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>year</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>

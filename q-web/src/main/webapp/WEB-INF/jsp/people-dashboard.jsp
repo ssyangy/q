@@ -6,9 +6,9 @@
 						<h3>更多关于${people.gender.cncall}：</h3>
 						<div class="db-block-content">
 							<div class="profile-line">
-								<a href="">85后</a>，
-								<a href=""><q:starSign day="${people.day}" month="${people.month}"/></a>，
-								来自${people.area.myProvince.name}&nbsp;${people.area.myCity.name}&nbsp;${people.area.myCounty.name}。毕业于<a href="">上海交通大学</a><a href="">生物系</a>，受雇于<a href="">淘宝</a>。专长<a href="">商业分析</a>，<a href="">iOS开发</a>。</div>
+								<a href="#"><q:age year="${people.year+1900}"/></a>，
+								<a href="#"><q:starSign day="${people.day}" month="${people.month}"/></a>，
+								来自${people.area.myProvince.name}&nbsp;${people.area.myCity.name}&nbsp;${people.area.myCounty.name}。</div>
 							<div class="profile-line"><span class="label">喜欢的书：${interest.book}</span></div>
 							<div class="profile-line"><span class="label">喜欢的音乐：${interest.music}</span></div>
 							<div class="profile-line"><span class="label">喜欢的电影：${interest.film}</span></div>
