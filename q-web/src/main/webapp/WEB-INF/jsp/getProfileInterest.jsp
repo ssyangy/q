@@ -8,8 +8,8 @@
     <jsp:include page="head.jsp" flush="true"/>
     <script type="text/javascript">
     $(document).ready(function(){
-    	$('#tabs').tabs();
-		$tabs.tabs('select', 2);
+    //	$('#tabs').tabs();
+	//	$tabs.tabs('select', 2);
 		});
     function checkBook(a){
        if(a.length>1000){
@@ -137,12 +137,10 @@
 				<div class="heading">
 					<h2>个人资料设定</h2>
 				</div>
-				<div id="tabs">
-					<ul>
-						<li><a href="#tabs-1">基本信息</a></li>
-						<li><a href="#tabs-2">头像</a></li>
-						<li><a href="#tabs-3">喜好</a></li>
-					</ul>
+				 <div id="tabs" class="ui-tabs ui-widget">
+						<jsp:include page="profile-tag.jsp">
+							<jsp:param value="interest" name="tab"/>
+						</jsp:include>
 					<div id="tabs-1" class="tab-canvas">
 					</div>
 					<div id="tabs-2" class="tab-canvas">

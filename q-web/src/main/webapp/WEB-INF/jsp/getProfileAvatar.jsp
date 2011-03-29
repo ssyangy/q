@@ -115,8 +115,8 @@
     }
     $(document).ready(function(){
 
-		$('#tabs').tabs();
-		$tabs.tabs('select', 1);
+	//	$('#tabs').tabs();
+	//	$tabs.tabs('select', 1);
 	});
 
     jQuery.UtrialAvatarCutter = function(config){
@@ -244,15 +244,12 @@
 				<div class="heading">
 					<h2>个人资料设定</h2>
 				</div>
-				<div id="tabs">
-					<ul>
-						<li><a href="#tabs-1">基本信息</a></li>
-						<li><a href="#tabs-2">头像</a></li>
-						<li><a href="#tabs-3">喜好</a></li>
-
-					</ul>
+				   <div id="tabs" class="ui-tabs ui-widget">
+						<jsp:include page="profile-tag.jsp">
+							<jsp:param value="avatar" name="tab"/>
+						</jsp:include>
 					<div id="tabs-1" class="tab-canvas">
-	                aaa
+
 					</div>
 					<div id="tabs-2" class="tab-canvas">
 

@@ -14,13 +14,13 @@
 </head>
 <body>
 	<div id="doc">
-	<jsp:include page="top.jsp"/>	
+	<jsp:include page="top.jsp"/>
 	<div id="page-outer">
 		<div id="page-container">
 			<div class="main-content" style="min-height:400px">
 				<jsp:include page="people-head.jsp"/>
 				<div class="stream-manager">
-					<div id="tabs" class="ui-tabs ui-widget">
+					 <div id="tabs" class="ui-tabs ui-widget">
 						<jsp:include page="people-tag.jsp">
 							<jsp:param value="weibo" name="tab"/>
 						</jsp:include>
@@ -28,7 +28,7 @@
 						<jsp:include page="weibo-list.jsp"/>
 						</div>
 					</div>
-				</div>				
+				</div>
 			</div>
 		</div>
 		<jsp:include page="people-dashboard.jsp"/>
