@@ -12,12 +12,12 @@ import q.domain.Status;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Mar 23, 2011
- *
+ * 
  */
-public class GroupPage extends Page implements Serializable {
+public class PeopleJoinGroupPage extends Page implements Serializable {
 
-	private static final long serialVersionUID = -8036492011793676375L;
-	
+	private static final long serialVersionUID = -7459664427897325879L;
+
 	private Long groupId;
 
 	public Long getGroupId() {
@@ -27,7 +27,7 @@ public class GroupPage extends Page implements Serializable {
 	public void setGroupId(Long groupId) {
 		this.groupId = groupId;
 	}
-	
+
 	private List<Long> groupIds;
 
 	public List<Long> getGroupIds() {
@@ -37,7 +37,7 @@ public class GroupPage extends Page implements Serializable {
 	public void setGroupIds(List<Long> groupIds) {
 		this.groupIds = groupIds;
 	}
-	
+
 	private Long peopleId;
 
 	public Long getPeopleId() {
@@ -47,17 +47,15 @@ public class GroupPage extends Page implements Serializable {
 	public void setPeopleId(Long peopleId) {
 		this.peopleId = peopleId;
 	}
-	
+
 	private Integer status = Status.COMMON.getValue();
 
 	public Integer getStatus() {
 		return status;
 	}
 
-	public void setstatus(Integer status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
-	
-	
+
 }

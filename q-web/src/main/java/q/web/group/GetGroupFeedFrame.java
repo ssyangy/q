@@ -51,7 +51,7 @@ public class GetGroupFeedFrame extends Resource {
 			List<Event> newEvents = this.eventDao.getEventsByGroupIds(groupIds, 4, 0);
 			context.setModel("newEvents", newEvents);
 			
-			List<Long> newPeopleIds = this.groupDao.getGroupPeopleIds(groupIds, 3, 0);
+			List<Long> newPeopleIds = this.groupDao.getPeopleIdsByGroupIds(groupIds, 3, 0);
 			List<People> newPeoples = this.peopleDao.getPeoplesByIds(newPeopleIds);
 			context.setModel("newPeoples", newPeoples);
 			

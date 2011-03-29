@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import q.dao.page.PeopleJoinGroupPage;
 import q.domain.Group;
 import q.domain.PeopleJoinGroup;
 
@@ -78,7 +79,7 @@ public interface GroupDao {
 	 * @param start
 	 * @return
 	 */
-	List<Long> getGroupPeopleIds(List<Long> groupIds, int limit, int start) throws SQLException;
+	List<Long> getPeopleIdsByGroupIds(List<Long> groupIds, int limit, int start) throws SQLException;
 
 	/**
 	 * @param groupId
@@ -102,7 +103,7 @@ public interface GroupDao {
 	 * @param start 
 	 * @return
 	 */
-	List<Long> getGroupPeopleIds(long groupId, int limit, int start) throws SQLException;
+	List<Long> getPeopleIdsByGroupId(long groupId, int limit, int start) throws SQLException;
 
 	/**
 	 * @param groupIds
@@ -111,5 +112,12 @@ public interface GroupDao {
 	 * @return
 	 */
 	List<Long> getHotGroupPeopleIds(List<Long> groupIds, int limit, int start) throws SQLException;
+
+	/**
+	 * @param page
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Long> getPeopleIdsByPage(PeopleJoinGroupPage page) throws SQLException;
 
 }

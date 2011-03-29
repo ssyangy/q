@@ -55,39 +55,41 @@ public class GetPeopleFeed extends Resource {
 		long loginPeopleId = context.getCookiePeopleId();
 		String tab = context.getString("tab");
 
-		List<Long> senderIds = peopleDao.getAllFollowingId(loginPeopleId);
 		List<? extends WeiboModel> weibos = null;
-		if (null == tab) {
-			senderIds.add(loginPeopleId);// add login people
-			WeiboPage page = new WeiboPage();
-			page.setStartIndex(0);
-			page.setSize(20);
-			page.setSenderIds(senderIds);
-			weibos = weiboDao.getPageFollowingWeibos(page);
-			DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
-		} else if ("at".equals(tab)) {
+		List<Long> senderIds = peopleDao.getAllFollowingId(loginPeopleId);
+		if (CollectionKit.isNotEmpty(senderIds)) {
+			if (null == tab) {
+				senderIds.add(loginPeopleId);// add login people
+				WeiboPage page = new WeiboPage();
+				page.setStartIndex(0);
+				page.setSize(20);
+				page.setSenderIds(senderIds);
+				weibos = weiboDao.getPageFollowingWeibos(page);
+				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
+			} else if ("at".equals(tab)) {
 
-		} else if ("replied".equals(tab)) {
-			WeiboReplyPage page = new WeiboReplyPage();
-			page.setStartIndex(0);
-			page.setSize(20);
-			page.setQuoteSenderIds(senderIds);
-			page.setSenderId(loginPeopleId);
-			weibos = weiboDao.getPageWeiboReply(page);
-			DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
-		} else if( "favorite".equals(tab)) {
-			FavoritePage page = new FavoritePage();
-			page.setSize(20);
-			page.setStartIndex(0);
-			page.setCreatorId(loginPeopleId);
-			page.setSenderIds(senderIds);
-			List<Favorite> favorites = this.favoriteDao.getPageFavorites(page);
-			DaoHelper.injectFavoritesWithSource(weiboDao, favorites);
-			List<WeiboModel> weiboModels = new ArrayList<WeiboModel>(favorites.size());
-			for(Favorite fav: favorites) {
-				weiboModels.add(fav.getSource());
+			} else if ("replied".equals(tab)) {
+				WeiboReplyPage page = new WeiboReplyPage();
+				page.setStartIndex(0);
+				page.setSize(20);
+				page.setQuoteSenderIds(senderIds);
+				page.setSenderId(loginPeopleId);
+				weibos = weiboDao.getPageWeiboReply(page);
+				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
+			} else if ("favorite".equals(tab)) {
+				FavoritePage page = new FavoritePage();
+				page.setSize(20);
+				page.setStartIndex(0);
+				page.setCreatorId(loginPeopleId);
+				page.setSenderIds(senderIds);
+				List<Favorite> favorites = this.favoriteDao.getPageFavorites(page);
+				DaoHelper.injectFavoritesWithSource(weiboDao, favorites);
+				List<WeiboModel> weiboModels = new ArrayList<WeiboModel>(favorites.size());
+				for (Favorite fav : favorites) {
+					weiboModels.add(fav.getSource());
+				}
+				weibos = weiboModels;
 			}
-			weibos = weiboModels;
 		}
 
 		if (CollectionKit.isNotEmpty(weibos)) {
@@ -109,7 +111,6 @@ public class GetPeopleFeed extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
 
 	}
 

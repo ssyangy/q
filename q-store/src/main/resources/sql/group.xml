@@ -73,13 +73,6 @@
 		order by created desc
 	</select>
 	
-	<select id="selectGroupIdsByPeopleId" resultClass="long">
-		select group_id 
-		from people_join_group
-		where
-		people_id = #value#
-	</select>
-	
 	<select id="selectGroupIdsByCatId" resultClass="long">
 		select group_id 
 		from group_join_category
@@ -146,7 +139,7 @@
 		#id#,
 		#peopleId#,
 		#groupId#,
-		0,
+		#status#,
 		now(),
 		null
 		)
@@ -162,7 +155,7 @@
 		group_id = #groupId#
 	</update>
 
-	<select id="selectPeopleJoinGroupByPeopleIdAndGroupId"
+	<select id="selectPeopleJoinGroupByPage"
 		resultMap="pjgResult">
 		select
 		<include refid="pjg.columns" />
@@ -174,24 +167,26 @@
 		group_id=#groupId#
 	</select>
 	
-	<select id="selectGroupPeopleIdsByPage" resultClass="long">
+	<select id="selectJoinPeopleIdsByPage" resultClass="long">
 		select people_id
-		from
-		people_join_group
+		from people_join_group
 		<dynamic prepend="where"> 
-			<isNotNull prepend="and" property="groupIds">
+			<isNotNull prepend="and " property="status">
+				status = #status#
+	        </isNotNull>
+			<isNotNull prepend="and " property="groupIds">
 				group_id in
 				<iterate property="groupIds" open="(" close=")" conjunction=",">
 					#groupIds[]#
 	        	</iterate>
 	        </isNotNull>
-			<isNotNull prepend="and" property="groupId">
+			<isNotNull prepend="and " property="groupId">
 				group_id = #groupId#
 			</isNotNull>
-			<isNotNull prepend="and" property="startCreated">
+			<isNotNull prepend="and " property="startCreated">
 				created &lt;= #startCreated#
 			</isNotNull>
-			<isNotNull prepend="and" property="startId">
+			<isNotNull prepend="and " property="startId">
 				id &lt;= #startId#
 			</isNotNull>
 		</dynamic>
@@ -203,6 +198,36 @@
 			limit #startIndex#, #size#
 		</isNotNull>
 	</select>
-
+	<select id="selectJoinGroupIdsByPage" resultClass="long">
+		select group_id 
+		from people_join_group
+		<dynamic prepend="where"> 
+			<isNotNull prepend="and " property="status">
+				status = #status#
+	        </isNotNull>
+			<isNotNull prepend="and " property="peopleId">
+				people_id = #peopleId#
+	        </isNotNull>	        
+			<isNotNull prepend="and " property="groupIds">
+				group_id in
+				<iterate property="groupIds" open="(" close=")" conjunction=",">
+					#groupIds[]#
+	        	</iterate>
+	        </isNotNull>
+			<isNotNull prepend="and " property="groupId">
+				group_id = #groupId#
+			</isNotNull>
+			<isNotNull prepend="and " property="startCreated">
+				created &lt;= #startCreated#
+			</isNotNull>
+			<isNotNull prepend="and " property="startId">
+				id &lt;= #startId#
+			</isNotNull>
+		</dynamic>
+			order by created desc
+		<isNotNull property="size">
+			limit #startIndex#, #size#
+		</isNotNull>
+	</select>
 
 </sqlMap>

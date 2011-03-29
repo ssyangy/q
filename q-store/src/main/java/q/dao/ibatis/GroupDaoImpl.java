@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import q.dao.GroupDao;
-import q.dao.page.GroupPage;
+import q.dao.page.PeopleJoinGroupPage;
 import q.domain.Group;
 import q.domain.GroupJoinCategory;
 import q.domain.PeopleJoinGroup;
@@ -53,44 +53,69 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 		PeopleJoinGroup join = new PeopleJoinGroup();
 		join.setPeopleId(peopleId);
 		join.setGroupId(groupId);
-
+		join.setStatus(Status.COMMON.getValue());
 		join.setId(IdCreator.getLongId());
 		this.sqlMapClient.insert("insertPeopleJoinGroup", join);
 	}
 
 	@Override
 	public PeopleJoinGroup getGroupPeople(long peopleId, long groupId) throws SQLException {
-		return (PeopleJoinGroup) this.sqlMapClient.queryForObject("selectPeopleJoinGroupByPeopleIdAndGroupId", new PeopleJoinGroup(peopleId, groupId));
+		PeopleJoinGroupPage page = new PeopleJoinGroupPage();
+		page.setGroupId(groupId);
+		page.setPeopleId(peopleId);
+		return (PeopleJoinGroup) this.sqlMapClient.queryForObject("selectPeopleJoinGroupByPage", page);
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	@Override
-	public List<Long> getGroupPeopleIds(long groupId, int limit, int start) throws SQLException {
-		GroupPage page = new GroupPage();
+	public List<Long> getPeopleIdsByGroupId(long groupId, int limit, int start) throws SQLException {
+		PeopleJoinGroupPage page = new PeopleJoinGroupPage();
 		page.setSize(limit);
 		page.setStartIndex(start);
 		page.setGroupId(groupId);
-		return (List<Long>) this.sqlMapClient.queryForList("selectGroupPeopleIdsByPage", page);
+		return getPeopleIdsByPage(page);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Long> getGroupPeopleIds(List<Long> groupIds, int limit, int start) throws SQLException {
-		GroupPage page = new GroupPage();
+	public List<Long> getPeopleIdsByPage(PeopleJoinGroupPage page) throws SQLException {
+		return (List<Long>) this.sqlMapClient.queryForList("selectJoinPeopleIdsByPage", page);
+	}
+
+	@Override
+	public List<Long> getPeopleIdsByGroupIds(List<Long> groupIds, int limit, int start) throws SQLException {
+		PeopleJoinGroupPage page = new PeopleJoinGroupPage();
 		page.setSize(limit);
 		page.setStartIndex(start);
 		page.setGroupIds(groupIds);
-		return (List<Long>) this.sqlMapClient.queryForList("selectGroupPeopleIdsByPage", page);
+		return getPeopleIdsByPage(page);
+	}
+
+	@Override
+	public List<Group> getGroupsByPeopleId(long peopleId) throws SQLException {
+		List<Long> groupIds = this.getGroupIdsByPeopleId(peopleId);
+		if (CollectionKit.isEmpty(groupIds)) {
+			return null;
+		}
+		List<Group> groups = this.getGroupsByIds(groupIds);
+		return groups;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Long> getGroupIdsByPeopleId(long peopleId) throws SQLException {
+		PeopleJoinGroupPage page = new PeopleJoinGroupPage();
+		page.setPeopleId(peopleId);
+		return this.sqlMapClient.queryForList("selectJoinGroupIdsByPage", page);
 	}
 
 	@Override
 	public List<Long> getHotGroupPeopleIds(long groupId, int limit, int start) throws SQLException {
-		return this.getGroupPeopleIds(groupId, limit, start);
+		return this.getPeopleIdsByGroupId(groupId, limit, start);
 	}
-	
+
 	@Override
 	public List<Long> getHotGroupPeopleIds(List<Long> groupIds, int limit, int start) throws SQLException {
-		return this.getGroupPeopleIds(groupIds, limit, start);
+		return this.getPeopleIdsByGroupIds(groupIds, limit, start);
 	}
 
 	@Override
@@ -111,22 +136,6 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 		this.sqlMapClient.update("updatePeopleJoinGroupStatusByPeopleIdAndGroupId", join);
 	}
 
-	@Override
-	public List<Group> getGroupsByPeopleId(long peopleId) throws SQLException {
-		List<Long> groupIds = this.getGroupIdsByPeopleId(peopleId);
-		if (CollectionKit.isEmpty(groupIds)) {
-			return null;
-		}
-		List<Group> groups = this.getGroupsByIds(groupIds);
-		return groups;
-	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<Long> getGroupIdsByPeopleId(long peopleId) throws SQLException {
-		return this.sqlMapClient.queryForList("selectGroupIdsByPeopleId", peopleId);
-	}
-	
 	@Override
 	public List<Group> getAllGroupsByCatId(long catId) throws SQLException {
 		@SuppressWarnings("unchecked")
@@ -185,7 +194,9 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 		return IdNameMap;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.dao.GroupDao#getRecommendGroupsByGroupId(long, int)
 	 */
 	@Override
