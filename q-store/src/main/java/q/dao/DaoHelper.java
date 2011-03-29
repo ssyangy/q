@@ -32,18 +32,18 @@ import q.util.CollectionKit;
  */
 public class DaoHelper {
 
-	public static void injectWeiboModelsWithFavorite(FavoriteDao favoriteDao, List<? extends WeiboModel> replies, long peopleId) throws SQLException {
-		if (CollectionKit.isNotEmpty(replies)) {
-			List<Long> replyIds = new ArrayList<Long>(replies.size());
-			for (WeiboModel reply : replies) {
-				replyIds.add(reply.getId());
+	public static void injectWeiboModelsWithFavorite(FavoriteDao favoriteDao, List<? extends WeiboModel> weiboModels, long peopleId) throws SQLException {
+		if (CollectionKit.isNotEmpty(weiboModels)) {
+			List<Long> modelIds = new ArrayList<Long>(weiboModels.size());
+			for (WeiboModel model : weiboModels) {
+				modelIds.add(model.getId());
 			}
-			List<Long> favIds = favoriteDao.getFavReplyIds(replyIds, peopleId);
+			List<Long> favIds = favoriteDao.getFavReplyIds(modelIds, peopleId);
 			if (CollectionKit.isNotEmpty(favIds)) {
 				Set<Long> favSet = new HashSet<Long>(favIds);
-				for (WeiboModel reply : replies) {
-					if (favSet.contains(reply.getId())) {
-						reply.setFav(true);
+				for (WeiboModel model : weiboModels) {
+					if (favSet.contains(model.getId())) {
+						model.setFav(true);
 					}
 				}
 			}

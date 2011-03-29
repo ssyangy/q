@@ -57,9 +57,9 @@ public class GetPeopleFeed extends Resource {
 
 		List<? extends WeiboModel> weibos = null;
 		List<Long> senderIds = peopleDao.getAllFollowingId(loginPeopleId);
+		senderIds.add(loginPeopleId);// add login people
 		if (CollectionKit.isNotEmpty(senderIds)) {
 			if (null == tab) {
-				senderIds.add(loginPeopleId);// add login people
 				WeiboPage page = new WeiboPage();
 				page.setStartIndex(0);
 				page.setSize(20);

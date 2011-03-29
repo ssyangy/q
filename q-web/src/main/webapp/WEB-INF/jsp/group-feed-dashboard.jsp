@@ -55,7 +55,6 @@
 									<div class="name">
 										<a href="${urlPrefix}/people/${people.id}">${people.realName}</a>
 									</div> 
-									<div class="action"><button class="mini-button">向${people.gender.cncall}示好</button></div> 
 								</div> 
 							</div>
 							</c:forEach>
@@ -74,18 +73,17 @@
 									<div class="name">
 										<a href="${urlPrefix}/people/${people.id}">${people.realName}</a>
 									</div> 
-									<div class="action"><button class="mini-button">拜一拜</button></div> 
 								</div> 
 							</div>
 							</c:forEach> 
 							<div class="clearfix2"></div> 
 						</div> 
 					</div> 
-					<div class="db-block"> 
-						<h3>相关圈子：</h3><!--只显示5个--> 
+					<!-- div class="db-block"> 
+						<h3>相关圈子：</h3>
 						<div class="db-block-content"> 
 							<div class="similar-group"><a href="">假的</a></div> 
 							<div class="similar-group"><a href="">假的</a></div> 
 						</div> 
-					</div> 
+					</div --> 
 				</div>

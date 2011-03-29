@@ -61,8 +61,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="db-block">
-				<h3>可能感兴趣的人：</h3><!--只显示1行-->
+			<!-- div class="db-block">
+				<h3>可能感兴趣的人：</h3>
 				<div class="db-block-content">
 					<div class="people-cell">
 						<div class="avatar"><img src="${avatarUrlPrefix}/avatar0.png"></div>
@@ -71,7 +71,7 @@
 					</div>
 					<div class="clearfix2"></div>
 				</div>
-			</div>
+			</div -->
 		</div>
 	</div>
 </div>

@@ -65,7 +65,7 @@ public class FavoriteDaoImpl extends AbstractDaoImpl implements FavoriteDao {
 		FavoritePage page = new FavoritePage();
 		page.setCreatorId(creatorId);
 		page.setStatus(FavoriteStatus.FAV);
-		page.setFromType(FavoriteFromType.REPLY);
+		//page.setFromType(FavoriteFromType.REPLY);
 		page.setFromIds(replyIds);
 		@SuppressWarnings("unchecked")
 		List<Long> ids = this.sqlMapClient.queryForList("selectFavoriteFromIdsByPage", page);
