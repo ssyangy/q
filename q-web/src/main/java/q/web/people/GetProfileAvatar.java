@@ -15,8 +15,9 @@ public class GetProfileAvatar extends Resource{
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-
+		long loginPeopleId = context.getCookiePeopleId();
+        String temp=loginPeopleId%10000+"/"+loginPeopleId;
+        context.setModel("avatarUrl", temp);
 	}
 
 }

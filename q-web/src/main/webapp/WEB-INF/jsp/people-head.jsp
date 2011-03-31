@@ -3,7 +3,7 @@
 <%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
 <div class="profile-header">
 	<div class="profile-info clearfix">
-		<div class="profile-image-container"><a href=""><img width="128" height="128" src="${avatarUrlPrefix}/1.png"></a></div>
+		<div class="profile-image-container"><a href=""><img width="128" height="128" src="${avatarUrlPrefix}/${people.avatarPath}-128"></a></div>
 		<div class="profile-details">
 			<c:if test="${loginCookie.peopleId == people.id }">
 			<div class="profile-edit"><a href="${urlPrefix}/profile/basic" class="button">修改我的资料</a></div>
@@ -20,7 +20,7 @@
 		${people.gender.cncall}的圈子：
 		<c:forEach items="${groups}" var="group" varStatus="status">
 		<a href="${urlPrefix}/group/${group.id}">${group.name}</a>
-		</c:forEach>						
+		</c:forEach>
 	</div>
 	<c:if test="${loginCookie.peopleId != people.id }">
 	<div class="profile-actions-container">
@@ -34,7 +34,7 @@
 					<c:otherwise>
 						<button class="button" onclick="unFollow(this,${people.id})">取消关注</button>
 					</c:otherwise>
-					</c:choose>								
+					</c:choose>
 					<div class="button">
 						<a href="${urlPrefix}/weibo/new?receiverId=${people.id}&from=${contextPath}/people/${people.id}">@${people.gender.cncall}</a>
 					</div>
@@ -45,6 +45,6 @@
 				<div class="kimoji">向${people.gender.cncall}表达：</div>
 			</div>
 		</div>
-	</div>									
-	</c:if>	
+	</div>
+	</c:if>
 </div>

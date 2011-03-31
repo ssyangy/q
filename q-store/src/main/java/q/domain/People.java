@@ -307,6 +307,11 @@ public class People extends AbstractDomain implements Serializable {
 	public void setMusic(String music) {
 		this.music = music;
 	}
+
+	public String getAvatarPath() {
+		return this.id % 10000 + "/" + this.id;
+	}
+
 	@Override
 	public String toString() {
 		return "People [id=" + id + ", username=" + username + ", password=" + password + ", loginToken=" + loginToken + ", realName=" + realName + ", email=" + email + ", mobile=" + mobile + ", year=" + year + ", month=" + month + ", day=" + day + ", countryCode=" + countryCode + ", area=" + area + ", gender=" + gender + ", bloodTypeId=" + bloodTypeId + ", degree=" + degree + ", roleId=" + roleId + ", status=" + status + ", created=" + created + ", modified=" + modified + ", friendNum=" + friendNum + ", followNum=" + followerNum + ", followingNum=" + followingNum + ", weiboNum=" + weiboNum + ", url=" + url +", intro=" + intro + ", avatarUrl=" + avatarUrl +", book=" + book +", film=" + film +", music=" + music +", idol=" + idol +", hope=" + hope +"]";

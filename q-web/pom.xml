@@ -72,6 +72,14 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+		</dependency>
+		<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+	    </dependency>
+		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>${q-biz.aid}</artifactId>
 		</dependency>

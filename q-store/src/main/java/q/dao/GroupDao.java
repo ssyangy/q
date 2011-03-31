@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.dao;
 
@@ -15,7 +15,7 @@ import q.domain.PeopleJoinGroup;
 /**
  * @author Zhehao
  * @date Feb 15, 2011
- * 
+ *
  */
 public interface GroupDao {
 
@@ -34,9 +34,9 @@ public interface GroupDao {
 	void rejoinPeopleJoinGroup(long peopleId, long groupId) throws SQLException;
 
 	public List<Group> getGroupsByIds(List<Long> groupIds) throws SQLException;
-	
+
 	public List<Long> getGroupIdsByPeopleId(long peopleId) throws SQLException;
-	
+
 	/**
 	 * @param peopleId
 	 * @throws SQLException
@@ -48,7 +48,7 @@ public interface GroupDao {
 	 * @return
 	 */
 	List<Group> getNewGroups(int limit) throws SQLException;
-	
+
 	/**
 	 * @param limit
 	 * @return
@@ -75,7 +75,7 @@ public interface GroupDao {
 
 	/**
 	 * @param groupIds
-	 * @param limit 
+	 * @param limit
 	 * @param start
 	 * @return
 	 */
@@ -100,7 +100,7 @@ public interface GroupDao {
 	/**
 	 * @param groupId
 	 * @param limit
-	 * @param start 
+	 * @param start
 	 * @return
 	 */
 	List<Long> getPeopleIdsByGroupId(long groupId, int limit, int start) throws SQLException;

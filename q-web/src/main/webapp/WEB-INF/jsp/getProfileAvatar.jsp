@@ -14,9 +14,9 @@
 	<script type="text/javascript">
     var realWidth;
     var realHeight;
-	var isImg=false;
-	var imgWidth;
-	var imgHeight;
+    var imageWidth;
+    var imageHeight;
+	var isImg=true;
     var cutter;
 	function up(){
 	if(isImg==true){
@@ -34,7 +34,6 @@
 			);
 			 cutter.init();
 	}
-
 	return isImg;
 	}
 	function save(){
@@ -43,12 +42,14 @@
 	var y1=data.y;
 	var x2=x1+data.w;
 	var y2=y1+data.h;
-    var realx1=Number(x1/imgWidth*realWidth);
-    var realy1=Number(y1/imgHeight*realHeight);
-    var realx2=Number(x2/imgWidth*realWidth);
-    var realy2=Number(y2/imgHeight*realHeight);
-    alert(realx1+" "+realy1+" "+realx2+" "+realy2);
-    	var emailtext=$("#email").val();
+	var realx1=x1*realWidth/imageWidth;
+	var realx2=x2*realWidth/imageWidth;
+	var realy1=y1*realHeight/imageHeight;
+	var realy2=y2*realHeight/imageHeight;
+	//alert(imageWidth+" "+imageHeight+" "+realWidth+" "+realHeight);
+	//alert(x1+" "+y1+" "+x2+" "+y2);
+	//alert(realx1+" "+realy1+" "+realx2+" "+realy2);
+    var emailtext=$("#email").val();
 	$.ajax({
     url: '${urlPrefix}/avatar/edit',
     type: 'POST',
@@ -76,6 +77,7 @@
 });
 	}
     function notAImg(){
+    	isImg=false;
          $("#imgwrong").css("display","block");
          $("#imgwrong").html("这不是一个图片文件!");
     }
@@ -83,23 +85,18 @@
     realHeight=x;
 	realWidth=y;
 	var imgPath=z;
-      var tempImg= $("#tempImg");
+
       if(realHeight>realWidth){
-         tempImg.height=200;
-         tempImg.width=realWidth*200/realHeight;
-         imgHeight=200;
-         imgWidth=tempImg.width;
+    	 imageWidth=realWidth*200/realHeight;
+         imageHeight=200;
       }
       else{
-         tempImg.width=200;
-         tempImg.height=realHeight*200/realWidth;
-         imgHeight=tempImg.height;
-         imgWidth=200;
+    	 imageHeight=realHeight*200/realWidth;
+         imageWidth=200;
       }
-
-      cutter.reload(imgPath);
-
+      cutter.reload(imgPath,imageWidth,imageHeight);
 	}
+
     function check(){
      var filepath=document.getElementById("file").value;
       filepath=filepath.substring(filepath.lastIndexOf('.')+1,filepath.length);
@@ -113,11 +110,30 @@
         $("#imgwrong").css("display","none");
           isImg=true;
     }
-    $(document).ready(function(){
+       $(document).ready(function(){
+    	   cutter = new jQuery.UtrialAvatarCutter(
+   				{
+   					//主图片所在容器ID
+   					content : "myImage",
 
-	//	$('#tabs').tabs();
-	//	$tabs.tabs('select', 1);
-	});
+   					//缩略图配置,ID:所在容器ID;width,height:缩略图大小
+   					purviews : [{id:"picture_24",width:24,height:24},{id:"picture_48",width:48,height:48},{id:"picture_128",width:128,height:128}],
+
+   					//选择器默认大小
+   					selector : {width:100,height:100}
+   				}
+   			);
+    		var img=new Image();
+    		img.src="${avatarUrlPrefix}/${avatarUrl}";
+    		var dick=setInterval(function(){
+    			if(img.complete){
+    				clearInterval(dick);
+    				reloadImg(img.height,img.width,"${avatarUrlPrefix}/${avatarUrl}");
+    				cutter.init();
+    			}
+    		},100);
+
+    	});
 
     jQuery.UtrialAvatarCutter = function(config){
 	var h,w,x,y;
@@ -130,7 +146,7 @@
 
 	var img_content_id = config.content;
 
-	var img_id = "img_"+(Math.random()+"").substr(3,8);
+	var img_id = "myPhoto";
 	var purviews = new Array();
 
 	var select_width = null;
@@ -157,10 +173,10 @@
 	/*
 	 *	重新加载图片
 	 */
-	this.reload = function(img_url){
+	this.reload = function(img_url,width,height){
 		if(img_url!=null && img_url != ""){
 			os = img_url+"?"+Math.random();
-			$("#"+img_content_id).html("<img id='"+img_id+"' src='"+os+"'/>");
+			$("#"+img_content_id).html("<img id='"+img_id+"' src='"+os+"' width='"+width+"' height='"+height+"'/>");
 			$("#"+img_id).bind("load",
 				function(){
 					check_thums_img();
@@ -225,6 +241,7 @@
 			onChange: preview,
 			onSelect: preview
 		});
+
 		//设置选择框默认位置
 		api.animateTo([ x, y, x+select_width, y+select_height ]);
 
@@ -263,7 +280,7 @@
                     <iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>
                     </form>
 			    	<div id="myImage">
-                    <img   alt="xxxxx" id="tempImg"/>
+
                     </div>
 
                     <!---
