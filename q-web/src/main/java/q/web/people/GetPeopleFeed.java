@@ -62,8 +62,12 @@ public class GetPeopleFeed extends Resource {
 			if (null == tab) {
 				WeiboPage page = new WeiboPage();
 				page.setStartIndex(0);
-				page.setSize(20);
+				page.setSize(context.getInt("size", 10));
 				page.setSenderIds(senderIds);
+				long weiboStartId = context.getIdLong("startId");
+				if (weiboStartId > 0) {
+					page.setStartId(weiboStartId);
+				}
 				weibos = weiboDao.getPageFollowingWeibos(page);
 				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
 			} else if ("at".equals(tab)) {
@@ -93,15 +97,18 @@ public class GetPeopleFeed extends Resource {
 		}
 
 		if (CollectionKit.isNotEmpty(weibos)) {
-			DaoHelper.injectWeiboModelsWithSenderRealName(peopleDao, weibos);
 			DaoHelper.injectWeiboModelsWithFrom(groupDao, weibos);
+			DaoHelper.injectWeiboModelsWithQuote(weiboDao, weibos);
+			DaoHelper.injectWeiboModelsWithPeople(peopleDao, weibos);
 			context.setModel("weibos", weibos);
 		}
 
-		GetPeopleFeedFrame frame = new GetPeopleFeedFrame();
-		frame.setPeopleDao(peopleDao);
-		frame.validate(context);
-		frame.execute(context);
+		if (!context.isApiRequest()) {
+			GetPeopleFeedFrame frame = new GetPeopleFeedFrame();
+			frame.setPeopleDao(peopleDao);
+			frame.validate(context);
+			frame.execute(context);
+		}
 	}
 
 	/*

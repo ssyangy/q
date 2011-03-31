@@ -140,7 +140,7 @@ public interface Convert {
 	 * @throws MappingException
 	 *             the mapping exception
 	 */
-	public void convertStartTag(String mappingName) throws MappingException;
+	public void convertStartTag(String mappingName, boolean isArray) throws MappingException;
 
 	/**
 	 * 对一个对象转换之后 需要对mappingName做的操作
@@ -151,7 +151,7 @@ public interface Convert {
 	 * @throws MappingException
 	 *             the mapping exception
 	 */
-	public void convertEndTag(String mappingName) throws MappingException;
+	public void convertEndTag(String mappingName, boolean isArray) throws MappingException;
 
 	/**
 	 * 对象flush

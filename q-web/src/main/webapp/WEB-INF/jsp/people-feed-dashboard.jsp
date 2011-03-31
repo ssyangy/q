@@ -6,7 +6,7 @@
 		<div class="db-header-inner">
 			<div class="avatar">
 				<a href="${urlPrefix}/people/${people.id}">
-					<img src="${avatarUrlPrefix}/avatar0.png">
+					<img src="${avatarUrlPrefix}/${people.avatarPath}-48">
 				</a>
 			</div>
 			<div class="my-brief">

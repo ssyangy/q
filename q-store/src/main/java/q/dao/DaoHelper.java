@@ -364,4 +364,77 @@ public class DaoHelper {
 
 	}
 
+	/**
+	 * @param peopleDao
+	 * @param weibos
+	 */
+	public static void injectWeiboModelsWithPeople(PeopleDao peopleDao, List<? extends WeiboModel> weiboModels) throws SQLException {
+		if (CollectionKit.isEmpty(weiboModels)) {
+			return;
+		}
+
+		Set<Long> senderIds = new HashSet<Long>(weiboModels.size());
+		for (WeiboModel model : weiboModels) {
+			senderIds.add(model.getSenderId());
+			if (model.getQuote() != null) {
+				senderIds.add(model.getQuote().getSenderId());
+			}
+		}
+		if (CollectionKit.isEmpty(senderIds)) {
+			return;
+		}
+
+		List<People> peoples = peopleDao.getPeoplesByIds(new ArrayList<Long>(senderIds));
+		if (CollectionKit.isEmpty(peoples)) {
+			return;
+		}
+
+		Map<Long, People> peopleMap = new HashMap<Long, People>(peoples.size());
+		for (People people : peoples) {
+			peopleMap.put(people.getId(), people);
+		}
+		for (WeiboModel model : weiboModels) {
+			model.setPeople(peopleMap.get(model.getSenderId()));
+			if (model.getQuote() != null) {
+				model.getQuote().setPeople(peopleMap.get(model.getQuote().getSenderId()));
+			}
+		}
+	}
+
+	/**
+	 * @param weiboDao
+	 * @param weibos
+	 * @throws SQLException
+	 */
+	public static void injectWeiboModelsWithQuote(WeiboDao weiboDao, List<? extends WeiboModel> weiboModels) throws SQLException {
+		if (CollectionKit.isEmpty(weiboModels)) {
+			return;
+		}
+
+		Set<Long> quoteIds = new HashSet<Long>(weiboModels.size());
+		for (WeiboModel model : weiboModels) {
+			if (model.getQuoteWeiboId() > 0) {
+				quoteIds.add(model.getQuoteWeiboId());
+			}
+		}
+		if (CollectionKit.isEmpty(quoteIds)) {
+			return;
+		}
+
+		List<Weibo> quotes = weiboDao.getWeibosByIds(new ArrayList<Long>(quoteIds), true);
+		if (CollectionKit.isEmpty(quotes)) {
+			return;
+		}
+
+		Map<Long, Weibo> quoteMap = new HashMap<Long, Weibo>(quotes.size());
+		for(Weibo quote: quotes) {
+			quoteMap.put(quote.getId(), quote);
+		}
+		for (WeiboModel model : weiboModels) {
+			if (model.getQuoteWeiboId() > 0) {
+				Weibo quote = quoteMap.get(model.getQuoteWeiboId());
+				model.setQuote(quote);
+			}
+		}
+	}
 }

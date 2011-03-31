@@ -53,7 +53,7 @@ public class ApiMappingArrayTest extends ApiMappingXmlTestBase {
 		Object rsp = testDefaultResponse(getFileName("api-mapping-mr-array-simple.xml"), c);
 		assertEquals("{\"ba\":{\"b\":[true,false]}," + "\"bl\":{\"b\":[true,false]}}", rsp);
 	}
-
+	
 	@Test
 	public void testMRXmlBooleanArray() throws Exception {
 		// mapping配置文件地址
@@ -166,6 +166,18 @@ public class ApiMappingArrayTest extends ApiMappingXmlTestBase {
 		list.add(c);
 		Object test = testDefaultResponse(file, list);
 		assertEquals("{\"domains\":{\"domain\":[{\"created\":\"2009-12-31 00:00:00\",\"is_3D\":true,\"modified\":\"2009-12-31 00:00:00\",\"result_count\":3}]}}", test);
+	}
+	
+	@Test
+	public void testJsonMRListPojoWithoutName() throws Exception {
+		String file = getFileName("api-mapping-mr-array-struct-withoutname.xml");
+		List<Pojo> list = new ArrayList<Pojo>();
+		Pojo c = new Pojo();
+		c.setIs3D(true);
+		c.setResultCount(3);
+		list.add(c);
+		Object test = testDefaultResponse(file, list);
+		assertEquals("[{\"is_3D\":true,\"result_count\":3}]", test);
 	}
 
 	@Test

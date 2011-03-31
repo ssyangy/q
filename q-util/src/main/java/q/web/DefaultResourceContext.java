@@ -18,6 +18,9 @@ import q.util.StringKit;
 public class DefaultResourceContext implements ResourceContext {
 	private static final Logger log = Logger.getLogger();
 
+	private static final String MEDIA_TYPE_APPLICATION_JSON = "application/json";
+	private static final String MEDIA_TYPE_APPLICATION_JSON_TEXT = "text/javascript";
+
 	private final HttpServletRequest request;
 	private final HttpServletResponse response;
 	private String[] paths;
@@ -92,6 +95,15 @@ public class DefaultResourceContext implements ResourceContext {
 	public long getIdLong(String key) {
 		String value = getString(key);
 		return getIdLongFromValue(value);
+	}
+
+	@Override
+	public long getIdLong(String key, long defaultValue) {
+		long id = this.getIdLong(key);
+		if (id <= 0) {
+			id = defaultValue;
+		}
+		return defaultValue;
 	}
 
 	@Override
@@ -263,6 +275,16 @@ public class DefaultResourceContext implements ResourceContext {
 	@Override
 	public ErrorCodeException getErrorModel() {
 		return this.errorCodeException;
+	}
+
+	@Override
+	public boolean isApiRequest() {
+		String accept = request.getHeader("Accept");
+		boolean isApi = false;
+		if (accept != null && (accept.startsWith(MEDIA_TYPE_APPLICATION_JSON) || accept.startsWith(MEDIA_TYPE_APPLICATION_JSON_TEXT))) { // do json mime
+			isApi = true;
+		}
+		return isApi;
 	}
 
 }

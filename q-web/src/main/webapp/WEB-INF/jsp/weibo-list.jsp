@@ -2,17 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="stream-items">
 <c:forEach items="${weibos}" var="weibo" varStatus="status">
-	<div class="stream-item tweet">
+	<div class="stream-item tweet" weiboId=${weibo.id}>
 		<div class="tweet-image">
 			<a href="${urlPrefix}/people/${weibo.senderId}" >
-				<img height="48" width="48" src="${avatarUrlPrefix}/1.png"/>
+				<img height="48" width="48" src="${avatarUrlPrefix}/${weibo.people.avatarPath}-48"/>
 			</a>
 		</div>
 		<div class="tweet-content">
 			<div class="tweet-row">
 				<span class="tweet-user-name">
-					<a class="tweet-screen-name user-profile-link" href="${urlPrefix}/people/${weibo.senderId}">
-					${weibo.senderRealName}
+					<a class="tweet-screen-name user-profile-link" href="${urlPrefix}/people/${weibo.people.id}">
+					${weibo.people.realName}
 					</a>
 				</span>
 				<span class="tweet-group">
@@ -22,15 +22,15 @@
 			<div class="tweet-row">
 				<div class="tweet-text">${weibo.content}</div>
 			</div>
-			<c:if test="${weibo.quoteWeiboId >0}">
+			<c:if test="${weibo.quote.id > 0}">
 			<div class="tweet-ori"> 
 				<div class="tweet-ori-inner"> 
-					<a href="${urlPrefix}/people/${weibo.quoteSenderId}" class="tweet-ori-author">${weibo.quoteSenderRealName}</a>：
-					我们拍照、录像留念某些时刻，在某棵树干上、某个大石头上刻自己的名字，写心情日记，等等。这些举动源自我们需要的存在感，它是安全感的一个分支。
+					<a href="${urlPrefix}/people/${weibo.quote.people.id}" class="tweet-ori-author">${weibo.quote.people.realName}</a>：
+					${weibo.quote.content}
 					<span class="">
-						<a href="${urlPrefix}/weibo/${weibo.quoteWeiboId}">原文转发</a>
+						<a href="${urlPrefix}/weibo/${weibo.quote.id}">原文转发</a>
 						<span class="link-sep">·</span>
-						<a href="${urlPrefix}/weibo/${weibo.quoteWeiboId}">原文回复</a>
+						<a href="${urlPrefix}/weibo/${weibo.quote.id}">原文回复</a>
 					</span> 
 				</div> 
 			</div>
