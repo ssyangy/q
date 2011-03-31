@@ -4,18 +4,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<jsp:include page="head.jsp" />
-<title>圈子:${group.name}</title>
-	<script type="text/javascript">
-		$(function(){
-			//$( "#radio" ).buttonset();
-			//$('#tabs').tabs();
-		});
-	</script>	
+	<jsp:include page="head.jsp" />
+	<title>圈子:${group.name}</title>
 </head>
-<body>
-<div id="doc">
-<jsp:include page="top.jsp" />	
+<body onResize="ReSet()" onLoad="ReSet()">
+	<div id="body" style="padding-bottom:0px;overflow-y:auto; overflow-x:hidden;">
+	<jsp:include page="top.jsp" />	
 	<div id="page-outer">
 		<div id="page-container">
 			<div class="main-content" style="min-height:400px">
@@ -40,13 +34,11 @@
 					</div>
 				</div>											
 				<div class="stream-manager">
-						<div id="tabs" class="ui-tabs ui-widget">
-							<jsp:include page="group-tag.jsp">
-								<jsp:param value="${param['tab']}" name="tab"/>
-							</jsp:include>
-						<div id="tabs-1">
-						<jsp:include page="weibo-list.jsp" />
-						</div>
+					<div id="tabs" class="ui-tabs ui-widget">
+						<jsp:include page="group-tag.jsp"/>
+						<jsp:include page="weibo-list.jsp">
+							<jsp:param name="feedUrl" value="${urlPrefix}/group/${group.id}" />
+						</jsp:include>
 					</div>
 				</div>	
 			</div>

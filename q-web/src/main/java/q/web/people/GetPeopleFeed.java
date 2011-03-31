@@ -53,37 +53,34 @@ public class GetPeopleFeed extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
-		String tab = context.getString("tab");
 
 		List<? extends WeiboModel> weibos = null;
 		List<Long> senderIds = peopleDao.getAllFollowingId(loginPeopleId);
 		senderIds.add(loginPeopleId);// add login people
 		if (CollectionKit.isNotEmpty(senderIds)) {
-			if (null == tab) {
-				WeiboPage page = new WeiboPage();
-				page.setStartIndex(0);
-				page.setSize(context.getInt("size", 10));
-				page.setSenderIds(senderIds);
-				long weiboStartId = context.getIdLong("startId");
-				if (weiboStartId > 0) {
-					page.setStartId(weiboStartId);
-				}
-				weibos = weiboDao.getPageFollowingWeibos(page);
-				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
-			} else if ("at".equals(tab)) {
+			int size = context.getInt("size", 10);
+			long startId = context.getIdLong("startId");
+			String tab = context.getString("tab");
+			if ("at".equals(tab)) {
 
 			} else if ("replied".equals(tab)) {
 				WeiboReplyPage page = new WeiboReplyPage();
 				page.setStartIndex(0);
-				page.setSize(context.getInt("size", 10));
+				page.setSize(size);
+				if (startId > 0) {
+					page.setStartId(startId);
+				}
 				page.setQuoteSenderIds(senderIds);
 				page.setSenderId(loginPeopleId);
 				weibos = weiboDao.getPageWeiboReply(page);
 				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
 			} else if ("favorite".equals(tab)) {
 				FavoritePage page = new FavoritePage();
-				page.setSize(context.getInt("size", 10));
+				page.setSize(size);
 				page.setStartIndex(0);
+				if (startId > 0) {
+					page.setStartId(startId);
+				}
 				page.setCreatorId(loginPeopleId);
 				page.setSenderIds(senderIds);
 				List<Favorite> favorites = this.favoriteDao.getPageFavorites(page);
@@ -93,6 +90,16 @@ public class GetPeopleFeed extends Resource {
 					weiboModels.add(fav.getSource());
 				}
 				weibos = weiboModels;
+			} else {
+				WeiboPage page = new WeiboPage();
+				page.setStartIndex(0);
+				page.setSize(size);
+				page.setSenderIds(senderIds);
+				if (startId > 0) {
+					page.setStartId(startId);
+				}
+				weibos = weiboDao.getPageFollowingWeibos(page);
+				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
 			}
 		}
 

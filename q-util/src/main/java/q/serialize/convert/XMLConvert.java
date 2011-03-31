@@ -86,10 +86,10 @@ public class XMLConvert extends AbstractConvert {
 
 	public void convertString(String source, String mappingName) throws MappingException, IOException {
 		if (mappingName == null) {
-			StringKit.writeEscapeXml(writer, source);
+			StringKit.escapeXml(writer, source);
 		} else {
 			writer.append(Utils.LEFT_ANGLE_BRACKET).append(mappingName).append(Utils.RIGHT_ANGLE_BRACKET);
-			StringKit.writeEscapeXml(writer, source);
+			StringKit.escapeXml(writer, source);
 			writer.append(Utils.LEFT_ANGLE_BRACKET).append(Utils.BACK_SLASH).append(mappingName).append(Utils.RIGHT_ANGLE_BRACKET);
 		}
 	}

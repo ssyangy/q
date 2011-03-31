@@ -42,6 +42,11 @@ public class StringKitTest {
 		end = System.currentTimeMillis();
 		System.out.println(end - start);
 	}
+	
+	@Test
+	public void testEscapeJson() {
+		Assert.assertEquals("\\\"", StringKit.escapeJson("\r\n\""));
+	}
 
 	public static void main(String[] args) {
 		new StringKitTest().testCapitalizeSpeed();

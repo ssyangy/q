@@ -112,7 +112,7 @@ public class JSONConvert extends AbstractConvert {
 	public void convertString(String source, String mappingName) throws IOException {
 		this.appendMappingName(writer, source, mappingName);
 		writer.append(Utils.DOUBLE_QUOTE);
-		StringKit.writeEscapeJson(writer, source);
+		StringKit.escapeJson(writer, source);
 		writer.append(Utils.DOUBLE_QUOTE);
 	}
 

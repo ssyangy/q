@@ -3,18 +3,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<jsp:include page="head.jsp" />
-<title>圈子新鲜事</title>
-<script type="text/javascript">
-	$(function(){
-		// Tabs
-		//$('#tabs').tabs();
-		//$tabs.tabs('select', 0);
-	});
-</script>	
+	<jsp:include page="head.jsp" />
+	<title>圈子新鲜事</title>
 </head>
-<body>
-	<div id="doc">
+<body onResize="ReSet()" onLoad="ReSet()">
+	<div id="body" style="padding-bottom:0px;overflow-y:auto; overflow-x:hidden;">
 	<jsp:include page="top.jsp" />
 		<div id="page-outer" class="groups-feed">
 			<div id="page-container">
@@ -24,12 +17,10 @@
 					</jsp:include>
 					<div class="stream-manager">
 						<div id="tabs" class="ui-tabs ui-widget">
-							<jsp:include page="group-feed-tag.jsp">
-								<jsp:param value="${param['tab']}" name="tab"/>
+							<jsp:include page="group-feed-tag.jsp" />
+							<jsp:include page="weibo-list.jsp" >
+								<jsp:param name="feedUrl" value="${urlPrefix}/group/feed" />		
 							</jsp:include>
-							<div id="tabs-1">
-								<jsp:include page="weibo-list.jsp" />
-							</div>
 						</div>
 					</div>
 				</div>

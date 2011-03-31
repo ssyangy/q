@@ -14,7 +14,7 @@ import java.util.List;
 
 public class StringKit {
 
-	public static final String BACK_SLASH = "\"";
+	public static final String BACK_SLASH = "\\\"";
 	private static final WordTokenizer LOWER_CASE_WITH_UNDERSCORES_TOKENIZER = new WordTokenizer() {
 		protected void startSentence(StringBuffer buffer, char ch) {
 			buffer.append(Character.toLowerCase(ch));
@@ -320,7 +320,7 @@ public class StringKit {
 		return new String(chars);
 	}
 
-	public static void writeEscapeJson(Writer sb, String source) throws IOException {
+	public static void escapeJson(Writer sb, String source) throws IOException {
 		char[] chars = source.toCharArray();
 		for (int i = 0; i < chars.length; i++) {
 			char c = chars[i];
@@ -328,10 +328,34 @@ public class StringKit {
 			case '"':
 				sb.append(BACK_SLASH);
 				break;
+			case '\r':
+				break;
+			case '\n':
+				break;
 			default:
 				sb.append(c);
 			}
 		}
+	}
+
+	public static String escapeJson(String source) {
+		char[] chars = source.toCharArray();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < chars.length; i++) {
+			char c = chars[i];
+			switch (c) {
+			case '"':
+				sb.append(BACK_SLASH);
+				break;
+			case '\r':
+				break;
+			case '\n':
+				break;
+			default:
+				sb.append(c);
+			}
+		}
+		return sb.toString();
 	}
 
 	/** The Constant QUOT. */
@@ -352,14 +376,14 @@ public class StringKit {
 	/**
 	 * xml字符转义包括(<,>,',&,")五个字符.
 	 * 
-	 * @param string
+	 * @param source
 	 *            所需转义的字符串
 	 * 
 	 * @return 转义后的字符串
 	 * @throws IOException
 	 */
-	public static void writeEscapeXml(Writer writer, String string) throws IOException {
-		char[] chars = string.trim().toCharArray();
+	public static void escapeXml(Writer writer, String source) throws IOException {
+		char[] chars = source.toCharArray();
 		for (int i = 0; i < chars.length; i++) {
 			char c = chars[i];
 			switch (c) {
@@ -794,6 +818,5 @@ public class StringKit {
 		}
 		return str.substring(0, end);
 	}
-	
-	
+
 }

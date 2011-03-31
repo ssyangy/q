@@ -50,15 +50,20 @@ public class GetGroupFeed extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
 		List<Long> groupIds = this.groupDao.getGroupIdsByPeopleId(loginPeopleId);
-		String tab = context.getString("tab");
 
 		if (CollectionKit.isNotEmpty(groupIds)) {
+			int size = context.getInt("size", 10);
+			long startId = context.getIdLong("startId");
+			String tab = context.getString("tab");
 			WeiboPage page = new WeiboPage();
 			page.setStartIndex(0);
-			page.setSize(20);
+			page.setSize(size);
 			page.setGroupIds(groupIds);
 			if ("created".equals(tab)) {
 				page.setSenderId(loginPeopleId);
+			}
+			if (startId > 0) {
+				page.setStartId(startId);
 			}
 			List<Weibo> weibos = this.weiboDao.getWeibosByPage(page);
 			DaoHelper.injectWeiboModelsWithFrom(groupDao, weibos);
