@@ -67,7 +67,7 @@ public class GetGroupFrame extends Resource {
 		context.setModel("hotPeoples", hotGroupPeoples);
 
 		List<Weibo> hotWeibos = this.weiboDao.getHotGroupWeibosByGroupId(groupId, 3, 0);
-		DaoHelper.injectWeiboModelsWithSenderRealName(peopleDao, hotWeibos);
+		DaoHelper.injectWeiboModelsWithPeople(peopleDao, hotWeibos);
 		context.setModel("hotWeibos", hotWeibos);
 
 		List<Group> recommendGroups = this.groupDao.getRecommendGroupsByGroupId(groupId, 4, 0);

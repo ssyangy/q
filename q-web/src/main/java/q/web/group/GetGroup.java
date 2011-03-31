@@ -72,7 +72,8 @@ public class GetGroup extends Resource {
 			page.setSenderId(loginPeopleId);
 		}
 		List<Weibo> weibos = weiboDao.getWeibosByPage(page);
-		DaoHelper.injectWeiboModelsWithSenderRealName(peopleDao, weibos);
+		DaoHelper.injectWeiboModelsWithQuote(weiboDao, weibos);
+		DaoHelper.injectWeiboModelsWithPeople(peopleDao, weibos);
 		DaoHelper.injectWeiboModelsWithFrom(groupDao, weibos);
 		if (loginPeopleId > 0) {
 			DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);

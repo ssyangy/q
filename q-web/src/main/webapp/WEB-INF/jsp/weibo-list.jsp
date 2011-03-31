@@ -38,8 +38,8 @@
 			<div class="tweet-row">
 				<a href="" class="tweet-timestamp">${weibo.time}</a>
 				<span class="tweet-actions">
-					<button onclick="">赞</button>
-					<span class="link-sep">·</span>
+					<!--<button onclick="">赞</button>
+					<span class="link-sep">·</span>-->
 					<c:choose>
 						<c:when test="${weibo.unFav}">
 						<button onclick="favWeibo(this,${weibo.id})">收藏</button>

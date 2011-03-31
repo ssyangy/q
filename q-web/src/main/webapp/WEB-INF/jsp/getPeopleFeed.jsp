@@ -44,7 +44,13 @@
 			{{/quote}}
             <div class="tweet-row">
                 <a href="" class="tweet-timestamp">{{screenTime}}</a>
-                <span class="tweet-actions"><a href="">赞</a><a href="">转发</a><a href="">收藏</a><a href="">回复</a></span>
+                <span class="tweet-actions">
+					<!--<a href="">赞</a>
+					<span class="link-sep">·</span>-->
+					<a href="">收藏</a>
+					<span class="link-sep">·</span><a href="">转发</a>
+					<span class="link-sep">·</span><a href="">回复</a>
+				</span>
             </div>
         </div>
     </div>
@@ -66,7 +72,7 @@
 						    url: '${urlPrefix}/people/feed',
 						    type: 'GET',
 						    dataType: 'json',
-						    data: {size:2, startId:item.last().attr('weiboId')},
+						    data: {size:8, startId:parseInt(item.last().attr('weiboId'))-1},
 						    timeout: 5000,
 						    error: function(msg){
 						    },

@@ -68,12 +68,12 @@
 											<td> 
 												<div> 
 													<div class="avatar">
-														<a href="${urlPrefix}/people/${event.creatorId}">
-															<img src="${avatarUrlPrefix}/avatar2.jpg">
+														<a href="${urlPrefix}/people/${event.people.id}">
+															<img src="${avatarUrlPrefix}/${event.people.avatarPath}-24">
 														</a>
 													</div> 
 													<div class="name">
-														<a href="${urlPrefix}/people/${event.creatorId}">${event.creatorRealName}</a>
+														<a href="${urlPrefix}/people/${event.people.id}">${event.people.realName}</a>
 													</div> 
 												</div> 
 											</td> 
@@ -91,15 +91,15 @@
 					<div class="db-block"> 
 						<h3>参加的人：</h3> 
 						<div class="db-block-content"> 
-							<c:forEach items="${eventPeoples}" var="join">
+							<c:forEach items="${eventPeoples}" var="fo">
 							<div class="people-cell"> 
 								<div class="avatar">
-									<a href="${urlPrefix}/people/${join.peopleId}">
-										<img src="${avatarUrlPrefix}/avatar0.png">
+									<a href="${urlPrefix}/people/${fo.id}">
+										<img src="${avatarUrlPrefix}/${fo.avatarPath}-24">
 									</a>
 								</div> 
 								<div class="name">
-									<a href="${urlPrefix}/people/${join.peopleId}">${join.peopleRealName}</a>
+									<a href="${urlPrefix}/people/${fo.id}">${fo.realName}</a>
 								</div> 
 							</div>
 							</c:forEach> 

@@ -3,6 +3,9 @@
  */
 package q.web.weibo;
 
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
+
 import q.dao.WeiboDao;
 import q.domain.Status;
 import q.domain.Weibo;
@@ -37,6 +40,8 @@ public class AddWeibo extends Resource {
 		long senderId = context.getCookiePeopleId();
 		weibo.setSenderId(senderId);
 		String content = context.getString("content");
+		content = StringUtils.replaceChars(content, "\r\n", "");
+		content = StringEscapeUtils.escapeHtml(content);
 		weibo.setContent(content);
 		this.weiboDao.addWeibo(weibo);
 		

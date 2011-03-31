@@ -30,7 +30,7 @@
 								<div class="tweet-body">
 									<p>
 										<span class="author">
-											<a href="${urlPrefix}/people/${weibo.senderId}">${weibo.people.realName}</a>：
+											<a href="${urlPrefix}/people/${weibo.people.id}">${weibo.people.realName}</a>：
 										</span>
 										<a href="${urlPrefix}/weibo/${weibo.id}">
 											<q:omit maxLength="40">${weibo.content}</q:omit>

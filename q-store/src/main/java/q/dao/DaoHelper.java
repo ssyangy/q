@@ -437,4 +437,16 @@ public class DaoHelper {
 			}
 		}
 	}
+
+	/**
+	 * @param peopleDao
+	 * @param event
+	 * @throws SQLException 
+	 */
+	public static void injectEventWithPeople(PeopleDao peopleDao, Event event) throws SQLException {
+		if(event == null) {
+			return;
+		}
+		event.setPeople(peopleDao.getPeopleById(event.getCreatorId()));
+	}
 }

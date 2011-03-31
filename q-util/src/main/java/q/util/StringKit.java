@@ -13,11 +13,8 @@ import java.util.List;
  */
 
 public class StringKit {
-	/** The Constant QUOTE. */
-	public static final String QUOTE = "\\\\";
 
-	/** The Constant BACK_SLASH. */
-	public static final String BACK_SLASH = "\\\"";
+	public static final String BACK_SLASH = "\"";
 	private static final WordTokenizer LOWER_CASE_WITH_UNDERSCORES_TOKENIZER = new WordTokenizer() {
 		protected void startSentence(StringBuffer buffer, char ch) {
 			buffer.append(Character.toLowerCase(ch));
@@ -330,9 +327,6 @@ public class StringKit {
 			switch (c) {
 			case '"':
 				sb.append(BACK_SLASH);
-				break;
-			case '\\':
-				sb.append(QUOTE);
 				break;
 			default:
 				sb.append(c);
@@ -800,4 +794,6 @@ public class StringKit {
 		}
 		return str.substring(0, end);
 	}
+	
+	
 }
