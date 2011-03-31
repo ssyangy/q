@@ -83,7 +83,8 @@ public class GetFavoriteIndex extends Resource {
 			weiboModels.add(fav.getSource());
 		}
 		DaoHelper.injectWeiboModelsWithFrom(groupDao, weiboModels);
-		DaoHelper.injectWeiboModelsWithSenderRealName(peopleDao, weiboModels);
+		DaoHelper.injectWeiboModelsWithQuote(weiboDao, weiboModels);
+		DaoHelper.injectWeiboModelsWithPeople(peopleDao, weiboModels);
 		context.setModel("weibos", weiboModels);
 	}
 

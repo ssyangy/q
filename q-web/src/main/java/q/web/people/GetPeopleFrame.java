@@ -1,8 +1,8 @@
 package q.web.people;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import q.dao.DaoHelper;
 import q.dao.EventDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
@@ -13,6 +13,7 @@ import q.domain.Group;
 import q.domain.People;
 import q.domain.PeopleRelation;
 import q.domain.PeopleRelationStatus;
+import q.util.CollectionKit;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -85,8 +86,14 @@ public class GetPeopleFrame extends Resource {
 		followingPage.setSize(6);
 		followingPage.setStartIndex(0);
 		List<PeopleRelation> followings = this.peopleDao.getPeopleRelationsByPage(followingPage);
-		DaoHelper.injectPeopleRelationsWithToRealName(peopleDao, followings);
-		context.setModel("hotFollowings", followings);
+		if (CollectionKit.isNotEmpty(followings)) {
+			List<Long> followingIds = new ArrayList<Long>(followings.size());
+			for (PeopleRelation pr : followings) {
+				followingIds.add(pr.getToPeopleId());
+			}
+			List<People> followingPeoples = this.peopleDao.getPeoplesByIds(followingIds);
+			context.setModel("hotFollowings", followingPeoples);
+		}
 
 		PeopleRelationPage followerPage = new PeopleRelationPage();
 		followerPage.setToPeopleId(peopleId);
@@ -94,8 +101,14 @@ public class GetPeopleFrame extends Resource {
 		followerPage.setSize(6);
 		followerPage.setStartIndex(0);
 		List<PeopleRelation> followers = this.peopleDao.getPeopleRelationsByPage(followerPage);
-		DaoHelper.injectPeopleRelationsWithFromRealName(peopleDao, followers);
-		context.setModel("hotFollowers", followers);
+		if (CollectionKit.isNotEmpty(followers)) {
+			List<Long> followerIds = new ArrayList<Long>(followers.size());
+			for (PeopleRelation pr : followers) {
+				followerIds.add(pr.getFromPeopleId());
+			}
+			List<People> followerPeoples = this.peopleDao.getPeoplesByIds(followerIds);
+			context.setModel("hotFollowers", followerPeoples);
+		}
 	}
 
 	/*

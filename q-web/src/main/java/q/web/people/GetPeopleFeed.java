@@ -75,14 +75,14 @@ public class GetPeopleFeed extends Resource {
 			} else if ("replied".equals(tab)) {
 				WeiboReplyPage page = new WeiboReplyPage();
 				page.setStartIndex(0);
-				page.setSize(20);
+				page.setSize(context.getInt("size", 10));
 				page.setQuoteSenderIds(senderIds);
 				page.setSenderId(loginPeopleId);
 				weibos = weiboDao.getPageWeiboReply(page);
 				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
 			} else if ("favorite".equals(tab)) {
 				FavoritePage page = new FavoritePage();
-				page.setSize(20);
+				page.setSize(context.getInt("size", 10));
 				page.setStartIndex(0);
 				page.setCreatorId(loginPeopleId);
 				page.setSenderIds(senderIds);
