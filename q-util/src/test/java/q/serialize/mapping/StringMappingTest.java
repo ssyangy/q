@@ -32,7 +32,7 @@ public class StringMappingTest {
 		//mapping.write(writer, source, null, "json", "str", false);
 
 		System.out.println(writer.toString());
-		Assert.assertEquals("\"str\":\"\\\\'1234\\\\'\"", writer.toString());
+		Assert.assertEquals("\"str\":\"\\'1234\\'\"", writer.toString());
 	}
 
 	@Test

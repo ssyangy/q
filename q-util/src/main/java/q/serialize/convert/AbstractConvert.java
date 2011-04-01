@@ -19,10 +19,9 @@ import q.serialize.mapping.MappingException;
 import q.serialize.util.Utils;
 import q.util.DateKit;
 
-
 /**
  * NTS
- *  
+ * 
  * @author cilai
  * @author zixue
  * @since 1.0, 2010-3-26 下午01:37:39
@@ -43,77 +42,52 @@ public abstract class AbstractConvert implements Convert {
 		this.writer = writer;
 	}
 
-	public void convertPrimitiveMap(Mapping<?> componentKeyType,
-			Mapping<?> componentValueType, Map<?, ?> original,
-			ExceptionExpressInfo exceptionExpress, String mappingName)
-			throws MappingException {
+	public void convertPrimitiveMap(Mapping<?> componentKeyType, Mapping<?> componentValueType, Map<?, ?> original, ExceptionExpressInfo exceptionExpress, String mappingName) throws MappingException {
 		try {
-			convertStartTag(mappingName);
+			convertStartTag(mappingName, false);
 			Iterator<?> iter = original.entrySet().iterator();
 			for (; iter.hasNext();) {
-				Map.Entry<Object, Object> mapEntity = (Entry<Object, Object>) iter
-						.next();
+				Map.Entry<Object, Object> mapEntity = (Entry<Object, Object>) iter.next();
 				Object key = mapEntity.getKey();
 				Object value = mapEntity.getValue();
 
-				Object mappingKey = componentKeyType.mapping(key,
-						exceptionExpress, true);
-				Object mappingValue = componentValueType.mapping(value,
-						exceptionExpress, true);
+				Object mappingKey = componentKeyType.mapping(key, exceptionExpress, true);
+				Object mappingValue = componentValueType.mapping(value, exceptionExpress, true);
 				if (mappingKey != null) {
 					if (mappingValue != null) {
 						try {
-							writer.append(Utils.LEFT_ANGLE_BRACKET).append(
-									mappingKey.toString()).append(
-									Utils.RIGHT_ANGLE_BRACKET);
+							writer.append(Utils.LEFT_ANGLE_BRACKET).append(mappingKey.toString()).append(Utils.RIGHT_ANGLE_BRACKET);
 							writer.append(mappingValue.toString());
-							writer.append(Utils.LEFT_ANGLE_BRACKET).append(
-									Utils.BACK_SLASH).append(
-									mappingKey.toString()).append(
-									Utils.RIGHT_ANGLE_BRACKET);
+							writer.append(Utils.LEFT_ANGLE_BRACKET).append(Utils.BACK_SLASH).append(mappingKey.toString()).append(Utils.RIGHT_ANGLE_BRACKET);
 						} catch (IOException e) {
-							throw new MappingException(
-									"Error in PrimitiveMapMapping.writeMapToMap",
-									e);
+							throw new MappingException("Error in PrimitiveMapMapping.writeMapToMap", e);
 						}
 					}
 				}
 			}
-			convertEndTag(mappingName);
+			convertEndTag(mappingName, false);
 		} catch (Exception e) {
 			throw new MappingException(e);
 		}
 	}
 
-	public void convertPrimitivePojo(Mapping<?> componentKeyType,
-			Mapping<?> componentValueType, String str,
-			ExceptionExpressInfo exceptionExpress, String mappingName)
-			throws MappingException {
+	public void convertPrimitivePojo(Mapping<?> componentKeyType, Mapping<?> componentValueType, String str, ExceptionExpressInfo exceptionExpress, String mappingName) throws MappingException {
 		try {
 			String[] items = this.getStrings(str);
 			if (ArrayUtils.isEmpty(items)) {
 				for (String item : items) {
 					if (!StringUtils.isBlank(item)) {
 						String[] coms = StringUtils.split(item, "=");
-						Object mappingKey = componentKeyType.mapping(coms[0],
-								exceptionExpress, true);
-						Object mappingValue = componentValueType.mapping(
-								coms[1], exceptionExpress, true);
+						Object mappingKey = componentKeyType.mapping(coms[0], exceptionExpress, true);
+						Object mappingValue = componentValueType.mapping(coms[1], exceptionExpress, true);
 						if (mappingKey != null) {
 							if (mappingValue != null) {
 								try {
-									writer.append(Utils.LEFT_ANGLE_BRACKET)
-											.append(mappingKey.toString())
-											.append(Utils.RIGHT_ANGLE_BRACKET);
+									writer.append(Utils.LEFT_ANGLE_BRACKET).append(mappingKey.toString()).append(Utils.RIGHT_ANGLE_BRACKET);
 									writer.append(mappingValue.toString());
-									writer.append(Utils.LEFT_ANGLE_BRACKET)
-											.append(Utils.BACK_SLASH).append(
-													mappingKey.toString())
-											.append(Utils.RIGHT_ANGLE_BRACKET);
+									writer.append(Utils.LEFT_ANGLE_BRACKET).append(Utils.BACK_SLASH).append(mappingKey.toString()).append(Utils.RIGHT_ANGLE_BRACKET);
 								} catch (IOException e) {
-									throw new MappingException(
-											"Error in PrimitiveMapMapping.writeStringToMap",
-											e);
+									throw new MappingException("Error in PrimitiveMapMapping.writeStringToMap", e);
 								}
 							}
 						}
@@ -125,8 +99,7 @@ public abstract class AbstractConvert implements Convert {
 		}
 	}
 
-	public void convertDate(Date source, String mappingName)
-			throws MappingException {
+	public void convertDate(Date source, String mappingName) throws MappingException {
 		try {
 			String date2ymdhms = DateKit.date2Ymdhms(source);
 			this.convertString(date2ymdhms, mappingName);
@@ -135,24 +108,18 @@ public abstract class AbstractConvert implements Convert {
 		}
 	}
 
-	public void convertCollection(Mapping<?> componentMapping,
-			String componentName, Object source,
-			ExceptionExpressInfo exceptionExpress, String mappingName,
-			boolean isFromCollection) throws MappingException {
+	public void convertCollection(Mapping<?> componentMapping, String componentName, Object source, ExceptionExpressInfo exceptionExpress, String mappingName, boolean isFromCollection) throws MappingException {
 		try {
-			mappingName = convertCollectionBefore(mappingName, isFromCollection);
+			mappingName = convertCollectionBefore(mappingName, isFromCollection, true);
 			if (String.class == source.getClass()) {
 				String str = (String) source;
-				convertStringToCollection(componentMapping, componentName, str,
-						exceptionExpress, mappingName, isFromCollection);
+				convertStringToCollection(componentMapping, componentName, str, exceptionExpress, mappingName, isFromCollection);
 
 			} else if (Collection.class.isInstance(source)) {
 				Collection<Object> s = (Collection<Object>) source;
-				convertCollectionToCollection(componentMapping, componentName,
-						s, exceptionExpress, mappingName, isFromCollection);
+				convertCollectionToCollection(componentMapping, componentName, s, exceptionExpress, mappingName, isFromCollection);
 			} else if (source.getClass().isArray()) {
-				convertArrayToCollection(componentMapping, componentName,
-						source, exceptionExpress, mappingName, isFromCollection);
+				convertArrayToCollection(componentMapping, componentName, source, exceptionExpress, mappingName, isFromCollection);
 			}
 			this.convertCollectionDown(mappingName, isFromCollection);
 		} catch (Exception e) {
@@ -160,11 +127,9 @@ public abstract class AbstractConvert implements Convert {
 		}
 	}
 
-	public abstract String convertCollectionBefore(String mappingName,
-			boolean isFromCollection) throws MappingException;
+	public abstract String convertCollectionBefore(String mappingName, boolean isFromCollection, boolean isArray) throws MappingException;
 
-	public abstract void convertCollectionDown(String mappingName,
-			boolean isFromCollection) throws MappingException;
+	public abstract void convertCollectionDown(String mappingName, boolean isFromCollection) throws MappingException;
 
 	/**
 	 * 将符合格式的字符串写为数组.
@@ -185,10 +150,7 @@ public abstract class AbstractConvert implements Convert {
 	 * @throws MappingException
 	 *             the mapping exception
 	 */
-	public abstract void convertStringToCollection(Mapping<?> componentMapping,
-			String componentName, String str,
-			ExceptionExpressInfo exceptionExpress, String mappingName,
-			boolean isFromCollection) throws MappingException;
+	public abstract void convertStringToCollection(Mapping<?> componentMapping, String componentName, String str, ExceptionExpressInfo exceptionExpress, String mappingName, boolean isFromCollection) throws MappingException;
 
 	/**
 	 * 将Collection转为数组写出.
@@ -209,11 +171,7 @@ public abstract class AbstractConvert implements Convert {
 	 * @throws MappingException
 	 *             the mapping exception
 	 */
-	public abstract void convertCollectionToCollection(
-			Mapping<?> componentMapping, String componentName,
-			Collection<Object> s, ExceptionExpressInfo exceptionExpress,
-			String mappingName, boolean isFromCollection)
-			throws MappingException;
+	public abstract void convertCollectionToCollection(Mapping<?> componentMapping, String componentName, Collection<Object> s, ExceptionExpressInfo exceptionExpress, String mappingName, boolean isFromCollection) throws MappingException;
 
 	/**
 	 * 将数组写出.
@@ -234,10 +192,7 @@ public abstract class AbstractConvert implements Convert {
 	 * @throws MappingException
 	 *             the mapping exception
 	 */
-	public abstract void convertArrayToCollection(Mapping<?> componentMapping,
-			String componentName, Object source,
-			ExceptionExpressInfo exceptionExpress, String mappingName,
-			boolean isFromCollection) throws MappingException;
+	public abstract void convertArrayToCollection(Mapping<?> componentMapping, String componentName, Object source, ExceptionExpressInfo exceptionExpress, String mappingName, boolean isFromCollection) throws MappingException;
 
 	/**
 	 * 写数组开始标签.
@@ -250,8 +205,7 @@ public abstract class AbstractConvert implements Convert {
 	 * @throws MappingException
 	 *             the mapping exception
 	 */
-	public abstract void convertCollectionStart(String mappingName)
-			throws MappingException;
+	public abstract void convertCollectionStart(String mappingName) throws MappingException;
 
 	/**
 	 * 写数组结束标签.
@@ -264,8 +218,7 @@ public abstract class AbstractConvert implements Convert {
 	 * @throws MappingException
 	 *             the mapping exception
 	 */
-	public abstract void convertCollectionEnd(String mappingName)
-			throws MappingException;
+	public abstract void convertCollectionEnd(String mappingName) throws MappingException;
 
 	/**
 	 * 将符合格式的字符串解析为字符串数组，如{abc=1,d=2}.

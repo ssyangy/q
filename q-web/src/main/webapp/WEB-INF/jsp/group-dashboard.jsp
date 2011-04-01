@@ -31,12 +31,12 @@
 								<c:forEach items="${hotWeibos}" var="weibo">
 								<div class="avatar">
 									<a href="${urlPrefix}/people/${weibo.senderId}">
-										<img src="${avatarUrlPrefix}/1.png" width="24" height="24"/>
+										<img src="${avatarUrlPrefix}/${weibo.people.avatarPath}-24" width="24" height="24"/>
 									</a>
 								</div>
 								<div class="tweet-body">
 									<p>
-										<span class="author"><a href="${urlPrefix}/people/${weibo.senderId}">${weibo.senderRealName}</a>：</span>
+										<span class="author"><a href="${urlPrefix}/people/${weibo.people.id}">${weibo.people.realName}</a>：</span>
 										<a href="${urlPrefix}/weibo/${weibo.id}">
 											<q:omit maxLength="40">${weibo.content}</q:omit>
 										</a>
@@ -52,17 +52,18 @@
 						<div class="more"><a href="${urlPrefix}/group/${group.id}/people">更多...</a></div> 
 						<h3>新成员：</h3> 
 						<div class="db-block-content">
-							<c:forEach items="${newPeoples}" var="people"> 
+							<c:forEach items="${newPeoples}" var="fo"> 
 							<div class="member-cell"> 
 								<div class="avatar">
-									<a href="${urlPrefix}/people/${people.id}"><img src="${avatarUrlPrefix}/avatar3.jpg"></a>
-								</div> 
+									<a href="${urlPrefix}/people/${fo.id}">
+										<img src="${avatarUrlPrefix}/${fo.avatarPath}-24">
+									</a>
+								</div>
 								<div class="name-action"> 
 									<div class="name">
-										<a href="${urlPrefix}/people/${people.id}">${people.realName}</a>
-									</div> 
-									<div class="action"><button class="mini-button">向${people.gender.cncall}示好</button></div> 
-								</div> 
+										<a href="${urlPrefix}/people/${fo.id}">${fo.realName}</a>
+									</div>
+								</div>
 							</div>
 							</c:forEach>
 							<div class="clearfix2"></div> 
@@ -72,17 +73,18 @@
 						<div class="more"><a href="${urlPrefix}/group/${group.id}/people">更多...</a></div> 
 						<h3>活跃成员：</h3> 
 						<div class="db-block-content">
-							<c:forEach items="${newPeoples}" var="people"> 
+							<c:forEach items="${newPeoples}" var="fo"> 
 							<div class="member-cell"> 
 								<div class="avatar">
-									<a href="${urlPrefix}/people/${people.id}" ><img src="${avatarUrlPrefix}/avatar3.jpg"></a>
-								</div> 
+									<a href="${urlPrefix}/people/${fo.id}">
+										<img src="${avatarUrlPrefix}/${fo.avatarPath}-24">
+									</a>
+								</div>
 								<div class="name-action"> 
 									<div class="name">
-										<a href="${urlPrefix}/people/${people.id}" >${people.realName}</a>
-									</div> 
-									<div class="action"><button class="mini-button">拜一拜</button></div> 
-								</div> 
+										<a href="${urlPrefix}/people/${fo.id}">${fo.realName}</a>
+									</div>
+								</div>
 							</div>
 							</c:forEach> 
 							<div class="clearfix2"></div> 

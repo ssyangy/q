@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.apache.commons.lang.ArrayUtils;
 
-import q.serialize.mapping.ArrayMapping;
 import q.serialize.mapping.ExceptionExpressInfo;
 import q.serialize.mapping.Mapping;
 import q.serialize.mapping.MappingException;
@@ -19,7 +18,6 @@ import q.serialize.mapping.Switcher;
 import q.serialize.util.Utils;
 import q.util.ReflectKit;
 import q.util.StringKit;
-
 
 /**
  * 将对象转换成JSON格式
@@ -34,11 +32,9 @@ public class JSONConvert extends AbstractConvert {
 		super(writer);
 	}
 
-	public void convertBefore(MemberMapping<?> memberMapping)
-			throws MappingException {
+	public void convertBefore(MemberMapping<?> memberMapping) throws MappingException {
 		try {
-			if (null != memberMapping.getMappingName()
-					|| memberMapping.getMapping() instanceof ArrayMapping) {
+			if (null != memberMapping.getMappingName()) {
 				writer.append(Utils.LB);
 			}
 		} catch (Exception e) {
@@ -47,11 +43,9 @@ public class JSONConvert extends AbstractConvert {
 
 	}
 
-	public void convertDown(MemberMapping<?> memberMapping)
-			throws MappingException {
+	public void convertDown(MemberMapping<?> memberMapping) throws MappingException {
 		try {
-			if (null != memberMapping.getMappingName()
-					|| memberMapping.getMapping() instanceof ArrayMapping) {
+			if (null != memberMapping.getMappingName()) {
 				writer.append(Utils.RB);
 			}
 		} catch (Exception e) {
@@ -60,12 +54,9 @@ public class JSONConvert extends AbstractConvert {
 
 	}
 
-	public void convertSwitcher(Object source, String mappingName,
-			Switcher switcher) throws MappingException {
+	public void convertSwitcher(Object source, String mappingName, Switcher switcher) throws MappingException {
 		try {
-			writer.append(Utils.DOUBLE_QUOTE).append(mappingName.trim())
-					.append(Utils.DOUBLE_QUOTE).append(Utils.COLON).append(
-							Utils.DOUBLE_QUOTE);
+			writer.append(Utils.DOUBLE_QUOTE).append(mappingName.trim()).append(Utils.DOUBLE_QUOTE).append(Utils.COLON).append(Utils.DOUBLE_QUOTE);
 			writer.append(switcher.switchCase(source).toString());
 			writer.append(Utils.DOUBLE_QUOTE);
 		} catch (Exception e) {
@@ -73,8 +64,7 @@ public class JSONConvert extends AbstractConvert {
 		}
 	}
 
-	public void convertBoolean(Boolean source, String mappingName)
-			throws MappingException {
+	public void convertBoolean(Boolean source, String mappingName) throws MappingException {
 		try {
 			this.appendMappingName(writer, source, mappingName);
 			writer.append(source.toString());
@@ -82,76 +72,65 @@ public class JSONConvert extends AbstractConvert {
 			throw new MappingException(e);
 		}
 	}
-	
+
 	private void appendMappingName(Writer writer, Object source, String mappingName) throws IOException {
 		if (mappingName != null) {
-			writer.append(Utils.DOUBLE_QUOTE).append(mappingName).append(
-					Utils.DOUBLE_QUOTE).append(Utils.COLON);
+			writer.append(Utils.DOUBLE_QUOTE).append(mappingName).append(Utils.DOUBLE_QUOTE).append(Utils.COLON);
 		}
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.taobao.top.traffic.convert.Convert#convertByte(java.lang.Byte, java.lang.String)
 	 */
-	public void convertByte(Byte source, String mappingName)
-			throws MappingException, IOException {
-			this.appendMappingName(writer, source, mappingName);
-			writer.append(source.toString());
+	public void convertByte(Byte source, String mappingName) throws MappingException, IOException {
+		this.appendMappingName(writer, source, mappingName);
+		writer.append(source.toString());
 	}
 
-	public void convertInteger(Integer source, String mappingName)
-			throws MappingException, IOException {
-			this.appendMappingName(writer, source, mappingName);
-			writer.append(source.toString());
-	}
-	
-	public void convertDouble(Double source, String mappingName)
-			throws MappingException, IOException {
-			this.appendMappingName(writer, source, mappingName);
-			writer.append(source.toString());
+	public void convertInteger(Integer source, String mappingName) throws MappingException, IOException {
+		this.appendMappingName(writer, source, mappingName);
+		writer.append(source.toString());
 	}
 
-	public void convertFloat(Float source, String mappingName)
-			throws MappingException, IOException {
-			this.appendMappingName(writer, source, mappingName);
-			writer.append(source.toString());
+	public void convertDouble(Double source, String mappingName) throws MappingException, IOException {
+		this.appendMappingName(writer, source, mappingName);
+		writer.append(source.toString());
 	}
 
-	public void convertLong(Long source, String mappingName)
-			throws IOException {
-			this.appendMappingName(writer, source, mappingName);
-			writer.append(source.toString());
+	public void convertFloat(Float source, String mappingName) throws MappingException, IOException {
+		this.appendMappingName(writer, source, mappingName);
+		writer.append(source.toString());
 	}
 
-	public void convertString(String source, String mappingName)
-			throws IOException {
+	public void convertLong(Long source, String mappingName) throws IOException {
+		this.appendMappingName(writer, source, mappingName);
+		writer.append(source.toString());
+	}
+
+	public void convertString(String source, String mappingName) throws IOException {
 		this.appendMappingName(writer, source, mappingName);
 		writer.append(Utils.DOUBLE_QUOTE);
-		StringKit.writeEscapeJson(writer, source);
+		StringKit.escapeJson(writer, source);
 		writer.append(Utils.DOUBLE_QUOTE);
 	}
 
-	public void convertCharacter(Character source, String mappingName)
-			throws MappingException {
+	public void convertCharacter(Character source, String mappingName) throws MappingException {
 		try {
 			if (mappingName != null)
-				writer.append(Utils.DOUBLE_QUOTE).append(mappingName).append(
-						Utils.DOUBLE_QUOTE).append(Utils.COLON);
-			writer.append(Utils.DOUBLE_QUOTE).append(source.toString()).append(
-					Utils.DOUBLE_QUOTE);
+				writer.append(Utils.DOUBLE_QUOTE).append(mappingName).append(Utils.DOUBLE_QUOTE).append(Utils.COLON);
+			writer.append(Utils.DOUBLE_QUOTE).append(source.toString()).append(Utils.DOUBLE_QUOTE);
 		} catch (Exception e) {
 			throw new MappingException(e);
 		}
 	}
 
-	public void convertMap(Map<String, MemberMapping<?>> memberMappings,
-			Map<?, ?> original, ExceptionExpressInfo exceptionExpress,
-			String mappingName, boolean isFromCollection)
-			throws MappingException {
+	public void convertMap(Map<String, MemberMapping<?>> memberMappings, Map<?, ?> original, ExceptionExpressInfo exceptionExpress, String mappingName, boolean isFromCollection) throws MappingException {
 		try {
 			int count = 0;
 			if (original.size() >= 1) {
-				convertStartTag(mappingName);
+				convertStartTag(mappingName, false);
 			}
 			for (MemberMapping<?> mm : memberMappings.values()) {
 				// XXX only suport Map<String,Object>, if key is not a String,
@@ -168,7 +147,7 @@ public class JSONConvert extends AbstractConvert {
 				}
 			}
 			if (original.size() >= 1) {
-				convertEndTag(mappingName);
+				convertEndTag(mappingName, false);
 			}
 		} catch (Exception e) {
 			throw new MappingException(e);
@@ -176,18 +155,14 @@ public class JSONConvert extends AbstractConvert {
 
 	}
 
-	public void convertPojo(Map<String, MemberMapping<?>> memberMappings,
-			Object source, ExceptionExpressInfo exceptionExpress,
-			String mappingName, 
-			String mappingPreFix, boolean isFromCollection)
-			throws MappingException {
+	public void convertPojo(Map<String, MemberMapping<?>> memberMappings, Object source, ExceptionExpressInfo exceptionExpress, String mappingName, String mappingPreFix, boolean isFromCollection) throws MappingException {
 		try {
 			// 如果prefix存在,不写出对象如location:{state:"aaa"},而写出location.state:"aaa"
 			boolean outPutPrefix = true;
 			if (mappingPreFix == null)
 				outPutPrefix = false;
 			if (!outPutPrefix)
-				convertStartTag(mappingName);
+				convertStartTag(mappingName, false);
 
 			if (memberMappings != null && memberMappings.size() != 0) {
 				int count = 0;
@@ -200,8 +175,7 @@ public class JSONConvert extends AbstractConvert {
 					if (keys != null) {
 						value = ReflectKit.invoke(source, keys);
 					} else if (key != null) {
-						Method m = ReflectKit.getCachedGetter(mm, source
-								.getClass(), key);
+						Method m = ReflectKit.getCachedGetter(mm, source.getClass(), key);
 						value = ReflectKit.invokeGetter(source, m);
 					}
 					if (value != null) {
@@ -214,8 +188,7 @@ public class JSONConvert extends AbstractConvert {
 						// 故临时解决方案为修改MappingName,在write完成后，设置回原来的MappingName
 						String realMappingName = mm.getMappingName();
 						if (outPutPrefix) {
-							mm.setMappingName(mappingPreFix + "."
-									+ realMappingName);
+							mm.setMappingName(mappingPreFix + "." + realMappingName);
 						}
 
 						value = OutputHelper.changeValue(value);
@@ -231,20 +204,18 @@ public class JSONConvert extends AbstractConvert {
 			}
 			// 如果prefix存在,不写出对象如location:{state:"aaa"},而写出location.state:"aaa"
 			if (!outPutPrefix)
-				convertEndTag(mappingName);
+				convertEndTag(mappingName, false);
 
 		} catch (Exception e) {
 			throw new MappingException(e);
 		}
 	}
 
-	public void convertStartTag(String mappingName) throws MappingException {
+	public void convertStartTag(String mappingName, boolean isArray) throws MappingException {
 		try {
 			if (null != mappingName) {
-				writer.append(Utils.DOUBLE_QUOTE).append(mappingName).append(
-						Utils.DOUBLE_QUOTE).append(Utils.COLON)
-						.append(Utils.LB);
-			} else {
+				writer.append(Utils.DOUBLE_QUOTE).append(mappingName).append(Utils.DOUBLE_QUOTE).append(Utils.COLON).append(Utils.LB);
+			} else if (!isArray) {
 				writer.append(Utils.LB);
 			}
 		} catch (Exception e) {
@@ -252,38 +223,36 @@ public class JSONConvert extends AbstractConvert {
 		}
 	}
 
-	public void convertEndTag(String mappingName) throws MappingException {
+	public void convertEndTag(String mappingName, boolean isArray) throws MappingException {
 		try {
-			writer.append(Utils.RB);
+			if (null != mappingName || !isArray) {
+				writer.append(Utils.RB);
+			}  
 		} catch (Exception e) {
 			throw new MappingException(e);
 		}
 
 	}
 
-	public String convertCollectionBefore(String mappingName,
-			boolean isFromCollection) throws MappingException {
+	public String convertCollectionBefore(String mappingName, boolean isFromCollection, boolean isArray) throws MappingException {
 		if (isFromCollection) {
 			// 如果是JSON格式，并且该Array是一个数组的子项，则mappingName不写出
 			mappingName = null;
 		} else {
-			convertStartTag(mappingName);
+			convertStartTag(mappingName, isArray);
 		}
 		return mappingName;
 
 	}
 
-	public void convertCollectionDown(String mappingName,
-			boolean isFromCollection) throws MappingException {
+	public void convertCollectionDown(String mappingName, boolean isFromCollection) throws MappingException {
 
-		if (!isFromCollection)
-			convertEndTag(mappingName);
+		if (!isFromCollection) {
+			convertEndTag(mappingName, true);
+		}
 	}
 
-	public void convertStringToCollection(Mapping<?> componentMapping,
-			String componentName, String str,
-			ExceptionExpressInfo exceptionExpress, String mappingName,
-			boolean isFromCollection) throws MappingException {
+	public void convertStringToCollection(Mapping<?> componentMapping, String componentName, String str, ExceptionExpressInfo exceptionExpress, String mappingName, boolean isFromCollection) throws MappingException {
 		try {
 			int count = 0;
 			String[] items = this.getStringsByComma(str);
@@ -299,8 +268,7 @@ public class JSONConvert extends AbstractConvert {
 						if (i > 0) {// json格式输出逗号
 							writer.append(Utils.COMMA);
 						}
-						componentMapping.write(this, items[i].trim(),
-								exceptionExpress, componentName, true);
+						componentMapping.write(this, items[i].trim(), exceptionExpress, componentName, true);
 						count++;
 					}
 					// 此处被注释掉了，原是担心writer的buffer会溢出
@@ -329,10 +297,7 @@ public class JSONConvert extends AbstractConvert {
 		}
 	}
 
-	public void convertCollectionToCollection(Mapping<?> componentMapping,
-			String componentName, Collection<Object> s,
-			ExceptionExpressInfo exceptionExpress, String mappingName,
-			boolean isFromCollection) throws MappingException {
+	public void convertCollectionToCollection(Mapping<?> componentMapping, String componentName, Collection<Object> s, ExceptionExpressInfo exceptionExpress, String mappingName, boolean isFromCollection) throws MappingException {
 		try {
 			if (!s.isEmpty()) {
 				int count = 0;
@@ -348,8 +313,7 @@ public class JSONConvert extends AbstractConvert {
 						if (i > 0) {// json格式输出逗号
 							writer.append(Utils.COMMA);
 						}
-						componentMapping.write(this, obj, exceptionExpress,
-								componentName, true);
+						componentMapping.write(this, obj, exceptionExpress, componentName, true);
 						count++;
 						i++;
 					}
@@ -380,10 +344,7 @@ public class JSONConvert extends AbstractConvert {
 		}
 	}
 
-	public void convertArrayToCollection(Mapping<?> componentMapping,
-			String componentName, Object source,
-			ExceptionExpressInfo exceptionExpress, String mappingName,
-			boolean isFromCollection) throws MappingException {
+	public void convertArrayToCollection(Mapping<?> componentMapping, String componentName, Object source, ExceptionExpressInfo exceptionExpress, String mappingName, boolean isFromCollection) throws MappingException {
 		try {
 
 			int l = Array.getLength(source);
@@ -400,8 +361,7 @@ public class JSONConvert extends AbstractConvert {
 						if (i > 0) {// json格式输出逗号
 							writer.append(Utils.COMMA);
 						}
-						componentMapping.write(this, Array.get(source, i),
-								exceptionExpress, componentName, true);
+						componentMapping.write(this, Array.get(source, i), exceptionExpress, componentName, true);
 						count++;
 					}
 				}
@@ -416,8 +376,7 @@ public class JSONConvert extends AbstractConvert {
 		}
 	}
 
-	public void convertCollectionEnd(String mappingName)
-			throws MappingException {
+	public void convertCollectionEnd(String mappingName) throws MappingException {
 		try {
 			writer.append(Utils.RSB);
 		} catch (Exception e) {
@@ -426,13 +385,10 @@ public class JSONConvert extends AbstractConvert {
 
 	}
 
-	public void convertCollectionStart(String mappingName)
-			throws MappingException {
+	public void convertCollectionStart(String mappingName) throws MappingException {
 		try {
 			if (null != mappingName) {
-				writer.append(Utils.DOUBLE_QUOTE).append(mappingName).append(
-						Utils.DOUBLE_QUOTE).append(Utils.COLON).append(
-						Utils.LSB);
+				writer.append(Utils.DOUBLE_QUOTE).append(mappingName).append(Utils.DOUBLE_QUOTE).append(Utils.COLON).append(Utils.LSB);
 			} else {
 				writer.append(Utils.LSB);
 			}
@@ -449,8 +405,7 @@ public class JSONConvert extends AbstractConvert {
 		}
 	}
 
-	public String processMappingName(String mappingName,
-			boolean isFromCollection) {
+	public String processMappingName(String mappingName, boolean isFromCollection) {
 		if (isFromCollection)
 			mappingName = null;
 		return mappingName;
@@ -459,7 +414,5 @@ public class JSONConvert extends AbstractConvert {
 	public String getFormat() {
 		return Utils.JSON_FORMAT;
 	}
-
-	
 
 }

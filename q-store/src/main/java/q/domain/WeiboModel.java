@@ -22,12 +22,8 @@ public abstract class WeiboModel extends AbstractDomain implements Serializable 
 	private long quoteWeiboId;
 
 	private long quoteSenderId;
-	
+
 	private String quoteSenderRealName;
-
-	private long quoteWeiboContent;
-
-	private int quoteWeiboStatus;
 
 	private long replyWeiboId;
 
@@ -44,6 +40,26 @@ public abstract class WeiboModel extends AbstractDomain implements Serializable 
 	private String fromPostfix;
 
 	private boolean fav;
+
+	private People people;
+	
+	private WeiboModel quote;
+	
+	public WeiboModel getQuote() {
+		return quote;
+	}
+
+	public void setQuote(WeiboModel quote) {
+		this.quote = quote;
+	}
+
+	public People getPeople() {
+		return people;
+	}
+
+	public void setPeople(People people) {
+		this.people = people;
+	}
 
 	public void setFromPostfix(String fromPostfix) {
 		this.fromPostfix = fromPostfix;
@@ -95,10 +111,6 @@ public abstract class WeiboModel extends AbstractDomain implements Serializable 
 
 	public void setStatus(int status) {
 		this.status = status;
-	}
-
-	public boolean isQuote() {
-		return this.quoteWeiboId > 0;
 	}
 
 	public String getSenderRealName() {
@@ -174,22 +186,6 @@ public abstract class WeiboModel extends AbstractDomain implements Serializable 
 	}
 
 	public abstract String getViewName();
-
-	public long getQuoteWeiboContent() {
-		return quoteWeiboContent;
-	}
-
-	public void setQuoteWeiboContent(long quoteContent) {
-		this.quoteWeiboContent = quoteContent;
-	}
-
-	public int getQuoteWeiboStatus() {
-		return quoteWeiboStatus;
-	}
-
-	public void setQuoteWeiboStatus(int quoteStatus) {
-		this.quoteWeiboStatus = quoteStatus;
-	}
 
 	public String getQuoteSenderRealName() {
 		return quoteSenderRealName;

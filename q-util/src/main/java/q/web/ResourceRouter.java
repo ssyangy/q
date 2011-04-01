@@ -28,11 +28,6 @@ import q.web.exception.PeopleNotLoginException;
  * 
  */
 public class ResourceRouter implements Controller, ApplicationContextAware {
-	/**
-	 *
-	 */
-	private static final String MEDIA_TYPE_APPLICATION_JSON = "application/json";
-	private static final String MEDIA_TYPE_APPLICATION_JSON_TEXT = "text/javascript";
 
 	public static final char PATH_SPLIT = '/';
 	public static final String HTTP_METHOD_POST = "post";
@@ -93,10 +88,10 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 		this.staticUrlPrefix = staticUrlPrefix;
 	}
 
-	private String avatarUrlPrefix;
+	private String imageUrl;
 
-	public void setAvatarUrlPrefix(String avatarUrlPrefix) {
-		this.avatarUrlPrefix = avatarUrlPrefix;
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	private Set<String> needLoginResources;
@@ -124,14 +119,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 			return null;
 		} else {
 			ResourceContext context = toResourceContext(request, response, path, segs); // construct resource context
-			String accept = request.getHeader("Accept");
-			boolean isJson = false;
-			if (accept != null) {
-				if (accept.startsWith(MEDIA_TYPE_APPLICATION_JSON) || accept.startsWith(MEDIA_TYPE_APPLICATION_JSON_TEXT)) { // do json mime
-					isJson = true; // is json api call
-				}
-			}
-
+			boolean isJson = context.isApiRequest();
 			if (this.needLoginResources != null && this.needLoginResources.contains(resource.getName())) { // request resource need visitor login first
 				if (context.getCookiePeopleId() <= 0) { // visitor logoff
 					if (isJson) {
@@ -168,15 +156,12 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 	}
 
 	private void complementModel(ResourceContext context) {
-		if (this.urlPrefix != null)
-			context.setModel("urlPrefix", this.urlPrefix);
-		if (this.contextPath != null)
-			context.setModel("contextPath", this.contextPath);
-		if (this.staticUrlPrefix != null) {
-			context.setModel("staticUrlPrefix", this.staticUrlPrefix);
-		}
-		if (this.avatarUrlPrefix != null) {
-			context.setModel("avatarUrlPrefix", this.avatarUrlPrefix);
+		context.setModel("urlPrefix", this.urlPrefix);
+		context.setModel("contextPath", this.contextPath);
+		context.setModel("staticUrlPrefix", this.staticUrlPrefix);
+		context.setModel("imageUrl", this.imageUrl);
+		if (this.imageUrl != null) {
+			context.setModel("avatarUrlPrefix", this.imageUrl + "/a");
 		}
 		context.setModel("loginCookie", context.getLoginCookie());
 	}

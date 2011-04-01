@@ -26,7 +26,7 @@
 		<property name="urlPrefix" value="${q.url.prefix}" />
 		<property name="contextPath" value="${q.context.path}" />
 		<property name="staticUrlPrefix" value="${q.static.url.prefix}" />
-		<property name="avatarUrlPrefix" value="${q.avatar.url.prefix}" />
+		<property name="imageUrl" value="${q.image.url}" />
 		<property name="defaultViewResolver">
 			<bean class="q.web.DefaultViewResolver" />
 		</property>
@@ -106,6 +106,24 @@
 							</key>
 							<value>/WEB-INF/json/check.xml</value>
 						</entry>
+						<entry>
+							<key>
+								<value>getPeopleFeed:weibos</value>
+							</key>
+							<value>/WEB-INF/json/weibo-list.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>getGroupFeed:weibos</value>
+							</key>
+							<value>/WEB-INF/json/weibo-list.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>getGroup:weibos</value>
+							</key>
+							<value>/WEB-INF/json/weibo-list.xml</value>
+						</entry>								
 					</map>
 				</property>
 			</bean>
@@ -411,14 +429,18 @@
 	<bean id="addProfileAvatar" class="q.web.people.AddProfileAvatar">
 	</bean>
 	<bean id="addAvatarEdit" class="q.web.people.AddAvatarEdit">
+		<property name="imageUrl" value="${q.image.url}" />
+		<property name="imageUploadUrl" value="${q.image.upload.url}" />
 	</bean>
 	<bean id="addAvatar" class="q.web.people.AddAvatar">
+		<property name="imageUrl" value="${q.image.url}" />
+		<property name="imageUploadUrl" value="${q.image.upload.url}" />
 	</bean>
 	<bean id="getProfileInterest" class="q.web.people.GetProfileInterest">
-	    <property name="peopleDao" ref="peopleDao" />
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="addProfileInterest" class="q.web.people.AddProfileInterest">
-	    <property name="peopleDao" ref="peopleDao" />
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 
     <!-- setting web -->

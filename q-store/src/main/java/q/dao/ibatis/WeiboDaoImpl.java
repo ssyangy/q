@@ -16,6 +16,7 @@ import q.domain.WeiboJoinGroup;
 import q.domain.WeiboReply;
 import q.util.CollectionKit;
 import q.util.IdCreator;
+import q.util.StringKit;
 
 /**
  * @author seanlinwang
@@ -33,6 +34,7 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 	@Override
 	public void addWeibo(Weibo weibo) throws SQLException {
 		weibo.setId(IdCreator.getLongId());
+		weibo.setContent(StringKit.escapeJson(weibo.getContent()));
 		this.sqlMapClient.insert("insertWeibo", weibo);
 	}
 
@@ -65,7 +67,7 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 		}
 		return getWeibosByIds(ids, true);
 	}
-	
+
 	@Override
 	public List<Weibo> getHotGroupWeibosByGroupId(long groupId, int limit, int start) throws SQLException {
 		WeiboPage page = new WeiboPage();
@@ -79,17 +81,17 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 	public List<Weibo> getWeibosByIds(List<Long> ids, boolean needDesc) throws SQLException {
 		Map<String, Object> query = new HashMap<String, Object>();
 		query.put("ids", ids);
-		query.put("desc", needDesc ? new Object(): null);
+		query.put("desc", needDesc ? new Object() : null);
 		@SuppressWarnings("unchecked")
 		List<Weibo> weibos = (List<Weibo>) this.sqlMapClient.queryForList("selectWeibosByIds", query);
 		return weibos;
 	}
-	
+
 	@Override
 	public List<WeiboReply> getWeiboRepliesByIds(List<Long> repliyIds, boolean needDesc) throws SQLException {
 		Map<String, Object> query = new HashMap<String, Object>();
 		query.put("ids", repliyIds);
-		query.put("desc", needDesc ? new Object(): null);
+		query.put("desc", needDesc ? new Object() : null);
 		@SuppressWarnings("unchecked")
 		List<WeiboReply> replies = (List<WeiboReply>) this.sqlMapClient.queryForList("selectWeiboRepliesByIds", query);
 		return replies;
@@ -164,7 +166,9 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 		return (WeiboJoinGroup) this.sqlMapClient.queryForObject("selectWeiboJoinGroupByWeiboId", weiboId);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.dao.WeiboDao#getHotWeibosByGroupIds(java.util.List, int)
 	 */
 	@Override

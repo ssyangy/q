@@ -71,7 +71,6 @@ public class ApiArrayItemNameTest extends MappingTestBase {
 
 		String string = writeJson(c);
 		String string2 = writeXml(c);
-System.out.println(string2);
 		Assert.assertEquals(string, "{\"string\":{\"str\":[\"aaaa\"]}}");
 		Assert.assertEquals(string2,
 				"<string list=\"true\"><str>aaaa</str></string>");

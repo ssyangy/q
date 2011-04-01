@@ -21,7 +21,7 @@
 		<div class="people">
 			<div class="avatar">
 				<a href="${urlPrefix}/people/${people.id}">
-					<img height="48" width="48" src="${avatarUrlPrefix}/1.png"/>
+					<img height="48" width="48" src="${avatarUrlPrefix}/${people.avatarPath}-48"/>
 				</a>								
 			</div>
 			<div class="people-info-block">

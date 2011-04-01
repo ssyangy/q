@@ -3,7 +3,7 @@
 <%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
 <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix stream-tabs">
 <c:choose>
-<c:when test="${'' == param['tab']}">
+<c:when test="${null == param['tab']}">
 	<li class="tab-text ui-state-default ui-corner-top ui-tabs-selected ui-state-active">
 		<a class="tab-text" >新微博</a>
 	</li>

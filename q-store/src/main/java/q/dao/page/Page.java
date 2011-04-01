@@ -19,7 +19,7 @@ public class Page implements Serializable{
 
 	private Integer startIndex;
 
-	private Integer startId;
+	private Long startId;
 
 	private Integer size;
 
@@ -39,11 +39,11 @@ public class Page implements Serializable{
 		this.startIndex = startIndex;
 	}
 
-	public Integer getStartId() {
+	public Long getStartId() {
 		return startId;
 	}
 
-	public void setStartId(Integer startId) {
+	public void setStartId(Long startId) {
 		this.startId = startId;
 	}
 

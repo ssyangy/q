@@ -6,15 +6,9 @@
 <head>
 	<jsp:include page="head.jsp" />
 	<title>好友新鲜事</title>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			//$('#tabs').tabs();
-			//$tabs.tabs('select', 0);
-		});
-	</script>	
 </head>
-<body>
-	<div id="doc">
+<body onResize="ReSet()" onLoad="ReSet()">
+	<div id="body" style="padding-bottom:0px;overflow-y:auto; overflow-x:hidden;">
 		<jsp:include page="top.jsp" />
 		<div id="page-outer">
 			<div id="page-container">
@@ -22,19 +16,17 @@
 					<jsp:include page="people-feed-head.jsp"></jsp:include>
 					<div class="stream-manager">
 						<div id="tabs" class="ui-tabs ui-widget">
-							<jsp:include page="people-feed-tag.jsp">
-								<jsp:param value="${param['tab']}" name="tab"/>
-							</jsp:include>
-							<div id="tabs-1">
-								<c:choose>
-								<c:when test="${'replied' == param['tab']}">
-									<jsp:include page="reply-list.jsp" />
-								</c:when>
-								<c:otherwise>
-									<jsp:include page="weibo-list.jsp" />
-								</c:otherwise>
-								</c:choose>
-							</div>
+							<jsp:include page="people-feed-tag.jsp"/>
+							<c:choose>
+							<c:when test="${'replied' == param['tab']}">
+								<jsp:include page="reply-list.jsp" />
+							</c:when>
+							<c:otherwise>
+								<jsp:include page="weibo-list.jsp" >
+									<jsp:param name="feedUrl" value="${urlPrefix}/people/feed"/>
+								</jsp:include>
+							</c:otherwise>
+							</c:choose>
 						</div>					
 					</div>
 				</div>

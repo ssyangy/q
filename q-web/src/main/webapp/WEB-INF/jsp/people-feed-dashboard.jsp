@@ -6,7 +6,7 @@
 		<div class="db-header-inner">
 			<div class="avatar">
 				<a href="${urlPrefix}/people/${people.id}">
-					<img src="${avatarUrlPrefix}/avatar0.png">
+					<img src="${avatarUrlPrefix}/${people.avatarPath}-48">
 				</a>
 			</div>
 			<div class="my-brief">
@@ -26,15 +26,15 @@
 			<div class="db-block">
 				<h3>新粉丝：</h3>
 				<div class="db-block-content">
-					<c:forEach items="${newFollowers}" var="relation">
+					<c:forEach items="${newFollowers}" var="fo">
 					<div class="people-cell">
 						<div class="avatar">
-							<a href="${urlPrefix}/people/${relation.fromPeopleId}">
-								<img src="${avatarUrlPrefix}/avatar0.png">
+							<a href="${urlPrefix}/people/${fo.id}">
+								<img src="${avatarUrlPrefix}/${fo.avatarPath}-24">
 							</a>
 						</div>
 						<div class="name">
-							<a href="${urlPrefix}/people/${relation.fromPeopleId}">${relation.fromPeopleRealName}</a>
+							<a href="${urlPrefix}/people/${fo.id}">${fo.realName}</a>
 						</div>
 					</div>
 					</c:forEach>
@@ -45,15 +45,15 @@
 				<div class="db-block">
 					<h3>新关注：</h3>
 					<div class="db-block-content">
-					<c:forEach items="${newFollowings}" var="relation">
+					<c:forEach items="${newFollowings}" var="fo">
 					<div class="people-cell">
 						<div class="avatar">
-							<a href="${urlPrefix}/people/${relation.toPeopleId}">
-								<img src="${avatarUrlPrefix}/avatar0.png">
+							<a href="${urlPrefix}/people/${fo.id}">
+								<img src="${avatarUrlPrefix}/${fo.avatarPath}-24">
 							</a>
 						</div>
 						<div class="name">
-							<a href="${urlPrefix}/people/${relation.toPeopleId}">${relation.toPeopleRealName}</a>
+							<a href="${urlPrefix}/people/${fo.id}">${fo.realName}</a>
 						</div>
 					</div>
 					</c:forEach>

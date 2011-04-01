@@ -18,6 +18,8 @@ public interface ResourceContext {
 	String getString(String key);
 
 	long getIdLong(String key);
+	
+	long getIdLong(String key, long defaultValue);
 
 	int getInt(String key, int defaultValue);
 
@@ -112,4 +114,9 @@ public interface ResourceContext {
 	 * @return
 	 */
 	List<Long> getIdLongList(String string);
+
+	/**
+	 * @return
+	 */
+	boolean isApiRequest();
 }

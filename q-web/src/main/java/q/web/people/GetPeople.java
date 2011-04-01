@@ -68,7 +68,8 @@ public class GetPeople extends Resource {
 		page.setSize(20);
 		page.setStartIndex(0);
 		List<Weibo> weibos = weiboDao.getPageWeibo(page);
-		DaoHelper.injectWeiboModelsWithSenderRealName(peopleDao, weibos);
+		DaoHelper.injectWeiboModelsWithQuote(weiboDao, weibos);
+		DaoHelper.injectWeiboModelsWithPeople(peopleDao, weibos);
 		DaoHelper.injectWeiboModelsWithFrom(groupDao, weibos); 
 		if (loginPeopleId > 0) {
 			DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);

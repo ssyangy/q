@@ -62,17 +62,23 @@ public class GetGroup extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long groupId = context.getResourceIdLong();
 		long loginPeopleId = context.getCookiePeopleId();
+		int size = context.getInt("size", 10);
+		long startId = context.getIdLong("startId");
 		String tab = context.getString("tab");
 
 		WeiboPage page = new WeiboPage();
 		page.setGroupId(groupId);
-		page.setSize(20);
+		page.setSize(size);
 		page.setStartIndex(0);
+		if (startId > 0) {
+			page.setStartId(startId);
+		}
 		if ("created".equals(tab)) {
 			page.setSenderId(loginPeopleId);
 		}
 		List<Weibo> weibos = weiboDao.getWeibosByPage(page);
-		DaoHelper.injectWeiboModelsWithSenderRealName(peopleDao, weibos);
+		DaoHelper.injectWeiboModelsWithQuote(weiboDao, weibos);
+		DaoHelper.injectWeiboModelsWithPeople(peopleDao, weibos);
 		DaoHelper.injectWeiboModelsWithFrom(groupDao, weibos);
 		if (loginPeopleId > 0) {
 			DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
@@ -92,7 +98,6 @@ public class GetGroup extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
 		
 	}
 

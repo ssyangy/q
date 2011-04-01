@@ -224,37 +224,6 @@ public class MapMappingTest extends MappingTestBase {
 		}
 	}
 
-	/**
-	 * Test mapping success album result use config file.
-	 * 
-	 * @throws OperationCodeException
-	 *             the operation code exception
-	 */
-	@Test
-	public void testMemberMappingArrayItemNameString()
-			throws OperationCodeException {
-		// get mm from config file
-		MethodMapping<Object> mm = getAddAlbumMethodMapping();
-		MemberMapping<Object> rspMapping = mm.getMethodResponseMapping()
-				.getParameterMapping();
-		try {
-			AlbumResult successAlbumResult = this.getSuccessAlbumResult();
-			StringWriter writer = new StringWriter();
-			Convert convert = new JSONConvert(writer);
-			rspMapping.write(convert, successAlbumResult, false);
-			//rspMapping.write(writer, successAlbumResult, "json", false);
-			String string = writer.toString();
-			System.out.println(string);
-			String include = "\"strs_name\":{\"str\":[\"<>1&'\\\"\",\"2\"]}";
-			assertTrue(string.indexOf(include) > -1);
-		} catch (MappingException e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-			Assert.fail();
-		}
-	}
-	
-	
 
 	/**
 	 * Test mapping fail album result use config file.

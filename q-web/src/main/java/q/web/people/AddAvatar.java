@@ -1,8 +1,6 @@
 package q.web.people;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
@@ -11,26 +9,32 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import q.util.ImageKit;
-import q.http.JdkHttpClient;
-import q.log.Logger;
-import q.web.DefaultResourceContext;
-import q.web.Resource;
-import q.web.ResourceContext;
-import org.apache.commons.fileupload.*;
+
+import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import q.http.JdkHttpClient;
+import q.util.ImageKit;
+import q.web.DefaultResourceContext;
+import q.web.Resource;
+import q.web.ResourceContext;
+
 public class AddAvatar extends Resource {
+	private String imageUrl;
 
-	@Override
-	public void execute(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
+	private String imageUploadUrl;
 
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public void setImageUploadUrl(String imageUploadUrl) {
+		this.imageUploadUrl = imageUploadUrl;
 	}
 
 	@Override
-	public void validate(ResourceContext context) throws Exception {
+	public void execute(ResourceContext context) throws Exception {
 		HttpServletRequest request = ((DefaultResourceContext) context).getRequest();
 		File tempfile = new File(System.getProperty("java.io.tmpdir"));// 采用系统临时文件目录
 		DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
@@ -60,23 +64,23 @@ public class AddAvatar extends Resource {
 				} else {
 					context.setModel("isImg", false);
 				}
-				if (ImageKit.isImage( fileItem.getInputStream())) {
+				if (ImageKit.isImage(fileItem.getInputStream())) {
 					context.setModel("isImg", true);
-					URL temp = new URL("http://upload.qimg.net/upload.php");
+					URL temp = new URL(this.imageUploadUrl);
 					HttpURLConnection con = JdkHttpClient.getHttpConnection(temp, 100000, 100000);
 					String sb;
 					try {
 						Map<String, CharSequence> payload = new HashMap();
 						payload.put("imgdir", "a/" + String.valueOf(dir) + "/");
-						sb = JdkHttpClient.postMultipart(con, payload, fileItem.getInputStream(), String.valueOf(peopleId),fileItem.getSize(),type);
+						sb = JdkHttpClient.postMultipart(con, payload, fileItem.getInputStream(), String.valueOf(peopleId), fileItem.getSize(), type);
 					} finally {
 						JdkHttpClient.releaseUrlConnection(con);
 					}
-					String[]data=sb.split(";");
-					String place=data[1].substring(data[1].indexOf(":")+1);
+					String[] data = sb.split(";");
+					String place = data[1].substring(data[1].indexOf(":") + 1);
 					context.setModel("imgHeight", ImageKit.load(fileItem.getInputStream()).getHeight());
 					context.setModel("imgWidth", ImageKit.load(fileItem.getInputStream()).getWidth());
-					context.setModel("imgPath", "http://qimg.net/"+place);
+					context.setModel("imgPath", imageUrl + place);
 				} else {
 					context.setModel("isImg", false);
 				}
@@ -96,5 +100,10 @@ public class AddAvatar extends Resource {
 			}
 
 		}
+	}
+
+	@Override
+	public void validate(ResourceContext context) throws Exception {
+
 	}
 }

@@ -34,22 +34,15 @@ public class AddLogin extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		String username = context.getString("username");
 		String password = context.getString("password");
-//		String fromPath = context.getString("from");
-
-		People people = this.peopleDao.getPeopleByUsername(username);
+		People people = this.peopleDao.getPeopleByEmail(username);
 		if (null == people) {
-			throw new PeopleNotExistException("username:用户不存在");
+			throw new PeopleNotExistException("username:邮箱不存在");
 		}
-		if (!people.getPassword().equals(password)) { // FIXME incorrect password, wanglin
+		if (!people.getPassword().equals(password)) {
 			throw new PeopleLoginPasswordException("password:密码错误");
 		}
 		context.setModel("people", people);
 		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), people.getRealName(), people.getUsername())); // set login cookie
-//		if (fromPath != null) {
-//			context.redirectContextPath(fromPath);
-//		} else {
-//			context.redirectServletPath("/group/feed");
-//		}
 	}
 
 	/*
@@ -59,8 +52,7 @@ public class AddLogin extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }

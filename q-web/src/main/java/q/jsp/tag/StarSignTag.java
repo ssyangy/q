@@ -31,10 +31,8 @@ public class StarSignTag extends SimpleTagSupport {
 
 	@Override
 	public void doTag() throws JspException, IOException {
-		String starSign = null;
-		if (month <= 0 || day <= 0) {
-			starSign = "星座不详";
-		} else if (month == 1 && day >= 21 || month == 2 && day <= 19) {
+		String starSign = "星座不详";
+		if (month == 1 && day >= 21 || month == 2 && day <= 19) {
 			starSign = "水瓶座";
 		} else if (month == 2 && day >= 20 || month == 3 && day <= 20) {
 			starSign = "双鱼座";

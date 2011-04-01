@@ -45,6 +45,16 @@ public class Event extends AbstractDomain implements Serializable {
 	private int status;
 
 	private int joinNumber;
+	
+	private People people;
+
+	public People getPeople() {
+		return people;
+	}
+
+	public void setPeople(People people) {
+		this.people = people;
+	}
 
 	public long getCreatorId() {
 		return creatorId;

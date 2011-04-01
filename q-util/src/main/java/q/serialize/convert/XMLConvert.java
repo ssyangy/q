@@ -86,10 +86,10 @@ public class XMLConvert extends AbstractConvert {
 
 	public void convertString(String source, String mappingName) throws MappingException, IOException {
 		if (mappingName == null) {
-			StringKit.writeEscapeXml(writer, source);
+			StringKit.escapeXml(writer, source);
 		} else {
 			writer.append(Utils.LEFT_ANGLE_BRACKET).append(mappingName).append(Utils.RIGHT_ANGLE_BRACKET);
-			StringKit.writeEscapeXml(writer, source);
+			StringKit.escapeXml(writer, source);
 			writer.append(Utils.LEFT_ANGLE_BRACKET).append(Utils.BACK_SLASH).append(mappingName).append(Utils.RIGHT_ANGLE_BRACKET);
 		}
 	}
@@ -113,7 +113,7 @@ public class XMLConvert extends AbstractConvert {
 		try {
 			int count = 0;
 			if (original.size() >= 1) {
-				convertStartTag(mappingName);
+				convertStartTag(mappingName, false);
 			}
 			for (MemberMapping<?> mm : memberMappings.values()) {
 				// XXX only suport Map<String,Object>, if key is not a String,
@@ -127,7 +127,7 @@ public class XMLConvert extends AbstractConvert {
 				}
 			}
 			if (original.size() >= 1) {
-				convertEndTag(mappingName);
+				convertEndTag(mappingName, false);
 			}
 		} catch (Exception e) {
 			throw new MappingException(e);
@@ -142,7 +142,7 @@ public class XMLConvert extends AbstractConvert {
 				outPutPrefix = false;
 
 			if (!outPutPrefix)
-				convertStartTag(mappingName);
+				convertStartTag(mappingName, false);
 
 			if (memberMappings != null && memberMappings.size() != 0) {
 				int count = 0;
@@ -182,13 +182,13 @@ public class XMLConvert extends AbstractConvert {
 			}
 			// 如果prefix存在,不写出对象如location:{state:"aaa"},而写出location.state:"aaa"
 			if (!outPutPrefix)
-				convertEndTag(mappingName);
+				convertEndTag(mappingName, false);
 		} catch (Exception e) {
 			throw new MappingException(e);
 		}
 	}
 
-	public void convertStartTag(String mappingName) throws MappingException {
+	public void convertStartTag(String mappingName, boolean isArray) throws MappingException {
 		if (mappingName == null)
 			return;
 		try {
@@ -198,7 +198,7 @@ public class XMLConvert extends AbstractConvert {
 		}
 	}
 
-	public void convertEndTag(String mappingName) throws MappingException {
+	public void convertEndTag(String mappingName, boolean isArray) throws MappingException {
 		if (mappingName == null)
 			return;
 		try {
@@ -209,8 +209,7 @@ public class XMLConvert extends AbstractConvert {
 
 	}
 
-	public String convertCollectionBefore(String mappingName, boolean isFromCollection) throws MappingException {
-		// TODO Auto-generated method stub
+	public String convertCollectionBefore(String mappingName, boolean isFromCollection, boolean isArray) throws MappingException {
 		return mappingName;
 	}
 

@@ -60,8 +60,9 @@ public class ResourceRouterTest extends ServletTestCase {
 				Enumeration<String> attributeNames = request.getAttributeNames();
 				for (; attributeNames.hasMoreElements();) {
 					String key = (String) attributeNames.nextElement();
-					if (!(request.getAttribute(key) instanceof LoginCookie))
-						response.getWriter().write(request.getAttribute(key).toString());
+					Object value = request.getAttribute(key);
+					if (value != null && !(value instanceof LoginCookie) )
+						response.getWriter().write(value.toString());
 				}
 				response.getWriter().flush();
 				response.getWriter().close();
