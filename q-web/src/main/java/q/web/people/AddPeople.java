@@ -18,7 +18,7 @@ import q.web.exception.RequestParameterInvalidException;
  * @author Zhehao
  * @author alin
  * @date Feb 14, 2011
- * 
+ *
  */
 
 public class AddPeople extends Resource {
@@ -63,6 +63,11 @@ public class AddPeople extends Resource {
 		People result = this.peopleDao.getPeopleByEmail(email);
 		if (result != null) {
 			throw new PeopleAlreadyExistException("email:该邮箱地址已经被使用。");
+		}
+		String username=context.getString("username");
+		People result2 = this.peopleDao.getPeopleByUsername(username);
+		if (result2 != null) {
+			throw new PeopleAlreadyExistException("username:该用户名已经被使用。");
 		}
 		long authcodeId = context.getIdLong("authcodeId");
 		String authcodeValue = authcodeDao.getValueById(authcodeId);

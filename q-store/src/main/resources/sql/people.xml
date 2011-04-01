@@ -99,7 +99,11 @@
 		where status = 3
 		and from_people_id = #value#
 	</select>
-
+    <select id="selectPasswordById" resultClass="String">
+        select password
+        from people
+        where id=#value#
+    </select>
 	<select id="selectPeopleFollowerNumById" resultClass="int">
 		select
 		count(id)
@@ -169,6 +173,9 @@
 			</isNotNull>
 			<isNotNull prepend="," property="area">
 				area_id=#area,handler=q.dao.ibatis.AreaHandler#
+			</isNotNull>
+			<isNotNull prepend="," property="password">
+				password=#password#
 			</isNotNull>
 			<isNotNull prepend="," property="area">
 				hometown_id=#hometown,handler=q.dao.ibatis.AreaHandler#

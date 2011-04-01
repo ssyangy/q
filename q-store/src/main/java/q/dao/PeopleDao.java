@@ -138,4 +138,10 @@ public interface PeopleDao {
 	 * @throws SQLException
 	 */
 	void updateInterestById(People p) throws SQLException;
+	/**
+	 * @param p
+	 * @throws SQLException
+	 */
+	String selectPasswordById(long pid) throws SQLException;
+
 }

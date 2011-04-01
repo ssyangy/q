@@ -7,8 +7,6 @@
 <html>
   <head>
     <jsp:include page="head.jsp" />
-    <jsp:include page="js-areas.jsp" />
-
     <link rel="stylesheet" type="text/css" href="${staticUrlPrefix}/style/jcrop/jquery-jcrop-0.9.8.css"  />
     <script type="text/javascript" src="${staticUrlPrefix}/js/jquery-jcrop-0.9.8.min.js"></script>
 	<script type="text/javascript">

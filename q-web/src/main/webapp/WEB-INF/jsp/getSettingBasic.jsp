@@ -8,7 +8,83 @@
   <head>
      <jsp:include page="head.jsp" />
 	 <script type="text/javascript">
+function checkNewPassword(a){
+       if(a.length<6||a.length>16){
+       $("#newpasswordcorrect").css("display","none");
+       $("#newpasswordwrong").css("display","block");
+       $("#newpasswordwrong").html("密码少于6位,或大于16位。");
+        return false;
+       }
+      var password=/^\w+$/;
+      if(password.test(a)){
+         $("#newpasswordwrong").css("display","none");
+         $("#newpasswordcorrect").css("display","block");
+         return true;
+      }
+     $("#newpasswordcorrect").css("display","none");
+     $("#newpasswordwrong").css("display","block");
+     $("#newpasswordwrong").html("包含有数字,字母,下划线以外的字符。");
+      return false;
+}
+function recheckPassword(a){
+      if($("#newPassword").val()==$("#confirmPassword").val()){
+    	  if($("#password").val()!=""){
+          $("#repasswordcorrect").css("display","block");
+          $("#repasswordwrong").css("display","none");
+          return true;
+      }
+      }
+      $("#repasswordcorrect").css("display","none");
+      $("#repasswordwrong").css("display","block");
+      $("#repasswordwrong").html("两次输入的密码不同。");
+      return false;
+}
+function check() {
+  var np=checkNewPassword($("#newPassword").val());
+  var rp=recheckPassword($("#confirmPassword").val());
 
+  if(!np || !rp )
+  	return ;
+  else
+  allDataCheck();
+ }
+ function allDataCheck(){
+  var oldPassword=$("#oldpassword").val();
+  var newPassword=$("#newPassword").val();
+  var rePassword=$("#confirmPassword").val();
+  $.ajax({
+    url: '${urlPrefix}/setting',
+    type: 'POST',
+    dataType: 'json',
+    data:{oldPassword: oldPassword,newPassword:newPassword,rePassword:rePassword},
+    timeout: 5000,
+    error: function(){
+    },
+   success: function(json){
+        if(json.id!= null){
+           // document.location.href="${urlPrefix}/people/"+json.id+"/full" //跳转
+         }
+       else {
+          var errorkind=errorType(json.error);
+          if(errorkind=="oldPassword"){
+            $("#passwordcorrect").css("display","none");
+            $("#passwordwrong").css("display","block");
+            $("#passwordwrong").html(errorContext(json.error));
+          }
+          else if(errorkind=="newPassword"){
+            $("#newpasswordcorrect").css("display","none");
+            $("#newpasswordwrong").css("display","block");
+            $("#newpasswordwrong").html(errorContext(json.error));
+          }
+          else if(errorkind=="confirmPassword"){
+            $("#repasswordcorrect").css("display","none");
+            $("#repasswordwrong").css("display","block");
+            $("#repasswordwrong").html(errorContext(json.error));
+          }
+      }
+    }
+});
+}
 		</script>
 	</head>
   <body>
@@ -30,7 +106,7 @@
 								<tbody>
 									<tr>
 										<th><label for=''>当前密码：</label></th>
-										<td class='col-field'><input type='password' id="currentpassword" name="currentpassword" class='text_field' size='20'></td>
+										<td class='col-field'><input type='password' id="oldpassword" name="oldpassword" class='text_field' size='20'/></td>
 
 										<td class='col-help'>
 											<div class='label-box-good' id="passwordcorrect" style='display:none;'></div>
@@ -44,7 +120,8 @@
 									</tr>
 									<tr>
 										<th><label for=''>新密码：</label></th>
-										<td class='col-field'><input type='password' class='text_field' size='20' id="newpassword" name="newpassword"></td>
+										<td class='col-field'><input type='password' class='text_field' size='20'
+										id="newPassword" name="newPassword" onblur="checkNewPassword(this.value)"/></td>
 										<td class='col-help'>
 											<div class='label-box-good' id="newpasswordcorrect" style='display:none;'></div>
 											<div class='label-box-error'id="newpasswordwrong" style='display:none;'></div>
@@ -57,10 +134,11 @@
 									</tr>
 									<tr>
 										<th><label for=''>密码确认：</label></th>
-										<td class='col-field'><input type='password' class='text_field' size='20' id="confirmpassword" name="confirmpassword"></td>
+										<td class='col-field'><input type='password' class='text_field' size='20'
+										id="confirmPassword" name="confirmPassword" onblur="recheckPassword(this.value)"/></td>
 										<td class='col-help'>
-                                            <div class='label-box-good'  style='display:none;' id="cpasswordcorrect"></div>
-											<div class='label-box-error' style='display:none;' id="cpasswordwrong"></div>
+                                            <div class='label-box-good'  style='display:none;' id="repasswordcorrect"></div>
+											<div class='label-box-error' style='display:none;' id="repasswordwrong"></div>
 										</td>
 									</tr>
 									<tr>
@@ -70,7 +148,7 @@
 									<tr>
 
 										<th></th>
-										<td colspan='2'><button class='button btn-x' type='submit'>保存</button></td>
+										<td colspan='2'><button class='button btn-x' type='button' onclick="check()">保存</button></td>
 									</tr>
 								</tbody>
 							</table>

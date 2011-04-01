@@ -123,7 +123,7 @@
 								<value>getGroup:weibos</value>
 							</key>
 							<value>/WEB-INF/json/weibo-list.xml</value>
-						</entry>								
+						</entry>
 					</map>
 				</property>
 			</bean>
@@ -446,5 +446,8 @@
     <!-- setting web -->
     <bean id="getSettingBasic" class="q.web.people.GetSettingBasic">
 
+	</bean>
+	 <bean id="addSetting" class="q.web.people.AddSetting">
+        <property name="peopleDao" ref="peopleDao" />
 	</bean>
 </beans>

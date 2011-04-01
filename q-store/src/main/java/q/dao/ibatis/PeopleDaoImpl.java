@@ -190,4 +190,9 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 		this.sqlMapClient.update("updatePeopleInterestsById", p);
 	}
 
+	@Override
+	public String selectPasswordById(long pid) throws SQLException {
+		return (String) this.sqlMapClient.queryForObject("selectPasswordById", pid);
+	}
+
 }

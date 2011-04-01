@@ -46,7 +46,19 @@ public class PeopleValidator {
 			throw new RequestParameterInvalidException("password:密码允许6-16个字符,区分大小写");
 		}
 	}
-
+	/**
+	 * 验证新密码
+	 * @throws RequestParameterInvalidException
+	 */
+	public static void validateNewPassword(String password) throws RequestParameterInvalidException {
+		if (StringKit.isEmpty(password)) {
+			throw new RequestParameterInvalidException("newPassword:密码不能为空");
+		}
+		Pattern p = Pattern.compile("^.{6,16}$");
+		if (!p.matcher(password).matches()){
+			throw new RequestParameterInvalidException("newPassword:密码允许6-16个字符,区分大小写");
+		}
+	}
 	/**
 	 * 验证姓名
 	 * @throws RequestParameterInvalidException
