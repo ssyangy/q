@@ -61,8 +61,14 @@ function check() {
     error: function(){
     },
    success: function(json){
-        if(json.id!= null){
-           // document.location.href="${urlPrefix}/people/"+json.id+"/full" //跳转
+       if(json== null){
+            $("#savecorrect").css("display","block");
+            $("#savewrong").css("display","none");
+            $("#savecorrect").html("修改密码成功");
+            $("#passwordwrong").css("display","none");
+            $("#newpasswordwrong").css("display","none");
+            $("#repasswordwrong").css("display","none");
+            //document.location.href="${urlPrefix}/profile/avator"; //跳转
          }
        else {
           var errorkind=errorType(json.error);
@@ -150,6 +156,14 @@ function check() {
 										<th></th>
 										<td colspan='2'><button class='button btn-x' type='button' onclick="check()">保存</button></td>
 									</tr>
+									 <tr>
+			                            <th></th>
+			                            <td colspan='2'>
+										 <div style='display:none;' id="savewrong"></div>
+		                                 <div style='display:none;' id="savecorrect"></div>
+		                                </td>
+
+			                        </tr>
 								</tbody>
 							</table>
 						</form>
