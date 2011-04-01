@@ -8,7 +8,7 @@
 	<title>好友新鲜事</title>
 </head>
 <body onResize="ReSet()" onLoad="ReSet()">
-	<div id="body" style="padding-bottom:0px;overflow-y:auto; overflow-x:hidden;">
+	<div id="body">
 		<jsp:include page="top.jsp" />
 		<div id="page-outer">
 			<div id="page-container">

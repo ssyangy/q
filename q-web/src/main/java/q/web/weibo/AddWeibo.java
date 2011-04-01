@@ -38,9 +38,9 @@ public class AddWeibo extends Resource {
 		weibo.setSenderId(senderId);
 		String content = context.getString("content");
 		weibo.setContent(content);
-		weibo.setFromType(WeiboFromType.GROUP);
 		long groupId = context.getIdLong("groupId");
 		if (IdCreator.isValidIds(groupId)) {
+			weibo.setFromType(WeiboFromType.GROUP);
 			weibo.setFromId(groupId);
 		}
 		this.weiboDao.addWeibo(weibo);
