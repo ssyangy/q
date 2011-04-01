@@ -5,15 +5,9 @@
 <head>
 	<jsp:include page="head.jsp" />
 	<title>个人主页</title>
-	<script type="text/javascript">
-		$(function(){
-			//$('#tabs').tabs();
-			//$tabs.tabs('select', 0);
-		});
-	</script>
 </head>
-<body>
-	<div id="doc">
+<body onResize="ReSet()" onLoad="ReSet()">
+	<div id="body">
 	<jsp:include page="top.jsp"/>
 	<div id="page-outer">
 		<div id="page-container">
