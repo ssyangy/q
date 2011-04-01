@@ -5,15 +5,9 @@
 <head>
 	<jsp:include page="head.jsp" />
 	<title>收藏</title>
-	<script type="text/javascript">
-		$(function(){
-			//$('#tabs').tabs();
-			//$tabs.tabs('select', 3);
-		});
-	</script>
 </head>
-<body>
-	<div id="doc">
+<body onResize="ReSet()" onLoad="ReSet()">
+	<div id="body">
 	<jsp:include page="top.jsp"/>	
 	<div id="page-outer">
 		<div id="page-container">
@@ -24,8 +18,10 @@
 						<jsp:include page="people-tag.jsp">
 							<jsp:param value="favorite" name="tab"/>
 						</jsp:include>
-						<div id="tabs-4">
-						<jsp:include page="weibo-list.jsp"></jsp:include>
+						<div>
+						<jsp:include page="weibo-list.jsp">
+							<jsp:param name="feedUrl" value="${urlPrefix}/favorite"/>
+						</jsp:include>
 						</div>
 					</div>
 				</div>				

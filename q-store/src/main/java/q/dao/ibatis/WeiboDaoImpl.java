@@ -14,9 +14,7 @@ import q.dao.page.WeiboReplyPage;
 import q.domain.Weibo;
 import q.domain.WeiboJoinGroup;
 import q.domain.WeiboReply;
-import q.util.CollectionKit;
 import q.util.IdCreator;
-import q.util.StringKit;
 
 /**
  * @author seanlinwang
@@ -34,7 +32,6 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 	@Override
 	public void addWeibo(Weibo weibo) throws SQLException {
 		weibo.setId(IdCreator.getLongId());
-		weibo.setContent(StringKit.escapeJson(weibo.getContent()));
 		this.sqlMapClient.insert("insertWeibo", weibo);
 	}
 
@@ -60,12 +57,9 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Weibo> getWeibosByPage(WeiboPage page) throws SQLException {
+	public List<Long> getWeiboIdsByPage(WeiboPage page) throws SQLException {
 		List<Long> ids = (List<Long>) this.sqlMapClient.queryForList("selectWeiboIdsByPage", page);
-		if (CollectionKit.isEmpty(ids)) {
-			return null;
-		}
-		return getWeibosByIds(ids, true);
+		return ids;
 	}
 
 	@Override
@@ -74,7 +68,23 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 		page.setGroupId(groupId);
 		page.setSize(limit);
 		page.setStartIndex(start);
-		return this.getWeibosByPage(page);
+		List<Long> ids = this.getWeiboIdsByPage(page);
+		return getWeibosByIds(ids, true);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see q.dao.WeiboDao#getHotWeibosByGroupIds(java.util.List, int)
+	 */
+	@Override
+	public List<Weibo> getHotWeibosByGroupIds(List<Long> groupIds, int limit, int start) throws SQLException {
+		WeiboPage page = new WeiboPage();
+		page.setStartIndex(start);
+		page.setSize(limit);
+		page.setGroupIds(groupIds);
+		List<Long> ids = this.getWeiboIdsByPage(page);
+		return getWeibosByIds(ids, true);
 	}
 
 	@Override
@@ -99,7 +109,7 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Weibo> getPageWeibo(WeiboPage page) throws SQLException {
+	public List<Weibo> getWeibosByPage(WeiboPage page) throws SQLException {
 		return (List<Weibo>) this.sqlMapClient.queryForList("selectPageWeibos", page);
 	}
 
@@ -108,11 +118,11 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 		WeiboPage page = new WeiboPage();
 		page.setSize(limit);
 		page.setStartIndex(0);
-		return this.getPageWeibo(page);
+		return this.getWeibosByPage(page);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Weibo> getPageFollowingWeibos(WeiboPage page) throws SQLException {
+	public List<Weibo> getFollowingWeibosByPage(WeiboPage page) throws SQLException {
 		return (List<Weibo>) this.sqlMapClient.queryForList("selectPageFollowingWeibos", page);
 	}
 
@@ -128,7 +138,7 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<WeiboReply> getPageWeiboReply(WeiboReplyPage page) throws SQLException {
+	public List<WeiboReply> getWeiboRepliesByPage(WeiboReplyPage page) throws SQLException {
 		return (List<WeiboReply>) this.sqlMapClient.queryForList("selectPageWeiboReply", page);
 	}
 
@@ -166,19 +176,6 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 		return (WeiboJoinGroup) this.sqlMapClient.queryForObject("selectWeiboJoinGroupByWeiboId", weiboId);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see q.dao.WeiboDao#getHotWeibosByGroupIds(java.util.List, int)
-	 */
-	@Override
-	public List<Weibo> getHotWeibosByGroupIds(List<Long> groupIds, int limit, int start) throws SQLException {
-		WeiboPage page = new WeiboPage();
-		page.setStartIndex(start);
-		page.setSize(limit);
-		page.setGroupIds(groupIds);
-		List<Weibo> weibos = this.getWeibosByPage(page);
-		return weibos;
-	}
+
 
 }

@@ -72,7 +72,7 @@ public class GetPeopleFeed extends Resource {
 				}
 				page.setQuoteSenderIds(senderIds);
 				page.setSenderId(loginPeopleId);
-				weibos = weiboDao.getPageWeiboReply(page);
+				weibos = weiboDao.getWeiboRepliesByPage(page);
 				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
 			} else if ("favorite".equals(tab)) {
 				FavoritePage page = new FavoritePage();
@@ -98,7 +98,7 @@ public class GetPeopleFeed extends Resource {
 				if (startId > 0) {
 					page.setStartId(startId);
 				}
-				weibos = weiboDao.getPageFollowingWeibos(page);
+				weibos = weiboDao.getFollowingWeibosByPage(page);
 				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
 			}
 		}

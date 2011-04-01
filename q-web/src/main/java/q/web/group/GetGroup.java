@@ -76,7 +76,8 @@ public class GetGroup extends Resource {
 		if ("created".equals(tab)) {
 			page.setSenderId(loginPeopleId);
 		}
-		List<Weibo> weibos = weiboDao.getWeibosByPage(page);
+		List<Long> weiboIds = weiboDao.getWeiboIdsByPage(page);
+		List<Weibo> weibos = weiboDao.getWeibosByIds(weiboIds, true);
 		DaoHelper.injectWeiboModelsWithQuote(weiboDao, weibos);
 		DaoHelper.injectWeiboModelsWithPeople(peopleDao, weibos);
 		DaoHelper.injectWeiboModelsWithFrom(groupDao, weibos);
@@ -85,20 +86,24 @@ public class GetGroup extends Resource {
 		}
 		context.setModel("weibos", weibos);
 
-		GetGroupFrame frame = new GetGroupFrame();
-		frame.setEventDao(eventDao);
-		frame.setGroupDao(groupDao);
-		frame.setPeopleDao(peopleDao);
-		frame.setWeiboDao(weiboDao);
-		frame.execute(context);
+		if (!context.isApiRequest()) {
+			GetGroupFrame frame = new GetGroupFrame();
+			frame.setEventDao(eventDao);
+			frame.setGroupDao(groupDao);
+			frame.setPeopleDao(peopleDao);
+			frame.setWeiboDao(weiboDao);
+			frame.execute(context);
+		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		
+
 	}
 
 }
