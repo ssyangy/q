@@ -109,7 +109,7 @@
           isImg=true;
     }
        $(document).ready(function(){
-    	   cutter = new jQuery.UtrialAvatarCutter(
+          cutter = new jQuery.UtrialAvatarCutter(
    				{
    					//主图片所在容器ID
    					content : "myImage",
@@ -120,7 +120,9 @@
    					//选择器默认大小
    					selector : {width:100,height:100}
    				}
+
    			);
+   			if("${avatarExists}"=="true"){
     		var img=new Image();
     		img.src="${avatarUrlPrefix}/${avatarPath}";
     		var dick=setInterval(function(){
@@ -130,7 +132,7 @@
     				cutter.init();
     			}
     		},100);
-
+            }
     	});
 
     jQuery.UtrialAvatarCutter = function(config){
@@ -263,9 +265,7 @@
 						<jsp:include page="profile-tag.jsp">
 							<jsp:param value="avatar" name="tab"/>
 						</jsp:include>
-					<div id="tabs-1" class="tab-canvas">
 
-					</div>
 					<div id="tabs-2" class="tab-canvas">
 
 					<form action="${urlPrefix}/Avatar"  id="form1" name="form1"  encType="multipart/form-data"
@@ -292,8 +292,6 @@
 		                     <input type="button" value="保存" onclick="save()"></input>
                              <input type="button" value="取消"></input>
 				    </div>
-					<div id="tabs-3" class="tab-canvas">
-					</div>
 
 				</div>
 			</div>

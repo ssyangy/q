@@ -168,6 +168,18 @@ public class JdkHttpClient {
 		return body;
 
 	}
+	public static boolean exists(String   URLName){
+	      try   {
+	          HttpURLConnection.setFollowRedirects(false);
+	          HttpURLConnection   con   =
+	                (HttpURLConnection)   new   URL(URLName).openConnection();
+	          con.setRequestMethod("HEAD");
+	          return   (con.getResponseCode()   ==   HttpURLConnection.HTTP_OK);
+	          }
+	         catch  (Exception   e) {
+	                return   false;
+	          }
+	   }
 	/*
 	public static void main(String args[]) throws IOException{
       String filePath="/home/zhao/下载/xx.jpg";
