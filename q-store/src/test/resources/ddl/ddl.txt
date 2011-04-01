@@ -10,6 +10,7 @@ create table people(
 	role_id tinyint unsigned not null,
 	country_code smallint unsigned not null,
 	area_id mediumint unsigned not null,
+	hometown_id mediumint unsigned not null,
 	mobile bigint unsigned not null,
 	username varchar(32) not null,
 	password varchar(32) not null,

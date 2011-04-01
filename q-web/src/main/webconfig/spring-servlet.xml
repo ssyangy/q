@@ -421,5 +421,8 @@
 	    <property name="peopleDao" ref="peopleDao" />
 	</bean>
 
+    <!-- setting web -->
+    <bean id="getSettingBasic" class="q.web.people.GetSettingBasic">
 
+	</bean>
 </beans>

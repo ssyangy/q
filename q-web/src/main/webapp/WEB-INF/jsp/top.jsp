@@ -12,13 +12,13 @@
 				<!-- <li><a href="${urlPrefix}/favorite">收藏</a></li> -->
 				<li><a href="${urlPrefix}/message">私信</a></li>
 				<!-- li><a href="${urlPrefix}/notify">通知</a></li-->
-				<li><a href="${urlPrefix}/setting">设置</a></li>
+				<li><a href="${urlPrefix}/setting/basic">设置</a></li>
 				<li><span class='sep'>|</span></li>
-				<li><a href="${urlPrefix}/login/delete">退出</a></li>				
+				<li><a href="${urlPrefix}/login/delete">退出</a></li>
 				</c:when>
 				<c:otherwise>
 				<li><a href="${urlPrefix}/people/new">注册</a><span class='sep'>|</span></li>
-				<li><a href="${urlPrefix}">登录</a></li>				
+				<li><a href="${urlPrefix}">登录</a></li>
 				</c:otherwise>
 				</c:choose>
 			</ul>
@@ -40,7 +40,7 @@
 			</div>
 			<div id="search">
 				<input type="text" class="search_field" size="35" placeholder="搜微博、圈子、好友"/>
-				<button class="button">搜索</button> 
+				<button class="button">搜索</button>
 			</div>
 			<div class="clearfix"></div>
 		</div>

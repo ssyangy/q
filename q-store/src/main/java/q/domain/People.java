@@ -27,6 +27,8 @@ public class People extends AbstractDomain implements Serializable {
 
 	private Area area;
 
+	private Area hometown;
+
 	private Gender gender;
 
 	private int bloodTypeId;
@@ -179,7 +181,13 @@ public class People extends AbstractDomain implements Serializable {
 	public void setArea(Area area) {
 		this.area = area;
 	}
+	public Area getHometown() {
+		return hometown;
+	}
 
+	public void setHometown(Area hometown) {
+		this.hometown = hometown;
+	}
 	public int getRoleId() {
 		return this.roleId;
 	}
@@ -314,7 +322,7 @@ public class People extends AbstractDomain implements Serializable {
 
 	@Override
 	public String toString() {
-		return "People [id=" + id + ", username=" + username + ", password=" + password + ", loginToken=" + loginToken + ", realName=" + realName + ", email=" + email + ", mobile=" + mobile + ", year=" + year + ", month=" + month + ", day=" + day + ", countryCode=" + countryCode + ", area=" + area + ", gender=" + gender + ", bloodTypeId=" + bloodTypeId + ", degree=" + degree + ", roleId=" + roleId + ", status=" + status + ", created=" + created + ", modified=" + modified + ", friendNum=" + friendNum + ", followNum=" + followerNum + ", followingNum=" + followingNum + ", weiboNum=" + weiboNum + ", url=" + url +", intro=" + intro + ", avatarUrl=" + avatarUrl +", book=" + book +", film=" + film +", music=" + music +", idol=" + idol +", hope=" + hope +"]";
+		return "People [id=" + id + ", username=" + username + ", password=" + password + ", loginToken=" + loginToken + ", realName=" + realName + ", email=" + email + ", mobile=" + mobile + ", year=" + year + ", month=" + month + ", day=" + day + ", countryCode=" + countryCode + ", area=" + area  + ", hometown=" + hometown+", gender=" + gender + ", bloodTypeId=" + bloodTypeId + ", degree=" + degree + ", roleId=" + roleId + ", status=" + status + ", created=" + created + ", modified=" + modified + ", friendNum=" + friendNum + ", followNum=" + followerNum + ", followingNum=" + followingNum + ", weiboNum=" + weiboNum + ", url=" + url +", intro=" + intro + ", avatarUrl=" + avatarUrl +", book=" + book +", film=" + film +", music=" + music +", idol=" + idol +", hope=" + hope +"]";
 	}
 
 }

@@ -93,8 +93,11 @@
     error: function(){
     },
    success: function(json){
-        if(json.id!= null){
-            document.location.href="${urlPrefix}/profile/avator"; //跳转
+         if(json== null){
+            $("#savecorrect").css("display","block");
+            $("#savewrong").css("display","none");
+            $("#savecorrect").html("修改数据成功");
+            //document.location.href="${urlPrefix}/profile/avator"; //跳转
          }
        else {
           var errorkind=errorType(json.error);
@@ -203,6 +206,14 @@
 									<th></th>
 									<td colspan='2'><button class='button btn-x' type="button" onclick="check()" >保存修改</button></td>
 								</tr>
+								 <tr>
+			                            <th></th>
+			                            <td colspan='2'>
+										 <div style='display:none;' id="savewrong"></div>
+		                                 <div style='display:none;' id="savecorrect"></div>
+		                                </td>
+
+			                    </tr>
 							</tbody>
 						</table>
 

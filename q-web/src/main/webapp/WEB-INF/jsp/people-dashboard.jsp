@@ -8,7 +8,7 @@
 							<div class="profile-line">
 								<a href="#"><q:age year="${people.year+1900}"/></a>，
 								<a href="#"><q:starSign day="${people.day}" month="${people.month}"/></a>，
-								来自${people.area.myProvince.name}&nbsp;${people.area.myCity.name}&nbsp;${people.area.myCounty.name}。</div>
+								来自${people.hometown.myProvince.name}&nbsp;${people.hometown.myCity.name}&nbsp;${people.hometown.myCounty.name}。</div>
 							<div class="profile-line"><span class="label">喜欢的书：${interest.book}</span></div>
 							<div class="profile-line"><span class="label">喜欢的音乐：${interest.music}</span></div>
 							<div class="profile-line"><span class="label">喜欢的电影：${interest.film}</span></div>

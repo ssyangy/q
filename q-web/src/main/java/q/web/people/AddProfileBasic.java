@@ -29,6 +29,11 @@ public class AddProfileBasic extends Resource{
 		int cityId = context.getInt("city", -1);
 		int countyId = context.getInt("county", -1);
 		int areaId = AreaValidator.getAreaId(provinceId, cityId, countyId);
+		int hometownProvinceId = context.getInt("hometownProvince", -1);
+		int hometownCityId = context.getInt("hometownCity", -1);
+		int hometownCountyId = context.getInt("hometownCounty", -1);
+		int hometownAreaId = AreaValidator.getAreaId(hometownProvinceId, hometownCityId, hometownCountyId);
+		people.setHometown(Area.getAreaById(hometownAreaId));
 		people.setArea(Area.getAreaById(areaId));
 		people.setYear(context.getInt("year", -1));
 		people.setMonth(context.getInt("month", -1));

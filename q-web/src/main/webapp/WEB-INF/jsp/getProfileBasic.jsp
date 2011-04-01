@@ -59,6 +59,9 @@ function allDataCheck(){//fix me (intro)
   var province=$("#selProvince").val();
   var city=$("#selCity").val();
   var county=$("#selCounty").val();
+  var hometownProvince=$("#selHometownProvince").val();
+  var hometownCity=$("#selHometownCity").val();
+  var hometownCounty=$("#selHometownCounty").val();
   var url=$("#url").val();
   if($("#male").attr("checked")==true){
    var gender=$("#male").val();
@@ -70,13 +73,16 @@ function allDataCheck(){//fix me (intro)
     url: '${urlPrefix}/profile/basic',
     type: 'POST',
     dataType: 'json',
-    data:{realName:realName,year:year,month:month,day:day,province:province,city:city,county:county,url:url,gender:gender,intro:intro},
+    data:{realName:realName,year:year,month:month,day:day,province:province,city:city,county:county,url:url,gender:gender,intro:intro,hometownProvince:hometownProvince,hometownCity:hometownCity,hometownCounty:hometownCounty},
     timeout: 5000,
     error: function(){
     },
    success: function(json){
-        if(json.id!= null){
-            document.location.href="${urlPrefix}/profile/avator"; //跳转
+        if(json== null){
+            $("#savecorrect").css("display","block");
+            $("#savewrong").css("display","none");
+            $("#savecorrect").html("修改数据成功");
+            //document.location.href="${urlPrefix}/profile/avator"; //跳转
          }
        else {
           var errorkind=errorType(json.error);
@@ -111,8 +117,13 @@ $(document).ready(function(){
          provinceExist='${people.area.myProvince.id}';
          cityExist='${people.area.myCity.id}';
          countyExist='${people.area.myCounty.id}';
-        initArea();
 
+         hometownProvinceExist='${people.hometown.myProvince.id}';
+         hometownCityExist='${people.hometown.myCity.id}';
+         hometownCountyExist='${people.hometown.myCounty.id}';
+
+        initArea();
+        initHometownArea();
 		//$('#tabs').tabs();
 		//$tabs.tabs('select', 0);
 		});
@@ -164,6 +175,25 @@ $(document).ready(function(){
 													<td class='col-help'>
 														<div class='label-box-good' style='display:none;' id="locationcorrect"></div>
 														<div class='label-box-error' style='display:none;' id="locationwrong"></div>
+													</td>
+												</tr>
+								<tr>
+									<th></th>
+									<td colspan='2' class='bottom'><span class='field-desc'></span></td>
+								</tr>
+								<tr>
+													<th><label for=''>家乡：</label></th>
+													<td class='col-field'>
+														<select class='select' name="hometownProvince" id="selHometownProvince"  onchange="changeHometownCity()">
+														</select>
+														<select class='select' name="hometownCity" id="selHometownCity" onchange="changeHometownCounty()">
+														</select>
+														<select class='select' name="hometownCounty" id="selHometownCounty">
+														</select>
+													</td>
+													<td class='col-help'>
+														<div class='label-box-good' style='display:none;' id="hometowncorrect"></div>
+														<div class='label-box-error' style='display:none;' id="hometownwrong"></div>
 													</td>
 												</tr>
 								<tr>
@@ -223,6 +253,14 @@ $(document).ready(function(){
 								<tr>
 										<th></th>
 										<td colspan='2'><button class='button btn-x' type="button" onclick="check()" >保存修改</button></td>
+
+			                    </tr>
+			                    <tr>
+			                            <th></th>
+			                            <td colspan='2'>
+										 <div style='display:none;' id="savewrong"></div>
+		                                 <div style='display:none;' id="savecorrect"></div>
+		                                </td>
 
 			                    </tr>
 							</tbody>
