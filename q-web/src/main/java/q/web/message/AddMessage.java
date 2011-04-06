@@ -3,17 +3,24 @@
  */
 package q.web.message;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
 import q.dao.MessageDao;
 import q.dao.PeopleDao;
 import q.domain.Message;
+import q.domain.MessageJoinPeople;
 import q.domain.People;
+import q.util.ArrayKit;
+import q.util.CollectionKit;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.exception.RequestParameterInvalidException;
 
 /**
- * @author seanlinwang
- * @email xalinx at gmail dot com
+ * @author seanlinwang at gmail dot com
  * @date Feb 21, 2011
  * 
  */
@@ -39,38 +46,48 @@ public class AddMessage extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		Message message = new Message();
 		message.setContent(context.getString("content"));
-		message.setSenderId(context.getCookiePeopleId());
-		message.setReceiverId(context.getIdLong("receiverId"));
-		long replyMessageId = context.getIdLong("replyMessageId");
-		if (replyMessageId > 0) {
-			message.setReplyMessageId(replyMessageId);
+		long senderId = context.getCookiePeopleId();
+		message.setSenderId(senderId);
+		String[] receiverStringIds = context.getStringArray("receiverId");
+		message.setId(IdCreator.getLongId());
+		List<Long> receiverIds = IdCreator.convertIfValidIds(receiverStringIds);
+		List<MessageJoinPeople> joins = new ArrayList<MessageJoinPeople>(); 
+		for(Long receiverId : receiverIds) {
+			MessageJoinPeople join = new MessageJoinPeople();
+			join.setId(IdCreator.getLongId());
+			join.setSenderId(senderId);
+			join.setMessageId(message.getId());
+			join.setReceiverId(receiverId);
+			joins.add(join);
 		}
 		messageDao.addMessage(message);
-		context.redirectServletPath("/message");
+		messageDao.addMessageJoinPeoples(joins);
 	}
-
+	
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		long senderId = context.getCookiePeopleId();
-		long receiverId = context.getIdLong("receiverId");
 		if (senderId == 0)
 			throw new RequestParameterInvalidException("loginId invalid");
-		if (receiverId == 0)
-			throw new RequestParameterInvalidException("receiverId invalid");
-
-		People receiver = peopleDao.getPeopleById(receiverId);
-		if (receiver == null)
-			throw new RequestParameterInvalidException("receiverId invalid");
-
-		long replyMessageId = context.getIdLong("replyMessageId");
-		if (replyMessageId > 0) { // check has repliedId
-			Message replied = messageDao.getMessageById(replyMessageId);
-			if (replied == null) // check replied exists
-				throw new RequestParameterInvalidException("replied invalid");
-
-			if (replied.getReceiverId() != senderId) // check replied is mine
-				throw new RequestParameterInvalidException("replied receiverId invlaid");
+		String[] receiverStringIds = context.getStringArray("receiverId");
+		if(ArrayKit.isEmpty(receiverStringIds)) {
+			throw new RequestParameterInvalidException("receiver:invalid");
 		}
+		List<Long> receiverIds = null;
+		try {
+			receiverIds = IdCreator.convertIfValidIds(receiverStringIds);
+		} catch (Exception e) {
+			throw new RequestParameterInvalidException("receiver:invalid");
+		}
+		if(CollectionKit.isEmpty(receiverIds)) {
+			throw new RequestParameterInvalidException("receiver:invalid");
+		}
+		HashSet<Long> idSet = new HashSet<Long>(receiverIds);
+		List<People> receivers = peopleDao.getPeoplesByIds(new ArrayList<Long>(idSet));
+		if (CollectionKit.isEmpty(receivers) || receivers.size() != idSet.size()) {
+			throw new RequestParameterInvalidException("receiver:invalid");
+		}
+
 	}
 
 }

@@ -5,8 +5,6 @@
 	<resultMap id="messageResult" class="message">
 		<result property="id" column="id" />
 		<result property="senderId" column="sender_id" />
-		<result property="receiverId" column="receiver_id" />
-		<result property="replyMessageId" column="reply_message_id" />
 		<result property="content" column="content" />
 		<result property="status" column="status" />
 		<result property="created" column="created" />
@@ -15,14 +13,11 @@
 	<sql id="message.columns">
 		id,
 		sender_id,
-		receiver_id,
-		reply_message_id,
 		content,
 		status,
 		created,
 		modified
 	</sql>
-
 	<select id="selectMessageById" resultMap="messageResult">
 		select
 		<include refid="message.columns" />
@@ -30,13 +25,18 @@
 		where id = #value#
 	</select>
 
-	<select id="selectPageMessages" resultMap="messageResult">
+	<select id="selectMessagesByPage" resultMap="messageResult">
 		select
 		<include refid="message.columns" />
 		from message
 		where
-		sender_id = #myId#
-		or receiver_id = #myId#
+		status = 0
+		<isNotNull prepend="and " property="ids">
+			id in
+			<iterate property="ids" open="(" close=")" conjunction=",">
+				#ids[]#
+        	</iterate>
+	    </isNotNull>		
 		<isNotNull prepend="and" property="startCreated">
 			created &lt;= #startCreated#
 		</isNotNull>
@@ -44,9 +44,11 @@
 			id &lt;= #startId#
 		</isNotNull>
 		order by created desc
-		limit #startIndex#, #size#
+		<isNotNull property="size">
+			limit #startIndex#, #size#
+		</isNotNull>
 	</select>
-
+	
 	<insert id="insertMessage">
 		insert into message
 		(
@@ -54,7 +56,103 @@
 		) values (
 		#id#,
 		#senderId#,
-		#receiverId#,
+		#content#,
+		0,
+		now(),
+		null
+		)
+	</insert>
+	
+	<typeAlias alias="messageJoin" type="q.domain.MessageJoinPeople" />
+	<resultMap id="messageJoinResult" class="messageJoin">
+		<result property="id" column="id" />
+		<result property="senderId" column="sender_id" />
+		<result property="messageId" column="message_id" />
+		<result property="receiverId" column="receiver_id" />
+		<result property="status" column="status" />
+		<result property="created" column="created" />
+		<result property="modified" column="modified" />
+	</resultMap>
+	<sql id="messageJoin.columns">
+		id,
+		sender_id,
+		message_id,
+		receiver_id,
+		status,
+		created,
+		modified
+	</sql>	
+	<select id="selectMessageJoinPeoplesByPage" resultMap="messageJoinResult">
+		select
+		<include refid="messageJoin.columns" />
+		from message_join_people
+		where
+		status = 0 
+		<isNotNull prepend="and " property="myId">
+			(sender_id = #myId# or receiver_id = #myId# )
+		</isNotNull>
+		<isNotNull prepend="and " property="messageIds">
+			message_id in
+			<iterate property="messageIds" open="(" close=")" conjunction=",">
+				#messageIds[]#
+        	</iterate>
+	    </isNotNull>		
+		<isNotNull prepend="and" property="startCreated">
+			created &lt;= #startCreated#
+		</isNotNull>
+		<isNotNull prepend="and" property="startId">
+			id &lt;= #startId#
+		</isNotNull>
+		order by created desc
+		<isNotNull property="size">
+			limit #startIndex#, #size#
+		</isNotNull>
+	</select>
+	<insert id="insertMessageJoins" parameterClass="java.util.List">
+		insert into message_join_people
+		(
+		<include refid="messageJoin.columns" />
+		) values 
+		<iterate conjunction=",">
+			(#[].id#, #[].senderId#, #[].messageId#, #[].receiverId#, 0, now(), null)
+        </iterate>
+	</insert>	
+	
+	<typeAlias alias="messageReply" type="q.domain.MessageReply" />
+	<resultMap id="messageReplyResult" class="messageReply">
+		<result property="id" column="id" />
+		<result property="senderId" column="sender_id" />
+		<result property="quoteSenderId" column="quote_sender_id" />
+		<result property="quoteMessageId" column="quote_message_id" />
+		<result property="replySenderId" column="reply_sender_id" />
+		<result property="replyMessageId" column="reply_message_id" />
+		<result property="content" column="content" />
+		<result property="status" column="status" />
+		<result property="created" column="created" />
+		<result property="modified" column="modified" />
+	</resultMap>
+	<sql id="messageReply.columns">
+		id,
+		sender_id,
+		quote_sender_id,
+		quote_message_id,
+		reply_sender_id,
+		reply_message_id,
+		content,
+		status,
+		created,
+		modified
+	</sql>
+	<insert id="insertMessageReply">
+		insert into message_reply
+		(
+		<include refid="messageReply.columns" />
+		) values (
+		#id#,
+		#senderId#,
+		#quoteSenderId#,
+		#quoteMessageId#,
+		#replySenderId#,
 		#replyMessageId#,
 		#content#,
 		0,
@@ -62,5 +160,24 @@
 		null
 		)
 	</insert>
-
+	<select id="selectMessageRepliesByPage" resultMap="messageReplyResult">
+		select
+		<include refid="messageReply.columns" />
+		from message_reply
+		where
+		status = 0
+		<isNotNull prepend="and " property="quoteMessageId">
+			quote_message_id &lt;= #quoteMessageId#
+	    </isNotNull>		
+		<isNotNull prepend="and" property="startCreated">
+			created &lt;= #startCreated#
+		</isNotNull>
+		<isNotNull prepend="and" property="startId">
+			id &lt;= #startId#
+		</isNotNull>
+		order by created desc
+		<isNotNull property="size">
+			limit #startIndex#, #size#
+		</isNotNull>
+	</select>
 </sqlMap>

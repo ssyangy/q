@@ -206,17 +206,28 @@ public class DaoHelper {
 
 	}
 
-	public static void injectMessagesWithSenderReceiverRealName(PeopleDao peopleDao, List<Message> messages) throws SQLException {
-		if (CollectionKit.isNotEmpty(messages)) {
-			HashSet<Long> peopleIds = new HashSet<Long>(messages.size() + 1); // people number is less than messages count + 1
-			for (Message message : messages) {
-				peopleIds.add(message.getSenderId());
-				peopleIds.add(message.getReceiverId());
-			}
-			Map<Long, String> map = peopleDao.getIdRealNameMapByIds(peopleIds);
-			for (Message message : messages) {
-				message.setSenderRealName(map.get(message.getSenderId()));
-				message.setReceiverRealName(map.get(message.getReceiverId()));
+	public static void injectMessagesWithSenderAndReceivers(PeopleDao peopleDao, List<Message> messages) throws SQLException {
+		if (CollectionKit.isEmpty(messages)) {
+			return;
+		}
+		HashSet<Long> peopleIds = new HashSet<Long>(messages.size() + 1); // people number is less than messages count + 1
+		for (Message message : messages) {
+			peopleIds.add(message.getSenderId());
+			peopleIds.addAll(message.getReceiverIds());
+		}
+		if (CollectionKit.isEmpty(peopleIds)) {
+			return;
+		}
+		List<People> peoples = peopleDao.getPeoplesByIds(new ArrayList<Long>(peopleIds));
+		if (CollectionKit.isEmpty(peoples)) {
+			return;
+		}
+
+		Map<Long, People> peopleMap = convertToMap(peoples);
+		for (Message message : messages) {
+			message.setSender(peopleMap.get(message.getSenderId()));
+			for (Long mid : message.getReceiverIds()) {
+				message.addReceiver(peopleMap.get(mid));
 			}
 		}
 	}
@@ -389,16 +400,21 @@ public class DaoHelper {
 			return;
 		}
 
-		Map<Long, People> peopleMap = new HashMap<Long, People>(peoples.size());
-		for (People people : peoples) {
-			peopleMap.put(people.getId(), people);
-		}
+		Map<Long, People> peopleMap = convertToMap(peoples);
 		for (WeiboModel model : weiboModels) {
 			model.setPeople(peopleMap.get(model.getSenderId()));
 			if (model.getQuote() != null) {
 				model.getQuote().setPeople(peopleMap.get(model.getQuote().getSenderId()));
 			}
 		}
+	}
+
+	protected static Map<Long, People> convertToMap(List<People> peoples) {
+		Map<Long, People> peopleMap = new HashMap<Long, People>(peoples.size());
+		for (People people : peoples) {
+			peopleMap.put(people.getId(), people);
+		}
+		return peopleMap;
 	}
 
 	/**
@@ -427,7 +443,7 @@ public class DaoHelper {
 		}
 
 		Map<Long, Weibo> quoteMap = new HashMap<Long, Weibo>(quotes.size());
-		for(Weibo quote: quotes) {
+		for (Weibo quote : quotes) {
 			quoteMap.put(quote.getId(), quote);
 		}
 		for (WeiboModel model : weiboModels) {
@@ -441,10 +457,10 @@ public class DaoHelper {
 	/**
 	 * @param peopleDao
 	 * @param event
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public static void injectEventWithPeople(PeopleDao peopleDao, Event event) throws SQLException {
-		if(event == null) {
+		if (event == null) {
 			return;
 		}
 		event.setPeople(peopleDao.getPeopleById(event.getCreatorId()));

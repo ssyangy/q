@@ -3,7 +3,9 @@
 <%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
 <div class="profile-header">
 	<div class="profile-info clearfix">
-		<div class="profile-image-container"><a href=""><img width="128" height="128" src="${avatarUrlPrefix}/${people.avatarPath}-128"></a></div>
+		<div class="profile-image-container">
+			<img width="128" height="128" src="${avatarUrlPrefix}/${people.avatarPath}-128"/>
+		</div>
 		<div class="profile-details">
 			<c:if test="${loginCookie.peopleId == people.id }">
 			<div class="profile-edit"><a href="${urlPrefix}/profile/basic" class="button">修改我的资料</a></div>
