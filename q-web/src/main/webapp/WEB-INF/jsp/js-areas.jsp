@@ -18,13 +18,13 @@ var hometowncityExist=0;
 var hometowncountyExist=0;
 function changeCounty(){
 	 selCounty.options.length=0;
-	 selCounty.style.display = "none";
+	 selCounty.style.visibility = "hidden";
 	 if(cities != undifined) {
 		 var cityId = parseInt(selCity.value, 10);
 		 $.each(cities, function(index, city) {
 		 	if (city.id == cityId) {
 		 		if(city.childs != undefined) {
-		 			selCounty.style.display = "block";
+		 			selCounty.style.visibility = "visible";
 			 		$.each(city.childs, function(index, county) {
 			 			selCounty.options.add(new Option(county.name, county.id));
 			 			  if(county.id==countyExist){
@@ -38,12 +38,12 @@ function changeCounty(){
 }
 function changeCity(){
 	selCity.options.length=0;
-	selCity.style.display = "none";
+	selCity.style.visibility = "hidden";
 	 var areaId = parseInt(selProvince.value, 10);
 	 $.each(areas, function(index, area) {
 	 	if (area.id == areaId) {
 	 		if(area.childs != undifined) {
-	 			selCity.style.display = "block";
+	 			selCity.style.visibility = "visible";
 	 			cities = area.childs;
 		 		$.each(area.childs, function(index, area) {
 		 			selCity.options.add(new Option(area.name, area.id));
@@ -84,13 +84,13 @@ function changeHometownProvince(){
 }
 function changeHometownCounty(){
 	 selHometownCounty.options.length=0;
-	 selHometownCounty.style.display = "none";
+	 selHometownCounty.style.visibility = "hidden";
 	 if(cities != undifined) {
 		 var hometownCityId = parseInt(selHometownCity.value, 10);
 		 $.each(cities, function(index, city) {
 		 	if (city.id == hometownCityId) {
 		 		if(city.childs != undefined) {
-		 			selHometownCounty.style.display = "block";
+		 			selHometownCounty.style.visibility = "visible";
 			 		$.each(city.childs, function(index, county) {
 			 			selHometownCounty.options.add(new Option(county.name, county.id));
 			 			  if(county.id==countyExist){
@@ -104,12 +104,12 @@ function changeHometownCounty(){
 }
 function changeHometownCity(){
 	selHometownCity.options.length=0;
-	selHometownCity.style.display = "none";
+	selHometownCity.style.visibility = "hidden";
 	 var areaId = parseInt(selHometownProvince.value, 10);
 	 $.each(areas, function(index, area) {
 	 	if (area.id == areaId) {
 	 		if(area.childs != undifined) {
-	 			selHometownCity.style.display = "block";
+	 			selHometownCity.style.visibility = "visible";
 	 			cities = area.childs;
 		 		$.each(area.childs, function(index, area) {
 		 			selHometownCity.options.add(new Option(area.name, area.id));
