@@ -186,6 +186,11 @@
 			</set>
 		</property>
 	</bean>
+
+	<bean id="searchService" class="q.biz.impl.SolrSearchService">
+		<property name="searchUrl" value="${q.search.url}" />
+	</bean>
+
 	<!-- global web -->
 	<bean id="default" class="q.web.GetHomePage">
 		<property name="categoryDao" ref="categoryDao" />
@@ -240,6 +245,7 @@
 		<property name="eventDao" ref="eventDao" />
 		<property name="groupDao" ref="groupDao" />
 		<property name="favoriteDao" ref="favoriteDao" />
+		<property name="searchService" ref="searchService" />
 	</bean>
 	<bean id="getPeopleIndex" class="q.web.people.GetPeopleIndex">
 	</bean>
@@ -466,8 +472,9 @@
 
 	<!-- search web -->
 	<bean id="getSearchIndex" class="q.web.people.GetSearchIndex">
-            <property name="weiboDao" ref="weiboDao" />
-            <property name="peopleDao" ref="peopleDao" />
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="searchService" ref="searchService"></property>
 	</bean>
 	<bean id="getSearchGroup" class="q.web.people.GetSearchGroup">
 
