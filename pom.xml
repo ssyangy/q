@@ -183,6 +183,12 @@
 				<artifactId>commons-codec</artifactId>
 				<version>1.2</version>
 			</dependency>
+                        <dependency>
+				<groupId>net.sf.json-lib</groupId> 
+                                <artifactId>json-lib</artifactId> 
+                                <version>2.4</version>
+                                <classifier>jdk15</classifier>
+			</dependency>
 			<dependency>
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
@@ -249,6 +255,7 @@
 				<artifactId>jstl</artifactId>
 				<version>1.2</version>
 			</dependency>
+
 			<dependency>
 				<groupId>taglibs</groupId>
 				<artifactId>standard</artifactId>

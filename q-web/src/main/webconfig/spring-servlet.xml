@@ -135,7 +135,7 @@
 								<value>getFavoriteIndex:weibos</value>
 							</key>
 							<value>/WEB-INF/json/weibo-list.xml</value>
-						</entry>						
+						</entry>
 					</map>
 				</property>
 			</bean>
@@ -466,7 +466,8 @@
 
 	<!-- search web -->
 	<bean id="getSearchIndex" class="q.web.people.GetSearchIndex">
-
+            <property name="weiboDao" ref="weiboDao" />
+            <property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="getSearchGroup" class="q.web.people.GetSearchGroup">
 

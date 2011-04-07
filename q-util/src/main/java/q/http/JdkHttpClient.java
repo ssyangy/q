@@ -4,23 +4,29 @@
 package q.http;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageOutputStream;
 
 import org.apache.commons.fileupload.FileItem;
-
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
@@ -56,7 +62,12 @@ public class JdkHttpClient {
 		con.setConnectTimeout(connectTimeOut);
 		return con;
 	}
-
+    public static BufferedReader getSearch(HttpURLConnection connection)throws IOException{
+    	List<Long>temp=new ArrayList<Long>();
+    	connection.connect();
+    	BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        return br;
+    }
 	/**
 	 * 释放HttpUrlConnection链接
 	 *
@@ -81,6 +92,27 @@ public class JdkHttpClient {
 		connection.getOutputStream().write(buffer.getBytes());
 		String body = FetchUtil.inputStreamToString(connection.getInputStream());
 		return body;
+	}
+	public static String postString(HttpURLConnection connection,String data)throws IOException{
+		connection.setRequestMethod("POST");
+		connection.setRequestProperty("User-Agent", "Mozilla/5.0");
+		connection.setDoInput(true);
+		connection.setDoOutput(true);
+		connection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+		OutputStream out=null;
+		try{
+		//data=URLEncoder.encode(data, "UTF-8");
+		out = connection.getOutputStream();
+		out.write(data.getBytes());
+		out.flush();
+		}
+		finally {
+		out.close();
+
+		}
+		String body = FetchUtil.inputStreamToString(connection.getInputStream());
+		return body;
+
 	}
     public static InputStream getMultipart(HttpURLConnection connection) throws IOException{
     	InputStream data=connection.getInputStream();
@@ -123,6 +155,8 @@ public class JdkHttpClient {
          }
          return true;
     }
+
+
 	public static String postMultipart(HttpURLConnection connection, Map<String, CharSequence> payload, InputStream bufin, String filename ,long length,String fileContentType) throws IOException {
 		String boundary = Long.toString(System.currentTimeMillis(), 16);
 		byte[] data = null;
@@ -168,6 +202,7 @@ public class JdkHttpClient {
 		return body;
 
 	}
+
 	public static boolean exists(String   URLName){
 	      try   {
 	          HttpURLConnection.setFollowRedirects(false);

@@ -10,7 +10,7 @@
 </c:when>
 <c:otherwise>
 	<li class="tab-text ui-state-default ui-corner-top">
-		<a class="tab-text" href="${urlPrefix}/search">微博</a>
+		<a class="tab-text" href="${urlPrefix}/search?search=${param['search']}"">微博</a>
 	</li>
 </c:otherwise>
 </c:choose>
@@ -22,7 +22,7 @@
 </c:when>
 <c:otherwise>
 	<li class="tab-text ui-state-default ui-corner-top">
-		<a class="tab-text" href="${urlPrefix}/search/group">圈子</a>
+		<a class="tab-text" href="${urlPrefix}/search/group?search=${param['search']}">圈子</a>
 	</li>
 </c:otherwise>
 </c:choose>
@@ -34,7 +34,7 @@
 </c:when>
 <c:otherwise>
 	<li class="tab-text ui-state-default ui-corner-top">
-		<a class="tab-text" href="${urlPrefix}/search/people">人</a>
+		<a class="tab-text" href="${urlPrefix}/search/people?search=${param['search']}">人</a>
 	</li>
 </c:otherwise>
 </c:choose>
