@@ -4,10 +4,11 @@
 package q.dao.ibatis;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+
+import org.springframework.core.io.Resource;
 
 import q.dao.AreaDao;
 import q.dao.ip.IPSeeker;
@@ -37,9 +38,9 @@ public class AreaDaoImpl extends AbstractDaoImpl implements AreaDao {
 
 	private IPSeeker ip;
 
-	private File ipFile;
+	private Resource ipFile;
 
-	public void setIpFile(File ipFile) {
+	public void setIpFile(Resource ipFile) {
 		this.ipFile = ipFile;
 	}
 
@@ -93,8 +94,8 @@ public class AreaDaoImpl extends AbstractDaoImpl implements AreaDao {
 		}
 	}
 
-	public void initIp() {
-		ip = new IPSeeker(ipFile.getAbsolutePath(), null);
+	public void initIp() throws IOException {
+		ip = new IPSeeker(ipFile.getFile().getAbsolutePath(), null);
 	}
 
 	@Override

@@ -30,7 +30,7 @@ public class AreaTest {
 	{
 		// File file = new File(System.getProperty("user.dir") + "/src/main/resources/area/area.txt");
 		try {
-			areaDao.init();
+			areaDao.initArea();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
