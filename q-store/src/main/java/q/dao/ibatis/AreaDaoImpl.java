@@ -1,20 +1,23 @@
 /**
- * 
+ *
  */
 package q.dao.ibatis;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 
 import q.dao.AreaDao;
+import q.dao.ip.IPSeeker;
 import q.domain.Area;
 import q.util.StringKit;
 
 /**
- * 
+ *
  * content of file:
- * 
+ *
  * <ul>
  * <li>120000 天津市</li>
  * <li>120100 市辖区 *</li>
@@ -24,15 +27,28 @@ import q.util.StringKit;
  * <li>120104 南开区</li>
  * <li>120105 河北区</li>
  * </ul>
- * 
+ *
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Mar 15, 2011
- * 
+ *
  */
 public class AreaDaoImpl extends AbstractDaoImpl implements AreaDao {
 
+	private IPSeeker ip;
+
+	private File ipFile;
+
+	public void setIpFile(File ipFile) {
+		this.ipFile = ipFile;
+	}
+
 	public void init() throws IOException {
+		initArea();
+		initIp();
+	}
+
+	public void initArea() throws UnsupportedEncodingException, IOException {
 		Area rootArea = Area.getRootArea();
 		BufferedReader br = new BufferedReader(new InputStreamReader(AreaDaoImpl.class.getClassLoader().getResourceAsStream("data/area.txt"), "utf-8"));
 		String strLine;
@@ -75,7 +91,19 @@ public class AreaDaoImpl extends AbstractDaoImpl implements AreaDao {
 				area.setFullName(segs[1]);
 			}
 		}
-
 	}
+
+	public void initIp() {
+		ip = new IPSeeker(ipFile.getAbsolutePath(), null);
+	}
+
+	@Override
+	public String[] getCountryArea(String ipData) {
+		String[]temp=new String[2];
+		temp[0]=ip.getIPLocation(ipData).getCountry();
+		temp[1]=ip.getIPLocation(ipData).getArea();
+		return temp;
+	}
+
 
 }
