@@ -7,30 +7,17 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageOutputStream;
 
-import org.apache.commons.fileupload.FileItem;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
-
-import q.log.Logger;
 
 /**
  * JDK实现的UrlFetch
@@ -63,7 +50,6 @@ public class JdkHttpClient {
 		return con;
 	}
     public static BufferedReader getSearch(HttpURLConnection connection)throws IOException{
-    	List<Long>temp=new ArrayList<Long>();
     	connection.connect();
     	BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         return br;
