@@ -57,8 +57,6 @@ public class AddWeiboRetweet extends Resource {
 		
 		if (from != null) {
 			context.redirectContextPath(from);
-		} else {
-			context.redirectServletPath("/weibo/" + retweet.getId());
 		}
 	}
 

@@ -21,6 +21,7 @@
 						<div>
 						<jsp:include page="weibo-list.jsp">
 							<jsp:param name="feedUrl" value="${urlPrefix}/favorite"/>
+							<jsp:param name="from" value="${urlPrefix}/favorite"/>
 						</jsp:include>
 						</div>
 					</div>

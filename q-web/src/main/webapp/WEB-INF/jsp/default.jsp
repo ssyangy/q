@@ -5,7 +5,7 @@
 <html>
 <head>
 	<jsp:include page="head.jsp" />
-	<title>圈子</title>
+	<title>圈子a</title>
 	<script type="text/javascript">
 	$(function(){
 	    $("input[accesskey]").unbind().bind("keydown", function (e) {
@@ -54,7 +54,7 @@
 			<div class="header"> 
 				<div class="logo-area"> 
 					<div class="logo"><span class="logo-zh">圈子</span><span class="logo-en">Q.com.cn</span></div> 
-					<div class="slogan">找到志趣相投的朋友，吃喝玩乐应有尽有，圈子就是好玩！有圈子才尽兴！<br />喂！...你哪个圈儿的？！</div> 
+					<div class="slogan">找到志趣相投的朋友，吃喝玩乐应有尽有，圈子就是好玩！有圈子才尽兴！<br />喂！...你哪个圈儿的？！</div>
 				</div> 
 				<div class="signin-area input-form"> 
 					<div class="" style="display: none;color:red;" id="loginWrong"></div>
