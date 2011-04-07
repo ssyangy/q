@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.dao;
 
@@ -11,5 +11,7 @@ package q.dao;
  *
  */
 public interface AreaDao {
+
+	String[] getCountryArea(String ip);
 
 }

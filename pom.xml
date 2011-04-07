@@ -118,15 +118,40 @@
                                          <version>1.8.1</version>    
                                      </dependency> 
                                 </dependencies>
-                        </plugin>
+           </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-ip-resources</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<!-- this is important -->
+							<overwrite>true</overwrite>
+							<!-- target -->
+							<outputDirectory>${basedir}/q-web/target/q/WEB-INF/data/</outputDirectory>
+							<resources>
+								<resource>
+									<!-- source -->
+									<directory>${basedir}/q-store/src/test/resources/data/</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 		<resources>
-			<resource>
+			<!--resource>
 				<directory>src/main/java</directory>
 				<includes>
 					<include>**/*.xml</include>
 				</includes>
-			</resource>
+			</resource-->
 			<resource>
 				<directory>src/main/resources</directory>
 				<includes>

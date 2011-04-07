@@ -1,14 +1,7 @@
 package q.web.people;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 import q.biz.SearchService;
 import q.dao.DaoHelper;
@@ -21,9 +14,7 @@ import q.dao.page.FavoritePage;
 import q.dao.page.WeiboPage;
 import q.dao.page.WeiboReplyPage;
 import q.domain.Favorite;
-import q.domain.Weibo;
 import q.domain.WeiboModel;
-import q.http.JdkHttpClient;
 import q.util.CollectionKit;
 import q.web.Resource;
 import q.web.ResourceContext;
@@ -77,14 +68,11 @@ public class GetPeopleFeed extends Resource {
 			int size = context.getInt("size", 10);
 			long startId = context.getIdLong("startId");
 			String tab = context.getString("tab");
-			if ("at".equals(tab)) {//fixme realname id?
-		        List<Long>bs=searchService.searchWeibo("@dsf");
-		        if(bs.size()>0){
-		        weibos = weiboDao.getWeibosByIds(bs, true);
-		        DaoHelper.injectWeiboModelsWithPeople(peopleDao, weibos);
-		        context.setModel("weibos", weibos);
-		        }
-
+			if ("at".equals(tab)) {// fixme realname id?
+				List<Long> bs = searchService.searchWeibo("@dsf");
+				if (CollectionKit.isNotEmpty(bs)) {
+					weibos = weiboDao.getWeibosByIds(bs, true);
+				}
 			} else if ("replied".equals(tab)) {
 				WeiboReplyPage page = new WeiboReplyPage();
 				page.setStartIndex(0);
@@ -142,7 +130,7 @@ public class GetPeopleFeed extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
