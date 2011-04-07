@@ -55,10 +55,10 @@ public class AddWeibo extends Resource {
 		}
 
 		String from = context.getString("from");
-
+/*
 		URL temp = new URL("http://192.168.1.100:8080/solr/update");
 		HttpURLConnection con = JdkHttpClient.getHttpConnection(temp, 100000, 100000);
-		JdkHttpClient.postString(con,newXml(weibo));
+		JdkHttpClient.postString(con,newXml(weibo));*/
 		if (from != null) {
 			context.redirectContextPath(from);
 		} else {
