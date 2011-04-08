@@ -42,11 +42,13 @@ public class GetSearchIndex extends Resource{
 		List<? extends WeiboModel> weibos = null;
 		if(search!=null&search!=""){
 	        List<Long>bs=searchService.searchWeibo(search);
+	        if(bs!=null){
 	        if(bs.size()>0){
 	        weibos = weiboDao.getWeibosByIds(bs, true);
 	        DaoHelper.injectWeiboModelsWithPeople(peopleDao, weibos);
 	        context.setModel("weibos", weibos);
 
+	        }
 	        }
 		}
 	}

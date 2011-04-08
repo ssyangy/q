@@ -1,7 +1,5 @@
 package q.dao.ibatis;
-
 import java.io.File;
-
 import junit.framework.Assert;
 
 import org.junit.After;

@@ -1,13 +1,21 @@
 /**
- * 
+ *
  */
 package q.web.weibo;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+
+import q.biz.SearchService;
 import q.dao.WeiboDao;
 import q.domain.Weibo;
 import q.domain.WeiboFromType;
 import q.domain.WeiboJoinGroup;
 import q.domain.WeiboReply;
+import q.http.JdkHttpClient;
+import q.log.Logger;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -15,7 +23,7 @@ import q.web.ResourceContext;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 24, 2011
- * 
+ *
  */
 public class AddReplyRetweet extends Resource {
 	private WeiboDao weiboDao;
@@ -23,12 +31,17 @@ public class AddReplyRetweet extends Resource {
 	public void setWeiboDao(WeiboDao weiboDao) {
 		this.weiboDao = weiboDao;
 	}
+	private SearchService searchService;
 
+	public void setSearchService(SearchService searchService) {
+		this.searchService = searchService;
+	}
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
+
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long senderId = context.getCookiePeopleId();
@@ -53,7 +66,7 @@ public class AddReplyRetweet extends Resource {
 			retweet.setFromId(join.getGroupId());
 		}
 		this.weiboDao.addWeibo(retweet);
-
+		searchService.updateWeibo(retweet);
 		if (from != null) {
 			context.redirectContextPath(from);
 		} else {
