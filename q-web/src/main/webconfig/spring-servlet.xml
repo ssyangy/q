@@ -360,12 +360,9 @@
 	<!-- weibo web -->
 	<bean id="addWeibo" class="q.web.weibo.AddWeibo">
 		<property name="weiboDao" ref="weiboDao" />
-<<<<<<< HEAD
 		<property name="searchService" ref="searchService"></property>
-=======
 		<property name="putShortUrl" value="${q.short.upload.url}"/>
 		<property name="getShortUrl" value="${q.short.url}"/>
->>>>>>> 7a73320c21ba08c068b521a11bd9da1132969ef3
 	</bean>
 	<bean id="getWeibo" class="q.web.weibo.GetWeibo">
 		<property name="weiboDao" ref="weiboDao" />
