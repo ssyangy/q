@@ -22,7 +22,7 @@
 						<h2>搜索</h2>
 						<div class="search-box">
 							<form action="" method="GET">
-								<input type="text" class="inner-search" size="20" value=""><a href="" class="button">搜索</a>
+										<input type="text" id="search" name="search" class="inner-search" size="20" value="${param['search']}"><button class="button">搜索</button>
 							</form>
 						</div>
 					</div>
@@ -33,30 +33,7 @@
 							<jsp:param value="group" name="tab"/>
 						</jsp:include>
 							<div id="tabs-2" class="tab-canvas">
-								<div class="stream-items search">
-									<div class="stream-item">
-										<div class="actions"><a href="" class="button">加入</a></div>
-										<div class="group-info">
-											<div class="group-name">
-												<a href="group.html">Java分布式</a>
-											</div>
-											<div class="member-count">成员数：1230</div>
-										</div>
-										<div class="clearfix2"></div>
-									</div>
-								</div>
-								<div class="stream-items search">
-									<div class="stream-item">
-										<div class="actions"><a href="" class="button">加入</a></div>
-										<div class="group-info">
-											<div class="group-name">
-												<a href="group.html">Java分布式</a>
-											</div>
-											<div class="member-count">成员数：1230</div>
-										</div>
-										<div class="clearfix2"></div>
-									</div>
-								</div>
+                              <jsp:include page="group-list.jsp"></jsp:include>
 							</div>
 						</div>
 					</div>

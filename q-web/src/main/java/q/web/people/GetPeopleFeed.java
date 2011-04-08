@@ -14,6 +14,7 @@ import q.dao.page.FavoritePage;
 import q.dao.page.WeiboPage;
 import q.dao.page.WeiboReplyPage;
 import q.domain.Favorite;
+import q.domain.People;
 import q.domain.WeiboModel;
 import q.util.CollectionKit;
 import q.web.Resource;
@@ -60,7 +61,7 @@ public class GetPeopleFeed extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
-
+        People peopleTemp=peopleDao.getPeopleById(loginPeopleId);
 		List<? extends WeiboModel> weibos = null;
 		List<Long> senderIds = peopleDao.getAllFollowingId(loginPeopleId);
 		senderIds.add(loginPeopleId);// add login people
@@ -69,7 +70,7 @@ public class GetPeopleFeed extends Resource {
 			long startId = context.getIdLong("startId");
 			String tab = context.getString("tab");
 			if ("at".equals(tab)) {// fixme realname id?
-				List<Long> bs = searchService.searchWeibo("@"+loginPeopleId);
+				List<Long> bs = searchService.searchWeibo("@"+peopleTemp.getUsername());
 				if (CollectionKit.isNotEmpty(bs)) {
 					weibos = weiboDao.getWeibosByIds(bs, true);
 				}

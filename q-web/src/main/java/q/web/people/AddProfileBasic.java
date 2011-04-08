@@ -1,5 +1,7 @@
 package q.web.people;
 import java.util.List;
+
+import q.biz.SearchService;
 import q.dao.PeopleDao;
 import q.domain.Area;
 import q.domain.Degree;
@@ -17,10 +19,16 @@ public class AddProfileBasic extends Resource{
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
 	}
+	private SearchService searchService;
+
+	public void setSearchService(SearchService searchService) {
+		this.searchService = searchService;
+	}
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		People people = new People();
 		long peopleId = context.getCookiePeopleId();
+		People databasePeople=peopleDao.getPeopleById(peopleId);
 		//long peopleId=1300368092229L;
 		people.setId(peopleId);
 		Gender gender = Gender.convertValue(context.getInt("gender", -1));
@@ -42,6 +50,10 @@ public class AddProfileBasic extends Resource{
 		people.setIntro(context.getString("intro"));
 		people.setRealName(context.getString("realName"));
 		peopleDao.updatePeopleById(people);
+		if(!databasePeople.getRealName().equals(people.getRealName())){
+			people.setUsername(databasePeople.getUsername());
+			searchService.updatePeople(people);
+		}
 	}
 
 	@Override
