@@ -1,13 +1,8 @@
 package q.dao.ibatis;
-
 import java.io.File;
-
 import junit.framework.Assert;
-
 import org.junit.Test;
-
 import q.util.StringKit;
-
 public class AreaDaoImplTest {
 	AreaDaoImpl ipDao = new AreaDaoImpl();
 	{
