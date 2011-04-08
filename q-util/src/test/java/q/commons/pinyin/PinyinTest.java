@@ -14,6 +14,7 @@ public class PinyinTest {
 		Assert.assertTrue(Pinyin.getPinyin("单田芳").contains("dantianfang"));
 		Assert.assertTrue(Pinyin.getPinyin("单田芳").contains("shantianfang"));
 		Assert.assertTrue(Pinyin.getPinyin("单田芳cc").contains("shantianfangcc"));
+		// FIXME //Assert.assertTrue(Pinyin.getPinyin("单田芳12").contains("shantianfang12"));
 	}
 	
 	
