@@ -68,17 +68,14 @@ public class JdkHttpClient {
 	 * @param connection
 	 * @throws IOException
 	 */
-	public static void releaseUrlConnection(HttpURLConnection connection)  {
-		try{
+
+	public static void releaseUrlConnection(HttpURLConnection connection)  throws IOException{
+
 		connection.getInputStream().close();
 		connection.disconnect();
 		connection = null;
-		}
-		catch(Exception e){
-        Logger.getLogger().error(e);
-		}
-	}
 
+	}
 	public static String post(HttpURLConnection connection, Map<String, CharSequence> params) throws IOException {
 		String buffer = FetchUtil.paramsToBuffer(params.entrySet(), "&", "=");
 

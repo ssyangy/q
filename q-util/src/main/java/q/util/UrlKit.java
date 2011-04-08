@@ -1,22 +1,30 @@
 /**
- * 
+ *
  */
 package q.util;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import q.http.JdkHttpClient;
 
 /**
  * @version 2008-7-27
  * @author <a href="mailto:zixue@taobao.com">zixue</a>
- * 
+ *
  */
 public class UrlKit {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final String UTF8 = "utf-8";
 	private static final String HTTP = "http://";
@@ -28,7 +36,8 @@ public class UrlKit {
 	 *            k1=
 	 * @return
 	 */
-	public static String extractParameterValue(String query, String parameterName) {
+	public static String extractParameterValue(String query,
+			String parameterName) {
 		if (query == null) {
 			return null;
 		}
@@ -117,7 +126,8 @@ public class UrlKit {
 		return index;
 	}
 
-	public static String getParameterNameWitchValueStartsWith(String query, String starts) {
+	public static String getParameterNameWitchValueStartsWith(String query,
+			String starts) {
 		if (query == null) {
 			return null;
 		}
@@ -148,7 +158,8 @@ public class UrlKit {
 		}
 	}
 
-	public static Map<String, String> getParameterMapFromUrl(String url, String encoding) throws UnsupportedEncodingException {
+	public static Map<String, String> getParameterMapFromUrl(String url,
+			String encoding) throws UnsupportedEncodingException {
 		int index = url.indexOf('?');
 		if (index >= 0) {
 			url = url.substring(index + 1);
@@ -164,7 +175,8 @@ public class UrlKit {
 		}
 	}
 
-	public static Map<String, String> getParameterMapFromQuery(String query, String encoding) throws UnsupportedEncodingException {
+	public static Map<String, String> getParameterMapFromQuery(String query,
+			String encoding) throws UnsupportedEncodingException {
 		String[] array = StringKit.split(query, '&');
 		HashMap<String, String> retMap = null;
 		if (array != null && array.length != 0) {
@@ -184,6 +196,19 @@ public class UrlKit {
 			}
 		}
 		return retMap;
+	}
+
+	public static String replaceUrl(String content, Replace replace) {
+		StringBuffer sb = new StringBuffer();
+		Pattern p = Pattern
+				.compile("http://[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&:]*");
+		Matcher m = p.matcher(content);
+		while (m.find()) {
+			String lurl = content.substring(m.start(), m.end());
+			m.appendReplacement(sb, replace.replace(lurl));
+		}
+		m.appendTail(sb);
+		return sb.toString();
 	}
 
 }
