@@ -38,15 +38,76 @@
 					</c:otherwise>
 					</c:choose>
 					<div class="button">
-						<a href="${urlPrefix}/weibo/new?receiverId=${people.id}&from=${contextPath}/people/${people.id}">@${people.gender.cncall}</a>
+						<a id='btn_weibo'>@${people.gender.cncall}</a>
 					</div>
 					<div class="button">
-						<a href="${urlPrefix}/message/new?receiverId=${people.id}">发私信</a>
+						<a id='btn_msg'>发私信</a>
 					</div>
 				</div>
 				<div class="kimoji">向${people.gender.cncall}表达：</div>
 			</div>
 		</div>
 	</div>
+	  <style type="text/css">
+      .ui-widget-overlay {background: #333 url(css/images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x;}
+      </style>
+      <script type="text/javascript">
+      $(function(){
+          $('#dia_weibo').dialog({
+              resizable: false,
+              modal: true,
+              autoOpen: false,
+              hide: "drop",
+              width:350,
+              buttons: {
+                  "发言": function () {
+                      $('button.donet', this).click();
+                      $(this).dialog("close");
+                  },
+                  "取消": function () {
+                      $(this).dialog("close");
+                  }
+              }
+          });
+	      $("#btn_weibo").click(function () {
+	    	  $('#dia_weibo').dialog("open");
+	      });
+          $('#dia_msg').dialog({
+              resizable: false,
+              modal: true,
+              autoOpen: false,
+              hide: "drop",
+              width:350,
+              buttons: {
+                  "发言": function () {
+                      $('button.donet', this).click();
+                      $(this).dialog("close");
+                  },
+                  "取消": function () {
+                      $(this).dialog("close");
+                  }
+              }
+          });
+	      $("#btn_msg").click(function () {
+	    	  $('#dia_msg').dialog("open");
+	      });
+      });
+
+      </script>
+	<div id="dia_weibo" class="ui_dialog" title="@${people.realName}">
+    	<form action="${urlPrefix}/weibo" method="post">
+			<input type="hidden" name="from" value="${urlPrefix}/people/${people.id}"/>
+			<textarea name="content" rows="5" cols="50">@${people.realName}</textarea><br/>
+			<button class='hide donet' type='submit'></button>
+		</form>
+    </div>
+	<div id="dia_msg" class="ui_dialog" title="发私信给:${people.realName}">
+		<form action="${urlPrefix}/message" method="post">
+			<input type="hidden" name="receiverId" value="${people.id}"/>
+			<input type="hidden" name="from" value="${urlPrefix}/people/${people.id}"/>
+			<textarea name="content" rows="5" cols="50"></textarea><br/>
+			<button class='hide donet' type='submit'></button>
+		</form>
+    </div>    
 	</c:if>
 </div>

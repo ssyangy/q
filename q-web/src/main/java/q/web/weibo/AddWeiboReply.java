@@ -57,7 +57,10 @@ public class AddWeiboReply extends Resource {
 			reply.setFromId(join.getGroupId());
 		}
 		this.weiboDao.addWeiboReply(reply);
-		context.redirectServletPath("/weibo/" + quoteId);
+		String from = context.getString("from");
+		if (from != null) {
+			context.redirectContextPath(from);
+		}
 	}
 
 	/* (non-Javadoc)

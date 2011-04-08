@@ -51,8 +51,8 @@ public class AddMessage extends Resource {
 		String[] receiverStringIds = context.getStringArray("receiverId");
 		message.setId(IdCreator.getLongId());
 		List<Long> receiverIds = IdCreator.convertIfValidIds(receiverStringIds);
-		List<MessageJoinPeople> joins = new ArrayList<MessageJoinPeople>(); 
-		for(Long receiverId : receiverIds) {
+		List<MessageJoinPeople> joins = new ArrayList<MessageJoinPeople>();
+		for (Long receiverId : receiverIds) {
 			MessageJoinPeople join = new MessageJoinPeople();
 			join.setId(IdCreator.getLongId());
 			join.setSenderId(senderId);
@@ -62,15 +62,22 @@ public class AddMessage extends Resource {
 		}
 		messageDao.addMessage(message);
 		messageDao.addMessageJoinPeoples(joins);
+
+		String from = context.getString("from");
+		if (from != null) {
+			context.redirectContextPath(from);
+		} else {
+			context.redirectServletPath("/message/" + message.getId());
+		}
 	}
-	
+
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		long senderId = context.getCookiePeopleId();
 		if (senderId == 0)
 			throw new RequestParameterInvalidException("loginId invalid");
 		String[] receiverStringIds = context.getStringArray("receiverId");
-		if(ArrayKit.isEmpty(receiverStringIds)) {
+		if (ArrayKit.isEmpty(receiverStringIds)) {
 			throw new RequestParameterInvalidException("receiver:invalid");
 		}
 		List<Long> receiverIds = null;
@@ -79,12 +86,14 @@ public class AddMessage extends Resource {
 		} catch (Exception e) {
 			throw new RequestParameterInvalidException("receiver:invalid");
 		}
-		if(CollectionKit.isEmpty(receiverIds)) {
+		if (CollectionKit.isEmpty(receiverIds)) {
 			throw new RequestParameterInvalidException("receiver:invalid");
 		}
 		HashSet<Long> idSet = new HashSet<Long>(receiverIds);
-		List<People> receivers = peopleDao.getPeoplesByIds(new ArrayList<Long>(idSet));
-		if (CollectionKit.isEmpty(receivers) || receivers.size() != idSet.size()) {
+		List<People> receivers = peopleDao.getPeoplesByIds(new ArrayList<Long>(
+				idSet));
+		if (CollectionKit.isEmpty(receivers)
+				|| receivers.size() != idSet.size()) {
 			throw new RequestParameterInvalidException("receiver:invalid");
 		}
 
