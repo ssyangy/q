@@ -16,9 +16,9 @@ import q.domain.Area;
 import q.util.StringKit;
 
 /**
- *
+ * 
  * content of file:
- *
+ * 
  * <ul>
  * <li>120000 天津市</li>
  * <li>120100 市辖区 *</li>
@@ -28,11 +28,11 @@ import q.util.StringKit;
  * <li>120104 南开区</li>
  * <li>120105 河北区</li>
  * </ul>
- *
+ * 
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Mar 15, 2011
- *
+ * 
  */
 public class AreaDaoImpl extends AbstractDaoImpl implements AreaDao {
 
@@ -95,16 +95,17 @@ public class AreaDaoImpl extends AbstractDaoImpl implements AreaDao {
 	}
 
 	public void initIp() throws IOException {
-		ip = new IPSeeker(ipFile.getFile().getAbsolutePath(), null);
+		if (ipFile.getFile().exists()) {
+			ip = new IPSeeker(ipFile.getFile().getAbsolutePath(), null);
+		}
 	}
 
 	@Override
 	public String[] getCountryArea(String ipData) {
-		String[]temp=new String[2];
-		temp[0]=ip.getIPLocation(ipData).getCountry();
-		temp[1]=ip.getIPLocation(ipData).getArea();
+		String[] temp = new String[2];
+		temp[0] = ip.getIPLocation(ipData).getCountry();
+		temp[1] = ip.getIPLocation(ipData).getArea();
 		return temp;
 	}
-
 
 }

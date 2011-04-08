@@ -8,23 +8,7 @@
       .msg{padding:10px 10px;}
       </style> 
 	<script type="text/javascript"> 
-	    var friendlist = [
-            { value: 'jin zi cheng', img: '1', name: '金梓成', sign: 'blablablablabla' },
-            { value: 'han han', img: '1', name: '韩寒', sign: 'blablablablabla' },
-            { value: 'yao qian', img: '1', name: '姚钱', sign: 'blablablablablaaasdacacffafadsfweqrffqwdwqdqwe' },
-            { value: 'ma yun', img: '1', name: '马云', sign: 'blablablablabla' },
-            { value: 'bill', img: '1', name: 'Bill', sign: 'blablablablabla' },
-            { value: 'ma yin jiu', img: '1', name: '马英九', sign: 'blablablablabla' },
-            { value: 'q.com.cn', img: '1', name: 'q.com.cn', sign: 'blablablablabla' },
-            { value: 'erlang', img: '1', name: 'Erlang', sign: 'blablablablabla' },
-            { value: 'groovy', img: '1', name: 'Groovy', sign: 'blablablablabla' },
-            { value: 'haskell', img: '1', name: 'Haskell', sign: 'blablablablabla' },
-            { value: 'dou ban', img: '1', name: '豆瓣', sign: '' },
-            { value: 'quan zi', img: '1', name: '圈子', sign: 'blablablablabla' },
-            { value: 'a li ba ba', img: '1', name: '阿里巴巴', sign: 'blablablablabla' },
-            { value: 'ao ba ma', img: '1', name: '奥巴马' },
-            { value: 'visual studio', img: '1', name: 'VisualStudio', sign: 'blablablablabla' },
-        ];
+	    	var friendlist = ${peoplesHintJson};
             $(function () {
                 $("#autoinput").bind("keydown", function (event) {
                     if (event.keyCode === $.ui.keyCode.TAB &&
@@ -46,12 +30,20 @@
                         terms.push(ui.item.name);
                         terms.push("");
                         this.value = terms.join(", ");
-                        return false;
+                         
+                         var idsput = $('#ids');
+						 var ids = split(idsput.val());
+						 ids.pop();
+						 ids.push(ui.item.id);
+						 ids.push("");
+						 idsput.val(ids.join(","));
+                        
+                         return false;
                     }
                 }).data("autocomplete")._renderItem = function (ul, item) {
                     return $("<li></li>")
                         .data("item.autocomplete", item)
-                        .append("<a><img src='css/images/" + item.img + ".png'><span class='f14'>" + item.name + "</span></br>" + item.sign + "</a>")
+                        .append("<a><img src='${avatarUrlPrefix}/" + item.avatarPath + "-24'><span class='f14'>" + item.username + "</span></br>" + item.realName + "</a>")
                         .appendTo(ul);
                 };
  
@@ -92,18 +84,25 @@
 						<div class="tweet-box"> 
 							<div class="new-msg-box"> 
 								<div class="new-msg-area"> 
+									<form>
 									<table id="setting-form" class="msg-form qtb" cellspacing='8'> 
 										<tbody> 
 											<tr><th>收信人：</th></tr> 
-											<tr><td class="col-field"><input id='autoinput' type='text' class='text_field' size='20'></td></tr> 
+											<tr>
+												<td class="col-field">
+													<input id='autoinput' type='text' class='text_field' size='20'>
+													<input id='ids' type='hidden'>
+												</td>
+											</tr> 
 											<tr><th>内容：</th></tr> 
 											<tr><td><textarea cols="40" rows="4" style="width:335px;"></textarea></td></tr> 
 											<tr><td><a href="" class="button mt10">发送</a><a href="" class="cancel">取消</a></td></tr> 
 										</tbody> 
 									</table> 
+									</form>
 								</div> 
-								<div class="contacts"> 
-								</div> 
+								<!--  div class="contacts"> 
+								</div --> 
 								<div class="clearfix2"></div> 
 							</div> 
 						</div> 

@@ -116,5 +116,9 @@
 			<groupId>org.easymock</groupId>
 			<artifactId>easymock</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.pinyin4j</groupId>
+			<artifactId>pinyin4j</artifactId>
+		</dependency>
 	</dependencies>
 </project>
