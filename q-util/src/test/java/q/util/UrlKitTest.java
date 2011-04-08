@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.util;
 
@@ -16,7 +16,7 @@ import org.junit.Test;
 
 /**
  * @author lin.wangl
- * 
+ *
  */
 public class UrlKitTest {
 
@@ -106,5 +106,21 @@ public class UrlKitTest {
 		Map<String, String> map = UrlKit.getParameterMapFromQuery("sign_method=md5&sid=abc", "utf-8");
 		assertEquals("md5", map.get("sign_method"));
 		assertEquals("abc", map.get("sid"));
+	}
+
+	@Test
+	public void testReplaceUrl() {
+		Replace replace = new Replace(){
+
+			@Override
+			public String replace(String lurl) {
+				return "bb";
+			}
+		};
+		assertEquals("aabb cc", UrlKit.replaceUrl("aahttp://www.google.com cc", replace));
+		assertEquals("bb cc", UrlKit.replaceUrl("http://www.google.com cc", replace));
+		assertEquals("aabb", UrlKit.replaceUrl("aahttp://www.google.com", replace));
+		assertEquals("aabb ddbb中文", UrlKit.replaceUrl("aahttp://www.google.com/?a=b&c=d ddhttp://www.google.com?a=中文", replace));
+
 	}
 }

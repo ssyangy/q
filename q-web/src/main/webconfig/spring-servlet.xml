@@ -342,6 +342,8 @@
 	<!-- weibo web -->
 	<bean id="addWeibo" class="q.web.weibo.AddWeibo">
 		<property name="weiboDao" ref="weiboDao" />
+		<property name="putShortUrl" value="${q.short.upload.url}"/>
+		<property name="getShortUrl" value="${q.short.url}"/>
 	</bean>
 	<bean id="getWeibo" class="q.web.weibo.GetWeibo">
 		<property name="weiboDao" ref="weiboDao" />

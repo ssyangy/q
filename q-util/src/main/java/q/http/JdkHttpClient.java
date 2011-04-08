@@ -64,9 +64,11 @@ public class JdkHttpClient {
 	 * @throws IOException
 	 */
 	public static void releaseUrlConnection(HttpURLConnection connection) throws IOException {
-		connection.getInputStream().close();
-		connection.disconnect();
-		connection = null;
+		if(connection != null) {
+			connection.getInputStream().close();
+			connection.disconnect();
+			connection = null;
+		}
 	}
 
 	public static String post(HttpURLConnection connection, Map<String, CharSequence> params) throws IOException {
