@@ -22,7 +22,7 @@
 		<dependency>
 			<groupId>net.sf.json-lib</groupId>
 			<artifactId>json-lib</artifactId>
-			 <classifier>jdk15</classifier>
+			<classifier>jdk15</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -53,9 +53,9 @@
 			<artifactId>commons-fileupload</artifactId>
 		</dependency>
 		<dependency>
-				<groupId>commons-io</groupId>
-				<artifactId>commons-io</artifactId>
-	    </dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
@@ -64,8 +64,6 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
-		<!--dependency> <groupId>cactus</groupId> <artifactId>cactus</artifactId>
-			</dependency -->
 		<dependency>
 			<groupId>org.apache.cactus</groupId>
 			<artifactId>cactus.core.framework.uberjar.javaEE.14</artifactId>
@@ -86,6 +84,10 @@
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
 			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.pinyin4j</groupId>
+			<artifactId>pinyin4j</artifactId>
 		</dependency>
 	</dependencies>
 </project>

@@ -14,6 +14,7 @@ import q.dao.page.WeiboReplyPage;
 import q.domain.Weibo;
 import q.domain.WeiboJoinGroup;
 import q.domain.WeiboReply;
+import q.util.CollectionKit;
 import q.util.IdCreator;
 
 /**
@@ -79,6 +80,9 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 	 */
 	@Override
 	public List<Weibo> getHotWeibosByGroupIds(List<Long> groupIds, int limit, int start) throws SQLException {
+		if(CollectionKit.isEmpty(groupIds)) {
+			return null;
+		}
 		WeiboPage page = new WeiboPage();
 		page.setStartIndex(start);
 		page.setSize(limit);
@@ -89,6 +93,9 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 
 	@Override
 	public List<Weibo> getWeibosByIds(List<Long> ids, boolean needDesc) throws SQLException {
+		if(CollectionKit.isEmpty(ids)) {
+			return null;
+		}
 		Map<String, Object> query = new HashMap<String, Object>();
 		query.put("ids", ids);
 		query.put("desc", needDesc ? new Object() : null);
@@ -98,9 +105,12 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 	}
 
 	@Override
-	public List<WeiboReply> getWeiboRepliesByIds(List<Long> repliyIds, boolean needDesc) throws SQLException {
+	public List<WeiboReply> getWeiboRepliesByIds(List<Long> replyIds, boolean needDesc) throws SQLException {
+		if(CollectionKit.isEmpty(replyIds)) {
+			return null;
+		}
 		Map<String, Object> query = new HashMap<String, Object>();
-		query.put("ids", repliyIds);
+		query.put("ids", replyIds);
 		query.put("desc", needDesc ? new Object() : null);
 		@SuppressWarnings("unchecked")
 		List<WeiboReply> replies = (List<WeiboReply>) this.sqlMapClient.queryForList("selectWeiboRepliesByIds", query);

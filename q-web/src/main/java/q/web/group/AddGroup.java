@@ -9,6 +9,7 @@ package q.web.group;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import q.biz.SearchService;
 import q.dao.GroupDao;
 import q.domain.Group;
 import q.web.Resource;
@@ -16,11 +17,11 @@ import q.web.ResourceContext;
 
 /**
  * AddGroup action
- * 
+ *
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 19, 2011
- * 
+ *
  */
 public class AddGroup extends Resource {
 	private GroupDao groupDao;
@@ -28,9 +29,13 @@ public class AddGroup extends Resource {
 	public void setGroupDao(GroupDao groupDao) {
 		this.groupDao = groupDao;
 	}
-	
+	private SearchService searchService;
+
+	public void setSearchService(SearchService searchService) {
+		this.searchService = searchService;
+	}
 	@Override
-	public void execute(ResourceContext context) throws SQLException, IOException {
+	public void execute(ResourceContext context) throws Exception {
 		Group group = new Group();
 		group.setCreatorId(context.getCookiePeopleId()); // set group creator id from cookie
 		group.setName(context.getString("name"));
@@ -38,6 +43,7 @@ public class AddGroup extends Resource {
 		groupDao.addGroup(group); // create group
 		groupDao.addGroupJoinCategory(group.getId(), context.getIdLong("categoryId")); // set group category
 		context.redirectServletPath("/group/" + group.getId());
+		searchService.updateGroup(group);
 	}
 
 	/* (non-Javadoc)
@@ -46,6 +52,6 @@ public class AddGroup extends Resource {
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

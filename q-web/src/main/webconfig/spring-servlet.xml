@@ -217,6 +217,7 @@
 	<bean id="addPeople" class="q.web.people.AddPeople">
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="authcodeDao" ref="authcodeDao" />
+		<property name="searchService" ref="searchService"></property>
 	</bean>
 	<bean id="getPeopleFollowing" class="q.web.people.GetPeopleFollowing">
 		<property name="peopleDao" ref="peopleDao" />
@@ -285,6 +286,7 @@
 	<!-- group web -->
 	<bean id="addGroup" class="q.web.group.AddGroup">
 		<property name="groupDao" ref="groupDao" />
+		 <property name="searchService" ref="searchService"></property>
 	</bean>
 	<bean id="getGroupNew" class="q.web.group.GetGroupNew">
 		<property name="categoryDao" ref="categoryDao" />
@@ -446,6 +448,7 @@
 	</bean>
 	<bean id="addProfileBasic" class="q.web.people.AddProfileBasic">
 		<property name="peopleDao" ref="peopleDao" />
+		<property name="searchService" ref="searchService"></property>
 	</bean>
 	<bean id="getProfileAvatar" class="q.web.people.GetProfileAvatar">
 		<property name="imageUrl" value="${q.image.url}" />
@@ -482,9 +485,11 @@
 		<property name="searchService" ref="searchService"></property>
 	</bean>
 	<bean id="getSearchGroup" class="q.web.people.GetSearchGroup">
-
+          <property name="searchService" ref="searchService"></property>
+          <property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="getSearchPeople" class="q.web.people.GetSearchPeople">
-
+        <property name="peopleDao" ref="peopleDao" />
+		<property name="searchService" ref="searchService"></property>
 	</bean>
 </beans>

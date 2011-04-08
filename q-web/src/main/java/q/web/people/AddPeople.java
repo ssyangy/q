@@ -2,6 +2,7 @@ package q.web.people;
 
 import java.sql.SQLException;
 
+import q.biz.SearchService;
 import q.dao.AuthcodeDao;
 import q.dao.PeopleDao;
 import q.domain.Gender;
@@ -34,8 +35,13 @@ public class AddPeople extends Resource {
 		this.authcodeDao = authcodeDao;
 	}
 
+	private SearchService searchService;
+
+	public void setSearchService(SearchService searchService) {
+		this.searchService = searchService;
+	}
 	@Override
-	public void execute(ResourceContext context) throws SQLException {
+	public void execute(ResourceContext context) throws Exception {
 		People people = new People();
 		people.setEmail(context.getString("email"));
 		people.setPassword(context.getString("password"));
@@ -46,6 +52,7 @@ public class AddPeople extends Resource {
 		peopleDao.addPeople(people);
 		context.setModel("people", people);
 		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), people.getRealName(), people.getUsername())); // set login cookie
+		searchService.updatePeople(people);
 	}
 
 	@Override

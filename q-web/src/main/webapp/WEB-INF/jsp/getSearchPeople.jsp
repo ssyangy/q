@@ -22,7 +22,7 @@
 						<h2>搜索</h2>
 						<div class="search-box">
 							<form action="" method="GET">
-								<input type="text" class="inner-search" size="20" value=""><a href="" class="button">搜索</a>
+								<input type="text" id="search" name="search" class="inner-search" size="20" value="${param['search']}"><button class="button">搜索</button>
 							</form>
 						</div>
 					</div>
@@ -32,48 +32,8 @@
 						<jsp:include page="search-tag.jsp">
 							<jsp:param value="people" name="tab"/>
 						</jsp:include>
-
 							<div id="tabs-3" class="tab-canvas">
-								<div class="stream-items search">
-									<div class="stream-item">
-										<div class="actions"><a href="" class="button">+ 关注</a></div>
-										<div class="people">
-											<div class="avatar"><img src="css/images/avatar0.png"></div>
-											<div class="people-info-block">
-												<div class="name people-info-line"><a href="profile.html"><span class="display-name">王霖</span> <span class="username">@seanlinwang</span></a></div>
-												<div class="location people-info-line">上海 黄浦区</div>
-												<div class="url people-info-line"><a href="">http://seanlinwang.com</a></div>
-												<div class="bio">java architect</div>
-											</div>
-											<div class="clearfix2"></div>
-										</div>
-									</div>
-									<div class="stream-item">
-										<div class="action"><a href="" class="button">+ 关注</a></div>
-										<div class="people">
-											<div class="avatar"><img src="css/images/avatar0.png"></div>
-											<div class="people-info-block">
-												<div class="name people-info-line"><a href="profile.html"><span class="display-name">王霖</span> <span class="username">@seanlinwang</span></a></div>
-												<div class="location people-info-line">上海 黄浦区</div>
-												<div class="url people-info-line"><a href="">http://seanlinwang.com</a></div>
-												<div class="bio">java architect</div>
-											</div>
-											<div class="clearfix2"></div>
-										</div>
-									</div>
-									<div class="stream-item">
-										<div class="actions"><a href="" class="button">+ 关注</a></div>
-										<div class="people">
-											<div class="avatar"><img src="css/images/avatar0.png"></div>
-											<div class="people-info-block">
-												<div class="name people-info-line"><a href="profile.html"><span class="display-name">王霖</span> <span class="username">@seanlinwang</span></a></div>
-												<div class="location people-info-line">上海 黄浦区</div>
-												<div class="url people-info-line"><a href="">http://seanlinwang.com</a></div>
-												<div class="bio">java architect</div>
-											</div>
-											<div class="clearfix2"></div>
-										</div>
-									</div>
+											<jsp:include page="people-list.jsp"></jsp:include>
 								</div>
 							</div>
 						</div>

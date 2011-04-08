@@ -5,9 +5,14 @@ package q.web.message;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
+
+import q.commons.pinyin.Pinyin;
 import q.dao.DaoHelper;
 import q.dao.MessageDao;
 import q.dao.PeopleDao;
@@ -15,6 +20,7 @@ import q.dao.page.MessageJoinPeoplePage;
 import q.dao.page.MessagePage;
 import q.domain.Message;
 import q.domain.MessageJoinPeople;
+import q.domain.People;
 import q.util.CollectionKit;
 import q.web.Resource;
 import q.web.ResourceContext;
@@ -59,31 +65,83 @@ public class GetMessageIndex extends Resource {
 		List<MessageJoinPeople> joins = messageDao.getMessageJoinPeoplesByPage(joinPage);
 		if (CollectionKit.isNotEmpty(joins)) {
 			List<Long> messageIds = new ArrayList<Long>(joins.size());
-			for (MessageJoinPeople join: joins) {
+			for (MessageJoinPeople join : joins) {
 				messageIds.add(join.getMessageId());
 			}
 			MessageJoinPeoplePage receiversPage = new MessageJoinPeoplePage();
 			receiversPage.setMessageIds(messageIds);
 			Map<Long, List<Long>> receiversMap = new HashMap<Long, List<Long>>();
-			for (MessageJoinPeople join: messageDao.getMessageJoinPeoplesByPage(receiversPage)) {
+			for (MessageJoinPeople join : messageDao.getMessageJoinPeoplesByPage(receiversPage)) {
 				List<Long> list = receiversMap.get(join.getMessageId());
-				if(null == list) {
+				if (null == list) {
 					list = new ArrayList<Long>();
 					receiversMap.put(join.getMessageId(), list);
 				}
 				list.add(join.getReceiverId());
 			}
-			
-			
+
 			MessagePage messagePage = new MessagePage();
 			messagePage.setIds(messageIds);
 			List<Message> messages = messageDao.getPageMessages(messagePage);
-			for(Message msg: messages) {
+			for (Message msg : messages) {
 				msg.setReceiverIds(receiversMap.get(msg.getId()));
 			}
 			DaoHelper.injectMessagesWithSenderAndReceivers(peopleDao, messages);
 			context.setModel("messages", messages);
 		}
+
+		List<Long> followingIds = peopleDao.getAllFollowingId(loginPeopleId);
+		List<People> followings = peopleDao.getPeoplesByIds(followingIds);
+		String peoplesHintJson = this.getPeoplesHintJson(followings);
+		context.setModel("peoplesHintJson", peoplesHintJson);
+
+	}
+
+	/**
+	 * [{ value: 'jin zi cheng', img: '1', name: '金梓成'},{ value: 'han han', img: '1', name: '韩寒'}]
+	 * 
+	 * @param peoples
+	 * @return
+	 */
+	private String getPeoplesHintJson(List<People> peoples) {
+		if (CollectionKit.isEmpty(peoples)) {
+			return "[]";
+		}
+		StringBuilder buffer = new StringBuilder(peoples.size() * 32);
+		buffer.append("[");
+		Iterator<People> iterator = peoples.iterator();
+		People first = iterator.next();
+		appendPeople(buffer, first);
+		while (iterator.hasNext()) {
+			People people = iterator.next();
+			if (people != null) {
+				buffer.append(',');
+				appendPeople(buffer, people);
+			}
+		}
+		buffer.append("]");
+		return buffer.toString();
+	}
+
+	private void appendPeople(StringBuilder buffer, People people) {
+		buffer.append("{value:\"");
+		Set<String> pinyins = Pinyin.getPinyin(people.getRealName());
+		if (CollectionKit.isNotEmpty(pinyins)) {
+			buffer.append(StringUtils.join(pinyins, ' '));
+		}
+		buffer.append("\",");
+		buffer.append("avatarPath:\"");
+		buffer.append(people.getAvatarPath());
+		buffer.append("\",");
+		buffer.append("username:\"");
+		buffer.append(people.getUsername());
+		buffer.append("\",");
+		buffer.append("realName:\"");
+		buffer.append(people.getRealName());
+		buffer.append("\",");
+		buffer.append("id:\"");
+		buffer.append(people.getId());
+		buffer.append("\"}");
 	}
 
 	/*

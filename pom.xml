@@ -34,6 +34,20 @@
 		<q-web.name>${q-web.aid} v${q-web.version}</q-web.name>
 	</properties>
 
+  <repositories>  
+    <repository>  
+      <id>qmaven2</id>  
+      <name>qcomcn maven2 repo</name>  
+      <url>http://qimg.net/m2repo</url>  
+      <releases>  
+        <enabled>true</enabled>  
+      </releases>  
+      <snapshots>  
+        <enabled>false</enabled>  
+      </snapshots>  
+    </repository>  
+  </repositories>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -110,14 +124,14 @@
 					<source>1.6</source>
 					<target>1.6</target>
 					<encoding>UTF-8</encoding>  
-                                </configuration>  
-                                <dependencies>   
-                                     <dependency>      
-                                         <groupId>org.codehaus.plexus</groupId>      
-                                         <artifactId>plexus-compiler-javac</artifactId>      
-                                         <version>1.8.1</version>    
-                                     </dependency> 
-                                </dependencies>
+                </configuration>  
+                <dependencies>   
+                     <dependency>      
+	                      <groupId>org.codehaus.plexus</groupId>      
+		                  <artifactId>plexus-compiler-javac</artifactId>      
+			              <version>1.8.1</version>    
+                      </dependency> 
+                </dependencies>
            </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -193,7 +207,7 @@
 				<artifactId>commons-fileupload</artifactId>
 				<version>1.2.1</version>
 			</dependency>
-                        <dependency>
+            <dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
 				<version>1.3.2</version>
@@ -208,11 +222,11 @@
 				<artifactId>commons-codec</artifactId>
 				<version>1.2</version>
 			</dependency>
-                        <dependency>
+            <dependency>
 				<groupId>net.sf.json-lib</groupId> 
-                                <artifactId>json-lib</artifactId> 
-                                <version>2.4</version>
-                                <classifier>jdk15</classifier>
+                <artifactId>json-lib</artifactId> 
+                <version>2.4</version>
+				<classifier>jdk15</classifier>
 			</dependency>
 			<dependency>
 				<groupId>log4j</groupId>
@@ -229,6 +243,11 @@
 				<artifactId>commons-lang</artifactId>
 				<version>2.4</version>
 			</dependency>
+		<dependency>
+			  <groupId>net.sourceforge.pinyin4j</groupId>
+			  <artifactId>pinyin4j</artifactId>
+			  <version>2.5.0</version>
+		</dependency>
 			<dependency>
 				<groupId>commons-validator</groupId>
 				<artifactId>commons-validator</artifactId>
