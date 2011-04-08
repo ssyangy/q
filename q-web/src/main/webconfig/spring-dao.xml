@@ -29,4 +29,5 @@
 	<bean id="authcodeDao" class="q.dao.ibatis.AuthcodeDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
+
 </beans>

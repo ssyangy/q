@@ -360,6 +360,7 @@
 	<!-- weibo web -->
 	<bean id="addWeibo" class="q.web.weibo.AddWeibo">
 		<property name="weiboDao" ref="weiboDao" />
+		<property name="searchService" ref="searchService"></property>
 	</bean>
 	<bean id="getWeibo" class="q.web.weibo.GetWeibo">
 		<property name="weiboDao" ref="weiboDao" />
@@ -380,6 +381,7 @@
 	</bean>
 	<bean id="addWeiboRetweet" class="q.web.weibo.AddWeiboRetweet">
 		<property name="weiboDao" ref="weiboDao" />
+		<property name="searchService" ref="searchService"></property>
 	</bean>
 	<bean id="getReplyRetweet" class="q.web.weibo.GetReplyRetweet">
 		<property name="weiboDao" ref="weiboDao" />
@@ -388,6 +390,7 @@
 	</bean>
 	<bean id="addReplyRetweet" class="q.web.weibo.AddReplyRetweet">
 		<property name="weiboDao" ref="weiboDao" />
+		<property name="searchService" ref="searchService"></property>
 	</bean>
 
 	<!-- favorite web -->

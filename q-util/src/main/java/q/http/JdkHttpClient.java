@@ -16,6 +16,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import q.log.Logger;
+
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
@@ -49,9 +51,15 @@ public class JdkHttpClient {
 		con.setConnectTimeout(connectTimeOut);
 		return con;
 	}
-    public static BufferedReader getSearch(HttpURLConnection connection)throws IOException{
+    public static BufferedReader getSearch(HttpURLConnection connection){
+    	BufferedReader br;
+    	try{
     	connection.connect();
-    	BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+    	br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+    	}
+    	catch(Exception e){
+    		return null;
+    	}
         return br;
     }
 	/**
@@ -60,10 +68,15 @@ public class JdkHttpClient {
 	 * @param connection
 	 * @throws IOException
 	 */
-	public static void releaseUrlConnection(HttpURLConnection connection) throws IOException {
+	public static void releaseUrlConnection(HttpURLConnection connection)  {
+		try{
 		connection.getInputStream().close();
 		connection.disconnect();
 		connection = null;
+		}
+		catch(Exception e){
+        Logger.getLogger().error(e);
+		}
 	}
 
 	public static String post(HttpURLConnection connection, Map<String, CharSequence> params) throws IOException {
@@ -84,7 +97,8 @@ public class JdkHttpClient {
 		connection.setRequestProperty("User-Agent", "Mozilla/5.0");
 		connection.setDoInput(true);
 		connection.setDoOutput(true);
-		connection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+		connection.addRequestProperty("Content-Type", "text/xml");
+		connection.addRequestProperty("charset","UTF-8");
 		OutputStream out=null;
 		try{
 		//data=URLEncoder.encode(data, "UTF-8");
