@@ -39,8 +39,11 @@
 				</ul>
 			</div>
 			<div id="search">
-				<input type="text" class="search_field" size="35" placeholder="搜微博、圈子、好友"/>
-				<button class="button">搜索</button>
+			    <form action="${urlPrefix}/search" method="GET">
+			    <button class="button FR">搜索</button>
+				<input type="text" class="search_field" id="search" name="search" size="35" placeholder="搜微博、圈子、好友"/>
+
+				</form>
 			</div>
 			<div class="clearfix"></div>
 		</div>

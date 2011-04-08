@@ -24,7 +24,7 @@ import q.web.people.GetPeopleFrame;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Mar 1, 2011
- *
+ * 
  */
 public class GetFavoriteIndex extends Resource {
 	private FavoriteDao favoriteDao;
@@ -34,7 +34,7 @@ public class GetFavoriteIndex extends Resource {
 	private WeiboDao weiboDao;
 
 	private GroupDao groupDao;
-	
+
 	private EventDao eventDao;
 
 	public void setEventDao(EventDao eventDao) {
@@ -56,30 +56,39 @@ public class GetFavoriteIndex extends Resource {
 	public void setGroupDao(GroupDao groupDao) {
 		this.groupDao = groupDao;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
-		
-		GetPeopleFrame frame = new GetPeopleFrame();
-		frame.setEventDao(eventDao);
-		frame.setGroupDao(groupDao);
-		frame.setPeopleDao(peopleDao);
-		frame.setWeiboDao(weiboDao);
-		frame.validate(context);
-		frame.execute(context);
-		
+
+		if (!context.isApiRequest()) {
+			GetPeopleFrame frame = new GetPeopleFrame();
+			frame.setEventDao(eventDao);
+			frame.setGroupDao(groupDao);
+			frame.setPeopleDao(peopleDao);
+			frame.setWeiboDao(weiboDao);
+			frame.validate(context);
+			frame.execute(context);
+		}
+
+		int size = context.getInt("size", 10);
+		long startId = context.getIdLong("startId");
 		FavoritePage page = new FavoritePage();
-		page.setSize(20);
+		page.setSize(size);
 		page.setStartIndex(0);
 		page.setCreatorId(loginPeopleId);
+		if(startId > 0) {
+			page.setStartId(startId);
+		}
 		List<Favorite> favorites = this.favoriteDao.getPageFavorites(page);
 		DaoHelper.injectFavoritesWithSource(weiboDao, favorites);
 		List<WeiboModel> weiboModels = new ArrayList<WeiboModel>(favorites.size());
-		for(Favorite fav: favorites) {
+		for (Favorite fav : favorites) {
 			weiboModels.add(fav.getSource());
 		}
 		DaoHelper.injectWeiboModelsWithFrom(groupDao, weiboModels);
@@ -90,7 +99,7 @@ public class GetFavoriteIndex extends Resource {
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		if(context.getCookiePeopleId() == 0) {
+		if (context.getCookiePeopleId() == 0) {
 			throw new RequestParameterInvalidException("loginId invalid");
 		}
 	}

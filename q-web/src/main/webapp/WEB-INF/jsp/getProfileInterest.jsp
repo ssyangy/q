@@ -144,10 +144,7 @@
 						<jsp:include page="profile-tag.jsp">
 							<jsp:param value="interest" name="tab"/>
 						</jsp:include>
-					<div id="tabs-1" class="tab-canvas">
-					</div>
-					<div id="tabs-2" class="tab-canvas">
-					</div>
+
 					<div id="tabs-3" class="tab-canvas">
 
 							<table id="setting-form" class='input-form'>

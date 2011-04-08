@@ -4,6 +4,8 @@
 package q.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author seanlinwang
@@ -21,20 +23,14 @@ public class Message extends AbstractDomain implements Serializable {
 
 	private long senderId;
 
-	private String senderRealName;
+	private People sender;
 
-	private long receiverId;
-
-	private String receiverRealName;
-
-	private long replyMessageId;
-
-	public long getReplyMessageId() {
-		return replyMessageId;
-	}
-
-	public void setReplyMessageId(long replyMessageId) {
-		this.replyMessageId = replyMessageId;
+	private List<Long> receiverIds;
+	
+	private List<People> receivers;
+	
+	public List<People> getReceivers() {
+		return receivers;
 	}
 
 	public int getStatus() {
@@ -61,33 +57,35 @@ public class Message extends AbstractDomain implements Serializable {
 		this.senderId = senderId;
 	}
 
-	public long getReceiverId() {
-		return receiverId;
+	public People getSender() {
+		return sender;
 	}
 
-	public void setReceiverId(long receiverId) {
-		this.receiverId = receiverId;
+	public void setSender(People sender) {
+		this.sender = sender;
 	}
 
-	public String getSenderRealName() {
-		return senderRealName;
+	public void setReceiverIds(List<Long> receiverIds) {
+		this.receiverIds = receiverIds;
 	}
 
-	public void setSenderRealName(String senderRealName) {
-		this.senderRealName = senderRealName;
-	}
-
-	public String getReceiverRealName() {
-		return receiverRealName;
-	}
-
-	public void setReceiverRealName(String receiverRealName) {
-		this.receiverRealName = receiverRealName;
+	public List<Long> getReceiverIds() {
+		return receiverIds;
 	}
 
 	@Override
 	public String toString() {
-		return "Message [id=" + id + ", status=" + status + ", created=" + created + ", modified=" + modified + ", content=" + content + ", senderId=" + senderId + ", senderRealName=" + senderRealName + ", receiverId=" + receiverId + ", receiverRealName=" + receiverRealName + ", quoteMessageId=" + replyMessageId + "]";
+		return "Message [status=" + status + ", content=" + content + ", senderId=" + senderId + ", id=" + id + ", created=" + created + ", modified=" + modified + "]";
+	}
+
+	/**
+	 * @param people
+	 */
+	public void addReceiver(People people) {
+		if(this.receivers == null) {
+			this.receivers = new ArrayList<People>();
+		}
+		this.receivers.add(people);
 	}
 
 }

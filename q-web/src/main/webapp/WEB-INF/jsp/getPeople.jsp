@@ -7,7 +7,7 @@
 	<title>个人主页</title>
 </head>
 <body onResize="ReSet()" onLoad="ReSet()">
-	<div id="body">
+<div id="body">
 	<jsp:include page="top.jsp"/>
 	<div id="page-outer">
 		<div id="page-container">
@@ -18,8 +18,11 @@
 						<jsp:include page="people-tag.jsp">
 							<jsp:param value="weibo" name="tab"/>
 						</jsp:include>
-						<div id="tabs-1">
-						<jsp:include page="weibo-list.jsp"/>
+						<div>
+						<jsp:include page="weibo-list.jsp">
+							<jsp:param name="feedUrl" value="${urlPrefix}/people/${people.id}"/>
+							<jsp:param name="from" value="${urlPrefix}/people/${people.id}"/>
+						</jsp:include>
 						</div>
 					</div>
 				</div>

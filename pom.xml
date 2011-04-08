@@ -118,15 +118,40 @@
                                          <version>1.8.1</version>    
                                      </dependency> 
                                 </dependencies>
-                        </plugin>
+           </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-ip-resources</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<!-- this is important -->
+							<overwrite>true</overwrite>
+							<!-- target -->
+							<outputDirectory>${basedir}/q-web/target/q/WEB-INF/data/</outputDirectory>
+							<resources>
+								<resource>
+									<!-- source -->
+									<directory>${basedir}/q-store/src/test/resources/data/</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 		<resources>
-			<resource>
+			<!--resource>
 				<directory>src/main/java</directory>
 				<includes>
 					<include>**/*.xml</include>
 				</includes>
-			</resource>
+			</resource-->
 			<resource>
 				<directory>src/main/resources</directory>
 				<includes>
@@ -182,6 +207,12 @@
 				<groupId>commons-codec</groupId>
 				<artifactId>commons-codec</artifactId>
 				<version>1.2</version>
+			</dependency>
+                        <dependency>
+				<groupId>net.sf.json-lib</groupId> 
+                                <artifactId>json-lib</artifactId> 
+                                <version>2.4</version>
+                                <classifier>jdk15</classifier>
 			</dependency>
 			<dependency>
 				<groupId>log4j</groupId>
@@ -249,6 +280,7 @@
 				<artifactId>jstl</artifactId>
 				<version>1.2</version>
 			</dependency>
+
 			<dependency>
 				<groupId>taglibs</groupId>
 				<artifactId>standard</artifactId>

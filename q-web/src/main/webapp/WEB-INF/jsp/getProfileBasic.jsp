@@ -266,11 +266,6 @@ $(document).ready(function(){
 							</tbody>
 						</table>
 					</div>
-					<div id="tabs-2" class="tab-canvas">
-					</div>
-					<div id="tabs-3" class="tab-canvas">
-					</div>
-
 				</div>
 			</div>
 		</div>

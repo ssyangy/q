@@ -3,6 +3,7 @@ package q.web.people;
 import java.util.ArrayList;
 import java.util.List;
 
+import q.biz.SearchService;
 import q.dao.DaoHelper;
 import q.dao.EventDao;
 import q.dao.FavoriteDao;
@@ -20,6 +21,12 @@ import q.web.ResourceContext;
 import q.web.group.GetPeopleFeedFrame;
 
 public class GetPeopleFeed extends Resource {
+	private SearchService searchService;
+
+	public void setSearchService(SearchService searchService) {
+		this.searchService = searchService;
+	}
+
 	private PeopleDao peopleDao;
 
 	public void setPeopleDao(PeopleDao peopleDao) {
@@ -61,8 +68,11 @@ public class GetPeopleFeed extends Resource {
 			int size = context.getInt("size", 10);
 			long startId = context.getIdLong("startId");
 			String tab = context.getString("tab");
-			if ("at".equals(tab)) {
-
+			if ("at".equals(tab)) {// fixme realname id?
+				List<Long> bs = searchService.searchWeibo("@dsf");
+				if (CollectionKit.isNotEmpty(bs)) {
+					weibos = weiboDao.getWeibosByIds(bs, true);
+				}
 			} else if ("replied".equals(tab)) {
 				WeiboReplyPage page = new WeiboReplyPage();
 				page.setStartIndex(0);
@@ -72,7 +82,7 @@ public class GetPeopleFeed extends Resource {
 				}
 				page.setQuoteSenderIds(senderIds);
 				page.setSenderId(loginPeopleId);
-				weibos = weiboDao.getPageWeiboReply(page);
+				weibos = weiboDao.getWeiboRepliesByPage(page);
 				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
 			} else if ("favorite".equals(tab)) {
 				FavoritePage page = new FavoritePage();
@@ -98,7 +108,7 @@ public class GetPeopleFeed extends Resource {
 				if (startId > 0) {
 					page.setStartId(startId);
 				}
-				weibos = weiboDao.getPageFollowingWeibos(page);
+				weibos = weiboDao.getFollowingWeibosByPage(page);
 				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
 			}
 		}

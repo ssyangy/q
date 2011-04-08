@@ -8,6 +8,10 @@
   <head>
     <jsp:include page="head.jsp" />
     <link rel="stylesheet" type="text/css" href="${staticUrlPrefix}/style/jcrop/jquery-jcrop-0.9.8.css"  />
+     <style type="text/css">
+    .imgbox{float:left;width:300px;margin-right:10px;}
+    .imgmain{float:left;width:600px;}
+     </style>
     <script type="text/javascript" src="${staticUrlPrefix}/js/jquery-jcrop-0.9.8.min.js"></script>
 	<script type="text/javascript">
     var realWidth;
@@ -109,7 +113,7 @@
           isImg=true;
     }
        $(document).ready(function(){
-    	   cutter = new jQuery.UtrialAvatarCutter(
+          cutter = new jQuery.UtrialAvatarCutter(
    				{
    					//主图片所在容器ID
    					content : "myImage",
@@ -120,7 +124,9 @@
    					//选择器默认大小
    					selector : {width:100,height:100}
    				}
+
    			);
+   			if("${avatarExists}"=="true"){
     		var img=new Image();
     		img.src="${avatarUrlPrefix}/${avatarPath}";
     		var dick=setInterval(function(){
@@ -130,7 +136,7 @@
     				cutter.init();
     			}
     		},100);
-
+            }
     	});
 
     jQuery.UtrialAvatarCutter = function(config){
@@ -263,42 +269,41 @@
 						<jsp:include page="profile-tag.jsp">
 							<jsp:param value="avatar" name="tab"/>
 						</jsp:include>
-					<div id="tabs-1" class="tab-canvas">
+						
+<div id="tabs-2" class="tabs-widget clearfix pt10">
 
-					</div>
-					<div id="tabs-2" class="tab-canvas">
+<div class="imgbox"><div id="myImage"></div></div>
+<div class="imgmain">
+从电脑中选择你喜欢的照片：<br />
+<span class="gray">您可以上传JPG、JPEG、GIF或PNG文件。</span><br /><br />
+<form action="${urlPrefix}/Avatar"  id="form1" name="form1"  encType="multipart/form-data" method="post" target="hidden_frame" onsubmit="return up()">
+<ul>
+<li>1. <input type="file" name="file" id="file" accept="image/gif, image/jpeg" onchange="check()" style="width:450"></input></li>
+<li>2. <input type="submit" value="上传头像"></input></li>
+<li>3. 随意拖拽或缩放大图中的虚线方格，下方预览的小图即为保存后的头像图标。
+</li>
+<div style='display:none;' id="imgWrong"></div>
+<iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>                            
+</form>
+</ul>
+<div class='clearfix'>
+<div id="picture_24" class="wh24" style="overflow:hidden;float:left;"></div>
+<div id="picture_48" class="wh48 ml10" style="overflow:hidden;float:left;"></div>
+<div id="picture_128" class="wh128 ml10" style="overflow:hidden;float:left;"></div>
+</div>
+<div>
+	<div style='display:none;' id="savewrong"></div>
+	<div style='display:none;' id="savecorrect"></div>	          
+	<input type="button" value="保存" onclick="save()"></input>
+	<input type="button" value="取消"></input>
+</div>	                        
+</div>
 
-					<form action="${urlPrefix}/Avatar"  id="form1" name="form1"  encType="multipart/form-data"
-					method="post" target="hidden_frame" onsubmit="return up()">
-				    <input type="file" name="file" id="file" accept="image/gif, image/jpeg" onchange="check()" style="width:450"></input>
-				    <input type="submit" value="上传头像"></input>
-                    <br/>
-                    <font color="blue">支持JPG,JPEG,GIF文件的上传</font>
-                    <div style='display:none;' id="imgWrong"></div>
-                    <iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>
-                    </form>
-			    	<div id="myImage">
-
-                    </div>
-
-                    <!---
-			         缩略图
-		                 -->
-	                    	<div id="picture_24"></div>
-		                    <div id="picture_48"></div>
-		                    <div id="picture_128"></div>
-		                    <div style='display:none;' id="savewrong"></div>
-		                    <div style='display:none;' id="savecorrect"></div>
-		                     <input type="button" value="保存" onclick="save()"></input>
-                             <input type="button" value="取消"></input>
-				    </div>
-					<div id="tabs-3" class="tab-canvas">
-					</div>
+</div>
 
 				</div>
 			</div>
 		</div>
-
 
 		<div id="page-outer">
 			<div id="page-container">

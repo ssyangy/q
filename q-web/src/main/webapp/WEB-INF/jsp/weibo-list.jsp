@@ -79,6 +79,86 @@
 				   	}
 	            }
 		    });
+	        
+	          $('#dia_ret').dialog({
+	              resizable: false,
+	              modal: true,
+	              autoOpen: false,
+	              hide: "drop",
+	              width:350,
+	              buttons: {
+	                  "转发": function () {
+	                	  $('img.ajaxload', this).show();
+	                	  var dia = $('#dia_ret');
+	                	  $.ajax({
+							    url: $("input[type='hidden']",dia).val(),
+							    type: 'POST',
+							    dataType: 'json',
+							    data: {content:$("textarea[name='content']",dia).val()},
+							    timeout: 5000,
+							    msg:this,
+							   	success: function(m){
+							   		$(this.msg).dialog("close");
+							   		$('img.ajaxload', this.msg).hide();
+								   	//...
+							    }
+	                	  });
+	                  },
+	                  "取消": function () {
+	                      $(this).dialog("close");
+	                  }
+	              }
+	          });
+		      $("a.btn_ret").click(function () {
+		    	  var dia = $('#dia_ret');
+		    	  var tweet = $(this).closest('div.tweet');
+		    	  var rows = tweet.find('div.tweet-row');
+		    	  $('div.wcontent',dia).empty().html(rows.eq(1).html());
+		    	  $('div.wpeople',dia).empty().html(rows.eq(0).html());
+		    	  $("textarea[name='content']",dia).empty().val('//@'+$('span.tweet-user-name',rows.eq(0)).text().trim());
+		    	  $("#ret_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/retweet');
+		    	  dia.dialog("open");
+		      });
+		      
+	          $('#dia_rep').dialog({
+	              resizable: false,
+	              modal: true,
+	              autoOpen: false,
+	              hide: "drop",
+	              width:350,
+	              buttons: {
+	                  "回复": function () {
+	                	  $('img.ajaxload', this).show();
+	                	  var dia = $('#dia_rep');
+	                	  $.ajax({
+							    url: $("input[type='hidden']",dia).val(),
+							    type: 'POST',
+							    dataType: 'json',
+							    data: {content:$("textarea[name='content']",dia).val()},
+							    timeout: 5000,
+							    msg:this,
+							   	success: function(m){
+							   		$(this.msg).dialog("close");
+							   		$('img.ajaxload', this.msg).hide();
+								   	//...
+							    }
+	                	  });	                	  
+	                  },
+	                  "取消": function () {
+	                      $(this).dialog("close");
+	                  }
+	              }
+	          });
+		      $("a.btn_rep").click(function () {
+		    	  var dia = $('#dia_rep');
+		    	  var tweet = $(this).closest('div.tweet');
+		    	  var rows = tweet.find('div.tweet-row');
+		    	  $('div.wcontent',dia).empty().html(rows.eq(1).html());
+		    	  $('div.wpeople',dia).empty().html(rows.eq(0).html());
+		    	  $("textarea[name='content']",dia).empty();
+		    	  $("#rep_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/reply');
+		    	  dia.dialog("open");
+		      });
 	    });
  
 	    var winHeight;
@@ -103,8 +183,7 @@
 					${weibo.people.realName}
 					</a>
 				</span>
-				<span class="tweet-group">
-					发自 <a href="${urlPrefix}${weibo.fromUrl}">${weibo.fromName}</a>
+				<span class="tweet-group">发自 <a href="${urlPrefix}${weibo.fromUrl}">${weibo.fromName}</a>
 				</span>
 			</div>
 			<div class="tweet-row">
@@ -137,17 +216,26 @@
 						</c:otherwise>
 					</c:choose>
 					<span class="link-sep">·</span>
-					<a href="${urlPrefix}/weibo/${weibo.id}/retweet?from=${contextPath}/people/${people.id}">
-					<c:choose>
-						<c:when test="${weibo.inGroup}">分享给好友</c:when>
-						<c:otherwise>转发</c:otherwise>
-					</c:choose>
+					<a class="btn_ret link">转发</a>
 					<span class="link-sep">·</span>
-					</a>
-					<a href="${urlPrefix}/weibo/${weibo.id}">回复</a>&nbsp;
+					<a class="btn_rep link">回复</a>
 				</span>
 			</div>
 		</div>
 	</div>							
 </c:forEach>							
 </div>
+	<div id="dia_ret" class="ui_dialog" title="转发">
+		<div class="wcontent"></div>
+		<div class="wpeople"></div>
+		<input id='ret_url' type='hidden'></input>
+		<textarea name="content" rows="5" cols="50"></textarea>
+		<img src="${staticUrlPrefix}/style/images/ajaxload.gif" class="ajaxload" alt="ajaxload" />
+    </div>
+	<div id="dia_rep" class="ui_dialog" title="回复">
+		<div class="wcontent"></div>
+		<div class="wpeople"></div>
+		<input id='rep_url' type='hidden'></input>
+		<textarea name="content" rows="5" cols="50"></textarea>
+		<img src="${staticUrlPrefix}/style/images/ajaxload.gif" class="ajaxload" alt="ajaxload" />
+    </div>     

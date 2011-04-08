@@ -20,6 +20,11 @@
 			<artifactId>spring-core</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			 <classifier>jdk15</classifier>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
@@ -81,8 +86,6 @@
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
 			<version>1.4</version>
-
 		</dependency>
-
 	</dependencies>
 </project>

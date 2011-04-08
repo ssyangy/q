@@ -7,9 +7,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 import q.dao.MessageDao;
+import q.dao.page.MessageJoinPeoplePage;
 import q.dao.page.MessagePage;
 import q.domain.Message;
-import q.util.IdCreator;
+import q.domain.MessageJoinPeople;
+import q.domain.MessageReply;
 
 /**
  * @author seanlinwang
@@ -26,7 +28,6 @@ public class MessageDaoImpl extends AbstractDaoImpl implements MessageDao {
 	 */
 	@Override
 	public void addMessage(Message message) throws SQLException {
-		message.setId(IdCreator.getLongId());
 		this.sqlMapClient.insert("insertMessage", message);
 	}
 
@@ -38,7 +39,7 @@ public class MessageDaoImpl extends AbstractDaoImpl implements MessageDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Message> getPageMessages(MessagePage page) throws SQLException {
-		return (List<Message>) this.sqlMapClient.queryForList("selectPageMessages", page);
+		return (List<Message>) this.sqlMapClient.queryForList("selectMessagesByPage", page);
 	}
 
 	/* (non-Javadoc)
@@ -47,6 +48,33 @@ public class MessageDaoImpl extends AbstractDaoImpl implements MessageDao {
 	@Override
 	public Message getMessageById(long replyMessageId) throws SQLException {
 		return (Message) this.sqlMapClient.queryForObject("selectMessageById", replyMessageId);
+	}
+
+	/* (non-Javadoc)
+	 * @see q.dao.MessageDao#addMessageJoinPeoples(java.util.List)
+	 */
+	@Override
+	public void addMessageJoinPeoples(List<MessageJoinPeople> joins) throws SQLException {
+		this.sqlMapClient.insert("insertMessageJoins", joins);
+	}
+
+	@Override
+	public MessageReply getMessageReplyById(long replyMessageId) throws SQLException {
+		return (MessageReply) this.sqlMapClient.queryForObject("selectMessageReplyById", replyMessageId);
+	}
+
+	@Override
+	public void addMessageReply(MessageReply messageReply) throws SQLException {
+		this.sqlMapClient.insert("insertMessageReply", messageReply);		
+	}
+
+	/* (non-Javadoc)
+	 * @see q.dao.MessageDao#getMessageIdsByPage(q.dao.page.MessageJoinPeoplePage)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MessageJoinPeople> getMessageJoinPeoplesByPage(MessageJoinPeoplePage joinPage) throws SQLException {
+		return (List<MessageJoinPeople>) this.sqlMapClient.queryForList("selectMessageJoinPeoplesByPage", joinPage);
 	}
 
 }

@@ -83,19 +83,20 @@
 		select
 		<include refid="weibo.columns" />
 		from weibo
-		<dynamic prepend="where">
-			<isNotNull prepend="and" property="senderId">
-				sender_id = #senderId#
-			</isNotNull>
-			<isNotNull prepend="and" property="startCreated">
-				created &lt;= #startCreated#
-			</isNotNull>
-			<isNotNull prepend="and" property="startId">
-				id &lt;= #startId#
-			</isNotNull>
-		</dynamic>
+		where status = 0
+		<isNotNull prepend="and " property="senderId">
+			sender_id = #senderId#
+		</isNotNull>
+		<isNotNull prepend="and " property="startCreated">
+			created &lt;= #startCreated#
+		</isNotNull>
+		<isNotNull prepend="and " property="startId">
+			id &lt;= #startId#
+		</isNotNull>
 		order by created desc
-		limit #startIndex#, #size#
+		<isNotNull property="size">
+			limit #startIndex#, #size#
+		</isNotNull>
 	</select>
 
 	<insert id="insertWeibo">

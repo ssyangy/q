@@ -65,7 +65,8 @@ public class GetGroupFeed extends Resource {
 			if (startId > 0) {
 				page.setStartId(startId);
 			}
-			List<Weibo> weibos = this.weiboDao.getWeibosByPage(page);
+			List<Long> ids = this.weiboDao.getWeiboIdsByPage(page);
+			List<Weibo> weibos = this.weiboDao.getWeibosByIds(ids, true);
 			DaoHelper.injectWeiboModelsWithFrom(groupDao, weibos);
 			DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
 			DaoHelper.injectWeiboModelsWithQuote(weiboDao, weibos);
@@ -73,12 +74,14 @@ public class GetGroupFeed extends Resource {
 			context.setModel("weibos", weibos);
 		}
 
-		GetGroupFeedFrame frame = new GetGroupFeedFrame();
-		frame.setEventDao(eventDao);
-		frame.setPeopleDao(peopleDao);
-		frame.setGroupDao(groupDao);
-		frame.setWeiboDao(weiboDao);
-		frame.execute(context);
+		if (!context.isApiRequest()) {
+			GetGroupFeedFrame frame = new GetGroupFeedFrame();
+			frame.setEventDao(eventDao);
+			frame.setPeopleDao(peopleDao);
+			frame.setGroupDao(groupDao);
+			frame.setWeiboDao(weiboDao);
+			frame.execute(context);
+		}
 	}
 
 	/*

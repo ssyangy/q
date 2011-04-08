@@ -5,8 +5,20 @@
 <html>
 <head>
 	<jsp:include page="head.jsp" />
-	<title>圈子</title>
+	<title>圈子a</title>
 	<script type="text/javascript">
+	$(function(){
+	    $("input[accesskey]").unbind().bind("keydown", function (e) {
+	    	if($('#password').val() != ''){
+	        var code = (e.keyCode ? e.keyCode : e.which);
+	        if (code == 13) {
+	            var btnid = $(this).attr('accesskey');
+	            $(".access_" + btnid).click();
+	        }
+	    	}
+	    });
+	});
+
 	// <![CDATA[
 	function check(){
 	  var username=$("#username").val();
@@ -42,17 +54,17 @@
 			<div class="header"> 
 				<div class="logo-area"> 
 					<div class="logo"><span class="logo-zh">圈子</span><span class="logo-en">Q.com.cn</span></div> 
-					<div class="slogan">找到志趣相投的朋友，吃喝玩乐应有尽有，圈子就是好玩！有圈子才尽兴！<br />喂！...你哪个圈儿的？！</div> 
+					<div class="slogan">找到志趣相投的朋友，吃喝玩乐应有尽有，圈子就是好玩！有圈子才尽兴！<br />喂！...你哪个圈儿的？！</div>
 				</div> 
 				<div class="signin-area input-form"> 
 					<div class="" style="display: none;color:red;" id="loginWrong"></div>
 					<table> 
 						<tbody> 
 							<tr> 
-								<td colspan="2"><input name='username' id="username" placeholder="请输入邮箱" type='text' class='text_field' size='32'></td> 
+								<td colspan="2"><input name='username' id="username" placeholder="请输入邮箱" type='text' class='text_field' size='23' accesskey='l'></td> 
 							</tr> 
 							<tr> 
-								<td colspan="2"><input name='password' id="password" placeholder="请输入密码" type='password' class='text_field' size='32'></td> 
+								<td colspan="2"><input name='password' id="password" placeholder="请输入密码" type='password' class='text_field' size='23' accesskey='l'></td> 
 							</tr>
 							<tr> 
 								<th></th> 
@@ -61,7 +73,7 @@
 							<tr> 
 								<th></th> 
 								<td>
-									<button type="button" onclick="check()" class="tweet-button button">登 录</button>
+									<button type="submit" onclick="check()" class="tweet-button button access_l">登 录</button>
 									<a href="${urlPrefix}/people/new" id="signup-link">立即注册</a>
 								</td> 
 							</tr> 

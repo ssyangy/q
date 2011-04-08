@@ -124,6 +124,18 @@
 							</key>
 							<value>/WEB-INF/json/weibo-list.xml</value>
 						</entry>
+						<entry>
+							<key>
+								<value>getPeople:weibos</value>
+							</key>
+							<value>/WEB-INF/json/weibo-list.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>getFavoriteIndex:weibos</value>
+							</key>
+							<value>/WEB-INF/json/weibo-list.xml</value>
+						</entry>
 					</map>
 				</property>
 			</bean>
@@ -174,6 +186,11 @@
 			</set>
 		</property>
 	</bean>
+
+	<bean id="searchService" class="q.biz.impl.SolrSearchService">
+		<property name="searchUrl" value="${q.search.url}" />
+	</bean>
+
 	<!-- global web -->
 	<bean id="default" class="q.web.GetHomePage">
 		<property name="categoryDao" ref="categoryDao" />
@@ -228,6 +245,7 @@
 		<property name="eventDao" ref="eventDao" />
 		<property name="groupDao" ref="groupDao" />
 		<property name="favoriteDao" ref="favoriteDao" />
+		<property name="searchService" ref="searchService" />
 	</bean>
 	<bean id="getPeopleIndex" class="q.web.people.GetPeopleIndex">
 	</bean>
@@ -427,6 +445,7 @@
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="getProfileAvatar" class="q.web.people.GetProfileAvatar">
+		<property name="imageUrl" value="${q.image.url}" />
 	</bean>
 	<bean id="addProfileAvatar" class="q.web.people.AddProfileAvatar">
 	</bean>
@@ -445,11 +464,24 @@
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 
-    <!-- setting web -->
-    <bean id="getSettingBasic" class="q.web.people.GetSettingBasic">
+	<!-- setting web -->
+	<bean id="getSettingBasic" class="q.web.people.GetSettingBasic">
 
 	</bean>
-	 <bean id="addSetting" class="q.web.people.AddSetting">
-        <property name="peopleDao" ref="peopleDao" />
+	<bean id="addSetting" class="q.web.people.AddSetting">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+
+	<!-- search web -->
+	<bean id="getSearchIndex" class="q.web.people.GetSearchIndex">
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="searchService" ref="searchService"></property>
+	</bean>
+	<bean id="getSearchGroup" class="q.web.people.GetSearchGroup">
+
+	</bean>
+	<bean id="getSearchPeople" class="q.web.people.GetSearchPeople">
+
 	</bean>
 </beans>
