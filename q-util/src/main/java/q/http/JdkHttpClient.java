@@ -70,11 +70,9 @@ public class JdkHttpClient {
 	 */
 
 	public static void releaseUrlConnection(HttpURLConnection connection)  throws IOException{
-
 		connection.getInputStream().close();
 		connection.disconnect();
 		connection = null;
-
 	}
 	public static String post(HttpURLConnection connection, Map<String, CharSequence> params) throws IOException {
 		String buffer = FetchUtil.paramsToBuffer(params.entrySet(), "&", "=");

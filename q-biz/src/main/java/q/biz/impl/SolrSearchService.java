@@ -42,7 +42,12 @@ public class SolrSearchService implements SearchService {
 		} catch (Exception e) {
 			log.error("search engine fail:", e);
 		} finally {
+			try{
 			JdkHttpClient.releaseUrlConnection(con);
+			}
+			catch(Exception e){
+				Logger.getLogger().error(e);
+			}
 		}
 		return bs;
 	}
