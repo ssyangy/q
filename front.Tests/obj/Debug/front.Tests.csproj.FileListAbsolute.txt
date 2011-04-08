@@ -1,0 +1,8 @@
+E:\Work\front\front.Tests\bin\Debug\front.Tests.dll.config
+E:\Work\front\front.Tests\bin\Debug\front.Tests.dll
+E:\Work\front\front.Tests\bin\Debug\front.Tests.pdb
+E:\Work\front\front.Tests\bin\Debug\front.dll
+E:\Work\front\front.Tests\bin\Debug\front.pdb
+E:\Work\front\front.Tests\obj\Debug\ResolveAssemblyReference.cache
+E:\Work\front\front.Tests\obj\Debug\front.Tests.dll
+E:\Work\front\front.Tests\obj\Debug\front.Tests.pdb

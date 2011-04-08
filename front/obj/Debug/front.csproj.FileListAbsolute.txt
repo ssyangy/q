@@ -1,0 +1,5 @@
+E:\Work\front\front\bin\front.dll
+E:\Work\front\front\bin\front.pdb
+E:\Work\front\front\obj\Debug\ResolveAssemblyReference.cache
+E:\Work\front\front\obj\Debug\front.dll
+E:\Work\front\front\obj\Debug\front.pdb
