@@ -2,13 +2,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
 
-				<div class="dashboard" style="display:block;">
-					<div class="db-block profilebox">
-						<img height="48" width="48" src="css/images/1.png">
-						<div class='lh24'>彪马拖鞋 @seanlinwang</div>
-						<div class='lh24'>上海, 长宁区 2011-05-23加入</div>
-						<div class='lh24 gray'>我的存在就是无法避免的伤害</div>
+<div class="expand">
+					<div class="db-header-outer friends-feed">
+						<div class="db-header-inner">
+							<div class="avatar"><img src="css/images/avatar0.png"></div>
+							<div class="my-brief">
+								<div class="name"><h3>随手拍解救大龄女青年</h3></div>
+								<div class="location-line"><span class="location">上海 徐汇区</span><span class="join-date">2011-02-13加入</span></div>
+								<div class="bio gray">Java大爷</div>
+								<div class="clearfix2"></div>
+							</div>
+						</div>
 					</div>
+					
+				<div class="dashboard" style="display:block;">
 					<div class="db-block">
 						<div class="more"><a href="${urlPrefix}/group">圈子目录 →</a></div>
 						<h3>我的圈子：</h3>
@@ -37,8 +44,8 @@
 					<div class="db-block"> 
 						<h3>热议：</h3> 
 						<div class="db-block-content">
-							<div class="db-tweet-box2 mb10">
 								<c:forEach items="${hotWeibos}" var="weibo">
+								<div class="db-tweet-box mb10">
 								<div class="avatar">
 									<a href="${urlPrefix}/people/${weibo.senderId}">
 										<img src="${avatarUrlPrefix}/${weibo.people.avatarPath}-24" width="24" height="24"/>
@@ -54,9 +61,9 @@
 										</a>
 									</p>
 								</div>
-								</c:forEach>
 								<div class="clearfix2"></div>
-							</div>
+								</div>
+								</c:forEach>
 							<div class="clearfix2"></div>
 						</div>
 					</div> 
@@ -108,3 +115,4 @@
 						</div> 
 					</div --> 
 				</div>
+</div>

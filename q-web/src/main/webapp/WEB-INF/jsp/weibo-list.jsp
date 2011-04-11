@@ -302,10 +302,10 @@
 					<span class="link-sep">·</span>-->
 					<c:choose>
 						<c:when test="${weibo.unFav}">
-						<button onclick="favWeibo(this,${weibo.id})">收藏</button>
+						<a class='link' onclick="favWeibo(this,${weibo.id})">收藏</button>
 						</c:when>
 						<c:otherwise>
-						<button onclick="unFavWeibo(this,${weibo.id})">取消收藏</button>
+						<a class='link' onclick="unFavWeibo(this,${weibo.id})">取消收藏</button>
 						</c:otherwise>
 					</c:choose>
 					<span class="link-sep">·</span>
