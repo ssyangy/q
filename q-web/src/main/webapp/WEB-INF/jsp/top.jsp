@@ -31,10 +31,10 @@
 			</div>
 			<div id="nav">
 				<ul>
-					<li><a href="${urlPrefix}/group/feed">我的首页</a></li>
-					<li><a href="${urlPrefix}/people/feed">我的好友</a></li>
+					<li><a href="${urlPrefix}/group/feed">圈子新鲜事</a></li>
+					<li><a href="${urlPrefix}/people/feed">好友新鲜事</a></li>
 					<c:if test="${loginCookie.peopleId > 0}">
-					<li><a href="${urlPrefix}/people/${loginCookie.peopleId}">我的主页</a></li>
+					<li><a href="${urlPrefix}/people/${loginCookie.peopleId}">我自己</a></li>
 					</c:if>
 				</ul>
 			</div>
