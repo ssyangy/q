@@ -25,10 +25,14 @@
 						</jsp:include>
 						</div>
 					</div>
-				</div>				
+				</div>
+								
 			</div>
+			<jsp:include page="people-dashboard.jsp"/>
+			<div class="tweetexpand expand"></div>
+			<br clear='all'/>
 		</div>
-		<jsp:include page="people-dashboard.jsp"/>
+		
 	</div>
 </div>
 </html>

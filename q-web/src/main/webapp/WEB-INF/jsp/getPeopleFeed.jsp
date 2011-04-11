@@ -30,7 +30,9 @@
 						</div>					
 					</div>
 				</div>
+				<div class="tweetexpand expand"></div>
 				<jsp:include page="people-feed-dashboard.jsp"/>
+				<br clear='all'/>
 			</div>
 		</div>
 	</div>

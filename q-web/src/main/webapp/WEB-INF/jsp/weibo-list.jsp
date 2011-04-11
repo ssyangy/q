@@ -44,13 +44,75 @@
         </div>
     </div>
 	</script>
+	<script id="tweetexp" type="text/html">
+					<div id='twrep' class='mb10' weibo="{{id}}">
+					<div class="tw_head">
+                        <img class="wh48" src="${urlPrefix}/{{#people}}{{img}}{{/people}}" alt="head" />
+                        <h4><a class='link' href='${urlPrefix}/{{#people}}{{id}}{{/people}}'>{{#people}}{{name}}{{/people}}</a></h4>
+                    </div>
+                    <div class="twtxt mt10">
+						<div class='rcontent'>{{tweet}}</div>
+						<div class="mt10">
+						<span class='gray mr10'>{{time}}</span>
+						{{#source}}<span class="gray">发自 <a href="">{{source}}</a></span>{{/source}}
+						<a class="link ml10 FR btn_hrep" href="#">回复</a>
+						<a class="link ml10 FR btn_hret" href="#">转发</a>
+						<a class="link ml10 FR" href="#">收藏</a>
+						<a class="link FR" href="#">攒</a>
+						</div>
+                    </div>
+					</div>
+					{{#reps}}
+                    <div class="tweet_rep" weibo={{id}}>
+                        <img class="wh48" src="${urlPrefix}/{{#people}}{{img}}{{/people}}" alt="head" />
+                        <a class="link peop">{{#people}}{{name}}{{/people}}</a><span class="gray ml10">{{time}}</span>
+						<a class="link ml10 FR btn_rrep">回复</a>
+						<a class="link FR btn_rret">转发</a>
+                        <div class="mt10 twtxtr">{{tweet}}</div>
+                    </div>
+					{{/reps}}
+
+	</script>
 	<script type="text/javascript">
+	
+        var tweetexp = {
+			id:'123214',
+			time:'10秒前',
+			source:'有心天下',
+            people: {id:'123',name:'阿斯大肆',img:'asdasd.png'},
+            tweet: "#wolfymed 自慰伤身。单纯分析精液的成分比较片面。一次性高潮所引发的全身心运动耗费的神经递质补充起来比较慢。梅开二度的快感明显不如第一次强烈，递质消耗了人就容易疲劳。",
+            reps: [
+                   {id:'123',people: {name:'阿斯大肆',img:'asdasd.png'},time:'昨天 2011-02-08 23:12',tweet:'以前控制论坛中高级ID玩水军那招，马上要被用在微博上了'},
+                   {id:'123',people: {name:'阿斯大肆',img:'asdasd.png'},time:'昨天 2011-02-08 23:12',tweet:'以前控制论坛中高级ID玩水军那招，马上要被用在微博上了'},
+                   {id:'123',people: {name:'阿斯大肆',img:'asdasd.png'},time:'昨天 2011-02-08 23:12',tweet:'以前控制论坛中高级ID玩水军那招，马上要被用在微博上了'}
+            ]
+        };
+
+    
 	var ajlock = true;
 		$(function () {
+			
+			
+	        $('div.tweet').click(function (e) {
+	        	if($(e.target).get(0).tagName != 'A'){
+	        	var twid = $(this).attr('weiboid');
+	        	//...
+	        	
+	            var o = $('div.tweetexpand');
+	        	o.append(ich.tweetexp(tweetexp));
+	            o.css('left', '0');
+	            o.animate({ left: 540 }, 500, 'swing');
+	        	}
+	        });
+	        
+	        window.onresize = window.onload = function () {
+	            gWinHeight = $(window).height();
+	            $("#body").height(gWinHeight);
+	        };
 	        var body = $('#body');
 	        var o = body[0];
 	        body.scroll(function () {
-	            if (o.scrollTop + winHeight >= o.scrollHeight) {
+	            if (o.scrollTop + gWinHeight >= o.scrollHeight) {
 	            	if(ajlock){
 	            		ajlock = false;
 					var item = $('div.stream-items .stream-item');
@@ -119,6 +181,24 @@
 		    	  $("#ret_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/retweet');
 		    	  dia.dialog("open");
 		      });
+		      $("a.btn_rret").live('click',function () {
+		    	  var dia = $('#dia_ret');
+		    	  var tweet = $(this).closest('div.tweet_rep');
+		    	  $('div.wcontent',dia).empty().html($('div.twtxtr',tweet).html());
+		    	  $('div.wpeople',dia).empty().html($('a.peop',tweet).html());
+		    	  $("textarea[name='content']",dia).empty().val('//@'+$('a.peop',tweet).text().trim());
+		    	  $("#ret_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/retweet');
+		    	  dia.dialog("open");
+		      });
+		      $("a.btn_hret").live('click',function () {
+		    	  var dia = $('#dia_ret');
+		    	  var tweet = $(this).closest('#twrep');
+		    	  $('div.wcontent',dia).empty().html($('div.rcontent',tweet).html());
+		    	  $('div.wpeople',dia).empty().html($('h4',tweet).html());
+		    	  $("textarea[name='content']",dia).empty().val('//@'+$('h4',tweet).text().trim());
+		    	  $("#ret_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/retweet');
+		    	  dia.dialog("open");
+		      });
 		      
 	          $('#dia_rep').dialog({
 	              resizable: false,
@@ -159,13 +239,25 @@
 		    	  $("#rep_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/reply');
 		    	  dia.dialog("open");
 		      });
+		      $("a.btn_rrep").live('click',function () {
+		    	  var dia = $('#dia_rep');
+		    	  var tweet = $(this).closest('div.tweet_rep');
+		    	  $('div.wcontent',dia).empty().html($('div.twtxtr',tweet).html());
+		    	  $('div.wpeople',dia).empty().html($('a.peop',tweet).html());
+		    	  $("textarea[name='content']",dia).empty();
+		    	  $("#rep_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/reply');
+		    	  dia.dialog("open");
+		      });
+		      $("a.btn_hrep").live('click',function () {
+		    	  var dia = $('#dia_ret');
+		    	  var tweet = $(this).closest('#twrep');
+		    	  $('div.wcontent',dia).empty().html($('div.rcontent',tweet).html());
+		    	  $('div.wpeople',dia).empty().html($('h4',tweet).html());
+		    	  $("textarea[name='content']",dia).empty();
+		    	  $("#rep_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/reply');
+		    	  dia.dialog("open");
+		      });		      
 	    });
- 
-	    var winHeight;
-	    var ReSet = function () {
-	        winHeight = $(window).height() + 10;
-	        $("#body").height(winHeight - 18);
-	    }
 	</script>
 </c:if>
 <div class="stream-items">
@@ -225,16 +317,16 @@
 	</div>							
 </c:forEach>							
 </div>
-	<div id="dia_ret" class="ui_dialog" title="转发">
-		<div class="wcontent"></div>
-		<div class="wpeople"></div>
+<div id="dia_ret" class="ui_dialog" title="转发">
+		<div class="wcontent mb10"></div>
+		<div class="wpeople mb10"></div>
 		<input id='ret_url' type='hidden'></input>
 		<textarea name="content" rows="5" cols="50"></textarea>
 		<img src="${staticUrlPrefix}/style/images/ajaxload.gif" class="ajaxload" alt="ajaxload" />
     </div>
-	<div id="dia_rep" class="ui_dialog" title="回复">
-		<div class="wcontent"></div>
-		<div class="wpeople"></div>
+<div id="dia_rep" class="ui_dialog" title="回复">
+		<div class="wcontent mb10"></div>
+		<div class="wpeople mb10"></div>
 		<input id='rep_url' type='hidden'></input>
 		<textarea name="content" rows="5" cols="50"></textarea>
 		<img src="${staticUrlPrefix}/style/images/ajaxload.gif" class="ajaxload" alt="ajaxload" />

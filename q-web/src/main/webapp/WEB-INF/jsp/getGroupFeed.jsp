@@ -5,8 +5,14 @@
 <head>
 	<jsp:include page="head.jsp" />
 	<title>圈子新鲜事</title>
+	<script type="text/javascript">
+	$(function(){
+
+		
+	});
+	</script>
 </head>
-<body onResize="ReSet()" onLoad="ReSet()">
+<body>
 	<div id="body" >
 	<jsp:include page="top.jsp" />
 		<div id="page-outer" class="groups-feed">
@@ -23,9 +29,13 @@
 							</jsp:include>
 						</div>
 					</div>
+					
 				</div>
+				<jsp:include page="group-feed-dashboard.jsp" />
+				<div class="tweetexpand expand"></div>
+				<br clear='all'/>
 			</div>
-			<jsp:include page="group-feed-dashboard.jsp" />
+			
 		</div>
 	</div>	
 </body>
