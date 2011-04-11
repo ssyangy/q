@@ -1,1 +1,2 @@
-dir -path ..\..\scripts -filter *.js | % { .\compiler.exe --js $_.FullName --js_output_file ($_.FullName -replace "/scripts/", "/scripts-pub/") }
+dir -path ..\..\scripts\ui -filter *.js | % { .\compiler.exe --js $_.FullName --js_output_file ($_.FullName -replace "\\scripts\\", "\\scripts-pub\\") }
+dir -path ..\..\scripts -filter *.js | % { .\compiler.exe --js $_.FullName --js_output_file ($_.FullName -replace "\\scripts\\", "\\scripts-pub\\") }
