@@ -3,18 +3,27 @@
 <%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
 
 <div class="expand">
-					<div class="db-header-outer friends-feed">
-						<div class="db-header-inner">
-							<div class="avatar"><img src="css/images/avatar0.png"></div>
-							<div class="my-brief">
-								<div class="name"><h3>随手拍解救大龄女青年</h3></div>
-								<div class="location-line"><span class="location">上海 徐汇区</span><span class="join-date">2011-02-13加入</span></div>
-								<div class="bio gray">Java大爷</div>
-								<div class="clearfix2"></div>
-							</div>
-						</div>
-					</div>
 					
+						<div class="db-header-outer friends-feed">
+		<div class="db-header-inner">
+			<div class="avatar">
+				<a href="${urlPrefix}/people/${people.id}">
+					<img src="${avatarUrlPrefix}/${people.avatarPath}-48">
+				</a>
+			</div>
+			<div class="my-brief">
+				<div class="name">
+					<h3><a href="${urlPrefix}/people/${people.id}">${people.realName}</a></h3>
+				</div>
+				<div class="location-line">
+					<span class="location">${people.area.myProvince.name}&nbsp;${people.area.myCity.name}&nbsp;${people.area.myCounty.name}</span>
+					<span class="join-date">${people.time}加入</span></div>
+				<div class="bio gray">${people.intro}</div>
+				<div class="clearfix2"></div>
+			</div>
+		</div>
+	</div>
+	
 				<div class="dashboard" style="display:block;">
 					<div class="db-block">
 						<div class="more"><a href="${urlPrefix}/group">圈子目录 →</a></div>
