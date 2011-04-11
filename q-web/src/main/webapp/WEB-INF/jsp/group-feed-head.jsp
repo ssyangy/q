@@ -38,17 +38,28 @@
 				<div class="title"><h2>我的圈子</h2></div> 
 				<div class="clearfix2"></div> 
 			</div> 
-			<div class="position" style="display:none;"> 
-					<span class="desc">所在地：</span> 
-			</div> 
 		</div> 
 	</div> 
 </div> 
-<div class="my-groups">
-	<div class="links"> 
-		<c:forEach items="${groups}" var="group" varStatus="status">
-		<a href="${urlPrefix}/group/${group.id}"">${group.name}</a><span class="link-sep">·</span>
-		</c:forEach> 
-	</div> 
-	<div class="more"><a href="${urlPrefix}/group">圈子目录 →</a></div> 
-</div>
+
+					<div class="main-tweet-box group">
+						<div class="tweet-box">
+							<div class="bg">
+								<div class="text-area">
+									<textarea class="twitter-anywhere-tweet-box-editor" style="width: 470px; height: 56px; "></textarea>
+								</div>
+								<div class="tweet-button-container">
+									<div class="submit"><a href="" class="button">发表</a></div>
+									<div class="bar">插入：<a href="">表情</a><a class="trDialog_img">图片</a><a href="">视频</a><br />
+                                    <div id='upimgpbox'>
+                                    <img src='css/images/portrain.jpg' class='img160' /><br />
+                                    <a id='upimgdel' class="link">删除</a>
+                                    </div>
+                                    </div>
+
+									<div class="clearfix2"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					

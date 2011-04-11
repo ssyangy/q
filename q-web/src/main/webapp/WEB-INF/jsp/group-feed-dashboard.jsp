@@ -1,7 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
+
 				<div class="dashboard" style="display:block;">
+					<div class="db-block profilebox">
+						<img height="48" width="48" src="css/images/1.png">
+						<div class='lh24'>彪马拖鞋 @seanlinwang</div>
+						<div class='lh24'>上海, 长宁区 2011-05-23加入</div>
+						<div class='lh24 gray'>我的存在就是无法避免的伤害</div>
+					</div>
+					<div class="db-block">
+						<div class="more"><a href="${urlPrefix}/group">圈子目录 →</a></div>
+						<h3>我的圈子：</h3>
+						<div class="grouplinks">
+		<c:forEach items="${groups}" var="group" varStatus="status">
+		<a href="${urlPrefix}/group/${group.id}"">${group.name}</a><span class="link-sep">·</span>
+		</c:forEach> 
+						</div>
+					</div>	
+				
 					<div class="db-block"> 
 						<div class="more"><a href="${urlPrefix}/group/feed/event">更多...</a></div> 
 						<h3>最新活动：</h3> 

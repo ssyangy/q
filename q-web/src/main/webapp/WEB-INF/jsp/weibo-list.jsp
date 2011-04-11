@@ -95,13 +95,14 @@
 			
 	        $('div.tweet').click(function (e) {
 	        	if($(e.target).get(0).tagName != 'A'){
-	        	var twid = $(this).attr('weiboid');
-	        	//...
+	        		var twid = $(this).attr('weiboid');
+	        		
+	        		//...
 	        	
-	            var o = $('div.tweetexpand');
-	        	o.append(ich.tweetexp(tweetexp));
-	            o.css('left', '0');
-	            o.animate({ left: 540 }, 500, 'swing');
+	            	var o = $('div.tweetexpand');
+	        		o.empty().append(ich.tweetexp(tweetexp));
+	            	o.css('left', '0');
+	            	o.animate({ left: 540 }, 500, 'swing');
 	        	}
 	        });
 	        
