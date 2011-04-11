@@ -38,11 +38,10 @@
 					</c:if>
 				</ul>
 			</div>
-			<div id="search">
+			<div class="FR">
 			    <form action="${urlPrefix}/search" method="GET">
-			    <button class="button FR">搜索</button>
 				<input type="text" class="search_field" id="search" name="search" size="35" placeholder="搜微博、圈子、好友"/>
-
+				<button class="button">搜索</button>
 				</form>
 			</div>
 			<div class="clearfix"></div>

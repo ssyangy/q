@@ -1,7 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
+
+<div class="expand">
+					
+						<div class="db-header-outer friends-feed">
+		<div class="db-header-inner">
+			<div class="avatar">
+				<a href="${urlPrefix}/people/${people.id}">
+					<img src="${avatarUrlPrefix}/${people.avatarPath}-48">
+				</a>
+			</div>
+			<div class="my-brief">
+				<div class="name">
+					<h3><a href="${urlPrefix}/people/${people.id}">${people.realName}</a></h3>
+				</div>
+				<div class="location-line">
+					<span class="location">${people.area.myProvince.name}&nbsp;${people.area.myCity.name}&nbsp;${people.area.myCounty.name}</span>
+					<span class="join-date">${people.time}加入</span></div>
+				<div class="bio gray">${people.intro}</div>
+				<div class="clearfix2"></div>
+			</div>
+		</div>
+	</div>
+	
 				<div class="dashboard" style="display:block;">
+					<div class="db-block">
+						<div class="more"><a href="${urlPrefix}/group">圈子目录 →</a></div>
+						<h3>我的圈子：</h3>
+						<div class="grouplinks">
+		<c:forEach items="${groups}" var="group" varStatus="status">
+		<a href="${urlPrefix}/group/${group.id}"">${group.name}</a><span class="link-sep">·</span>
+		</c:forEach> 
+						</div>
+					</div>	
+				
 					<div class="db-block"> 
 						<div class="more"><a href="${urlPrefix}/group/feed/event">更多...</a></div> 
 						<h3>最新活动：</h3> 
@@ -20,8 +53,8 @@
 					<div class="db-block"> 
 						<h3>热议：</h3> 
 						<div class="db-block-content">
-							<div class="db-tweet-box2 mb10">
 								<c:forEach items="${hotWeibos}" var="weibo">
+								<div class="db-tweet-box mb10">
 								<div class="avatar">
 									<a href="${urlPrefix}/people/${weibo.senderId}">
 										<img src="${avatarUrlPrefix}/${weibo.people.avatarPath}-24" width="24" height="24"/>
@@ -37,9 +70,9 @@
 										</a>
 									</p>
 								</div>
-								</c:forEach>
 								<div class="clearfix2"></div>
-							</div>
+								</div>
+								</c:forEach>
 							<div class="clearfix2"></div>
 						</div>
 					</div> 
@@ -91,3 +124,4 @@
 						</div> 
 					</div --> 
 				</div>
+</div>

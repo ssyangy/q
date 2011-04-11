@@ -104,8 +104,11 @@
 					</div>
 				</div>	
 			</div>
+			<jsp:include page="group-dashboard.jsp" />
+			<div class="tweetexpand expand"></div>
+			<br clear='all'/>
 		</div>
-		<jsp:include page="group-dashboard.jsp" />
+		
 	</div>
 </div>
 

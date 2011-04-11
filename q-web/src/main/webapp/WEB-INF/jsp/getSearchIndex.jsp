@@ -45,7 +45,9 @@
 						</div>
 					</div>
 				</div>
+				<div class="tweetexpand expand"></div>
 				<div class="dashboard" style="display:block;"></div>
+				<br clear='all'/>
 			</div>
 		</div>
 	</div>
