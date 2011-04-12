@@ -68,7 +68,6 @@
 		<iterate property="senderIds" open="(" close=")" conjunction=",">
 			#senderIds[]#
         </iterate>
-        and (reply_weibo_id > 0 or from_type = 0)
 		<isNotNull prepend="and " property="startCreated">
 			created &lt;= #startCreated#
 		</isNotNull>
