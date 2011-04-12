@@ -207,7 +207,11 @@ public class AddWeibo extends Resource {
 	public void validate(ResourceContext context) throws Exception {
 		long senderId = context.getCookiePeopleId();
 		if (senderId <= 0) {
-			throw new RequestParameterInvalidException("senderId");
+			throw new RequestParameterInvalidException("login:invalid");
+		}
+		String content = context.getString("content");
+		if (null == content) {
+			throw new RequestParameterInvalidException("content:invalid");
 		}
 
 	}

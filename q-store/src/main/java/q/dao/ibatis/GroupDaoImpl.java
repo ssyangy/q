@@ -143,6 +143,13 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 		List<Group> groups = this.getGroupsByIds(groupIds);
 		return groups;
 	}
+	
+	@Override
+	public List<Group> getAllGroups() throws SQLException {
+		@SuppressWarnings("unchecked")
+		List<Group> groups = this.sqlMapClient.queryForList("selectAllGroups");
+		return groups;
+	}
 
 	@Override
 	public List<Long> getExsitGroupIdsByIds(List<Long> groupIds) throws SQLException {

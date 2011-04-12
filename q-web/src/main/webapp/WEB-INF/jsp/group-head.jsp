@@ -14,7 +14,6 @@
 					</c:otherwise>
 				</c:choose>
 				</div>
-				<div class="avatar"><img src="${avatarUrlPrefix}/avatar0.png"></div>
 				<div class="title"><h2>圈子：${group.name}</h2></div>
 				<div class="clearfix2"></div>
 			</div>

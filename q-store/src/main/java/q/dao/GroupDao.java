@@ -120,4 +120,10 @@ public interface GroupDao {
 	 */
 	List<Long> getPeopleIdsByPage(PeopleJoinGroupPage page) throws SQLException;
 
+	/**
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Group> getAllGroups() throws SQLException;
+
 }

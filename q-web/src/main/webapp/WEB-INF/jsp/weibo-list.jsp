@@ -40,8 +40,8 @@
             <div class="tweet-row">
                 <a href="" class="tweet-timestamp">{{screenTime}}</a>
                 <span class="tweet-actions">
-					{{#unFav}}<a href="#" class='fav'>收藏</a>{{/unFav}}
-					{{^unFav}}<a href="#" class='favun'>取消收藏</a>{{/unFav}}
+					{{#favorited}}<a href="#" class='favun'>取消收藏</a>{{/favorited}}
+					{{^favorited}}<a href="#" class='fav'>收藏</a>{{/favorited}}
 					<span class="link-sep">·</span><a href="#" class='btn_ret'>转发</a>
 					<span class="link-sep">·</span><a href="#" class='btn_rep'>回复</a>
 				</span>
@@ -82,8 +82,8 @@
 						<span class="gray">发自<a href="${urlPrefix}{{fromUrl}}">{{fromName}}</a></span>
 						<a class="link ml10 FR btn_hrep" href="#">回复</a>
 						<a class="link ml10 FR btn_hret" href="#">转发</a>
-						{{#unFav}}<a href="#" class='link ml10 FR hfav'>收藏</a>{{/unFav}}
-						{{^unFav}}<a href="#" class='link ml10 FR hfavun'>取消收藏</a>{{/unFav}}
+						{{#favorited}}<a href="#" class='link ml10 FR hfavun'>取消收藏</a>{{/favorited}}
+						{{^favorited}}<a href="#" class='link ml10 FR hfav'>收藏</a>{{/favorited}}
 						</div>
                     </div>
 					</div>
@@ -100,8 +100,8 @@
 						<span class="gray ml10">发自<a href="${urlPrefix}{{fromUrl}}">{{fromName}}</a></span>
 						<a class="link ml10 FR btn_rrep">回复</a>
 						<a class="link ml10 FR btn_rret">转发</a>
-						{{#unFav}}<a href="#" class='link FR rfav'>收藏</a>{{/unFav}}
-						{{^unFav}}<a href="#" class='link FR rfavun'>取消收藏</a>{{/unFav}}
+						{{#favorited}}<a href="#" class='link FR rfavun'>取消收藏</a>{{/favorited}}
+						{{^favorited}}<a href="#" class='link FR rfav'>收藏</a>{{/favorited}}
                         <div class="mt10 twtxtr">{{text}}</div>
                     </div>
 					{{/replies}}
@@ -292,19 +292,19 @@
 		      
 		      $('a.fav').live('click',function(){
 		    	  var tweet = $(this).closest('div.tweet');
-		    	  favFun(tweet.attr('weiboid'),this,'fav');
+		    	  favFun(tweet.attr('weiboid'),this, 'weibo', 'fav');
 		      });
 		      $('a.hfav').live('click',function(){
 		    	  var tweet = $(this).closest('#twrep');
-		    	  favFun(tweet.attr('weiboid'),this,'hfav');
+		    	  favFun(tweet.attr('weiboid'),this, 'weibo', 'hfav');
 		      });
 		      $('a.rfav').live('click',function(){
 		    	  var tweet = $(this).closest('div.tweet_rep');
-		    	  favFun(tweet.attr('weiboid'),this,'rfav');
+		    	  favFun(tweet.attr('replyid'),this, 'reply','rfav');
 		      });
-		      var favFun = function(id,o,clas){
+		      var favFun = function(id,o,url,clas){
 				  $.ajax({
-					    url: '${urlPrefix}/weibo/' + id + '/favorite',
+					    url: '${urlPrefix}/' + url + '/' + id + '/favorite',
 					    type: 'POST',
 					    dataType: 'json',
 					    timeout: 5000,
@@ -317,19 +317,19 @@
 		      }		      
 		      $('a.favun').live('click',function(){
 		    	  var tweet = $(this).closest('div.tweet');
-		    	  favFunUn(tweet.attr('weiboid'),this,'fav');
+		    	  favFunUn(tweet.attr('weiboid'),this,'weibo','fav');
 		      });
 		      $('a.hfavun').live('click',function(){
 		    	  var tweet = $(this).closest('#twrep');
-		    	  favFunUn(tweet.attr('weiboid'),this,'hfav');
+		    	  favFunUn(tweet.attr('weiboid'),this,'weibo','hfav');
 		      });
 		      $('a.rfavun').live('click',function(){
 		    	  var tweet = $(this).closest('div.tweet_rep');
-		    	  favFunUn(tweet.attr('weiboid'),this,'rfav');
+		    	  favFunUn(tweet.attr('replyid'),this,'reply','rfav');
 		      });
-		      var favFunUn = function(id,o,clas){
+		      var favFunUn = function(id,o,url,clas){
 				  $.ajax({
-					    url: '${urlPrefix}/weibo/' + id + '/favorite',
+					    url: '${urlPrefix}/' + url + '/' + id + '/favorite',
 					    type: 'POST',
 					    dataType: 'json',
 					    data:{_method:'delete'},

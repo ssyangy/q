@@ -35,7 +35,7 @@
 					</div> 
 					<div class="clearfix2"></div> 
 				</div> 
-				<div class="title"><h2>我的圈子</h2></div> 
+				<div class="title"><h2>圈子新鲜事</h2></div> 
 				<div class="clearfix2"></div> 
 			</div> 
 		</div> 
@@ -45,28 +45,29 @@
 					<div class="main-tweet-box group">
 						<div class="tweet-box">
 							<div class="bg">
+								<form action="${contextPath}/weibo?from=${contextPath}/group/feed" method="post">
 								<div class="text-area">
-									<textarea class="twitter-anywhere-tweet-box-editor" style="width: 470px; height: 56px; "></textarea>
+									<textarea name="content" class="twitter-anywhere-tweet-box-editor" style="width: 470px; height: 56px; "></textarea>
 								</div>
 								<div class="tweet-button-container">
 									<div class="submit">
-			<select>
-                <option value="value">发到圈子？</option>
-                <option value="value">发到圈子？</option>
-                <option value="value">发到圈子？</option>
-            </select>									
-									<a href="" class="button">发表</a>
-
+									<select name="groupId">
+										<option value="0">发到圈子？</option>
+										<c:forEach items="${allGroups}" var="group">
+							                <option value="${group.id}">${group.name}</option>
+						                </c:forEach>
+						            </select>									
+									<button class="button">发表</button>
 									</div>
 									<div class="bar">插入：<a href="">表情</a><a class="trDialog_img">图片</a><a href="">视频</a><br />
                                     <div id='upimgpbox'>
-                                    <img src='css/images/portrain.jpg' class='img160' /><br />
+                                    <img src='' class='img160' /><br />
                                     <a id='upimgdel' class="link">删除</a>
                                     </div>
                                     </div>
-
 									<div class="clearfix2"></div>
 								</div>
+								 </form>
 							</div>
 						</div>
 					</div>

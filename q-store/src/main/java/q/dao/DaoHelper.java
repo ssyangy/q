@@ -57,7 +57,9 @@ public class DaoHelper {
 	 */
 	public static void injectWeiboWithFavorite(FavoriteDao favoriteDao, Weibo weibo, long peopleId) throws SQLException {
 		Favorite fav = favoriteDao.getWeiboFavoriteByWeiboIdAndCreatorId(weibo.getId(), peopleId);
-		if (fav != null) {
+		if (null == fav || fav.isUnFav()) {
+			weibo.setFav(false);
+		} else {
 			weibo.setFav(true);
 		}
 

@@ -73,6 +73,13 @@
 		order by created desc
 	</select>
 	
+	<select id="selectAllGroups" resultMap="groupResult">
+		select
+		<include refid="group.columns" />
+		from `group` 
+		order by created desc
+	</select>
+	
 	<select id="selectGroupIdsByCatId" resultClass="long">
 		select group_id 
 		from group_join_category
