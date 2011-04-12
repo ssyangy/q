@@ -10,6 +10,8 @@
 						<member name="time" apiName="screenTime" apiType="string" />
 						<member name="content" apiName="text" apiType="string" />
 						<member name="fav" apiName="favorited" apiType="boolean" />
+						<member name="fromName" apiName="fromName" apiType="string" />
+						<member name="fromUrl" apiName="fromUrl" apiType="string" />
 						<member name="people" apiName="people">
 							<type>
 								<struct>
@@ -26,6 +28,8 @@
 									<member name="time" apiName="screenTime" apiType="string" />
 									<member name="content" apiName="text" apiType="string" />
 									<member name="fav" apiName="favorited" apiType="boolean" />
+									<member name="fromName" apiName="fromName" apiType="string" />
+									<member name="fromUrl" apiName="fromUrl" apiType="string" />
 									<member name="people" apiName="people">
 										<type>
 											<struct>
@@ -48,9 +52,13 @@
 						<type>
 							<struct>
 								<member name="id" apiName="id" apiType="string" />
+								<member name="quoteWeiboId" apiName="quoteWeiboId"
+									apiType="string" />
 								<member name="time" apiName="screenTime" apiType="string" />
 								<member name="content" apiName="text" apiType="string" />
 								<member name="fav" apiName="favorited" apiType="boolean" />
+								<member name="fromName" apiName="fromName" apiType="string" />
+								<member name="fromUrl" apiName="fromUrl" apiType="string" />
 								<member name="people" apiName="people">
 									<type>
 										<struct>

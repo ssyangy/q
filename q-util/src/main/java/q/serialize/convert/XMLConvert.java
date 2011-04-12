@@ -188,7 +188,7 @@ public class XMLConvert extends AbstractConvert {
 		}
 	}
 
-	public void convertStartTag(String mappingName, boolean isArray) throws MappingException {
+	public void convertStartTag(String mappingName, boolean needLB) throws MappingException {
 		if (mappingName == null)
 			return;
 		try {
@@ -198,7 +198,7 @@ public class XMLConvert extends AbstractConvert {
 		}
 	}
 
-	public void convertEndTag(String mappingName, boolean isArray) throws MappingException {
+	public void convertEndTag(String mappingName, boolean needLB) throws MappingException {
 		if (mappingName == null)
 			return;
 		try {
@@ -209,11 +209,11 @@ public class XMLConvert extends AbstractConvert {
 
 	}
 
-	public String convertCollectionBefore(String mappingName, boolean isFromCollection, boolean isArray) throws MappingException {
+	public String convertCollectionBefore(String mappingName, boolean isFromCollection, boolean needLB) throws MappingException {
 		return mappingName;
 	}
 
-	public void convertCollectionDown(String mappingName, boolean isFromCollection) throws MappingException {
+	public void convertCollectionDown(String mappingName, boolean isFromCollection, boolean needLB) throws MappingException {
 		// TODO Auto-generated method stub
 		return;
 	}

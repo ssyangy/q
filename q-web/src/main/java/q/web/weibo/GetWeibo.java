@@ -63,6 +63,7 @@ public class GetWeibo extends Resource {
 		Weibo weibo = weiboDao.getWeiboById(weiboId);
 		DaoHelper.injectWeiboModelWithPeople(peopleDao, weibo);
 		DaoHelper.injectWeiboModelWithFrom(groupDao, weibo);
+		//DaoHelper.injectWeiboModelWithFrom(groupDao, weibo)
 		context.setModel("weibo", weibo);
 
 		WeiboReplyPage page = new WeiboReplyPage();
@@ -86,7 +87,9 @@ public class GetWeibo extends Resource {
 		if (context.isApiRequest()) {
 			Map<String, Object> api = new HashMap<String, Object>();
 			api.put("weibo", weibo);
-			api.put("replies", replies);
+			if (CollectionKit.isNotEmpty(replies)) {
+				api.put("replies", replies);
+			}
 			context.setModel("api", api);
 		}
 	}

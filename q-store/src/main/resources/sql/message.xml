@@ -5,7 +5,6 @@
 	<resultMap id="messageResult" class="message">
 		<result property="id" column="id" />
 		<result property="senderId" column="sender_id" />
-		<result property="content" column="content" />
 		<result property="status" column="status" />
 		<result property="created" column="created" />
 		<result property="modified" column="modified" />
@@ -13,7 +12,6 @@
 	<sql id="message.columns">
 		id,
 		sender_id,
-		content,
 		status,
 		created,
 		modified
@@ -56,7 +54,6 @@
 		) values (
 		#id#,
 		#senderId#,
-		#content#,
 		0,
 		now(),
 		null

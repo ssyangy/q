@@ -12,6 +12,7 @@ import q.dao.MessageDao;
 import q.dao.PeopleDao;
 import q.domain.Message;
 import q.domain.MessageJoinPeople;
+import q.domain.MessageReply;
 import q.domain.People;
 import q.util.ArrayKit;
 import q.util.CollectionKit;
@@ -48,7 +49,6 @@ public class AddMessage extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		Message message = new Message();
 		message.setId(IdCreator.getLongId());
-		message.setContent(context.getString("content"));
 		long senderId = context.getCookiePeopleId();
 		message.setSenderId(senderId);
 		String idsString = context.getString("receiverId");
@@ -64,6 +64,17 @@ public class AddMessage extends Resource {
 			joins.add(join);
 		}
 		messageDao.addMessage(message);
+		
+		//NOTICE: also insert message reply
+		MessageReply messageReply = new MessageReply();
+		messageReply.setId(IdCreator.getLongId());
+		messageReply.setContent(context.getString("content"));
+		messageReply.setSenderId(message.getSenderId());
+		messageReply.setQuoteMessageId(message.getId());
+		messageReply.setQuoteSenderId(message.getSenderId());
+		messageDao.addMessageReply(messageReply);
+		
+		//NOTICE: join message with people
 		messageDao.addMessageJoinPeoples(joins);
 
 		String from = context.getString("from");
