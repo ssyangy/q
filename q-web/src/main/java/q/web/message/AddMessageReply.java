@@ -39,6 +39,7 @@ public class AddMessageReply extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		MessageReply messageReply = new MessageReply();
+		messageReply.setId(IdCreator.getLongId());
 		messageReply.setContent(context.getString("content"));
 		messageReply.setSenderId(context.getCookiePeopleId());
 		long replyMessageId = context.getIdLong("replyMessageId");

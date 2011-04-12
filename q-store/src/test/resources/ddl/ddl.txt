@@ -183,7 +183,6 @@ default character set utf8 engine = innodb;
 create table message(
 	id bigint unsigned not null primary key,
 	sender_id bigint unsigned not null,
-	content varchar(1024) not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null)
@@ -204,7 +203,7 @@ create table message_reply(
 	sender_id bigint unsigned not null,
 	quote_message_id bigint unsigned not null,
 	quote_sender_id bigint unsigned not null,
-	reply_weibo_id bigint unsigned not null,
+	reply_message_id bigint unsigned not null,
 	reply_sender_id bigint unsigned not null,
 	content varchar(1024) not null,
 	status tinyint unsigned not null,

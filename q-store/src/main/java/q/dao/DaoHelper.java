@@ -38,7 +38,7 @@ public class DaoHelper {
 			for (WeiboModel model : weiboModels) {
 				modelIds.add(model.getId());
 			}
-			List<Long> favIds = favoriteDao.getFavReplyIds(modelIds, peopleId);
+			List<Long> favIds = favoriteDao.getFavoriteIdsByFromIdsAndCreatorId(modelIds, peopleId);
 			if (CollectionKit.isNotEmpty(favIds)) {
 				Set<Long> favSet = new HashSet<Long>(favIds);
 				for (WeiboModel model : weiboModels) {
@@ -48,6 +48,19 @@ public class DaoHelper {
 				}
 			}
 		}
+	}
+
+	/**
+	 * @param favoriteDao
+	 * @param weibo
+	 * @throws SQLException
+	 */
+	public static void injectWeiboWithFavorite(FavoriteDao favoriteDao, Weibo weibo, long peopleId) throws SQLException {
+		Favorite fav = favoriteDao.getWeiboFavoriteByWeiboIdAndCreatorId(weibo.getId(), peopleId);
+		if (fav != null) {
+			weibo.setFav(true);
+		}
+
 	}
 
 	/**
@@ -268,16 +281,6 @@ public class DaoHelper {
 	}
 
 	/**
-	 * @param peopleDao
-	 * @param weibo
-	 * @throws SQLException
-	 */
-	public static void injectWeiboModelWithPeople(PeopleDao peopleDao, Weibo weibo) throws SQLException {
-		People people = peopleDao.getPeopleById(weibo.getSenderId());
-		weibo.setPeople(people);
-	}
-
-	/**
 	 * @param groupDao
 	 * @param weibo
 	 * @throws SQLException
@@ -431,6 +434,33 @@ public class DaoHelper {
 		}
 	}
 
+	/**
+	 * @param peopleDao
+	 * @param weibo
+	 * @throws SQLException
+	 */
+	public static void injectWeiboModelWithPeople(PeopleDao peopleDao, WeiboModel model) throws SQLException {
+		Set<Long> senderIds = new HashSet<Long>(2);
+		senderIds.add(model.getSenderId());
+		if (model.getQuote() != null) {
+			senderIds.add(model.getQuote().getSenderId());
+		}
+		if (CollectionKit.isEmpty(senderIds)) {
+			return;
+		}
+
+		List<People> peoples = peopleDao.getPeoplesByIds(new ArrayList<Long>(senderIds));
+		if (CollectionKit.isEmpty(peoples)) {
+			return;
+		}
+
+		Map<Long, People> peopleMap = convertToMap(peoples);
+		model.setPeople(peopleMap.get(model.getSenderId()));
+		if (model.getQuote() != null) {
+			model.getQuote().setPeople(peopleMap.get(model.getQuote().getSenderId()));
+		}
+	}
+
 	protected static Map<Long, People> convertToMap(List<People> peoples) {
 		Map<Long, People> peopleMap = new HashMap<Long, People>(peoples.size());
 		for (People people : peoples) {
@@ -474,6 +504,16 @@ public class DaoHelper {
 				model.setQuote(quote);
 			}
 		}
+	}
+
+	/**
+	 * @param weiboDao
+	 * @param weibo
+	 * @throws SQLException
+	 */
+	public static void injectWeiboModelWithQuote(WeiboDao weiboDao, Weibo weibo) throws SQLException {
+		Weibo quote = weiboDao.getWeiboById(weibo.getQuoteWeiboId());
+		weibo.setQuote(quote);
 	}
 
 	/**

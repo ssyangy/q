@@ -19,8 +19,6 @@ public class Message extends AbstractDomain implements Serializable {
 
 	private int status;
 
-	private String content;
-
 	private long senderId;
 
 	private People sender;
@@ -29,6 +27,16 @@ public class Message extends AbstractDomain implements Serializable {
 	
 	private List<People> receivers;
 	
+	private MessageReply lastReply;
+	
+	public MessageReply getLastReply() {
+		return lastReply;
+	}
+
+	public void setLastReply(MessageReply lastReply) {
+		this.lastReply = lastReply;
+	}
+
 	public List<People> getReceivers() {
 		return receivers;
 	}
@@ -39,14 +47,6 @@ public class Message extends AbstractDomain implements Serializable {
 
 	public void setStatus(int status) {
 		this.status = status;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
 	}
 
 	public long getSenderId() {
@@ -75,7 +75,7 @@ public class Message extends AbstractDomain implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Message [status=" + status + ", content=" + content + ", senderId=" + senderId + ", id=" + id + ", created=" + created + ", modified=" + modified + "]";
+		return "Message [status=" + status + ", senderId=" + senderId + ", id=" + id + ", created=" + created + ", modified=" + modified + "]";
 	}
 
 	/**

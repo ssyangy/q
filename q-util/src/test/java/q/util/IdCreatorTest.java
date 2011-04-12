@@ -80,7 +80,6 @@ public class IdCreatorTest {
 		afterCal.set(2041, 0, 1, 0, 0, 0);
 		Calendar baseCal = Calendar.getInstance();
 		baseCal.set(2011, 0, 1, 0, 0, 0);
-		System.out.println(afterCal.getTimeInMillis() - baseCal.getTimeInMillis());
 		Assert.assertTrue(10000L * 10000 * 10000 > afterCal.getTimeInMillis() - baseCal.getTimeInMillis());
 		Assert.assertTrue(afterCal.getTimeInMillis() - baseCal.getTimeInMillis() > 1000L * 10000 * 10000);
 	}
