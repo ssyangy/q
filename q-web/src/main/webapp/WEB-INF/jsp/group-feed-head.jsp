@@ -49,7 +49,14 @@
 									<textarea class="twitter-anywhere-tweet-box-editor" style="width: 470px; height: 56px; "></textarea>
 								</div>
 								<div class="tweet-button-container">
-									<div class="submit"><a href="" class="button">发表</a></div>
+									<div class="submit">
+									<a href="" class="button">发表</a>
+			<select>
+                <option value="value">发到圈子？</option>
+                <option value="value">发到圈子？</option>
+                <option value="value">发到圈子？</option>
+            </select>
+									</div>
 									<div class="bar">插入：<a href="">表情</a><a class="trDialog_img">图片</a><a href="">视频</a><br />
                                     <div id='upimgpbox'>
                                     <img src='css/images/portrain.jpg' class='img160' /><br />

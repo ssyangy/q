@@ -31,7 +31,7 @@
 								<c:forEach items="${hotWeibos}" var="weibo">
 								<div class="avatar">
 									<a href="${urlPrefix}/people/${weibo.senderId}">
-										<img src="${avatarUrlPrefix}/${weibo.people.avatarPath}-24" width="24" height="24"/>
+										<img src="${avatarUrlPrefix}/${weibo.people.avatarPath}-24"/>
 									</a>
 								</div>
 								<div class="tweet-body">
@@ -56,7 +56,7 @@
 							<div class="member-cell"> 
 								<div class="avatar">
 									<a href="${urlPrefix}/people/${fo.id}">
-										<img src="${avatarUrlPrefix}/${fo.avatarPath}-24">
+										<img src="${avatarUrlPrefix}/${fo.avatarPath}-48">
 									</a>
 								</div>
 								<div class="name-action"> 
@@ -77,7 +77,7 @@
 							<div class="member-cell"> 
 								<div class="avatar">
 									<a href="${urlPrefix}/people/${fo.id}">
-										<img src="${avatarUrlPrefix}/${fo.avatarPath}-24">
+										<img src="${avatarUrlPrefix}/${fo.avatarPath}-48">
 									</a>
 								</div>
 								<div class="name-action"> 
