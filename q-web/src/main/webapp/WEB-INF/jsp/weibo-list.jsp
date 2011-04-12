@@ -50,7 +50,8 @@
     </div>
 	</script>
 	<script id="tweetexp" type="text/html">
-					{{#weibo}}
+			{{#weibo}}
+					<a class='btnreturn'></a>
 					<div id='twrep' class='mb10' weiboid="{{id}}">
 					<div class="tw_head">
 					{{#people}}
@@ -136,10 +137,15 @@
 
 	        	}
 	        });
+	        $('a.btnreturn').live('click',function(){
+	        	$('div.dashboardbb').show();
+	        	tweetex.animate({ left: set.left+10 }, 500, 'swing');
+	        });
 
 	        window.onresize = window.onload = function () {
 	            gWinHeight = $(window).height();
 	            $("#body").height(gWinHeight);
+	            tweetex.height(gWinHeight-146);
 	        };
 	        var body = $('#body');
 	        var o = body[0];
@@ -209,7 +215,7 @@
 		    	  var rows = tweet.find('div.tweet-row');
 		    	  $('div.wcontent',dia).empty().html(rows.eq(1).html());
 		    	  $('div.wpeople',dia).empty().html(rows.eq(0).html());
-		    	  $("textarea[name='content']",dia).empty().val('//@'+$('span.tweet-user-name',rows.eq(0)).text().trim());
+		    	  $("textarea[name='content']",dia).val('').val('//@'+$('span.tweet-user-name',rows.eq(0)).text().trim());
 		    	  $("#ret_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/retweet');
 		    	  dia.dialog("open");
 		      });
@@ -218,7 +224,7 @@
 		    	  var tweet = $(this).closest('div.tweet_rep');
 		    	  $('div.wcontent',dia).empty().html($('div.twtxtr',tweet).html());
 		    	  $('div.wpeople',dia).empty().html($('a.peop',tweet).html());
-		    	  $("textarea[name='content']",dia).empty().val('//@'+$('a.peop',tweet).text().trim());
+		    	  $("textarea[name='content']",dia).val('').val('//@'+$('a.peop',tweet).text().trim());
 		    	  $("#ret_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/retweet');
 		    	  dia.dialog("open");
 		      });
@@ -227,7 +233,7 @@
 		    	  var tweet = $(this).closest('#twrep');
 		    	  $('div.wcontent',dia).empty().html($('div.rcontent',tweet).html());
 		    	  $('div.wpeople',dia).empty().html($('h4',tweet).html());
-		    	  $("textarea[name='content']",dia).empty().val('//@'+$('h4',tweet).text().trim());
+		    	  $("textarea[name='content']",dia).val('').val('//@'+$('h4',tweet).text().trim());
 		    	  $("#ret_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/retweet');
 		    	  dia.dialog("open");
 		      });
@@ -267,7 +273,7 @@
 		    	  var rows = tweet.find('div.tweet-row');
 		    	  $('div.wcontent',dia).empty().html(rows.eq(1).html());
 		    	  $('div.wpeople',dia).empty().html(rows.eq(0).html());
-		    	  $("textarea[name='content']",dia).empty();
+		    	  $("textarea[name='content']",dia).val('');
 		    	  $("#rep_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/reply');
 		    	  dia.dialog("open");
 		      });
@@ -276,7 +282,7 @@
 		    	  var tweet = $(this).closest('div.tweet_rep');
 		    	  $('div.wcontent',dia).empty().html($('div.twtxtr',tweet).html());
 		    	  $('div.wpeople',dia).empty().html($('a.peop',tweet).html());
-		    	  $("textarea[name='content']",dia).empty();
+		    	  $("textarea[name='content']",dia).val('');
 		    	  $("#rep_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/reply?replyId=' + tweet.attr('replyid'));
 		    	  dia.dialog("open");
 		      });
@@ -285,7 +291,7 @@
 		    	  var tweet = $(this).closest('#twrep');
 		    	  $('div.wcontent',dia).empty().html($('div.rcontent',tweet).html());
 		    	  $('div.wpeople',dia).empty().html($('h4',tweet).html());
-		    	  $("textarea[name='content']",dia).empty();
+		    	  $("textarea[name='content']",dia).val('');
 		    	  $("#rep_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/reply');
 		    	  dia.dialog("open");
 		      });
