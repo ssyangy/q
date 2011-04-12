@@ -21,7 +21,9 @@
             </div>
             <div class="tweet-row">
 				<div class="tweet-text">{{text}}</div>
+				{{#picturePath}}<img id="img" src="{{picturePath}}-160" class="img160"/>{{/picturePath}}
 			</div>
+
 			{{#quote}}
 			<div class="tweet-ori">
 				<div class="tweet-ori-inner">
@@ -66,6 +68,7 @@
 				<div class="tweet-ori-inner">
 					{{#people}}<a href="${urlPrefix}/people/{{id}}" class="tweet-ori-author">{{screenName}}</a>{{/people}}：
 					{{text}}
+					{{#picturePath}}<img id="img" src="{{picturePath}}-160" class="img160"/>{{/picturePath}}
 					<span class="">
 						<a href="${urlPrefix}/weibo/{{id}}">原文转发</a>
 						<span class="link-sep">·</span>
@@ -305,12 +308,14 @@
 			</div>
 			<div class="tweet-row">
 				<div class="tweet-text">${weibo.content}</div>
+				<c:if test="${weibo.picturePath !=null }"><img id="img" src="${weibo.picturePath}-160" class="img160"/></c:if>
 			</div>
 			<c:if test="${weibo.quote.id > 0}">
 			<div class="tweet-ori">
 				<div class="tweet-ori-inner">
 					<a href="${urlPrefix}/people/${weibo.quote.people.id}" class="tweet-ori-author">${weibo.quote.people.realName}</a>：
 					${weibo.quote.content}
+					<c:if test="${weibo.picturePath !=null }"><img id="img" src="${weibo.picturePath}-160" class="img160"/></c:if>
 					<span class="">
 						<a href="${urlPrefix}/weibo/${weibo.quote.id}">原文转发</a>
 						<span class="link-sep">·</span>
@@ -321,8 +326,6 @@
 			</c:if>
 			<div class="tweet-row">
 				<a href="" class="tweet-timestamp">${weibo.time}</a>
-				<br>
-				<img id="img" src="${weibo.picturePath}-160" class="img160"/>
 				<span class="tweet-actions">
 					<!--<button onclick="">赞</button>
 					<span class="link-sep">·</span>-->
