@@ -33,7 +33,7 @@
 										<td>
 											<div class="desc">
 												<div class="action">
-													<a href="${urlPrefix}/group?cat=${cat.id}">更多...</a>
+													<a href="${urlPrefix}/group?cat=${cat.id}">更多→</a>
 												</div>
 												<div>${cat.name}</div>
 											</div> 

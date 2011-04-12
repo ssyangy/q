@@ -36,7 +36,7 @@
 					</div>	
 				
 					<div class="db-block"> 
-						<div class="more"><a href="${urlPrefix}/group/feed/event">更多...</a></div> 
+						<div class="more"><a href="${urlPrefix}/group/feed/event">更多→</a></div> 
 						<h3>最新活动：</h3> 
 						<div class="db-block-content"> 
 							<c:forEach items="${newEvents}" var="event">

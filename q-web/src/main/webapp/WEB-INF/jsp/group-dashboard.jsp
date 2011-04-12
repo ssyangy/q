@@ -9,7 +9,7 @@
 						</div>
 					</div>				
 					<div class="db-block"> 
-						<div class="more"><a href="${urlPrefix}/group/${group.id}/event">更多...</a></div> 
+						<div class="more"><a href="${urlPrefix}/group/${group.id}/event">更多→</a></div> 
 						<h3>最新活动：</h3> 
 						<div class="db-block-content"> 
 							<c:forEach items="${newEvents}" var="event">
@@ -24,7 +24,7 @@
 						</div> 
 					</div> 
 					<div class="db-block">
-						<div class="more"><a href="${urlPrefix}/group/${group.id}/hot">更多...</a></div> 
+						<div class="more"><a href="${urlPrefix}/group/${group.id}/hot">更多→</a></div> 
 						<h3>热议：</h3> 
 						<div class="db-block-content">
 							<div class="db-tweet-box2 mb10">
@@ -49,7 +49,7 @@
 						</div>
 					</div> 
 					<div class="db-block">
-						<div class="more"><a href="${urlPrefix}/group/${group.id}/people">更多...</a></div> 
+						<div class="more"><a href="${urlPrefix}/group/${group.id}/people">更多→</a></div> 
 						<h3>新成员：</h3> 
 						<div class="db-block-content">
 							<c:forEach items="${newPeoples}" var="fo"> 
@@ -70,7 +70,7 @@
 						</div> 
 					</div> 
 					<div class="db-block">
-						<div class="more"><a href="${urlPrefix}/group/${group.id}/people">更多...</a></div> 
+						<div class="more"><a href="${urlPrefix}/group/${group.id}/people">更多→</a></div> 
 						<h3>活跃成员：</h3> 
 						<div class="db-block-content">
 							<c:forEach items="${newPeoples}" var="fo"> 

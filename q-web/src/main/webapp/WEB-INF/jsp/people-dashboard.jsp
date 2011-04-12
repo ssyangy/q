@@ -32,7 +32,7 @@
 						</div>
 					</div>
 					<div class="db-block">
-						<div class="more"><a href="${urlPrefix}/people/${people.id}/following">更多...</a></div>
+						<div class="more"><a href="${urlPrefix}/people/${people.id}/following">更多→</a></div>
 						<h3>${people.gender.cncall}的关注：</h3>
 						<div class="db-block-content">
 							<c:forEach items="${hotFollowings}" var="fo">
@@ -51,7 +51,7 @@
 						</div>
 					</div>
 					<div class="db-block">
-						<div class="more"><a href="${urlPrefix}/people/${people.id}/follower">更多...</a></div>
+						<div class="more"><a href="${urlPrefix}/people/${people.id}/follower">更多→</a></div>
 						<h3>${people.gender.cncall}的粉丝：</h3>
 						<div class="db-block-content">
 							<c:forEach items="${hotFollowers}" var="fo">
