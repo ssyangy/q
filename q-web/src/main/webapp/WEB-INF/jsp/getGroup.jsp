@@ -22,8 +22,13 @@
       </style>
       	<script type="text/javascript" src="${staticUrlPrefix}/js/jQueryRotate.2.1.js"></script>
       	<script type="text/javascript">
+      	var isImg=true;
 	    var upimgfix = 0;
+	    var realHeight;
+	    var realWidth;
+	    var imgPath;
 	    $(function () {
+
 	        var dia_img = $("#dia_img");
 	        dia_img.dialog({
 	            resizable: false,
@@ -32,9 +37,14 @@
 	            hide: "drop",
 	            buttons: {
 	                "确定": function () {
+	                $("#picPath").attr("value",imgPath);
+	                 $("#upimgfix").attr("value",upimgfix);
+	                setImg();
 	                    $(this).dialog("close");
 	                    $('#upimgpbox').show();
 	                    $('#upimgpbox img').rotate(upimgfix);
+
+
 	                },
 	                "取消": function () {
 	                    $(this).dialog("close");
@@ -45,8 +55,10 @@
 	            dia_img.dialog("open");
 	        });
 	        $('#upimgdel').click(function () {
+	            imgPath="";
 	            $('#upimgpbox').empty();
 	            $(this).remove();
+
 	        });
 	        $('#imgRotateR', dia_img).click(function () {
 	            $('#upimg', dia_img).rotate(upimgfix + 90);
@@ -54,7 +66,7 @@
 	        });
 	        $('#imgRotateL', dia_img).click(function () {
 	            $('#upimg', dia_img).rotate(upimgfix - 90);
-	            upimgfix -= 90;
+	            upimgfix += 270;
 	        });
 
 
@@ -75,9 +87,52 @@
         $("#imgwrong").css("display","none");
           isImg=true;
     }
+    function up(){
+	return isImg;
+	}
+	   function notAImg(){
+    	isImg=false;
+         $("#imgwrong").css("display","block");
+         $("#imgwrong").html("这不是一个图片文件!");
+    }
+    function reloadImg(x,y,z){
+    realHeight=x;
+	realWidth=y;
+	imgPath=z;
+    $("#picPath").attr("value",imgPath);
+      if(realHeight>realWidth){
+         max="height";
+    	 imageWidth=realWidth*320/realHeight;
+         imageHeight=320;
+      }
+      else{
+         max="width";
+    	 imageHeight=realHeight*320/realWidth;
+         imageWidth=320;
+      }
+      $("#upimg").attr("width",imageWidth);
+      $("#upimg").attr("height",imageHeight);
+      $("#upimg").attr("src",imgPath+"-320");
+
+	}
+	function wrong(s){
+	alert(s);
+	}
+	function setImg(){
+     if(realHeight>realWidth){
+      $("#img").attr("width",160*realWidth/realHeight);
+      $("#img").attr("height",160);
+     }
+     else{
+      $("#img").attr("height",160*realHeight/realWidth);
+      $("#img").attr("width",160);
+
+     }
+      $("#img").attr("src",imgPath+"-160");
+	}
 	</script>
 </head>
-<body onResize="ReSet()" onLoad="ReSet()">
+<body>
 	<div id="body">
 	<jsp:include page="top.jsp" />
 	<div id="page-outer">
@@ -97,13 +152,15 @@
 								<div class="submit"><button class="button">发表</button></div>
 								<div class="bar">插入：<a href="">表情</a><a id='trDialog_img' class='link'>图片</a><a href="">视频</a>
 								    <div id='upimgpbox'>
-                                    <img src='#' class='img160' /><br />
+                                    <img id="img" src='#' class='img160' /><br />
                                     <a id='upimgdel' class="link">删除</a>
                                     </div>
 								</div>
 								<div class="clearfix2"></div>
 							</div>
 							<input type="hidden" name="groupId" value="${group.id}" />
+							<input type="hidden" name="picPath" id="picPath" />
+							<input type="hidden" name="upimgfix" id="upimgfix"  />
 							</form>
 						</div>
 					</div>
@@ -124,18 +181,20 @@
 
 	</div>
 </div>
-<form action="${urlPrefix}/Avatar"  id="form1" name="form1"  encType="multipart/form-data" method="post" target="hidden_frame" onsubmit="return up()">
+
     <div id="dia_img" title="上传图片">
+    <form action="${urlPrefix}/WeiboPicture"  id="formImg" name="formImg"  encType="multipart/form-data" method="post" onsubmit="return up()" target="hidden_frame" >
     <input type="file" name="file" id="file" accept="image/gif, image/jpeg" onchange="check()" style="width:450"></input>
     <div style='display:none;' id="imgWrong"></div>
-        <div id="btnUploadImg" class="button">Upload</div>
+        <input type="submit" value="上传图片"></input>
 		<p>Uploaded files:</p>
         <ol class="files">
             <img id='upimg' src='css/images/portrain.jpg' class='img160' /><br />
             <a id='imgRotateL' class='link mr10'>左转</a><a id='imgRotateR' class='link'>右转</a>
         </ol>
+        <iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>
+     </form>
     </div>
-    <iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>
-</form>
+
 </body>
 </html>

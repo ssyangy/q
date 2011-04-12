@@ -2,6 +2,9 @@ package q.util;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -19,6 +22,25 @@ public class ImageKit {
 		   BufferedImage image = ImageIO.read(imageFile);
 		   return image;
 		 }
+	   public static BufferedImage rotate(BufferedImage bi,int rotate)
+	   {
+	     AffineTransform af = AffineTransform.getRotateInstance(Math.toRadians(rotate));
+	     if(rotate<180){
+	    	 af.translate(0,bi.getHeight() * -1);
+	     }
+	     else if(rotate==180){
+	    	 af = new   AffineTransform(-1,0,0,-1,bi.getWidth()-1,bi.getHeight()-1);
+	     }
+	     else{
+	    	 af.translate(bi.getWidth() * -1,0);
+	     }
+	     AffineTransformOp rOp = new AffineTransformOp(af,null);
+
+	     BufferedImage dstbi = rOp.filter(bi, null);
+
+	     return dstbi;
+	   }
+
 	   public static BufferedImage load(InputStream imageFile) throws IOException {
 		   BufferedImage image = ImageIO.read(imageFile);
 		   return image;
@@ -38,7 +60,24 @@ public class ImageKit {
 	             image = image.getSubimage((int)x1, (int)y1, (int)x2-(int)x1,(int) y2-(int)y1);
 	              return image;
 	    }
-
+	    public static BufferedImage zoomTo(BufferedImage image,int maxLength){
+	    	  int originWidth=image.getWidth();
+	    	  int originHeight=image.getHeight();
+               if(originWidth>originHeight){
+            		  originHeight=maxLength*originHeight/originWidth;
+            		  originWidth=maxLength;
+            	  }
+            	else{
+            		  originWidth=maxLength*originWidth/originHeight;
+            		  originHeight=maxLength;
+            	}
+	          BufferedImage tagImage = new BufferedImage(originWidth, originHeight, BufferedImage.TYPE_INT_RGB); // 缩放图像
+	          Image temp=image.getScaledInstance(originWidth, originHeight, Image.SCALE_SMOOTH);
+	          Graphics g = tagImage.getGraphics();
+	          g.drawImage(temp, 0, 0, null); // 绘制目标图
+	          g.dispose();
+	          return tagImage;
+	    }
 	    public static BufferedImage zoomTo(BufferedImage image,int tarWidth, int tarHeight){
 	          BufferedImage tagImage = new BufferedImage(tarWidth, tarHeight, BufferedImage.TYPE_INT_RGB); // 缩放图像
 	          Image temp=image.getScaledInstance(tarWidth, tarHeight, Image.SCALE_SMOOTH);

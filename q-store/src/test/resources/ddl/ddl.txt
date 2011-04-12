@@ -109,7 +109,8 @@ create table weibo (
 	content varchar(10240) not null,
 	status tinyint unsigned not null,
 	created datetime not null,
-	modified timestamp not null)
+	modified timestamp not null),
+	picture_path varchar(50)
 default character set utf8 engine = innodb;
 
 create table weibo_reply (

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:if test="${null != param['feedUrl']}">
-	<script id="tweet" type="text/html"> 
+	<script id="tweet" type="text/html">
     <div class="stream-item tweet waitSlideDown" weiboId="{{id}}">
         <div class="tweet-image">
 			<a href="${urlPrefix}/people/{{#people}}{{id}}{{/people}}">
@@ -19,16 +19,16 @@
 				<div class="tweet-text">{{text}}</div>
 			</div>
 			{{#quote}}
-			<div class="tweet-ori"> 
-				<div class="tweet-ori-inner"> 
+			<div class="tweet-ori">
+				<div class="tweet-ori-inner">
 					<a href="${urlPrefix}/people/{{#people}}{{id}}{{/people}}" class="tweet-ori-author">{{#people}}{{screenName}}{{/people}}</a>：
 					{{text}}
 					<span class="">
 						<a href="${urlPrefix}/weibo/{{id}}">原文转发</a>
 						<span class="link-sep">·</span>
 						<a href="${urlPrefix}/weibo/{{id}}">原文回复</a>
-					</span> 
-				</div> 
+					</span>
+				</div>
 			</div>
 			{{/quote}}
             <div class="tweet-row">
@@ -74,7 +74,7 @@
 
 	</script>
 	<script type="text/javascript">
-	
+
         var tweetexp = {
 			id:'123214',
 			time:'10秒前',
@@ -88,24 +88,24 @@
             ]
         };
 
-    
+
 	var ajlock = true;
 		$(function () {
-			
-			
+
+
 	        $('div.tweet').click(function (e) {
 	        	if($(e.target).get(0).tagName != 'A'){
 	        		var twid = $(this).attr('weiboid');
-	        		
+
 	        		//...
-	        	
+
 	            	var o = $('div.tweetexpand');
 	        		o.empty().append(ich.tweetexp(tweetexp));
 	            	o.css('left', '0');
 	            	o.animate({ left: 540 }, 500, 'swing');
 	        	}
 	        });
-	        
+
 	        window.onresize = window.onload = function () {
 	            gWinHeight = $(window).height();
 	            $("#body").height(gWinHeight);
@@ -142,7 +142,7 @@
 				   	}
 	            }
 		    });
-	        
+
 	          $('#dia_ret').dialog({
 	              resizable: false,
 	              modal: true,
@@ -200,7 +200,7 @@
 		    	  $("#ret_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/retweet');
 		    	  dia.dialog("open");
 		      });
-		      
+
 	          $('#dia_rep').dialog({
 	              resizable: false,
 	              modal: true,
@@ -223,7 +223,7 @@
 							   		$('img.ajaxload', this.msg).hide();
 								   	//...
 							    }
-	                	  });	                	  
+	                	  });
 	                  },
 	                  "取消": function () {
 	                      $(this).dialog("close");
@@ -257,7 +257,7 @@
 		    	  $("textarea[name='content']",dia).empty();
 		    	  $("#rep_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/reply');
 		    	  dia.dialog("open");
-		      });		      
+		      });
 	    });
 	</script>
 </c:if>
@@ -283,20 +283,22 @@
 				<div class="tweet-text">${weibo.content}</div>
 			</div>
 			<c:if test="${weibo.quote.id > 0}">
-			<div class="tweet-ori"> 
-				<div class="tweet-ori-inner"> 
+			<div class="tweet-ori">
+				<div class="tweet-ori-inner">
 					<a href="${urlPrefix}/people/${weibo.quote.people.id}" class="tweet-ori-author">${weibo.quote.people.realName}</a>：
 					${weibo.quote.content}
 					<span class="">
 						<a href="${urlPrefix}/weibo/${weibo.quote.id}">原文转发</a>
 						<span class="link-sep">·</span>
 						<a href="${urlPrefix}/weibo/${weibo.quote.id}">原文回复</a>
-					</span> 
-				</div> 
+					</span>
+				</div>
 			</div>
-			</c:if> 			
+			</c:if>
 			<div class="tweet-row">
 				<a href="" class="tweet-timestamp">${weibo.time}</a>
+				<br>
+				<img id="img" src="${weibo.picturePath}-160" class="img160"/>
 				<span class="tweet-actions">
 					<!--<button onclick="">赞</button>
 					<span class="link-sep">·</span>-->
@@ -315,8 +317,8 @@
 				</span>
 			</div>
 		</div>
-	</div>							
-</c:forEach>							
+	</div>
+</c:forEach>
 </div>
 <div id="dia_ret" class="ui_dialog" title="转发">
 		<div class="wcontent mb10"></div>
@@ -331,4 +333,4 @@
 		<input id='rep_url' type='hidden'></input>
 		<textarea name="content" rows="5" cols="50"></textarea>
 		<img src="${staticUrlPrefix}/style/images/ajaxload.gif" class="ajaxload" alt="ajaxload" />
-    </div>     
+    </div>

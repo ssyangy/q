@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.domain;
 
@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 22, 2011
- * 
+ *
  */
 public abstract class WeiboModel extends AbstractDomain implements Serializable {
 
@@ -42,9 +42,19 @@ public abstract class WeiboModel extends AbstractDomain implements Serializable 
 	private boolean fav;
 
 	private People people;
-	
+
 	private WeiboModel quote;
-	
+
+	private String picturePath;
+
+	public String getPicturePath() {
+		return picturePath;
+	}
+
+	public void setPicturePath(String picturePath) {
+		this.picturePath = picturePath;
+	}
+
 	public WeiboModel getQuote() {
 		return quote;
 	}
@@ -197,7 +207,7 @@ public abstract class WeiboModel extends AbstractDomain implements Serializable 
 
 	@Override
 	public String toString() {
-		return "Weibo [senderId=" + senderId + ", senderRealName=" + senderRealName + ", quoteWeiboId=" + quoteWeiboId + ", quoteSenderId=" + quoteSenderId + ", replyWeiboId=" + replyWeiboId + ", replySenderId=" + replySenderId + ", fromType=" + fromType + ", fromId=" + fromId + ", content=" + content + ", status=" + status + ", fromPostfix=" + fromPostfix + ", id=" + id + ", created=" + created + ", modified=" + modified + "]";
+		return "Weibo [senderId=" + senderId + ", senderRealName=" + senderRealName + ", quoteWeiboId=" + quoteWeiboId + ", quoteSenderId=" + quoteSenderId + ", replyWeiboId=" + replyWeiboId + ", replySenderId=" + replySenderId + ", fromType=" + fromType + ", fromId=" + fromId + ", content=" + content + ", status=" + status + ", fromPostfix=" + fromPostfix + ", id=" + id + ", created=" + created + ", modified=" + modified + ", picturePath=" + picturePath +"]";
 	}
 
 }
