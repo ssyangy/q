@@ -62,6 +62,7 @@
                     </div>
                     <div class="twtxt mt10">
 						<div class='rcontent'>{{text}}</div>
+						{{#picturePath}}<img id="img" src="{{picturePath}}-160" class="img160"/>{{/picturePath}}
 			{{#quote}}
 			<div class="tweet-ori">
 				<div class="tweet-ori-inner">
