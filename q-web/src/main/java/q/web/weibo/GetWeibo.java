@@ -63,7 +63,9 @@ public class GetWeibo extends Resource {
 		long loginPeopleId = context.getCookiePeopleId();
 
 		Weibo weibo = weiboDao.getWeiboById(weiboId);
-		DaoHelper.injectWeiboModelWithQuote(weiboDao, weibo);
+		if(weibo.getQuoteWeiboId() > 0) {
+			DaoHelper.injectWeiboModelWithQuote(weiboDao, weibo);
+		}
 		DaoHelper.injectWeiboModelWithPeople(peopleDao, weibo);
 		DaoHelper.injectWeiboModelWithFrom(groupDao, weibo);
 		if (loginPeopleId > 0) {
