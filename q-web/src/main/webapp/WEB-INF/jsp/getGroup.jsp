@@ -9,14 +9,14 @@
       <style type="text/css">
       .ui-widget-overlay {background: #333 url(${staticUrlPrefix}/style/images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x;}
         div.button2 {
-			height: 29px;	
+			height: 29px;
 			width: 133px;
 			background: url(css/images/button.png) 0 0;
 			font-size: 14px; color: #C7D92C; text-align: center; padding-top: 15px;
 		}
 		div.button2.hover {
 			background: url(css/images/button.png) 0 56px;
-			color: #95A226;	
+			color: #95A226;
 		}
 		#upimgpbox{display:none;margin-top:10px;padding-left:20px;}
       </style>
@@ -62,17 +62,30 @@
 
 	        var button = $('#btnUploadImg'), interval;
 	    });
-	</script>	
+	    function check(){
+        var filepath=document.getElementById("file").value;
+        filepath=filepath.substring(filepath.lastIndexOf('.')+1,filepath.length);
+       if(filepath != 'jpg' && filepath != 'gif'&& filepath != 'png'&& filepath != 'jpeg'){
+           $("#imgwrong").css("display","block");
+           $("#imgwrong").html("这不是一个图片文件!");
+           document.getElementById("file").value="";
+           isImg= false;
+           return ;
+       }
+        $("#imgwrong").css("display","none");
+          isImg=true;
+    }
+	</script>
 </head>
 <body onResize="ReSet()" onLoad="ReSet()">
 	<div id="body">
-	<jsp:include page="top.jsp" />	
+	<jsp:include page="top.jsp" />
 	<div id="page-outer">
 		<div id="page-container">
 			<div class="main-content" style="min-height:400px">
 				<jsp:include page="group-head.jsp"  >
-					<jsp:param name="tab" value="group" /> 
-				</jsp:include>	
+					<jsp:param name="tab" value="group" />
+				</jsp:include>
 				<div class="main-tweet-box group">
 					<div class="tweet-box">
 						<div class="bg">
@@ -94,7 +107,7 @@
 							</form>
 						</div>
 					</div>
-				</div>											
+				</div>
 				<div class="stream-manager">
 					<div id="tabs" class="ui-tabs ui-widget">
 						<jsp:include page="group-tag.jsp"/>
@@ -102,17 +115,19 @@
 							<jsp:param name="feedUrl" value="${urlPrefix}/group/${group.id}" />
 						</jsp:include>
 					</div>
-				</div>	
+				</div>
 			</div>
 			<jsp:include page="group-dashboard.jsp" />
 			<div class="tweetexpand expand"></div>
 			<br clear='all'/>
 		</div>
-		
+
 	</div>
 </div>
-
+<form action="${urlPrefix}/Avatar"  id="form1" name="form1"  encType="multipart/form-data" method="post" target="hidden_frame" onsubmit="return up()">
     <div id="dia_img" title="上传图片">
+    <input type="file" name="file" id="file" accept="image/gif, image/jpeg" onchange="check()" style="width:450"></input>
+    <div style='display:none;' id="imgWrong"></div>
         <div id="btnUploadImg" class="button">Upload</div>
 		<p>Uploaded files:</p>
         <ol class="files">
@@ -120,6 +135,7 @@
             <a id='imgRotateL' class='link mr10'>左转</a><a id='imgRotateR' class='link'>右转</a>
         </ol>
     </div>
-
+    <iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>
+</form>
 </body>
 </html>
