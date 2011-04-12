@@ -48,8 +48,9 @@
     </div>
 	</script>
 	<script id="tweetexp" type="text/html">
-					{{#weibo}}
+			{{#weibo}}
 					<div id='twrep' class='mb10' weiboid="{{id}}">
+
 					<div class="tw_head">
 					{{#people}}
 					<a href="${urlPrefix}/people/{{id}}">
@@ -136,6 +137,7 @@
 	        window.onresize = window.onload = function () {
 	            gWinHeight = $(window).height();
 	            $("#body").height(gWinHeight);
+	            tweetex.height(gWinHeight-146);
 	        };
 	        var body = $('#body');
 	        var o = body[0];
