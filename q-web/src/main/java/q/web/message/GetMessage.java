@@ -36,7 +36,6 @@ public class GetMessage extends Resource {
 		page.setMessageId(mid);
 		List<MessageReply> replies = messageDao.getMessageRepliesByPage(page);
 		context.setModel("replies", replies);
-
 	}
 
 	/* (non-Javadoc)

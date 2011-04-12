@@ -44,7 +44,7 @@ public abstract class AbstractConvert implements Convert {
 
 	public void convertPrimitiveMap(Mapping<?> componentKeyType, Mapping<?> componentValueType, Map<?, ?> original, ExceptionExpressInfo exceptionExpress, String mappingName) throws MappingException {
 		try {
-			convertStartTag(mappingName, false);
+			convertStartTag(mappingName, true);
 			Iterator<?> iter = original.entrySet().iterator();
 			for (; iter.hasNext();) {
 				Map.Entry<Object, Object> mapEntity = (Entry<Object, Object>) iter.next();
@@ -65,7 +65,7 @@ public abstract class AbstractConvert implements Convert {
 					}
 				}
 			}
-			convertEndTag(mappingName, false);
+			convertEndTag(mappingName, true);
 		} catch (Exception e) {
 			throw new MappingException(e);
 		}
@@ -110,7 +110,7 @@ public abstract class AbstractConvert implements Convert {
 
 	public void convertCollection(Mapping<?> componentMapping, String componentName, Object source, ExceptionExpressInfo exceptionExpress, String mappingName, boolean isFromCollection) throws MappingException {
 		try {
-			mappingName = convertCollectionBefore(mappingName, isFromCollection, true);
+			mappingName = convertCollectionBefore(mappingName, isFromCollection, componentName != null);
 			if (String.class == source.getClass()) {
 				String str = (String) source;
 				convertStringToCollection(componentMapping, componentName, str, exceptionExpress, mappingName, isFromCollection);
@@ -121,15 +121,15 @@ public abstract class AbstractConvert implements Convert {
 			} else if (source.getClass().isArray()) {
 				convertArrayToCollection(componentMapping, componentName, source, exceptionExpress, mappingName, isFromCollection);
 			}
-			this.convertCollectionDown(mappingName, isFromCollection);
+			this.convertCollectionDown(mappingName, isFromCollection, componentName != null);
 		} catch (Exception e) {
 			throw new MappingException(e);
 		}
 	}
 
-	public abstract String convertCollectionBefore(String mappingName, boolean isFromCollection, boolean isArray) throws MappingException;
+	public abstract String convertCollectionBefore(String mappingName, boolean isFromCollection, boolean needLB) throws MappingException;
 
-	public abstract void convertCollectionDown(String mappingName, boolean isFromCollection) throws MappingException;
+	public abstract void convertCollectionDown(String mappingName, boolean isFromCollection, boolean needLB) throws MappingException;
 
 	/**
 	 * 将符合格式的字符串写为数组.

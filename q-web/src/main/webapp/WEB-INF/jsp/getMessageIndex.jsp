@@ -151,7 +151,7 @@
 										</span> 
 									</div> 
 									<div class="tweet-row msg-latest"> 
-										<div>${message.content}
+										<div>${message.lastReply.content}
 										</div> 
 									</div> 
 									<div class="tweet-row"> 

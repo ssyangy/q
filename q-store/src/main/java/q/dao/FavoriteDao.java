@@ -82,14 +82,6 @@ public interface FavoriteDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	List<Long> getFavReplyIds(List<Long> replyIds, long creatorId) throws SQLException;
-
-	/**
-	 * @param weiboIds
-	 * @param creatorId
-	 * @return
-	 * @throws SQLException
-	 */
-	List<Long> getFavWeiboIds(List<Long> weiboIds, long creatorId) throws SQLException;
+	List<Long> getFavoriteIdsByFromIdsAndCreatorId(List<Long> replyIds, long creatorId) throws SQLException;
 
 }

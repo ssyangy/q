@@ -4,16 +4,20 @@
 	<script id="tweet" type="text/html"> 
     <div class="stream-item tweet waitSlideDown" weiboId="{{id}}">
         <div class="tweet-image">
-			<a href="${urlPrefix}/people/{{#people}}{{id}}{{/people}}">
-				<img height="48" width="48" src="${avatarUrlPrefix}/{{#people}}{{avatarPath}}{{/people}}-48">
+			{{#people}}
+			<a href="${urlPrefix}/people/{{id}}">
+				<img height="48" width="48" src="${avatarUrlPrefix}/{{avatarPath}}-48">
 			</a>
+			{{/people}}
 		</div>
         <div class="tweet-content">
             <div class="tweet-row">
+				{{#people}}
                 <span class="tweet-user-name">
-					<a href="${urlPrefix}/people/{{#people}}{{id}}{{/people}}" class="tweet-screen-name user-profile-link">{{#people}}{{screenName}}{{/people}}</a>
+					<a href="${urlPrefix}/people/{{id}}" class="tweet-screen-name user-profile-link">{{screenName}}</a>
 				</span>
-                {{#soures}}<span class="tweet-group">发自 <a href="">{{soures}}</a></span>{{/soures}}
+				{{/people}}
+                <span class="tweet-group">发自<a href="${urlPrefix}{{fromUrl}}">{{fromName}}</a></span>
             </div>
             <div class="tweet-row">
 				<div class="tweet-text">{{text}}</div>
@@ -37,72 +41,90 @@
 					<!--<a href="">赞</a>
 					<span class="link-sep">·</span>-->
 					<a href="">收藏</a>
-					<span class="link-sep">·</span><a href="">转发</a>
-					<span class="link-sep">·</span><a href="">回复</a>
+					<span class="link-sep">·</span><a href="#" class='btn_ret'>转发</a>
+					<span class="link-sep">·</span><a href="#" class='btn_rep'>回复</a>
 				</span>
             </div>
         </div>
     </div>
 	</script>
 	<script id="tweetexp" type="text/html">
-					<div id='twrep' class='mb10' weibo="{{id}}">
+					{{#weibo}}
+					<div id='twrep' class='mb10' weiboid="{{id}}">
 					<div class="tw_head">
-                        <img class="wh48" src="${urlPrefix}/{{#people}}{{img}}{{/people}}" alt="head" />
-                        <h4><a class='link' href='${urlPrefix}/{{#people}}{{id}}{{/people}}'>{{#people}}{{name}}{{/people}}</a></h4>
+					{{#people}}
+					<a href="${urlPrefix}/people/{{id}}">
+                        <img class="wh48" src="${avatarUrlPrefix}/{{avatarPath}}-48" alt="head" />
+					</a>
+                    <h4><a class='link' href='${urlPrefix}/people/{{id}}'>{{screenName}}</a></h4>
+					{{/people}}
                     </div>
                     <div class="twtxt mt10">
-						<div class='rcontent'>{{tweet}}</div>
+						<div class='rcontent'>{{text}}</div>
+			{{#quote}}
+			<div class="tweet-ori"> 
+				<div class="tweet-ori-inner"> 
+					{{#people}}<a href="${urlPrefix}/people/{{id}}" class="tweet-ori-author">{{screenName}}</a>{{/people}}：
+					{{text}}
+					<span class="">
+						<a href="${urlPrefix}/weibo/{{id}}">原文转发</a>
+						<span class="link-sep">·</span>
+						<a href="${urlPrefix}/weibo/{{id}}">原文回复</a>
+					</span> 
+				</div> 
+			</div>
+			{{/quote}}
 						<div class="mt10">
-						<span class='gray mr10'>{{time}}</span>
-						{{#source}}<span class="gray">发自 <a href="">{{source}}</a></span>{{/source}}
+						<span class='gray mr10'>{{screenTime}}</span>
+						<span class="gray">发自<a href="${urlPrefix}{{fromUrl}}">{{fromName}}</a></span>
 						<a class="link ml10 FR btn_hrep" href="#">回复</a>
 						<a class="link ml10 FR btn_hret" href="#">转发</a>
 						<a class="link ml10 FR" href="#">收藏</a>
-						<a class="link FR" href="#">攒</a>
 						</div>
                     </div>
 					</div>
-					{{#reps}}
-                    <div class="tweet_rep" weibo={{id}}>
-                        <img class="wh48" src="${urlPrefix}/{{#people}}{{img}}{{/people}}" alt="head" />
-                        <a class="link peop">{{#people}}{{name}}{{/people}}</a><span class="gray ml10">{{time}}</span>
+					{{/weibo}}
+					{{#replies}}
+                    <div class="tweet_rep" weiboid="{{quoteWeiboId}}" replyid="{{id}}">
+						{{#people}}
+						<a href="${urlPrefix}/people/{{id}}">
+                        	<img class="wh48" src="${avatarUrlPrefix}/{{avatarPath}}-48" alt="head" />
+						</a>
+                    	<a class='link peop' href='${urlPrefix}/people/{{id}}'>{{screenName}}</a>
+						{{/people}}
+                        <span class="gray ml10">{{screenTime}}</span>
+						<span class="gray ml10">发自<a href="${urlPrefix}{{fromUrl}}">{{fromName}}</a></span>
 						<a class="link ml10 FR btn_rrep">回复</a>
-						<a class="link FR btn_rret">转发</a>
-                        <div class="mt10 twtxtr">{{tweet}}</div>
+						<a class="link ml10 FR btn_rret">转发</a>
+						<a class="link FR" href="#">收藏</a>
+                        <div class="mt10 twtxtr">{{text}}</div>
                     </div>
-					{{/reps}}
+					{{/replies}}
 
 	</script>
 	<script type="text/javascript">
-	
-        var tweetexp = {
-			id:'123214',
-			time:'10秒前',
-			source:'有心天下',
-            people: {id:'123',name:'阿斯大肆',img:'asdasd.png'},
-            tweet: "#wolfymed 自慰伤身。单纯分析精液的成分比较片面。一次性高潮所引发的全身心运动耗费的神经递质补充起来比较慢。梅开二度的快感明显不如第一次强烈，递质消耗了人就容易疲劳。",
-            reps: [
-                   {id:'123',people: {name:'阿斯大肆',img:'asdasd.png'},time:'昨天 2011-02-08 23:12',tweet:'以前控制论坛中高级ID玩水军那招，马上要被用在微博上了'},
-                   {id:'123',people: {name:'阿斯大肆',img:'asdasd.png'},time:'昨天 2011-02-08 23:12',tweet:'以前控制论坛中高级ID玩水军那招，马上要被用在微博上了'},
-                   {id:'123',people: {name:'阿斯大肆',img:'asdasd.png'},time:'昨天 2011-02-08 23:12',tweet:'以前控制论坛中高级ID玩水军那招，马上要被用在微博上了'}
-            ]
-        };
-
-    
 	var ajlock = true;
 		$(function () {
 			
 			
-	        $('div.tweet').click(function (e) {
+	        $('div.tweet').live('click',function (e) {
 	        	if($(e.target).get(0).tagName != 'A'){
 	        		var twid = $(this).attr('weiboid');
 	        		
-	        		//...
-	        	
-	            	var o = $('div.tweetexpand');
-	        		o.empty().append(ich.tweetexp(tweetexp));
-	            	o.css('left', '0');
-	            	o.animate({ left: 540 }, 500, 'swing');
+	        		$.ajax({
+					    url: '${urlPrefix}/weibo/' + twid,
+					    type: 'GET',
+					    dataType: 'json',
+					    data: {size:8, startId:99999999999999999},
+					    timeout: 5000,
+					    msg:this,
+					   	success: function(json){
+			            	var o = $('div.tweetexpand');
+			        		o.empty().append(ich.tweetexp(json));
+			            	o.css('left', '0');
+			            	o.animate({ left: 540 }, 500, 'swing');
+					    }
+	                });
 	        	}
 	        });
 	        
@@ -230,7 +252,7 @@
 	                  }
 	              }
 	          });
-		      $("a.btn_rep").click(function () {
+		      $("a.btn_rep").live("click",function () {
 		    	  var dia = $('#dia_rep');
 		    	  var tweet = $(this).closest('div.tweet');
 		    	  var rows = tweet.find('div.tweet-row');
@@ -246,11 +268,11 @@
 		    	  $('div.wcontent',dia).empty().html($('div.twtxtr',tweet).html());
 		    	  $('div.wpeople',dia).empty().html($('a.peop',tweet).html());
 		    	  $("textarea[name='content']",dia).empty();
-		    	  $("#rep_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/reply');
+		    	  $("#rep_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/reply?replyId=' + tweet.attr('replyid'));
 		    	  dia.dialog("open");
 		      });
 		      $("a.btn_hrep").live('click',function () {
-		    	  var dia = $('#dia_ret');
+		    	  var dia = $('#dia_rep');
 		    	  var tweet = $(this).closest('#twrep');
 		    	  $('div.wcontent',dia).empty().html($('div.rcontent',tweet).html());
 		    	  $('div.wpeople',dia).empty().html($('h4',tweet).html());
@@ -276,7 +298,7 @@
 					${weibo.people.realName}
 					</a>
 				</span>
-				<span class="tweet-group">发自 <a href="${urlPrefix}${weibo.fromUrl}">${weibo.fromName}</a>
+				<span class="tweet-group">发自<a href="${urlPrefix}${weibo.fromUrl}">${weibo.fromName}</a>
 				</span>
 			</div>
 			<div class="tweet-row">
@@ -321,7 +343,7 @@
 <div id="dia_ret" class="ui_dialog" title="转发">
 		<div class="wcontent mb10"></div>
 		<div class="wpeople mb10"></div>
-		<input id='ret_url' type='hidden'></input>
+		<input id='ret_url' type='hidden' ></input>
 		<textarea name="content" rows="5" cols="50"></textarea>
 		<img src="${staticUrlPrefix}/style/images/ajaxload.gif" class="ajaxload" alt="ajaxload" />
     </div>

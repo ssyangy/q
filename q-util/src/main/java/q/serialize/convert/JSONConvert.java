@@ -130,7 +130,7 @@ public class JSONConvert extends AbstractConvert {
 		try {
 			int count = 0;
 			if (original.size() >= 1) {
-				convertStartTag(mappingName, false);
+				convertStartTag(mappingName, true);
 			}
 			for (MemberMapping<?> mm : memberMappings.values()) {
 				// XXX only suport Map<String,Object>, if key is not a String,
@@ -147,7 +147,7 @@ public class JSONConvert extends AbstractConvert {
 				}
 			}
 			if (original.size() >= 1) {
-				convertEndTag(mappingName, false);
+				convertEndTag(mappingName, true);
 			}
 		} catch (Exception e) {
 			throw new MappingException(e);
@@ -162,7 +162,7 @@ public class JSONConvert extends AbstractConvert {
 			if (mappingPreFix == null)
 				outPutPrefix = false;
 			if (!outPutPrefix)
-				convertStartTag(mappingName, false);
+				convertStartTag(mappingName, true);
 
 			if (memberMappings != null && memberMappings.size() != 0) {
 				int count = 0;
@@ -204,18 +204,19 @@ public class JSONConvert extends AbstractConvert {
 			}
 			// 如果prefix存在,不写出对象如location:{state:"aaa"},而写出location.state:"aaa"
 			if (!outPutPrefix)
-				convertEndTag(mappingName, false);
+				convertEndTag(mappingName, true);
 
 		} catch (Exception e) {
 			throw new MappingException(e);
 		}
 	}
 
-	public void convertStartTag(String mappingName, boolean isArray) throws MappingException {
+	public void convertStartTag(String mappingName, boolean needLB) throws MappingException {
 		try {
 			if (null != mappingName) {
-				writer.append(Utils.DOUBLE_QUOTE).append(mappingName).append(Utils.DOUBLE_QUOTE).append(Utils.COLON).append(Utils.LB);
-			} else if (!isArray) {
+				writer.append(Utils.DOUBLE_QUOTE).append(mappingName).append(Utils.DOUBLE_QUOTE).append(Utils.COLON);
+			}
+			if (needLB) {
 				writer.append(Utils.LB);
 			}
 		} catch (Exception e) {
@@ -223,32 +224,31 @@ public class JSONConvert extends AbstractConvert {
 		}
 	}
 
-	public void convertEndTag(String mappingName, boolean isArray) throws MappingException {
+	public void convertEndTag(String mappingName, boolean needLB) throws MappingException {
 		try {
-			if (null != mappingName || !isArray) {
+			if (needLB) {
 				writer.append(Utils.RB);
-			}  
+			}
 		} catch (Exception e) {
 			throw new MappingException(e);
 		}
 
 	}
 
-	public String convertCollectionBefore(String mappingName, boolean isFromCollection, boolean isArray) throws MappingException {
+	public String convertCollectionBefore(String mappingName, boolean isFromCollection, boolean needLB) throws MappingException {
 		if (isFromCollection) {
 			// 如果是JSON格式，并且该Array是一个数组的子项，则mappingName不写出
 			mappingName = null;
 		} else {
-			convertStartTag(mappingName, isArray);
+			convertStartTag(mappingName, needLB);
 		}
 		return mappingName;
 
 	}
 
-	public void convertCollectionDown(String mappingName, boolean isFromCollection) throws MappingException {
-
+	public void convertCollectionDown(String mappingName, boolean isFromCollection, boolean needLB) throws MappingException {
 		if (!isFromCollection) {
-			convertEndTag(mappingName, true);
+			convertEndTag(mappingName, needLB);
 		}
 	}
 

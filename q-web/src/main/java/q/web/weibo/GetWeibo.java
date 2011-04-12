@@ -60,9 +60,15 @@ public class GetWeibo extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long weiboId = context.getResourceIdLong();
+		long loginPeopleId = context.getCookiePeopleId();
+
 		Weibo weibo = weiboDao.getWeiboById(weiboId);
+		DaoHelper.injectWeiboModelWithQuote(weiboDao, weibo);
 		DaoHelper.injectWeiboModelWithPeople(peopleDao, weibo);
 		DaoHelper.injectWeiboModelWithFrom(groupDao, weibo);
+		if (loginPeopleId > 0) {
+			DaoHelper.injectWeiboWithFavorite(favoriteDao, weibo, loginPeopleId);
+		}
 		context.setModel("weibo", weibo);
 
 		WeiboReplyPage page = new WeiboReplyPage();
@@ -76,17 +82,20 @@ public class GetWeibo extends Resource {
 		}
 		List<WeiboReply> replies = weiboDao.getWeiboRepliesByPage(page);
 		if (CollectionKit.isNotEmpty(replies)) {
-			long loginPeopleId = context.getCookiePeopleId();
 			DaoHelper.injectWeiboModelsWithPeople(peopleDao, replies);
 			DaoHelper.injectWeiboModelsWithFrom(groupDao, replies);
-			DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, replies, loginPeopleId);
+			if (loginPeopleId > 0) {
+				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, replies, loginPeopleId);
+			}
 			context.setModel("replies", replies);
 		}
 
 		if (context.isApiRequest()) {
 			Map<String, Object> api = new HashMap<String, Object>();
 			api.put("weibo", weibo);
-			api.put("replies", replies);
+			if (CollectionKit.isNotEmpty(replies)) {
+				api.put("replies", replies);
+			}
 			context.setModel("api", api);
 		}
 	}
