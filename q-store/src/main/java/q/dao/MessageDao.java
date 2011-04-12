@@ -8,6 +8,7 @@ import java.util.List;
 
 import q.dao.page.MessageJoinPeoplePage;
 import q.dao.page.MessagePage;
+import q.dao.page.MessageReplyPage;
 import q.domain.Message;
 import q.domain.MessageJoinPeople;
 import q.domain.MessageReply;
@@ -31,7 +32,7 @@ public interface MessageDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<Message> getPageMessages(MessagePage page) throws SQLException;
+	public List<Message> getMessagesByPage(MessagePage page) throws SQLException;
 
 	/**
 	 * @param replyMessageId
@@ -60,4 +61,10 @@ public interface MessageDao {
 	 * @return
 	 */
 	public List<MessageJoinPeople> getMessageJoinPeoplesByPage(MessageJoinPeoplePage joinPage) throws SQLException;
+
+	/**
+	 * @param page
+	 * @return 
+	 */
+	public List<MessageReply> getMessageRepliesByPage(MessageReplyPage page) throws SQLException;
 }

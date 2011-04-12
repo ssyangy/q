@@ -3,7 +3,9 @@
  */
 package q.web.weibo;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import q.dao.DaoHelper;
 import q.dao.FavoriteDao;
@@ -14,8 +16,10 @@ import q.dao.page.WeiboReplyPage;
 import q.domain.Weibo;
 import q.domain.WeiboReply;
 import q.util.CollectionKit;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.RequestParameterInvalidException;
 
 /**
  * @author seanlinwang
@@ -57,19 +61,33 @@ public class GetWeibo extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long weiboId = context.getResourceIdLong();
 		Weibo weibo = weiboDao.getWeiboById(weiboId);
-		DaoHelper.injectWeiboWithSenderRealNameAndFrom(peopleDao, groupDao, weibo);
+		DaoHelper.injectWeiboModelWithPeople(peopleDao, weibo);
+		DaoHelper.injectWeiboModelWithFrom(groupDao, weibo);
 		context.setModel("weibo", weibo);
+
 		WeiboReplyPage page = new WeiboReplyPage();
 		page.setQuoteWeiboId(weiboId);
-		page.setSize(20);
+		int size = context.getInt("size", 10);
+		long startId = context.getIdLong("startId");
+		page.setSize(size);
 		page.setStartIndex(0);
+		if (startId > 0) {
+			page.setStartId(startId);
+		}
 		List<WeiboReply> replies = weiboDao.getWeiboRepliesByPage(page);
 		if (CollectionKit.isNotEmpty(replies)) {
 			long loginPeopleId = context.getCookiePeopleId();
-			DaoHelper.injectWeiboModelsWithSenderRealName(peopleDao, replies);
+			DaoHelper.injectWeiboModelsWithPeople(peopleDao, replies);
 			DaoHelper.injectWeiboModelsWithFrom(groupDao, replies);
 			DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, replies, loginPeopleId);
 			context.setModel("replies", replies);
+		}
+
+		if (context.isApiRequest()) {
+			Map<String, Object> api = new HashMap<String, Object>();
+			api.put("weibo", weibo);
+			api.put("replies", replies);
+			context.setModel("api", api);
 		}
 	}
 
@@ -80,8 +98,10 @@ public class GetWeibo extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-
+		long weiboId = context.getResourceIdLong();
+		if (IdCreator.isNotValidId(weiboId)) {
+			throw new RequestParameterInvalidException("weibo:invalid");
+		}
 	}
 
 }

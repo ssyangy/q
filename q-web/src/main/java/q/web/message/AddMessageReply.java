@@ -68,7 +68,7 @@ public class AddMessageReply extends Resource {
 	public void validate(ResourceContext context) throws Exception {
 		long senderId = context.getCookiePeopleId();
 		if (IdCreator.isValidIds(senderId)) {
-			throw new RequestParameterInvalidException("loginId invalid");
+			throw new RequestParameterInvalidException("login:invalid");
 		}
 	}
 

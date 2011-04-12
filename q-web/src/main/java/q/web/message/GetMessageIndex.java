@@ -82,7 +82,7 @@ public class GetMessageIndex extends Resource {
 
 			MessagePage messagePage = new MessagePage();
 			messagePage.setIds(messageIds);
-			List<Message> messages = messageDao.getPageMessages(messagePage);
+			List<Message> messages = messageDao.getMessagesByPage(messagePage);
 			for (Message msg : messages) {
 				msg.setReceiverIds(receiversMap.get(msg.getId()));
 			}

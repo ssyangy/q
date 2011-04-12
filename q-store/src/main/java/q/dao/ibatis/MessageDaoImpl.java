@@ -9,6 +9,7 @@ import java.util.List;
 import q.dao.MessageDao;
 import q.dao.page.MessageJoinPeoplePage;
 import q.dao.page.MessagePage;
+import q.dao.page.MessageReplyPage;
 import q.domain.Message;
 import q.domain.MessageJoinPeople;
 import q.domain.MessageReply;
@@ -22,8 +23,6 @@ import q.domain.MessageReply;
 public class MessageDaoImpl extends AbstractDaoImpl implements MessageDao {
 
 	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see q.dao.MessageDao#addMessage(q.domain.Message)
 	 */
 	@Override
@@ -32,25 +31,36 @@ public class MessageDaoImpl extends AbstractDaoImpl implements MessageDao {
 	}
 
 	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see q.dao.MessageDao#getPageMessages(q.dao.page.MessagePage)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Message> getPageMessages(MessagePage page) throws SQLException {
+	public List<Message> getMessagesByPage(MessagePage page) throws SQLException {
 		return (List<Message>) this.sqlMapClient.queryForList("selectMessagesByPage", page);
 	}
 
-	/* (non-Javadoc)
+	/* 
+	 * @see q.dao.MessageDao#getMessageRepliesByPage(q.dao.page.MessageReplyPage)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MessageReply> getMessageRepliesByPage(MessageReplyPage page) throws SQLException {
+		return (List<MessageReply>) this.sqlMapClient.queryForList("selectMessageRepliesByPage", page);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.dao.MessageDao#getMessageById(long)
 	 */
 	@Override
-	public Message getMessageById(long replyMessageId) throws SQLException {
-		return (Message) this.sqlMapClient.queryForObject("selectMessageById", replyMessageId);
+	public Message getMessageById(long messageId) throws SQLException {
+		return (Message) this.sqlMapClient.queryForObject("selectMessageById", messageId);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.dao.MessageDao#addMessageJoinPeoples(java.util.List)
 	 */
 	@Override
@@ -65,10 +75,12 @@ public class MessageDaoImpl extends AbstractDaoImpl implements MessageDao {
 
 	@Override
 	public void addMessageReply(MessageReply messageReply) throws SQLException {
-		this.sqlMapClient.insert("insertMessageReply", messageReply);		
+		this.sqlMapClient.insert("insertMessageReply", messageReply);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.dao.MessageDao#getMessageIdsByPage(q.dao.page.MessageJoinPeoplePage)
 	 */
 	@SuppressWarnings("unchecked")
