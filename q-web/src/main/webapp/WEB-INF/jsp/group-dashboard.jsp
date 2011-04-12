@@ -9,7 +9,7 @@
 						</div>
 					</div>				
 					<div class="db-block"> 
-						<div class="more"><a href="${urlPrefix}/group/${group.id}/event">更多...</a></div> 
+						<div class="more"><a href="${urlPrefix}/group/${group.id}/event">更多→</a></div> 
 						<h3>最新活动：</h3> 
 						<div class="db-block-content"> 
 							<c:forEach items="${newEvents}" var="event">
@@ -24,14 +24,14 @@
 						</div> 
 					</div> 
 					<div class="db-block">
-						<div class="more"><a href="${urlPrefix}/group/${group.id}/hot">更多...</a></div> 
+						<div class="more"><a href="${urlPrefix}/group/${group.id}/hot">更多→</a></div> 
 						<h3>热议：</h3> 
 						<div class="db-block-content">
 							<div class="db-tweet-box2 mb10">
 								<c:forEach items="${hotWeibos}" var="weibo">
 								<div class="avatar">
 									<a href="${urlPrefix}/people/${weibo.senderId}">
-										<img src="${avatarUrlPrefix}/${weibo.people.avatarPath}-24" width="24" height="24"/>
+										<img src="${avatarUrlPrefix}/${weibo.people.avatarPath}-24"/>
 									</a>
 								</div>
 								<div class="tweet-body">
@@ -49,14 +49,14 @@
 						</div>
 					</div> 
 					<div class="db-block">
-						<div class="more"><a href="${urlPrefix}/group/${group.id}/people">更多...</a></div> 
+						<div class="more"><a href="${urlPrefix}/group/${group.id}/people">更多→</a></div> 
 						<h3>新成员：</h3> 
 						<div class="db-block-content">
 							<c:forEach items="${newPeoples}" var="fo"> 
 							<div class="member-cell"> 
 								<div class="avatar">
 									<a href="${urlPrefix}/people/${fo.id}">
-										<img src="${avatarUrlPrefix}/${fo.avatarPath}-24">
+										<img src="${avatarUrlPrefix}/${fo.avatarPath}-48">
 									</a>
 								</div>
 								<div class="name-action"> 
@@ -70,14 +70,14 @@
 						</div> 
 					</div> 
 					<div class="db-block">
-						<div class="more"><a href="${urlPrefix}/group/${group.id}/people">更多...</a></div> 
+						<div class="more"><a href="${urlPrefix}/group/${group.id}/people">更多→</a></div> 
 						<h3>活跃成员：</h3> 
 						<div class="db-block-content">
 							<c:forEach items="${newPeoples}" var="fo"> 
 							<div class="member-cell"> 
 								<div class="avatar">
 									<a href="${urlPrefix}/people/${fo.id}">
-										<img src="${avatarUrlPrefix}/${fo.avatarPath}-24">
+										<img src="${avatarUrlPrefix}/${fo.avatarPath}-48">
 									</a>
 								</div>
 								<div class="name-action"> 
