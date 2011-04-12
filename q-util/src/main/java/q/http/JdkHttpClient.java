@@ -150,7 +150,44 @@ public class JdkHttpClient {
          }
          return true;
     }
+    public static String postPictures(URL url,String dir,String name,BufferedImage[]images) throws IOException{
+    	String toEnd="false";
+        for(int i=0;i<images.length;i++){
+            BufferedImage temp=images[i];
+            Map<String, CharSequence> payload = new HashMap();
+			 payload.put("imgdir", "a/" + dir + "/");
+			 ByteArrayOutputStream os = new ByteArrayOutputStream();
+			    JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
+			    encoder.encode(temp);
+   	     InputStream   is   =new   ByteArrayInputStream(os.toByteArray());
+   	     if(i==0){
+   	    	 HttpURLConnection connection = JdkHttpClient.getHttpConnection(url, 100000, 100000);
+   	    	 String[]data= postMultipart(connection, payload, is, name+"-160",os.size(),"image/jpeg").split(";");
+                if(!data[0].equals("success")){
+               	 return "false";
+                }
+                releaseUrlConnection(connection);
+   	     }
+   	     else if(i==1){
+   	    	 HttpURLConnection connection = JdkHttpClient.getHttpConnection(url, 100000, 100000);
+   	    	 String[]data= postMultipart(connection, payload, is, name+"-320",os.size(),"image/jpeg").split(";");
+                if(!data[0].equals("success")){
+               	 return "false";
+                }
+                releaseUrlConnection(connection);
+   	     }
+   	     else if(i==2){
+   	    	 HttpURLConnection connection = JdkHttpClient.getHttpConnection(url, 100000, 100000);
+   	    	 toEnd= postMultipart(connection, payload, is, name,os.size(),"image/jpeg");
+   	    	 String[]data=toEnd.split(";");
+                if(!data[0].equals("success")){
+               	 return "false";
+                }
 
+   	     }
+        }
+        return toEnd;
+   }
 
 	public static String postMultipart(HttpURLConnection connection, Map<String, CharSequence> payload, InputStream bufin, String filename ,long length,String fileContentType) throws IOException {
 		String boundary = Long.toString(System.currentTimeMillis(), 16);

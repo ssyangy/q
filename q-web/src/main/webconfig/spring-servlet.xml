@@ -303,10 +303,6 @@
 	<bean id="getGroupNew" class="q.web.group.GetGroupNew">
 		<property name="categoryDao" ref="categoryDao" />
 	</bean>
-	<bean id="addGroupPicture" class="q.web.group.AddGroupPicture">
-		<property name="imageUrl" value="${q.image.url}" />
-		<property name="imageUploadUrl" value="${q.image.upload.url}" />
-	</bean>
 	<bean id="getGroup" class="q.web.group.GetGroup">
 		<property name="groupDao" ref="groupDao" />
 		<property name="weiboDao" ref="weiboDao" />
@@ -379,8 +375,14 @@
 	<bean id="addWeibo" class="q.web.weibo.AddWeibo">
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="searchService" ref="searchService"></property>
-		<property name="putShortUrl" value="${q.short.upload.url}" />
-		<property name="getShortUrl" value="${q.short.url}" />
+		<property name="putShortUrl" value="${q.short.upload.url}"/>
+		<property name="getShortUrl" value="${q.short.url}"/>
+		<property name="imageUploadUrl" value="${q.image.upload.url}" />
+	</bean>
+		<bean id="addWeiboPicture" class="q.web.weibo.AddWeiboPicture">
+		<property name="imageUrl" value="${q.image.url}" />
+		<property name="imageUploadUrl" value="${q.image.upload.url}" />
+
 	</bean>
 	<bean id="getWeibo" class="q.web.weibo.GetWeibo">
 		<property name="weiboDao" ref="weiboDao" />

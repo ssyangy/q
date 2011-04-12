@@ -15,6 +15,7 @@
 		<result property="status" column="status" />
 		<result property="created" column="created" />
 		<result property="modified" column="modified" />
+		<result property="picturePath" column="picture_path" />
 	</resultMap>
 	<sql id="weibo.columns">
 		id,
@@ -28,7 +29,8 @@
 		content,
 		status,
 		created,
-		modified
+		modified,
+		picture_path
 	</sql>
 
 	<select id="selectWeiboById" resultMap="weiboResult">
@@ -56,17 +58,17 @@
 		order by created desc
 		</isNotNull>
 	</select>
-	
+
 	<select id="selectPageFollowingWeibos" resultMap="weiboResult">
-		select 
+		select
 		<include refid="weibo.columns" />
-		from weibo 
+		from weibo
 		where status = 0
-		and sender_id in 
+		and sender_id in
 		<iterate property="senderIds" open="(" close=")" conjunction=",">
 			#senderIds[]#
         </iterate>
-        and (reply_weibo_id > 0 or from_type = 0)		
+        and (reply_weibo_id > 0 or from_type = 0)
 		<isNotNull prepend="and " property="startCreated">
 			created &lt;= #startCreated#
 		</isNotNull>
@@ -78,7 +80,7 @@
 			limit #startIndex#, #size#
 		</isNotNull>
 	</select>
-	
+
 	<select id="selectPageWeibos" resultMap="weiboResult">
 		select
 		<include refid="weibo.columns" />
@@ -115,7 +117,8 @@
 		#content#,
 		0,
 		now(),
-		null
+		null,
+		#picturePath#
 		)
 	</insert>
 
@@ -137,11 +140,11 @@
 		created,
 		modified
 	</sql>
-	
+
 	<select id="selectWeiboIdsByPage" resultClass="long">
 		select weibo_id
 		from weibo_join_group
-		<dynamic prepend="where "> 
+		<dynamic prepend="where ">
 			<isNotNull prepend="and " property="groupIds">
 				group_id in
 				<iterate property="groupIds" open="(" close=")" conjunction=",">
@@ -153,7 +156,7 @@
 			</isNotNull>
 			<isNotNull prepend="and " property="senderId">
 				sender_id = #senderId#
-			</isNotNull>			
+			</isNotNull>
 			<isNotNull prepend="and " property="startCreated">
 				created &lt;= #startCreated#
 			</isNotNull>
@@ -164,25 +167,25 @@
 		order by created desc
 		limit #startIndex#, #size#
 	</select>
-	
-	
+
+
 	<select id="selectWeiboJoinGroupByWeiboIdGroupId" resultMap="wjgResult">
 		select
 		<include refid="wjg.columns" />
 		from weibo_join_group
-		where 
+		where
 		weibo_id = #weiboId#
-		and group_id = #groupId# 
+		and group_id = #groupId#
 	</select>
-	
+
 	<select id="selectWeiboJoinGroupByWeiboId" resultMap="wjgResult">
 		select
 		<include refid="wjg.columns" />
 		from weibo_join_group
-		where 
+		where
 		weibo_id = #weiboId#
 	</select>
-	
+
 	<insert id="insertWeiboJoinGroup">
 		insert into weibo_join_group
 		(
@@ -227,14 +230,14 @@
 		created,
 		modified
 	</sql>
-	
+
 	<select id="selectWeiboReplyById" resultMap="replyResult">
 		select
 		<include refid="reply.columns" />
 		from weibo_reply
 		where id = #value#
 	</select>
-	
+
 	<select id="selectWeiboRepliesByIds" resultMap="replyResult">
 		select
 		<include refid="reply.columns" />
@@ -247,8 +250,8 @@
 		order by created desc
 		</isNotNull>
 	</select>
-	
-	
+
+
 	<select id="selectPageWeiboReply" resultMap="replyResult">
 		select
 		<include refid="reply.columns" />
@@ -261,11 +264,11 @@
 				quote_sender_id in
 				<iterate property="quoteSenderIds" open="(" close=")" conjunction=",">
 					#quoteSenderIds[]#
-		        </iterate>			
+		        </iterate>
 			</isNotNull>
 			<isNotNull prepend = "and " property="senderId">
 				sender_id = #senderId#
-			</isNotNull>			
+			</isNotNull>
 			<isNotNull prepend = "and " property="startCreated">
 				created &lt;= #startCreated#
 			</isNotNull>

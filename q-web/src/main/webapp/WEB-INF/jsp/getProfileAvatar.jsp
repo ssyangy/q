@@ -20,6 +20,7 @@
     var imageHeight;
 	var isImg=true;
     var cutter;
+    var divide=1;
 	function up(){
 	if(isImg==true){
 		cutter = new jQuery.UtrialAvatarCutter(
@@ -269,7 +270,7 @@
 						<jsp:include page="profile-tag.jsp">
 							<jsp:param value="avatar" name="tab"/>
 						</jsp:include>
-						
+
 <div id="tabs-2" class="tabs-widget clearfix pt10">
 
 <div class="imgbox"><div id="myImage"></div></div>
@@ -283,7 +284,7 @@
 <li>3. 随意拖拽或缩放大图中的虚线方格，下方预览的小图即为保存后的头像图标。
 </li>
 <div style='display:none;' id="imgWrong"></div>
-<iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>                            
+<iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>
 </form>
 </ul>
 <div class='clearfix'>
@@ -293,10 +294,10 @@
 </div>
 <div>
 	<div style='display:none;' id="savewrong"></div>
-	<div style='display:none;' id="savecorrect"></div>	          
+	<div style='display:none;' id="savecorrect"></div>
 	<input type="button" value="保存" onclick="save()"></input>
 	<input type="button" value="取消"></input>
-</div>	                        
+</div>
 </div>
 
 </div>
