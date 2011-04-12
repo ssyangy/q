@@ -61,28 +61,16 @@ public class FavoriteDaoImpl extends AbstractDaoImpl implements FavoriteDao {
 	}
 
 	@Override
-	public List<Long> getFavReplyIds(List<Long> replyIds, long creatorId) throws SQLException {
+	public List<Long> getFavoriteIdsByFromIdsAndCreatorId(List<Long> replyIds, long creatorId) throws SQLException {
 		FavoritePage page = new FavoritePage();
 		page.setCreatorId(creatorId);
 		page.setStatus(FavoriteStatus.FAV);
-		//page.setFromType(FavoriteFromType.REPLY);
 		page.setFromIds(replyIds);
 		@SuppressWarnings("unchecked")
 		List<Long> ids = this.sqlMapClient.queryForList("selectFavoriteFromIdsByPage", page);
 		return ids;
 	}
 
-	@Override
-	public List<Long> getFavWeiboIds(List<Long> weiboIds, long creatorId) throws SQLException {
-		FavoritePage page = new FavoritePage();
-		page.setCreatorId(creatorId);
-		page.setStatus(FavoriteStatus.FAV);
-		page.setFromType(FavoriteFromType.WEIBO);
-		page.setFromIds(weiboIds);
-		@SuppressWarnings("unchecked")
-		List<Long> ids = this.sqlMapClient.queryForList("selectFavoriteFromIdsByPage", page);
-		return ids;
-	}
 
 	@Override
 	public Favorite getReplyFavoriteByReplyIdAndCreatorId(long replyId, long creatorId) throws SQLException {

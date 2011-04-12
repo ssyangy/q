@@ -61,6 +61,19 @@
                     </div>
                     <div class="twtxt mt10">
 						<div class='rcontent'>{{text}}</div>
+			{{#quote}}
+			<div class="tweet-ori"> 
+				<div class="tweet-ori-inner"> 
+					{{#people}}<a href="${urlPrefix}/people/{{id}}" class="tweet-ori-author">{{screenName}}</a>{{/people}}：
+					{{text}}
+					<span class="">
+						<a href="${urlPrefix}/weibo/{{id}}">原文转发</a>
+						<span class="link-sep">·</span>
+						<a href="${urlPrefix}/weibo/{{id}}">原文回复</a>
+					</span> 
+				</div> 
+			</div>
+			{{/quote}}
 						<div class="mt10">
 						<span class='gray mr10'>{{screenTime}}</span>
 						<span class="gray">发自<a href="${urlPrefix}{{fromUrl}}">{{fromName}}</a></span>
