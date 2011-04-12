@@ -121,10 +121,10 @@
 			<div class="tweetexpand expand"></div>
 			<br clear='all'/>
 		</div>
-		
+
 	</div>
 </div>
-
+<form action="${urlPrefix}/Avatar"  id="form1" name="form1"  encType="multipart/form-data" method="post" target="hidden_frame" onsubmit="return up()">
     <div id="dia_img" title="上传图片">
     <input type="file" name="file" id="file" accept="image/gif, image/jpeg" onchange="check()" style="width:450"></input>
     <div style='display:none;' id="imgWrong"></div>
@@ -135,6 +135,7 @@
             <a id='imgRotateL' class='link mr10'>左转</a><a id='imgRotateR' class='link'>右转</a>
         </ol>
     </div>
-
+    <iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>
+</form>
 </body>
 </html>
