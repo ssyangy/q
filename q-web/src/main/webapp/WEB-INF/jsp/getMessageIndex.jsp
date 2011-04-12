@@ -104,7 +104,6 @@
 					<div class="main-tweet-box"> 
 						<div class="tweet-box"> 
 							<div class="new-msg-box"> 
-								<div class="new-msg-area"> 
 									<form action="${urlPrefix}/message" method="post">
 										<table id="setting-form" class="msg-form qtb" cellspacing='8'> 
 											<tbody> 
@@ -118,14 +117,11 @@
 												</tr> 
 												<tr><th>内容：</th></tr> 
 												<tr><td><textarea name="content" cols="40" rows="4" style="width:335px;"></textarea></td></tr> 
-												<tr><td><button class="button mt10">发送</button><a href="" class="cancel">取消</a></td></tr> 
+												<tr><td><button class="button mt10">发送</button>
+												<a href="" class="cancel ml10 link">取消</a></td></tr> 
 											</tbody> 
 										</table> 
 									</form>
-								</div> 
-								<!--  div class="contacts"> 
-								</div --> 
-								<div class="clearfix2"></div> 
 							</div> 
 						</div> 
 					</div> 

@@ -40,9 +40,8 @@
             <div class="tweet-row">
                 <a href="" class="tweet-timestamp">{{screenTime}}</a>
                 <span class="tweet-actions">
-					<!--<a href="">赞</a>
-					<span class="link-sep">·</span>-->
-					<a href="">收藏</a>
+					{{#unFav}}<a href="#" class='fav'>收藏</a>{{/unFav}}
+					{{^unFav}}<a href="#" class='favun'>取消收藏</a>{{/unFav}}
 					<span class="link-sep">·</span><a href="#" class='btn_ret'>转发</a>
 					<span class="link-sep">·</span><a href="#" class='btn_rep'>回复</a>
 				</span>
@@ -82,7 +81,8 @@
 						<span class="gray">发自<a href="${urlPrefix}{{fromUrl}}">{{fromName}}</a></span>
 						<a class="link ml10 FR btn_hrep" href="#">回复</a>
 						<a class="link ml10 FR btn_hret" href="#">转发</a>
-						<a class="link ml10 FR" href="#">收藏</a>
+						{{#unFav}}<a href="#" class='link ml10 FR hfav'>收藏</a>{{/unFav}}
+						{{^unFav}}<a href="#" class='link ml10 FR hfavun'>取消收藏</a>{{/unFav}}
 						</div>
                     </div>
 					</div>
@@ -99,7 +99,8 @@
 						<span class="gray ml10">发自<a href="${urlPrefix}{{fromUrl}}">{{fromName}}</a></span>
 						<a class="link ml10 FR btn_rrep">回复</a>
 						<a class="link ml10 FR btn_rret">转发</a>
-						<a class="link FR" href="#">收藏</a>
+						{{#unFav}}<a href="#" class='link FR rfav'>收藏</a>{{/unFav}}
+						{{^unFav}}<a href="#" class='link FR rfavun'>取消收藏</a>{{/unFav}}
                         <div class="mt10 twtxtr">{{text}}</div>
                     </div>
 					{{/replies}}
@@ -110,7 +111,9 @@
 	var ajlock = true;
 		$(function () {
 
-
+			var tweetex = $('div.tweetexpand');
+			var set = $('#page-container').offset();
+			tweetex.css('left',set.left+10);
 	        $('div.tweet').live('click',function (e) {
 	        	if($(e.target).get(0).tagName != 'A'){
 	        		var twid = $(this).attr('weiboid');
@@ -123,10 +126,10 @@
 					    timeout: 5000,
 					    msg:this,
 					   	success: function(json){
-			            	var o = $('div.tweetexpand');
-			        		o.empty().append(ich.tweetexp(json));
-			            	o.css('left', '0');
-			            	o.animate({ left: 540 }, 500, 'swing');
+					   		tweetex.empty().append(ich.tweetexp(json));
+			        		$('div.dashboardbb').hide();
+				            tweetex.css('left',set.left+10);
+				            tweetex.animate({ left: 540+set.left }, 500, 'swing');
 					    }
 	                });
 
@@ -285,6 +288,59 @@
 		    	  $("#rep_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/reply');
 		    	  dia.dialog("open");
 		      });
+		      
+		      $('a.fav').live('click',function(){
+		    	  var tweet = $(this).closest('div.tweet');
+		    	  favFun(tweet.attr('weiboid'),this,'fav');
+		      });
+		      $('a.hfav').live('click',function(){
+		    	  var tweet = $(this).closest('#twrep');
+		    	  favFun(tweet.attr('weiboid'),this,'hfav');
+		      });
+		      $('a.rfav').live('click',function(){
+		    	  var tweet = $(this).closest('div.tweet_rep');
+		    	  favFun(tweet.attr('weiboid'),this,'rfav');
+		      });
+		      var favFun = function(id,o,clas){
+				  $.ajax({
+					    url: '${urlPrefix}/weibo/' + id + '/favorite',
+					    type: 'POST',
+					    dataType: 'json',
+					    timeout: 5000,
+					    msg:o,
+					   	success: function(json){
+					        $(this.msg).text("取消收藏");
+					        $(this.msg).removeClass(clas).addClass(clas+'un');
+					    }
+				  });
+		      }		      
+		      $('a.favun').live('click',function(){
+		    	  var tweet = $(this).closest('div.tweet');
+		    	  favFunUn(tweet.attr('weiboid'),this,'fav');
+		      });
+		      $('a.hfavun').live('click',function(){
+		    	  var tweet = $(this).closest('#twrep');
+		    	  favFunUn(tweet.attr('weiboid'),this,'hfav');
+		      });
+		      $('a.rfavun').live('click',function(){
+		    	  var tweet = $(this).closest('div.tweet_rep');
+		    	  favFunUn(tweet.attr('weiboid'),this,'rfav');
+		      });
+		      var favFunUn = function(id,o,clas){
+				  $.ajax({
+					    url: '${urlPrefix}/weibo/' + id + '/favorite',
+					    type: 'POST',
+					    dataType: 'json',
+					    data:{_method:'delete'},
+					    timeout: 5000,
+					    msg:o,
+					   	success: function(json){
+					   		$(this.msg).text("收藏");
+					   		$(this.msg).removeClass(clas+'un').addClass(clas);
+					    }
+				  });
+		      }
+
 	    });
 	</script>
 </c:if>
@@ -331,10 +387,10 @@
 					<span class="link-sep">·</span>-->
 					<c:choose>
 						<c:when test="${weibo.unFav}">
-						<a class='link' onclick="favWeibo(this,${weibo.id})">收藏</button>
+						<a class='link fav'>收藏</a>
 						</c:when>
 						<c:otherwise>
-						<a class='link' onclick="unFavWeibo(this,${weibo.id})">取消收藏</button>
+						<a class='link favun'>取消收藏</a>
 						</c:otherwise>
 					</c:choose>
 					<span class="link-sep">·</span>

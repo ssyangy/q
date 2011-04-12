@@ -5,12 +5,6 @@
 <head>
 	<jsp:include page="head.jsp" />
 	<title>圈子新鲜事</title>
-	<script type="text/javascript">
-	$(function(){
-
-		
-	});
-	</script>
 </head>
 <body>
 	<div id="body" >
