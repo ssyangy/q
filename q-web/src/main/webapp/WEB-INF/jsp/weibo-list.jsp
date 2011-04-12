@@ -51,8 +51,8 @@
 	</script>
 	<script id="tweetexp" type="text/html">
 			{{#weibo}}
+					<a class='btnreturn'></a>
 					<div id='twrep' class='mb10' weiboid="{{id}}">
-
 					<div class="tw_head">
 					{{#people}}
 					<a href="${urlPrefix}/people/{{id}}">
@@ -136,6 +136,9 @@
 	                });
 
 	        	}
+	        });
+	        $('a.btnreturn').live('click',function(){
+	        	tweetex.animate({ left: set.left+10 }, 500, 'swing');
 	        });
 
 	        window.onresize = window.onload = function () {
