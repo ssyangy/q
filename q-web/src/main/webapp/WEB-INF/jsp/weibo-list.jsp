@@ -105,12 +105,13 @@
 	<script type="text/javascript">
 	var ajlock = true;
 		$(function () {
-			
-			
+	        
+			var tweetex = $('div.tweetexpand');
+			var set = $('#page-container').offset();
+			tweetex.css('left',set.left+10);
 	        $('div.tweet').live('click',function (e) {
 	        	if($(e.target).get(0).tagName != 'A'){
 	        		var twid = $(this).attr('weiboid');
-	        		
 	        		$.ajax({
 					    url: '${urlPrefix}/weibo/' + twid,
 					    type: 'GET',
@@ -119,10 +120,10 @@
 					    timeout: 5000,
 					    msg:this,
 					   	success: function(json){
-			            	var o = $('div.tweetexpand');
-			        		o.empty().append(ich.tweetexp(json));
-			            	o.css('left', '0');
-			            	o.animate({ left: 540 }, 500, 'swing');
+					   		tweetex.empty().append(ich.tweetexp(json));
+			        		$('div.dashboardbb').hide();
+				            tweetex.css('left',set.left+10);
+				            tweetex.animate({ left: 540+set.left }, 500, 'swing');
 					    }
 	                });
 	        	}

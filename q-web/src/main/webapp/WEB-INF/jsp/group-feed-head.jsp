@@ -50,12 +50,13 @@
 								</div>
 								<div class="tweet-button-container">
 									<div class="submit">
-									<a href="" class="button">发表</a>
 			<select>
                 <option value="value">发到圈子？</option>
                 <option value="value">发到圈子？</option>
                 <option value="value">发到圈子？</option>
-            </select>
+            </select>									
+									<a href="" class="button">发表</a>
+
 									</div>
 									<div class="bar">插入：<a href="">表情</a><a class="trDialog_img">图片</a><a href="">视频</a><br />
                                     <div id='upimgpbox'>
