@@ -269,6 +269,28 @@ public class DaoHelper {
 
 	/**
 	 * @param peopleDao
+	 * @param weibo
+	 * @throws SQLException
+	 */
+	public static void injectWeiboModelWithPeople(PeopleDao peopleDao, Weibo weibo) throws SQLException {
+		People people = peopleDao.getPeopleById(weibo.getSenderId());
+		weibo.setPeople(people);
+	}
+
+	/**
+	 * @param groupDao
+	 * @param weibo
+	 * @throws SQLException
+	 */
+	public static void injectWeiboModelWithFrom(GroupDao groupDao, Weibo weibo) throws SQLException {
+		if (weibo.isFromGroup()) {
+			Group group = groupDao.getGroupById(weibo.getFromId());
+			weibo.setFromPostfix(group.getName());
+		}
+	}
+
+	/**
+	 * @param peopleDao
 	 * @param weiboDao
 	 * @param groupDao
 	 * @param replyId
@@ -465,4 +487,5 @@ public class DaoHelper {
 		}
 		event.setPeople(peopleDao.getPeopleById(event.getCreatorId()));
 	}
+
 }

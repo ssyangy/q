@@ -167,7 +167,7 @@
 		where
 		status = 0
 		<isNotNull prepend="and " property="quoteMessageId">
-			quote_message_id &lt;= #quoteMessageId#
+			quote_message_id = #quoteMessageId#
 	    </isNotNull>		
 		<isNotNull prepend="and" property="startCreated">
 			created &lt;= #startCreated#
