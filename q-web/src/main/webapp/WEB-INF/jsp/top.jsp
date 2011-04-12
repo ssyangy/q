@@ -31,18 +31,17 @@
 			</div>
 			<div id="nav">
 				<ul>
-					<li><a href="${urlPrefix}/group/feed">我的首页</a></li>
-					<li><a href="${urlPrefix}/people/feed">我的好友</a></li>
+					<li><a href="${urlPrefix}/group/feed">圈子新鲜事</a></li>
+					<li><a href="${urlPrefix}/people/feed">好友新鲜事</a></li>
 					<c:if test="${loginCookie.peopleId > 0}">
-					<li><a href="${urlPrefix}/people/${loginCookie.peopleId}">我的主页</a></li>
+					<li><a href="${urlPrefix}/people/${loginCookie.peopleId}">我自己</a></li>
 					</c:if>
 				</ul>
 			</div>
-			<div id="search">
+			<div class="FR">
 			    <form action="${urlPrefix}/search" method="GET">
-			    <button class="button FR">搜索</button>
 				<input type="text" class="search_field" id="search" name="search" size="35" placeholder="搜微博、圈子、好友"/>
-
+				<button class="button">搜索</button>
 				</form>
 			</div>
 			<div class="clearfix"></div>

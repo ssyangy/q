@@ -3,8 +3,11 @@
  */
 package q.util;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author seanlinwang
@@ -13,8 +16,24 @@ import java.util.List;
  * 
  */
 public class IdCreator {
-	public static long getLongId() {
-		return System.currentTimeMillis();
+	private static final AtomicInteger counter = new AtomicInteger();
+
+	private static final long base;
+
+	static {
+		Calendar baseCal = Calendar.getInstance();
+		baseCal.set(Calendar.YEAR, 2011);
+		base = baseCal.getTime().getTime();
+	}
+
+	/**
+	 * 
+	 * FIXME add ip id for distribution
+	 * 
+	 * @return
+	 */
+	public synchronized static long getLongId() {
+		return (System.currentTimeMillis() - base) * 1000 + counter.getAndIncrement();
 	}
 
 	public static boolean isValidIds(long... ids) {
@@ -39,8 +58,8 @@ public class IdCreator {
 		return true;
 	}
 
-	public static List<Long> convertIfValidIds(String... ids) throws IllegalArgumentException {
-		List<Long> result = new ArrayList<Long>(ids.length);
+	public static Set<Long> convertIfValidIds(String... ids) throws IllegalArgumentException {
+		Set<Long> result = new HashSet<Long>(ids.length);
 		for (String id : ids) {
 			try {
 				Long convert = Long.valueOf(id);

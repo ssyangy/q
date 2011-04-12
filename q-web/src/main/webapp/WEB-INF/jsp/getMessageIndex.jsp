@@ -27,9 +27,9 @@
                     select: function (event, ui) {
                         var terms = split(this.value);
                         terms.pop();
-                        terms.push(ui.item.name);
+                        terms.push("@"+ ui.item.username);
                         terms.push("");
-                        this.value = terms.join(", ");
+                        this.value = terms.join(",");
                          
                          var idsput = $('#ids');
 						 var ids = split(idsput.val());
@@ -43,11 +43,32 @@
                 }).data("autocomplete")._renderItem = function (ul, item) {
                     return $("<li></li>")
                         .data("item.autocomplete", item)
-                        .append("<a><img src='${avatarUrlPrefix}/" + item.avatarPath + "-24'><span class='f14'>" + item.username + "</span></br>" + item.realName + "</a>")
+                        .append("<a><img src='${avatarUrlPrefix}/" + item.avatarPath + "-24'><span class='f14'>@" + item.username + "</span></br>" + item.realName + "</a>")
                         .appendTo(ul);
                 };
  
+ 				$('#autoinput').bind("keydown", function (e) {
+                    var code = (e.keyCode ? e.keyCode : e.which);
+                    if (code == 8) {
+                        var o = $(this);
+                        var val = o.val();
+                        if (val.charAt(val.length - 1) == ',') {
+                            var vals = val.split(',');
+                            vals.pop();
+                            vals.pop();
+                            vals.push("");
+                            o.val(vals.join(",") + ",");
  
+                            var ids = $('#ids');
+                            var ivals = ids.val().split(',');
+                            ivals.pop();
+                            ivals.pop();
+                            ivals.push("");
+                            ids.val(ivals.join(","));
+                        }
+                    }
+                });
+                
                 $("#radio").buttonset();
             });
  
@@ -84,21 +105,22 @@
 						<div class="tweet-box"> 
 							<div class="new-msg-box"> 
 								<div class="new-msg-area"> 
-									<form>
-									<table id="setting-form" class="msg-form qtb" cellspacing='8'> 
-										<tbody> 
-											<tr><th>收信人：</th></tr> 
-											<tr>
-												<td class="col-field">
-													<input id='autoinput' type='text' class='text_field' size='20'>
-													<input id='ids' type='hidden'>
-												</td>
-											</tr> 
-											<tr><th>内容：</th></tr> 
-											<tr><td><textarea cols="40" rows="4" style="width:335px;"></textarea></td></tr> 
-											<tr><td><a href="" class="button mt10">发送</a><a href="" class="cancel">取消</a></td></tr> 
-										</tbody> 
-									</table> 
+									<form action="${urlPrefix}/message" method="post">
+										<table id="setting-form" class="msg-form qtb" cellspacing='8'> 
+											<tbody> 
+												<tr><th>收信人：</th></tr> 
+												<tr>
+													<td class="col-field">
+														<input id='autoinput' type='text' class='text_field' size='20'>
+														<input name="receiverId" id='ids' type='hidden'>
+														<input name="from" value="${urlPrefix}/message" type='hidden'>
+													</td>
+												</tr> 
+												<tr><th>内容：</th></tr> 
+												<tr><td><textarea name="content" cols="40" rows="4" style="width:335px;"></textarea></td></tr> 
+												<tr><td><button class="button mt10">发送</button><a href="" class="cancel">取消</a></td></tr> 
+											</tbody> 
+										</table> 
 									</form>
 								</div> 
 								<!--  div class="contacts"> 

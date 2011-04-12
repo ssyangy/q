@@ -129,6 +129,7 @@ public class GetMessageIndex extends Resource {
 		if (CollectionKit.isNotEmpty(pinyins)) {
 			buffer.append(StringUtils.join(pinyins, ' '));
 		}
+		buffer.append(people.getUsername());
 		buffer.append("\",");
 		buffer.append("avatarPath:\"");
 		buffer.append(people.getAvatarPath());

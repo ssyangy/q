@@ -6,6 +6,7 @@ package q.web.message;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import q.dao.MessageDao;
 import q.dao.PeopleDao;
@@ -15,6 +16,7 @@ import q.domain.People;
 import q.util.ArrayKit;
 import q.util.CollectionKit;
 import q.util.IdCreator;
+import q.util.StringKit;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.exception.RequestParameterInvalidException;
@@ -45,12 +47,13 @@ public class AddMessage extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		Message message = new Message();
+		message.setId(IdCreator.getLongId());
 		message.setContent(context.getString("content"));
 		long senderId = context.getCookiePeopleId();
 		message.setSenderId(senderId);
-		String[] receiverStringIds = context.getStringArray("receiverId");
-		message.setId(IdCreator.getLongId());
-		List<Long> receiverIds = IdCreator.convertIfValidIds(receiverStringIds);
+		String idsString = context.getString("receiverId");
+		String[] receiverStringIds = StringKit.split(idsString, ',');
+		Set<Long> receiverIds = IdCreator.convertIfValidIds(receiverStringIds);
 		List<MessageJoinPeople> joins = new ArrayList<MessageJoinPeople>();
 		for (Long receiverId : receiverIds) {
 			MessageJoinPeople join = new MessageJoinPeople();
@@ -66,9 +69,8 @@ public class AddMessage extends Resource {
 		String from = context.getString("from");
 		if (from != null) {
 			context.redirectContextPath(from);
-		} else {
-			context.redirectServletPath("/message/" + message.getId());
 		}
+
 	}
 
 	@Override
@@ -76,11 +78,11 @@ public class AddMessage extends Resource {
 		long senderId = context.getCookiePeopleId();
 		if (senderId == 0)
 			throw new RequestParameterInvalidException("loginId invalid");
-		String[] receiverStringIds = context.getStringArray("receiverId");
+		String[] receiverStringIds = StringKit.split(context.getString("receiverId"), ',');
 		if (ArrayKit.isEmpty(receiverStringIds)) {
 			throw new RequestParameterInvalidException("receiver:invalid");
 		}
-		List<Long> receiverIds = null;
+		Set<Long> receiverIds = null;
 		try {
 			receiverIds = IdCreator.convertIfValidIds(receiverStringIds);
 		} catch (Exception e) {
@@ -90,10 +92,8 @@ public class AddMessage extends Resource {
 			throw new RequestParameterInvalidException("receiver:invalid");
 		}
 		HashSet<Long> idSet = new HashSet<Long>(receiverIds);
-		List<People> receivers = peopleDao.getPeoplesByIds(new ArrayList<Long>(
-				idSet));
-		if (CollectionKit.isEmpty(receivers)
-				|| receivers.size() != idSet.size()) {
+		List<People> receivers = peopleDao.getPeoplesByIds(new ArrayList<Long>(idSet));
+		if (CollectionKit.isEmpty(receivers) || receivers.size() != idSet.size()) {
 			throw new RequestParameterInvalidException("receiver:invalid");
 		}
 

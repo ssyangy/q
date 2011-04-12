@@ -43,6 +43,8 @@ public class GetGroupFeedFrame extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
+		People people = this.peopleDao.getPeopleById(loginPeopleId);
+		context.setModel("people", people);
 		List<Long> groupIds = this.groupDao.getGroupIdsByPeopleId(loginPeopleId);
 		if (CollectionKit.isNotEmpty(groupIds)) {
 			List<Group> groups = this.groupDao.getGroupsByIds(groupIds);
