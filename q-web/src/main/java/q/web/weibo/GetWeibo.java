@@ -3,9 +3,12 @@
  */
 package q.web.weibo;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import q.dao.DaoHelper;
 import q.dao.FavoriteDao;
@@ -77,6 +80,12 @@ public class GetWeibo extends Resource {
 		page.setQuoteWeiboId(weiboId);
 		int size = context.getInt("size", 10);
 		long startId = context.getIdLong("startId");
+		int type = context.getInt("type", 0);
+		if (type == 1) { // 1 indicate asc
+			page.setDesc(false);
+		} else {
+			page.setDesc(true);
+		}
 		page.setSize(size);
 		page.setStartIndex(0);
 		if (startId > 0) {
@@ -84,6 +93,11 @@ public class GetWeibo extends Resource {
 		}
 		List<WeiboReply> replies = weiboDao.getWeiboRepliesByPage(page);
 		if (CollectionKit.isNotEmpty(replies)) {
+			if(type == 1) { //revert this page to desc
+				WeiboReply[] array = replies.toArray(new WeiboReply[replies.size()]);
+				CollectionUtils.reverseArray(array);
+				replies = Arrays.asList(array);
+			}
 			DaoHelper.injectWeiboModelsWithPeople(peopleDao, replies);
 			DaoHelper.injectWeiboModelsWithFrom(groupDao, replies);
 			if (loginPeopleId > 0) {
@@ -101,6 +115,7 @@ public class GetWeibo extends Resource {
 			context.setModel("api", api);
 		}
 	}
+
 
 	/*
 	 * (non-Javadoc)

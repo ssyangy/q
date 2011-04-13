@@ -12,16 +12,26 @@ import java.util.Date;
  * @date Feb 22, 2011
  * 
  */
-public class Page implements Serializable{
+public class Page implements Serializable {
 	private static final long serialVersionUID = -4271255854510793304L;
 
 	private Date startCreated;
 
-	private Integer startIndex;
+	private Integer startIndex = 0;
 
 	private Long startId;
 
 	private Integer size;
+
+	private Boolean desc = true;
+
+	public Boolean getDesc() {
+		return desc;
+	}
+
+	public void setDesc(Boolean desc) {
+		this.desc = desc;
+	}
 
 	public Date getStartCreated() {
 		return startCreated;

@@ -124,6 +124,7 @@ public class GetPeopleFeed extends Resource {
 		if (!context.isApiRequest()) {
 			GetPeopleFeedFrame frame = new GetPeopleFeedFrame();
 			frame.setPeopleDao(peopleDao);
+			frame.setGroupDao(groupDao);
 			frame.validate(context);
 			frame.execute(context);
 		}

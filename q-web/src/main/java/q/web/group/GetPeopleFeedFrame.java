@@ -3,6 +3,7 @@ package q.web.group;
 import java.util.ArrayList;
 import java.util.List;
 
+import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.page.PeopleRelationPage;
 import q.domain.People;
@@ -31,17 +32,18 @@ public class GetPeopleFeedFrame extends Resource {
 	// public void setWeiboDao(WeiboDao weiboDao) {
 	// this.weiboDao = weiboDao;
 	// }
-	// private GroupDao groupDao;
-	//
-	// public void setGroupDao(GroupDao groupDao) {
-	// this.groupDao = groupDao;
-	// }
+	private GroupDao groupDao;
+
+	public void setGroupDao(GroupDao groupDao) {
+		this.groupDao = groupDao;
+	}
 
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
 		People login = this.peopleDao.getPeopleById(loginPeopleId);
 		context.setModel("people", login);
+		context.setModel("selectGroups", this.groupDao.getGroupsByPeopleId(loginPeopleId));
 
 		PeopleRelationPage followerPage = new PeopleRelationPage();
 		followerPage.setToPeopleId(loginPeopleId);

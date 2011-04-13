@@ -179,30 +179,9 @@
 				<jsp:include page="group-head.jsp"  >
 					<jsp:param name="tab" value="group" />
 				</jsp:include>
-				<div class="main-tweet-box group">
-					<div class="tweet-box">
-						<div class="bg">
-							<form action="${contextPath}/weibo?from=${contextPath}/group/${group.id}" method="post">
-							<div class="text-area">
-								<textarea name="content" class="twitter-anywhere-tweet-box-editor" style="width: 470px; height: 56px; "></textarea>
-							</div>
-							<div class="tweet-button-container">
-								<div class="submit"><button id='btnSubTweet' class="button" >发表</button></div>
-								<div class="bar">插入：<a href="">表情</a><a id='trDialog_img' class='link'>图片</a><a href="">视频</a>
-								    <div id='upimgpbox' class='hide'>
-                                    <img id="img" src='#' class='img160' /><br />
-                                    <a id='upimgdel' class="link">删除</a>
-                                    </div>
-								</div>
-								<div class="clearfix2"></div>
-							</div>
-							<input type="hidden" name="groupId" value="${group.id}" />
-							<input type="hidden" name="picPath" id="picPath" />
-							<input type="hidden" name="upimgfix" id="upimgfix"  />
-							</form>
-						</div>
-					</div>
-				</div>
+				<jsp:include page="weibo-send.jsp" >
+					<jsp:param name="from" value="${urlPrefix}/group/${group.id}"/>
+				</jsp:include>
 				<div class="stream-manager">
 					<div id="tabs" class="ui-tabs ui-widget">
 						<jsp:include page="group-tag.jsp"/>
