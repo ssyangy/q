@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import q.biz.PictureService;
 import q.http.JdkHttpClient;
 import q.util.ImageKit;
 import q.web.Resource;
@@ -23,7 +24,11 @@ public class AddAvatarEdit extends Resource {
 	public void setImageUploadUrl(String imageUploadUrl) {
 		this.imageUploadUrl = imageUploadUrl;
 	}
+	private PictureService pictureService;
 
+	public void setPictureService(PictureService pictureService) {
+		this.pictureService = pictureService;
+	}
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 
@@ -39,31 +44,7 @@ public class AddAvatarEdit extends Resource {
 			throw new RequestParameterInvalidException("value:图片参数出错了。");
 		}
 		long peopleId = context.getCookiePeopleId();
-		long dir = peopleId % 10000;
-		URL temp = new URL(imageUrl + "/a/" + String.valueOf(dir) + "/" + String.valueOf(peopleId));
-		HttpURLConnection con = JdkHttpClient.getHttpConnection(temp, 100000, 100000);
-		InputStream imagetemp;
-		BufferedImage cutImage;
-		try {
-			imagetemp = JdkHttpClient.getMultipart(con);
-			BufferedImage originImage = ImageKit.load(imagetemp);
-			cutImage = ImageKit.cutTo(originImage, x1, y1, x2, y2);
-		} finally {
-			JdkHttpClient.releaseUrlConnection(con);
-		}
-
-		BufferedImage image128 = ImageKit.zoomTo(cutImage, 128, 128);
-		BufferedImage image48 = ImageKit.zoomTo(cutImage, 48, 48);
-		BufferedImage image24 = ImageKit.zoomTo(cutImage, 24, 24);
-		BufferedImage[] images = new BufferedImage[3];
-		images[0] = image128;
-		images[1] = image48;
-		images[2] = image24;
-		URL url = new URL(this.imageUploadUrl);
-
-		boolean sb;
-
-		sb = JdkHttpClient.postPictures(url, peopleId, images);
+		boolean sb=pictureService.editAvatar(x1, x2, y1, y2, peopleId);
 
 		if (sb == false) {
 			throw new RequestParameterInvalidException("value:服务器忙。");
