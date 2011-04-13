@@ -81,10 +81,12 @@
 						<div class="mt10">
 						<span class='gray mr10'>{{screenTime}}</span>
 						<span class="gray">发自<a href="${urlPrefix}{{fromUrl}}">{{fromName}}</a></span>
-						<a class="link ml10 FR btn_hrep" href="#">回复</a>
-						<a class="link ml10 FR btn_hret" href="#">转发</a>
-						{{#favorited}}<a href="#" class='link ml10 FR hfavun'>取消收藏</a>{{/favorited}}
-						{{^favorited}}<a href="#" class='link ml10 FR hfav'>收藏</a>{{/favorited}}
+						<a class="link ml5 FR btn_hrep" href="#">回复</a>
+						<span class="link-sep FR">·</span>
+						<a class="link ml5 mr5 FR btn_hret" href="#">转发</a>
+						<span class="link-sep FR">·</span>
+						{{#favorited}}<a href="#" class='link mr5 FR hfavun'>取消收藏</a>{{/favorited}}
+						{{^favorited}}<a href="#" class='link mr5 FR hfav'>收藏</a>{{/favorited}}
 						</div>
                     </div>
 					</div>
@@ -98,11 +100,13 @@
                     	<a class='link peop' href='${urlPrefix}/people/{{id}}'>{{screenName}}</a>
 						{{/people}}
                         <span class="gray ml10">{{screenTime}}</span>
-						<span class="gray ml10">发自<a href="${urlPrefix}{{fromUrl}}">{{fromName}}</a></span>
-						<a class="link ml10 FR btn_rrep">回复</a>
-						<a class="link ml10 FR btn_rret">转发</a>
-						{{#favorited}}<a href="#" class='link FR rfavun'>取消收藏</a>{{/favorited}}
-						{{^favorited}}<a href="#" class='link FR rfav'>收藏</a>{{/favorited}}
+
+						<a class="link ml5 FR btn_rrep">回复</a>
+						<span class="link-sep FR">·</span>
+						<a class="link ml5 mr5 FR btn_rret">转发</a>
+						<span class="link-sep FR">·</span>
+						{{#favorited}}<a href="#" class='link FR rfavun mr5'>取消收藏</a>{{/favorited}}
+						{{^favorited}}<a href="#" class='link FR rfav mr5'>收藏</a>{{/favorited}}
                         <div class="mt10 twtxtr">{{text}}</div>
                     </div>
 					{{/replies}}
