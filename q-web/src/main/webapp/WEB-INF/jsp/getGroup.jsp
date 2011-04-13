@@ -58,6 +58,9 @@
 	            dia_img.dialog("open");
 	        });
 	        $('#upimgdel').click(function () {
+	        	 $("#trDialog_img").click(function () {
+	            dia_img.dialog("open");
+	              });
 	            imgPath="";
 	            $('#upimgpbox').empty();
 	            $(this).remove();
