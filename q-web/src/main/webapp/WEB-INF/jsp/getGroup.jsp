@@ -22,11 +22,12 @@
       </style>
       	<script type="text/javascript" src="${staticUrlPrefix}/js/jQueryRotate.2.1.js"></script>
       	<script type="text/javascript">
-      	var isImg=true;
+      	var isImg=false;
 	    var upimgfix = 0;
 	    var realHeight;
 	    var realWidth;
 	    var imgPath;
+	    var hasPicture=false;
 	    $(function () {
 
 	        var dia_img = $("#dia_img");
@@ -37,14 +38,16 @@
 	            hide: "drop",
 	            buttons: {
 	                "确定": function () {
+                    if(hasPicture){
 	                $("#picPath").attr("value",imgPath);
-	                 $("#upimgfix").attr("value",upimgfix);
+	                $("#upimgfix").attr("value",upimgfix);
 	                setImg();
-	                    $(this).dialog("close");
-	                    $('#upimgpbox').show();
-	                    $('#upimgpbox img').rotate(upimgfix);
-
-
+	                $('#trDialog_img').unbind();
+	                $(this).dialog("close");
+	                $('#upimgpbox').show();
+	                $('#upimgpbox img').rotate(upimgfix);
+                   }
+					 $(this).dialog("close");
 	                },
 	                "取消": function () {
 	                    $(this).dialog("close");
@@ -99,6 +102,7 @@
     realHeight=x;
 	realWidth=y;
 	imgPath=z;
+	$('ol.files').removeClass('hide');
     $("#picPath").attr("value",imgPath);
       if(realHeight>realWidth){
          max="height";
@@ -113,7 +117,7 @@
       $("#upimg").attr("width",imageWidth);
       $("#upimg").attr("height",imageHeight);
       $("#upimg").attr("src",imgPath+"-320");
-
+      hasPicture=true;
 	}
 	function wrong(s){
 	alert(s);
@@ -129,6 +133,11 @@
 
      }
       $("#img").attr("src",imgPath+"-160");
+	}
+	function send(){
+	 $("#trDialog_img").click(function () {
+	            dia_img.dialog("open");
+	        });
 	}
 	</script>
 </head>
@@ -149,7 +158,7 @@
 								<textarea name="content" class="twitter-anywhere-tweet-box-editor" style="width: 470px; height: 56px; "></textarea>
 							</div>
 							<div class="tweet-button-container">
-								<div class="submit"><button class="button">发表</button></div>
+								<div class="submit"><button class="button" onclick="send()" >发表</button></div>
 								<div class="bar">插入：<a href="">表情</a><a id='trDialog_img' class='link'>图片</a><a href="">视频</a>
 								    <div id='upimgpbox'>
                                     <img id="img" src='#' class='img160' /><br />
@@ -186,14 +195,16 @@
     <form action="${urlPrefix}/WeiboPicture"  id="formImg" name="formImg"  encType="multipart/form-data" method="post" onsubmit="return up()" target="hidden_frame" >
     <input type="file" name="file" id="file" accept="image/gif, image/jpeg" onchange="check()" style="width:450"></input>
     <div style='display:none;' id="imgWrong"></div>
-        <input type="submit" value="上传图片"></input>
+        <input type="submit" value="上传图片" onclick="check()"  ></input>
 		<p>Uploaded files:</p>
-        <ol class="files">
-        	<div class='upimgbox'>
-            <img id='upimg' src='css/images/portrain.jpg' class='img160' /><br />
-            </div>
-            <a id='imgRotateL' class='link mr10'>左转</a><a id='imgRotateR' class='link'>右转</a>
-        </ol>
+		<ol class='files hide' >
+		<div class='upimgbox'>
+		 <img id='upimg'  src='' />
+		 <br />
+		   </div>
+		     <a id='imgRotateL' class='link mr10'>左转</a>
+		     <a id='imgRotateR' class='link'>右转</a>
+		      </ol>
         <iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>
      </form>
     </div>
