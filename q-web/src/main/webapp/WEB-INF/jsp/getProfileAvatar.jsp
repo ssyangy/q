@@ -103,7 +103,7 @@
     function check(){
      var filepath=document.getElementById("file").value;
       filepath=filepath.substring(filepath.lastIndexOf('.')+1,filepath.length);
-       if(filepath != 'jpg' && filepath != 'gif'&& filepath != 'png'&& filepath != 'jpeg'){
+       if(filepath != 'jpg' && filepath != 'gif'&& filepath != 'png'&& filepath != 'jpeg'&& filepath != 'JPEG'&& filepath != 'JPG'&& filepath != 'GIF'){
            $("#imgwrong").css("display","block");
            $("#imgwrong").html("这不是一个图片文件!");
            document.getElementById("file").value="";

@@ -60,11 +60,11 @@ public class AddAvatar extends Resource {
 				String fileName = fileItem.getName();
 				String typeString = fileName.substring(fileName.lastIndexOf(".") + 1);
 				String type = "";
-				if (typeString.equals("jpg") || typeString.equals("jpeg")) {
+				if (typeString.equals("jpg") || typeString.equals("jpeg")|| typeString.equals("JPEG")|| typeString.equals("JPG")) {
 					type = "image/jpeg";
-				} else if (typeString.equals("png")) {
+				} else if (typeString.equals("png")|| typeString.equals("PNG")) {
 					type = "image/png";
-				} else if (typeString.equals("gif")) {
+				} else if (typeString.equals("gif")|| typeString.equals("GIF")) {
 					type = "image/gif";
 				} else {
 					context.setModel("isImg", false);
