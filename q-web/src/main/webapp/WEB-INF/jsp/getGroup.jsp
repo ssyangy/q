@@ -18,7 +18,7 @@
 			background: url(css/images/button.png) 0 56px;
 			color: #95A226;
 		}
-		#upimgpbox{display:none;margin-top:10px;padding-left:20px;}
+		#upimgpbox{margin-top:10px;padding-left:20px;}
       </style>
       	<script type="text/javascript" src="${staticUrlPrefix}/js/jQueryRotate.2.1.js"></script>
       	<script type="text/javascript">
@@ -43,8 +43,7 @@
 	                $("#upimgfix").attr("value",upimgfix);
 	                setImg();
 	                $('#trDialog_img').unbind();
-	                $(this).dialog("close");
-	                $('#upimgpbox').show();
+	                $('#upimgpbox').removeClass('hide');
 	                $('#upimgpbox img').rotate(upimgfix);
                    }
 					 $(this).dialog("close");
@@ -58,12 +57,12 @@
 	            dia_img.dialog("open");
 	        });
 	        $('#upimgdel').click(function () {
-	        	 $("#trDialog_img").click(function () {
+
+	            $('#upimgpbox').addClass('hide');
+
+	            	        	 $("#trDialog_img").click(function () {
 	            dia_img.dialog("open");
 	              });
-	            imgPath="";
-	            $('#upimgpbox').empty();
-	            $(this).remove();
 
 	        });
 	        $('#imgRotateR', dia_img).click(function () {
@@ -163,7 +162,7 @@
 							<div class="tweet-button-container">
 								<div class="submit"><button class="button" onclick="send()" >发表</button></div>
 								<div class="bar">插入：<a href="">表情</a><a id='trDialog_img' class='link'>图片</a><a href="">视频</a>
-								    <div id='upimgpbox'>
+								    <div id='upimgpbox' class='hide'>
                                     <img id="img" src='#' class='img160' /><br />
                                     <a id='upimgdel' class="link">删除</a>
                                     </div>
