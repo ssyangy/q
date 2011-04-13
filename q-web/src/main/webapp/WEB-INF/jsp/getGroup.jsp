@@ -18,7 +18,7 @@
 			background: url(css/images/button.png) 0 56px;
 			color: #95A226;
 		}
-		#upimgpbox{display:none;margin-top:10px;padding-left:20px;}
+		#upimgpbox{margin-top:10px;padding-left:20px;}
       </style>
       	<script type="text/javascript" src="${staticUrlPrefix}/js/jQueryRotate.2.1.js"></script>
       	<script type="text/javascript">
@@ -29,7 +29,16 @@
 	    var imgPath;
 	    var hasPicture=false;
 	    $(function () {
-
+			$('#btnSubTweet').click(function(){
+		 		$("#trDialog_img").bind('click',bindImgDia);
+		        if(!isImg){
+		        imgPath=null;
+		        $("#picPath").attr("value",imgPath);
+		        $("#upimgfix").attr("value",upimgfix);
+		        upimgfix = 0;
+		        }
+		         isImg=false;
+			});
 	        var dia_img = $("#dia_img");
 	        dia_img.dialog({
 	            resizable: false,
@@ -43,28 +52,49 @@
 	                $("#upimgfix").attr("value",upimgfix);
 	                setImg();
 	                $('#trDialog_img').unbind();
-	                $(this).dialog("close");
-	                $('#upimgpbox').show();
+	                $('#upimgpbox').removeClass('hide');
 	                $('#upimgpbox img').rotate(upimgfix);
+	                $('#file').attr("value","");
+	                $('ol.files').addClass('hide');
+	                haspicture=false;
                    }
+                     $("#file").attr("value",'');
 					 $(this).dialog("close");
 	                },
 	                "取消": function () {
+     	            $('#upimgpbox').addClass('hide');
+	            $('#upimg', dia_img).attr('src','');
+				$('#upimgpbox>img').attr('src','');
+	            $("#trDialog_img").bind('click',bindImgDia);
+               isImg=false;
+               upimgfix = 0;
+               hasPicture=false;
+                imgPath=null;
+                 $("#file").attr("value",'');
+	           $("#picPath").attr("value",imgPath);
+	          $("#upimgfix").attr("value",upimgfix);
 	                    $(this).dialog("close");
 	                }
 	            }
 	        });
-	        $("#trDialog_img").click(function () {
-	            dia_img.dialog("open");
-	        });
-	        $('#upimgdel').click(function () {
-	        	 $("#trDialog_img").click(function () {
-	            dia_img.dialog("open");
-	              });
-	            imgPath="";
-	            $('#upimgpbox').empty();
-	            $(this).remove();
+	        var bindImgDia = function(){
+     	        dia_img.dialog("open");
+	            upimgfix = 0;
+	        }
+	        $("#trDialog_img").bind('click',bindImgDia);
 
+	        $('#upimgdel').click(function () {
+                $("#file").attr("value",'');
+	            $('#upimgpbox').addClass('hide');
+	            $('#upimg', dia_img).attr('src','');
+				$('#upimgpbox>img').attr('src','');
+	            $("#trDialog_img").bind('click',bindImgDia);
+               isImg=false;
+               upimgfix = 0;
+               hasPicture=false;
+                imgPath=null;
+	        $("#picPath").attr("value",imgPath);
+	        $("#upimgfix").attr("value",upimgfix);
 	        });
 	        $('#imgRotateR', dia_img).click(function () {
 	            $('#upimg', dia_img).rotate(upimgfix + 90);
@@ -120,6 +150,7 @@
       $("#upimg").attr("width",imageWidth);
       $("#upimg").attr("height",imageHeight);
       $("#upimg").attr("src",imgPath+"-320");
+	$('#upimg').rotate(upimgfix);
       hasPicture=true;
 	}
 	function wrong(s){
@@ -136,11 +167,6 @@
 
      }
       $("#img").attr("src",imgPath+"-160");
-	}
-	function send(){
-	 $("#trDialog_img").click(function () {
-	            dia_img.dialog("open");
-	        });
 	}
 	</script>
 </head>
@@ -161,9 +187,9 @@
 								<textarea name="content" class="twitter-anywhere-tweet-box-editor" style="width: 470px; height: 56px; "></textarea>
 							</div>
 							<div class="tweet-button-container">
-								<div class="submit"><button class="button" onclick="send()" >发表</button></div>
+								<div class="submit"><button id='btnSubTweet' class="button" >发表</button></div>
 								<div class="bar">插入：<a href="">表情</a><a id='trDialog_img' class='link'>图片</a><a href="">视频</a>
-								    <div id='upimgpbox'>
+								    <div id='upimgpbox' class='hide'>
                                     <img id="img" src='#' class='img160' /><br />
                                     <a id='upimgdel' class="link">删除</a>
                                     </div>
