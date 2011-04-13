@@ -45,8 +45,8 @@ public class GetGroupFeedFrame extends Resource {
 		long loginPeopleId = context.getCookiePeopleId();
 		People people = this.peopleDao.getPeopleById(loginPeopleId);
 		context.setModel("people", people);
+		context.setModel("allGroups", this.groupDao.getGroupsByPeopleId(loginPeopleId));
 		
-		context.setModel("allGroups", this.groupDao.getAllGroups());
 		List<Long> groupIds = this.groupDao.getGroupIdsByPeopleId(loginPeopleId);
 		if (CollectionKit.isNotEmpty(groupIds)) {
 			List<Group> groups = this.groupDao.getGroupsByIds(groupIds);
