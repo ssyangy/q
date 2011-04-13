@@ -189,7 +189,9 @@
         <input type="submit" value="上传图片"></input>
 		<p>Uploaded files:</p>
         <ol class="files">
+        	<div class='upimgbox'>
             <img id='upimg' src='css/images/portrain.jpg' class='img160' /><br />
+            </div>
             <a id='imgRotateL' class='link mr10'>左转</a><a id='imgRotateR' class='link'>右转</a>
         </ol>
         <iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>

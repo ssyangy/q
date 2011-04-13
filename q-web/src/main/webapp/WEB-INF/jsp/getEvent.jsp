@@ -33,7 +33,7 @@
 								</div> 
 							</div> 
 							<div class="content-body"> 
-								<table cellspacing="10"> 
+								<table cellspacing="10" class='qtb'> 
 									<tbody>
 										<tr> 
 											<th>圈子：</th> 
