@@ -40,8 +40,13 @@ public class GetSearchIndex extends Resource{
 	public void execute(ResourceContext context) throws Exception {
 		String search=context.getString("search");
 		List<? extends WeiboModel> weibos = null;
+		int size = context.getInt("size", 10);
+		long startId = context.getIdLong("startId");
+		if(startId!=0){
+			search=search+" "+"AND id:[* TO "+startId+"]";
+		}
 		if(search!=null&search!=""){
-	        List<Long>bs=searchService.searchWeibo(search);
+	        List<Long>bs=searchService.searchWeibo(search,size);
 	        if(bs!=null){
 	        if(bs.size()>0){
 	        weibos = weiboDao.getWeibosByIds(bs, true);

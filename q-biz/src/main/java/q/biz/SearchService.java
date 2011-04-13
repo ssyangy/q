@@ -19,4 +19,5 @@ public interface SearchService {
 	public void updateGroup(Group data) throws Exception;
 
 	public List<Long> searchGroup(String query) throws Exception;
+	public List<Long> searchWeibo(String query,int size) throws Exception;
 }

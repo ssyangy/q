@@ -134,7 +134,7 @@
 					   	success: function(json){
 					   		tweetex.empty().append(ich.tweetexp(json));
 			        		$('div.dashboardbb').hide();
-				            tweetex.css('left',set.left+10);
+				            tweetex.show().css('left',set.left+10);
 				            tweetex.animate({ left: 540+set.left }, 500, 'swing');
 					    }
 	                });
@@ -143,7 +143,9 @@
 	        });
 	        $('a.btnreturn').live('click',function(){
 	        	$('div.dashboardbb').show();
-	        	tweetex.animate({ left: set.left+10 }, 500, 'swing');
+	        	tweetex.animate({ left: set.left+10 }, 500, 'swing',function(){
+	        		tweetex.hide()
+	        	});
 	        });
 
 	        window.onresize = window.onload = function () {
@@ -163,7 +165,7 @@
 						    url: "${param['feedUrl']}?tab=${param['tab']}",
 						    type: 'GET',
 						    dataType: 'json',
-						    data: {size:8, startId:parseInt(item.last().attr('weiboId'))-1},
+						    data: {size:8, startId:parseInt(item.last().attr('weiboId'))-1,search:"${param['search']}"},
 						    timeout: 5000,
 						    error: function(msg){
 						    },
@@ -299,7 +301,7 @@
 		    	  $("#rep_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/reply');
 		    	  dia.dialog("open");
 		      });
-		      
+
 		      $('a.fav').live('click',function(){
 		    	  var tweet = $(this).closest('div.tweet');
 		    	  favFun(tweet.attr('weiboid'),this, 'weibo', 'fav');
@@ -324,7 +326,7 @@
 					        $(this.msg).removeClass(clas).addClass(clas+'un');
 					    }
 				  });
-		      }		      
+		      }
 		      $('a.favun').live('click',function(){
 		    	  var tweet = $(this).closest('div.tweet');
 		    	  favFunUn(tweet.attr('weiboid'),this,'weibo','fav');
