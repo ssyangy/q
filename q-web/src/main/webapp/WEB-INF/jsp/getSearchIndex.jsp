@@ -28,7 +28,7 @@
 					</div>
 				</div>
 					<div class="stream-manager">
-                    <div id="tabs" class="ui-tabs ui-widget">
+                    	<div id="tabs" class="ui-tabs ui-widget">
 						<jsp:include page="search-tag.jsp">
 							<jsp:param value="index" name="tab"/>
 						</jsp:include>

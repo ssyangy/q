@@ -134,7 +134,7 @@
 					   	success: function(json){
 					   		tweetex.empty().append(ich.tweetexp(json));
 			        		$('div.dashboardbb').hide();
-				            tweetex.css('left',set.left+10);
+				            tweetex.show().css('left',set.left+10);
 				            tweetex.animate({ left: 540+set.left }, 500, 'swing');
 					    }
 	                });
@@ -143,7 +143,9 @@
 	        });
 	        $('a.btnreturn').live('click',function(){
 	        	$('div.dashboardbb').show();
-	        	tweetex.animate({ left: set.left+10 }, 500, 'swing');
+	        	tweetex.animate({ left: set.left+10 }, 500, 'swing',function(){
+	        		tweetex.hide()
+	        	});
 	        });
 
 	        window.onresize = window.onload = function () {
