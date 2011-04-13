@@ -32,16 +32,7 @@
 						<jsp:include page="search-tag.jsp">
 							<jsp:param value="index" name="tab"/>
 						</jsp:include>
-							<div id="tabs-1" class="tab-canvas">
-								<div class="stream-items">
-
-										<div class="tweet-content">
-											<jsp:include page="weibo-list.jsp"/>
-
-										</div>
-
-								</div>
-							</div>
+							<jsp:include page="weibo-list.jsp"/>
 						</div>
 					</div>
 				</div>
