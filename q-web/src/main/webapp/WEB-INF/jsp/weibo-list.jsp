@@ -166,7 +166,7 @@
 					    url: '${urlPrefix}/weibo/' + twid,
 					    type: 'GET',
 					    dataType: 'json',
-					    data: {size:8, startId:99999999999999999,type:0},
+					    data: {size:8, startId:999999999999999999,type:0},
 					    timeout: 5000,
 					    msg:this,
 					   	success: function(json){
@@ -302,7 +302,7 @@
 									    url: '${urlPrefix}/weibo/' + twid,
 									    type: 'GET',
 									    dataType: 'json',
-									    data: {size:8, startId:9999999999999,type:0},
+									    data: {size:8, startId:999999999999999999,type:0},
 									   	success: function(json){
 									   		tweetex.empty().append(ich.tweetexp(json));
 							        		$('div.dashboardbb').hide();
