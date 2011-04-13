@@ -1,6 +1,7 @@
 ﻿@{ViewBag.Title = "圈子 - 首页";}
 <script type="text/javascript">
-    module.load('jquery', function ($) {
+    module.load('global', function (global) {
+        var $ = global.jq;
         $(function () {
             $('#inputmain').focus(function () {
                 $(this).css('height', '40');
@@ -9,6 +10,7 @@
 
             var selinp = $('#selinp>a.ui-selectmenu');
             selinp.width(selinp.width() + 18).append('<span class="ui-icon ui-icon-signal-diag"></span>');
+
         });
     });
 </script>
@@ -35,15 +37,15 @@
             </div>
         </div>
 
-        <div class="mt10">
-            <div class="ui-tabs">
-                <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
-                    <li class="ui-state-default crt2 ui-state-active"><a href="#">全部</a></li>
-                    <li class="ui-state-default crt2"><a href="#">来自圈子</a></li>
-                    <li class="ui-state-default crt2"><a href="#">来自好友</a></li>
-                </ul>
-            </div>
+        <div class="ui-tabs mt10">
+            <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
+                <li class="ui-state-default crt2 ui-state-active"><a href="#">全部</a></li>
+                <li class="ui-state-default crt2"><a href="#">来自圈子</a></li>
+                <li class="ui-state-default crt2"><a href="#">来自好友</a></li>
+            </ul>
         </div>
+
+
     </div></div>
     <div class="col-sub">
         <div class="profile">
@@ -80,5 +82,57 @@
         </ul>
         </div>
 
+        <div class="component">
+        <h3>最新活动<span class='separator'> · · · · · ·</span><a class='lk'>更多 >></a></h3>
+        
+        </div>
+
+        <div class="component">
+        <h3>可能感兴趣的人<span class='separator'> · · · · · ·</span><a class='lk'>更多 >></a></h3>
+        
+        </div>
+
+        <div class="component">
+        <h3>热图<span class='separator'> · · · · · ·</span><a class='lk'>更多 >></a></h3>
+            <ul class="slist">
+                <li>
+                        <a href="#"><img class="img120" src="/usersimg/1.png" alt="img" /></a>
+                    <div class="gray">
+                        GEEK POWER
+                    </div>
+                </li>
+                <li class="">
+                        <a href="#"><img class="img120" src="/usersimg/sago.jpg" alt="img" /></a>
+                    <div class="gray">
+                        公司秘书丝袜第二季。。
+                    </div>
+                </li>
+
+                <li class="end">
+                        <a href="#"><img class="img120" src="/usersimg/7.png" alt="img" /></a>
+                    <div class="gray">
+                        各种萝莉。。有木有！！～
+                    </div>
+                </li>
+                <li class="">
+                        <a href="#"><img class="img120" src="/usersimg/sago.jpg" alt="img" /></a>
+                    <div class="gray">
+                        公司秘书丝袜第二季。。
+                    </div>
+                </li>
+                <li>
+                        <a href="#"><img class="img120" src="/usersimg/4.png" alt="img" /></a>
+                    <div class="gray">
+                        波多野结衣的纪念
+                    </div>
+                </li>
+                <li class='end'>
+                        <a href="#"><img class="img120" src="/usersimg/1.png" alt="img" /></a>
+                    <div class="gray">
+                        波多野结衣的纪念
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>

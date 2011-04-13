@@ -11,10 +11,6 @@ module.declare(function (require, exports, module) {
             }).blur(function () {
                 $('#search_btn').removeClass('typing');
             });
-            $('#inputmain').focus(function () {
-                $(this).css('height', '40');
-                $('#inputbtm').removeClass('hide');
-            });
 
             // UI Helper
             require('jq.repurl');
@@ -23,9 +19,9 @@ module.declare(function (require, exports, module) {
             require('jq.pngFix');
             $(".png").pngFix();
 
-            require('jq.limitchar');
-            $("[limit_a]").limitChar({ numobj: "limit_a", all: true });
-            $("[limit]").limitChar({ numobj: "limit", fx: true });
+            //require('jq.limitchar');
+            //$("[limit_a]").limitChar({ numobj: "limit_a", all: true });
+            //$("[limit]").limitChar({ numobj: "limit", fx: true });
 
             if ($.browser.msie && $.browser.version <= 7.0) {
                 require('jq.limitimg');

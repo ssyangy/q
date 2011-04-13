@@ -29,7 +29,7 @@ small { font-size: 12px; }
 /* Commen ---------------------------------------------------------------------------------------- */
 h1{color:#494949;display:block;font-size:24px;font-weight:700;line-height:1.1em;padding:0 0 12px;position:relative;}
 h2{color:#88A825;display:block;font-size:20px;position:relative;padding:0 0 6px;}
-h3{font-size:14px;color:#FF0065;position:relative;display:block;padding:3px 0 4px 0;}
+h3{font-size:14px;color:#FF0065;position:relative;display:block;padding:0 0 10px 0;}
 h3 span.separator{font-weight: bold;}
 h3 a{font-size:12px;float:right;}
 h4{color:#2B2A25;position:relative;display:block;padding:3px 0 4px 0;}
@@ -57,7 +57,7 @@ h6{color:#88A825;font-size:16px;position:relative;margin:0;padding:0;}
 .imga{padding:3px;border:1px solid #DDDDDD;cursor:pointer;background-color:#F2F3F8}
 .img48{max-width:48px;max-height:48px}
 .img100{max-width:100px;max-height:100px}
-.img130{max-width:130px;max-height:130px}
+.img120{max-width:120px;max-height:120px}
 .img160{max-width:160px;max-height:160px}
 .img230{max-width:230px;max-height:230px}
 .img320{max-width:320px;max-height:320px}
@@ -255,7 +255,8 @@ ul.ui-tabs-nav{border-bottom:1px solid #ddd;}
 ul.ui-tabs-nav a{font-size:13px;font-weight:normal;}
 ul.ui-tabs-nav li.ui-state-active{padding:0 0 1px 0;margin-bottom: 0;}
 
-.component{margin:10px 0;}
-ul.complist {margin:5px 0;}
-ul.complist li {display:inline;margin:0 2px;height:22px;line-height:22px;}
+.component{margin:20px 0;}
+ul.complist li {display:inline;margin:0 3px;height:22px;line-height:22px;}
 ul.complist li.separator {font-weight: bold;margin: 0;color: #C5C5C5;}
+
+.slist li{display:inline-block;width:120px;margin:0 11px 11px 0;vertical-align:top;zoom:1;*display:inline;}.slist li.end{margin-right:0;}

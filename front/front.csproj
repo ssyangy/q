@@ -219,6 +219,7 @@
     <Content Include="content\smoothness\jquery-ui-1.8.10.custom.css" />
     <Content Include="Global.asax" />
     <Content Include="scripts\ajaxupload.js" />
+    <Content Include="scripts\backbone.js" />
     <Content Include="scripts\global.js" />
     <Content Include="scripts\ICanHaz.js" />
     <Content Include="scripts\jq.bgiframe.js" />
@@ -281,6 +282,26 @@
     <Content Include="scripts\underscore.js" />
     <Content Include="scripts\jq.mttext.js" />
     <Content Include="scripts\jq.ui.help.js" />
+    <Content Include="scripts\weibo.js" />
+    <Content Include="usersimg\1.png" />
+    <Content Include="usersimg\2.png" />
+    <Content Include="usersimg\3.png" />
+    <Content Include="usersimg\4.png" />
+    <Content Include="usersimg\5.png" />
+    <Content Include="usersimg\6.png" />
+    <Content Include="usersimg\7.png" />
+    <Content Include="usersimg\av.png" />
+    <Content Include="usersimg\avatar0.png" />
+    <Content Include="usersimg\avatar1.png" />
+    <Content Include="usersimg\avatar2.jpg" />
+    <Content Include="usersimg\avatar3.jpg" />
+    <Content Include="usersimg\avatar4.jpeg" />
+    <Content Include="usersimg\avatar5.jpeg" />
+    <Content Include="usersimg\beauty.png" />
+    <Content Include="usersimg\beauty2.jpg" />
+    <Content Include="usersimg\clock.png" />
+    <Content Include="usersimg\portrain.jpg" />
+    <Content Include="usersimg\sago.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -329,7 +350,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>53258</DevelopmentServerPort>
+          <DevelopmentServerPort>9825</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
