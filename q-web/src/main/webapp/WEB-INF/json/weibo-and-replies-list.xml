@@ -3,6 +3,8 @@
 	xsi:schemaLocation="http://serialize.q.com.cn http://www.q.net/xsd/q-serialize.xsd">
 	<type>
 		<struct>
+			<member name="hasPrev" apiName="hasPrev" apiType="boolean" />
+			<member name="hasNext" apiName="hasNext" apiType="boolean" />
 			<member name="weibo" apiName="weibo">
 				<type>
 					<struct>
@@ -28,7 +30,8 @@
 									<member name="id" apiName="id" apiType="string" />
 									<member name="time" apiName="screenTime" apiType="string" />
 									<member name="content" apiName="text" apiType="string" />
-									<member name="picturePath" apiName="picturePath" apiType="string" />
+									<member name="picturePath" apiName="picturePath"
+										apiType="string" />
 									<member name="fav" apiName="favorited" apiType="boolean" />
 									<member name="fromName" apiName="fromName" apiType="string" />
 									<member name="fromUrl" apiName="fromUrl" apiType="string" />
