@@ -158,6 +158,8 @@
 			tweetex.css('left',set.left+10);
 	        $('div.tweet').live('click',function (e) {
 	        	if($(e.target).get(0).tagName != 'A'){
+	        		$('div.tweet').removeClass('tweet_act');
+	        		$(this).addClass('tweet_act');
 	        		var twid = $(this).attr('weiboid');
 
 	        		$.ajax({
