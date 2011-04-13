@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <c:if test="${null != param['feedUrl']}">
 	<script id="tweet" type="text/html">
     <div class="stream-item tweet waitSlideDown" weiboId="{{id}}">
@@ -110,24 +111,21 @@
                         <div class="mt10 twtxtr">{{text}}</div>
                     </div>
 					{{/replies}}
-					<button id='rrepprev' class='button mr10 hide'>上一页</button>
-					<button id='rrepnext' class='button'>下一页</button>
+					{{#hasPrev}}<button id='rrepprev' class='button mr10 hide'>上一页</button>{{/hasPrev}}
+					{{#hasNext}}<button id='rrepnext' class='button'>下一页</button>{{/hasNext}}
 
 	</script>
 	<script type="text/javascript">
-
 	var ajlock = true;
 		$(function () {
+			
 			$('#rrepnext').live('click',function(){
         		$.ajax({
 				    url: '${urlPrefix}/weibo/' + $('#twrep').attr('weiboid'),
 				    type: 'GET',
 				    dataType: 'json',
-				    data: {size:9, startId:$('div.tweet_rep:last').attr('replyid'), type:0},
+				    data: {size:8, startId:parseInt($('div.tweet_rep:last').attr('replyid'))-1, type:0},
 				   	success: function(json){
-				   		if(json.replies.length<9) {$('#rrepnext').hide();}
-				   		var mm = json.replies.slice(0,json.replies.length-1);
-				   		json.replies = mm;
 				   		tweetex.empty().append(ich.tweetexp(json));
 		        		$('div.dashboardbb').hide();
 			            tweetex.show().css('left',set.left+10);
@@ -140,11 +138,8 @@
 				    url: '${urlPrefix}/weibo/' + $('#twrep').attr('weiboid'),
 				    type: 'GET',
 				    dataType: 'json',
-				    data: {size:9, startId:$('div.tweet_rep:first').attr('replyid'), type:1},
+				    data: {size:8, startId:parseInt($('div.tweet_rep:first').attr('replyid'))+1, type:1},
 				   	success: function(json){
-				   		if(json.replies.length<9) {$('#rrepprev').hide();}
-				   		var mm = json.replies.slice(0,json.replies.length-1);
-				   		json.replies = mm;
 				   		tweetex.empty().append(ich.tweetexp(json));
 		        		$('div.dashboardbb').hide();
 			            tweetex.show().css('left',set.left+10);
@@ -166,7 +161,7 @@
 					    url: '${urlPrefix}/weibo/' + twid,
 					    type: 'GET',
 					    dataType: 'json',
-					    data: {size:8, startId:999999999999999999,type:0},
+					    data: {size:8, startId:"999999999999999999",type:0},
 					    timeout: 5000,
 					    msg:this,
 					   	success: function(json){
@@ -302,7 +297,7 @@
 									    url: '${urlPrefix}/weibo/' + twid,
 									    type: 'GET',
 									    dataType: 'json',
-									    data: {size:8, startId:999999999999999999,type:0},
+									    data: {size:8, startId:"999999999999999999",type:0},
 									   	success: function(json){
 									   		tweetex.empty().append(ich.tweetexp(json));
 							        		$('div.dashboardbb').hide();

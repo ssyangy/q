@@ -106,7 +106,7 @@ public class GetWeibo extends Resource {
 			}
 			if (type == asc) { // this action from next page
 				hasNext = true;
-			} else {// this action from previous page
+			} else if(startId != 999999999999999999L){// this action from previous page
 				hasPrev = true;
 			}
 			if (type == asc) { // reverse asc to desc
