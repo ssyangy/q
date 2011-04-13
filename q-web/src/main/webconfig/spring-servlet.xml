@@ -202,7 +202,10 @@
 	<bean id="searchService" class="q.biz.impl.SolrSearchService">
 		<property name="searchUrl" value="${q.search.url}" />
 	</bean>
-
+   <bean id="uploadPictureService" class="q.biz.impl.PictureService">
+	    <property name="imageUrl" value="${q.image.url}" />
+		<property name="imageUploadUrl" value="${q.image.upload.url}" />
+	</bean>
 	<!-- global web -->
 	<bean id="default" class="q.web.GetHomePage">
 		<property name="categoryDao" ref="categoryDao" />
@@ -377,7 +380,7 @@
 		<property name="searchService" ref="searchService"></property>
 		<property name="putShortUrl" value="${q.short.upload.url}"/>
 		<property name="getShortUrl" value="${q.short.url}"/>
-		<property name="imageUploadUrl" value="${q.image.upload.url}" />
+		<property name="uploadPictureService" ref="uploadPictureService"></property>
 	</bean>
 		<bean id="addWeiboPicture" class="q.web.weibo.AddWeiboPicture">
 		<property name="imageUrl" value="${q.image.url}" />
