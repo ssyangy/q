@@ -201,12 +201,9 @@
 							    type: 'POST',
 							    dataType: 'json',
 							    data: {content:$("textarea[name='content']",dia).val()},
-							    timeout: 5000,
-							    msg:this,
 							   	success: function(m){
-							   		$(this.msg).dialog("close");
-							   		$('img.ajaxload', this.msg).hide();
-								   	//...
+							   		dia.dialog("close");
+							   		$('img.ajaxload', dia).hide();
 							    }
 	                	  });
 	                  },
@@ -259,12 +256,22 @@
 							    type: 'POST',
 							    dataType: 'json',
 							    data: {content:$("textarea[name='content']",dia).val()},
-							    timeout: 5000,
-							    msg:this,
 							   	success: function(m){
-							   		$(this.msg).dialog("close");
-							   		$('img.ajaxload', this.msg).hide();
-								   	//...
+							   		dia.dialog("close");
+							   		$('img.ajaxload', dia).hide();
+					        		var twid = $("#rep_wid",dia).val();
+					        		$.ajax({
+									    url: '${urlPrefix}/weibo/' + twid,
+									    type: 'GET',
+									    dataType: 'json',
+									    data: {size:8, startId:99999999999999999},
+									   	success: function(json){
+									   		tweetex.empty().append(ich.tweetexp(json));
+							        		$('div.dashboardbb').hide();
+								            tweetex.show().css('left',set.left+10);
+								            tweetex.animate({ left: 540+set.left }, 500, 'swing');
+									    }
+					                });
 							    }
 	                	  });
 	                  },
@@ -281,6 +288,7 @@
 		    	  $('div.wpeople',dia).empty().html(rows.eq(0).html());
 		    	  $("textarea[name='content']",dia).val('');
 		    	  $("#rep_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/reply');
+		    	  $("#rep_wid",dia).val(tweet.attr('weiboid'));
 		    	  dia.dialog("open");
 		      });
 		      $("a.btn_rrep").live('click',function () {
@@ -290,6 +298,7 @@
 		    	  $('div.wpeople',dia).empty().html($('a.peop',tweet).html());
 		    	  $("textarea[name='content']",dia).val('');
 		    	  $("#rep_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/reply?replyId=' + tweet.attr('replyid'));
+		    	  $("#rep_wid",dia).val(tweet.attr('weiboid'));
 		    	  dia.dialog("open");
 		      });
 		      $("a.btn_hrep").live('click',function () {
@@ -299,6 +308,7 @@
 		    	  $('div.wpeople',dia).empty().html($('h4',tweet).html());
 		    	  $("textarea[name='content']",dia).val('');
 		    	  $("#rep_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/reply');
+		    	  $("#rep_wid",dia).val(tweet.attr('weiboid'));
 		    	  dia.dialog("open");
 		      });
 		      
@@ -427,6 +437,7 @@
 		<div class="wcontent mb10"></div>
 		<div class="wpeople mb10"></div>
 		<input id='rep_url' type='hidden'></input>
+		<input id='rep_wid' type='hidden'></input>
 		<textarea name="content" rows="5" cols="50"></textarea>
 		<img src="${staticUrlPrefix}/style/images/ajaxload.gif" class="ajaxload" alt="ajaxload" />
     </div>
