@@ -110,25 +110,63 @@
                         <div class="mt10 twtxtr">{{text}}</div>
                     </div>
 					{{/replies}}
+					<button id='rrepprev' class='button mr10 hide'>上一页</button>
+					<button id='rrepnext' class='button'>下一页</button>
 
 	</script>
 	<script type="text/javascript">
 
 	var ajlock = true;
 		$(function () {
-
+			$('#rrepnext').live('click',function(){
+        		$.ajax({
+				    url: '${urlPrefix}/weibo/' + $('#twrep').attr('weiboid'),
+				    type: 'GET',
+				    dataType: 'json',
+				    data: {size:9, startId:$('div.tweet_rep:last').attr('replyid'), type:0},
+				   	success: function(json){
+				   		if(json.replies.length<9) {$('#rrepnext').hide();}
+				   		var mm = json.replies.slice(0,json.replies.length-1);
+				   		json.replies = mm;
+				   		tweetex.empty().append(ich.tweetexp(json));
+		        		$('div.dashboardbb').hide();
+			            tweetex.show().css('left',set.left+10);
+			            tweetex.animate({ left: 540+set.left }, 500, 'swing');
+				    }
+                });
+			});
+			$('#rrepprev').live('click',function(){
+        		$.ajax({
+				    url: '${urlPrefix}/weibo/' + $('#twrep').attr('weiboid'),
+				    type: 'GET',
+				    dataType: 'json',
+				    data: {size:9, startId:$('div.tweet_rep:first').attr('replyid'), type:1},
+				   	success: function(json){
+				   		if(json.replies.length<9) {$('#rrepprev').hide();}
+				   		var mm = json.replies.slice(0,json.replies.length-1);
+				   		json.replies = mm;
+				   		tweetex.empty().append(ich.tweetexp(json));
+		        		$('div.dashboardbb').hide();
+			            tweetex.show().css('left',set.left+10);
+			            tweetex.animate({ left: 540+set.left }, 500, 'swing');
+				    }
+                });
+			});
+			
 			var tweetex = $('div.tweetexpand');
 			var set = $('#page-container').offset();
 			tweetex.css('left',set.left+10);
 	        $('div.tweet').live('click',function (e) {
 	        	if($(e.target).get(0).tagName != 'A'){
+	        		$('div.tweet').removeClass('tweet_act');
+	        		$(this).addClass('tweet_act');
 	        		var twid = $(this).attr('weiboid');
 
 	        		$.ajax({
 					    url: '${urlPrefix}/weibo/' + twid,
 					    type: 'GET',
 					    dataType: 'json',
-					    data: {size:8, startId:99999999999999999},
+					    data: {size:8, startId:99999999999999999,type:0},
 					    timeout: 5000,
 					    msg:this,
 					   	success: function(json){
@@ -201,12 +239,9 @@
 							    type: 'POST',
 							    dataType: 'json',
 							    data: {content:$("textarea[name='content']",dia).val()},
-							    timeout: 5000,
-							    msg:this,
 							   	success: function(m){
-							   		$(this.msg).dialog("close");
-							   		$('img.ajaxload', this.msg).hide();
-								   	//...
+							   		dia.dialog("close");
+							   		$('img.ajaxload', dia).hide();
 							    }
 	                	  });
 	                  },
@@ -259,12 +294,22 @@
 							    type: 'POST',
 							    dataType: 'json',
 							    data: {content:$("textarea[name='content']",dia).val()},
-							    timeout: 5000,
-							    msg:this,
 							   	success: function(m){
-							   		$(this.msg).dialog("close");
-							   		$('img.ajaxload', this.msg).hide();
-								   	//...
+							   		dia.dialog("close");
+							   		$('img.ajaxload', dia).hide();
+					        		var twid = $("#rep_wid",dia).val();
+					        		$.ajax({
+									    url: '${urlPrefix}/weibo/' + twid,
+									    type: 'GET',
+									    dataType: 'json',
+									    data: {size:8, startId:9999999999999,type:0},
+									   	success: function(json){
+									   		tweetex.empty().append(ich.tweetexp(json));
+							        		$('div.dashboardbb').hide();
+								            tweetex.show().css('left',set.left+10);
+								            tweetex.animate({ left: 540+set.left }, 500, 'swing');
+									    }
+					                });
 							    }
 	                	  });
 	                  },
@@ -281,6 +326,7 @@
 		    	  $('div.wpeople',dia).empty().html(rows.eq(0).html());
 		    	  $("textarea[name='content']",dia).val('');
 		    	  $("#rep_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/reply');
+		    	  $("#rep_wid",dia).val(tweet.attr('weiboid'));
 		    	  dia.dialog("open");
 		      });
 		      $("a.btn_rrep").live('click',function () {
@@ -290,6 +336,7 @@
 		    	  $('div.wpeople',dia).empty().html($('a.peop',tweet).html());
 		    	  $("textarea[name='content']",dia).val('');
 		    	  $("#rep_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/reply?replyId=' + tweet.attr('replyid'));
+		    	  $("#rep_wid",dia).val(tweet.attr('weiboid'));
 		    	  dia.dialog("open");
 		      });
 		      $("a.btn_hrep").live('click',function () {
@@ -299,6 +346,7 @@
 		    	  $('div.wpeople',dia).empty().html($('h4',tweet).html());
 		    	  $("textarea[name='content']",dia).val('');
 		    	  $("#rep_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/reply');
+		    	  $("#rep_wid",dia).val(tweet.attr('weiboid'));
 		    	  dia.dialog("open");
 		      });
 
@@ -427,6 +475,7 @@
 		<div class="wcontent mb10"></div>
 		<div class="wpeople mb10"></div>
 		<input id='rep_url' type='hidden'></input>
+		<input id='rep_wid' type='hidden'></input>
 		<textarea name="content" rows="5" cols="50"></textarea>
 		<img src="${staticUrlPrefix}/style/images/ajaxload.gif" class="ajaxload" alt="ajaxload" />
     </div>
