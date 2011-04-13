@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import q.biz.PictureService;
 import q.http.JdkHttpClient;
@@ -106,6 +108,52 @@ public class ImgService implements PictureService {
             return sb;
         }
 
+	}
+
+	@Override
+	public String uploadAvatar(InputStream picture, long peopleId,long size,String type) throws Exception {
+		    long dir = peopleId % 10000;
+			URL temp = new URL(this.imageUploadUrl);
+			HttpURLConnection con = JdkHttpClient.getHttpConnection(temp, 100000, 100000);
+			String sb;
+			try {
+				Map<String, CharSequence> payload = new HashMap();
+				payload.put("imgdir", "a/" + String.valueOf(dir) + "/");
+				sb = JdkHttpClient.postMultipart(con, payload, picture, String.valueOf(peopleId), size, type);
+			} finally {
+				JdkHttpClient.releaseUrlConnection(con);
+			}
+           return sb;
+	}
+
+	@Override
+	public boolean editAvatar(double x1, double x2, double y1, double y2, long peopleId) throws Exception {
+		long dir = peopleId % 10000;
+		URL temp = new URL(imageUrl + "/a/" + String.valueOf(dir) + "/" + String.valueOf(peopleId));
+		HttpURLConnection con = JdkHttpClient.getHttpConnection(temp, 100000, 100000);
+		InputStream imagetemp;
+		BufferedImage cutImage;
+		try {
+			imagetemp = JdkHttpClient.getMultipart(con);
+			BufferedImage originImage = ImageKit.load(imagetemp);
+			cutImage = ImageKit.cutTo(originImage, x1, y1, x2, y2);
+		} finally {
+			JdkHttpClient.releaseUrlConnection(con);
+		}
+
+		BufferedImage image128 = ImageKit.zoomTo(cutImage, 128, 128);
+		BufferedImage image48 = ImageKit.zoomTo(cutImage, 48, 48);
+		BufferedImage image24 = ImageKit.zoomTo(cutImage, 24, 24);
+		BufferedImage[] images = new BufferedImage[3];
+		images[0] = image128;
+		images[1] = image48;
+		images[2] = image24;
+		URL url = new URL(this.imageUploadUrl);
+
+		boolean sb;
+
+		sb = JdkHttpClient.postPictures(url, peopleId, images);
+		return sb;
 	}
 
 }
