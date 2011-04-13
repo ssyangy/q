@@ -5,11 +5,6 @@
 <head>
 	<jsp:include page="head.jsp" />
 	<title>搜索</title>
-	<script type="text/javascript">
-		$(function(){
-			$( "#radio" ).buttonset();
-		});
-	</script>
 </head>
   <body>
 	<div id="body">
@@ -44,7 +39,7 @@
 					</div>
 				</div>
 				<div class="tweetexpand expand"></div>
-				<div class="dashboard" style="display:block;"></div>
+				<div class="dashboardbb"></div>
 				<br clear='all'/>
 			</div>
 		</div>
