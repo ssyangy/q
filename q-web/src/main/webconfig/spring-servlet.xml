@@ -480,10 +480,12 @@
 	<bean id="addAvatarEdit" class="q.web.people.AddAvatarEdit">
 		<property name="imageUrl" value="${q.image.url}" />
 		<property name="imageUploadUrl" value="${q.image.upload.url}" />
+		<property name="pictureService" ref="pictureService"></property>
 	</bean>
 	<bean id="addAvatar" class="q.web.people.AddAvatar">
 		<property name="imageUrl" value="${q.image.url}" />
 		<property name="imageUploadUrl" value="${q.image.upload.url}" />
+		<property name="pictureService" ref="pictureService"></property>
 	</bean>
 	<bean id="getProfileInterest" class="q.web.people.GetProfileInterest">
 		<property name="peopleDao" ref="peopleDao" />

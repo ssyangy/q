@@ -14,6 +14,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import q.biz.PictureService;
 import q.http.JdkHttpClient;
 import q.util.ImageKit;
 import q.web.DefaultResourceContext;
@@ -32,7 +33,11 @@ public class AddAvatar extends Resource {
 	public void setImageUploadUrl(String imageUploadUrl) {
 		this.imageUploadUrl = imageUploadUrl;
 	}
+	private PictureService pictureService;
 
+	public void setPictureService(PictureService pictureService) {
+		this.pictureService = pictureService;
+	}
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		HttpServletRequest request = ((DefaultResourceContext) context).getRequest();
@@ -66,16 +71,8 @@ public class AddAvatar extends Resource {
 				}
 				if (ImageKit.isImage(fileItem.getInputStream())) {
 					context.setModel("isImg", true);
-					URL temp = new URL(this.imageUploadUrl);
-					HttpURLConnection con = JdkHttpClient.getHttpConnection(temp, 100000, 100000);
-					String sb;
-					try {
-						Map<String, CharSequence> payload = new HashMap();
-						payload.put("imgdir", "a/" + String.valueOf(dir) + "/");
-						sb = JdkHttpClient.postMultipart(con, payload, fileItem.getInputStream(), String.valueOf(peopleId), fileItem.getSize(), type);
-					} finally {
-						JdkHttpClient.releaseUrlConnection(con);
-					}
+					long size=fileItem.getSize();
+					String sb=pictureService.uploadAvatar(fileItem.getInputStream(), peopleId, size, type);
 					String[] data = sb.split(";");
 					String place = data[1].substring(data[1].indexOf(":") + 1);
 					context.setModel("imgHeight", ImageKit.load(fileItem.getInputStream()).getHeight());
