@@ -1,6 +1,84 @@
 ﻿@{ViewBag.Title = "圈子 - 首页";}
+<script type="text/javascript">
+    module.load('jquery', function ($) {
+        $(function () {
+            $('#inputmain').focus(function () {
+                $(this).css('height', '40');
+                $('#inputbtm').removeClass('height0');
+            });
 
-<h2>@ViewBag.Message</h2>
-<p class='tw_txt'>
-    To learn more about q.com.cn visit http://qshort.net/123sdf.
-</p>
+            var selinp = $('#selinp>a.ui-selectmenu');
+            selinp.width(selinp.width() + 18).append('<span class="ui-icon ui-icon-signal-diag"></span>');
+        });
+    });
+</script>
+<div class="layout grid-m0s10">
+    <div class="col-main"><div class="main-wrap pr10">
+        <div class="inputbx">
+            <textarea id="inputmain" class="mttextar_val">说点什么 . . .</textarea>
+            <div id="inputbtm" class="rel mt5 clear height0">
+                <div class="tal">
+                    插入：<a class="lk mr10">点名(&#64某人)</a> <a class="lk mr10">表情</a> <a class="lk mr10">图片</a>
+                    <a class="lk">视频</a>
+                </div>
+                <div id='selinp'>
+                    <select class="speedD">
+                        <option value="value">发到圈子？</option>
+                        <option value="value">scfasfcwe</option>
+                        <option value="value">rf43effdf</option>
+                        <option value="value">a司法第三方</option>
+                        <option value="value">所得份额为</option>
+                        <option value="value">预计一体</option>
+                    </select>
+                </div>
+                <input id="inputbtn" type="button" name="name" value="发表" class="btn btninp" />
+            </div>
+        </div>
+
+        <div class="mt10">
+            <div class="ui-tabs">
+                <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
+                    <li class="ui-state-default crt2 ui-state-active"><a href="#">全部</a></li>
+                    <li class="ui-state-default crt2"><a href="#">来自圈子</a></li>
+                    <li class="ui-state-default crt2"><a href="#">来自好友</a></li>
+                </ul>
+            </div>
+        </div>
+    </div></div>
+    <div class="col-sub">
+        <div class="profile">
+            <img src="/usersimg/avatar2.jpg" alt="portrait" class="FL mr10" />
+            <div class='proline'>
+                <a href="#" class="lk">彪马拖鞋 &#64seanlinwang</a><br />
+                <span class="mr10">上海, 长宁区</span><span>2011-05-23加入</span><br />
+                <span class="gray">我的存在就是无法避免的伤害</span><br />
+            </div>
+        </div>
+
+        <div class="component">
+        <h3>我的圈子<span class='separator'> · · · · · ·</span><a class='lk'>圈子目录 >></a></h3>
+        <ul class="complist">
+            <li><a href="#" class='lk'>Art &amp; Design</a></li><li class="separator">·</li>
+            <li><a href="#" class='lk'>Books</a></li><li class="separator">·</li>
+            <li><a href="#" class='lk'>Business</a></li><li class="separator">·</li>
+            <li><a href="#" class='lk'>Charity</a></li><li class="separator">·</li>
+            <li><a href="#" class='lk'>Deals</a></li><li class="separator">·</li>
+            <li><a href="#" class='lk'>Entertainment</a></li><li class="separator">·</li>
+            <li><a href="#" class='lk'>Family</a></li><li class="separator">·</li>
+            <li><a href="#" class='lk'>Fashion</a></li><li class="separator">·</li>
+            <li><a href="#" class='lk'>Food &amp; Drink</a></li><li class="separator">·</li>
+            <li><a href="#" class='lk'>Funny</a></li><li class="separator">·</li>
+            <li><a href="#" class='lk'>Health</a></li><li class="separator">·</li>
+            <li><a href="#" class='lk'>Fashion</a></li><li class="separator">·</li>
+            <li><a href="#" class='lk'>Health</a></li><li class="separator">·</li>
+            <li><a href="#" class='lk'>Charity</a></li><li class="separator">·</li>
+            <li><a href="#" class='lk'>Books</a></li><li class="separator">·</li>
+            <li><a href="#" class='lk'>Health</a></li><li class="separator">·</li>
+            <li><a href="#" class='lk'>Music</a></li><li class="separator">·</li>
+            <li><a href="#" class='lk'>News</a></li><li class="separator">·</li>
+            <li><a href="#" class='lk'>Charity</a></li>
+        </ul>
+        </div>
+
+    </div>
+</div>
