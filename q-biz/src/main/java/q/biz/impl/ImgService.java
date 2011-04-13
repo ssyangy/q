@@ -9,6 +9,7 @@ import java.net.URL;
 
 import q.biz.PictureService;
 import q.http.JdkHttpClient;
+import q.util.IdCreator;
 import q.util.ImageKit;
 
 public class ImgService implements PictureService {
@@ -81,6 +82,30 @@ public class ImgService implements PictureService {
 		        return false;
 			}
 			return true;
+	}
+
+	@Override
+	public String uploadWeiboPictures(InputStream picture) throws Exception {
+		long picId=IdCreator.getLongId();
+		String dir=Long.toString(picId% 10000, Character.MAX_RADIX);
+        String name=Long.toString(picId, Character.MAX_RADIX);
+		BufferedImage originImage = ImageKit.load(picture);
+        BufferedImage image160 = ImageKit.zoomTo(originImage, 160);
+        BufferedImage image320 = ImageKit.zoomTo(originImage, 320);
+        BufferedImage[] images = new BufferedImage[3];
+		images[0] = image160;
+		images[1] = image320;
+		images[2] = originImage;
+    	URL temp = new URL(this.imageUploadUrl);
+		String sb;
+		sb = JdkHttpClient.postPictures(temp,dir ,name, images);
+        if(sb.equals("false")){
+        	return "false";
+        }
+        else{
+            return sb;
+        }
+
 	}
 
 }

@@ -15,6 +15,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import q.biz.PictureService;
 import q.http.JdkHttpClient;
 import q.util.IdCreator;
 import q.util.ImageKit;
@@ -34,7 +35,11 @@ public class AddWeiboPicture extends Resource{
 	public void setImageUploadUrl(String imageUploadUrl) {
 		this.imageUploadUrl = imageUploadUrl;
 	}
+	private PictureService pictureService;
 
+	public void setPictureService(PictureService pictureService) {
+		this.pictureService = pictureService;
+	}
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		// TODO Auto-generated method stub
@@ -57,9 +62,7 @@ public class AddWeiboPicture extends Resource{
 			if (fileItem.isFormField()) {
 				// 当前是一个表单项
 			} else {
-				long picId=IdCreator.getLongId();
-				String dir=Long.toString(picId% 10000, Character.MAX_RADIX);
-                String name=Long.toString(picId, Character.MAX_RADIX);				// 当前是一个上传的文件
+				// 当前是一个上传的文件
 				String fileName = fileItem.getName();
 				String typeString = fileName.substring(fileName.lastIndexOf(".") + 1);
 				String type = "";
@@ -73,22 +76,12 @@ public class AddWeiboPicture extends Resource{
 					context.setModel("isImg", false);
 				}
 				if (ImageKit.isImage(fileItem.getInputStream())) {
-					context.setModel("isImg", true);
-					BufferedImage originImage = ImageKit.load(fileItem.getInputStream());
-                    BufferedImage image160 = ImageKit.zoomTo(originImage, 160);
-                    BufferedImage image320 = ImageKit.zoomTo(originImage, 320);
-                    BufferedImage[] images = new BufferedImage[3];
-            		images[0] = image160;
-            		images[1] = image320;
-            		images[2] = originImage;
-                	URL temp = new URL(this.imageUploadUrl);
-					String sb;
-					sb = JdkHttpClient.postPictures(temp,dir ,name, images);
-                    if(sb.equals("false")){
+					String result=pictureService.uploadWeiboPictures(fileItem.getInputStream());
+                    if(result.equals("false")){
                     	context.setModel("value", "服务器忙");
                     }
                     else{
-					String[] data = sb.split(";");
+					String[] data = result.split(";");
 					String place = data[1].substring(data[1].indexOf(":") + 1);
 					context.setModel("imgHeight", ImageKit.load(fileItem.getInputStream()).getHeight());
 					context.setModel("imgWidth", ImageKit.load(fileItem.getInputStream()).getWidth());

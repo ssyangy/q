@@ -45,10 +45,10 @@ public class AddWeibo extends Resource {
 		this.searchService = searchService;
 	}
 
-	private PictureService uploadPictureService;
+	private PictureService pictureService;
 
-	public void setUploadPictureService(PictureService uploadPictureService) {
-		this.uploadPictureService = uploadPictureService;
+	public void setPictureService(PictureService pictureService) {
+		this.pictureService = pictureService;
 	}
 
 
@@ -136,7 +136,7 @@ public class AddWeibo extends Resource {
 		String upimgfix = context.getString("upimgfix");
 		if (StringKit.isNotEmpty(upimgfix)) {
 			int fix = Integer.parseInt(upimgfix);
-			uploadPictureService.rotate(picturePath, fix);
+			pictureService.rotate(picturePath, fix);
 		}
 		if (from != null) {
 			context.redirectContextPath(from);

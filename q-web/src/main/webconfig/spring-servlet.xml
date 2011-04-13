@@ -385,6 +385,7 @@
 		<bean id="addWeiboPicture" class="q.web.weibo.AddWeiboPicture">
 		<property name="imageUrl" value="${q.image.url}" />
 		<property name="imageUploadUrl" value="${q.image.upload.url}" />
+		<property name="pictureService" ref="pictureService"></property>
 
 	</bean>
 	<bean id="getWeibo" class="q.web.weibo.GetWeibo">
