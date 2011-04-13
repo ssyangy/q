@@ -6,10 +6,19 @@
 <head>
 	<jsp:include page="head.jsp" />
 	<title>圈子黄页</title>
+	<script type="text/javascript">
+		$(function () {
+		     window.onresize = window.onload = function () {
+	            gWinHeight = $(window).height();
+	            $("#body").height(gWinHeight);
+	            tweetex.height(gWinHeight-146);
+	        };
+		});
+	</script>
 </head>
 <body>
-	<div id="doc">
-		<jsp:include page="top.jsp" />	 
+	<div id="body">
+		<jsp:include page="top.jsp" />
 		<div id="page-outer"> 
 			<div id="page-container"> 
 				<div class="main-content" style="min-height:400px"> 
