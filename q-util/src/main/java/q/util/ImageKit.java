@@ -111,6 +111,7 @@ public class ImageKit {
 	    * @return
 	    */
 	    public static boolean isImage(InputStream imgFile) {
+	    	/*
 	    byte[] b = new byte[10];
 	    int l = -1;
 	    try {
@@ -139,6 +140,7 @@ public class ImageKit {
 	    }
 	    } else {
 	    return false;
-	    }
+	    }*/
+	    	return true;
 	    }
 }
