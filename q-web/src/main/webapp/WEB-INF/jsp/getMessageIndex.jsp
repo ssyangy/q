@@ -70,6 +70,10 @@
                 });
                 
                 $("#radio").buttonset();
+                
+                $('#btnnew').click(function(){
+                	$('div.main-tweet-box').slideDown("slow");
+                });
             });
  
             function split(val) {
@@ -94,14 +98,14 @@
 										<h2>私信</h2> 
 									</div> 
 									<div class="msg-new"> 
-										<a href="" class="tweet-button button">新私信</a> 
+										<a id='btnnew' href="#" class="tweet-button button">新私信</a> 
 									</div> 
 									<div class="clearfix2"></div> 
 								</div> 
 							</div> 
 						</div> 
 					</div> 
-					<div class="main-tweet-box"> 
+					<div class="main-tweet-box hide"> 
 						<div class="tweet-box"> 
 							<div class="new-msg-box"> 
 									<form action="${urlPrefix}/message" method="post">
@@ -166,9 +170,57 @@
 				<div class="expand" style="display:block;"> 
 					<div class="chat-header"> 
 						<div class="chat-header-box"> 
-							<div class="header-box"> 
-								<div class="participants-name">参与者：<a class="msg-receiver-name">我</a><span class="comma">,</span><a class="msg-receiver-name">史劲飞</a><span class="comma">,</span><a class="msg-receiver-name">程磊</a><span class="comma">,</span><a class="msg-receiver-name">史劲飞</a><span class="comma">,</span><a class="msg-receiver-name">吕健</a><span class="comma">,</span><a class="msg-receiver-name">史劲飞</a><span class="comma">,</span><a class="msg-receiver-name">seanlinwang</a><span class="comma">,</span><a class="msg-receiver-name">iceball8</a><span class="comma">,</span><a class="msg-receiver-name">震震男</a><span class="comma">,</span><a class="msg-receiver-name">ssyangy</a><span class="comma">,</span><a class="msg-receiver-name">史劲飞</a><span class="comma">,</span><a class="msg-receiver-name">毛泽东</a><span class="comma">,</span></div> 
-								<div class="participants-avatar"><img src="css/images/1.png" width="24" height="24"><img src="css/images/avatar0.png" width="24" height="24"><img src="css/images/avatar2.jpg" width="24" height="24"><img src="css/images/avatar1.png" width="24" height="24"><img src="css/images/avatar3.jpg" width="24" height="24"><img src="css/images/avatar4.jpeg" width="24" height="24"><img src="css/images/avatar5.jpeg" width="24" height="24"><img src="css/images/beauty2.jpg" width="24" height="24"></div> 
+							<div class="header-box">
+<ul class="shlist">
+    <li>
+    <a href="#"><img class="img48" src="http://qimg.net/a/2249/1302069752249-48" alt="img" /></a>
+        <div class="gray">
+            Username
+        </div>
+    </li>
+    <li>
+    <a href="#"><img class="img48" src="http://qimg.net/a/2249/1302069752249-48" alt="img" /></a>
+        <div class="cut">
+            Username
+        </div>
+    </li>
+    <li>
+    <a href="#"><img class="img48" src="http://qimg.net/a/2249/1302069752249-48" alt="img" /></a>
+        <div class="cut">
+            Username
+        </div>
+    </li>
+    <li>
+    <a href="#"><img class="img48" src="http://qimg.net/a/2249/1302069752249-48" alt="img" /></a>
+        <div class="cut">
+            Username
+        </div>
+    </li>
+    <li>
+    <a href="#"><img class="img48" src="http://qimg.net/a/2249/1302069752249-48" alt="img" /></a>
+        <div class="cut">
+            Username
+        </div>
+    </li>
+    <li>
+    <a href="#"><img class="img48" src="http://qimg.net/a/2249/1302069752249-48" alt="img" /></a>
+        <div class="cut">
+            Username
+        </div>
+    </li>
+    <li>
+    <a href="#"><img class="img48" src="http://qimg.net/a/2249/1302069752249-48" alt="img" /></a>
+        <div class="cut">
+            Username
+        </div>
+    </li>
+    <li>
+    <a href="#"><img class="img48" src="http://qimg.net/a/2249/1302069752249-48" alt="img" /></a>
+        <div class="cut">
+            Username
+        </div>
+    </li>                            
+</ul>
 								<div class="action"><a href="" class="button delete">删除会话</a></div> 
 							</div> 
 						</div> 
@@ -200,6 +252,8 @@
 								<div class="msg-body">如何在产品规划PK会上把别人干翻</div> 
 							</div> 
 						</div> 
+						<button class='button ml10 mt10'>上一页</button>
+						<button class='button ml10 mt10'>下一页</button>
 					</div> 
 				</div> 
 			</div> 
