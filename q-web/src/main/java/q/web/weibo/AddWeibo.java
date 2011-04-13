@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import q.biz.SearchService;
-import q.biz.UploadPictureService;
+import q.biz.PictureService;
 import q.dao.WeiboDao;
 import q.domain.Status;
 import q.domain.Weibo;
@@ -45,9 +45,9 @@ public class AddWeibo extends Resource {
 		this.searchService = searchService;
 	}
 
-	private UploadPictureService uploadPictureService;
+	private PictureService uploadPictureService;
 
-	public void setUploadPictureService(UploadPictureService uploadPictureService) {
+	public void setUploadPictureService(PictureService uploadPictureService) {
 		this.uploadPictureService = uploadPictureService;
 	}
 
