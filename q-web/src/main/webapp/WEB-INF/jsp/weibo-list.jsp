@@ -201,7 +201,7 @@
 						    url: "${param['feedUrl']}?tab=${param['tab']}",
 						    type: 'GET',
 						    dataType: 'json',
-						    data: {size:8, startId:parseInt(item.last().attr('weiboId'))-1},
+						    data: {size:8, startId:parseInt(item.last().attr('weiboId'))-1,search:"${param['search']}"},
 						    timeout: 5000,
 						    error: function(msg){
 						    },
@@ -347,7 +347,7 @@
 		    	  $("#rep_wid",dia).val(tweet.attr('weiboid'));
 		    	  dia.dialog("open");
 		      });
-		      
+
 		      $('a.fav').live('click',function(){
 		    	  var tweet = $(this).closest('div.tweet');
 		    	  favFun(tweet.attr('weiboid'),this, 'weibo', 'fav');
@@ -372,7 +372,7 @@
 					        $(this.msg).removeClass(clas).addClass(clas+'un');
 					    }
 				  });
-		      }		      
+		      }
 		      $('a.favun').live('click',function(){
 		    	  var tweet = $(this).closest('div.tweet');
 		    	  favFunUn(tweet.attr('weiboid'),this,'weibo','fav');

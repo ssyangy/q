@@ -29,9 +29,14 @@ public class SolrSearchService implements SearchService {
 	}
 
 	@Override
-	public List<Long> searchWeibo(String query) throws Exception {
+	public List<Long> searchWeibo(String query,int size) throws Exception {
 		String urlTemp=URLEncoder.encode(query, "UTF-8");
-		String httpUrl = searchUrl + "/solr/qweibo/select/?q=" + urlTemp + "&wt=json";
+		String sort=URLEncoder.encode("id desc", "UTF-8");
+		String fq=URLEncoder.encode("id:[* TO ", "UTF-8");
+		String httpUrl;
+         httpUrl = searchUrl + "/solr/qweibo/select/?q=" + urlTemp + "&wt=json&sort="+sort+"&rows="+size;
+
+
 		URL temp = new URL(httpUrl);
 		HttpURLConnection con = null;
 		List<Long> bs = null;
@@ -194,6 +199,32 @@ public class SolrSearchService implements SearchService {
 	public List<Long> searchGroup(String query) throws Exception {
 		String urlTemp=URLEncoder.encode(query, "UTF-8");
 		String httpUrl = searchUrl + "/solr/qgroup/select/?q=" + urlTemp + "&wt=json&qt=all";
+		URL temp = new URL(httpUrl);
+		HttpURLConnection con = null;
+		List<Long> bs = null;
+		try {
+			con = JdkHttpClient.getHttpConnection(temp, 100000, 100000);
+			BufferedReader br=JdkHttpClient.getSearch(con);
+			if(br!=null){
+			bs = getIds(br);
+			}
+		} catch (Exception e) {
+			log.error("search engine fail:", e);
+		} finally {
+			try{
+			JdkHttpClient.releaseUrlConnection(con);
+			}
+			catch(Exception e){
+				Logger.getLogger().error(e);
+			}
+		}
+		return bs;
+	}
+
+	@Override
+	public List<Long> searchWeibo(String query) throws Exception {
+		String urlTemp=URLEncoder.encode(query, "UTF-8");
+		String httpUrl = searchUrl + "/solr/qweibo/select/?q=" + urlTemp + "&wt=json";
 		URL temp = new URL(httpUrl);
 		HttpURLConnection con = null;
 		List<Long> bs = null;

@@ -12,7 +12,7 @@
 	</script>
 </head>
   <body>
-	<div id="doc">
+	<div id="body">
         <jsp:include page="top.jsp"/>
 		<div id="page-outer">
 			<div id="page-container">
@@ -32,7 +32,14 @@
 						<jsp:include page="search-tag.jsp">
 							<jsp:param value="index" name="tab"/>
 						</jsp:include>
-							<jsp:include page="weibo-list.jsp"/>
+
+
+											<jsp:include page="weibo-list.jsp">
+											<jsp:param name="feedUrl" value="${urlPrefix}/search"/>
+											<jsp:param name="search" value="${param['search']}"/>
+											</jsp:include>
+
+
 						</div>
 					</div>
 				</div>
