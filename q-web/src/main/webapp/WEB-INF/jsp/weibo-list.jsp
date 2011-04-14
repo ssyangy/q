@@ -190,9 +190,8 @@
 					    msg:this,
 					   	success: function(json){
 					   		tweetex.empty().append(ich.tweetexp(json));
-			        		$('div.dashboardbb').hide();
 				            tweetex.css('left',set.left+10).show();
-				            tweetex.animate({ left: 540+set.left }, 500, 'swing');
+				            tweetex.animate({ left: 540+set.left }, 500, 'swing',function(){$('div.dashboardbb').hide();});
 					    }
 	                });
 

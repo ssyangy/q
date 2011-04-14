@@ -18,10 +18,10 @@
 					<div class="stream-manager">
 						<div id="tabs" class="ui-tabs ui-widget">
 							<jsp:include page="group-feed-tag.jsp" />
+						</div>
 							<jsp:include page="weibo-list.jsp" >
 								<jsp:param name="feedUrl" value="${urlPrefix}/group/feed" />		
-							</jsp:include>
-						</div>
+							</jsp:include>						
 					</div>
 				</div>
 				<jsp:include page="group-feed-dashboard.jsp" />

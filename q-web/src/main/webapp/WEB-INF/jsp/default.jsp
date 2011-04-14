@@ -92,7 +92,7 @@
 								<tbody> 
 									<c:forEach items="${cats}" var="cat" varStatus="status">
 									<tr> 
-										<th><img src="${avatarUrlPrefix}/clock.png"></th> 
+										<th><img src="${imageUrl}/default/cat-def.png"></th> 
 										<td>
 											<div class="desc">
 												<div class="action">
@@ -121,7 +121,7 @@
 							<div class="photo-wall"> 
 								<c:forEach items="${hotLocals}" var="people" varStatus="status">
 								<div class="one-photo">
-									<a href="${urlPrefix}/people/${people.id}"><img src="${avatarUrlPrefix}/avatar5.jpeg" width="72" height="72"/></a>
+									<a href="${urlPrefix}/people/${people.id}"><img src="${avatarUrlPrefix}/${people.avatarPath}-48" width="48" height="48"/></a>
 								</div>
 								</c:forEach> 
 								<div class="clearfix2"></div> 
@@ -146,12 +146,12 @@
 							<c:forEach items="${hotWeibos}" var="weibo">
 							<div class="one-tweet"> 
 								<div class="avatar"> 
-									<a href="${urlPrefix}/people/${weibo.senderId}">
-										<img src="${avatarUrlPrefix}/avatar3.jpg">
+									<a href="${urlPrefix}/people/${weibo.people.id}">
+										<img src="${avatarUrlPrefix}/${weibo.people.avatarPath}-24">
 									</a> 
 								</div> 
 								<div class="brief"> 
-									<a href="${urlPrefix}/people/${weibo.senderId}" class="author">${weibo.senderRealName}</a>
+									<a href="${urlPrefix}/people/${weibo.people.id}" class="author">${weibo.people.realName}</a>
 									<a href="${urlPrefix}/weibo/${weibo.id}">
 										<q:omit maxLength="40">${weibo.content}</q:omit>
 									</a>

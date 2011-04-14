@@ -91,7 +91,19 @@ public class GetMessageIndex extends Resource {
 			Map<Long, People> peopleMap = DaoHelper.injectMessagesWithSenderAndReceivers(peopleDao, messages);
 			context.setModel("messages", messages);
 			
-			long messageId = context.getIdLong("messageId", messages.get(0).getId());
+			long messageId = context.getIdLong("messageId");
+			Message message = null;
+			if(messageId > 0) {
+				for(Message now: messages) {
+					if (now.getId() == messageId) {
+						message = now;
+					}
+				}
+			} else {
+				messageId = messages.get(0).getId();
+				message = messages.get(0);
+			}
+			context.setModel("message", message);
 			MessageReplyPage page = new MessageReplyPage();
 			page.setQuoteMessageId(messageId);
 			List<MessageReply> replies = messageDao.getMessageRepliesByPage(page);

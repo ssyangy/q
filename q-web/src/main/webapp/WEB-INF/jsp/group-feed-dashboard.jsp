@@ -52,6 +52,7 @@
 							<div class="clearfix2"></div> 
 						</div> 
 					</div> 
+					<%--
 					<div class="db-block"> 
 						<h3>热议：</h3> 
 						<div class="db-block-content">
@@ -78,6 +79,7 @@
 							<div class="clearfix2"></div>
 						</div>
 					</div> 
+					 --%>
 					<div class="db-block"> 
 						<h3>新成员：</h3><!--只显示1行--> 
 						<div class="db-block-content">

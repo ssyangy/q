@@ -41,7 +41,7 @@
 								<tbody> 
 									<c:forEach items="${cats}" var="cat" varStatus="status">
 									<tr> 
-										<th><img src="${avatarUrlPrefix}/clock.png"></th> 
+										<th><img src="${imageUrl}/default/cat-def.png"></th> 
 										<td>
 											<div class="desc">
 												<div class="action">
@@ -66,7 +66,7 @@
 				<c:if test="${cat!=null}">
 					<div class="db-header-outer"> 
 						<div class="db-header-inner"> 
-							<div class="cat-logo"><img src="${avatarUrlPrefix}/clock.png"></div> 
+							<div class="cat-logo"><img src="${imageUrl}/default/cat-def.png"></div> 
 							<div class="cat-desc"> 
 								<p class="desc">${cat.intro}</p> 
 								<p>圈子数：${cat.groupNum} / 成员总数：${cat.memberNum}</p> 
