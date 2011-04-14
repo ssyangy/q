@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<script type="text/javascript" src="${staticUrlPrefix}/js/jQueryRotate.2.1.js"></script>
 <c:if test="${null != param['feedUrl']}">
 	<style>
 
@@ -25,7 +25,13 @@
             </div>
             <div class="tweet-row">
 				<div class="tweet-text">{{text}}</div>
-				{{#picturePath}}<img id="img" src="{{picturePath}}-160" class="img160"/>{{/picturePath}}
+				{{#picturePath}}
+				<div class='imgrote middle'>
+					<img id="img" src="{{picturePath}}-160" class="img160 weiboimg"/>
+		     	</div>
+		     	<a class='weiboImgRotateL' class='link mr10'>左转</a>
+			    <a class='weiboImgRotateR' class='link'>右转</a>
+				{{/picturePath}}
 			</div>
 
 			{{#quote}}
@@ -120,7 +126,22 @@
 	</script>
 	<script type="text/javascript">
 	var ajlock = true;
+
 		$(function () {
+			$('a.weiboImgRotateR').live('click',function(){
+				var imgrote = $(this).prevAll('div.imgrote');
+				var rote = imgrote.data('rote');
+				if(rote == undefined) rote = 0;
+				imgrote.children('img.weiboimg').rotate(rote + 90);
+				imgrote.data('rote',rote + 90);
+			});
+			$('a.weiboImgRotateL').live('click',function(){
+				var imgrote = $(this).prev('div.imgrote');
+				var rote = imgrote.data('rote');
+				if(rote == undefined) rote = 0;
+				imgrote.children('img.weiboimg').rotate(rote - 90);
+				imgrote.data('rote',rote - 90);
+			});	
 			
 			$('#rrepnext').live('click',function(){
         		$.ajax({
@@ -423,7 +444,13 @@
 			</div>
 			<div class="tweet-row">
 				<div class="tweet-text">${weibo.content}</div>
-				<c:if test="${weibo.picturePath !=null }"><img id="img" src="${weibo.picturePath}-160" class="img160"/></c:if>
+				<c:if test="${weibo.picturePath !=null }">
+				<div class='imgrote middle'>
+					<img id="img" src="${weibo.picturePath}-160" class="img160 weiboimg"/>
+		     	</div>
+		     	<a class='weiboImgRotateL' class='link mr10'>左转</a>
+			    <a class='weiboImgRotateR' class='link'>右转</a>
+				</c:if>
 			</div>
 			<c:if test="${weibo.quote.id > 0}">
 			<div class="tweet-ori">

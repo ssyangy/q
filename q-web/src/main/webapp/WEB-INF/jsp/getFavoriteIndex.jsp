@@ -6,8 +6,8 @@
 	<jsp:include page="head.jsp" />
 	<title>收藏</title>
 </head>
-<body onResize="ReSet()" onLoad="ReSet()">
-	<div id="body">
+<body>
+<div id="body">
 	<jsp:include page="top.jsp"/>	
 	<div id="page-outer">
 		<div id="page-container">
@@ -29,11 +29,13 @@
 								
 			</div>
 			<jsp:include page="people-dashboard.jsp"/>
-			<div class="tweetexpand expand"></div>
+			
 			<div class='pagebk'></div>
 			<br clear='all'/>
 		</div>
 		
 	</div>
+	<div class="tweetexpand expand"></div>
 </div>
+</body>
 </html>

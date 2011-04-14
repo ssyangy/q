@@ -29,12 +29,13 @@
 				</div>
 			</div>
 			<jsp:include page="group-dashboard.jsp" />
-			<div class="tweetexpand expand"></div>
+			
 			<div class='pagebk'></div>
 			<br clear='all'/>
 		</div>
 
 	</div>
+	<div class="tweetexpand expand"></div>
 </div>
 </body>
 </html>

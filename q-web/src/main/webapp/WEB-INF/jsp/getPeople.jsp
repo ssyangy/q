@@ -6,7 +6,7 @@
 	<jsp:include page="head.jsp" />
 	<title>个人主页</title>
 </head>
-<body onResize="ReSet()" onLoad="ReSet()">
+<body>
 <div id="body">
 	<jsp:include page="top.jsp"/>
 	<div id="page-outer">
@@ -28,12 +28,14 @@
 				</div>
 			</div>
 			<jsp:include page="people-dashboard.jsp"/>
-			<div class="tweetexpand expand"></div>
+			
 			<div class='pagebk'></div>
 			<br clear='all'/>
 		</div>
 		
 	</div>
+	<div class="tweetexpand expand"></div>
 </div>
+
 </body>
 </html>
