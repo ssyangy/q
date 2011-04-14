@@ -12,6 +12,16 @@ module.declare(function (require, exports, module) {
                 $('#search_btn').removeClass('typing');
             });
 
+            $("body").bind("keyup", function (e) {
+                var tarname = $(e.target).get(0).tagName;
+                if (tarname == 'INPUT' || tarname == 'TEXTAREA') return;
+
+                var code = (e.keyCode ? e.keyCode : e.which);
+                if (code == 83) {
+                    $("input.mttext_val").focus();
+                }
+            });
+
             // UI Helper
             require('jq.repurl');
             $('.tw_txt').repurl();

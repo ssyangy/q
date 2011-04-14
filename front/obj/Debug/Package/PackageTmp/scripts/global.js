@@ -1,5 +1,5 @@
 module.declare(function (require, exports, module) {
-    var $ = require('jquery');
+    exports.jq = $ = require('jquery');
     require('jq.ui.help');
 
     exports.init = function () {
@@ -10,6 +10,16 @@ module.declare(function (require, exports, module) {
                 $('#search_btn').addClass('typing');
             }).blur(function () {
                 $('#search_btn').removeClass('typing');
+            });
+
+            $("body").bind("keyup", function (e) {
+                var tarname = $(e.target).get(0).tagName;
+                if (tarname == 'INPUT' || tarname == 'TEXTAREA') return;
+
+                var code = (e.keyCode ? e.keyCode : e.which);
+                if (code == 83) {
+                    $("input.mttext_val").focus();
+                }
             });
 
             // UI Helper

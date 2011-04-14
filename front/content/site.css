@@ -117,6 +117,8 @@ a.lk4{cursor:pointer;color:#88A825}
 a.lk4:hover{text-decoration:underline;color:#fff}
 a.lk5{cursor:pointer;color:#B2B7B5}
 a.lk5:hover{text-decoration:underline;color:#88A825}
+a.arr{background:url(images/arrow/sh2_ex.png) no-repeat right center;padding-right:12px;color:#009bee;cursor:pointer;}
+a.arr:hover{background-image:url(images/arrow/sh2_exh.png);color:#FF0065}
 a.tit{cursor:pointer;color:#A89E2D;}
 a.tit:hover{color:#FF8A00;text-decoration:underline;}
 a.icolink{padding-left:16px;cursor:pointer;}
@@ -232,7 +234,7 @@ ul.list li.end{border-right:none 0;}
 #header .wapper{height:60px;}
 #logo{font-size:32px;position:absolute;left:0;top:14px;font-family:微软雅黑;color:#FF0065}
 #logo span{font-size:20px;}
-#nav{position:absolute;top:30px;left:387px;font-size:16px;}
+#nav{position:absolute;top:30px;left:400px;font-size:16px;}
 #search{position:absolute;top:20px;right:0;}
 #search input.mttext_val{width:200px;}
 #search_btn {border:none;height:24px;width:24px;cursor: pointer;position:absolute;top:4px;right:2px;
@@ -259,4 +261,5 @@ ul.ui-tabs-nav li.ui-state-active{padding:0 0 1px 0;margin-bottom: 0;}
 ul.complist li {display:inline;margin:0 3px;height:22px;line-height:22px;}
 ul.complist li.separator {font-weight: bold;margin: 0;color: #C5C5C5;}
 
-.slist li{display:inline-block;width:120px;margin:0 11px 11px 0;vertical-align:top;zoom:1;*display:inline;}.slist li.end{margin-right:0;}
+.slist li{display:inline-block;width:120px;margin:0 11px 11px 0;vertical-align:top;zoom:1;*display:inline;}
+.slist li.end{margin-right:0;}

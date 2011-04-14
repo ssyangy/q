@@ -141,6 +141,8 @@
     <Content Include="content\images\arrow\pl_right_ov.gif" />
     <Content Include="content\images\arrow\prev.png" />
     <Content Include="content\images\arrow\prev_h.png" />
+    <Content Include="content\images\arrow\sh2_ex.png" />
+    <Content Include="content\images\arrow\sh2_exh.png" />
     <Content Include="content\images\arrow\sh_col.png" />
     <Content Include="content\images\arrow\sh_colh.png" />
     <Content Include="content\images\arrow\sh_ex.png" />
