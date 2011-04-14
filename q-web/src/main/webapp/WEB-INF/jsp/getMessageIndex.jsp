@@ -151,12 +151,15 @@
 										</span> 
 										<span class="sender-icon"><img src="${staticUrlPrefix}/style/images/arrow_right.png" width="10" height="10"></span> 
 										<span>
-											<c:forEach items="${message.receivers}" var="receiver"> 
-												<a href="${urlPrefix}/people/${receiver.id}" class="msg-receiver-name">${receiver.realName}</a><span class="comma">,</span>
+											<c:forEach items="${message.receivers}" var="receiver" varStatus="status"> 
+												<a href="${urlPrefix}/people/${receiver.id}" class="msg-receiver-name">${receiver.realName}</a>
+												<c:if test="${!status.last}">
+												<span class="comma">,</span>
+												</c:if>
 											</c:forEach> 
 										</span> 
 										<span class="mail-counter"> 
-											(13)
+											<!-- (13)  -->
 										</span> 
 									</div> 
 									<div class="tweet-row msg-latest"> 
@@ -177,12 +180,16 @@
 						<div class="chat-header-box"> 
 							<div class="header-box">
 								<ul class="shlist">
+									<c:forEach items="${message.receivers}" var="receiver">
 								    <li>
-								    	<a href="#"><img class="img48" src="http://qimg.net/a/2249/1302069752249-48" alt="img" /></a>
+								    	<a href="${urlPrefix}/people/${receiver.id}">
+								    		<img class="img48" src="${avatarUrlPrefix}/${receiver.avatarPath}-48" alt="img" />
+								    	</a>
 								        <div class="gray">
-								            Username
+								            ${receiver.realName}
 								        </div>
-								    </li>                          
+								    </li>                       
+								    </c:forEach>
 								</ul>
 								<div class="action"><a href="" class="button delete">删除会话</a></div> 
 							</div> 
@@ -190,12 +197,13 @@
 					</div> 
 					<div class="chat-content"> 
 						<div class="chat-reply"> 
-							<form> 
-								<div class="text-area"> 
-									<textarea class="twitter-anywhere-tweet-box-editor" style="width: 482px; height: 56px; "></textarea> 
+							<form action="${urlPrefix}/message/${message.id}/reply" method="post">
+								<input type="hidden" name="from" value="${urlPrefix}/message"/> 
+								<div class="text-area">
+									<textarea name="content" class="twitter-anywhere-tweet-box-editor" style="width: 482px; height: 56px; "></textarea> 
 								</div> 
 								<div class="tweet-button-container"> 
-									<a href="" class="button">回复</a> 
+									<button>回复</button> 
 								</div> 
 							</form> 
 						</div> 
@@ -203,7 +211,9 @@
 						<c:forEach items="${replies}" var="reply">  
 						<div class="msg-item"> 
 							<div class="msg-image"> 
-								<img src="${avatarUrlPrefix}/${reply.sender.avatarPath}-24" width="24" height="24"> 
+								<a href="${urlPrefix}/people/${reply.sender.id}">
+									<img src="${avatarUrlPrefix}/${reply.sender.avatarPath}-24" width="24" height="24">
+								</a> 
 							</div> 
 							<div class="msg-content"> 
 								<div class="msg-sender"> 

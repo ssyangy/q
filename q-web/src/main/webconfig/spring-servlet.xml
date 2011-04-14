@@ -186,6 +186,7 @@
 				<value>addMessage</value>
 				<value>getMessage</value>
 				<value>addMessage</value>
+				<value>addMessageReply</value>
 				<value>addWeibo</value>
 				<value>addWeiboReply</value>
 				<value>getWeiboNew</value>
@@ -208,8 +209,8 @@
 	<bean id="searchService" class="q.biz.impl.SolrSearchService">
 		<property name="searchUrl" value="${q.search.url}" />
 	</bean>
-   <bean id="pictureService" class="q.biz.impl.ImgService">
-	    <property name="imageUrl" value="${q.image.url}" />
+	<bean id="pictureService" class="q.biz.impl.ImgService">
+		<property name="imageUrl" value="${q.image.url}" />
 		<property name="imageUploadUrl" value="${q.image.upload.url}" />
 	</bean>
 	<!-- global web -->
@@ -384,11 +385,11 @@
 	<bean id="addWeibo" class="q.web.weibo.AddWeibo">
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="searchService" ref="searchService"></property>
-		<property name="putShortUrl" value="${q.short.upload.url}"/>
-		<property name="getShortUrl" value="${q.short.url}"/>
+		<property name="putShortUrl" value="${q.short.upload.url}" />
+		<property name="getShortUrl" value="${q.short.url}" />
 		<property name="pictureService" ref="pictureService"></property>
 	</bean>
-		<bean id="addWeiboPicture" class="q.web.weibo.AddWeiboPicture">
+	<bean id="addWeiboPicture" class="q.web.weibo.AddWeiboPicture">
 		<property name="imageUrl" value="${q.image.url}" />
 		<property name="imageUploadUrl" value="${q.image.upload.url}" />
 		<property name="pictureService" ref="pictureService"></property>
@@ -458,6 +459,10 @@
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="addMessage" class="q.web.message.AddMessage">
+		<property name="messageDao" ref="messageDao" />
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="addMessageReply" class="q.web.message.AddMessageReply">
 		<property name="messageDao" ref="messageDao" />
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
