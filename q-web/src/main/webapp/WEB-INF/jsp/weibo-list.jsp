@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:if test="${null != param['feedUrl']}">
+	<style>
+
+	</style>
 	<script id="tweet" type="text/html">
     <div class="stream-item tweet waitSlideDown" weiboId="{{id}}">
         <div class="tweet-image">
@@ -180,7 +183,7 @@
 	        		tweetex.hide()
 	        	});
 	        });
-
+			
 	        window.onresize = window.onload = function () {
 	            gWinHeight = $(window).height();
 	            $("#body").height(gWinHeight);

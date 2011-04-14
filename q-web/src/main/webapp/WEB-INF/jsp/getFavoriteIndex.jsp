@@ -30,6 +30,7 @@
 			</div>
 			<jsp:include page="people-dashboard.jsp"/>
 			<div class="tweetexpand expand"></div>
+			<div class='pagebk'></div>
 			<br clear='all'/>
 		</div>
 		

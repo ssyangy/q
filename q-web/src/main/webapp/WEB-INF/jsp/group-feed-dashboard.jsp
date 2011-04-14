@@ -54,7 +54,7 @@
 						<h3>热议：</h3> 
 						<div class="db-block-content">
 								<c:forEach items="${hotWeibos}" var="weibo">
-								<div class="db-tweet-box mb10">
+								<div class="db-tweet-box mb10 mr10">
 								<div class="avatar">
 									<a href="${urlPrefix}/people/${weibo.senderId}">
 										<img src="${avatarUrlPrefix}/${weibo.people.avatarPath}-24"/>
@@ -83,7 +83,7 @@
 							<div class="member-cell"> 
 								<div class="avatar">
 									<a href="${urlPrefix}/people/${fo.id}">
-										<img src="${avatarUrlPrefix}/${fo.avatarPath}-48">
+										<img src="${avatarUrlPrefix}/${fo.avatarPath}-24">
 									</a>
 								</div>
 								<div class="name-action"> 
@@ -103,7 +103,7 @@
 							<div class="member-cell"> 
 								<div class="avatar">
 									<a href="${urlPrefix}/people/${fo.id}">
-										<img src="${avatarUrlPrefix}/${fo.avatarPath}-48">
+										<img src="${avatarUrlPrefix}/${fo.avatarPath}-24">
 									</a>
 								</div>
 								<div class="name-action"> 
