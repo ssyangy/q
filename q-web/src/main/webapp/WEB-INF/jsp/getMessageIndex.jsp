@@ -171,56 +171,14 @@
 					<div class="chat-header"> 
 						<div class="chat-header-box"> 
 							<div class="header-box">
-<ul class="shlist">
-    <li>
-    <a href="#"><img class="img48" src="http://qimg.net/a/2249/1302069752249-48" alt="img" /></a>
-        <div class="gray">
-            Username
-        </div>
-    </li>
-    <li>
-    <a href="#"><img class="img48" src="http://qimg.net/a/2249/1302069752249-48" alt="img" /></a>
-        <div class="cut">
-            Username
-        </div>
-    </li>
-    <li>
-    <a href="#"><img class="img48" src="http://qimg.net/a/2249/1302069752249-48" alt="img" /></a>
-        <div class="cut">
-            Username
-        </div>
-    </li>
-    <li>
-    <a href="#"><img class="img48" src="http://qimg.net/a/2249/1302069752249-48" alt="img" /></a>
-        <div class="cut">
-            Username
-        </div>
-    </li>
-    <li>
-    <a href="#"><img class="img48" src="http://qimg.net/a/2249/1302069752249-48" alt="img" /></a>
-        <div class="cut">
-            Username
-        </div>
-    </li>
-    <li>
-    <a href="#"><img class="img48" src="http://qimg.net/a/2249/1302069752249-48" alt="img" /></a>
-        <div class="cut">
-            Username
-        </div>
-    </li>
-    <li>
-    <a href="#"><img class="img48" src="http://qimg.net/a/2249/1302069752249-48" alt="img" /></a>
-        <div class="cut">
-            Username
-        </div>
-    </li>
-    <li>
-    <a href="#"><img class="img48" src="http://qimg.net/a/2249/1302069752249-48" alt="img" /></a>
-        <div class="cut">
-            Username
-        </div>
-    </li>                            
-</ul>
+								<ul class="shlist">
+								    <li>
+								    	<a href="#"><img class="img48" src="http://qimg.net/a/2249/1302069752249-48" alt="img" /></a>
+								        <div class="gray">
+								            Username
+								        </div>
+								    </li>                          
+								</ul>
 								<div class="action"><a href="" class="button delete">删除会话</a></div> 
 							</div> 
 						</div> 
@@ -236,22 +194,28 @@
 								</div> 
 							</form> 
 						</div> 
+					</div>
+						<c:forEach items="${replies}" var="reply">  
 						<div class="msg-item"> 
 							<div class="msg-image"> 
-								<img src="css/images/avatar0.png" width="24" height="24"> 
+								<img src="${avatarUrlPrefix}/${reply.sender.avatarPath}-24" width="24" height="24"> 
 							</div> 
 							<div class="msg-content"> 
 								<div class="msg-sender"> 
 									<div class="msg-sender-area"> 
-										<div class="sender"><a href="">木子美</a><span class="datetime">3小时前 2011-02-28 12:22:12</span></div> 
+										<div class="sender">
+											<a href="${urlPrefix}/people/${reply.sender.id}">${reply.sender.realName}</a>
+											<span class="datetime">${reply.time}</span>
+										</div> 
 										<div class="action"><a href="">删除</a><a href="">回复</a></div> 
 										<div class="clearfix2"></div> 
 									</div> 
 									<div class="action"></div> 
 								</div> 
-								<div class="msg-body">如何在产品规划PK会上把别人干翻</div> 
+								<div class="msg-body">${reply.content}</div> 
 							</div> 
-						</div> 
+						</div>
+						</c:forEach> 
 						<button class='button ml10 mt10'>上一页</button>
 						<button class='button ml10 mt10'>下一页</button>
 					</div> 

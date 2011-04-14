@@ -221,9 +221,9 @@ public class DaoHelper {
 
 	}
 
-	public static void injectMessagesWithSenderAndReceivers(PeopleDao peopleDao, List<Message> messages) throws SQLException {
+	public static Map<Long, People> injectMessagesWithSenderAndReceivers(PeopleDao peopleDao, List<Message> messages) throws SQLException {
 		if (CollectionKit.isEmpty(messages)) {
-			return;
+			return null;
 		}
 		HashSet<Long> peopleIds = new HashSet<Long>(messages.size() + 1); // people number is less than messages count + 1
 		for (Message message : messages) {
@@ -231,11 +231,11 @@ public class DaoHelper {
 			peopleIds.addAll(message.getReceiverIds());
 		}
 		if (CollectionKit.isEmpty(peopleIds)) {
-			return;
+			return null;
 		}
 		List<People> peoples = peopleDao.getPeoplesByIds(new ArrayList<Long>(peopleIds));
 		if (CollectionKit.isEmpty(peoples)) {
-			return;
+			return null;
 		}
 
 		Map<Long, People> peopleMap = convertToMap(peoples);
@@ -245,6 +245,7 @@ public class DaoHelper {
 				message.addReceiver(peopleMap.get(mid));
 			}
 		}
+		return peopleMap;
 	}
 
 	/**

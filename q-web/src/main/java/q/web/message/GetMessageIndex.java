@@ -18,8 +18,10 @@ import q.dao.MessageDao;
 import q.dao.PeopleDao;
 import q.dao.page.MessageJoinPeoplePage;
 import q.dao.page.MessagePage;
+import q.dao.page.MessageReplyPage;
 import q.domain.Message;
 import q.domain.MessageJoinPeople;
+import q.domain.MessageReply;
 import q.domain.People;
 import q.util.CollectionKit;
 import q.web.Resource;
@@ -70,31 +72,39 @@ public class GetMessageIndex extends Resource {
 			}
 			MessageJoinPeoplePage receiversPage = new MessageJoinPeoplePage();
 			receiversPage.setMessageIds(messageIds);
-			Map<Long, List<Long>> receiversMap = new HashMap<Long, List<Long>>();
+			Map<Long, List<Long>> messageIdReceiversMap = new HashMap<Long, List<Long>>();
 			for (MessageJoinPeople join : messageDao.getMessageJoinPeoplesByPage(receiversPage)) {
-				List<Long> list = receiversMap.get(join.getMessageId());
-				if (null == list) {
-					list = new ArrayList<Long>();
-					receiversMap.put(join.getMessageId(), list);
+				List<Long> receivers = messageIdReceiversMap.get(join.getMessageId());
+				if (null == receivers) {
+					receivers = new ArrayList<Long>();
+					messageIdReceiversMap.put(join.getMessageId(), receivers);
 				}
-				list.add(join.getReceiverId());
+				receivers.add(join.getReceiverId());
 			}
 
 			MessagePage messagePage = new MessagePage();
 			messagePage.setIds(messageIds);
 			List<Message> messages = messageDao.getMessagesByPage(messagePage);
 			for (Message msg : messages) {
-				msg.setReceiverIds(receiversMap.get(msg.getId()));
+				msg.setReceiverIds(messageIdReceiversMap.get(msg.getId()));
 			}
-			DaoHelper.injectMessagesWithSenderAndReceivers(peopleDao, messages);
+			Map<Long, People> peopleMap = DaoHelper.injectMessagesWithSenderAndReceivers(peopleDao, messages);
 			context.setModel("messages", messages);
+			
+			long messageId = context.getIdLong("messageId", messages.get(0).getId());
+			MessageReplyPage page = new MessageReplyPage();
+			page.setQuoteMessageId(messageId);
+			List<MessageReply> replies = messageDao.getMessageRepliesByPage(page);
+			for(MessageReply reply: replies) {
+				reply.setSender(peopleMap.get(reply.getSenderId()));
+			}
+			context.setModel("replies", replies);
 		}
 
 		List<Long> followingIds = peopleDao.getAllFollowingId(loginPeopleId);
 		List<People> followings = peopleDao.getPeoplesByIds(followingIds);
 		String peoplesHintJson = this.getPeoplesHintJson(followings);
 		context.setModel("peoplesHintJson", peoplesHintJson);
-
 	}
 
 	/**

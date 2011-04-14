@@ -33,7 +33,7 @@ public class GetMessage extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long mid = context.getResourceIdLong();
 		MessageReplyPage page = new MessageReplyPage();
-		page.setMessageId(mid);
+		page.setQuoteMessageId(mid);
 		List<MessageReply> replies = messageDao.getMessageRepliesByPage(page);
 		context.setModel("replies", replies);
 	}
