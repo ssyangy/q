@@ -4,9 +4,6 @@
 <html>
 <head>
 	<jsp:include page="head.jsp" /> 
-      <style type="text/css"> 
-      .msg{padding:10px 10px;}
-      </style> 
 	<script type="text/javascript"> 
 	    	var friendlist = ${peoplesHintJson};
             $(function () {
@@ -74,6 +71,14 @@
                 $('#btnnew').click(function(){
                 	$('div.main-tweet-box').slideDown("slow");
                 });
+                
+                    window.onresize = window.onload = function () {
+                        gWinHeight = $(window).height();
+                        $("#body").height(gWinHeight);
+                        tweetex.height(gWinHeight-146);
+                        $('div.main-content').css('min-height',gWinHeight-100);
+                    };
+
             });
  
             function split(val) {
@@ -89,7 +94,7 @@
 		<jsp:include page="top.jsp"/>
 		<div id="page-outer"> 
 			<div id="page-container"> 
-				<div class="main-content" style="min-height:400px"> 
+				<div class="main-content"> 
 					<div class="home-header"> 
 						<div class="msg-header-box"> 
 							<div class="header-box"> 
@@ -167,7 +172,7 @@
 						</div> 
 					</div> 
 				</div> 
-				<div class="expand" style="display:block;"> 
+				<div class="expand dashboardbb"> 
 					<div class="chat-header"> 
 						<div class="chat-header-box"> 
 							<div class="header-box">
@@ -256,6 +261,8 @@
 						<button class='button ml10 mt10'>下一页</button>
 					</div> 
 				</div> 
+				<div class='pagebk'></div>
+				<br clear='all'/>				
 			</div> 
 		</div> 
 		<div class="twttr-dialog-container" style="display:none;"> 

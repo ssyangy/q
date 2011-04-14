@@ -16,7 +16,9 @@
 					<h3><a href="${urlPrefix}/people/${people.id}">${people.realName}</a></h3>
 				</div>
 				<div class="location-line">
-					<span class="location">${people.area.myProvince.name}&nbsp;${people.area.myCity.name}&nbsp;${people.area.myCounty.name}</span>
+					<c:if test="${null != people.area}">
+					<span class="location mr10">${people.area.myProvince.name}&nbsp;${people.area.myCity.name}&nbsp;${people.area.myCounty.name}</span>
+					</c:if>
 					<span class="join-date">${people.time}加入</span></div>
 				<div class="bio gray">${people.intro}</div>
 				<div class="clearfix2"></div>

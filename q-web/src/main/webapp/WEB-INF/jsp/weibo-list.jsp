@@ -191,7 +191,7 @@
 					   	success: function(json){
 					   		tweetex.empty().append(ich.tweetexp(json));
 			        		$('div.dashboardbb').hide();
-				            tweetex.show().css('left',set.left+10);
+				            tweetex.css('left',set.left+10).show();
 				            tweetex.animate({ left: 540+set.left }, 500, 'swing');
 					    }
 	                });
@@ -209,7 +209,7 @@
 	            gWinHeight = $(window).height();
 	            $("#body").height(gWinHeight);
 	            tweetex.height(gWinHeight-146);
-	            $('div..main-content').css('min-height',gWinHeight-100);
+	            $('div.main-content').css('min-height',gWinHeight-100);
 	        };
 	        var body = $('#body');
 	        var o = body[0];

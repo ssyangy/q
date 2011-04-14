@@ -6,15 +6,6 @@
 	<jsp:include page="head.jsp" />
 	<title>圈子新鲜事</title>
 </head>
-<style>
-.main-content{width:540px;float:left;z-index:4;position: relative;background: white;height: 100%;min-height:700px;
--webkit-border-radius: 5px;
--moz-border-radius: 5px;
-border-radius: 5px;
--moz-box-shadow: 0 3px 4px #999;
--webkit-box-shadow: 0 3px 4px #999;
-}
-</style>
 <body>
 	<div id="body" >
 	<jsp:include page="top.jsp" />
