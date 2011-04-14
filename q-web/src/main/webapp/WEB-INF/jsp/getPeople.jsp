@@ -11,31 +11,26 @@
 	<jsp:include page="top.jsp"/>
 	<div id="page-outer">
 		<div id="page-container">
-			<div class="main-content" style="min-height:400px">
+			<div class="main-content">
 				<jsp:include page="people-head.jsp"/>
 				<div class="stream-manager">
-					 <div id="tabs" class="ui-tabs ui-widget">
+					<div id="tabs" class="ui-tabs ui-widget">
 						<jsp:include page="people-tag.jsp">
 							<jsp:param value="weibo" name="tab"/>
 						</jsp:include>
-						<div>
+					</div>
 						<jsp:include page="weibo-list.jsp">
 							<jsp:param name="feedUrl" value="${urlPrefix}/people/${people.id}"/>
 							<jsp:param name="from" value="${urlPrefix}/people/${people.id}"/>
-						</jsp:include>
-						</div>
-					</div>
+						</jsp:include>					
 				</div>
 			</div>
 			<jsp:include page="people-dashboard.jsp"/>
-			
 			<div class='pagebk'></div>
 			<br clear='all'/>
 		</div>
-		
 	</div>
 	<div class="tweetexpand expand"></div>
 </div>
-
 </body>
 </html>

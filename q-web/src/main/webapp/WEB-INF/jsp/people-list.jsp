@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
+	<script type="text/javascript">
+	$(function(){
+        window.onresize = window.onload = function () {
+            gWinHeight = $(window).height();
+            $("#body").height(gWinHeight);
+            tweetex.height(gWinHeight-146);
+            $('div.main-content').css('min-height',gWinHeight-100);
+        };
+	});
+	</script>	
 <div class="stream-items search members">
 <c:forEach items="${peoples}" var="people">
 	<div class="stream-item">
