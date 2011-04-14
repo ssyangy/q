@@ -5,14 +5,12 @@
 <head>
 	<jsp:include page="head.jsp" />
 	<title>搜索</title>
-	<script type="text/javascript">
-		$(function(){
-			$( "#radio" ).buttonset();
-		});
-	</script>
+	<style>
+	
+	</style>
 </head>
   <body>
-	<div id="doc">
+	<div id="body">
         <jsp:include page="top.jsp"/>
 		<div id="page-outer">
 			<div id="page-container">
@@ -22,23 +20,21 @@
 						<h2>搜索</h2>
 						<div class="search-box">
 							<form action="" method="GET">
-										<input type="text" id="search" name="search" class="inner-search" size="20" value="${param['search']}"><button class="button">搜索</button>
+							<input type="text" id="search" name="search" class="inner-search" size="20" value="${param['search']}"><button class="button">搜索</button>
 							</form>
 						</div>
 					</div>
 				</div>
 					<div class="stream-manager">
-				    <div id="tabs" class="ui-tabs ui-widget">
+				    <div class="ui-tabs ui-widget">
 						<jsp:include page="search-tag.jsp">
 							<jsp:param value="group" name="tab"/>
 						</jsp:include>
-							<div id="tabs-2" class="tab-canvas">
-                              <jsp:include page="group-list.jsp"></jsp:include>
-							</div>
-						</div>
+					</div>
+                    <jsp:include page="group-list.jsp"></jsp:include>
 					</div>
 				</div>
-				<div class="dashboard" style="display:block;"></div>
+				
 			</div>
 		</div>
 	</div>

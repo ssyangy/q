@@ -28,18 +28,17 @@
 					</div>
 				</div>
 					<div class="stream-manager">
-                      <div id="tabs" class="ui-tabs ui-widget">
+                      <div class="ui-tabs ui-widget">
 						<jsp:include page="search-tag.jsp">
 							<jsp:param value="people" name="tab"/>
 						</jsp:include>
-							<div id="tabs-3" class="tab-canvas">
-											<jsp:include page="people-list.jsp"></jsp:include>
-								</div>
+
+									<jsp:include page="people-list.jsp"></jsp:include>
+
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="dashboard" style="display:block;"></div>
 			</div>
 		</div>
 	</div>

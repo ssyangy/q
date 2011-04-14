@@ -6,6 +6,9 @@
 <head>
 	<jsp:include page="head.jsp" />
 	<title>圈子黄页</title>
+	<style>
+	.expand{height:auto;}
+	</style>
 	<script type="text/javascript">
 		$(function () {
 		     window.onresize = window.onload = function () {
@@ -59,7 +62,7 @@
 						</div> 
 					</div> 
 				</div> 
-				<div class="expand" style="display:block;">
+				<div class="expand dashboardbb">
 				<c:if test="${cat!=null}">
 					<div class="db-header-outer"> 
 						<div class="db-header-inner"> 
