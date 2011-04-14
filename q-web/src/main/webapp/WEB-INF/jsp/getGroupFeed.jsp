@@ -6,12 +6,21 @@
 	<jsp:include page="head.jsp" />
 	<title>圈子新鲜事</title>
 </head>
+<style>
+.main-content{width:540px;float:left;z-index:4;position: relative;background: white;height: 100%;min-height:700px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+-moz-box-shadow: 0 3px 4px #999;
+-webkit-box-shadow: 0 3px 4px #999;
+}
+</style>
 <body>
 	<div id="body" >
 	<jsp:include page="top.jsp" />
 		<div id="page-outer" class="groups-feed">
 			<div id="page-container">
-				<div class="main-content" style="min-height:400px">
+				<div class="main-content">
 					<jsp:include page="group-feed-head.jsp" >
 						<jsp:param name="tab" value="group" />
 					</jsp:include>
@@ -23,7 +32,6 @@
 							</jsp:include>
 						</div>
 					</div>
-					
 				</div>
 				<jsp:include page="group-feed-dashboard.jsp" />
 				<div class='pagebk'></div>

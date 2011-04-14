@@ -209,6 +209,7 @@
 	            gWinHeight = $(window).height();
 	            $("#body").height(gWinHeight);
 	            tweetex.height(gWinHeight-146);
+	            $('div..main-content').css('min-height',gWinHeight-100);
 	        };
 	        var body = $('#body');
 	        var o = body[0];

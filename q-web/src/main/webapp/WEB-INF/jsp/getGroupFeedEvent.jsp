@@ -7,13 +7,7 @@
 <head>
 <jsp:include page="head.jsp" />
 <title>我的圈子-活动</title>
-<script type="text/javascript">
-	$(function(){
-		// Tabs
-		//$('#tabs').tabs();
-		//$tabs.tabs('select', 0);
-	});
-</script>	
+
 </head>
 <body>
 	<div id="doc">
@@ -39,8 +33,8 @@
 						</div> 
 					</div> 
 				</div> 
-			</div>		
-			<jsp:include page="group-feed-dashboard.jsp" />
+				<jsp:include page="group-feed-dashboard.jsp" />
+			</div>
 		</div>
 	</div>	
 </body>
