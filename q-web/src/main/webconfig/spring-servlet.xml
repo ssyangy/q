@@ -239,6 +239,7 @@
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="authcodeDao" ref="authcodeDao" />
 		<property name="searchService" ref="searchService"></property>
+		<property name="imageUrl" value="${q.image.url}" />
 	</bean>
 	<bean id="getPeopleFollowing" class="q.web.people.GetPeopleFollowing">
 		<property name="peopleDao" ref="peopleDao" />
@@ -281,6 +282,7 @@
 	<bean id="addPeopleFull" class="q.web.people.AddPeopleFull">
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="groupDao" ref="groupDao" />
+		<property name="imageUrl" value="${q.image.url}" />
 	</bean>
 
 	<!-- login web -->
@@ -480,6 +482,7 @@
 	</bean>
 	<bean id="getProfileAvatar" class="q.web.people.GetProfileAvatar">
 		<property name="imageUrl" value="${q.image.url}" />
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="addProfileAvatar" class="q.web.people.AddProfileAvatar">
 	</bean>
@@ -487,6 +490,7 @@
 		<property name="imageUrl" value="${q.image.url}" />
 		<property name="imageUploadUrl" value="${q.image.upload.url}" />
 		<property name="pictureService" ref="pictureService"></property>
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="addAvatar" class="q.web.people.AddAvatar">
 		<property name="imageUrl" value="${q.image.url}" />

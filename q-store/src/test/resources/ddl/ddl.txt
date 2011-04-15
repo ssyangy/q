@@ -19,7 +19,7 @@ create table people(
 	real_name varchar(32),
 	url varchar(60),
 	intro varchar(1024),
-	avatar_url varchar(60),
+	avatar_path varchar(60),
 	book varchar(1000),
 	film varchar(1000),
 	music varchar(1000),

@@ -6,6 +6,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import q.biz.PictureService;
+import q.dao.PeopleDao;
+import q.domain.People;
 import q.http.JdkHttpClient;
 import q.util.ImageKit;
 import q.web.Resource;
@@ -24,6 +26,12 @@ public class AddAvatarEdit extends Resource {
 	public void setImageUploadUrl(String imageUploadUrl) {
 		this.imageUploadUrl = imageUploadUrl;
 	}
+	private PeopleDao peopleDao;
+
+	public void setPeopleDao(PeopleDao peopleDao) {
+		this.peopleDao = peopleDao;
+	}
+
 	private PictureService pictureService;
 
 	public void setPictureService(PictureService pictureService) {
@@ -40,12 +48,19 @@ public class AddAvatarEdit extends Resource {
 		double x2 = Double.parseDouble(context.getString("realx2"));
 		double y1 = Double.parseDouble(context.getString("realy1"));
 		double y2 = Double.parseDouble(context.getString("realy2"));
+		People people = new People();
 		if (y2 <= 0 || x2 <= 0) {
 			throw new RequestParameterInvalidException("value:图片参数出错了。");
 		}
 		long peopleId = context.getCookiePeopleId();
 		boolean sb=pictureService.editAvatar(x1, x2, y1, y2, peopleId);
-
+		if(sb==true){
+		long dir = peopleId % 10000;
+		String avatarPath=imageUrl + "/a/" + String.valueOf(dir) + "/" + String.valueOf(peopleId);
+		people.setAvatarPath(avatarPath);
+		people.setId(peopleId);
+		peopleDao.updatePeopleById(people);
+		}
 		if (sb == false) {
 			throw new RequestParameterInvalidException("value:服务器忙。");
 		}

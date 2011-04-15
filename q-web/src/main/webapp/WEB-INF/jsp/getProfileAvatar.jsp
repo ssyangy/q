@@ -129,11 +129,11 @@
    			);
    			if("${avatarExists}"=="true"){
     		var img=new Image();
-    		img.src="${avatarUrlPrefix}/${avatarPath}";
+    		img.src="${avatarPath}";
     		var dick=setInterval(function(){
     			if(img.complete){
     				clearInterval(dick);
-    				reloadImg(img.height,img.width,"${avatarUrlPrefix}/${avatarPath}");
+    				reloadImg(img.height,img.width,"${avatarPath}");
     				cutter.init();
     			}
     		},100);

@@ -49,11 +49,11 @@ public class People extends AbstractDomain implements Serializable {
 
 	private String intro;
 
-	private String avatarUrl;
+	private String avatarPath;
 
 	private String book;
 
-    private String film;
+	private String film;
 
 	private String idol;
 
@@ -181,6 +181,7 @@ public class People extends AbstractDomain implements Serializable {
 	public void setArea(Area area) {
 		this.area = area;
 	}
+
 	public Area getHometown() {
 		return hometown;
 	}
@@ -188,6 +189,7 @@ public class People extends AbstractDomain implements Serializable {
 	public void setHometown(Area hometown) {
 		this.hometown = hometown;
 	}
+
 	public int getRoleId() {
 		return this.roleId;
 	}
@@ -268,12 +270,22 @@ public class People extends AbstractDomain implements Serializable {
 		this.following = false;
 	}
 
-	public String getAvatarUrl() {
-		return avatarUrl;
+	public boolean hasAvatar() {
+		if (avatarPath == null) {
+			return false;
+		}
+		if (avatarPath.endsWith("-def")) {  // qimg.net/a/default/male-def-24, qimg.net/a/default/female-def-24
+			return false;
+		}
+		return true;
 	}
 
-	public void setAvatarUrl(String avatarUrl) {
-		this.avatarUrl = avatarUrl;
+	public String getAvatarPath() {
+		return avatarPath;
+	}
+
+	public void setAvatarPath(String avatarPath) {
+		this.avatarPath = avatarPath;
 	}
 
 	public String getBook() {
@@ -316,13 +328,16 @@ public class People extends AbstractDomain implements Serializable {
 		this.music = music;
 	}
 
-	public String getAvatarPath() {
-		return this.id % 10000 + "/" + this.id;
+	public boolean isFemale() {
+		if (null == this.gender) {
+			return false;
+		}
+		return this.gender.isFemale();
 	}
 
 	@Override
 	public String toString() {
-		return "People [id=" + id + ", username=" + username + ", password=" + password + ", loginToken=" + loginToken + ", realName=" + realName + ", email=" + email + ", mobile=" + mobile + ", year=" + year + ", month=" + month + ", day=" + day + ", countryCode=" + countryCode + ", area=" + area  + ", hometown=" + hometown+", gender=" + gender + ", bloodTypeId=" + bloodTypeId + ", degree=" + degree + ", roleId=" + roleId + ", status=" + status + ", created=" + created + ", modified=" + modified + ", friendNum=" + friendNum + ", followNum=" + followerNum + ", followingNum=" + followingNum + ", weiboNum=" + weiboNum + ", url=" + url +", intro=" + intro + ", avatarUrl=" + avatarUrl +", book=" + book +", film=" + film +", music=" + music +", idol=" + idol +", hope=" + hope +"]";
+		return "People [id=" + id + ", username=" + username + ", password=" + password + ", loginToken=" + loginToken + ", realName=" + realName + ", email=" + email + ", mobile=" + mobile + ", year=" + year + ", month=" + month + ", day=" + day + ", countryCode=" + countryCode + ", area=" + area + ", hometown=" + hometown + ", gender=" + gender + ", bloodTypeId=" + bloodTypeId + ", degree=" + degree + ", roleId=" + roleId + ", status=" + status + ", created=" + created + ", modified=" + modified + ", friendNum=" + friendNum + ", followNum=" + followerNum + ", followingNum=" + followingNum + ", weiboNum=" + weiboNum + ", url=" + url + ", intro=" + intro + ", avatarPath=" + avatarPath + ", book=" + book + ", film=" + film + ", music=" + music + ", idol=" + idol + ", hope=" + hope + "]";
 	}
 
 }

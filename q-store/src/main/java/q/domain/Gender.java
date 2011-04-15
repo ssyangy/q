@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.domain;
 
@@ -7,7 +7,7 @@ package q.domain;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 12, 2011
- * 
+ *
  *       People gender pojo.
  */
 public enum Gender {
@@ -16,7 +16,7 @@ public enum Gender {
 	private int value;
 
 	private String cnname;
-	
+
 	private String cncall;
 
 	private Gender(int value, String cnname, String cncall) {
@@ -32,11 +32,11 @@ public enum Gender {
 	public String getCnname() {
 		return cnname;
 	}
-	
+
 	public String getCncall() {
 		return cncall;
 	}
-	
+
 	public static Gender convertValue(int value) {
 		if(value == MALE.value) {
 			return MALE;
@@ -45,6 +45,10 @@ public enum Gender {
 		} else {
 			return null;
 		}
+	}
+
+	public boolean isFemale() {
+		return value == FEMALE.value;
 	}
 
 	/**

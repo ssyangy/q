@@ -31,13 +31,22 @@ public class AddPeopleFull extends Resource {
 	public void setGroupDao(GroupDao groupDao) {
 		this.groupDao = groupDao;
 	}
-
+	private String imageUrl;
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		People people = new People();
 		long peopleId = context.getResourceIdLong();
 		people.setId(peopleId);
 		Gender gender = Gender.convertValue(context.getInt("gender", -1));
+		if(gender.isFemale()){
+			people.setAvatarPath(imageUrl+"/a/default/female-def");
+		}
+		else{
+			people.setAvatarPath(imageUrl+"/a/default/male-def");
+		}
 		people.setGender(gender);
 		int provinceId = context.getInt("province", -1);
 		int cityId = context.getInt("city", -1);

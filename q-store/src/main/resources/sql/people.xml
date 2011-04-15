@@ -22,7 +22,7 @@
 		<result property="realName" column="real_name" />
 		<result property="url" column="url" />
 		<result property="intro" column="intro" />
-		<result property="avatarUrl" column="avatar_url"/>
+		<result property="avatarPath" column="avatar_path"/>
 		<result property="status" column="status" />
 		<result property="created" column="created" />
 		<result property="modified" column="modified" />
@@ -70,7 +70,7 @@
 		real_name,
 		url,
 		intro,
-		avatar_url,
+		avatar_path,
 		status,
 		created,
 		modified
@@ -146,7 +146,7 @@
 		#realName#,
 		#url#,
 		#intro#,
-		#avatarUrl#,
+		#avatarPath#,
 		0,
 		now(),
 		null
@@ -186,8 +186,8 @@
 			<isNotNull prepend="," property="intro">
 				intro=#intro#
 			</isNotNull>
-			<isNotNull prepend="," property="avatarUrl">
-				avatar_url=#avatarUrl#
+			<isNotNull prepend="," property="avatarPath">
+				avatar_path=#avatarPath#
 			</isNotNull>
 		    <isNotNull prepend="," property="realName">
 				real_name=#realName#

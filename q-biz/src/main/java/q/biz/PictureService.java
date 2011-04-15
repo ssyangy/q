@@ -13,4 +13,6 @@ public interface PictureService {
     public String uploadAvatar(InputStream picture,long peopleId,long size,String type)throws Exception;
 
     public boolean editAvatar(double x1,double x2,double y1,double y2,long peopleId )throws Exception;
+
+    public boolean hasAvatar(long peopleId);
 }

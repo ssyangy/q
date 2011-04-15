@@ -156,4 +156,15 @@ public class ImgService implements PictureService {
 		return sb;
 	}
 
+	@Override
+	public boolean hasAvatar(long peopleId) {
+		long dir = peopleId % 10000;
+		if(JdkHttpClient.exists(imageUrl+ "/a/" + String.valueOf(dir) + "/" + String.valueOf(peopleId))){
+			return true;
+		}
+		else{
+		    return false;
+		}
+	}
+
 }

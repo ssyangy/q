@@ -24,11 +24,13 @@ import q.web.exception.RequestParameterInvalidException;
 
 public class AddPeople extends Resource {
 	private PeopleDao peopleDao;
-
+	private String imageUrl;
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
 	}
-
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 	private AuthcodeDao authcodeDao;
 
 	public void setAuthcodeDao(AuthcodeDao authcodeDao) {
@@ -49,6 +51,7 @@ public class AddPeople extends Resource {
 		people.setRealName(context.getString("realName"));
 		people.setGender(Gender.convertValue(context.getInt("gender", 0)));
 		people.setLoginToken("xxxx");// FIXME wanglin
+		people.setAvatarPath(imageUrl+"/a/default/male-def");
 		peopleDao.addPeople(people);
 		context.setModel("people", people);
 		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), people.getRealName(), people.getUsername())); // set login cookie
