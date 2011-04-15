@@ -299,8 +299,8 @@
 <div>
 	<div style='display:none;' id="savewrong"></div>
 	<div style='display:none;' id="savecorrect"></div>
-	<input type="button" id="saveButton" style='display:none;'  onclick="save()">保存</input>
-	<input type="button" id="cancelButton" style='display:none;' >取消</input>
+	<input type="button" id="saveButton" style='display:none;' value='保存' onclick="save()"></input>
+	<input type="button" id="cancelButton" style='display:none;' value='取消' ></input>
 
 </div>
 </div>
