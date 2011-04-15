@@ -203,7 +203,7 @@
 									<textarea name="content" class="twitter-anywhere-tweet-box-editor" style="width: 482px; height: 56px; "></textarea>
 								</div>
 								<div class="tweet-button-container">
-									<button>回复</button>
+									<button class='button'>回复</button>
 								</div>
 							</form>
 						</div>

@@ -198,13 +198,12 @@
         <input type="submit" value="上传图片" onclick="check()"  ></input>
 		<p>Uploaded files:</p>
 		<ol class='files hide' >
-		<div class='upimgbox'>
+		<div class='upimgbox middle imgrote'>
 		 <img id='upimg'  src='' />
-		 <br />
-		   </div>
-		     <a id='imgRotateL' class='link mr10'>左转</a>
-		     <a id='imgRotateR' class='link'>右转</a>
-		      </ol>
+		</div>
+		<a id='imgRotateL' class='link mr10'>左转</a>
+		<a id='imgRotateR' class='link'>右转</a>
+		</ol>
         <iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>
      </form>
     </div>

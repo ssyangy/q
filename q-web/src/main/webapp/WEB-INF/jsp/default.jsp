@@ -5,7 +5,10 @@
 <html>
 <head>
 	<jsp:include page="head.jsp" />
-	<title>圈子a</title>
+	<title>圈子</title>
+	<style>
+	body{overflow:auto;}
+	</style>
 	<script type="text/javascript">
 	$(function(){
 	    $("input[accesskey]").unbind().bind("keydown", function (e) {

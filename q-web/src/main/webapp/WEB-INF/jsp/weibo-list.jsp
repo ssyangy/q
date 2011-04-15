@@ -151,9 +151,6 @@
 				    data: {size:8, startId:parseInt($('div.tweet_rep:last').attr('replyid'))-1, type:0},
 				   	success: function(json){
 				   		tweetex.empty().append(ich.tweetexp(json));
-		        		$('div.dashboardbb').hide();
-			            tweetex.show().css('left',set.left+10);
-			            tweetex.animate({ left: 540+set.left }, 500, 'swing');
 				    }
                 });
 			});
@@ -165,9 +162,6 @@
 				    data: {size:8, startId:parseInt($('div.tweet_rep:first').attr('replyid'))+1, type:1},
 				   	success: function(json){
 				   		tweetex.empty().append(ich.tweetexp(json));
-		        		$('div.dashboardbb').hide();
-			            tweetex.show().css('left',set.left+10);
-			            tweetex.animate({ left: 540+set.left }, 500, 'swing');
 				    }
                 });
 			});
