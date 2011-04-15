@@ -295,34 +295,13 @@
 <div>
 	<div style='display:none;' id="savewrong"></div>
 	<div style='display:none;' id="savecorrect"></div>
-	<input type="button" value="保存" onclick="save()"></input>
-	<input type="button" value="取消"></input>
+	<button class="button" onclick="save()">保存</button>
+	<button class="button" >取消</button>
 </div>
 </div>
 
 </div>
 
-				</div>
-			</div>
-		</div>
-
-		<div id="page-outer">
-			<div id="page-container">
-				<div class="main-content" style="min-height:400px">
-					<div class="home-header">
-						<div class="main-header-box">
-							<div class="header-box">
-								<div class="group-box-title">
-									<h2>小芳CHINA</h2>
-								</div>
-								<div class="position" style="display:none;">
-									<span class="desc">所在地：</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="dashboard" style="display:block;">
 				</div>
 			</div>
 		</div>
