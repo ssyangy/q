@@ -7,16 +7,9 @@
 <head>
 <jsp:include page="head.jsp" />
 <title>${group.name}-成员</title>
-<script type="text/javascript">
-	$(function(){
-		// Tabs
-		$('#tabs').tabs();
-		$tabs.tabs('select', 0);
-	});
-</script>	
 </head>
 <body>
-	<div id="doc">
+	<div id="body">
 	<jsp:include page="top.jsp" />
 		<div id="page-outer" class="groups-feed">
 			<div id="page-container"> 
@@ -28,8 +21,11 @@
 						<jsp:include page="people-list.jsp"></jsp:include>
 					</div>
 				</div>
+				<jsp:include page="group-dashboard.jsp" />
+				<div class='pagebk'></div>
+				<br clear='all'/>				
 			</div>		
-			<jsp:include page="group-dashboard.jsp" />
+			
 		</div>
 	</div>	
 </body>

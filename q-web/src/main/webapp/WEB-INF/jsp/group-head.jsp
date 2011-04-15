@@ -23,7 +23,7 @@
 		</div>
 		<div class="sep-div"></div>
 		<div class="nav">
-			<div class="links">
+			<div class="links menu-a">
 				<ul>
 					<li>
 					<c:choose>
