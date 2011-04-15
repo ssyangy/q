@@ -10,13 +10,13 @@
             $('div.main-content').css('min-height',gWinHeight-100);
         };
 	});
-	</script>	
+	</script>
 <div class="stream-items search members">
 <c:forEach items="${peoples}" var="people">
 	<div class="stream-item">
 		<c:if test="${loginCookie.peopleId != people.id}">
 		<div class="action">
-			<a href="${urlPrefix}/weibo/new?receiverId=${people.id}&amp;from=/q/people/${people.id}" class="button">@${people.gender.cncall}</a> 
+			<a href="${urlPrefix}/weibo/new?receiverId=${people.id}&amp;from=/q/people/${people.id}" class="button">@${people.gender.cncall}</a>
 			<a href="${urlPrefix}/message/new?receiverId=${people.id}" class="button">私信</a>
 			<c:choose>
 			<c:when test="${!people.following}">
@@ -25,14 +25,14 @@
 			<c:otherwise>
 				<button class="button" onclick="unFollow(this,${people.id})">取消关注</button>
 			</c:otherwise>
-			</c:choose> 
+			</c:choose>
 		</div>
 		</c:if>
 		<div class="people">
 			<div class="avatar">
 				<a href="${urlPrefix}/people/${people.id}">
-					<img height="48" width="48" src="${avatarUrlPrefix}/${people.avatarPath}-48"/>
-				</a>								
+					<img height="48" width="48" src="${people.avatarPath}-48"/>
+				</a>
 			</div>
 			<div class="people-info-block">
 				<div class="name people-info-line">
@@ -50,5 +50,5 @@
 			<div class="clearfix2"></div>
 		</div>
 	</div>
-</c:forEach>	
+</c:forEach>
 </div>

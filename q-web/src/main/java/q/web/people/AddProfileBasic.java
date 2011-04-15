@@ -24,6 +24,10 @@ public class AddProfileBasic extends Resource{
 	public void setSearchService(SearchService searchService) {
 		this.searchService = searchService;
 	}
+	private String imageUrl;
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		People people = new People();
@@ -41,6 +45,14 @@ public class AddProfileBasic extends Resource{
 		int hometownCityId = context.getInt("hometownCity", -1);
 		int hometownCountyId = context.getInt("hometownCounty", -1);
 		int hometownAreaId = AreaValidator.getAreaId(hometownProvinceId, hometownCityId, hometownCountyId);
+		if(!databasePeople.hasAvatar()){
+		if(gender.isFemale()){
+			people.setAvatarPath(imageUrl+"/default/female-def");
+		}
+		else{
+			people.setAvatarPath(imageUrl+"/default/male-def");
+		}
+		}
 		people.setHometown(Area.getAreaById(hometownAreaId));
 		people.setArea(Area.getAreaById(areaId));
 		people.setYear(context.getInt("year", -1));

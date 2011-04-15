@@ -42,10 +42,10 @@ public class AddPeopleFull extends Resource {
 		people.setId(peopleId);
 		Gender gender = Gender.convertValue(context.getInt("gender", -1));
 		if(gender.isFemale()){
-			people.setAvatarPath(imageUrl+"/a/default/female-def");
+			people.setAvatarPath(imageUrl+"/default/female-def");
 		}
 		else{
-			people.setAvatarPath(imageUrl+"/a/default/male-def");
+			people.setAvatarPath(imageUrl+"/default/male-def");
 		}
 		people.setGender(gender);
 		int provinceId = context.getInt("province", -1);

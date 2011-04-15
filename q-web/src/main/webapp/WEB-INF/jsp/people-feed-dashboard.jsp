@@ -6,7 +6,7 @@
 		<div class="db-header-inner">
 			<div class="avatar">
 				<a href="${urlPrefix}/people/${people.id}">
-					<img src="${avatarUrlPrefix}/${people.avatarPath}-48">
+					<img src="${people.avatarPath}-48">
 				</a>
 			</div>
 			<div class="my-brief">
@@ -30,7 +30,7 @@
 					<div class="people-cell">
 						<div class="avatar">
 							<a href="${urlPrefix}/people/${fo.id}">
-								<img src="${avatarUrlPrefix}/${fo.avatarPath}-24">
+								<img src="${fo.avatarPath}-24">
 							</a>
 						</div>
 						<div class="name">
@@ -49,7 +49,7 @@
 					<div class="people-cell">
 						<div class="avatar">
 							<a href="${urlPrefix}/people/${fo.id}">
-								<img src="${avatarUrlPrefix}/${fo.avatarPath}-24">
+								<img src="${fo.avatarPath}-24">
 							</a>
 						</div>
 						<div class="name">

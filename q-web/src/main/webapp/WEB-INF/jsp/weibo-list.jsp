@@ -10,7 +10,7 @@
         <div class="tweet-image">
 			{{#people}}
 			<a href="${urlPrefix}/people/{{id}}">
-				<img height="48" width="48" src="${avatarUrlPrefix}/{{avatarPath}}-48">
+				<img height="48" width="48" src="{{avatarPath}}-48">
 			</a>
 			{{/people}}
 		</div>
@@ -66,7 +66,7 @@
 					<div class="tw_head">
 					{{#people}}
 					<a href="${urlPrefix}/people/{{id}}">
-                        <img class="wh48" src="${avatarUrlPrefix}/{{avatarPath}}-48" alt="head" />
+                        <img class="wh48" src="{{avatarPath}}-48" alt="head" />
 					</a>
                     <h4><a class='link' href='${urlPrefix}/people/{{id}}'>{{screenName}}</a></h4>
 					{{/people}}
@@ -105,7 +105,7 @@
                     <div class="tweet_rep" weiboid="{{quoteWeiboId}}" replyid="{{id}}">
 						{{#people}}
 						<a href="${urlPrefix}/people/{{id}}">
-                        	<img class="wh48" src="${avatarUrlPrefix}/{{avatarPath}}-48" alt="head" />
+                        	<img class="wh48" src="{{avatarPath}}-48" alt="head" />
 						</a>
                     	<a class='link peop' href='${urlPrefix}/people/{{id}}'>{{screenName}}</a>
 						{{/people}}
@@ -141,8 +141,8 @@
 				if(rote == undefined) rote = 0;
 				imgrote.children('img.weiboimg').rotate(rote - 90);
 				imgrote.data('rote',rote - 90);
-			});	
-			
+			});
+
 			$('#rrepnext').live('click',function(){
         		$.ajax({
 				    url: '${urlPrefix}/weibo/' + $('#twrep').attr('weiboid'),
@@ -171,7 +171,7 @@
 				    }
                 });
 			});
-			
+
 			var tweetex = $('div.tweetexpand');
 			var set = $('#page-container').offset();
 			tweetex.css('left',set.left+10);
@@ -203,7 +203,7 @@
 	        		tweetex.hide()
 	        	});
 	        });
-			
+
 	        window.onresize = window.onload = function () {
 	            gWinHeight = $(window).height();
 	            $("#body").height(gWinHeight);
@@ -429,7 +429,7 @@
 	<div class="stream-item tweet" weiboId=${weibo.id}>
 		<div class="tweet-image">
 			<a href="${urlPrefix}/people/${weibo.senderId}" >
-				<img height="48" width="48" src="${avatarUrlPrefix}/${weibo.people.avatarPath}-48"/>
+				<img height="48" width="48" src="${weibo.people.avatarPath}-48"/>
 			</a>
 		</div>
 		<div class="tweet-content">

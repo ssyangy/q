@@ -4,7 +4,7 @@
 <div class="profile-header">
 	<div class="profile-info clearfix">
 		<div class="profile-image-container">
-			<img width="128" height="128" src="${avatarUrlPrefix}/${people.avatarPath}-128"/>
+			<img width="128" height="128" src="${people.avatarPath}-128"/>
 		</div>
 		<div class="profile-details">
 			<c:if test="${loginCookie.peopleId == people.id }">
@@ -31,10 +31,10 @@
 				<div class="buttons">
 					<c:choose>
 					<c:when test="${isFollowing == false}">
-						<button class="button" onclick="follow(this,${people.id})">关注</button>
+						<button class="button" onclick="follow(this,'${people.id}')">关注</button>
 					</c:when>
 					<c:otherwise>
-						<button class="button" onclick="unFollow(this,${people.id})">取消关注</button>
+						<button class="button" onclick="unFollow(this,'${people.id}')">取消关注</button>
 					</c:otherwise>
 					</c:choose>
 					<div class="button">
@@ -108,6 +108,6 @@
 			<textarea name="content" rows="5" cols="50"></textarea><br/>
 			<button class='hide donet' type='submit'></button>
 		</form>
-    </div>    
+    </div>
 	</c:if>
 </div>

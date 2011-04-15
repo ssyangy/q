@@ -39,7 +39,7 @@
 							<div class="people-cell">
 								<div class="avatar">
 									<a href="${urlPrefix}/people/${fo.id}">
-										<img src="${avatarUrlPrefix}/${fo.avatarPath}-24">
+										<img src="${fo.avatarPath}-24">
 									</a>
 								</div>
 								<div class="name">
@@ -58,7 +58,7 @@
 							<div class="people-cell">
 								<div class="avatar">
 									<a href="${urlPrefix}/people/${fo.id}">
-										<img src="${avatarUrlPrefix}/${fo.avatarPath}-24">
+										<img src="${fo.avatarPath}-24">
 									</a>
 								</div>
 								<div class="name">

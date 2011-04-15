@@ -484,6 +484,7 @@
 	<bean id="addProfileBasic" class="q.web.people.AddProfileBasic">
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="searchService" ref="searchService"></property>
+		<property name="imageUrl" value="${q.image.url}" />
 	</bean>
 	<bean id="getProfileAvatar" class="q.web.people.GetProfileAvatar">
 		<property name="imageUrl" value="${q.image.url}" />

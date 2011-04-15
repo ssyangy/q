@@ -22,7 +22,7 @@
 	// <![CDATA[
 	function check(){
 	  var username=$("#username").val();
-	  var password=$("#password").val();  
+	  var password=$("#password").val();
 	  $.ajax({
 	    url: '${urlPrefix}/login',
 	    type: 'POST',
@@ -45,133 +45,133 @@
 	    }
 	  });
 	}
-	// ]]>	
+	// ]]>
 	</script>
 </head>
 <body>
-	<div id="index"> 
-		<div id="index-inner"> 
-			<div class="header"> 
-				<div class="logo-area"> 
-					<div class="logo"><span class="logo-zh">圈子</span><span class="logo-en">Q.com.cn</span></div> 
+	<div id="index">
+		<div id="index-inner">
+			<div class="header">
+				<div class="logo-area">
+					<div class="logo"><span class="logo-zh">圈子</span><span class="logo-en">Q.com.cn</span></div>
 					<div class="slogan">找到志趣相投的朋友，吃喝玩乐应有尽有，圈子就是好玩！有圈子才尽兴！<br />喂！...你哪个圈儿的？！</div>
-				</div> 
-				<div class="signin-area input-form"> 
+				</div>
+				<div class="signin-area input-form">
 					<div class="" style="display: none;color:red;" id="loginWrong"></div>
-					<table> 
-						<tbody> 
-							<tr> 
-								<td colspan="2"><input name='username' id="username" placeholder="请输入邮箱" type='text' class='text_field' size='23' accesskey='l'></td> 
-							</tr> 
-							<tr> 
-								<td colspan="2"><input name='password' id="password" placeholder="请输入密码" type='password' class='text_field' size='23' accesskey='l'></td> 
+					<table>
+						<tbody>
+							<tr>
+								<td colspan="2"><input name='username' id="username" placeholder="请输入邮箱" type='text' class='text_field' size='23' accesskey='l'></td>
 							</tr>
-							<tr> 
-								<th></th> 
-								<td><input type="checkbox">保持登录状态<a href="" id="keep-signin">忘记密码</a></td> 
-							</tr> 
-							<tr> 
-								<th></th> 
+							<tr>
+								<td colspan="2"><input name='password' id="password" placeholder="请输入密码" type='password' class='text_field' size='23' accesskey='l'></td>
+							</tr>
+							<tr>
+								<th></th>
+								<td><input type="checkbox">保持登录状态<a href="" id="keep-signin">忘记密码</a></td>
+							</tr>
+							<tr>
+								<th></th>
 								<td>
 									<button type="submit" onclick="check()" class="tweet-button button access_l">登 录</button>
 									<a href="${urlPrefix}/people/new" id="signup-link">立即注册</a>
-								</td> 
-							</tr> 
-						</tbody> 
-					</table> 
-				</div> 
-				<div class="clearfix2"></div> 
-			</div> 
-			<div class="content"> 
-				<div class="content-inner"> 
-					<div class="main"> 
-						<div class="main-inner"> 
-							<div class="groups-cat"> 
-							<h3>圈子分类</h3> 
-							<table class="groups-cat" width="100%"> 
-								<tbody> 
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="clearfix2"></div>
+			</div>
+			<div class="content">
+				<div class="content-inner">
+					<div class="main">
+						<div class="main-inner">
+							<div class="groups-cat">
+							<h3>圈子分类</h3>
+							<table class="groups-cat" width="100%">
+								<tbody>
 									<c:forEach items="${cats}" var="cat" varStatus="status">
-									<tr> 
-										<th><img src="${imageUrl}/default/cat-def.png"></th> 
+									<tr>
+										<th><img src="${imageUrl}/default/cat-def.png"></th>
 										<td>
 											<div class="desc">
 												<div class="action">
 													<a href="${urlPrefix}/group?cat=${cat.id}">更多→</a>
 												</div>
 												<div>${cat.name}</div>
-											</div> 
+											</div>
 											<div class="group">
 												<c:forEach items="${cat.groups}" var="group" varStatus="status">
 												<a href="${urlPrefix}/group/${group.id}">${group.name}</a>
 												</c:forEach>
-											</div> 
-										</td> 
+											</div>
+										</td>
 									</tr>
 									</c:forEach>
-								</tbody> 
-							</table> 
-						</div> 
-						</div> 
-						<div class="member-online"> 
-							<div class="head-line"> 
-								<div class="head-h3"><h3>同城在线</h3></div> 
-								<div class="location">${province.name}&nbsp;${city.name}&nbsp;${county.name}</div> 
-								<div class="clearfix2"></div> 
-							</div> 
-							<div class="photo-wall"> 
+								</tbody>
+							</table>
+						</div>
+						</div>
+						<div class="member-online">
+							<div class="head-line">
+								<div class="head-h3"><h3>同城在线</h3></div>
+								<div class="location">${province.name}&nbsp;${city.name}&nbsp;${county.name}</div>
+								<div class="clearfix2"></div>
+							</div>
+							<div class="photo-wall">
 								<c:forEach items="${hotLocals}" var="people" varStatus="status">
 								<div class="one-photo">
-									<a href="${urlPrefix}/people/${people.id}"><img src="${avatarUrlPrefix}/${people.avatarPath}-48" width="48" height="48"/></a>
+									<a href="${urlPrefix}/people/${people.id}"><img src="${people.avatarPath}-48" width="48" height="48"/></a>
 								</div>
-								</c:forEach> 
-								<div class="clearfix2"></div> 
-							</div> 
-						</div> 
-					</div> 
-					<div class="side"> 
-						<div class="hot-events"> 
-							<h3>活动ING</h3> 
+								</c:forEach>
+								<div class="clearfix2"></div>
+							</div>
+						</div>
+					</div>
+					<div class="side">
+						<div class="hot-events">
+							<h3>活动ING</h3>
 							<table width="100%">
 								<c:forEach items="${hotEvents}" var="event" varStatus="status">
-								<tr> 
-									<td width="20%">${event.startedMd}</td> 
-									<td width="23%">${event.area.name}</td> 
-									<td><a href="${urlPrefix}/event/${event.id}">${event.name}</a></td> 
+								<tr>
+									<td width="20%">${event.startedMd}</td>
+									<td width="23%">${event.area.name}</td>
+									<td><a href="${urlPrefix}/event/${event.id}">${event.name}</a></td>
 								</tr>
 								</c:forEach>
-							</table> 
-						</div> 
-						<div class="hot-tweets"> 
+							</table>
+						</div>
+						<div class="hot-tweets">
 							<h3>热议ING</h3>
 							<c:forEach items="${hotWeibos}" var="weibo">
-							<div class="one-tweet"> 
-								<div class="avatar"> 
+							<div class="one-tweet">
+								<div class="avatar">
 									<a href="${urlPrefix}/people/${weibo.people.id}">
-										<img src="${avatarUrlPrefix}/${weibo.people.avatarPath}-24">
-									</a> 
-								</div> 
-								<div class="brief"> 
+										<img src="${weibo.people.avatarPath}-24">
+									</a>
+								</div>
+								<div class="brief">
 									<a href="${urlPrefix}/people/${weibo.people.id}" class="author">${weibo.people.realName}</a>
 									<a href="${urlPrefix}/weibo/${weibo.id}">
 										<q:omit maxLength="40">${weibo.content}</q:omit>
 									</a>
-								</div> 
-								<div class="clearfix2"></div> 
+								</div>
+								<div class="clearfix2"></div>
 							</div>
-							</c:forEach> 
-						</div> 
-					</div> 
-					<div class="clearfix2"></div> 
-				</div> 
-			</div> 
-			<div class="footer"> 
-				<ul> 
-					<li><a href="">关于我们</a></li> 
-					<li><a href="">版权所有2011-END</a></li> 
-					<li><a href="">沪TMD备7654321</a></li> 
-				</ul> 
-			</div> 
-		</div> 
-	</div> 
+							</c:forEach>
+						</div>
+					</div>
+					<div class="clearfix2"></div>
+				</div>
+			</div>
+			<div class="footer">
+				<ul>
+					<li><a href="">关于我们</a></li>
+					<li><a href="">版权所有2011-END</a></li>
+					<li><a href="">沪TMD备7654321</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
