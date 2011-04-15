@@ -138,21 +138,20 @@
 					<div class="stream-manager msg-panel"> 
 						<div class="stream-items"> 
 							<c:forEach items="${messages}" var="message">
+							<a class='msgitem' href='${urlPrefix}/message?messageId=${message.id}'>
 							<div class="stream-item msg unread"> 
 								<div class="msg-image"> 
-									<a href="${urlPrefix}/people/${message.sender.id}">
 									<img height="48" width="48" src="${avatarUrlPrefix}/${message.sender.avatarPath}-24">
-									</a> 
 								</div> 
 								<div class="msg-content"> 
 									<div class="tweet-row"> 
 										<span> 
-											<a class="msg-sender-name" href="${urlPrefix}/people/${message.sender.id}">${message.sender.realName}</a> 
+											<span class="msg-sender-name" >${message.sender.realName}</span> 
 										</span> 
 										<span class="sender-icon"><img src="${staticUrlPrefix}/style/images/arrow_right.png" width="10" height="10"></span> 
 										<span>
 											<c:forEach items="${message.receivers}" var="receiver" varStatus="status"> 
-												<a href="${urlPrefix}/people/${receiver.id}" class="msg-receiver-name">${receiver.realName}</a>
+												<span class="msg-receiver-name">${receiver.realName}</span>
 												<c:if test="${!status.last}">
 												<span class="comma">,</span>
 												</c:if>
@@ -167,10 +166,11 @@
 										</div> 
 									</div> 
 									<div class="tweet-row"> 
-										<a href="" class="tweet-timestamp">${message.time}</a> 
+										<span class="tweet-timestamp">${message.time}</span> 
 									</div> 
 								</div> 
-							</div> 
+							</div>
+							</a>
 							</c:forEach>
 						</div> 
 					</div> 
@@ -183,7 +183,7 @@
 									<c:forEach items="${message.receivers}" var="receiver">
 								    <li>
 								    	<a href="${urlPrefix}/people/${receiver.id}">
-								    		<img class="img48" src="${avatarUrlPrefix}/${receiver.avatarPath}-48" alt="img" />
+								    		<img class="img24" src="${avatarUrlPrefix}/${receiver.avatarPath}-24" alt="img" />
 								    	</a>
 								        <div class="gray">
 								            ${receiver.realName}
@@ -230,9 +230,7 @@
 								<div class="msg-body">${reply.content}</div> 
 							</div> 
 						</div>
-						</c:forEach> 
-						<button class='button ml10 mt10'>上一页</button>
-						<button class='button ml10 mt10'>下一页</button>
+						</c:forEach>
 					</div> 
 				</div> 
 				<div class='pagebk'></div>
