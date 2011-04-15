@@ -137,20 +137,20 @@
 
 					<div class="stream-manager msg-panel">
 						<div class="stream-items">
-							<c:forEach items="${messages}" var="message">
-							<a class='msgitem' href='${urlPrefix}/message?messageId=${message.id}'>
-							<div class="stream-item msg unread">
+							<c:forEach items="${messages}" var="item">
+							<a class='msgitem' href='${urlPrefix}/message?messageId=${item.id}'>
+							<div class="stream-item msg unread <c:if test="${message.id==item.id}">tweet_act</c:if>">
 								<div class="msg-image">
-									<img height="48" width="48" src="${message.sender.avatarPath}-24">
+									<img height="48" width="48" src="${item.sender.avatarPath}-24">
 								</div>
 								<div class="msg-content">
 									<div class="tweet-row">
 										<span>
-											<span class="msg-sender-name" >${message.sender.realName}</span>
+											<span class="msg-sender-name" >${item.sender.realName}</span>
 										</span>
 										<span class="sender-icon"><img src="${staticUrlPrefix}/style/images/arrow_right.png" width="10" height="10"></span>
 										<span>
-											<c:forEach items="${message.receivers}" var="receiver" varStatus="status">
+											<c:forEach items="${item.receivers}" var="receiver" varStatus="status">
 												<span class="msg-receiver-name">${receiver.realName}</span>
 												<c:if test="${!status.last}">
 												<span class="comma">,</span>
@@ -162,11 +162,11 @@
 										</span>
 									</div>
 									<div class="tweet-row msg-latest">
-										<div>${message.lastReply.content}
+										<div>${item.lastReply.content}
 										</div>
 									</div>
 									<div class="tweet-row">
-										<span class="tweet-timestamp">${message.time}</span>
+										<span class="tweet-timestamp">${item.time}</span>
 									</div>
 								</div>
 							</div>
