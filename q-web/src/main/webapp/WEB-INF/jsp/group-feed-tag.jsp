@@ -14,6 +14,7 @@
 	</li>
 </c:otherwise>
 </c:choose>
+<%-- 
 <c:choose>
 <c:when test="${'hot' == param['tab']}">
 	<li class="tab-text ui-state-default ui-corner-top ui-tabs-selected ui-state-active">
@@ -26,6 +27,7 @@
 	</li>
 </c:otherwise>
 </c:choose>
+--%>
 <c:choose>
 <c:when test="${'created' == param['tab']}">
 	<li class="tab-text ui-state-default ui-corner-top ui-tabs-selected ui-state-active">

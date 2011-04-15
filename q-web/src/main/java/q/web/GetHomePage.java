@@ -68,7 +68,7 @@ public class GetHomePage extends Resource {
 		List<People> hotLocals = this.peopleDao.getHotPeoplesByArea(area, 5);
 		context.setModel("hotLocals", hotLocals);
 		List<q.domain.Weibo> hotWeibos = this.weiboDao.getHotWeibos(5);
-		DaoHelper.injectWeiboModelsWithSenderRealName(peopleDao, hotWeibos);
+		DaoHelper.injectWeiboModelsWithPeople(peopleDao, hotWeibos);
 		context.setModel("hotWeibos", hotWeibos);
 	}
 

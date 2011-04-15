@@ -51,7 +51,7 @@ public class AddMessageReply extends Resource {
 			messageReply.setReplyMessageId(replied.getId());
 			messageReply.setReplySenderId(replied.getSenderId());
 		}
-		long quoteMessageId = context.getIdLong("quoteMessageId");
+		long quoteMessageId = context.getResourceIdLong();
 		if (IdCreator.isValidIds(quoteMessageId)) {
 			Message quote = this.messageDao.getMessageById(quoteMessageId);
 			if(quote == null) {
@@ -63,12 +63,17 @@ public class AddMessageReply extends Resource {
 			throw new RequestParameterInvalidException("quote:invalid");
 		}
  		messageDao.addMessageReply(messageReply);
+ 		
+ 		String from = context.getString("from");
+ 		if (from != null) {
+			context.redirectContextPath(from);
+		}
 	}
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		long senderId = context.getCookiePeopleId();
-		if (IdCreator.isValidIds(senderId)) {
+		if (IdCreator.isNotValidId(senderId)) {
 			throw new RequestParameterInvalidException("login:invalid");
 		}
 	}

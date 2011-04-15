@@ -172,7 +172,7 @@
 		<isNotNull prepend="and" property="startId">
 			id &lt;= #startId#
 		</isNotNull>
-		order by created desc
+		order by id desc
 		<isNotNull property="size">
 			limit #startIndex#, #size#
 		</isNotNull>
