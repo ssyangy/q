@@ -85,6 +85,8 @@
          $("#imgwrong").html("这不是一个图片文件!");
     }
     function reloadImg(x,y,z){
+     $("#saveButton").css("display","block");
+    		  $("#cancelButton").css("display","block");
     realHeight=x;
 	realWidth=y;
 	var imgPath=z;
@@ -137,6 +139,8 @@
     				cutter.init();
     			}
     		},100);
+    		 $("#saveButton").css("display","block");
+    		  $("#cancelButton").css("display","block");
             }
     	});
 
@@ -295,8 +299,9 @@
 <div>
 	<div style='display:none;' id="savewrong"></div>
 	<div style='display:none;' id="savecorrect"></div>
-	<button class="button" onclick="save()">保存</button>
-	<button class="button" >取消</button>
+	<input type="button" id="saveButton" style='display:none;' value='保存' onclick="save()"></input>
+	<input type="button" id="cancelButton" style='display:none;' value='取消' ></input>
+
 </div>
 </div>
 
