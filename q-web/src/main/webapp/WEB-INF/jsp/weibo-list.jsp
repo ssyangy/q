@@ -291,6 +291,15 @@
 		    	  $("#ret_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/retweet');
 		    	  dia.dialog("open");
 		      });
+		      $("a.btn_sret").live('click',function () {
+		    	  var dia = $('#dia_ret');
+		    	  var tweet = $(this).closest('div.tweet-ori');
+		    	  $('div.wcontent',dia).empty().html($('span.wqcontent',tweet).html());
+		    	  $('div.wpeople',dia).empty().html($('a.tweet-ori-author',tweet).html());
+		    	  $("textarea[name='content']",dia).val('').val('//@'+$('a.tweet-ori-author',tweet).text().trim());
+		    	  $("#ret_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/retweet');
+		    	  dia.dialog("open");
+		      });		      
 
 	          $('#dia_rep').dialog({
 	              resizable: false,
@@ -357,6 +366,16 @@
 		    	  var tweet = $(this).closest('#twrep');
 		    	  $('div.wcontent',dia).empty().html($('div.rcontent',tweet).html());
 		    	  $('div.wpeople',dia).empty().html($('h4',tweet).html());
+		    	  $("textarea[name='content']",dia).val('');
+		    	  $("#rep_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/reply');
+		    	  $("#rep_wid",dia).val(tweet.attr('weiboid'));
+		    	  dia.dialog("open");
+		      });
+		      $("a.btn_srep").live('click',function () {
+		    	  var dia = $('#dia_rep');
+		    	  var tweet = $(this).closest('div.tweet-ori');
+		    	  $('div.wcontent',dia).empty().html($('span.wqcontent',tweet).html());
+		    	  $('div.wpeople',dia).empty().html($('a.tweet-ori-author',tweet).html());
 		    	  $("textarea[name='content']",dia).val('');
 		    	  $("#rep_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/reply');
 		    	  $("#rep_wid",dia).val(tweet.attr('weiboid'));
@@ -447,16 +466,22 @@
 				</c:if>
 			</div>
 			<c:if test="${weibo.quote.id > 0}">
-			<div class="tweet-ori">
+			<div class="tweet-ori" weiboid="${weibo.quote.id}">
 				<div class="tweet-ori-inner">
 					<a href="${urlPrefix}/people/${weibo.quote.people.id}" class="tweet-ori-author">${weibo.quote.people.realName}</a>：
-					${weibo.quote.content}
-					<c:if test="${weibo.picturePath !=null }"><img id="img" src="${weibo.picturePath}-160" class="img160"/></c:if>
-					<span class="">
-						<a href="${urlPrefix}/weibo/${weibo.quote.id}">原文转发</a>
+					<span class='wqcontent'>${weibo.quote.content}</span>
+					<c:if test="${weibo.quote.picturePath !=null }">
+					<div class='imgrote middle'>
+						<img id="img" src="${weibo.quote.picturePath}-160" class="img160 weiboimg"/>
+			     	</div>
+			     	<a class='weiboImgRotateL' class='link mr10'>左转</a>
+				    <a class='weiboImgRotateR' class='link'>右转</a>
+					</c:if>
+					<div class="tweet-actions">
+						<a class="btn_sret link">原文转发</a>
 						<span class="link-sep">·</span>
-						<a href="${urlPrefix}/weibo/${weibo.quote.id}">原文回复</a>
-					</span>
+						<a class="btn_srep link">原文回复</a>
+					</div>
 				</div>
 			</div>
 			</c:if>

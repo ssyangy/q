@@ -24,31 +24,6 @@
 						</div>
 					</div>
 					<div class="db-block">
-						<div class="more"><a href="${urlPrefix}/group/${group.id}/hot">更多→</a></div>
-						<h3>热议：</h3>
-						<div class="db-block-content">
-							<div class="db-tweet-box2 mb10">
-								<c:forEach items="${hotWeibos}" var="weibo">
-								<div class="avatar">
-									<a href="${urlPrefix}/people/${weibo.senderId}">
-										<img src="${weibo.people.avatarPath}-24"/>
-									</a>
-								</div>
-								<div class="tweet-body">
-									<p>
-										<span class="author"><a href="${urlPrefix}/people/${weibo.people.id}">${weibo.people.realName}</a>：</span>
-										<a href="${urlPrefix}/weibo/${weibo.id}">
-											<q:omit maxLength="40">${weibo.content}</q:omit>
-										</a>
-									</p>
-								</div>
-								</c:forEach>
-								<div class="clearfix2"></div>
-							</div>
-							<div class="clearfix2"></div>
-						</div>
-					</div>
-					<div class="db-block">
 						<div class="more"><a href="${urlPrefix}/group/${group.id}/people">更多→</a></div>
 						<h3>新成员：</h3>
 						<div class="db-block-content">
@@ -56,7 +31,7 @@
 							<div class="member-cell">
 								<div class="avatar">
 									<a href="${urlPrefix}/people/${fo.id}">
-										<img src="${fo.avatarPath}-48">
+										<img src="${fo.avatarPath}-24">
 									</a>
 								</div>
 								<div class="name-action">
@@ -77,7 +52,7 @@
 							<div class="member-cell">
 								<div class="avatar">
 									<a href="${urlPrefix}/people/${fo.id}">
-										<img src="${fo.avatarPath}-48">
+										<img src="${fo.avatarPath}-24">
 									</a>
 								</div>
 								<div class="name-action">

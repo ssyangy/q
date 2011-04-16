@@ -31,7 +31,6 @@
 					</div>
 				</div>
 				<jsp:include page="people-feed-dashboard.jsp"/>
-				
 				<div class='pagebk'></div>
 				<br clear='all'/>
 			</div>

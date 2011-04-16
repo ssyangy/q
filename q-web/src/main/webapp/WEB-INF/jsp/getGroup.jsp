@@ -29,7 +29,6 @@
 				</div>
 			</div>
 			<jsp:include page="group-dashboard.jsp" />
-			
 			<div class='pagebk'></div>
 			<br clear='all'/>
 		</div>
