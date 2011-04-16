@@ -20,10 +20,10 @@
 									<div class="action">
 									<c:choose>
 										<c:when test="${join == null}">
-											<button class="tweet-button button" onclick="joinEvent(this,${event.id})">我要参加</button>
+											<button class="tweet-button button" onclick="joinEvent(this,'${event.id}')">我要参加</button>
 										</c:when>
 										<c:otherwise>
-											<button class="tweet-button button" onclick="unJoinEvent(this,${event.id})">不参加了</button>
+											<button class="tweet-button button" onclick="unJoinEvent(this,'${event.id}')">不参加了</button>
 										</c:otherwise>
 									</c:choose>
 

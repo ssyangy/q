@@ -6,9 +6,6 @@ package q.web.group;
  * @date Feb 15, 2011
  *
  */
-import java.io.IOException;
-import java.sql.SQLException;
-
 import q.biz.SearchService;
 import q.dao.GroupDao;
 import q.domain.Group;

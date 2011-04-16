@@ -24,6 +24,16 @@ public class DefaultResourceContext implements ResourceContext {
 	private final HttpServletRequest request;
 	private final HttpServletResponse response;
 	private String[] paths;
+	
+	private String contextPath;
+	
+	public String getContextPath() {
+		return contextPath;
+	}
+
+	public void setContextPath(String contextPath) {
+		this.contextPath = contextPath;
+	}
 
 	public DefaultResourceContext(HttpServletRequest request, HttpServletResponse response, String[] paths) {
 		this.request = request;
@@ -224,7 +234,7 @@ public class DefaultResourceContext implements ResourceContext {
 
 	@Override
 	public void redirectServletPath(String path) throws IOException {
-		redirectContextPath(request.getContextPath() + path);
+		redirectContextPath(getContextPath() + path);
 	}
 
 	@Override

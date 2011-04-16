@@ -158,7 +158,7 @@
 				</property>
 			</bean>
 		</property>
-		<property name="loginPath" value="" />
+		<property name="loginPath" value="${q.url.prefix}" />
 		<property name="needLoginResources">
 			<set>
 				<value>getMineIndex</value>

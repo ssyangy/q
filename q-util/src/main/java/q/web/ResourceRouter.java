@@ -110,7 +110,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String method = request.getMethod().toLowerCase(); // lowercase http method
 		String path = request.getRequestURI().substring(request.getContextPath().length()); // path without context and domain
-		log.debug("request resource by method %s and path %s", method, path);
+		log.debug("request resource by method %s and requestUri %s and contextPath %s", method, request.getRequestURI(), request.getContextPath());
 		String[] segs = StringKit.split(path, PATH_SPLIT); // split path to path segments
 		Resource resource = getResource(request, method, path, segs); // get request resource
 		if (resource == null) { // if resource not exists , return 404
@@ -125,7 +125,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 					if (isJson) {
 						context.setErrorModel(new PeopleNotLoginException("login:用户未登录"));
 					} else {
-						context.redirectServletPath(loginPath + "?from=" + request.getContextPath() + path);
+						context.redirectServletPath(loginPath + "?from=" + this.contextPath + path);
 						return null;
 					}
 				}
@@ -167,7 +167,9 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 	}
 
 	protected ResourceContext toResourceContext(final HttpServletRequest request, final HttpServletResponse response, String path, String[] segs) {
-		return new DefaultResourceContext(request, response, segs);
+		 DefaultResourceContext context = new DefaultResourceContext(request, response, segs);
+		 context.setContextPath(contextPath);
+		 return context;
 	}
 
 	protected Resource getResource(HttpServletRequest request, String method, String path, String[] segs) {
