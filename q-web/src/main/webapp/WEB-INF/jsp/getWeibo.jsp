@@ -44,7 +44,7 @@
 				</c:otherwise>
 			</c:choose>
 			</form>
-			<a href="${urlPrefix}/reply/${reply.id}/retweet?from=${contextPath}/weibo/${weibo.id}">			
+			<a href="${urlPrefix}/reply/${reply.id}/retweet?from=${urlPrefix}/weibo/${weibo.id}">			
 			<c:choose>
 				<c:when test="${reply.fromGroup}">分享给好友</c:when>
 				<c:otherwise>转发</c:otherwise>

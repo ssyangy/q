@@ -152,7 +152,7 @@
 <div class="main-tweet-box group">
 	<div class="tweet-box">
 		<div class="bg">
-			<form action="${contextPath}/weibo" method="post">
+			<form action="${urlPrefix}/weibo" method="post">
 			<div class="text-area">
 				<textarea name="content" class="twitter-anywhere-tweet-box-editor" style="width: 470px; height: 56px; "></textarea>
 			</div>

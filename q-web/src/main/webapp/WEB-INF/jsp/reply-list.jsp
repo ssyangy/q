@@ -49,7 +49,7 @@
 						</c:otherwise>
 					</c:choose>
 					<span class="link-sep">·</span>
-					<a href="${urlPrefix}/reply/${reply.id}/retweet?from=${contextPath}/people/${people.id}">
+					<a href="${urlPrefix}/reply/${reply.id}/retweet?from=${urlPrefix}/people/${people.id}">
 					<c:choose>
 						<c:when test="${reply.inGroup}">分享给好友</c:when>
 						<c:otherwise>转发</c:otherwise>

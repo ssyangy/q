@@ -20,7 +20,7 @@
 						</div> 
 					</div> 
 					<div class="form-block"> 
-						<form action="<c:out value="${contextPath}/group" />" method="post">
+						<form action="<c:out value="${urlPrefix}/group" />" method="post">
 						<table class="input-form group-new-form" cellspacing="10"> 
 							<tbody> 
 								<tr> 

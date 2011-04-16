@@ -26,7 +26,7 @@
 							</div>
 						</div>
 						<div class="form-block">
-							<form action="${contextPath}/event" method="post">
+							<form action="${urlPrefix}/event" method="post">
 							<table class='input-form' cellspacing="10">
 								<tbody>
 									<tr>

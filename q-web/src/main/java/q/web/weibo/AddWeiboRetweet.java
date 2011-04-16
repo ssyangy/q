@@ -3,19 +3,13 @@
  */
 package q.web.weibo;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import q.biz.SearchService;
 import q.dao.WeiboDao;
 import q.domain.Weibo;
 import q.domain.WeiboFromType;
 import q.domain.WeiboJoinGroup;
-import q.http.JdkHttpClient;
-import q.log.Logger;
 import q.web.Resource;
 import q.web.ResourceContext;
 
