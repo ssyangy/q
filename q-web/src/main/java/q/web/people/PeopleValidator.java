@@ -79,15 +79,16 @@ public class PeopleValidator {
 	 */
 	public static void validateUrl(String url) throws RequestParameterInvalidException {
 		//正则表达式检验ip地址
-        String ipRegex = "((25[0-5]|2[0-4]\\d|1\\d\\d|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d\\d|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d\\d|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d\\d|\\d{1,2}))";
+       // String ipRegex = "((25[0-5]|2[0-4]\\d|1\\d\\d|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d\\d|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d\\d|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d\\d|\\d{1,2}))";
         //正则表达式检验域名
-        String domain = "([0-9a-z][0-9a-z-]*\\.)*[a-z]{2,6}|localhost";
+       // String domain = "([0-9a-z][0-9a-z-]*\\.)*[a-z]{2,6}|localhost";
         //检验端口
-        String port = "(:[0-9]{1,4})";
+       // String port = "(:[0-9]{1,4})";
         //检验剩余的URL是否合法其中[\u4e00-\u9fa5]表示中文
-        String remain = "(/[\\w!~*'()\\.;?:@&=+$,%#-[\u4e00-\u9fa5]]*)+/?$";
+       // String remain = "(/[\\w!~*'()\\.;?:@&=+$,%#-[\u4e00-\u9fa5]]*)+/?$";
         //该表达式用于检验http格式的URL是否合法
-        Pattern httpRegex =  Pattern.compile("^http://"+"("+ipRegex+"|"+domain+")"+port+"?"+remain);
+       // Pattern httpRegex =  Pattern.compile("^http://"+"("+ipRegex+"|"+domain+")"+port+"?"+remain);
+        Pattern httpRegex =  Pattern.compile("^(http)\\://(\\w+\\.\\w+\\.\\w+|\\w+\\.\\w+)");
 		if (!httpRegex.matcher(url).matches()) {
 			throw new RequestParameterInvalidException("url:这不是一个合法的url地址");
 		}
