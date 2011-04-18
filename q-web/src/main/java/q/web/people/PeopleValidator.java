@@ -88,10 +88,10 @@ public class PeopleValidator {
        // String remain = "(/[\\w!~*'()\\.;?:@&=+$,%#-[\u4e00-\u9fa5]]*)+/?$";
         //该表达式用于检验http格式的URL是否合法
        // Pattern httpRegex =  Pattern.compile("^http://"+"("+ipRegex+"|"+domain+")"+port+"?"+remain);
-        Pattern httpRegex =  Pattern.compile("^(http)\\://(\\w+\\.\\w+\\.\\w+|\\w+\\.\\w+)");
-		if (!httpRegex.matcher(url).matches()) {
-			throw new RequestParameterInvalidException("url:这不是一个合法的url地址");
-		}
+      //  Pattern httpRegex =  Pattern.compile("^(http)\\://(\\w+\\.\\w+\\.\\w+|\\w+\\.\\w+)");
+		//if (!httpRegex.matcher(url).matches()) {
+		//	throw new RequestParameterInvalidException("url:这不是一个合法的url地址");
+		//}
 	}
 	public static void validateBook(String interest) throws RequestParameterInvalidException {
 		if(interest.length()>1000){

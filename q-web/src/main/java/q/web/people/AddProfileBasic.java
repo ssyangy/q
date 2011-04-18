@@ -1,4 +1,5 @@
 package q.web.people;
+
 import java.util.List;
 
 import q.biz.SearchService;
@@ -13,27 +14,31 @@ import q.web.ResourceContext;
 import q.web.area.AreaValidator;
 import q.web.group.AddGroupJoin;
 
-public class AddProfileBasic extends Resource{
+public class AddProfileBasic extends Resource {
 	private PeopleDao peopleDao;
 
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
 	}
+
 	private SearchService searchService;
 
 	public void setSearchService(SearchService searchService) {
 		this.searchService = searchService;
 	}
+
 	private String imageUrl;
+
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
+
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		People people = new People();
 		long peopleId = context.getCookiePeopleId();
-		People databasePeople=peopleDao.getPeopleById(peopleId);
-		//long peopleId=1300368092229L;
+		People databasePeople = peopleDao.getPeopleById(peopleId);
+		// long peopleId=1300368092229L;
 		people.setId(peopleId);
 		Gender gender = Gender.convertValue(context.getInt("gender", -1));
 		people.setGender(gender);
@@ -45,13 +50,12 @@ public class AddProfileBasic extends Resource{
 		int hometownCityId = context.getInt("hometownCity", -1);
 		int hometownCountyId = context.getInt("hometownCounty", -1);
 		int hometownAreaId = AreaValidator.getAreaId(hometownProvinceId, hometownCityId, hometownCountyId);
-		if(!databasePeople.hasAvatar()){
-		if(gender.isFemale()){
-			people.setAvatarPath(imageUrl+"/default/female-def");
-		}
-		else{
-			people.setAvatarPath(imageUrl+"/default/male-def");
-		}
+		if (!databasePeople.hasAvatar()) {
+			if (gender.isFemale()) {
+				people.setAvatarPath(imageUrl + "/default/female-def");
+			} else {
+				people.setAvatarPath(imageUrl + "/default/male-def");
+			}
 		}
 		people.setHometown(Area.getAreaById(hometownAreaId));
 		people.setArea(Area.getAreaById(areaId));
@@ -62,7 +66,7 @@ public class AddProfileBasic extends Resource{
 		people.setIntro(context.getString("intro"));
 		people.setRealName(context.getString("realName"));
 		peopleDao.updatePeopleById(people);
-		if(!databasePeople.getRealName().equals(people.getRealName())){
+		if (!databasePeople.getRealName().equals(people.getRealName())) {
 			people.setUsername(databasePeople.getUsername());
 			searchService.updatePeople(people);
 		}

@@ -28,7 +28,7 @@ var undifined;
       return true;
      }
      function checkUrl(a){
-          var url=/^http:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]':+!]*([^<>\"\"])*$/;
+          /*var url=/^http:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]':+!]*([^<>\"\"])*$/;
           if (!url.test(a)){
               $("#urlcorrect").css("display","none");
               $("#urlwrong").css("display","block");
@@ -39,8 +39,8 @@ var undifined;
               $("#urlcorrect").css("display","block");
               $("#urlwrong").css("display","none");
            return true;
-          }
-
+          }*/
+       return true;
      }
   function check() {
      var cr=checkrealName($("#realName").val());
