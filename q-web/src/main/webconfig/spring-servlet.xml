@@ -522,6 +522,7 @@
 	<bean id="getSearchIndex" class="q.web.people.GetSearchIndex">
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
+		<property name="groupDao" ref="groupDao" />
 		<property name="searchService" ref="searchService"></property>
 	</bean>
 	<bean id="getSearchGroup" class="q.web.people.GetSearchGroup">

@@ -108,14 +108,14 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		log.debug("requestURL: %s and queryString: %s", request.getRequestURL(), request.getQueryString());
 		String method = request.getMethod().toLowerCase(); // lowercase http method
 		String path = request.getRequestURI().substring(request.getContextPath().length()); // path without context and domain
-		log.debug("request resource by method %s and requestUri %s and contextPath %s", method, request.getRequestURI(), request.getContextPath());
 		String[] segs = StringKit.split(path, PATH_SPLIT); // split path to path segments
 		Resource resource = getResource(request, method, path, segs); // get request resource
 		if (resource == null) { // if resource not exists , return 404
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-			log.warn("resource not found by method %s and path %s", method, path);
+			log.debug("resource not found by method %s and path %s", method, path);
 			return null;
 		} else {
 			ResourceContext context = toResourceContext(request, response, path, segs); // construct resource context
