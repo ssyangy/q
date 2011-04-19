@@ -5,6 +5,7 @@ import q.dao.PeopleDao;
 import q.domain.Area;
 import q.domain.Gender;
 import q.domain.People;
+import q.util.StringKit;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.area.AreaValidator;
@@ -66,13 +67,16 @@ public class AddProfileBasic extends Resource {
 		people.setDay(context.getInt("day", -1));
 
 		String url = context.getString("url");
-		if (url != null) {
-			if (!(url.startsWith("http://") || url.startsWith("https://"))) {
+		if (null != url) {
+			if (StringKit.isNotEmpty(url) && !(url.startsWith("http://") || url.startsWith("https://"))) {
 				url = "http://" + url;
 			}
 			people.setUrl(url);
 		}
-		people.setIntro(context.getString("intro"));
+		String intro = context.getString("intro");
+		if (null != url) {
+			people.setIntro(intro);
+		}
 		peopleDao.updatePeopleById(people);
 
 		// FIXME will remove from here, seanlinwang
