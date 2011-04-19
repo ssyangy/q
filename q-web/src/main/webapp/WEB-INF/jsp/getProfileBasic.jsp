@@ -28,7 +28,8 @@ var undifined;
       return true;
      }
      function checkUrl(a){
-          /*var url=/^http:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]':+!]*([^<>\"\"])*$/;
+     	  return true;//skip, TODO sean
+          var url=/^http:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]':+!]*([^<>\"\"])*$/;
           if (!url.test(a)){
               $("#urlcorrect").css("display","none");
               $("#urlwrong").css("display","block");
@@ -44,10 +45,12 @@ var undifined;
      }
   function check() {
      var cr=checkrealName($("#realName").val());
-     var cu=checkUrl($("#url").val());
      var crp=true;
-     if(!cr || !cu )
+     if(!cr)
   	   return ;
+  	 var cu=checkUrl($("#url").val());
+  	 if(!cu)
+  	   return;
      else
        allDataCheck();
  }

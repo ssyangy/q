@@ -14,7 +14,7 @@
 			<div class="screen-name-and-location">${people.area.myProvince.name}&nbsp;${people.area.myCity.name}&nbsp;${people.area.myCounty.name}</div>
 			<div class="bio">${people.intro}</div>
 			<div class="url">
-				<a href="${people.url}" >${people.url}</a>
+				<a target="_blank" href="${people.url}" >${people.url}</a>
 			</div>
 		</div>
 	</div>
