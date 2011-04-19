@@ -27,6 +27,11 @@
             var selinp = $('#selinp>a.ui-selectmenu');
             selinp.width(selinp.width() + 18).append('<span class="ui-icon ui-icon-signal-diag"></span>');
 
+            $('li.streambox').hover(function () {
+                $(this).addClass('hover');
+            }, function () {
+                $(this).removeClass('hover');
+            });
         });
     });
 </script>
@@ -60,7 +65,48 @@
                 <li class="ui-state-default crt2"><a href="#">来自好友</a></li>
             </ul>
         </div>
-
+        <ul id='streams'>
+                
+        </ul>
+        <script type="text/template" id="stream-template">
+            <li class='streambox' stream-id='{{ id }}'>
+                <div class='hd'>
+                    <a href='/#!/{{ username }}' title='{{ realname }}'>
+                    <img class='img48' src="http://usersimg/{{ username }}-48.jpg" alt="{{ realname }}">
+                    </a>
+                </div>
+                <div class='bd'>
+                    <div class='text'><a class='lk' href='/#!/{{ username }}' title='{{ realname }}'>{{ realname }}</a>
+                    {{ text }}
+                    </div>
+                    {{#attach}}
+                    <div class='attach'>
+                        {{#attach.img}}
+                            <div class='attimg'>
+                                <img src="http://usersimg/{{attach.img}}" class='img-w160' alt="">
+                            </div>
+                        {{!attach.img}}
+                        {{#attach.title}}
+                            <h6><a href="{{attach.src}}" title="{{attach.title}}" target="_blank">{{attach.title}}</a></h6>
+                        {{!attach.title}}
+                        {{#attach.source}}
+                            <p class="prop">来自{{#attach.cate}}<a href="#" class='lk' target="_blank">{{#attach.soures}}</a></p>
+                        {{!attach.source}}
+                        {{#attach.desc}}
+                            <p class="desc">{{attach.desc}}</p>
+                        {{!attach.desc}}
+                    </div>
+                    {{!attach}}
+                </div>
+                <div class='fd'>
+                    <b class='twarrow png'></b>
+                    <span class='time'>{{#time}}</span>
+                    <a class='replay png' href='#'>回复</a>
+                    <a class='resub ml5 png' href='#'>转发</a>
+                </div>
+            </li>
+        </script>
+        
 
     </div></div>
     <div class="col-sub">
@@ -112,38 +158,38 @@
         <h3>热图<span class='separator'> · · · · · ·</span><a class='arr'>更多</a></h3>
             <ul class="slist">
                 <li>
-                        <a href="#"><img class="img120" src="/usersimg/1.png" alt="img" /></a>
+                        <a href="#"><img class="img-w120" src="/usersimg/1.png" alt="img" /></a>
                     <div class="gray">
                         GEEK POWER
                     </div>
                 </li>
                 <li class="">
-                        <a href="#"><img class="img120" src="/usersimg/sago.jpg" alt="img" /></a>
+                        <a href="#"><img class="img-w120" src="/usersimg/sago.jpg" alt="img" /></a>
                     <div class="gray">
                         公司秘书丝袜第二季。。
                     </div>
                 </li>
 
                 <li class="end">
-                        <a href="#"><img class="img120" src="/usersimg/7.png" alt="img" /></a>
+                        <a href="#"><img class="img-w120" src="/usersimg/7.png" alt="img" /></a>
                     <div class="gray">
                         各种萝莉。。有木有！！～
                     </div>
                 </li>
                 <li class="">
-                        <a href="#"><img class="img120" src="/usersimg/sago.jpg" alt="img" /></a>
+                        <a href="#"><img class="img-w120" src="/usersimg/sago.jpg" alt="img" /></a>
                     <div class="gray">
                         公司秘书丝袜第二季。。
                     </div>
                 </li>
                 <li>
-                        <a href="#"><img class="img120" src="/usersimg/4.png" alt="img" /></a>
+                        <a href="#"><img class="img-w120" src="/usersimg/4.png" alt="img" /></a>
                     <div class="gray">
                         波多野结衣的纪念
                     </div>
                 </li>
                 <li class='end'>
-                        <a href="#"><img class="img120" src="/usersimg/1.png" alt="img" /></a>
+                        <a href="#"><img class="img-w120" src="/usersimg/1.png" alt="img" /></a>
                     <div class="gray">
                         波多野结衣的纪念
                     </div>

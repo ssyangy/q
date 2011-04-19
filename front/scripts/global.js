@@ -1,6 +1,7 @@
 module.declare(function (require, exports, module) {
     exports.jq = $ = require('jquery');
     require('jq.ui.help');
+    require('config');
 
     exports.init = function () {
         $(function () {
@@ -26,17 +27,18 @@ module.declare(function (require, exports, module) {
             require('jq.repurl');
             $('.tw_txt').repurl();
 
-            require('jq.pngFix');
-            $(".png").pngFix();
+            var ie6 = ($.browser.msie && $.browser.version < 7.0);
+            if (ie6) {
+                require('jq.pngFix');
+                $(".png").pngFix();
+
+                require('jq.limitimg');
+                $('img').imgLimit({ size: [120, 160, 320] });
+            }
 
             //require('jq.limitchar');
             //$("[limit_a]").limitChar({ numobj: "limit_a", all: true });
             //$("[limit]").limitChar({ numobj: "limit", fx: true });
-
-            if ($.browser.msie && $.browser.version <= 7.0) {
-                require('jq.limitimg');
-                $('img').imgLimit({ size: [48, 100, 160, 320] });
-            }
 
             require('jq.mttext');
             $("input.mttext").mttext();
@@ -57,13 +59,6 @@ module.declare(function (require, exports, module) {
                 }
             });
 
-        });
-
-        // Config
-        $.ajaxSetup({
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json"
         });
 
     };

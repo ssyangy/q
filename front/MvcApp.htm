@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Movies App</title>
+
+        <!-- libs -->
+        <script src="/js/jquery-1.5.2.min.js"></script>
+        <script src="/js/underscore-min.js"></script>
+        <script src="/js/backbone-min.js"></script>
+
+        <!-- client templating -->
+        <script src="/js/mustache.js"></script>
+        <script src="/js/ICanHaz.min.js"></script>
+
+        <!-- your app -->
+        <script src="/js/Movie.js"></script>
+        <script src="/js/MovieApp.js"></script>
+
+        <!-- ICanHaz templates -->
+        <script id="app" type="text/html">
+            <h1>Movie App -- {{ nick }}</h1>
+            <h2>{{ account }}</h2>
+            <ul id="movies"></ul>
+        </script>
+
+        <script id="movie" type="text/html">
+            <li id="{{ htmlId }}"><span class="title">{{ title }}</span> <span>{{ format }}</span></li>
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                window.app = MovieAppController.init({
+                    account: '{{ user.get_profile.account.slug }}'
+                });
+                app.view.render();
+
+                var library = new MovieCollection();
+                var mov1 = new Movie({
+                    title: 'Dumb and Dumber',
+                    format: "dvd"
+                });
+                library.add(mov1);
+                for (var i = 0; i < 8; i++) {
+                    library.add({
+                        title: "Dumb and Dumber" + i,
+                        format: "dvd"
+                    });
+                }
+                app.view.addMovie(mov1);
+                app.view.addMovieList(library);
+                app.view.removeMovie(mov1);
+
+                $('#aa').click(function () {
+                    mov1.set({ title: 'aaaaaaaaaaaaaaaaaaaaaa' });
+                });
+            }); 
+        </script>
+
+    </head>
+    <body>
+        <input id='aa' type="button" name="name" value="asdasd" />
+    </body>
+</html>

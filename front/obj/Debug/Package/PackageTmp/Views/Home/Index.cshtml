@@ -27,6 +27,11 @@
             var selinp = $('#selinp>a.ui-selectmenu');
             selinp.width(selinp.width() + 18).append('<span class="ui-icon ui-icon-signal-diag"></span>');
 
+            $('li.streambox').hover(function () {
+                $(this).addClass('hover');
+            }, function () {
+                $(this).removeClass('hover');
+            });
         });
     });
 </script>
@@ -58,6 +63,63 @@
                 <li class="ui-state-default crt2 ui-state-active"><a href="#">全部</a></li>
                 <li class="ui-state-default crt2"><a href="#">来自圈子</a></li>
                 <li class="ui-state-default crt2"><a href="#">来自好友</a></li>
+            </ul>
+
+            <script type="text/template" id="stream-template">
+              <div class="todo <%= done ? 'done' : '' %>">
+                <div class="display">
+                  <input class="check" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
+                  <div class="todo-content"></div>
+                  <span class="todo-destroy"></span>
+                </div>
+                <div class="edit">
+                  <input class="todo-input" type="text" value="" />
+                </div>
+              </div>
+            </script>
+
+            <script type="text/template" id="stats-template">
+              <div class="todo <%= done ? 'done' : '' %>">
+                <div class="display">
+                  <input class="check" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
+                  <div class="todo-content"></div>
+                  <span class="todo-destroy"></span>
+                </div>
+                <div class="edit">
+                  <input class="todo-input" type="text" value="" />
+                </div>
+              </div>
+            </script>
+            <ul id='streams'>
+                <li class='streambox' stream-id='<%= id %>'>
+                    <div class='hd'>
+                        <a href='/#!/hecaitou' title='木卫二'>
+                        <img class='img48' src="http://img3.douban.com/icon/u1128221-38.jpg" alt="木卫二">
+                        </a>
+                    </div>
+                    <div class='bd'>
+                        <div class='text'><a class='lk' href='/#!/hecaitou' title='木卫二'>海*马斯洛</a>
+在复旦校园拍Alicia时，引来不少路人围观侧目。有一个GG骑着自行车带着MM路过，居然在车上行注目礼，直至看不见Alicia为止。车后座的MM脸都变色了。。。
+                        </div>
+                        <div class='attach'>
+                            <div class='attimg'>
+                                <a href="http://dou.bz/3cwawV" title="" target="_blank">
+                                <img src="/usersimg/pdouban.jpg" class='img-w160' alt="">
+                                </a>
+                            </div>
+                            <h6><a href="http://dou.bz/1yJM1c" title="想告诉你我了解的山下智久（5.22 番外君2号）" target="_blank">想告诉你我了解的山下智久（5.22 番外君2号）</a></h6>
+                            <p class="prop">来自小组<a href="#" class='lk' target="_blank">山下智久</a></p>
+                            <p class="desc">在这里，我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步...</p>
+
+                        </div>
+                    </div>
+                    <div class='fd'>
+                        <b class='twarrow png'></b>
+                        <span class='time'>2小时前</span>
+                        <a class='replay png' href='#'>回复</a>
+                        <a class='resub ml5 png' href='#'>转发</a>
+                    </div>
+                </li>
             </ul>
         </div>
 
@@ -112,38 +174,38 @@
         <h3>热图<span class='separator'> · · · · · ·</span><a class='arr'>更多</a></h3>
             <ul class="slist">
                 <li>
-                        <a href="#"><img class="img120" src="/usersimg/1.png" alt="img" /></a>
+                        <a href="#"><img class="img-w120" src="/usersimg/1.png" alt="img" /></a>
                     <div class="gray">
                         GEEK POWER
                     </div>
                 </li>
                 <li class="">
-                        <a href="#"><img class="img120" src="/usersimg/sago.jpg" alt="img" /></a>
+                        <a href="#"><img class="img-w120" src="/usersimg/sago.jpg" alt="img" /></a>
                     <div class="gray">
                         公司秘书丝袜第二季。。
                     </div>
                 </li>
 
                 <li class="end">
-                        <a href="#"><img class="img120" src="/usersimg/7.png" alt="img" /></a>
+                        <a href="#"><img class="img-w120" src="/usersimg/7.png" alt="img" /></a>
                     <div class="gray">
                         各种萝莉。。有木有！！～
                     </div>
                 </li>
                 <li class="">
-                        <a href="#"><img class="img120" src="/usersimg/sago.jpg" alt="img" /></a>
+                        <a href="#"><img class="img-w120" src="/usersimg/sago.jpg" alt="img" /></a>
                     <div class="gray">
                         公司秘书丝袜第二季。。
                     </div>
                 </li>
                 <li>
-                        <a href="#"><img class="img120" src="/usersimg/4.png" alt="img" /></a>
+                        <a href="#"><img class="img-w120" src="/usersimg/4.png" alt="img" /></a>
                     <div class="gray">
                         波多野结衣的纪念
                     </div>
                 </li>
                 <li class='end'>
-                        <a href="#"><img class="img120" src="/usersimg/1.png" alt="img" /></a>
+                        <a href="#"><img class="img-w120" src="/usersimg/1.png" alt="img" /></a>
                     <div class="gray">
                         波多野结衣的纪念
                     </div>

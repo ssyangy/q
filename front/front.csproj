@@ -149,7 +149,9 @@
     <Content Include="content\images\arrow\sh_exh.png" />
     <Content Include="content\images\arrow\toggle_down_dark.png" />
     <Content Include="content\images\arrow\toggle_up_dark.png" />
+    <Content Include="content\images\arrow\tweetarrow.png" />
     <Content Include="content\images\bg-btn.gif" />
+    <Content Include="content\images\blank.gif" />
     <Content Include="content\images\checkbox.png" />
     <Content Include="content\images\context_closed.gif" />
     <Content Include="content\images\context_closed_over.gif" />
@@ -176,8 +178,12 @@
     <Content Include="content\images\tips\plus.gif" />
     <Content Include="content\images\tips\plus32.png" />
     <Content Include="content\images\tips\Question4.png" />
+    <Content Include="content\images\tips\replay.png" />
+    <Content Include="content\images\tips\replay_hov.png" />
     <Content Include="content\images\tips\report.png" />
     <Content Include="content\images\tips\report_hover.png" />
+    <Content Include="content\images\tips\resub.png" />
+    <Content Include="content\images\tips\resub_hov.png" />
     <Content Include="content\images\tips\stick.gif" />
     <Content Include="content\images\tips\sViewB.png" />
     <Content Include="content\images\tips\sViewBh.png" />
@@ -220,7 +226,19 @@
     <Content Include="content\smoothness\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="content\smoothness\jquery-ui-1.8.10.custom.css" />
     <Content Include="Global.asax" />
+    <Content Include="js\backbone-min.js" />
+    <Content Include="js\ICanHaz.min.js" />
+    <Content Include="js\jquery-1.5.2.min.js" />
+    <Content Include="js\MovieAppController.js" />
+    <Content Include="js\mustache.js" />
+    <Content Include="js\underscore-min.js" />
+    <Content Include="js\MovieAppView.js" />
+    <Content Include="js\MovieAppModel.js" />
+    <Content Include="js\MovieView.js" />
+    <Content Include="js\MovieCollection.js" />
+    <Content Include="MvcApp.htm" />
     <Content Include="scripts\ajaxupload.js" />
+    <Content Include="scripts\backbone-localstorage.js" />
     <Content Include="scripts\backbone.js" />
     <Content Include="scripts\global.js" />
     <Content Include="scripts\ICanHaz.js" />
@@ -285,6 +303,7 @@
     <Content Include="scripts\jq.mttext.js" />
     <Content Include="scripts\jq.ui.help.js" />
     <Content Include="scripts\weibo.js" />
+    <Content Include="scripts\config.js" />
     <Content Include="usersimg\1.png" />
     <Content Include="usersimg\2.png" />
     <Content Include="usersimg\3.png" />
@@ -302,6 +321,7 @@
     <Content Include="usersimg\beauty.png" />
     <Content Include="usersimg\beauty2.jpg" />
     <Content Include="usersimg\clock.png" />
+    <Content Include="usersimg\pdouban.jpg" />
     <Content Include="usersimg\portrain.jpg" />
     <Content Include="usersimg\sago.jpg" />
     <Content Include="Web.config" />
@@ -334,6 +354,7 @@
   <ItemGroup>
     <None Include="Assist\closure-compiler\build.bat" />
     <None Include="Assist\closure-compiler\compress.ps" />
+    <Content Include="js\Movie.js" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -352,7 +373,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>9825</DevelopmentServerPort>
+          <DevelopmentServerPort>59989</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
