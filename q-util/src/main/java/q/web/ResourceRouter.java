@@ -125,7 +125,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 					if (isJson) {
 						context.setErrorModel(new PeopleNotLoginException("login:用户未登录"));
 					} else {
-						context.redirectServletPath(loginPath + "?from=" + this.contextPath + path);
+						context.redirectContextPath(loginPath + "?from=" + this.contextPath + path);
 						return null;
 					}
 				}

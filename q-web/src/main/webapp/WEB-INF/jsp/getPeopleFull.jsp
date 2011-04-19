@@ -65,7 +65,16 @@
 	     return true;
 	}
 	$(document).ready(function(){
+	     provinceExist='${people.area.myProvince.id}';
+         cityExist='${people.area.myCity.id}';
+         countyExist='${people.area.myCounty.id}';
+
+         hometownProvinceExist='${people.hometown.myProvince.id}';
+         hometownCityExist='${people.hometown.myCity.id}';
+         hometownCountyExist='${people.hometown.myCounty.id}';
+         
           initArea();
+          initHometownArea();
 		});
 	</script>
   </head>
@@ -105,6 +114,21 @@
 													</td>
 												</tr>
 												<tr>
+													<th><label for=''><span class="required-field">*</span>家乡：</label></th>
+													<td class='col-field'>
+														<select class='select' name="hometownProvince" id="selHometownProvince"  onchange="changeHometownCity()">
+														</select>
+														<select class='select' name="hometownCity" id="selHometownCity" onchange="changeHometownCounty()">
+														</select>
+														<select class='select' name="hometownCounty" id="selHometownCounty">
+														</select>
+													</td>
+													<td class='col-help'>
+														<div class='label-box-good' style='display:none;' id="hometowncorrect"></div>
+														<div class='label-box-error' style='display:none;' id="hometownwrong"></div>
+													</td>
+												</tr>												
+												<tr>
 													<th></th>
 
 													<td colspan='2' class='bottom'><span class='field-desc'></span></td>
@@ -128,7 +152,7 @@
 
 												</tr>
 												<tr>
-													<th><label for=''>生日：</label></th>
+													<th><label for=''><span class="required-field">*</span>生日：</label></th>
 													<td class='col-field' colspan='2'>
 											             <jsp:include page="dateSelect.jsp" />
 													</td>
@@ -138,7 +162,7 @@
 													<td colspan='2'  class='bottom'><span class='field-desc'></span></td>
 												</tr>
 												<tr>
-													<th><label for=''>学历：</label></th>
+													<th><label for=''><span class="required-field">*</span>学历：</label></th>
 
 													<td class='col-field'>
 														<select name="degree" class='select'>

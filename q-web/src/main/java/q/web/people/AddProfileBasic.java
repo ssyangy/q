@@ -98,12 +98,12 @@ public class AddProfileBasic extends Resource {
 		int provinceId = context.getInt("province", -1);
 		int cityId = context.getInt("city", -1);
 		int countyId = context.getInt("county", -1);
-		PeopleValidator.validateArea(provinceId, cityId, countyId);
+		AreaValidator.check(provinceId, cityId, countyId);
 
 		int hometownProvinceId = context.getInt("hometownProvince", -1);
 		int hometownCityId = context.getInt("hometownCity", -1);
 		int hometownCountyId = context.getInt("hometownCounty", -1);
-		PeopleValidator.validateHometown(hometownProvinceId, hometownCityId, hometownCountyId);
+		AreaValidator.check(hometownProvinceId, hometownCityId, hometownCountyId);
 	}
 
 }

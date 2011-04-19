@@ -194,21 +194,4 @@ public class PeopleValidator {
 		}
 	}
 
-	/**
-	 * @param provinceId
-	 * @param cityId
-	 * @param countyId
-	 */
-	public static void validateArea(int provinceId, int cityId, int countyId) {
-		// FIXME
-	}
-
-	/**
-	 * @param hometownProvinceId
-	 * @param hometownCityId
-	 * @param hometownCountyId
-	 */
-	public static void validateHometown(int hometownProvinceId, int hometownCityId, int hometownCountyId) {
-		// FIXME
-	}
 }
