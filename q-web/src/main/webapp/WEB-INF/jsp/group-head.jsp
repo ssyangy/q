@@ -7,10 +7,10 @@
 				<div class="action">
 				<c:choose>
 					<c:when test="${join == null}">
-							<button class="button" onclick="joinGroup(this,${group.id})">加入</button>
+							<button class="button" onclick="joinGroup(this,'${group.id}')">加入</button>
 					</c:when>
 					<c:otherwise>已加入
-							<button class="button" onclick="unJoinGroup(this,${group.id})">退出</button>
+							<button class="button" onclick="unJoinGroup(this,'${group.id}')">退出</button>
 					</c:otherwise>
 				</c:choose>
 				</div>
