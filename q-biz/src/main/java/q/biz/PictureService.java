@@ -2,8 +2,6 @@ package q.biz;
 
 import java.io.InputStream;
 
-import org.apache.commons.fileupload.FileItem;
-
 public interface PictureService {
 
 	public boolean rotate(String url,int rotate)throws Exception;
