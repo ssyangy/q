@@ -2,9 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript" src="${staticUrlPrefix}/js/jQueryRotate.2.1.js"></script>
 <c:if test="${null != param['feedUrl']}">
-	<style>
-
-	</style>
+	<link rel="stylesheet" type="text/css" href="${staticUrlPrefix}/style/fancy/jquery.fancybox-1.3.4.css" />
+	<script type="text/javascript" src="${staticUrlPrefix}/js/jq.mousewheel.js"></script>
+	<script type="text/javascript" src="${staticUrlPrefix}/js/jq.fancybox.js"></script>
 	<script id="tweet" type="text/html">
     <div class="stream-item tweet waitSlideDown" weiboId="{{id}}">
         <div class="tweet-image">
@@ -125,9 +125,15 @@
 
 	</script>
 	<script type="text/javascript">
-	var ajlock = true;
+		var ajlock = true;
 
 		$(function () {
+		    $("a.weiboimga").fancybox({
+		        'overlayOpacity': 0.7,
+		        'overlayColor': '#2B2A25',
+		        'zoomSpeedIn': 600,
+		        'zoomSpeedOut': 400
+		    });
 			$('a.weiboImgRotateR').live('click',function(){
 				var imgrote = $(this).prevAll('div.imgrote');
 				var rote = imgrote.data('rote');
@@ -170,7 +176,7 @@
 			var set = $('#page-container').offset();
 			tweetex.css('left',set.left+10);
 	        $('div.tweet').live('click',function (e) {
-	        	if($(e.target).get(0).tagName != 'A'){
+	        	if($(e.target).get(0).tagName != 'A'&&$(e.target).get(0).tagName != 'IMG'){
 	        		$('div.tweet').removeClass('tweet_act');
 	        		$(this).addClass('tweet_act');
 	        		var twid = $(this).attr('weiboid');
@@ -459,7 +465,7 @@
 				<div class="tweet-text">${weibo.content}</div>
 				<c:if test="${weibo.picturePath !=null }">
 				<div class='imgrote middle'>
-					<img id="img" src="${weibo.picturePath}-160" class="img160 weiboimg"/>
+					<a class='weiboimga' href='${weibo.picturePath}-320'><img id="img" src="${weibo.picturePath}-160" alt='weiboimg' class="img160 weiboimg"/></a>
 		     	</div>
 		     	<a class='weiboImgRotateL' class='link mr10'>左转</a>
 			    <a class='weiboImgRotateR' class='link'>右转</a>
@@ -472,7 +478,7 @@
 					<span class='wqcontent'>${weibo.quote.content}</span>
 					<c:if test="${weibo.quote.picturePath !=null }">
 					<div class='imgrote middle'>
-						<img id="img" src="${weibo.quote.picturePath}-160" class="img160 weiboimg"/>
+						<a class='weiboimga' href='${weibo.picturePath}-320'><img id="img" src="${weibo.quote.picturePath}-160" alt='weiboimg' class="img160 weiboimg"/></a>
 			     	</div>
 			     	<a class='weiboImgRotateL' class='link mr10'>左转</a>
 				    <a class='weiboImgRotateR' class='link'>右转</a>
