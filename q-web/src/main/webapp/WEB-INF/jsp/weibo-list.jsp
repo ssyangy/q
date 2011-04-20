@@ -2,9 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript" src="${staticUrlPrefix}/js/jQueryRotate.2.1.js"></script>
 <c:if test="${null != param['feedUrl']}">
-	<link rel="stylesheet" type="text/css" href="${staticUrlPrefix}/style/fancy/jquery.fancybox-1.3.4.css" />
-	<script type="text/javascript" src="${staticUrlPrefix}/js/jq.mousewheel.js"></script>
-	<script type="text/javascript" src="${staticUrlPrefix}/js/jq.fancybox.js"></script>
+	<style>
+
+	</style>
 	<script id="tweet" type="text/html">
     <div class="stream-item tweet waitSlideDown" weiboId="{{id}}">
         <div class="tweet-image">
@@ -128,24 +128,28 @@
 		var ajlock = true;
 
 		$(function () {
-		    $("a.weiboimga").fancybox({
-		        'overlayOpacity': 0.7,
-		        'overlayColor': '#2B2A25',
-		        'zoomSpeedIn': 600,
-		        'zoomSpeedOut': 400
+		    $("img.weiboImg").live('click',function(){
+		    	$(this).addClass('hide');
+		    	$(this).next('div.imgPre').removeClass('hide');
 		    });
+		    $("img.preImg").live('click',function(){
+		    	var pre = $(this).closest('div.imgPre');
+		    	pre.addClass('hide');
+		    	pre.prev('img.weiboImg').removeClass('hide');
+		    });
+		    
 			$('a.weiboImgRotateR').live('click',function(){
 				var imgrote = $(this).prevAll('div.imgrote');
 				var rote = imgrote.data('rote');
 				if(rote == undefined) rote = 0;
-				imgrote.children('img.weiboimg').rotate(rote + 90);
+				imgrote.children('img.preImg').rotate(rote + 90);
 				imgrote.data('rote',rote + 90);
 			});
 			$('a.weiboImgRotateL').live('click',function(){
 				var imgrote = $(this).prev('div.imgrote');
 				var rote = imgrote.data('rote');
 				if(rote == undefined) rote = 0;
-				imgrote.children('img.weiboimg').rotate(rote - 90);
+				imgrote.children('img.preImg').rotate(rote - 90);
 				imgrote.data('rote',rote - 90);
 			});
 
@@ -231,6 +235,12 @@
 							   		$('div.stream-items').append(ich.tweet(this));
 				                    $('div.waitSlideDown').slideDown("slow", function () {
 				                        $(this).removeClass('waitSlideDown');
+				            		    $("a.weiboimga").fancybox({
+				            		        'overlayOpacity': 0.7,
+				            		        'overlayColor': '#2B2A25',
+				            		        'zoomSpeedIn': 600,
+				            		        'zoomSpeedOut': 400
+				            		    });
 				                    });
 							   	});
 						    },
@@ -254,7 +264,7 @@
 	                	  $('img.ajaxload', this).show();
 	                	  var dia = $('#dia_ret');
 	                	  $.ajax({
-							    url: $("input[type='hidden']",dia).val(),
+							    url: $("#ret_url",dia).val(),
 							    type: 'POST',
 							    dataType: 'json',
 							    data: {content:$("textarea[name='content']",dia).val()},
@@ -318,7 +328,7 @@
 	                	  $('img.ajaxload', this).show();
 	                	  var dia = $('#dia_rep');
 	                	  $.ajax({
-							    url: $("input[type='hidden']",dia).val(),
+							    url: $("#rep_url",dia).val(),
 							    type: 'POST',
 							    dataType: 'json',
 							    data: {content:$("textarea[name='content']",dia).val()},
@@ -464,11 +474,15 @@
 			<div class="tweet-row">
 				<div class="tweet-text">${weibo.content}</div>
 				<c:if test="${weibo.picturePath !=null }">
-				<div class='imgrote middle'>
-					<a class='weiboimga' href='${weibo.picturePath}-320'><img id="img" src="${weibo.picturePath}-160" alt='weiboimg' class="img160 weiboimg"/></a>
-		     	</div>
-		     	<a class='weiboImgRotateL' class='link mr10'>左转</a>
-			    <a class='weiboImgRotateR' class='link'>右转</a>
+				<img src="${weibo.picturePath}-160" class="img160 weiboImg"/>
+				<div class='imgPre hide'>
+					<div class='imgrote middle'>
+						<img src="${weibo.picturePath}" class="img320 preImg"/>
+			     	</div>
+			     	<a class='weiboImgRotateL' class='link mr10'>左转</a>
+				    <a class='weiboImgRotateR' class='link mr10'>右转</a>
+				    <a href='${weibo.picturePath}' class='link' target='_blank'>查看原图</a>
+			    </div>
 				</c:if>
 			</div>
 			<c:if test="${weibo.quote.id > 0}">
