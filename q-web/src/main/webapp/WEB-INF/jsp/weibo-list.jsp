@@ -25,13 +25,17 @@
             </div>
             <div class="tweet-row">
 				<div class="tweet-text">{{text}}</div>
-				{{#picturePath}}
-				<div class='imgrote middle'>
-					<img id="img" src="{{picturePath}}-160" class="img160 weiboimg"/>
-		     	</div>
-		     	<a class='weiboImgRotateL' class='link mr10'>左转</a>
-			    <a class='weiboImgRotateR' class='link'>右转</a>
-				{{/picturePath}}
+					{{#picturePath}}
+					<img src="{{picturePath}}-160" class="img160 weiboImg"/>
+					<div class='imgPre hide'>
+						<div class='imgrote middle'>
+							<img src="{{picturePath}}-320" class="img320 preImg"/>
+				     	</div>
+				     	<a class='weiboImgRotateL link mr10'>左转</a>
+					    <a class='weiboImgRotateR link mr10'>右转</a>
+					    <a href='{{picturePath}}' class='link' target='_blank'>查看原图</a>
+				    </div>
+					{{/picturePath}}
 			</div>
 
 			{{#quote}}
@@ -72,8 +76,18 @@
 					{{/people}}
                     </div>
                     <div class="twtxt mt10">
-						<div class='rcontent'>{{text}}</div>
-						{{#picturePath}}<img id="img" src="{{picturePath}}-160" class="img160"/>{{/picturePath}}
+					<div class='rcontent'>{{text}}</div>
+					{{#picturePath}}
+					<img src="{{picturePath}}-160" class="img160 weiboImg"/>
+					<div class='imgPre hide'>
+						<div class='imgrote middle'>
+							<img src="{{picturePath}}-320" class="img320 preImg"/>
+				     	</div>
+				     	<a class='weiboImgRotateL link mr10'>左转</a>
+					    <a class='weiboImgRotateR link mr10'>右转</a>
+					    <a href='{{picturePath}}' class='link' target='_blank'>查看原图</a>
+				    </div>
+					{{/picturePath}}
 			{{#quote}}
 			<div class="tweet-ori">
 				<div class="tweet-ori-inner">
@@ -235,12 +249,6 @@
 							   		$('div.stream-items').append(ich.tweet(this));
 				                    $('div.waitSlideDown').slideDown("slow", function () {
 				                        $(this).removeClass('waitSlideDown');
-				            		    $("a.weiboimga").fancybox({
-				            		        'overlayOpacity': 0.7,
-				            		        'overlayColor': '#2B2A25',
-				            		        'zoomSpeedIn': 600,
-				            		        'zoomSpeedOut': 400
-				            		    });
 				                    });
 							   	});
 						    },
@@ -477,7 +485,7 @@
 				<img src="${weibo.picturePath}-160" class="img160 weiboImg"/>
 				<div class='imgPre hide'>
 					<div class='imgrote middle'>
-						<img src="${weibo.picturePath}" class="img320 preImg"/>
+						<img src="${weibo.picturePath}-320" class="img320 preImg"/>
 			     	</div>
 			     	<a class='weiboImgRotateL link mr10'>左转</a>
 				    <a class='weiboImgRotateR link mr10'>右转</a>
