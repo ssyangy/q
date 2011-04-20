@@ -1,13 +1,8 @@
 package q.web.weibo;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,8 +11,6 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import q.biz.PictureService;
-import q.http.JdkHttpClient;
-import q.util.IdCreator;
 import q.util.ImageKit;
 import q.web.DefaultResourceContext;
 import q.web.Resource;

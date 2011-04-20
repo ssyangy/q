@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,13 +28,13 @@ public class ImgService implements PictureService {
 
 	@Override
 	public boolean rotate(String url, int rotate) throws IOException {
-		   int fix=rotate;
-		   String sb="";
-		   String picturePath=url;
-		   while(fix-360>-1){
-	        	fix=fix-360;
-	        }
-			if(fix>0){
+		int fix = rotate;
+		String sb = "";
+		String picturePath = url;
+		while (fix - 360 > -1) {
+			fix = fix - 360;
+		}
+		if (fix > 0) {
 			BufferedImage originImage;
 			BufferedImage originImage160;
 			BufferedImage originImage320;
@@ -48,7 +47,7 @@ public class ImgService implements PictureService {
 			} finally {
 				JdkHttpClient.releaseUrlConnection(con);
 			}
-			URL temp1 = new URL(picturePath+"-160");
+			URL temp1 = new URL(picturePath + "-160");
 			HttpURLConnection con1 = JdkHttpClient.getHttpConnection(temp1, 100000, 100000);
 			InputStream imagetemp1;
 			try {
@@ -57,7 +56,7 @@ public class ImgService implements PictureService {
 			} finally {
 				JdkHttpClient.releaseUrlConnection(con1);
 			}
-			URL temp2 = new URL(picturePath+"-320");
+			URL temp2 = new URL(picturePath + "-320");
 			HttpURLConnection con2 = JdkHttpClient.getHttpConnection(temp2, 100000, 100000);
 			InputStream imagetemp2;
 			try {
@@ -66,64 +65,81 @@ public class ImgService implements PictureService {
 			} finally {
 				JdkHttpClient.releaseUrlConnection(con2);
 			}
-	        originImage=ImageKit.rotate(originImage, fix);
-	        originImage160=ImageKit.rotate(originImage160, fix);
-	        originImage320=ImageKit.rotate(originImage320, fix);
-	        BufferedImage[] images = new BufferedImage[3];
+			originImage = ImageKit.rotate(originImage, fix);
+			originImage160 = ImageKit.rotate(originImage160, fix);
+			originImage320 = ImageKit.rotate(originImage320, fix);
+			BufferedImage[] images = new BufferedImage[3];
 			images[0] = originImage;
 			images[1] = originImage160;
 			images[2] = originImage320;
 			URL tempt = new URL(this.imageUploadUrl);
-			int di=picturePath.lastIndexOf("/");
-			String name=picturePath.substring(di);
-			picturePath=picturePath.substring(0, di);
-			String dir=picturePath.substring(picturePath.lastIndexOf("/"));
-			sb = JdkHttpClient.postPictures(tempt,dir ,name, images);
-			}
-			if(sb.equals("false")){
-		        return false;
-			}
-			return true;
+			int di = picturePath.lastIndexOf("/");
+			String name = picturePath.substring(di);
+			picturePath = picturePath.substring(0, di);
+			String dir = picturePath.substring(picturePath.lastIndexOf("/"));
+			sb = JdkHttpClient.postPictures(tempt, dir, name, images);
+		}
+		if (sb.equals("false")) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public String uploadWeiboPictures(InputStream picture) throws Exception {
-		long picId=IdCreator.getLongId();
-		String dir=Long.toString(picId% 10000, Character.MAX_RADIX);
-        String name=Long.toString(picId, Character.MAX_RADIX);
-		BufferedImage originImage = ImageKit.load(picture);
-        BufferedImage image160 = ImageKit.zoomTo(originImage, 160);
-        BufferedImage image320 = ImageKit.zoomTo(originImage, 320);
-        BufferedImage[] images = new BufferedImage[3];
+		long picId = IdCreator.getLongId();
+		String dir = Long.toString(picId % 10000, Character.MAX_RADIX);
+		String name = Long.toString(picId, Character.MAX_RADIX);
+		BufferedImage image = ImageKit.load(picture);
+		int originWidth = image.getWidth();
+		int originHeight = image.getHeight();
+		BufferedImage image160 = null;
+		BufferedImage image320 = null;
+		int longer;
+		if (originWidth > originHeight) {
+			longer = originWidth;
+		} else {
+			longer = originHeight;
+		}
+		if (longer <= 160) {
+			image160 = image;
+			image320 = image;
+		} else if (longer <= 320) {
+			image160 = ImageKit.zoomTo(image, 160);
+			image320 = image;
+		} else {
+			image160 = ImageKit.zoomTo(image, 160);
+			image320 = ImageKit.zoomTo(image, 320);
+		}
+		BufferedImage[] images = new BufferedImage[3];
 		images[0] = image160;
 		images[1] = image320;
-		images[2] = originImage;
-    	URL temp = new URL(this.imageUploadUrl);
+		images[2] = image;
+		URL temp = new URL(this.imageUploadUrl);
 		String sb;
-		sb = JdkHttpClient.postPictures(temp,dir ,name, images);
-        if(sb.equals("false")){
-        	return "false";
-        }
-        else{
-            return sb;
-        }
+		sb = JdkHttpClient.postPictures(temp, dir, name, images);
+		if (sb.equals("false")) {
+			return "false";
+		} else {
+			return sb;
+		}
 
 	}
 
 	@Override
-	public String uploadAvatar(InputStream picture, long peopleId,long size,String type) throws Exception {
-		    long dir = peopleId % 10000;
-			URL temp = new URL(this.imageUploadUrl);
-			HttpURLConnection con = JdkHttpClient.getHttpConnection(temp, 100000, 100000);
-			String sb;
-			try {
-				Map<String, CharSequence> payload = new HashMap();
-				payload.put("imgdir", "a/" + String.valueOf(dir) + "/");
-				sb = JdkHttpClient.postMultipart(con, payload, picture, String.valueOf(peopleId), size, type);
-			} finally {
-				JdkHttpClient.releaseUrlConnection(con);
-			}
-           return sb;
+	public String uploadAvatar(InputStream picture, long peopleId, long size, String type) throws Exception {
+		long dir = peopleId % 10000;
+		URL temp = new URL(this.imageUploadUrl);
+		HttpURLConnection con = JdkHttpClient.getHttpConnection(temp, 100000, 100000);
+		String sb;
+		try {
+			Map<String, CharSequence> payload = new HashMap();
+			payload.put("imgdir", "a/" + String.valueOf(dir) + "/");
+			sb = JdkHttpClient.postMultipart(con, payload, picture, String.valueOf(peopleId), size, type);
+		} finally {
+			JdkHttpClient.releaseUrlConnection(con);
+		}
+		return sb;
 	}
 
 	@Override
@@ -159,11 +175,10 @@ public class ImgService implements PictureService {
 	@Override
 	public boolean hasAvatar(long peopleId) {
 		long dir = peopleId % 10000;
-		if(JdkHttpClient.exists(imageUrl+ "/a/" + String.valueOf(dir) + "/" + String.valueOf(peopleId))){
+		if (JdkHttpClient.exists(imageUrl + "/a/" + String.valueOf(dir) + "/" + String.valueOf(peopleId))) {
 			return true;
-		}
-		else{
-		    return false;
+		} else {
+			return false;
 		}
 	}
 
