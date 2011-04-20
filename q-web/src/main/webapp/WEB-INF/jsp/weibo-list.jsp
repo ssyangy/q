@@ -479,8 +479,8 @@
 					<div class='imgrote middle'>
 						<img src="${weibo.picturePath}" class="img320 preImg"/>
 			     	</div>
-			     	<a class='weiboImgRotateL' class='link mr10'>左转</a>
-				    <a class='weiboImgRotateR' class='link mr10'>右转</a>
+			     	<a class='weiboImgRotateL link mr10'>左转</a>
+				    <a class='weiboImgRotateR link mr10'>右转</a>
 				    <a href='${weibo.picturePath}' class='link' target='_blank'>查看原图</a>
 			    </div>
 				</c:if>
@@ -491,11 +491,15 @@
 					<a href="${urlPrefix}/people/${weibo.quote.people.id}" class="tweet-ori-author">${weibo.quote.people.realName}</a>：
 					<span class='wqcontent'>${weibo.quote.content}</span>
 					<c:if test="${weibo.quote.picturePath !=null }">
-					<div class='imgrote middle'>
-						<a class='weiboimga' href='${weibo.picturePath}-320'><img id="img" src="${weibo.quote.picturePath}-160" alt='weiboimg' class="img160 weiboimg"/></a>
-			     	</div>
-			     	<a class='weiboImgRotateL' class='link mr10'>左转</a>
-				    <a class='weiboImgRotateR' class='link'>右转</a>
+					<img src="${weibo.picturePath}-160" class="img160 weiboImg"/>
+					<div class='imgPre hide'>
+						<div class='imgrote middle'>
+							<img src="${weibo.quote.picturePath}-320" class="img320 preImg"/>
+				     	</div>
+				     	<a class='weiboImgRotateL link mr10'>左转</a>
+					    <a class='weiboImgRotateR link mr10'>右转</a>
+					    <a href='${weibo.picturePath}' class='link' target='_blank'>查看原图</a>
+				    </div>
 					</c:if>
 					<div class="tweet-actions">
 						<a class="btn_sret link">原文转发</a>
