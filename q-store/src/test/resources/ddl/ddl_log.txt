@@ -18,9 +18,10 @@ alter table weibo add retweet_num mediumint unsigned not null;
 alter table weibo_reply add reply_num mediumint unsigned not null;
 alter table weibo_reply add retweet_num mediumint unsigned not null;
 
+alter table message add reply_num mediumint unsigned not null;
+
 alter table event modify number mediumint unsigned not null;
 alter table event add join_num mediumint unsigned not null;
 
 alter table `group` add join_num mediumint unsigned not null;
 
-alter table message add reply_num mediumint unsigned not null;
