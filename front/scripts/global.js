@@ -1,5 +1,6 @@
 module.declare(function (require, exports, module) {
-    exports.jq = $ = require('jquery');
+    exports.jq = require('jquery');
+    var $ = exports.jq;
     require('jq.ui.help');
     require('config');
 
@@ -62,5 +63,4 @@ module.declare(function (require, exports, module) {
         });
 
     };
-
 });

@@ -1,12 +1,14 @@
 ﻿module.declare(function (require, exports, module) {
-    var $ = require("jquery");
+    var jQuery = require('jquery');
+    var $ = jQuery;
     require("jq.ui");
     require('ui/jquery.ui.tooltip');
     //require('ui/jquery.ui.menu');
     require('jq.ui.selectmenu');
 
     (function ($) {
-        $(".ttips").tooltip();
+        $(".tips").tooltip({ items: ".tooltipped", position: { my: "center bottom", at: "center top", offset: "0 -5"} });
+
         $('select.speedD').selectmenu({ style: 'dropdown' });
         $diabox = $("#dialog_target");
         $.fx.speeds._default = 1000;
@@ -35,35 +37,35 @@
         $("button.ui_btn_circle").button({ icons: { primary: 'ui-icon-circle-plus'} });
         $("button.ui_btn_check").button({ icons: { primary: 'ui-icon-check'} });
 
-//        $("button.selector").button({
-//            icons: {
-//                primary: "ui-icon-signal-diag",
-//                secondary: "ui-icon-triangle-1-s"
-//            }
-//        }).each(function () {
-//            $(this).next().menu({
-//                select: function (event, ui) {
-//                    $(this).hide();
-//                    $("button.selector>span.ui-button-text").text(ui.item.text());
-//                },
-//                input: $(this)
-//            }).hide();
-//        }).click(function (event) {
-//            var menu = $(this).next();
-//            if (menu.is(":visible")) {
-//                menu.hide();
-//                return false;
-//            }
-//            menu.menu("deactivate").show().css({ bottom: 0, right: 0 }).position({
-//                my: "left top",
-//                at: "left bottom",
-//                of: this
-//            });
-//            $(document).one("click", function () {
-//                menu.hide();
-//            });
-//            return false;
-//        });
+        //        $("button.selector").button({
+        //            icons: {
+        //                primary: "ui-icon-signal-diag",
+        //                secondary: "ui-icon-triangle-1-s"
+        //            }
+        //        }).each(function () {
+        //            $(this).next().menu({
+        //                select: function (event, ui) {
+        //                    $(this).hide();
+        //                    $("button.selector>span.ui-button-text").text(ui.item.text());
+        //                },
+        //                input: $(this)
+        //            }).hide();
+        //        }).click(function (event) {
+        //            var menu = $(this).next();
+        //            if (menu.is(":visible")) {
+        //                menu.hide();
+        //                return false;
+        //            }
+        //            menu.menu("deactivate").show().css({ bottom: 0, right: 0 }).position({
+        //                my: "left top",
+        //                at: "left bottom",
+        //                of: this
+        //            });
+        //            $(document).one("click", function () {
+        //                menu.hide();
+        //            });
+        //            return false;
+        //        });
 
         var alert = function (txt) {
             $("#txtAlert").text(txt);

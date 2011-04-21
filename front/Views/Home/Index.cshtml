@@ -1,7 +1,11 @@
 ﻿@{ViewBag.Title = "圈子 - 首页";}
 <script type="text/javascript">
+
     module.load('global', function (global) {
+        global.init();
         var $ = global.jq;
+        module.load('jq.validation');
+
         $(function () {
             $('#inputmain').focus(function () {
                 $(this).css('height', '40');
@@ -32,9 +36,22 @@
             }, function () {
                 $(this).removeClass('hover');
             });
+
+            $("form.vali").validationEngine({ promptPosition: "centerRight" });
+            $("input.vali").click(function () {
+                if ($('form.vali.' + $(this).attr('valiform')).validationEngine({ returnIsValid: true })) {
+                    alert('yes');
+                    return true;
+                } else {
+                    alert('no');
+                    return false;
+                }
+            });
         });
     });
 </script>
+
+
 <div class="layout grid-m0s10">
     <div class="col-main"><div class="main-wrap pr10">
         <div class="inputbx">
@@ -107,6 +124,14 @@
             </li>
         </script>
         
+        <input type="button" name="name" value="xxx" valiform='aaa' class='vali btn' />
+
+        <form class='vali aaa' action=''>
+            <input id='sss1' type="text" name="text" value="" class='tips validate[required,custom[onlyNumberSp]]' title='zxcasdsd' /><br />
+            <input id='sss2' type="text" name="text" value="" class='tips validate[required,custom[onlyNumber]]' title='zxcasdsd' />
+        </form>
+
+        <a href="#" class='tips' title='adaczxcasd'>content</a>
 
     </div></div>
     <div class="col-sub">

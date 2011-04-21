@@ -29,7 +29,8 @@
 
         <script>
             $(document).ready(function () {
-                window.app = MovieAppController.init({
+                window.app = AppController.init({
+                    seed: 'body',
                     account: '{{ user.get_profile.account.slug }}'
                 });
                 app.view.render();
@@ -53,7 +54,10 @@
                 $('#aa').click(function () {
                     mov1.set({ title: 'aaaaaaaaaaaaaaaaaaaaaa' });
                 });
-            }); 
+
+                $("div.vali").validationEngine({ validationEventTriggers: "keyup", promptPosition: "centerRight" });
+                jQuery("#formID").validationEngine();
+            });
         </script>
 
     </head>

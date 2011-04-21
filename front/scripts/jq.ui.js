@@ -1,5 +1,6 @@
 module.declare(function (require, exports, module) {
-    var $ = jQuery = require('jquery');
+    var jQuery = require('jquery');
+    var $ = jQuery;
     /*!
     * jQuery UI 1.8.11
     *

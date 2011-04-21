@@ -31,11 +31,11 @@ var MovieView = Backbone.View.extend({
         'click .title': 'handleTitleClick'
     },
     render: function () {
-        this.box.append(ich.movie(this.model.toJSON()));
+        this.el = ich.movie(this.model.toJSON());
+        $(this.box).append(this.el);
     },
     changeModel: function () {
-        $('#' + this.model.get('htmlId')).html(ich.movie(this.model.toJSON()));
-        //$(this.el).html('ss');
+        this.el.html(ich.movie(this.model.toJSON()));
     },
     handleTitleClick: function () {
         alert('you clicked the title: ' + this.model.get('title'));

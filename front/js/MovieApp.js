@@ -1,4 +1,4 @@
-﻿var MovieAppModel = Backbone.Model.extend({
+﻿var AppModel = Backbone.Model.extend({
     initialize: function (spec) {
         this.movies = new MovieCollection();
 
@@ -16,7 +16,7 @@
         boshUrl: 'dvgetg4'
     }
 });
-var MovieAppView = Backbone.View.extend({
+var AppView = Backbone.View.extend({
     initialize: function (spec) {
         this.model.movies.bind('add', this.addMovie);
         this.model.movies.bind('remove', this.removeMovie);
@@ -44,11 +44,11 @@ var MovieAppView = Backbone.View.extend({
     }
 });
 
-var MovieAppController = {
+var AppController = {
     init: function (spec) {
-        this.model = new MovieAppModel(spec);
+        this.model = new AppModel(spec);
         _.extend(this.config, spec);
-        this.view = new MovieAppView({ model: this.model, seed: this.config.seed });
+        this.view = new AppView({ model: this.model, seed: this.config.seed });
         return this;
     },
     config: {

@@ -229,13 +229,12 @@
     <Content Include="js\backbone-min.js" />
     <Content Include="js\ICanHaz.min.js" />
     <Content Include="js\jquery-1.5.2.min.js" />
-    <Content Include="js\MovieAppController.js" />
+    <Content Include="js\jquery.validationEngine-en.js" />
+    <Content Include="js\jquery.validationEngine.js" />
+    <Content Include="js\json2.js" />
     <Content Include="js\mustache.js" />
     <Content Include="js\underscore-min.js" />
-    <Content Include="js\MovieAppView.js" />
-    <Content Include="js\MovieAppModel.js" />
-    <Content Include="js\MovieView.js" />
-    <Content Include="js\MovieCollection.js" />
+    <Content Include="js\MovieApp.js" />
     <Content Include="MvcApp.htm" />
     <Content Include="scripts\ajaxupload.js" />
     <Content Include="scripts\backbone-localstorage.js" />
@@ -256,7 +255,7 @@
     <Content Include="scripts\jquery.validate-vsdoc.js" />
     <Content Include="scripts\jquery.validate.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="scripts\jquery.validationEngine.js" />
+    <Content Include="scripts\jq.validation.js" />
     <Content Include="scripts\json2.js" />
     <Content Include="scripts\lavaLamp.js" />
     <Content Include="scripts\jq.limitchar.js" />
