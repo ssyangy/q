@@ -209,18 +209,19 @@
 
 	<update id="updatePeopleRelationStatusById">
 		update people_relation set
-		status =
-		#status,handler=q.dao.ibatis.PeopleRelationStatusHandler#
-		where id = #id#;
+		status = #status,handler=q.dao.ibatis.PeopleRelationStatusHandler#
+		where 
+		id = #id#
+		and status = #oldStatus,handler=q.dao.ibatis.PeopleRelationStatusHandler#
 	</update>
 
 	<update id="updatePeopleRelationStatusByFromIdToId">
 		update people_relation set
-		status =
-		#status,handler=q.dao.ibatis.PeopleRelationStatusHandler#
+		status = #status,handler=q.dao.ibatis.PeopleRelationStatusHandler#
 		where
 		from_people_id = #fromPeopleId#
-		and to_people_id = #toPeopleId#;
+		and to_people_id = #toPeopleId#
+		and status = #oldStatus,handler=q.dao.ibatis.PeopleRelationStatusHandler#
 	</update>
 	
 	<insert id="insertPeopleRelation">
@@ -350,9 +351,27 @@
 		       where id=#id#
 	</update>
 	<update id="decrPeopleWeiboNumberByPeopleId">
-		update people set reply_num = reply_num - 1 where id = #value#
+		update people set weibo_num = weibo_num - 1 where id = #value#
 	</update>
 	<update id="incrPeopleWeiboNumberByPeopleId">
-		update people set reply_num = reply_num + 1 where id = #value#
+		update people set weibo_num = weibo_num + 1 where id = #value#
 	</update>
+	<update id="decrPeopleFollowingNumberByPeopleId">
+		update people set following_num = following_num - 1 where id = #value#
+	</update>
+	<update id="incrPeopleFollowingNumberByPeopleId">
+		update people set following_num = following_num + 1 where id = #value#
+	</update>
+	<update id="decrPeopleFollowerNumberByPeopleId">
+		update people set follower_num = follower_num - 1 where id = #value#
+	</update>
+	<update id="incrPeopleFollowerNumberByPeopleId">
+		update people set follower_num = follower_num + 1 where id = #value#
+	</update>
+	<update id="decrPeopleFriendNumberByPeopleId">
+		update people set friend_num = friend_num - 1 where id = #value#
+	</update>
+	<update id="incrPeopleFriendNumberByPeopleId">
+		update people set friend_num = friend_num + 1 where id = #value#
+	</update>		
 </sqlMap>

@@ -4,6 +4,7 @@
 package q.web.weibo;
 
 import q.biz.SearchService;
+import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.domain.Weibo;
 import q.domain.WeiboFromType;
@@ -16,7 +17,7 @@ import q.web.ResourceContext;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 24, 2011
- *
+ * 
  */
 public class AddReplyRetweet extends Resource {
 	private WeiboDao weiboDao;
@@ -24,14 +25,22 @@ public class AddReplyRetweet extends Resource {
 	public void setWeiboDao(WeiboDao weiboDao) {
 		this.weiboDao = weiboDao;
 	}
+
 	private SearchService searchService;
 
 	public void setSearchService(SearchService searchService) {
 		this.searchService = searchService;
 	}
+
+	private PeopleDao peopleDao;
+
+	public void setPeopleDao(PeopleDao peopleDao) {
+		this.peopleDao = peopleDao;
+	}
+
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 
@@ -59,7 +68,11 @@ public class AddReplyRetweet extends Resource {
 			retweet.setFromId(join.getGroupId());
 		}
 		this.weiboDao.addWeibo(retweet);
+		this.peopleDao.incrPeopleWeiboNumberByPeopleId(senderId);
+
+		// FIXME sean
 		searchService.updateWeibo(retweet);
+
 		if (from != null) {
 			context.redirectContextPath(from);
 		} else {
@@ -68,7 +81,7 @@ public class AddReplyRetweet extends Resource {
 	}
 
 	@Override
-	public void validate(ResourceContext context){
+	public void validate(ResourceContext context) {
 	}
 
 }

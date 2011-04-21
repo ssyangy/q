@@ -44,7 +44,7 @@ public class Event extends AbstractDomain implements Serializable {
 
 	private int status;
 
-	private int joinNumber;
+	private int joinNum;
 	
 	private People people;
 
@@ -160,12 +160,12 @@ public class Event extends AbstractDomain implements Serializable {
 		this.creatorRealName = creatorRealName;
 	}
 
-	public int getJoinNumber() {
-		return joinNumber;
+	public int getJoinNum() {
+		return joinNum;
 	}
 
-	public void setJoinNumber(int joinNumber) {
-		this.joinNumber = joinNumber;
+	public void setJoinNum(int joinNum) {
+		this.joinNum = joinNum;
 	}
 
 	public String getGroupName() {
