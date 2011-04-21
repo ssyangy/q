@@ -351,25 +351,25 @@
 		       where id=#id#
 	</update>
 	<update id="decrPeopleWeiboNumberByPeopleId">
-		update people set weibo_num = weibo_num - 1 where id = #value#
+		update people set weibo_num = greatest(0, weibo_num - 1) where id = #value#
 	</update>
 	<update id="incrPeopleWeiboNumberByPeopleId">
 		update people set weibo_num = weibo_num + 1 where id = #value#
 	</update>
 	<update id="decrPeopleFollowingNumberByPeopleId">
-		update people set following_num = following_num - 1 where id = #value#
+		update people set following_num = greatest(0, following_num - 1) where id = #value#
 	</update>
 	<update id="incrPeopleFollowingNumberByPeopleId">
 		update people set following_num = following_num + 1 where id = #value#
 	</update>
 	<update id="decrPeopleFollowerNumberByPeopleId">
-		update people set follower_num = follower_num - 1 where id = #value#
+		update people set follower_num = greatest(0, follower_num - 1) where id = #value#
 	</update>
 	<update id="incrPeopleFollowerNumberByPeopleId">
 		update people set follower_num = follower_num + 1 where id = #value#
 	</update>
 	<update id="decrPeopleFriendNumberByPeopleId">
-		update people set friend_num = friend_num - 1 where id = #value#
+		update people set friend_num = greatest(0, friend_num - 1) where id = #value#
 	</update>
 	<update id="incrPeopleFriendNumberByPeopleId">
 		update people set friend_num = friend_num + 1 where id = #value#

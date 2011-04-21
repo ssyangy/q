@@ -348,13 +348,13 @@
 		update weibo set retweet_num = retweet_num + 1 where id = #value#
 	</update>
 	<update id="decrWeiboRetweetNumByWeiboId">
-		update weibo set retweet_num = retweet_num - 1 where id = #value#
+		update weibo set retweet_num = greatest(0, retweet_num - 1) where id = #value#
 	</update>
 	
 	<update id="incrWeiboReplyNumByReplyId">
 		update weibo set reply_num = reply_num + 1 where id = #value#
 	</update>
 	<update id="decrWeiboReplyNumByReplyId">
-		update weibo set reply_num = reply_num - 1 where id = #value#
+		update weibo set reply_num = greatest(0, reply_num - 1) where id = #value#
 	</update>
 </sqlMap>

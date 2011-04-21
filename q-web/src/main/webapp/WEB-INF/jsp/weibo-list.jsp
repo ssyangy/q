@@ -531,14 +531,14 @@
 					<a href="${urlPrefix}/people/${weibo.quote.people.id}" class="tweet-ori-author">${weibo.quote.people.realName}</a>：
 					<span class='wqcontent'>${weibo.quote.content}</span>
 					<c:if test="${weibo.quote.picturePath !=null }">
-					<img src="${weibo.picturePath}-160" class="img160 weiboImg"/>
+					<img src="${weibo.quote.picturePath}-160" class="img160 weiboImg"/>
 					<div class='imgPre hide'>
 						<div class='imgrote middle'>
 							<img src="${weibo.quote.picturePath}-320" class="img320 preImg"/>
 				     	</div>
 				     	<a class='weiboImgRotateL link mr10'>左转</a>
 					    <a class='weiboImgRotateR link mr10'>右转</a>
-					    <a href='${weibo.picturePath}' class='link' target='_blank'>查看原图</a>
+					    <a href='${weibo.quote.picturePath}' class='link' target='_blank'>查看原图</a>
 				    </div>
 					</c:if>
 					<div class="tweet-actions">
