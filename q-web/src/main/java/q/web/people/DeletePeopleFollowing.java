@@ -28,9 +28,12 @@ public class DeletePeopleFollowing extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long fromPeopleId = context.getCookiePeopleId();
 		long toPeopleId = context.getResourceIdLong();
-		this.peopleDao.updatePeopleRelationStatusByFromIdAndToId(PeopleRelationStatus.STRANGER, fromPeopleId, toPeopleId);
+		int rowEffected = this.peopleDao.updatePeopleRelationStatusByFromIdAndToId(PeopleRelationStatus.STRANGER, PeopleRelationStatus.FOLLOWING, fromPeopleId, toPeopleId);
+		if(rowEffected > 0) {
+			this.peopleDao.decrPeopleFollowingNumberByPeopleId(fromPeopleId);
+			this.peopleDao.decrPeopleFollowerNumberByPeopleId(toPeopleId);
+		}
 		
-		//context.redirectServletPath("/people/" + toPeopleId);
 	}
 
 	/* (non-Javadoc)

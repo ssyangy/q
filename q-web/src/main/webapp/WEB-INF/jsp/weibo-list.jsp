@@ -326,7 +326,7 @@
 		    	  $('div.wcontent',dia).empty().html($('div.twtxtr',tweet).html());
 		    	  $('div.wpeople',dia).empty().html($('a.peop',tweet).html());
 		    	  $("textarea[name='content']",dia).val('').val('//@'+$('a.peop',tweet).text().trim());
-		    	  $("#ret_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/retweet');
+		    	  $("#ret_url",dia).val('${urlPrefix}/reply/'+tweet.attr('replyid')+'/retweet');
 		    	  dia.dialog("open");
 		      });
 		      $("a.btn_hret").live('click',function () {

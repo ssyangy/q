@@ -17,7 +17,7 @@ import q.domain.PeopleRelationStatus;
 /**
  * @author alin
  * @date Feb 10, 2011
- *
+ * 
  */
 public interface PeopleDao {
 
@@ -83,15 +83,17 @@ public interface PeopleDao {
 	 * @param relationStatus
 	 * @param relationId
 	 * @param newRelation
+	 * @return
 	 */
-	void updatePeopleRelationStatusById(PeopleRelationStatus relationStatus, long relationId) throws SQLException;
+	int updatePeopleRelationStatusById(PeopleRelationStatus newStatus, PeopleRelationStatus oldStatus, long relationId) throws SQLException;
 
 	/**
 	 * @param stranger
 	 * @param fromPeopleId
 	 * @param toPeopleId
+	 * @return
 	 */
-	void updatePeopleRelationStatusByFromIdAndToId(PeopleRelationStatus stranger, long fromPeopleId, long toPeopleId) throws SQLException;
+	int updatePeopleRelationStatusByFromIdAndToId(PeopleRelationStatus newStatus, PeopleRelationStatus oldStatus, long fromPeopleId, long toPeopleId) throws SQLException;
 
 	/**
 	 * @param peopleId
@@ -138,6 +140,7 @@ public interface PeopleDao {
 	 * @throws SQLException
 	 */
 	void updateInterestById(People p) throws SQLException;
+
 	/**
 	 * @param p
 	 * @throws SQLException
@@ -155,5 +158,26 @@ public interface PeopleDao {
 	 * @throws SQLException
 	 */
 	int incrPeopleWeiboNumberByPeopleId(long senderId) throws SQLException;
+
+	/**
+	 * @param fromPeopleId
+	 */
+	int incrPeopleFollowingNumberByPeopleId(long fromPeopleId) throws SQLException;
+
+	/**
+	 * @param toPeopleId
+	 */
+	int incrPeopleFollowerNumberByPeopleId(long toPeopleId) throws SQLException;
+
+	/**
+	 * @param fromPeopleId
+	 */
+	int decrPeopleFollowingNumberByPeopleId(long fromPeopleId) throws SQLException;
+
+	/**
+	 * @param toPeopleId
+	 * @return 
+	 */
+	int decrPeopleFollowerNumberByPeopleId(long toPeopleId) throws SQLException;
 
 }

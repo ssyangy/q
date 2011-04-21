@@ -452,6 +452,7 @@
 	</bean>
 	<bean id="addReplyRetweet" class="q.web.weibo.AddReplyRetweet">
 		<property name="weiboDao" ref="weiboDao" />
+		<property name="peopleDao" ref="peopleDao" />
 		<property name="searchService" ref="searchService"></property>
 	</bean>
 

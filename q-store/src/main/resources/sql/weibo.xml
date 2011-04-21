@@ -118,6 +118,8 @@
 		#fromType,handler=q.dao.ibatis.WeiboFromTypeHandler#,
 		#fromId#,
 		#content#,
+		#replyNum#,
+		#retweetNum#,
 		0,
 		now(),
 		null,
@@ -334,6 +336,8 @@
 		#fromType,handler=q.dao.ibatis.WeiboFromTypeHandler#,
 		#fromId#,
 		#content#,
+		#replyNum#,
+		#retweetNum#,
 		0,
 		now(),
 		null
