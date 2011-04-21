@@ -56,8 +56,10 @@
                 <span class="tweet-actions">
 					{{#favorited}}<a href="#" class='favun'>取消收藏</a>{{/favorited}}
 					{{^favorited}}<a href="#" class='fav'>收藏</a>{{/favorited}}
+					{{#isown}}<a href="#" class='favun'>取消收藏</a>{{/isown}}
 					<span class="link-sep">·</span><a href="#" class='btn_ret'>转发</a>
 					<span class="link-sep">·</span><a href="#" class='btn_rep'>回复</a>
+					{{#isown}}<a href="#" class='btn_del'>删除</a>{{/isown}}
 				</span>
             </div>
         </div>
@@ -111,6 +113,7 @@
 						<span class="link-sep FR">·</span>
 						{{#favorited}}<a href="#" class='link mr5 FR hfavun'>取消收藏</a>{{/favorited}}
 						{{^favorited}}<a href="#" class='link mr5 FR hfav'>收藏</a>{{/favorited}}
+						{{#isown}}<a href="#" class='link mr5 FR hdel'>删除</a>{{/isown}}
 						</div>
                     </div>
 					</div>
@@ -131,6 +134,7 @@
 						<span class="link-sep FR">·</span>
 						{{#favorited}}<a href="#" class='link FR rfavun mr5'>取消收藏</a>{{/favorited}}
 						{{^favorited}}<a href="#" class='link FR rfav mr5'>收藏</a>{{/favorited}}
+						{{#isown}}<a href="#" class='link mr5 FR rdel'>删除</a>{{/isown}}
                         <div class="mt10 twtxtr">{{text}}</div>
                     </div>
 					{{/replies}}
@@ -208,6 +212,10 @@
 					    timeout: 5000,
 					    msg:this,
 					   	success: function(json){
+					   		json.isown = (this.people.id == '${loginCookie.peopleId}');
+					   		$(json.replies).each(function(){
+					   			this.isown = (this.people.id == '${loginCookie.peopleId}');
+					   		});
 					   		tweetex.empty().append(ich.tweetexp(json));
 				            tweetex.css('left',set.left+10).show();
 				            tweetex.animate({ left: 540+set.left }, 500, 'swing',function(){$('div.dashboardbb').hide();});
@@ -222,17 +230,17 @@
 	        		tweetex.hide()
 	        	});
 	        });
-			$('wbdel').live('click',function(){
+			$('a.btn_del').live('click',function(){
 				if(confirm('确定要删除？')){
 					var tweet = $(this).closest('div.tweet');
 					$.ajax({
 					    url: '${urlPrefix}/weibo/' + tweet.attr('weiboId'),
-					    type: '_delete',
+					    type: 'POST',
 					    dataType: 'json',
-					    data: {},
+					    data: {_method:'delete'},
 					    msg:tweet,
 					   	success: function(json){
-					   		if(json){
+					   		
 					   			this.msg.remove();
 					   			if($('#twrep').attr('weiboId') == this.msg.attr('weiboId')){
 						        	$('div.dashboardbb').show();
@@ -240,7 +248,7 @@
 						        		tweetex.hide();
 						        	});
 					   			}
-					   		}
+
 					    }
 					});
 				}
@@ -269,6 +277,7 @@
 						    },
 						   	success: function(json){
 							   	$(json).each(function(){
+							   		this.isown = (this.people.id == '${loginCookie.peopleId}');
 							   		$('div.stream-items').append(ich.tweet(this));
 				                    $('div.waitSlideDown').slideDown("slow", function () {
 				                        $(this).removeClass('waitSlideDown');
@@ -553,6 +562,11 @@
 						<a class='link favun'>取消收藏</a>
 						</c:otherwise>
 					</c:choose>
+					<c:choose>
+						<c:when test="${loginCookie.peopleId == weibo.senderId}">
+						<a class='link btn_del'>删除</a>
+						</c:when>
+					</c:choose>					
 					<span class="link-sep">·</span>
 					<a class="btn_ret link" href='#'>转发</a>
 					<span class="link-sep">·</span>

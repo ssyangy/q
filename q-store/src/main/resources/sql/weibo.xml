@@ -132,7 +132,7 @@
 		status = 1
 		where
 		sender_id = #senderId#
-		and id = #weiboId#;
+		and id = #weiboId#
 		and status = 0;
 	</update>
 
@@ -160,7 +160,7 @@
 		status = 1
 		where
 		sender_id = #senderId#
-		and id = #replyId#;
+		and id = #replyId#
 		and status = 0;
 	</update>
 

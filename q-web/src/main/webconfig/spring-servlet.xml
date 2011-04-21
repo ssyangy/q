@@ -418,6 +418,10 @@
 		<property name="shortUrlService" ref="shortUrlService"></property>
 		<property name="pictureService" ref="pictureService"></property>
 	</bean>
+	<bean id="deleteWeibo" class="q.web.weibo.DeleteWeibo">
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
 	<bean id="addWeiboPicture" class="q.web.weibo.AddWeiboPicture">
 		<property name="pictureService" ref="pictureService"></property>
 	</bean>
@@ -430,6 +434,10 @@
 	<bean id="addWeiboReply" class="q.web.weibo.AddWeiboReply">
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="shortUrlService" ref="shortUrlService" />
+	</bean>
+	<bean id="deleteWeiboReply" class="q.web.weibo.DeleteWeibo">
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="getWeiboNew" class="q.web.weibo.GetWeiboNew">
 		<property name="peopleDao" ref="peopleDao" />
