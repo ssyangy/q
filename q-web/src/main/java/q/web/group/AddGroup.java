@@ -9,8 +9,10 @@ package q.web.group;
 import q.biz.SearchService;
 import q.dao.GroupDao;
 import q.domain.Group;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.RequestParameterInvalidException;
 
 /**
  * AddGroup action
@@ -48,7 +50,10 @@ public class AddGroup extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
+		long categoryId = context.getIdLong("categoryId");
+		if(IdCreator.isNotValidId(categoryId)) {
+			throw new RequestParameterInvalidException("category:invalid");
+		}
 
 	}
 }

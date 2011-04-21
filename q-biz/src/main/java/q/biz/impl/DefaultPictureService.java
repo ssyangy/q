@@ -13,7 +13,7 @@ import q.http.JdkHttpClient;
 import q.util.IdCreator;
 import q.util.ImageKit;
 
-public class ImgService implements PictureService {
+public class DefaultPictureService implements PictureService {
 	private String imageUrl;
 
 	private String imageUploadUrl;
@@ -24,6 +24,14 @@ public class ImgService implements PictureService {
 
 	public void setImageUploadUrl(String imageUploadUrl) {
 		this.imageUploadUrl = imageUploadUrl;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public String getImageUploadUrl() {
+		return imageUploadUrl;
 	}
 
 	@Override
@@ -133,7 +141,7 @@ public class ImgService implements PictureService {
 		HttpURLConnection con = JdkHttpClient.getHttpConnection(temp, 100000, 100000);
 		String sb;
 		try {
-			Map<String, CharSequence> payload = new HashMap();
+			Map<String, CharSequence> payload = new HashMap<String, CharSequence>();
 			payload.put("imgdir", "a/" + String.valueOf(dir) + "/");
 			sb = JdkHttpClient.postMultipart(con, payload, picture, String.valueOf(peopleId), size, type);
 		} finally {
@@ -181,5 +189,17 @@ public class ImgService implements PictureService {
 			return false;
 		}
 	}
+
+	@Override
+	public String getFemaleAvatarPath() {
+		return this.imageUrl + "/default/female-def";
+	}
+
+	@Override
+	public String getMaleAvatarPath() {
+		return this.imageUrl + "/default/male-def";
+	}
+	
+	
 
 }

@@ -2,15 +2,11 @@ package q.web.people;
 
 import q.dao.PeopleDao;
 import q.domain.People;
-import q.http.JdkHttpClient;
 import q.web.Resource;
 import q.web.ResourceContext;
 
 public class GetProfileAvatar extends Resource {
-	private String imageUrl;
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
+	
 	private PeopleDao peopleDao;
 
 	public void setPeopleDao(PeopleDao peopleDao) {
@@ -27,8 +23,6 @@ public class GetProfileAvatar extends Resource {
 
 		long loginPeopleId = context.getCookiePeopleId();
 		People people=peopleDao.getPeopleById(loginPeopleId);
-		long peopleId = context.getCookiePeopleId();
-		long dir = peopleId % 10000;
 		if( people.hasAvatar()){
 			context.setModel("avatarExists", true);
 		}

@@ -5,6 +5,7 @@
 	<resultMap id="messageResult" class="message">
 		<result property="id" column="id" />
 		<result property="senderId" column="sender_id" />
+		<result property="replyNum" column="reply_num" />
 		<result property="status" column="status" />
 		<result property="created" column="created" />
 		<result property="modified" column="modified" />
@@ -12,6 +13,7 @@
 	<sql id="message.columns">
 		id,
 		sender_id,
+		reply_num,
 		status,
 		created,
 		modified

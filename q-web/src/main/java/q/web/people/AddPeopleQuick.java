@@ -1,13 +1,11 @@
 package q.web.people;
 
-import java.sql.SQLException;
-
+import q.biz.PictureService;
 import q.biz.SearchService;
 import q.dao.AuthcodeDao;
 import q.dao.PeopleDao;
 import q.domain.Gender;
 import q.domain.People;
-import q.util.StringKit;
 import q.web.DefaultResourceContext;
 import q.web.LoginCookie;
 import q.web.Resource;
@@ -19,18 +17,16 @@ import q.web.exception.RequestParameterInvalidException;
  * @author Zhehao
  * @author alin
  * @date Feb 14, 2011
- *
+ * 
  */
 
 public class AddPeopleQuick extends Resource {
 	private PeopleDao peopleDao;
-	private String imageUrl;
+
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
 	}
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
+
 	private AuthcodeDao authcodeDao;
 
 	public void setAuthcodeDao(AuthcodeDao authcodeDao) {
@@ -42,6 +38,13 @@ public class AddPeopleQuick extends Resource {
 	public void setSearchService(SearchService searchService) {
 		this.searchService = searchService;
 	}
+
+	private PictureService pictureService;
+
+	public void setPictureService(PictureService pictureService) {
+		this.pictureService = pictureService;
+	}
+
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		People people = new People();
@@ -51,7 +54,7 @@ public class AddPeopleQuick extends Resource {
 		people.setRealName(context.getString("realName"));
 		people.setGender(Gender.convertValue(context.getInt("gender", 0)));
 		people.setLoginToken("xxxx");// FIXME wanglin
-		people.setAvatarPath(imageUrl+"/default/male-def");
+		people.setAvatarPath(this.pictureService.getMaleAvatarPath());
 		peopleDao.addPeople(people);
 		context.setModel("people", people);
 		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), people.getRealName(), people.getUsername())); // set login cookie
@@ -74,7 +77,7 @@ public class AddPeopleQuick extends Resource {
 		if (result != null) {
 			throw new PeopleAlreadyExistException("email:该邮箱地址已经被使用。");
 		}
-		String username=context.getString("username");
+		String username = context.getString("username");
 		People result2 = this.peopleDao.getPeopleByUsername(username);
 		if (result2 != null) {
 			throw new PeopleAlreadyExistException("username:该用户名已经被使用。");

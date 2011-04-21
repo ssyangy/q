@@ -144,4 +144,16 @@ public interface PeopleDao {
 	 */
 	String selectPasswordById(long pid) throws SQLException;
 
+	/**
+	 * @param senderId
+	 */
+	int decrPeopleWeiboNumberByPeopleId(long senderId) throws SQLException;
+
+	/**
+	 * @param senderId
+	 * @return
+	 * @throws SQLException
+	 */
+	int incrPeopleWeiboNumberByPeopleId(long senderId) throws SQLException;
+
 }

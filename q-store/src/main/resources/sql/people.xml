@@ -23,6 +23,10 @@
 		<result property="url" column="url" />
 		<result property="intro" column="intro" />
 		<result property="avatarPath" column="avatar_path"/>
+		<result property="weiboNum" column="weibo_num"/>
+		<result property="followingNum" column="following_num"/>
+		<result property="followerNum" column="follower_num"/>
+		<result property="friendNum" column="friend_num"/>
 		<result property="status" column="status" />
 		<result property="created" column="created" />
 		<result property="modified" column="modified" />
@@ -71,6 +75,10 @@
 		url,
 		intro,
 		avatar_path,
+		weibo_num,
+		following_num,
+		follower_num,
+		friend_num,
 		status,
 		created,
 		modified
@@ -214,7 +222,7 @@
 		from_people_id = #fromPeopleId#
 		and to_people_id = #toPeopleId#;
 	</update>
-
+	
 	<insert id="insertPeopleRelation">
 		insert into people_relation
 		(
@@ -340,5 +348,11 @@
 			</isNotNull>
 			</dynamic>
 		       where id=#id#
+	</update>
+	<update id="decrPeopleWeiboNumberByPeopleId">
+		update people set reply_num = reply_num - 1 where id = #value#
+	</update>
+	<update id="incrPeopleWeiboNumberByPeopleId">
+		update people set reply_num = reply_num + 1 where id = #value#
 	</update>
 </sqlMap>

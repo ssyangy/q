@@ -4,3 +4,23 @@ alter table event add cost varchar(512);
 alter table event add number int unsigned not null;
 alter table event add started datetime not null;
 alter table event add ended datetime not null;
+
+
+4-20
+alter table people add weibo_num mediumint unsigned not null;
+alter table people add following_num mediumint unsigned not null;
+alter table people add follower_num mediumint unsigned not null;
+alter table people add friend_num mediumint unsigned not null;
+
+alter table weibo add reply_num mediumint unsigned not null;
+alter table weibo add retweet_num mediumint unsigned not null;
+
+alter table weibo_reply add reply_num mediumint unsigned not null;
+alter table weibo_reply add retweet_num mediumint unsigned not null;
+
+alter table event modify number mediumint unsigned not null;
+alter table event add join_num mediumint unsigned not null;
+
+alter table `group` add join_num mediumint unsigned not null;
+
+alter table message add reply_num mediumint unsigned not null;

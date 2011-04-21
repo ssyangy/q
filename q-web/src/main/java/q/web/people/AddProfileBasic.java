@@ -1,5 +1,6 @@
 package q.web.people;
 
+import q.biz.PictureService;
 import q.biz.SearchService;
 import q.dao.PeopleDao;
 import q.domain.Area;
@@ -23,10 +24,10 @@ public class AddProfileBasic extends Resource {
 		this.searchService = searchService;
 	}
 
-	private String imageUrl;
+	private PictureService pictureService;
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+	public void setPictureService(PictureService pictureService) {
+		this.pictureService = pictureService;
 	}
 
 	@Override
@@ -41,9 +42,9 @@ public class AddProfileBasic extends Resource {
 		people.setGender(gender);
 		if (!databasePeople.hasAvatar()) {
 			if (gender.isFemale()) {
-				people.setAvatarPath(imageUrl + "/default/female-def");
+				people.setAvatarPath(this.pictureService.getFemaleAvatarPath());
 			} else {
-				people.setAvatarPath(imageUrl + "/default/male-def");
+				people.setAvatarPath(this.pictureService.getMaleAvatarPath());
 			}
 		}
 

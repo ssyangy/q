@@ -22,12 +22,12 @@ import q.util.IdCreator;
 /**
  * @author alin
  * @date Feb 10, 2011
- *
+ * 
  */
 public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.dao.PeoplesDao#addPeople(q.domain.People)
 	 */
 	@Override
@@ -44,7 +44,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.dao.PeoplesDao#getPeopleById(int)
 	 */
 	@Override
@@ -63,7 +63,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.dao.PeopleDao#getPeopleByUsername(java.lang.String)
 	 */
 	@Override
@@ -84,7 +84,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	@Override
 	public List<People> getPeoplesByIds(List<Long> ids) throws SQLException {
-		if(CollectionKit.isEmpty(ids)) {
+		if (CollectionKit.isEmpty(ids)) {
 			return null;
 		}
 		PeoplePage page = new PeoplePage();
@@ -145,7 +145,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.dao.PeopleDao#updatePeopleRelationStatus(q.domain.PeopleRelation)
 	 */
 	@Override
@@ -158,7 +158,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.dao.PeopleDao#updatePeopleRelationStatusByFromIdAndToId(q.domain.PeopleRelationStatus, long, long)
 	 */
 	@Override
@@ -182,7 +182,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	@Override
 	public People getInterestById(long pid) throws SQLException {
-		return (People)this.sqlMapClient.queryForObject("selectPeopleInterestsById",pid);
+		return (People) this.sqlMapClient.queryForObject("selectPeopleInterestsById", pid);
 	}
 
 	@Override
@@ -193,6 +193,16 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 	@Override
 	public String selectPasswordById(long pid) throws SQLException {
 		return (String) this.sqlMapClient.queryForObject("selectPasswordById", pid);
+	}
+
+	@Override
+	public int decrPeopleWeiboNumberByPeopleId(long senderId) throws SQLException {
+		return this.sqlMapClient.update("decrPeopleWeiboNumberByPeopleId", senderId);
+	}
+	
+	@Override
+	public int incrPeopleWeiboNumberByPeopleId(long senderId) throws SQLException {
+		return this.sqlMapClient.update("incrPeopleWeiboNumberByPeopleId", senderId);
 	}
 
 }

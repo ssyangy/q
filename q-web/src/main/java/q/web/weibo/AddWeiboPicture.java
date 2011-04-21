@@ -17,22 +17,12 @@ import q.web.Resource;
 import q.web.ResourceContext;
 
 public class AddWeiboPicture extends Resource{
-	private String imageUrl;
-
-	private String imageUploadUrl;
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
-	public void setImageUploadUrl(String imageUploadUrl) {
-		this.imageUploadUrl = imageUploadUrl;
-	}
 	private PictureService pictureService;
 
 	public void setPictureService(PictureService pictureService) {
 		this.pictureService = pictureService;
 	}
+	
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		// TODO Auto-generated method stub
@@ -78,7 +68,7 @@ public class AddWeiboPicture extends Resource{
 					String place = data[1].substring(data[1].indexOf(":") + 1);
 					context.setModel("imgHeight", ImageKit.load(fileItem.getInputStream()).getHeight());
 					context.setModel("imgWidth", ImageKit.load(fileItem.getInputStream()).getWidth());
-					context.setModel("imgPath", imageUrl + place);
+					context.setModel("imgPath", this.pictureService.getImageUrl() + place);
 					context.setModel("value", "上传成功");
                     }
 				}
