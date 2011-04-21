@@ -142,6 +142,7 @@
 		var ajlock = true;
 
 		$(function () {
+
 		    $("img.weiboImg").live('click',function(){
 		    	$(this).addClass('hide');
 		    	$(this).next('div.imgPre').removeClass('hide');
@@ -189,7 +190,7 @@
 				    }
                 });
 			});
-
+			
 			var tweetex = $('div.tweetexpand');
 			var set = $('#page-container').offset();
 			tweetex.css('left',set.left+10);
@@ -221,7 +222,29 @@
 	        		tweetex.hide()
 	        	});
 	        });
-
+			$('wbdel').live('click',function(){
+				if(confirm('确定要删除？')){
+					var tweet = $(this).closest('div.tweet');
+					$.ajax({
+					    url: '${urlPrefix}/weibo/' + tweet.attr('weiboId'),
+					    type: '_delete',
+					    dataType: 'json',
+					    data: {},
+					    msg:tweet,
+					   	success: function(json){
+					   		if(json){
+					   			this.msg.remove();
+					   			if($('#twrep').attr('weiboId') == this.msg.attr('weiboId')){
+						        	$('div.dashboardbb').show();
+						        	tweetex.animate({ left: set.left+10 }, 500, 'swing',function(){
+						        		tweetex.hide();
+						        	});
+					   			}
+					   		}
+					    }
+					});
+				}
+			});
 	        window.onresize = window.onload = function () {
 	            gWinHeight = $(window).height();
 	            $("#body").height(gWinHeight);
@@ -510,9 +533,9 @@
 				    </div>
 					</c:if>
 					<div class="tweet-actions">
-						<a class="btn_sret link">原文转发</a>
+						<a class="btn_sret link" href='#'>原文转发</a>
 						<span class="link-sep">·</span>
-						<a class="btn_srep link">原文回复</a>
+						<a class="btn_srep link" href='#'>原文回复</a>
 					</div>
 				</div>
 			</div>
@@ -531,9 +554,9 @@
 						</c:otherwise>
 					</c:choose>
 					<span class="link-sep">·</span>
-					<a class="btn_ret link">转发</a>
+					<a class="btn_ret link" href='#'>转发</a>
 					<span class="link-sep">·</span>
-					<a class="btn_rep link">回复</a>
+					<a class="btn_rep link" href='#'>回复</a>
 				</span>
 			</div>
 		</div>
