@@ -22,12 +22,12 @@ import q.util.IdCreator;
 /**
  * @author alin
  * @date Feb 10, 2011
- *
+ * 
  */
 public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.dao.PeoplesDao#addPeople(q.domain.People)
 	 */
 	@Override
@@ -44,7 +44,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.dao.PeoplesDao#getPeopleById(int)
 	 */
 	@Override
@@ -63,7 +63,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.dao.PeopleDao#getPeopleByUsername(java.lang.String)
 	 */
 	@Override
@@ -84,7 +84,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	@Override
 	public List<People> getPeoplesByIds(List<Long> ids) throws SQLException {
-		if(CollectionKit.isEmpty(ids)) {
+		if (CollectionKit.isEmpty(ids)) {
 			return null;
 		}
 		PeoplePage page = new PeoplePage();
@@ -145,29 +145,31 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.dao.PeopleDao#updatePeopleRelationStatus(q.domain.PeopleRelation)
 	 */
 	@Override
-	public void updatePeopleRelationStatusById(PeopleRelationStatus relationStatus, long relationId) throws SQLException {
+	public int updatePeopleRelationStatusById(PeopleRelationStatus newStatus, PeopleRelationStatus oldStatus, long relationId) throws SQLException {
 		PeopleRelation relation = new PeopleRelation();
 		relation.setId(relationId);
-		relation.setStatus(relationStatus);
-		this.sqlMapClient.update("updatePeopleRelationStatusById", relation);
+		relation.setStatus(newStatus);
+		relation.setOldStatus(oldStatus);
+		return this.sqlMapClient.update("updatePeopleRelationStatusById", relation);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.dao.PeopleDao#updatePeopleRelationStatusByFromIdAndToId(q.domain.PeopleRelationStatus, long, long)
 	 */
 	@Override
-	public void updatePeopleRelationStatusByFromIdAndToId(PeopleRelationStatus status, long fromPeopleId, long toPeopleId) throws SQLException {
+	public int updatePeopleRelationStatusByFromIdAndToId(PeopleRelationStatus newStatus, PeopleRelationStatus oldStatus, long fromPeopleId, long toPeopleId) throws SQLException {
 		PeopleRelation relation = new PeopleRelation();
 		relation.setFromPeopleId(fromPeopleId);
 		relation.setToPeopleId(toPeopleId);
-		relation.setStatus(status);
-		this.sqlMapClient.update("updatePeopleRelationStatusByFromIdToId", relation);
+		relation.setStatus(newStatus);
+		relation.setOldStatus(oldStatus);
+		return this.sqlMapClient.update("updatePeopleRelationStatusByFromIdToId", relation);
 	}
 
 	@Override
@@ -182,7 +184,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	@Override
 	public People getInterestById(long pid) throws SQLException {
-		return (People)this.sqlMapClient.queryForObject("selectPeopleInterestsById",pid);
+		return (People) this.sqlMapClient.queryForObject("selectPeopleInterestsById", pid);
 	}
 
 	@Override
@@ -193,6 +195,48 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 	@Override
 	public String selectPasswordById(long pid) throws SQLException {
 		return (String) this.sqlMapClient.queryForObject("selectPasswordById", pid);
+	}
+
+	@Override
+	public int decrPeopleWeiboNumberByPeopleId(long senderId) throws SQLException {
+		return this.sqlMapClient.update("decrPeopleWeiboNumberByPeopleId", senderId);
+	}
+	
+	@Override
+	public int incrPeopleWeiboNumberByPeopleId(long senderId) throws SQLException {
+		return this.sqlMapClient.update("incrPeopleWeiboNumberByPeopleId", senderId);
+	}
+
+	/* (non-Javadoc)
+	 * @see q.dao.PeopleDao#incrPeopleFollowingNumberByPeopleId(long)
+	 */
+	@Override
+	public int incrPeopleFollowingNumberByPeopleId(long peopleId) throws SQLException {
+		return this.sqlMapClient.update("incrPeopleFollowingNumberByPeopleId", peopleId);
+	}
+
+	/* (non-Javadoc)
+	 * @see q.dao.PeopleDao#incrPeopleFollowerNumberByPeopleId(long)
+	 */
+	@Override
+	public int incrPeopleFollowerNumberByPeopleId(long peopleId) throws SQLException {
+		return this.sqlMapClient.update("incrPeopleFollowerNumberByPeopleId", peopleId);
+	}
+
+	/* (non-Javadoc)
+	 * @see q.dao.PeopleDao#decrPeopleFollowingNumberByPeopleId(long)
+	 */
+	@Override
+	public int decrPeopleFollowingNumberByPeopleId(long peopleId) throws SQLException {
+		return this.sqlMapClient.update("decrPeopleFollowingNumberByPeopleId", peopleId);
+	}
+
+	/* (non-Javadoc)
+	 * @see q.dao.PeopleDao#decrPeopleFollowerNumberByPeopleId(long)
+	 */
+	@Override
+	public int decrPeopleFollowerNumberByPeopleId(long peopleId) throws SQLException {
+		return this.sqlMapClient.update("decrPeopleFollowerNumberByPeopleId", peopleId);		
 	}
 
 }

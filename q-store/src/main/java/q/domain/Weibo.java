@@ -19,9 +19,6 @@ public class Weibo extends WeiboModel implements Serializable {
 		return isFromGroup() && this.getQuoteWeiboId() == 0;
 	}
 
-	/* (non-Javadoc)
-	 * @see q.domain.WeiboModel#getModelName()
-	 */
 	@Override
 	public String getViewName() {
 		return "weibo";

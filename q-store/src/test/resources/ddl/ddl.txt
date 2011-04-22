@@ -25,6 +25,10 @@ create table people(
 	music varchar(1000),
 	idol varchar(1000),
 	hope varchar(1000),
+	weibo_num mediumint unsigned not null,
+	following_num mediumint unsigned not null, 
+	follower_num mediumint unsigned not null,
+	friend_num mediumint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null
@@ -88,7 +92,8 @@ create table event(
 	intro varchar(10240),
 	address varchar(512),
 	cost varchar(512),
-	number int unsigned not null,
+	number mediumint unsigned not null,
+	join_num mediumint unsigned not null,
 	started datetime not null,
 	ended datetime not null,
 	status tinyint unsigned not null,
@@ -107,10 +112,12 @@ create table weibo (
 	from_type tinyint unsigned not null,
 	from_id bigint unsigned not null,
 	content varchar(10240) not null,
+	reply_num mediumint unsigned not null,
+	retweet_num mediumint unsigned not null,
+	picture_path varchar(50),
 	status tinyint unsigned not null,
 	created datetime not null,
-	modified timestamp not null,
-	picture_path varchar(50))
+	modified timestamp not null)
 default character set utf8 engine = innodb;
 
 create table weibo_reply (
@@ -123,6 +130,8 @@ create table weibo_reply (
 	from_type tinyint unsigned not null,
 	from_id bigint unsigned not null,
 	content varchar(10240) not null,
+	reply_num mediumint unsigned not null,
+	retweet_num mediumint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null)
@@ -156,8 +165,12 @@ create table `group`(
 	creator_id bigint unsigned not null,
 	name varchar(32) not null,
 	intro varchar(1024) not null,
+<<<<<<< HEAD
 	longitude double not null,
 	latitude double not null,
+=======
+	join_num mediumint unsigned not null,
+>>>>>>> f57dfc77cb98ea153938157b479d9c37fb2a4b1e
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null)
@@ -185,6 +198,7 @@ default character set utf8 engine = innodb;
 create table message(
 	id bigint unsigned not null primary key,
 	sender_id bigint unsigned not null,
+	reply_num mediumint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null)

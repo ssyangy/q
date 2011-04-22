@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<bean id="searchService" class="q.biz.impl.SolrSearchService">
+		<property name="searchUrl" value="${q.search.url}" />
+	</bean>
+	<bean id="pictureService" class="q.biz.impl.DefaultPictureService">
+		<property name="imageUrl" value="${q.image.url}" />
+		<property name="imageUploadUrl" value="${q.image.upload.url}" />
+	</bean>
+	<bean id="shortUrlService" class="q.biz.impl.DefaultShortUrlService">
+		<property name="putShortUrl" value="${q.short.upload.url}" />
+		<property name="getShortUrl" value="${q.short.url}" />
+	</bean>
+
+
+</beans>

@@ -46,6 +46,26 @@ public abstract class WeiboModel extends AbstractDomain implements Serializable 
 	private WeiboModel quote;
 
 	private String picturePath;
+	
+	private int replyNum;
+	
+	private int retweetNum;
+	
+	public int getReplyNum() {
+		return replyNum;
+	}
+
+	public void setReplyNum(int replyNum) {
+		this.replyNum = replyNum;
+	}
+
+	public int getRetweetNum() {
+		return retweetNum;
+	}
+
+	public void setRetweetNum(int retweetNum) {
+		this.retweetNum = retweetNum;
+	}
 
 	public String getPicturePath() {
 		return picturePath;

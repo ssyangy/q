@@ -13,6 +13,7 @@
 		<result property="address" column="address" />
 		<result property="cost" column="cost" />
 		<result property="number" column="number" />
+		<result property="joinNum" column="join_num" />
 		<result property="started" column="started" />
 		<result property="ended" column="ended" />
 		<result property="status" column="status" />
@@ -40,6 +41,7 @@
 		address,
 		cost,
 		number,
+		join_num,
 		started,
 		ended,
 		status,

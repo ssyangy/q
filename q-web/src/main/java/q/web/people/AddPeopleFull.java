@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import q.biz.PictureService;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.domain.Area;
@@ -32,10 +33,10 @@ public class AddPeopleFull extends Resource {
 		this.groupDao = groupDao;
 	}
 
-	private String imageUrl;
+	private PictureService pictureService;
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+	public void setPictureService(PictureService pictureService) {
+		this.pictureService = pictureService;
 	}
 
 	@Override
@@ -45,9 +46,9 @@ public class AddPeopleFull extends Resource {
 		people.setId(peopleId);
 		Gender gender = Gender.convertValue(context.getInt("gender", -1));
 		if (gender.isFemale()) {
-			people.setAvatarPath(imageUrl + "/default/female-def");
+			people.setAvatarPath(this.pictureService.getFemaleAvatarPath());
 		} else {
-			people.setAvatarPath(imageUrl + "/default/male-def");
+			people.setAvatarPath(this.pictureService.getMaleAvatarPath());
 		}
 		people.setGender(gender);
 

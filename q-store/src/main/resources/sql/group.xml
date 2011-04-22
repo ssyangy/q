@@ -8,8 +8,12 @@
 		<result property="creatorId" column="creator_id" />
 		<result property="name" column="name" />
 		<result property="intro" column="intro" />
+<<<<<<< HEAD
 		<result property="longitude" column="longitude"/>
 		<result property="latitude" column="latitude"/>
+=======
+		<result property="joinNum" column="join_num" />
+>>>>>>> f57dfc77cb98ea153938157b479d9c37fb2a4b1e
 		<result property="status" column="status" />
 		<result property="created" column="created" />
 		<result property="modified" column="modified" />
@@ -32,8 +36,12 @@
 		creator_id,
 		name,
 		intro,
+<<<<<<< HEAD
 		longitude,
 		latitude,
+=======
+		join_num,
+>>>>>>> f57dfc77cb98ea153938157b479d9c37fb2a4b1e
 		status,
 		created,
 		modified

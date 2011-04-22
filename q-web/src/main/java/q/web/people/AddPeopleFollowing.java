@@ -36,11 +36,16 @@ public class AddPeopleFollowing extends Resource {
 		if (oldRelation == null) {
 			PeopleRelation newRelation = new PeopleRelation(fromPeopleId, toPeopleId, PeopleRelationStatus.FOLLOWING);
 			this.peopleDao.addPeopleRelation(newRelation);
+			this.peopleDao.incrPeopleFollowingNumberByPeopleId(fromPeopleId);
+			this.peopleDao.incrPeopleFollowerNumberByPeopleId(toPeopleId);
 		} else if (oldRelation.isStranger()) {
-			this.peopleDao.updatePeopleRelationStatusById(PeopleRelationStatus.FOLLOWING, oldRelation.getId());
+			int rowEffected = this.peopleDao.updatePeopleRelationStatusById(PeopleRelationStatus.FOLLOWING, PeopleRelationStatus.STRANGER, oldRelation.getId());
+			if(rowEffected > 0) {
+				this.peopleDao.incrPeopleFollowingNumberByPeopleId(fromPeopleId);
+				this.peopleDao.incrPeopleFollowerNumberByPeopleId(toPeopleId);
+			}
 		}
 
-		//context.redirectServletPath("/people/" + toPeopleId);
 	}
 
 	/* (non-Javadoc)

@@ -21,6 +21,16 @@ public class Group extends AbstractDomain implements Serializable {
 
 	private int memberNum;
 
+	private int joinNum;
+
+	public int getJoinNum() {
+		return joinNum;
+	}
+
+	public void setJoinNum(int joinNumber) {
+		this.joinNum = joinNumber;
+	}
+
 
 	private double latitude;
 
@@ -76,14 +86,6 @@ public class Group extends AbstractDomain implements Serializable {
 
 	public void setStatus(int status) {
 		this.status = status;
-	}
-
-	public int getMemberNum() {
-		return memberNum;
-	}
-
-	public void setMemberNum(int memberNum) {
-		this.memberNum = memberNum;
 	}
 
 	@Override

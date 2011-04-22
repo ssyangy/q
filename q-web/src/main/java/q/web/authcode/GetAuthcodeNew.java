@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.Random;
 
 import q.dao.AuthcodeDao;
-import q.dao.PeopleDao;
 import q.log.Logger;
 import q.web.DefaultResourceContext;
 import q.web.Resource;

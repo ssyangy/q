@@ -3,13 +3,16 @@
  */
 package q.web.weibo;
 
+import q.biz.ShortUrlService;
 import q.dao.WeiboDao;
 import q.domain.Weibo;
 import q.domain.WeiboFromType;
 import q.domain.WeiboJoinGroup;
 import q.domain.WeiboReply;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.RequestParameterInvalidException;
 
 /**
  * @author seanlinwang
@@ -22,6 +25,12 @@ public class AddWeiboReply extends Resource {
 
 	public void setWeiboDao(WeiboDao weiboDao) {
 		this.weiboDao = weiboDao;
+	}
+
+	private ShortUrlService shortUrlService;
+
+	public void setShortUrlService(ShortUrlService shortUrlService) {
+		this.shortUrlService = shortUrlService;
 	}
 
 	/*
@@ -37,7 +46,7 @@ public class AddWeiboReply extends Resource {
 		long quoteId = context.getResourceIdLong();
 		Weibo quote = weiboDao.getWeiboById(quoteId);
 		if (quote == null) {
-			throw new IllegalStateException();
+			throw new RequestParameterInvalidException("weibo:invalid");
 		}
 
 		WeiboReply reply = new WeiboReply();
@@ -50,25 +59,34 @@ public class AddWeiboReply extends Resource {
 			reply.setReplySenderId(replied.getReplySenderId());
 		}
 		reply.setSenderId(senderId);
+		content = this.shortUrlService.urlFilter(content);
 		reply.setContent(content);
 		WeiboJoinGroup join = weiboDao.getWeiboJoinGroupByWeiboId(quote.getId());
 		if (join != null && join.isValid()) {
 			reply.setFromType(WeiboFromType.GROUP);
 			reply.setFromId(join.getGroupId());
 		}
+		
 		this.weiboDao.addWeiboReply(reply);
+		this.weiboDao.incrWeiboReplyNumByReplyId(reply.getQuoteWeiboId());
+		
 		String from = context.getString("from");
 		if (from != null) {
 			context.redirectContextPath(from);
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-		
+		long quoteId = context.getResourceIdLong();
+		if(IdCreator.isNotValidId(quoteId)) {
+			throw new RequestParameterInvalidException("weibo:invalid");
+		}
+
 	}
 }
