@@ -57,8 +57,8 @@
 					{{#favorited}}<a href="#" class='favun'>取消收藏</a>{{/favorited}}
 					{{^favorited}}<a href="#" class='fav'>收藏</a>{{/favorited}}
 					{{#isown}}<a href="#" class='favun'>取消收藏</a>{{/isown}}
-					<span class="link-sep">·</span><a href="#" class='btn_ret'>转发</a>
-					<span class="link-sep">·</span><a href="#" class='btn_rep'>回复</a>
+					<span class="link-sep">·</span><a href="#" class='btn_ret'>转发{{#retweetNum}}（{{retweetNum}}）{{/retweetNum}}</a>
+					<span class="link-sep">·</span><a href="#" class='btn_rep'>回复{{#replyNum}}（{{replyNum}}）{{/replyNum}}</a>
 					{{#isown}}<a href="#" class='btn_del'>删除</a>{{/isown}}
 				</span>
             </div>
@@ -107,9 +107,9 @@
 						<div class="mt10">
 						<span class='gray mr10'>{{screenTime}}</span>
 						<span class="gray">发自<a href="${urlPrefix}{{fromUrl}}">{{fromName}}</a></span>
-						<a class="link ml5 FR btn_hrep" href="#">回复</a>
+						<a class="link ml5 FR btn_hrep" href="#">回复{{#replyNum}}（{{replyNum}}）{{/replyNum}}</a>
 						<span class="link-sep FR">·</span>
-						<a class="link ml5 mr5 FR btn_hret" href="#">转发</a>
+						<a class="link ml5 mr5 FR btn_hret" href="#">转发{{#retweetNum}}（{{retweetNum}}）{{/retweetNum}}</a>
 						<span class="link-sep FR">·</span>
 						{{#favorited}}<a href="#" class='link mr5 FR hfavun'>取消收藏</a>{{/favorited}}
 						{{^favorited}}<a href="#" class='link mr5 FR hfav'>收藏</a>{{/favorited}}
@@ -128,9 +128,9 @@
 						{{/people}}
                         <span class="gray ml10">{{screenTime}}</span>
 
-						<a class="link ml5 FR btn_rrep">回复</a>
+						<a class="link ml5 FR btn_rrep">回复{{#replyNum}}（{{replyNum}}）{{/replyNum}}</a>
 						<span class="link-sep FR">·</span>
-						<a class="link ml5 mr5 FR btn_rret">转发</a>
+						<a class="link ml5 mr5 FR btn_rret">转发{{#retweetNum}}（{{retweetNum}}）{{/retweetNum}}</a>
 						<span class="link-sep FR">·</span>
 						{{#favorited}}<a href="#" class='link FR rfavun mr5'>取消收藏</a>{{/favorited}}
 						{{^favorited}}<a href="#" class='link FR rfav mr5'>收藏</a>{{/favorited}}
@@ -212,7 +212,7 @@
 					    timeout: 5000,
 					    msg:this,
 					   	success: function(json){
-					   		json.isown = (this.people.id == '${loginCookie.peopleId}');
+					   		json.weibo.isown = (json.weibo.people.id == '${loginCookie.peopleId}');
 					   		$(json.replies).each(function(){
 					   			this.isown = (this.people.id == '${loginCookie.peopleId}');
 					   		});
@@ -221,7 +221,6 @@
 				            tweetex.animate({ left: 540+set.left }, 500, 'swing',function(){$('div.dashboardbb').hide();});
 					    }
 	                });
-
 	        	}
 	        });
 	        $('a.btnreturn').live('click',function(){
@@ -240,15 +239,36 @@
 					    data: {_method:'delete'},
 					    msg:tweet,
 					   	success: function(json){
-					   		
-					   			this.msg.remove();
-					   			if($('#twrep').attr('weiboId') == this.msg.attr('weiboId')){
-						        	$('div.dashboardbb').show();
-						        	tweetex.animate({ left: set.left+10 }, 500, 'swing',function(){
-						        		tweetex.hide();
-						        	});
-					   			}
-
+				   			this.msg.slideUp("slow",function(){
+						   		   $(this).remove();
+						   	 	});				   			
+				   			if($('#twrep').attr('weiboId') == this.msg.attr('weiboId')){
+					        	$('div.dashboardbb').show();
+					        	tweetex.animate({ left: set.left+10 }, 500, 'swing',function(){
+					        		tweetex.hide();
+					        	});
+				   			}
+					    }
+					});
+				}
+			});
+			$('a.hdel').live('click',function(){
+				if(confirm('确定要删除？')){
+					var tweet = $('#twrep');
+					$.ajax({
+					    url: '${urlPrefix}/weibo/' + tweet.attr('weiboId'),
+					    type: 'POST',
+					    dataType: 'json',
+					    data: {_method:'delete'},
+					    msg:tweet,
+					   	success: function(json){
+					   		$("div.tweet[weiboid='"+this.msg.attr('weiboId')+"']").slideUp("slow",function(){
+					   		   $(this).remove();
+					   	 	});
+				        	$('div.dashboardbb').show();
+				        	tweetex.animate({ left: set.left+10 }, 500, 'swing',function(){
+				        		tweetex.hide();
+				        	});
 					    }
 					});
 				}
@@ -568,9 +588,21 @@
 						</c:when>
 					</c:choose>					
 					<span class="link-sep">·</span>
-					<a class="btn_ret link" href='#'>转发</a>
+					<a class="btn_ret link" href='#'>转发
+					<c:choose>
+						<c:when test="${weibo.retweetNum != '0'}">
+						（${weibo.retweetNum}）
+						</c:when>
+					</c:choose>	
+					</a>
 					<span class="link-sep">·</span>
-					<a class="btn_rep link" href='#'>回复</a>
+					<a class="btn_rep link" href='#'>回复
+					<c:choose>
+						<c:when test="${weibo.replyNum != '0'}">
+						（${weibo.replyNum}）
+						</c:when>
+					</c:choose>	
+					</a>
 				</span>
 			</div>
 		</div>
