@@ -1,4 +1,4 @@
-﻿var Movie = Backbone.Model.extend({
+﻿window.Movie = Backbone.Model.extend({
     initialize: function (spec) {
         if (!spec || !spec.title || !spec.format) {
             throw "InvalidConstructArgs";
@@ -15,20 +15,21 @@
         }
     }
 });
-var MovieCollection = Backbone.Collection.extend({
+window.MovieCollection = Backbone.Collection.extend({
     model: Movie,
     initialize: function () {
         // somthing
     }
 });
-var MovieView = Backbone.View.extend({
-    initialize: function (args) {
-        _.bindAll(this, 'changeModel');
+window.MovieView = Backbone.View.extend({
+    initialize: function (spec) {
+        _.bindAll(this, 'changeModel', 'render', 'handleTitleClick');
         this.model.bind('change:title', this.changeModel);
-        this.box = args.box;
+        this.box = spec.box;
     },
     events: {
-        'click .title': 'handleTitleClick'
+        "click .click": "handleTitleClick",
+        "dblclick input.click": "open"
     },
     render: function () {
         this.el = ich.movie(this.model.toJSON());
@@ -37,7 +38,11 @@ var MovieView = Backbone.View.extend({
     changeModel: function () {
         this.el.html(ich.movie(this.model.toJSON()));
     },
+    open: function () {
+        alert('open');
+    },
     handleTitleClick: function () {
-        alert('you clicked the title: ' + this.model.get('title'));
+        alert('a');
+        //alert('you clicked the title: ' + this.model.get('title'));
     }
 });

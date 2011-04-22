@@ -7,7 +7,7 @@
     require('jq.ui.selectmenu');
 
     (function ($) {
-        $(".tips").tooltip({ items: ".tooltipped", position: { my: "center bottom", at: "center top", offset: "0 -5"} });
+        $(".tips").tooltip({ position: { my: "center bottom", at: "center top", offset: "0 -5"} });
 
         $('select.speedD').selectmenu({ style: 'dropdown' });
         $diabox = $("#dialog_target");

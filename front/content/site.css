@@ -29,7 +29,7 @@ small { font-size: 12px; }
 /* Commen ---------------------------------------------------------------------------------------- */
 h1{color:#494949;display:block;font-size:24px;font-weight:700;line-height:1.1em;padding:0 0 12px;position:relative;}
 h2{color:#88A825;display:block;font-size:20px;position:relative;padding:0 0 6px;}
-h3{font-size:14px;color:#FF0065;position:relative;display:block;padding:0 0 10px 0;_zoom:1;}
+h3{font-size:14px;color:#FF0065;position:relative;display:block;margin:0 0 10px 0;_zoom:1;border-left:5px solid #FF0065;padding-left:5px;height:24px;line-height:24px;}
 h3 span.separator{font-weight: bold;}
 h3 a.arr{font-size:12px;position:absolute;top:0;right:0;}
 h4{color:#2B2A25;position:relative;display:block;padding:3px 0 4px 0;}

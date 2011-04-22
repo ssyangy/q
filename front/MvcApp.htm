@@ -20,20 +20,21 @@
         <script id="app" type="text/html">
             <h1>Movie App -- {{ nick }}</h1>
             <h2>{{ account }}</h2>
-            <ul id="movies"></ul>
+            
         </script>
 
         <script id="movie" type="text/html">
-            <li id="{{ htmlId }}"><span class="title">{{ title }}</span> <span>{{ format }}</span></li>
+            <li class='movli' id="{{ htmlId }}">
+                <span class="title">{{ title }}</span> <span>{{ format }}</span>
+            </li>
         </script>
 
-        <script>
+        <script type="text/javascript">
             $(document).ready(function () {
-                window.app = AppController.init({
-                    seed: 'body',
+                var movies = new MovieCollection();
+                window.movAppview = new MovAppView({ modMovies: movies, moviesseed: "#movies", headseed: '#head', headdata: {
                     account: '{{ user.get_profile.account.slug }}'
-                });
-                app.view.render();
+                } });
 
                 var library = new MovieCollection();
                 var mov1 = new Movie({
@@ -47,21 +48,20 @@
                         format: "dvd"
                     });
                 }
-                app.view.addMovie(mov1);
-                app.view.addMovieList(library);
-                app.view.removeMovie(mov1);
+                movAppview.addMovie(mov1);
+                movAppview.addMovieList(library);
+                movAppview.removeMovie(mov1);
 
-                $('#aa').click(function () {
-                    mov1.set({ title: 'aaaaaaaaaaaaaaaaaaaaaa' });
-                });
-
-                $("div.vali").validationEngine({ validationEventTriggers: "keyup", promptPosition: "centerRight" });
-                jQuery("#formID").validationEngine();
+                //                $('#aa').click(function () {
+                //                    mov1.set({ title: 'aaaaaaaaaaaaaaaaaaaaaa' });
+                //                });
             });
         </script>
 
     </head>
     <body>
-        <input id='aa' type="button" name="name" value="asdasd" />
+        <input class="new" type="text" />
+        <div id='head'></div>
+        <ul id="movies"></ul>
     </body>
 </html>
