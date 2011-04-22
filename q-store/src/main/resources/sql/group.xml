@@ -8,6 +8,8 @@
 		<result property="creatorId" column="creator_id" />
 		<result property="name" column="name" />
 		<result property="intro" column="intro" />
+		<result property="longitude" column="longitude"/>
+		<result property="latitude" column="latitude"/>
 		<result property="status" column="status" />
 		<result property="created" column="created" />
 		<result property="modified" column="modified" />
@@ -30,11 +32,13 @@
 		creator_id,
 		name,
 		intro,
+		longitude,
+		latitude,
 		status,
 		created,
 		modified
 	</sql>
-	
+
 	<select id="selectIdNamesByIds" resultMap="groupIdNameResult">
 		select
 		id, name
@@ -44,7 +48,7 @@
 			#[]#
         </iterate>
 	</select>
-	
+
 	<select id="selectGroupIdsByIds" resultClass="long">
 		select
 		id
@@ -53,8 +57,8 @@
 		<iterate open="(" close=")" conjunction=",">
 			#[]#
         </iterate>
-	</select>	
-	
+	</select>
+
 	<select id="selectGroupById" resultMap="groupResult">
 		select
 		<include refid="group.columns" />
@@ -65,27 +69,27 @@
 	<select id="selectGroupsByIds" resultMap="groupResult">
 		select
 		<include refid="group.columns" />
-		from `group` 
+		from `group`
 		where id in
 		<iterate open="(" close=")" conjunction=",">
 			#[]#
         </iterate>
 		order by created desc
 	</select>
-	
+
 	<select id="selectAllGroups" resultMap="groupResult">
 		select
 		<include refid="group.columns" />
-		from `group` 
+		from `group`
 		order by created desc
 	</select>
-	
+
 	<select id="selectGroupIdsByCatId" resultClass="long">
-		select group_id 
+		select group_id
 		from group_join_category
 		where
 		category_id = #value#
-	</select>	
+	</select>
 
 	<select id="selectNewGroups" resultMap="groupResult">
 		select
@@ -104,6 +108,8 @@
 		#creatorId#,
 		#name#,
 		#intro#,
+		#longitude#,
+		#latitude#,
 		0,
 		now(),
 		null
@@ -173,11 +179,11 @@
 		and
 		group_id=#groupId#
 	</select>
-	
+
 	<select id="selectJoinPeopleIdsByPage" resultClass="long">
 		select people_id
 		from people_join_group
-		<dynamic prepend="where"> 
+		<dynamic prepend="where">
 			<isNotNull prepend="and " property="status">
 				status = #status#
 	        </isNotNull>
@@ -198,7 +204,7 @@
 			</isNotNull>
 		</dynamic>
 		<isNotNull property="groupIds">
-			group by people_id 	
+			group by people_id
 	    </isNotNull>
 			order by created desc
 		<isNotNull property="size">
@@ -206,15 +212,15 @@
 		</isNotNull>
 	</select>
 	<select id="selectJoinGroupIdsByPage" resultClass="long">
-		select group_id 
+		select group_id
 		from people_join_group
-		<dynamic prepend="where"> 
+		<dynamic prepend="where">
 			<isNotNull prepend="and " property="status">
 				status = #status#
 	        </isNotNull>
 			<isNotNull prepend="and " property="peopleId">
 				people_id = #peopleId#
-	        </isNotNull>	        
+	        </isNotNull>
 			<isNotNull prepend="and " property="groupIds">
 				group_id in
 				<iterate property="groupIds" open="(" close=")" conjunction=",">

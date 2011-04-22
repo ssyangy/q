@@ -48,6 +48,12 @@
 						</entry>
 						<entry>
 							<key>
+								<value>addPeopleQuick:people</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
+						<entry>
+							<key>
 								<value>addLogin:people</value>
 							</key>
 							<value>/WEB-INF/json/check.xml</value>
@@ -153,6 +159,18 @@
 								<value>getMessage:replies</value>
 							</key>
 							<value>/WEB-INF/json/message-replies.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>getCategoryIndex:categorys</value>
+							</key>
+							<value>/WEB-INF/json/category-list.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>addGroup:group</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
 						</entry>
 					</map>
 				</property>
@@ -535,7 +553,7 @@
 	</bean>
 
 	<!-- mobile service -->
-		<bean id="addPeopleQuick" class="q.web.people.AddPeopleQuick">
+	<bean id="addPeopleQuick" class="q.web.people.AddPeopleQuick">
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="authcodeDao" ref="authcodeDao" />
 		<property name="searchService" ref="searchService"></property>

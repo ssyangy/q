@@ -156,6 +156,8 @@ create table `group`(
 	creator_id bigint unsigned not null,
 	name varchar(32) not null,
 	intro varchar(1024) not null,
+	longitude double not null,
+	latitude double not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null)

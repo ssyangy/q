@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author Zhehao
  * @date Feb 15, 2011
- * 
+ *
  */
 public class Group extends AbstractDomain implements Serializable {
 
@@ -18,8 +18,29 @@ public class Group extends AbstractDomain implements Serializable {
 	private String intro;
 
 	private int status;
-	
+
 	private int memberNum;
+
+
+	private double latitude;
+
+	private double longitude;
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
 
 	public long getCreatorId() {
 		return creatorId;
@@ -67,7 +88,7 @@ public class Group extends AbstractDomain implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Group [id=" + id + ", creatorId=" + creatorId + ", name=" + name + ", intro=" + intro + ", status=" + status + ", created=" + created + ", modified=" + modified + "]";
+		return "Group [id=" + id + ", creatorId=" + creatorId + ", name=" + name + ", intro=" + intro + ", longitude=" + longitude +", latitude=" + latitude +", status=" + status + ", created=" + created + ", modified=" + modified + "]";
 	}
 
 }
