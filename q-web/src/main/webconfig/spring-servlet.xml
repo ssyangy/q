@@ -555,16 +555,4 @@
 		<property name="searchService" ref="searchService"></property>
 	</bean>
 
-<<<<<<< HEAD
-	<!-- mobile service -->
-	<bean id="addPeopleQuick" class="q.web.people.AddPeopleQuick">
-		<property name="peopleDao" ref="peopleDao" />
-		<property name="authcodeDao" ref="authcodeDao" />
-		<property name="searchService" ref="searchService"></property>
-		<property name="imageUrl" value="${q.image.url}" />
-	</bean>
-
-
-=======
->>>>>>> f57dfc77cb98ea153938157b479d9c37fb2a4b1e
 </beans>
