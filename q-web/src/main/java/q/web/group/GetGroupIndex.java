@@ -14,7 +14,7 @@ import q.web.ResourceContext;
  * @author Zhehao
  * @author seanlinwang
  * @date Feb 15, 2011
- * 
+ *
  */
 public class GetGroupIndex extends Resource {
 
@@ -45,6 +45,14 @@ public class GetGroupIndex extends Resource {
 			List<Group> groups = groupDao.getAllGroupsByCatId(catId);
 			context.setModel("catGroups", groups);
 		}
+		String method=context.getString("method");
+		if(method!=null){
+		if(method.equals("getMyGroups")){
+			long id=context.getCookiePeopleId();
+		List<Group>groups=groupDao.getGroupsByPeopleId(id);
+		context.setModel("groups", groups);
+		}
+		}
 
 	}
 
@@ -54,7 +62,7 @@ public class GetGroupIndex extends Resource {
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

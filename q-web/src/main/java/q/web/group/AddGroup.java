@@ -39,15 +39,21 @@ public class AddGroup extends Resource {
 		group.setCreatorId(context.getCookiePeopleId()); // set group creator id from cookie
 		group.setName(context.getString("name"));
 		group.setIntro(context.getString("intro"));
-		if(context.getString("latitude")!=null&&context.getString("longitude")!=null){
-		group.setLatitude(Double.parseDouble(context.getString("latitude")));
-		group.setLongitude(Double.parseDouble(context.getString("longitude")));
+		if (context.getString("latitude") != null && context.getString("longitude") != null) {
+			group.setLatitude(Double.parseDouble(context.getString("latitude")));
+			group.setLongitude(Double.parseDouble(context.getString("longitude")));
 		}
+
 		groupDao.addGroup(group); // create group
 		groupDao.addGroupJoinCategory(group.getId(), context.getIdLong("categoryId")); // set group category
-		context.redirectServletPath("/group/" + group.getId());
-		context.setModel("group", group);
 		searchService.updateGroup(group);
+
+		if(context.isApiRequest()){
+			context.setModel("group", group);
+		} else {
+			context.redirectServletPath("/group/" + group.getId());
+		}
+
 	}
 
 	/* (non-Javadoc)

@@ -10,10 +10,10 @@
 		<result property="intro" column="intro" />
 		<result property="longitude" column="longitude"/>
 		<result property="latitude" column="latitude"/>
-		<result property="joinNum" column="join_num" />
 		<result property="status" column="status" />
 		<result property="created" column="created" />
 		<result property="modified" column="modified" />
+		<result property="joinNum" column="join_num" />
 	</resultMap>
 	<resultMap id="groupIdNameResult" class="group">
 		<result property="id" column="id" />
@@ -35,10 +35,10 @@
 		intro,
 		longitude,
 		latitude,
-		join_num,
 		status,
 		created,
-		modified
+		modified,
+		join_num
 	</sql>
 
 	<select id="selectIdNamesByIds" resultMap="groupIdNameResult">
@@ -114,7 +114,8 @@
 		#latitude#,
 		0,
 		now(),
-		null
+		null,
+		0
 		)
 	</insert>
 
