@@ -172,6 +172,18 @@
 							</key>
 							<value>/WEB-INF/json/check.xml</value>
 						</entry>
+						<entry>
+							<key>
+								<value>getGroupIndex:groups</value>
+							</key>
+							<value>/WEB-INF/json/group-list.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>getSearchGroup:groups</value>
+							</key>
+							<value>/WEB-INF/json/group-list.xml</value>
+						</entry>
 					</map>
 				</property>
 			</bean>
@@ -190,6 +202,7 @@
 				<value>getGroupNew</value>
 				<value>addGroup</value>
 				<value>getGroupFeed</value>
+				<value>getGroupIndex</value>
 				<value>getGroupFeedEvent</value>
 				<value>addGroupJoin</value>
 				<value>deleteGroupJoin</value>

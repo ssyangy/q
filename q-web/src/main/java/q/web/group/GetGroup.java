@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.web.group;
 
@@ -12,6 +12,7 @@ import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.dao.page.WeiboPage;
+import q.domain.Group;
 import q.domain.Weibo;
 import q.web.Resource;
 import q.web.ResourceContext;
@@ -20,7 +21,7 @@ import q.web.ResourceContext;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 16, 2011
- * 
+ *
  */
 public class GetGroup extends Resource {
 	private GroupDao groupDao;
@@ -55,7 +56,7 @@ public class GetGroup extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -94,11 +95,12 @@ public class GetGroup extends Resource {
 			frame.setWeiboDao(weiboDao);
 			frame.execute(context);
 		}
+
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
