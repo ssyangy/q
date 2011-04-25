@@ -94,13 +94,25 @@
 			<div class="tweet-ori">
 				<div class="tweet-ori-inner">
 					{{#people}}<a href="${urlPrefix}/people/{{id}}" class="tweet-ori-author">{{screenName}}</a>{{/people}}：
-					{{text}}
-					{{#picturePath}}<img id="img" src="{{picturePath}}-160" class="img160"/>{{/picturePath}}
-					<span class="">
+					<span class='wqcontent'>{{text}}</span><br/>
+					{{#picturePath}}
+<img id="img" src="{{picturePath}}-160" class="img160 weiboImg"/>
+					<div class='imgPre hide'>
+						<div class='imgrote middle'>
+							<img src="{{picturePath}}-320" class="img320 preImg"/>
+				     	</div>
+				     	<a class='weiboImgRotateL link mr10'>左转</a>
+					    <a class='weiboImgRotateR link mr10'>右转</a>
+					    <a href='{{picturePath}}' class='link' target='_blank'>查看原图</a>
+				    </div>
+					{{/picturePath}}
+					<div class="tweet-row clearfix">
+					<div class="tweet-actions">
 						<a href="${urlPrefix}/weibo/{{id}}">原文转发</a>
 						<span class="link-sep">·</span>
 						<a href="${urlPrefix}/weibo/{{id}}">原文回复</a>
-					</span>
+					</div>
+					</div>
 				</div>
 			</div>
 			{{/quote}}
@@ -561,7 +573,7 @@
 					    <a href='${weibo.quote.picturePath}' class='link' target='_blank'>查看原图</a>
 				    </div>
 					</c:if>
-						<div class="tweet-row clearfix">
+					<div class="tweet-row clearfix">
 					<div class="tweet-actions">
 						<a class="btn_sret link" href='#'>原文转发</a>
 						<span class="link-sep">·</span>
@@ -592,7 +604,7 @@
 					<span class="link-sep">·</span>
 					<a class="btn_ret link" href='#'>转发
 					<c:choose>
-						<c:when test="${weibo.retweetNum != '0'}">
+						<c:when test="${weibo.retweetNum != 0}">
 						（${weibo.retweetNum}）
 						</c:when>
 					</c:choose>	
@@ -600,7 +612,7 @@
 					<span class="link-sep">·</span>
 					<a class="btn_rep link" href='#'>回复
 					<c:choose>
-						<c:when test="${weibo.replyNum != '0'}">
+						<c:when test="${weibo.replyNum != 0}">
 						（${weibo.replyNum}）
 						</c:when>
 					</c:choose>	
