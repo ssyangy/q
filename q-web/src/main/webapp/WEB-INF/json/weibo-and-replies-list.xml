@@ -15,8 +15,8 @@
 						<member name="fav" apiName="favorited" apiType="boolean" />
 						<member name="fromName" apiName="fromName" apiType="string" />
 						<member name="fromUrl" apiName="fromUrl" apiType="string" />
-						<member name="replyNum" apiName="replyNum" apiType="int"/>
-						<member name="retweetNum" apiName="retweetNum" apiType="int"/>
+						<member name="replyNum" apiName="replyNum" apiType="int" />
+						<member name="retweetNum" apiName="retweetNum" apiType="int" />
 						<member name="people" apiName="people">
 							<type>
 								<struct>
@@ -37,6 +37,8 @@
 									<member name="fav" apiName="favorited" apiType="boolean" />
 									<member name="fromName" apiName="fromName" apiType="string" />
 									<member name="fromUrl" apiName="fromUrl" apiType="string" />
+									<member name="replyNum" apiName="replyNum" apiType="int" />
+									<member name="retweetNum" apiName="retweetNum" apiType="int" />
 									<member name="people" apiName="people">
 										<type>
 											<struct>
@@ -67,6 +69,8 @@
 								<member name="fav" apiName="favorited" apiType="boolean" />
 								<member name="fromName" apiName="fromName" apiType="string" />
 								<member name="fromUrl" apiName="fromUrl" apiType="string" />
+								<member name="replyNum" apiName="replyNum" apiType="int" />
+								<member name="retweetNum" apiName="retweetNum" apiType="int" />
 								<member name="people" apiName="people">
 									<type>
 										<struct>
