@@ -549,7 +549,7 @@
 			<div class="tweet-ori" weiboid="${weibo.quote.id}">
 				<div class="tweet-ori-inner">
 					<a href="${urlPrefix}/people/${weibo.quote.people.id}" class="tweet-ori-author">${weibo.quote.people.realName}</a>：
-					<span class='wqcontent'>${weibo.quote.content}</span>
+					<span class='wqcontent'>${weibo.quote.content}</span><br/>
 					<c:if test="${weibo.quote.picturePath !=null }">
 					<img src="${weibo.quote.picturePath}-160" class="img160 weiboImg"/>
 					<div class='imgPre hide'>
@@ -561,10 +561,12 @@
 					    <a href='${weibo.quote.picturePath}' class='link' target='_blank'>查看原图</a>
 				    </div>
 					</c:if>
+						<div class="tweet-row clearfix">
 					<div class="tweet-actions">
 						<a class="btn_sret link" href='#'>原文转发</a>
 						<span class="link-sep">·</span>
 						<a class="btn_srep link" href='#'>原文回复</a>
+					</div>
 					</div>
 				</div>
 			</div>
