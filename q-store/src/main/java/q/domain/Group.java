@@ -19,8 +19,6 @@ public class Group extends AbstractDomain implements Serializable {
 
 	private int status;
 
-	private int memberNum;
-
 	private int joinNum;
 
 	public int getJoinNum() {

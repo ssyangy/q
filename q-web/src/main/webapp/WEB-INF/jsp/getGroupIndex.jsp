@@ -22,81 +22,81 @@
 <body>
 	<div id="body">
 		<jsp:include page="top.jsp" />
-		<div id="page-outer"> 
-			<div id="page-container"> 
-				<div class="main-content" style="min-height:400px"> 
-					<div class="home-header"> 
-						<div class="std-header-box"> 
-							<div class="header-box group-header"> 
+		<div id="page-outer">
+			<div id="page-container">
+				<div class="main-content" style="min-height:400px">
+					<div class="home-header">
+						<div class="std-header-box">
+							<div class="header-box group-header">
 								<div class="action">
 									<a href="${urlPrefix}/group/new" class="tweet-button button">创建圈子</a>
-								</div> 
-								<h2>圈子目录</h2> 
-							</div> 
-						</div> 
-					</div> 
-					<div class="content-outer"> 
-						<div class="content-inner"> 
-							<table class="groups-cat" width="100%"> 
-								<tbody> 
+								</div>
+								<h2>圈子目录</h2>
+							</div>
+						</div>
+					</div>
+					<div class="content-outer">
+						<div class="content-inner">
+							<table class="groups-cat" width="100%">
+								<tbody>
 									<c:forEach items="${cats}" var="cat" varStatus="status">
-									<tr> 
-										<th><img src="${imageUrl}/default/cat-def.png"></th> 
+									<tr>
+										<th><img src="${imageUrl}/default/cat-def.png"></th>
 										<td>
 											<div class="desc">
 												<div class="action">
 													<a href="${urlPrefix}/group?cat=${cat.id}">更多→</a>
 												</div>
 												<div>${cat.name}</div>
-											</div> 
+											</div>
 											<div class="group">
 												<c:forEach items="${cat.groups}" var="group" varStatus="status">
 												<a href="${urlPrefix}/group/${group.id}">${group.name}</a>
 												</c:forEach>
-											</div> 
-										</td>  
+											</div>
+										</td>
 									</tr>
-									</c:forEach> 
-								</tbody> 
-							</table> 
-						</div> 
-					</div> 
-				</div> 
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 				<div class="expand dashboardbb">
 				<c:if test="${cat!=null}">
-					<div class="db-header-outer"> 
-						<div class="db-header-inner"> 
-							<div class="cat-logo"><img src="${imageUrl}/default/cat-def.png"></div> 
-							<div class="cat-desc"> 
-								<p class="desc">${cat.intro}</p> 
-								<p>圈子数：${cat.groupNum} / 成员总数：${cat.memberNum}</p> 
-							</div> 
-						</div> 
-					</div> 
-					<div class="db-content-outer"> 
-						<div class="db-content-inner"> 
+					<div class="db-header-outer">
+						<div class="db-header-inner">
+							<div class="cat-logo"><img src="${imageUrl}/default/cat-def.png"></div>
+							<div class="cat-desc">
+								<p class="desc">${cat.intro}</p>
+								<p>圈子数：${cat.groupNum} / 成员总数：${cat.memberNum}</p>
+							</div>
+						</div>
+					</div>
+					<div class="db-content-outer">
+						<div class="db-content-inner">
 							<c:forEach items="${catGroups}" var="group">
-							<div class="group-block"> 
+							<div class="group-block">
 								<div class="name-line">
 									<div class="count">
 										<span>创建于${group.time}</span>
-										<span>${group.memberNum}人</span>
-									</div> 
+										<span>${group.joinNum}人</span>
+									</div>
 									<div class="name">
 										<a href="${urlPrefix}/group/${group.id}">${group.name}</a>
-									</div> 
-								</div> 
+									</div>
+								</div>
 								<div class="desc">${group.intro}</div>
 							</div>
-							</c:forEach> 
-						</div> 
+							</c:forEach>
+						</div>
 					</div>
-				</c:if>	 
-				</div> 
-			</div> 
-		</div> 
-		<div id="message-notifications"> 
-		</div> 
-	</div> 
+				</c:if>
+				</div>
+			</div>
+		</div>
+		<div id="message-notifications">
+		</div>
+	</div>
 </body>
 </html>

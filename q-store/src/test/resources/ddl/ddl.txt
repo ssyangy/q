@@ -26,7 +26,7 @@ create table people(
 	idol varchar(1000),
 	hope varchar(1000),
 	weibo_num mediumint unsigned not null,
-	following_num mediumint unsigned not null, 
+	following_num mediumint unsigned not null,
 	follower_num mediumint unsigned not null,
 	friend_num mediumint unsigned not null,
 	status tinyint unsigned not null,
@@ -165,12 +165,9 @@ create table `group`(
 	creator_id bigint unsigned not null,
 	name varchar(32) not null,
 	intro varchar(1024) not null,
-<<<<<<< HEAD
 	longitude double not null,
 	latitude double not null,
-=======
 	join_num mediumint unsigned not null,
->>>>>>> f57dfc77cb98ea153938157b479d9c37fb2a4b1e
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null)
