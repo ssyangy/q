@@ -69,7 +69,7 @@
 							<div class="cat-logo"><img src="${imageUrl}/default/cat-def.png"></div>
 							<div class="cat-desc">
 								<p class="desc">${cat.intro}</p>
-								<p>圈子数：${cat.groupNum} / 成员总数：${cat.memberNum}</p>
+								<p>圈子数：${cat.groupNum} / 成员总数：${cat.joinNum}</p>
 							</div>
 						</div>
 					</div>

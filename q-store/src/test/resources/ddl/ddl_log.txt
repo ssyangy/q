@@ -25,3 +25,6 @@ alter table event add join_num mediumint unsigned not null;
 
 alter table `group` add join_num mediumint unsigned not null;
 
+alter table category add join_num mediumint unsigned not null;
+alter table category add group_num mediumint unsigned not null;
+

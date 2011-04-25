@@ -8,7 +8,7 @@
 					<member name="name" apiName="name" apiType="string" />
 					<member name="intro" apiName="intro" apiType="string" />
 					<member name="groupNum" apiName="groupNum" apiType="int" />
-					<member name="memberNum" apiName="memberNum" apiType="int" />
+					<member name="joinNum" apiName="joinNum" apiType="int" />
 					<member name="id" apiName="id" apiType="string" />
 				</struct>
 			</type>
