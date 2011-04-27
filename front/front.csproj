@@ -230,18 +230,18 @@
     <Content Include="content\smoothness\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="content\smoothness\jquery-ui-1.8.10.custom.css" />
     <Content Include="Global.asax" />
-    <Content Include="js\backbone-min.js" />
-    <Content Include="js\destroy.png" />
-    <Content Include="js\ICanHaz.min.js" />
-    <Content Include="js\jquery-1.5.2.min.js" />
-    <Content Include="js\json2.js" />
-    <Content Include="js\mustache.js" />
-    <Content Include="js\todos.css" />
-    <Content Include="js\todos.js" />
-    <Content Include="js\todosmodel.js" />
-    <Content Include="js\underscore-min.js" />
-    <Content Include="js\MovieApp.js" />
-    <Content Include="MvcApp.htm" />
+    <Content Include="demo\backbone-min.js" />
+    <Content Include="demo\destroy.png" />
+    <Content Include="demo\ICanHaz.min.js" />
+    <Content Include="demo\jquery-1.5.2.min.js" />
+    <Content Include="demo\json2.js" />
+    <Content Include="demo\mustache.js" />
+    <Content Include="demo\todos.css" />
+    <Content Include="demo\todos.js" />
+    <Content Include="demo\todosmodel.js" />
+    <Content Include="demo\underscore-min.js" />
+    <Content Include="demo\MovieApp.js" />
+    <Content Include="demo\MvcApp.htm" />
     <Content Include="scripts\ajaxupload.js" />
     <Content Include="scripts\backbone-localstorage.js" />
     <Content Include="scripts\backbone.js" />
@@ -309,7 +309,7 @@
     <Content Include="scripts\jq.ui.help.js" />
     <Content Include="scripts\weibo.js" />
     <Content Include="scripts\config.js" />
-    <Content Include="Todos.htm" />
+    <Content Include="demo\Todos.htm" />
     <Content Include="usersimg\1.png" />
     <Content Include="usersimg\2.png" />
     <Content Include="usersimg\3.png" />
@@ -361,7 +361,7 @@
   <ItemGroup>
     <None Include="Assist\closure-compiler\build.bat" />
     <None Include="Assist\closure-compiler\compress.ps" />
-    <Content Include="js\Movie.js" />
+    <Content Include="demo\Movie.js" />
     <Content Include="resources\jquery.fancybox-1.3.4.zip" />
     <Content Include="resources\posabsolute-jQuery-Validation-Engine-fb46fca.zip" />
   </ItemGroup>
