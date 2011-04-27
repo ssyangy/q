@@ -37,6 +37,7 @@ public interface GroupDao {
 
 	public List<Long> getGroupIdsByPeopleId(long peopleId) throws SQLException;
 
+	public List<Group>getGroupsByLocation(Group myLocation)throws SQLException;
 	/**
 	 * @param peopleId
 	 * @throws SQLException

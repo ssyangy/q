@@ -8,8 +8,8 @@
 		<result property="creatorId" column="creator_id" />
 		<result property="name" column="name" />
 		<result property="intro" column="intro" />
-		<result property="longitude" column="longitude"/>
-		<result property="latitude" column="latitude"/>
+		<result property="longitude" column="longitude" />
+		<result property="latitude" column="latitude" />
 		<result property="status" column="status" />
 		<result property="created" column="created" />
 		<result property="modified" column="modified" />
@@ -78,7 +78,14 @@
         </iterate>
 		order by created desc
 	</select>
-
+	<select id="selectGroupsByLocation" resultMap="groupResult">
+		select
+		<include refid="group.columns" />
+		from `group`
+		where abs(longitude-#longitude#) &lt; 0.001
+		and abs(latitude-#latitude#) &lt; 0.001
+		order by join_num limit 100
+	</select>
 	<select id="selectAllGroups" resultMap="groupResult">
 		select
 		<include refid="group.columns" />
@@ -171,8 +178,7 @@
 		group_id = #groupId#
 	</update>
 
-	<select id="selectPeopleJoinGroupByPage"
-		resultMap="pjgResult">
+	<select id="selectPeopleJoinGroupByPage" resultMap="pjgResult">
 		select
 		<include refid="pjg.columns" />
 		from
@@ -195,12 +201,13 @@
 				<iterate property="groupIds" open="(" close=")" conjunction=",">
 					#groupIds[]#
 	        	</iterate>
-	        </isNotNull>
+			</isNotNull>
 			<isNotNull prepend="and " property="groupId">
 				group_id = #groupId#
 			</isNotNull>
 			<isNotNull prepend="and " property="startCreated">
-				created &lt;= #startCreated#
+				created &lt;=
+				#startCreated#
 			</isNotNull>
 			<isNotNull prepend="and " property="startId">
 				id &lt;= #startId#
@@ -209,7 +216,7 @@
 		<isNotNull property="groupIds">
 			group by people_id
 	    </isNotNull>
-			order by created desc
+		order by created desc
 		<isNotNull property="size">
 			limit #startIndex#, #size#
 		</isNotNull>
@@ -229,18 +236,19 @@
 				<iterate property="groupIds" open="(" close=")" conjunction=",">
 					#groupIds[]#
 	        	</iterate>
-	        </isNotNull>
+			</isNotNull>
 			<isNotNull prepend="and " property="groupId">
 				group_id = #groupId#
 			</isNotNull>
 			<isNotNull prepend="and " property="startCreated">
-				created &lt;= #startCreated#
+				created &lt;=
+				#startCreated#
 			</isNotNull>
 			<isNotNull prepend="and " property="startId">
 				id &lt;= #startId#
 			</isNotNull>
 		</dynamic>
-			order by created desc
+		order by created desc
 		<isNotNull property="size">
 			limit #startIndex#, #size#
 		</isNotNull>

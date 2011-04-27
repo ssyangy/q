@@ -155,6 +155,10 @@
 		#url#,
 		#intro#,
 		#avatarPath#,
+		#weiboNum#,
+		#followingNum#,
+		#followerNum#,
+		#friendNum#,
 		0,
 		now(),
 		null
@@ -210,7 +214,7 @@
 	<update id="updatePeopleRelationStatusById">
 		update people_relation set
 		status = #status,handler=q.dao.ibatis.PeopleRelationStatusHandler#
-		where 
+		where
 		id = #id#
 		and status = #oldStatus,handler=q.dao.ibatis.PeopleRelationStatusHandler#
 	</update>
@@ -223,7 +227,7 @@
 		and to_people_id = #toPeopleId#
 		and status = #oldStatus,handler=q.dao.ibatis.PeopleRelationStatusHandler#
 	</update>
-	
+
 	<insert id="insertPeopleRelation">
 		insert into people_relation
 		(
@@ -373,5 +377,5 @@
 	</update>
 	<update id="incrPeopleFriendNumberByPeopleId">
 		update people set friend_num = friend_num + 1 where id = #value#
-	</update>		
+	</update>
 </sqlMap>
