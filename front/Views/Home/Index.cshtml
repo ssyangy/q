@@ -1,12 +1,18 @@
 ﻿@{ViewBag.Title = "圈子 - 首页";}
 <script type="text/javascript">
-
-    module.load('global', function (global) {
-        global.init();
+    seajs.use('app/text.js', function (text) {
+        window.text = text;
+    });
+    seajs.use('app/app_home.js', function (app) {
+        window.homeapp = app;
+    });
+    seajs.use('global', function (global) {
         var $ = global.jq;
-        module.load('jq.validation');
+        seajs.use('jq.validation.js');
 
         $(function () {
+            global.Init();
+
             $('#inputmain').focus(function () {
                 $(this).css('height', '40');
                 $('#inputbtm').removeClass('height0');
@@ -14,12 +20,9 @@
 
             $("body").bind("keyup", function (e) {
                 var code = (e.keyCode ? e.keyCode : e.which);
-                if (code != 13 && code != 65) return;
                 var tarname = $(e.target).get(0).tagName;
 
-                if (e.ctrlKey && tarname == 'TEXTAREA' && code == 13) {
-                    $('#inputbtn').click();
-                } else if (tarname != 'INPUT' && tarname != 'TEXTAREA' && code == 65) {
+                if (tarname != 'INPUT' && tarname != 'TEXTAREA' && code == 65) {
                     $('#inputmain').focus();
                 }
             });
@@ -45,10 +48,36 @@
                     return false;
                 }
             });
+
+            
+            var txt1 = new text.TextModel({
+                id: 1231423,
+                username: 'hecaitou',
+                realname: '木卫二',
+                text: '在复旦校园拍Alicia时，引来不少路人围观侧目。有一个GG骑着自行车带着MM路过，居然在车上行注目礼，直至看不见Alicia为止。车后座的MM脸都变色了。。。',
+                pushtime: '2011年4月19日 10:34:20',
+                time: '',
+                attach: {
+                    src: '#',
+                    img: 'weiboimg.jpg',
+                    title: '想告诉你我了解的山下智久（5.22 番外君2号）',
+                    soures: '山下智久',
+                    cate: '圈子',
+                    desc: '在这里，我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步...'
+                }
+            });
+            var txts = new text.TextList();
+            txts.add(txt1);
+            windows.app = new homeapp.app({
+                el: $('body'),
+                txtSeed: "#streams",
+                txtModel: txts
+            });
+
         });
     });
-</script>
 
+</script>
 
 <div class="layout grid-m0s10">
     <div class="col-main"><div class="main-wrap pr10">
@@ -83,11 +112,10 @@
         <ul id='streams'>
                 
         </ul>
-        <script type="text/template" id="stream-template">
-            <li class='streambox' stream-id='{{ id }}'>
+        <script type="text/template" id="stream">
                 <div class='hd'>
                     <a href='/#!/{{ username }}' title='{{ realname }}'>
-                    <img class='img48' src="http://usersimg/{{ username }}-48.jpg" alt="{{ realname }}">
+                    <img class='img48' src='http://usersimg/{{ username }}-48.jpg' alt='{{ realname }}'>
                     </a>
                 </div>
                 <div class='bd'>
@@ -98,17 +126,17 @@
                     <div class='attach'>
                         {{#attach.img}}
                             <div class='attimg'>
-                                <img src="http://usersimg/{{attach.img}}" class='img-w160' alt="">
+                                <img src='http://usersimg/{{attach.img}}' class='img-w160' alt=''>
                             </div>
                         {{!attach.img}}
                         {{#attach.title}}
-                            <h6><a href="{{attach.src}}" title="{{attach.title}}" target="_blank">{{attach.title}}</a></h6>
+                            <h6><a href='{{attach.src}}' title='{{attach.title}}' target='_blank'>{{attach.title}}</a></h6>
                         {{!attach.title}}
                         {{#attach.source}}
-                            <p class="prop">来自{{#attach.cate}}<a href="#" class='lk' target="_blank">{{#attach.soures}}</a></p>
+                            <p class='prop'>来自{{#attach.cate}}<a href='#' class='lk' target='_blank'>{{#attach.soures}}</a></p>
                         {{!attach.source}}
                         {{#attach.desc}}
-                            <p class="desc">{{attach.desc}}</p>
+                            <p class='desc'>{{attach.desc}}</p>
                         {{!attach.desc}}
                     </div>
                     {{!attach}}
@@ -119,7 +147,6 @@
                     <a class='replay png' href='#'>回复</a>
                     <a class='resub ml5 png' href='#'>转发</a>
                 </div>
-            </li>
         </script>
 
         <form class='vali aaa' action=''>

@@ -1,20 +1,940 @@
 /*
-Copyright 2011, SeaJS v0.9.0-dev
+Copyright 2011, SeaJS v0.9.0pre
 MIT Licensed
-build time: ${build.time}
+build time: Apr 26 17:02
 */
 
-this.seajs={_seajs:this.seajs};seajs.version="major.minor.patch";seajs._data={config:{},memoizedMods:{}};seajs._util={};seajs._fn={};
-(function(a){var d=Object.prototype.toString;a.isString=function(f){return d.call(f)==="[object String]"};a.isFunction=function(f){return d.call(f)==="[object Function]"};a.isArray=Array.isArray?Array.isArray:function(f){return d.call(f)==="[object Array]"};a.indexOf=Array.prototype.indexOf?function(f,b){return f.indexOf(b)}:function(f,b){for(var i=0,e=f.length;i<e;i++)if(f[i]===b)return i;return-1}})(seajs._util);
-(function(a,d,f){function b(h){h=("./"+h).replace(/(.*)?\/.*/,"$1").substring(2);return(h?h:".")+"/"}function i(h){return h.replace(/^(\w+:\/\/[^/]+)\/?.*$/,"$1")}function e(h,m){var k=h;if(k.indexOf("://")===-1){var j=l.alias;if(j){k=k.split("/");for(var q=k.length,o=0;o<q;){var p=j[k[o]];if(p)k[o]=p;o++}k=k.join("/")}}h=k;m=m||n;if(h.indexOf("://")!==-1)j=h;else if(h.indexOf("./")===0||h.indexOf("../")===0){h=("/"+h).replace("/./","/").substring(1);j=b(m)+h}else j=h.indexOf("/")===0?i(m)+h:l.base+
-"/"+h;j=j.replace(/([^:]\/)\/+/g,"$1");if(j.indexOf(".")!==-1){k=j.split("/");q=[];p=0;for(var s=k.length;p<s;p++){o=k[p];if(o===".."){if(q.length===0)throw"Invalid path: "+j;q.pop()}else o!=="."&&q.push(o)}j=q.join("/")}if(k=j.match(/^([^?]+)(\?.*)$/)){j=k[1];g[j]=k[2]}if(j.lastIndexOf(".")<=j.lastIndexOf("/"))j+=".js";return j}function c(h,m){for(var k=[],j=0,q=h.length;j<q;j++)k[j]=e(h[j],m);return k}var l=d.config,g={};f=f.location;var n=f.protocol+"//"+f.host+f.pathname,r=d.memoizedMods;a.dirname=
-b;a.restoreUrlArgs=function(h){return h+(g[h]||"")};a.getHost=i;a.pageUrl=n;a.id2Uri=e;a.ids2Uris=c;a.memoize=function(h,m){m.dependencies=c(m.dependencies,h);d.memoizedMods[h]=m};a.getUnMemoized=function(h){for(var m=[],k=0;k<h.length;k++){var j=h[k];r[j]||m.push(j)}return m}})(seajs._util,seajs._data,this);
-(function(a){function d(b,i){b.addEventListener("load",i,false);b.addEventListener("error",function(){i()},false)}var f=document.getElementsByTagName("head")[0];a.getScript=function(b,i,e){var c=document.createElement("script");d(c,function(){i&&i.call(c);try{if(c.clearAttributes)c.clearAttributes();else for(var l in c)delete c[l]}catch(g){}f.removeChild(c)});e&&c.setAttribute("charset",e);c.async=true;c.src=b;return f.insertBefore(c,f.firstChild)};f.addEventListener||(d=function(b,i){b.attachEvent("onreadystatechange",
-function(){var e=b.readyState;if(e==="loaded"||e==="complete")i()})});a.scriptOnload=d;a.getInteractiveScript=function(){for(var b=f.getElementsByTagName("script"),i=0;i<b.length;i++){var e=b[i];if(e.readyState==="interactive")return e}return null};a.getScriptAbsoluteSrc=function(b){return b.hasAttribute?b.src:b.getAttribute("src",4)}})(seajs._util);
-(function(a,d,f,b){function i(g,n,r){function h(){if(n){var p;r||(p=f.createRequire({uri:m.uri,deps:k}));n(p)}}var m=this,k=a.ids2Uris(g,m.uri);g=a.getUnMemoized(k);if(g.length===0)return h();for(var j=0,q=g.length,o=q;j<q;j++)(function(p){e(p,function(){var s=(l[p]||0).dependencies||[],t=s.length;if(t){o+=t;i(s,function(){o-=t;o===0&&h()},true)}--o===0&&h()})})(g[j])}function e(g,n){function r(){if(d.pendingMod){a.memoize(g,d.pendingMod);d.pendingMod=null}c[g]&&delete c[g];n&&n()}if(c[g])a.scriptOnload(c[g],
-r);else{d.pendingModIE=g;c[g]=a.getScript(a.restoreUrlArgs(g),r,d.config.charset);d.pendingModIE=null}}var c={},l=d.memoizedMods;f.load=function(g,n){if(a.isString(g))g=[g];i.call(this,g,function(r){for(var h=[],m=0;m<g.length;m++)h[m]=r(g[m]);n&&n.apply(b,h)});return this}})(seajs._util,seajs._data,seajs._fn,this);
-(function(a,d,f){f.define=function(b,i,e){if(a.isArray(b)){e=i;i=b;b=""}else if(!a.isString(b)){e=b;if(a.isFunction(e)){b=e.toString();i=/\brequire\s*\(\s*['"]?([^'")]*)/g;for(var c=[],l;l=i.exec(b);)l[1]&&c.push(l[1]);i=c}b=""}e={id:b,dependencies:i||[],factory:e};var g;if(document.attachEvent&&!window.opera)g=(g=a.getInteractiveScript())?a.getScriptAbsoluteSrc(g):d.pendingModIE;if(g)a.memoize(g,e);else d.pendingMod=e}})(seajs._util,seajs._data,seajs._fn);
-(function(a,d,f){function b(e){return function(c){var l=a.id2Uri(c,e.uri),g;if(a.indexOf(e.deps,l)===-1||!(g=d.memoizedMods[l]))return null;if(i(e,l))return g.exports;if(!g.exports){c=g;l={uri:l,deps:g.dependencies,parent:e};var n=c.factory;c.uri=l.uri;c.id=c.id||c.uri;c.exports={};c.load=f.load;delete c.factory;if(a.isFunction(n)){if(d.config.debug&&n.toString().search(/\sexports\s*=\s*[^=]/)!==-1)throw"Invalid setter: exports = {...}";if(l=n(b(l),c.exports,c))c.exports=l}else c.exports=n||{}}return g.exports}}
-function i(e,c){if(e.uri===c)return true;if(e.parent)return i(e.parent,c);return false}f.createRequire=b})(seajs._util,seajs._data,seajs._fn);seajs._data.config.debug=true;
-(function(a,d,f){var b=d.config;d=document.getElementById("seajsnode");if(!d){d=document.getElementsByTagName("script");d=d[d.length-1]}var i=a.getScriptAbsoluteSrc(d)||a.pageUrl;b.base=a.dirname(i);b.main=d.getAttribute("data-main")||"";f.config=function(e){for(var c in e){var l=b[c];if(typeof l==="object"){var g=e[c],n=void 0;for(n in g)l[n]=g[n]}else b[c]=e[c]}return this}})(seajs._util,seajs._data,seajs._fn);
-(function(a,d,f){d=d.config;f.use=f.load;(d=d.main)&&f.use([d]);(function(b){if(b){for(var i={0:"config",1:"use",2:"define"},e=0;e<b.length;e+=2)f[i[b[e]]].apply(a,b[e+1]);delete a._seajs}})((a._seajs||0).args)})(seajs,seajs._data,seajs._fn);(function(a,d,f,b){if(a._seajs)b.seajs=a._seajs;else{a.use=f.use;a.config=f.config;b.define=f.define;if(!d.config.debug){delete a._util;delete a._data;delete a._fn}}})(seajs,seajs._data,seajs._fn,this);
+
+/**
+ * @fileoverview A CommonJS module loader, focused on web.
+ * @author lifesinger@gmail.com (Frank Wang)
+ */
+
+
+/**
+ * Base namespace for the framework.
+ */
+this.seajs = { _seajs: this.seajs };
+
+
+/**
+ * @type {string} The version of the framework. It will be replaced
+ * with "major.minor.patch" when building.
+ */
+seajs.version = '%VERSION%';
+
+
+// Module status\uff1a
+//  1. downloaded - The script file has been downloaded to the browser.
+//  2. define()d - The define() has been executed.
+//  3. memoize()d - The module info has been added to memoizedMods.
+//  4. require()d -  The module.exports is available.
+
+
+/**
+ * The private data. Internal use only.
+ */
+seajs._data = {
+
+  /**
+   * The configuration data.
+   */
+  config: {},
+
+  /**
+   * Modules that have been memoize()d.
+   * { uri: { dependencies: [], factory: fn, exports: {} }, ... }
+   */
+  memoizedMods: {}
+};
+
+
+/**
+ * The private utils. Internal use only.
+ */
+seajs._util = {};
+
+
+/**
+ * The inner namespace for methods. Internal use only.
+ */
+seajs._fn = {};
+
+/**
+ * @fileoverview The minimal language enhancement.
+ */
+
+(function(util) {
+
+  var toString = Object.prototype.toString;
+
+
+  util.isString = function(val) {
+    return toString.call(val) === '[object String]';
+  };
+
+
+  util.isFunction = function(val) {
+    return toString.call(val) === '[object Function]';
+  };
+
+
+  util.isArray = Array.isArray ? Array['isArray'] : function(val) {
+    return toString.call(val) === '[object Array]';
+  };
+
+
+  util.indexOf = Array.prototype.indexOf ?
+      function(array, item) {
+        return array.indexOf(item);
+      } :
+      function(array, item) {
+        for (var i = 0, l = array.length; i < l; i++) {
+          if (array[i] === item) {
+            return i;
+          }
+        }
+        return -1;
+      };
+
+})(seajs._util);
+
+/**
+ * @fileoverview The error handler.
+ */
+
+(function(util, data) {
+
+  var config = data.config;
+
+
+  /**
+   * The function to handle inner errors.
+   *
+   * @param {Object} o The error object.
+   */
+  util.error = function(o) {
+
+    // Throw errors.
+    if (o.type === 'error') {
+      throw 'Error occurs! ' + dump(o);
+    }
+    // Output debug info.
+    else if (config.debug && typeof console !== 'undefined') {
+      console[o.type](dump(o));
+    }
+  };
+
+  function dump(o) {
+    var out = ['{'];
+
+    for (var p in o) {
+      if (typeof o[p] === 'number' || typeof o[p] === 'string') {
+        out.push(p + ': ' + o[p]);
+        out.push(', ');
+      }
+    }
+    out.pop();
+    out.push('}');
+
+    return out.join('');
+  }
+
+})(seajs._util, seajs._data);
+
+/**
+ * @fileoverview The utils for the framework.
+ */
+
+(function(util, data, global) {
+
+  var config = data.config;
+
+
+  /**
+   * Extracts the directory portion of a path.
+   * dirname('a/b/c.js') ==> 'a/b/'
+   * dirname('d.js') ==> './'
+   */
+  function dirname(path) {
+    var s = ('./' + path).replace(/(.*)?\/.*/, '$1').substring(2);
+    return (s ? s : '.') + '/';
+  }
+
+
+  /**
+   * Canonicalizes a path.
+   * realpath('./a//b/../c') ==> 'a/c'
+   */
+  function realpath(path) {
+    // 'a//b/c' ==> 'a/b/c'
+    path = path.replace(/([^:]\/)\/+/g, '$1');
+
+    // 'a/b/c', just return.
+    if (path.indexOf('.') === -1) {
+      return path;
+    }
+
+    var old = path.split('/');
+    var ret = [], part, i = 0, len = old.length;
+
+    for (; i < len; i++) {
+      part = old[i];
+      if (part === '..') {
+        if (ret.length === 0) {
+          util.error({
+            message: 'invalid path: ' + path,
+            type: 'error'
+          });
+        }
+        ret.pop();
+      }
+      else if (part !== '.') {
+        ret.push(part);
+      }
+    }
+
+    return ret.join('/');
+  }
+
+
+  /**
+   * Normalizes an url.
+   */
+  function normalize(url) {
+    url = stripUrlArgs(realpath(url));
+
+    // Adds the default '.js' ext.
+    if (url.lastIndexOf('.') <= url.lastIndexOf('/')) {
+      url += '.js';
+    }
+
+    return url;
+  }
+
+
+  /**
+   * Url args cache.
+   * { uri: args, ... }
+   */
+  var urlArgs = {};
+
+  /**
+   * Strips off the args from url and caches it.
+   */
+  function stripUrlArgs(url) {
+    var m = url.match(/^([^?]+)(\?.*)$/);
+    if (m) {
+      url = m[1];
+      urlArgs[url] = m[2];
+    }
+    return url;
+  }
+
+  /**
+   * Restores the args for url.
+   */
+  function restoreUrlArgs(url) {
+    return url + (urlArgs[url] || '');
+  }
+
+
+  var aliasRegCache = {};
+
+  /**
+   * Parses alias in the module id.
+   */
+  function parseAlias(id) {
+    var alias = config['alias'];
+
+    if (alias) {
+      id = '/' + id + '/';
+      for (var p in alias) {
+        if (alias.hasOwnProperty(p)) {
+          if (!aliasRegCache[p]) {
+            aliasRegCache[p] = new RegExp('/' + p + '/');
+          }
+          id = id.replace(aliasRegCache[p], '/' + alias[p] + '/');
+        }
+      }
+      id = id.slice(1, -1);
+    }
+
+    return id;
+  }
+
+
+  /**
+   * Gets the host portion from url.
+   */
+  function getHost(url) {
+    return url.replace(/^(\w+:\/\/[^/]+)\/?.*$/, '$1');
+  }
+
+
+  var loc = global['location'];
+  var pageUrl = loc.protocol + '//' + loc.host + loc.pathname;
+
+  /**
+   * Converts id to uri.
+   * @param {string} id The module id.
+   * @param {string=} refUrl The referenced uri for relative id.
+   */
+  function id2Uri(id, refUrl) {
+    id = parseAlias(id);
+    refUrl = refUrl || pageUrl;
+
+    var ret;
+
+    // absolute id
+    if (id.indexOf('://') !== -1) {
+      ret = id;
+    }
+    // relative id
+    else if (id.indexOf('./') === 0 || id.indexOf('../') === 0) {
+      // Converts './a' to 'a', to avoid unnecessary loop in realpath.
+      id = id.replace(/^\.\//, '');
+      ret = dirname(refUrl) + id;
+    }
+    // root id
+    else if (id.indexOf('/') === 0) {
+      ret = getHost(refUrl) + id;
+    }
+    // top-level id
+    else {
+      ret = config.base + '/' + id;
+    }
+
+    return normalize(ret);
+  }
+
+
+  /**
+   * Converts ids to uris.
+   * @param {Array.<string>} ids The module ids.
+   * @param {string=} refUri The referenced uri for relative id.
+   */
+  function ids2Uris(ids, refUri) {
+    var uris = [];
+
+    for (var i = 0, len = ids.length; i < len; i++) {
+      uris[i] = id2Uri(ids[i], refUri);
+    }
+
+    return uris;
+  }
+
+
+  var memoizedMods = data.memoizedMods;
+
+  /**
+   * Caches mod info to memoizedMods.
+   */
+  function memoize(uri, mod) {
+    mod.dependencies = ids2Uris(mod.dependencies, uri);
+    data.memoizedMods[uri] = mod;
+  }
+
+  /**
+   * Removes the memoize()d uris from input.
+   */
+  function getUnMemoized(uris) {
+    var ret = [];
+    for (var i = 0; i < uris.length; i++) {
+      var uri = uris[i];
+      if (!memoizedMods[uri]) {
+        ret.push(uri);
+      }
+    }
+    return ret;
+  }
+
+
+  util.dirname = dirname;
+  util.restoreUrlArgs = restoreUrlArgs;
+  util.getHost = getHost;
+  util.pageUrl = pageUrl;
+
+  util.id2Uri = id2Uri;
+  util.ids2Uris = ids2Uris;
+
+  util.memoize = memoize;
+  util.getUnMemoized = getUnMemoized;
+
+})(seajs._util, seajs._data, this);
+
+/**
+ * @fileoverview DOM utils for fetching script etc.
+ */
+
+(function(util, data) {
+
+  var head = document.getElementsByTagName('head')[0];
+
+  util.getScript = function(url, callback, charset) {
+    var node = document.createElement('script');
+    var isLoaded = false;
+
+    scriptOnload(node, cb);
+
+    function cb() {
+      isLoaded = true;
+      if (callback) callback.call(node);
+
+      // Reduces memory leak.
+      try {
+        if (node.clearAttributes) {
+          node.clearAttributes();
+        } else {
+          for (var p in node) delete node[p];
+        }
+      } catch (x) {
+      }
+      head.removeChild(node);
+    }
+
+    setTimeout(function() {
+      if (!isLoaded) {
+        cb();
+      }
+    }, data.config.timeout);
+
+    if (charset) node.setAttribute('charset', charset);
+    node.async = true;
+    node.src = url;
+    return head.insertBefore(node, head.firstChild);
+  };
+
+  function scriptOnload(node, callback) {
+    node.addEventListener('load', callback, false);
+    node.addEventListener('error', callback, false);
+
+    // NOTICE: Nothing will happen in Opera when the file status is 404. In
+    // this case, the callback will be called when time is out.
+  }
+
+  if (!head.addEventListener) {
+    scriptOnload = function(node, callback) {
+      node.attachEvent('onreadystatechange', function() {
+        var rs = node.readyState;
+        if (rs === 'loaded' || rs === 'complete') {
+          callback();
+        }
+      });
+    }
+  }
+
+  util.scriptOnload = scriptOnload;
+
+
+  var interactiveScript = null;
+
+  util.getInteractiveScript = function() {
+    if (interactiveScript && interactiveScript.readyState === 'interactive') {
+      return interactiveScript;
+    }
+
+    var scripts = head.getElementsByTagName('script');
+
+    for (var i = 0; i < scripts.length; i++) {
+      var script = scripts[i];
+      if (script.readyState === 'interactive') {
+        return script;
+      }
+    }
+
+    return null;
+  };
+
+
+  util.getScriptAbsoluteSrc = function(node) {
+    return node.hasAttribute ? // non-IE6/7
+        node.src :
+        // see http://msdn.microsoft.com/en-us/library/ms536429(VS.85).aspx
+        node.getAttribute('src', 4);
+  };
+
+})(seajs._util, seajs._data);
+
+/**
+ * @fileoverview Loads a module and gets it ready to be require()d.
+ */
+
+(function(util, data, fn, global) {
+
+  /**
+   * Modules that are being downloaded.
+   * { uri: scriptNode, ... }
+   */
+  var fetchingMods = {};
+
+  var memoizedMods = data.memoizedMods;
+
+
+  /**
+   * Loads modules to the environment.
+   * @param {Array.<string>} ids An array composed of module id.
+   * @param {function(*)=} callback The callback function.
+   */
+  fn.load = function(ids, callback) {
+    if (util.isString(ids)) {
+      ids = [ids];
+    }
+
+    // normalize
+    ids = util.ids2Uris(ids, this.uri);
+
+    // 'this' may be seajs or module, due to seajs.boot() or module.load().
+    provide.call(this, ids, function(require) {
+      var args = [];
+
+      for (var i = 0; i < ids.length; i++) {
+        args[i] = require(ids[i]);
+      }
+
+      if (callback) {
+        callback.apply(global, args);
+      }
+    });
+
+    return this;
+  };
+
+
+  /**
+   * Provides modules to the environment.
+   * @param {Array.<string>} uris An array composed of module uri.
+   * @param {function(*)=} callback The callback function.
+   * @param {boolean=} noRequire For inner use.
+   */
+  function provide(uris, callback, noRequire) {
+    var that = this;
+    var _uris = util.getUnMemoized(uris);
+
+    if (_uris.length === 0) {
+      return cb();
+    }
+
+    for (var i = 0, n = _uris.length, remain = n; i < n; i++) {
+      (function(uri) {
+
+        fetch(uri, function() {
+          var deps = (memoizedMods[uri] || 0).dependencies || [];
+          var m = deps.length;
+
+          if (m) {
+            remain += m;
+
+            provide(deps, function() {
+              remain -= m;
+              if (remain === 0) cb();
+            }, true);
+          }
+
+          if (--remain === 0) cb();
+        });
+
+      })(_uris[i]);
+    }
+
+    function cb() {
+      if (callback) {
+        var require;
+
+        if (!noRequire) {
+          require = fn.createRequire({
+            uri: that.uri,
+            deps: uris
+          });
+        }
+
+        callback(require);
+      }
+    }
+  }
+
+
+  /**
+   * Fetches a module file.
+   * @param {string} uri The module uri.
+   * @param {function()} callback The callback function.
+   */
+  function fetch(uri, callback) {
+
+    if (fetchingMods[uri]) {
+      util.scriptOnload(fetchingMods[uri], cb);
+    }
+    else {
+      // See fn-define.js: "uri = data.pendingModIE"
+      data.pendingModIE = uri;
+
+      fetchingMods[uri] = util.getScript(
+          util.restoreUrlArgs(uri),
+          cb,
+          data.config.charset
+          );
+
+      data.pendingModIE = null;
+    }
+
+    function cb() {
+      if (data.pendingMod) {
+        util.memoize(uri, data.pendingMod);
+        data.pendingMod = null;
+      }
+
+      if (fetchingMods[uri]) {
+        delete fetchingMods[uri];
+      }
+
+      if (!memoizedMods[uri]) {
+        util.error({
+          message: 'can not memoized',
+          from: 'load',
+          uri: uri,
+          type: 'warn'
+        });
+      }
+
+      if (callback) {
+        callback();
+      }
+    }
+  }
+
+})(seajs._util, seajs._data, seajs._fn, this);
+
+/**
+ * @fileoverview Module authoring format.
+ */
+
+(function(util, data, fn) {
+
+  /**
+   * Defines a module.
+   * @param {string=} id The module canonical id.
+   * @param {Array.<string>=} deps The module dependencies.
+   * @param {function()|Object} factory The module factory function.
+   */
+  fn.define = function(id, deps, factory) {
+
+    // Overloads arguments.
+    if (util.isArray(id)) {
+      factory = deps;
+      deps = id;
+      id = '';
+    }
+    else if (!util.isString(id)) {
+      factory = id;
+      if (util.isFunction(factory)) {
+        deps = parseDependencies(factory.toString());
+      }
+      id = '';
+    }
+
+    var mod = { id: id, dependencies: deps || [], factory: factory };
+    var uri;
+
+    if (document.attachEvent && !window.opera) {
+      // For IE6-9 browsers, the script onload event may not fire right
+      // after the the script is evaluated. Kris Zyp found that it
+      // could query the script nodes and the one that is in "interactive"
+      // mode indicates the current script. Ref: http://goo.gl/JHfFW
+      var script = util.getInteractiveScript();
+      if (script) {
+        uri = util.getScriptAbsoluteSrc(script);
+      }
+
+      // In IE6-9, if the script is in the cache, the "interactive" mode
+      // sometimes does not work. The script code actually executes *during*
+      // the DOM insertion of the script tag, so we can keep track of which
+      // script is being requested in case define() is called during the DOM
+      // insertion.
+      else {
+        uri = data.pendingModIE;
+      }
+
+      // NOTE: If the id-deriving methods above is failed, then falls back
+      // to use onload event to get the module uri.
+    }
+
+    if (uri) {
+      util.memoize(uri, mod);
+    } else {
+      // Saves information for "real" work in the onload event.
+      data.pendingMod = mod;
+    }
+
+  };
+
+
+  function parseDependencies(code) {
+    var pattern = /\brequire\s*\(\s*['"]?([^'")]*)/g;
+    var ret = [], match;
+
+    while ((match = pattern.exec(code))) {
+      if (match[1]) {
+        ret.push(match[1]);
+      }
+    }
+
+    return ret;
+  }
+
+})(seajs._util, seajs._data, seajs._fn);
+
+/**
+ * @fileoverview The factory for "require".
+ */
+
+(function(util, data, fn) {
+
+  /**
+   * The factory of "require" function.
+   * @param {Object} sandbox The data related to "require" instance.
+   */
+  function createRequire(sandbox) {
+    // sandbox: {
+    //   uri: '',
+    //   deps: [],
+    //   parent: sandbox
+    // }
+
+    function require(id) {
+      var uri = util.id2Uri(id, sandbox.uri);
+      var mod = data.memoizedMods[uri];
+
+      // Just return null when:
+      //  1. the module file is 404.
+      //  2. the module file is not written with valid module format.
+      //  3. other error cases.
+      if (!mod) {
+        return null;
+      }
+
+      // Checks cyclic dependencies.
+      if (isCyclic(sandbox, uri)) {
+        util.error({
+          message: 'found cyclic dependencies',
+          from: 'require',
+          uri: uri,
+          type: 'warn'
+        });
+
+        return mod.exports;
+      }
+
+      // Initializes module exports.
+      if (!mod.exports) {
+        initExports(mod, {
+          uri: uri,
+          deps: mod.dependencies,
+          parent: sandbox
+        });
+      }
+
+      return mod.exports;
+    }
+
+    return require;
+  }
+
+  function initExports(mod, sandbox) {
+    var ret;
+    var factory = mod.factory;
+
+    // Attaches members to module instance.
+    //mod.dependencies
+    mod.uri = sandbox.uri;
+    mod.id = mod.id || mod.uri;
+    mod.exports = {};
+    mod.load = fn.load;
+    delete mod.factory; // free
+
+    if (util.isFunction(factory)) {
+      checkPotentialErrors(factory, mod.uri);
+      ret = factory(createRequire(sandbox), mod.exports, mod);
+      if (ret) {
+        mod.exports = ret;
+      }
+    } else {
+      mod.exports = factory || {};
+    }
+  }
+
+  function isCyclic(sandbox, uri) {
+    if (sandbox.uri === uri) {
+      return true;
+    }
+    if (sandbox.parent) {
+      return isCyclic(sandbox.parent, uri);
+    }
+    return false;
+  }
+
+  function checkPotentialErrors(factory, uri) {
+    if (factory.toString().search(/\sexports\s*=\s*[^=]/) !== -1) {
+      util.error({
+        message: 'found invalid setter: exports = {...}',
+        from: 'require',
+        uri: uri,
+        type: 'error'
+      });
+    }
+  }
+
+  fn.createRequire = createRequire;
+
+})(seajs._util, seajs._data, seajs._fn);
+
+/**
+ * @fileoverview The configuration.
+ */
+
+(function(util, data, fn) {
+
+  var config = data.config;
+
+
+  /**
+   * Debug mode. It will be turned off automatically when compressing.
+   * @const
+   */
+  config.debug = '%DEBUG%';
+
+
+  // Async inserted script.
+  var loaderScript = document.getElementById('seajsnode');
+
+  // Static script.
+  if (!loaderScript) {
+    var scripts = document.getElementsByTagName('script');
+    loaderScript = scripts[scripts.length - 1];
+  }
+
+  // When script is inline code, src is pageUrl.
+  var src = util.getScriptAbsoluteSrc(loaderScript) || util.pageUrl;
+  config.base = util.dirname(src);
+
+  config.main = loaderScript.getAttribute('data-main') || '';
+
+
+  // The max time to load a script file.
+  config.timeout = 20000;
+
+
+  /**
+   * The function to configure the framework.
+   * config({
+   *   'base': 'path/to/base',
+   *   'alias': {
+   *     'app': 'biz/xx',
+   *     'jquery': 'jquery-1.5.2',
+   *     'cart': 'cart?t=20110419'
+   *   },
+   *   charset: 'utf-8',
+   *   timeout: 20000, // 20s
+   *   debug: false,
+   *   main: './init'
+   * });
+   *
+   * @param {Object} o The config object.
+   */
+  fn.config = function(o) {
+    for (var k in o) {
+      var sub = config[k];
+      if (typeof sub === 'object') {
+        mix(sub, o[k]);
+      } else {
+        config[k] = o[k];
+      }
+    }
+    return this;
+  };
+
+
+  /**
+   * The shortcut to set alias.
+   *
+   * @param {string} name The alias.
+   * @param {string} value The actual value.
+   */
+  fn.alias = function(name, value) {
+    var o = {};
+    o[name] = value;
+    return fn.config({
+      alias: o
+    });
+  };
+
+
+  function mix(r, s) {
+    for (var k in s) {
+      r[k] = s[k];
+    }
+  }
+
+})(seajs._util, seajs._data, seajs._fn);
+
+/**
+ * @fileoverview The bootstrap and entrances.
+ */
+
+(function(host, data, fn) {
+
+  var config = data.config;
+
+  fn.use = fn.load;
+
+  var mainModuleId = config.main;
+  if (mainModuleId) {
+    fn.use([mainModuleId]);
+  }
+
+  // Parses the pre-call of seajs.config/seajs.boot/define.
+  // Ref: test/bootstrap/async-3.html
+  (function(args) {
+    if (args) {
+      var hash = {
+        0: 'config',
+        1: 'alias',
+        2: 'use',
+        3: 'define'
+      };
+      for (var i = 0; i < args.length; i += 2) {
+        fn[hash[args[i]]].apply(host, args[i + 1]);
+      }
+      delete host._seajs;
+    }
+  })((host._seajs || 0)['args']);
+
+})(seajs, seajs._data, seajs._fn);
+
+/**
+ * @fileoverview The public api of seajs.
+ */
+
+(function(host, data, fn, global) {
+
+  // Avoids conflicting when sea.js is loaded multi times.
+  if (host._seajs) {
+    global.seajs = host._seajs;
+    return;
+  }
+
+  // SeaJS Loader API:
+  host.config = fn.config;
+  host.alias = fn.alias;
+  host.use = fn.use;
+
+  // Module Authoring API:
+  global.define = fn.define;
+
+  // Keeps clean!
+  if (!data.config.debug) {
+    delete host._util;
+    delete host._data;
+    delete host._fn;
+  }
+
+})(seajs, seajs._data, seajs._fn, this);

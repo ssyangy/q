@@ -1,8 +1,8 @@
-module.declare(function (require, exports, module) {
+define(function (require, exports, module) {
     var Backbone = require('backbone').Backbone;
-    require('backbone-localstorage');
+    require('backbone-localstorage.js');
     require('json2');
-    var ich = require('ICanHaz').ich;
+    var ich = require('ICanHaz.js').ich;
     require('mustache');
 
     var Weibo = Backbone.Model.extend({

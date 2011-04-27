@@ -1,5 +1,5 @@
-module.declare(function (require, exports, module) {
-    var $ = jQuery = require('jquery');
+define(function (require, exports, module) {
+    var $ = require('jquery.js');
     /*
     * jQuery UI Menu @VERSION
     * 
@@ -249,6 +249,6 @@ module.declare(function (require, exports, module) {
 
         $.ui.menu.version = "@VERSION";
 
-    } (jQuery));
+    } ($));
 
 });

@@ -1,65 +1,62 @@
-module.declare(function (require, exports, module) {
-    exports.jq = require('jquery');
-    var $ = exports.jq;
-    require('jq.ui.help');
-    require('config');
+define(function (require, exports, module) {
+    var $ = exports.jq = require('jquery.js');
+    require('config.js');
+    var uihelp = require('jq.ui.help.js');
+    require('jq.repurl.js');
+    var ie6 = ($.browser.msie && $.browser.version < 7.0);
+    if (ie6) {
+        require('jq.pngFix.js');
+        require('jq.limitimg.js');
+    }
+    //require('jq.limitchar.js');
+    require('jq.mttext.js');
 
-    exports.init = function () {
-        $(function () {
+    exports.Init = function () {
+        uihelp.init();
 
-            // Layout Page
-            $('input.mttext_val').focus(function () {
-                $('#search_btn').addClass('typing');
-            }).blur(function () {
-                $('#search_btn').removeClass('typing');
-            });
+        // Layout Page
+        $('input.mttext_val').focus(function () {
+            $('#search_btn').addClass('typing');
+        }).blur(function () {
+            $('#search_btn').removeClass('typing');
+        });
 
-            $("body").bind("keyup", function (e) {
-                var tarname = $(e.target).get(0).tagName;
-                if (tarname == 'INPUT' || tarname == 'TEXTAREA') return;
+        $("body").bind("keyup", function (e) {
+            var tarname = $(e.target).get(0).tagName;
+            if (tarname == 'INPUT' || tarname == 'TEXTAREA') return;
 
-                var code = (e.keyCode ? e.keyCode : e.which);
-                if (code == 83) {
-                    $("input.mttext_val").focus();
-                }
-            });
-
-            // UI Helper
-            require('jq.repurl');
-            $('.tw_txt').repurl();
-
-            var ie6 = ($.browser.msie && $.browser.version < 7.0);
-            if (ie6) {
-                require('jq.pngFix');
-                $(".png").pngFix();
-
-                require('jq.limitimg');
-                $('img').imgLimit({ size: [120, 160, 320] });
+            var code = (e.keyCode ? e.keyCode : e.which);
+            if (code == 83) {
+                $("input.mttext_val").focus();
             }
+        });
 
-            //require('jq.limitchar');
-            //$("[limit_a]").limitChar({ numobj: "limit_a", all: true });
-            //$("[limit]").limitChar({ numobj: "limit", fx: true });
+        // UI Helper
+        $('.tw_txt').repurl();
+        if (ie6) {
+            $(".png").pngFix();
+            $('img').imgLimit({ size: [120, 160, 320] });
+        }
+        
+        //$("[limit_a]").limitChar({ numobj: "limit_a", all: true });
+        //$("[limit]").limitChar({ numobj: "limit", fx: true });
+        
+        $("input.mttext").mttext();
+        $("input.mttext_val").mttext({ wval: true });
+        $("textarea.mttextar").mttext({ isarea: true });
+        $("textarea.mttextar_val").mttext({ isarea: true, wval: true });
 
-            require('jq.mttext');
-            $("input.mttext").mttext();
-            $("input.mttext_val").mttext({ wval: true });
-            $("textarea.mttextar").mttext({ isarea: true });
-            $("textarea.mttextar_val").mttext({ isarea: true, wval: true });
+        window.onresize = window.onload = function () {
+            gWinHeight = $(window).height();
+            $("#body").height(gWinHeight);
+        };
 
-            window.onresize = window.onload = function () {
-                gWinHeight = $(window).height();
-                $("#body").height(gWinHeight);
-            };
-
-            $("input[accesskey]").bind("keydown", function (e) {
-                var code = (e.keyCode ? e.keyCode : e.which);
-                if (code == 13) {
-                    var btnid = $(this).attr('accesskey');
-                    $(".access_" + btnid).click();
-                }
-            });
-
+        $("input[accesskey]").bind("keydown", function (e) {
+            var code = (e.keyCode ? e.keyCode : e.which);
+            if (code == 13) {
+                var btnid = $(this).attr('accesskey');
+                $(".access_" + btnid).click();
+            }
         });
 
     };

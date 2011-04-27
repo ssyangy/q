@@ -1,4 +1,4 @@
-module.declare(function (require, exports, module) {
+define(function (require, exports, module) {
     var jQuery = require('jquery');
     var $ = jQuery;
     /*!

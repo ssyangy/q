@@ -1,12 +1,11 @@
-﻿module.declare(function (require, exports, module) {
-    var jQuery = require('jquery');
-    var $ = jQuery;
-    require("jq.ui");
-    require('ui/jquery.ui.tooltip');
-    //require('ui/jquery.ui.menu');
-    require('jq.ui.selectmenu');
+﻿define(function (require, exports, module) {
+    var $ = require('jquery.js');
+    require("jq.ui.js");
+    require('ui/jquery.ui.tooltip.js');
+    //require('ui/jquery.ui.menu.js');
+    require('jq.ui.selectmenu.js');
 
-    (function ($) {
+    exports.init = function () {
         $(".tips").tooltip({ position: { my: "center bottom", at: "center top", offset: "0 -5"} });
 
         $('select.speedD').selectmenu({ style: 'dropdown' });
@@ -102,7 +101,6 @@
                 }
             }
         });
-
-    })($);
+    }
 
 });
