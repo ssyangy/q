@@ -1,7 +1,6 @@
 ﻿define(function (require, exports, module) {
     var $ = exports.jq = require('jquery.js');
     var Backbone = require('backbone.js');
-    var Mustache = require('mustache.js');
     var _ = require('underscore.js');
     var text = exports.text = require('app/text.js');
 
@@ -35,12 +34,12 @@
                 id: 1231423,
                 username: 'hecaitou',
                 realname: '木卫二',
-                text: '在复旦校园拍Alicia时，引来不少路人围观侧目。有一个GG骑着自行车带着MM路过，居然在车上行注目礼，直至看不见Alicia为止。车后座的MM脸都变色了。。。',
-                pushtime: '2011年4月19日 10:34:20',
+                text: $('#inputmain').val(),
+                pushtime: '2011/4/19 10:34:20',
                 time: '',
                 attach: {
                     src: '#',
-                    img: 'weiboimg.jpg',
+                    img: 'pdouban.jpg',
                     title: '想告诉你我了解的山下智久（5.22 番外君2号）',
                     soures: '山下智久',
                     cate: '圈子',

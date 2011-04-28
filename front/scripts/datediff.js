@@ -1,7 +1,8 @@
 ﻿define(function (require, exports, module) {
-    exports.get = function (dateTimeStamp) {
+    exports.get = function (str) {
+        var stamp = Date.parse(str);
         var now = new Date().getTime();
-        var diffValue = now - dateTimeStamp;
+        var diffValue = now - stamp;
         if (diffValue < 0) {
             throw "InvalidDateTime";
         } else {
@@ -28,9 +29,4 @@
             return "刚刚发表";
         }
     };
-
-    exports.getStamp = function (dateStr) {
-        var dateTimeStamp = Date.parse(dateStr.replace(/-/gi, "/"));
-        return exports.get(dateTimeStamp);
-    }
 });

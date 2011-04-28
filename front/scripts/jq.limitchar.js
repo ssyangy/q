@@ -1,4 +1,4 @@
-ï»¿define(function (require, exports, module) {
+define(function (require, exports, module) {
     var $ = jQuery = require('jquery');
     (function ($) {
         $.fn.limitChar = function (options) {
@@ -33,7 +33,7 @@
                     var txtLen = o.text().length;
                     var num = parseInt(o.attr(opts.numobj));
                     if (txtLen > num) {
-                        o.text(o.text().substring(0, num) + "â€¦");
+                        o.text(o.text().substring(0, num) + "¡­");
                     }
                 });
             }

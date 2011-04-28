@@ -1,4 +1,4 @@
-﻿
+
 define('backbone', ['underscore', 'jquery'], function(require, exports) {
 //     Backbone.js 0.3.3
 //     (c) 2010 Jeremy Ashkenas, DocumentCloud Inc.

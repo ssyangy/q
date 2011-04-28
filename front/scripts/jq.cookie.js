@@ -1,4 +1,4 @@
-﻿define(function (require, exports, module) {
+define(function (require, exports, module) {
     var $ = jQuery = require('jquery');
     jQuery.cookie = function (name, value, options) {
         if (typeof value != 'undefined') {

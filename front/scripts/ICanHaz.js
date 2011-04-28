@@ -1,5 +1,5 @@
-﻿define('ich', ['jquery'], function (require, exports, module) {
-    
+﻿define(function (require, exports, module) {
+    var $ = require('jquery.js');
     /*!
     ICanHaz.js version 0.9 -- by @HenrikJoreteg
     More info at: http://icanhazjs.com
@@ -401,6 +401,6 @@
         $(function () {
             ich.grabTemplates();
         });
-    })(window.jQuery || window.Zepto);
+    })($);
 
 });
