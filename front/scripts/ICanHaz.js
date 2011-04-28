@@ -1,4 +1,4 @@
-define('ich', ['jquery'], function (require, exports, module) {
+﻿define('ich', ['jquery'], function (require, exports, module) {
     
     /*!
     ICanHaz.js version 0.9 -- by @HenrikJoreteg

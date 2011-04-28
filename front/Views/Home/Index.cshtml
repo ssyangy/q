@@ -1,11 +1,5 @@
 ﻿@{ViewBag.Title = "圈子 - 首页";}
 <script type="text/javascript">
-    seajs.use('app/text.js', function (text) {
-        window.text = text;
-    });
-    seajs.use('app/app_home.js', function (app) {
-        window.homeapp = app;
-    });
     seajs.use('global', function (global) {
         var $ = global.jq;
         seajs.use('jq.validation.js');
@@ -34,44 +28,39 @@
             var selinp = $('#selinp>a.ui-selectmenu');
             selinp.width(selinp.width() + 18).append('<span class="ui-icon ui-icon-signal-diag"></span>');
 
-            $('li.streambox').hover(function () {
-                $(this).addClass('hover');
-            }, function () {
-                $(this).removeClass('hover');
-            });
+//            $("form.vali").validationEngine({ promptPosition: "centerRight" });
+//            $("input.vali").click(function () {
+//                if ($('form.vali.' + $(this).attr('valiform')).validationEngine({ returnIsValid: true })) {
+//                    return true;
+//                } else {
+//                    return false;
+//                }
+//            });
 
-            $("form.vali").validationEngine({ promptPosition: "centerRight" });
-            $("input.vali").click(function () {
-                if ($('form.vali.' + $(this).attr('valiform')).validationEngine({ returnIsValid: true })) {
-                    return true;
-                } else {
-                    return false;
-                }
-            });
-
-            
-            var txt1 = new text.TextModel({
-                id: 1231423,
-                username: 'hecaitou',
-                realname: '木卫二',
-                text: '在复旦校园拍Alicia时，引来不少路人围观侧目。有一个GG骑着自行车带着MM路过，居然在车上行注目礼，直至看不见Alicia为止。车后座的MM脸都变色了。。。',
-                pushtime: '2011年4月19日 10:34:20',
-                time: '',
-                attach: {
-                    src: '#',
-                    img: 'weiboimg.jpg',
-                    title: '想告诉你我了解的山下智久（5.22 番外君2号）',
-                    soures: '山下智久',
-                    cate: '圈子',
-                    desc: '在这里，我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步...'
-                }
-            });
-            var txts = new text.TextList();
-            txts.add(txt1);
-            windows.app = new homeapp.app({
-                el: $('body'),
-                txtSeed: "#streams",
-                txtModel: txts
+            seajs.use('app/app_home.js', function (homeapp) {
+                var txt1 = new homeapp.text.TextModel({
+                    id: 1231423,
+                    username: 'hecaitou',
+                    realname: '木卫二',
+                    text: '在复旦校园拍Alicia时，引来不少路人围观侧目。有一个GG骑着自行车带着MM路过，居然在车上行注目礼，直至看不见Alicia为止。车后座的MM脸都变色了。。。',
+                    pushtime: '2011年4月19日 10:34:20',
+                    time: '',
+                    attach: {
+                        src: '#',
+                        img: 'pdouban.jpg',
+                        title: '想告诉你我了解的山下智久（5.22 番外君2号）',
+                        soures: '山下智久',
+                        cate: '圈子',
+                        desc: '在这里，我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步...'
+                    }
+                });
+                var txts = new homeapp.text.TextList();
+                txts.add(txt1);
+                window.app = new homeapp.app({
+                    el: $('body'),
+                    txtSeed: "#streams",
+                    txtModel: txts
+                });
             });
 
         });
@@ -112,47 +101,48 @@
         <ul id='streams'>
                 
         </ul>
-        <script type="text/template" id="stream">
-                <div class='hd'>
-                    <a href='/#!/{{ username }}' title='{{ realname }}'>
-                    <img class='img48' src='http://usersimg/{{ username }}-48.jpg' alt='{{ realname }}'>
-                    </a>
+        <script type="text/html" id="stream">
+            <div class='hd'>
+                <a href='/#!/{{ username }}' title='{{ realname }}'>
+                <img class='img48' src='/usersimg/{{ username }}-48.jpg' alt='{{ realname }}'>
+                </a>
+            </div>
+            <div class='bd'>
+                <div class='text'><a class='lk' href='/#!/{{ username }}' title='{{ realname }}'>{{ realname }}</a>
+                {{ text }}
                 </div>
-                <div class='bd'>
-                    <div class='text'><a class='lk' href='/#!/{{ username }}' title='{{ realname }}'>{{ realname }}</a>
-                    {{ text }}
-                    </div>
-                    {{#attach}}
-                    <div class='attach'>
-                        {{#attach.img}}
-                            <div class='attimg'>
-                                <img src='http://usersimg/{{attach.img}}' class='img-w160' alt=''>
-                            </div>
-                        {{!attach.img}}
-                        {{#attach.title}}
-                            <h6><a href='{{attach.src}}' title='{{attach.title}}' target='_blank'>{{attach.title}}</a></h6>
-                        {{!attach.title}}
-                        {{#attach.source}}
-                            <p class='prop'>来自{{#attach.cate}}<a href='#' class='lk' target='_blank'>{{#attach.soures}}</a></p>
-                        {{!attach.source}}
-                        {{#attach.desc}}
-                            <p class='desc'>{{attach.desc}}</p>
-                        {{!attach.desc}}
-                    </div>
-                    {{!attach}}
+                {{#attach}}
+                <div class='attach'>
+                    {{#img}}
+                        <div class='attimg'>
+                            <img src='/usersimg/{{img}}' class='img-w160' alt=''>
+                        </div>
+                    {{/img}}
+                    {{#title}}
+                        <h6><a href='{{src}}' title='{{title}}' target='_blank'>{{title}}</a></h6>
+                    {{/title}}
+                    {{#source}}
+                        <p class='prop'>来自{{#cate}}<a href='#' class='lk' target='_blank'>{{#soures}}</a></p>
+                    {{/source}}
+                    {{#desc}}
+                        <p class='desc'>{{desc}}</p>
+                    {{/desc}}
                 </div>
-                <div class='fd'>
-                    <b class='twarrow png'></b>
-                    <span class='time'>{{#time}}</span>
-                    <a class='replay png' href='#'>回复</a>
-                    <a class='resub ml5 png' href='#'>转发</a>
-                </div>
+                {{/attach}}
+            </div>
+            <div class='fd'>
+                <b class='twarrow png'></b>
+                <span class='time'>{{time}}</span>
+                <a class='replay png' href='#'>回复</a>
+                <a class='resub ml5 png' href='#'>转发</a>
+                <b class='cloarrow png'></b>
+            </div>
         </script>
 
-        <form class='vali aaa' action=''>
+@*        <form class='vali aaa' action=''>
             <input id='sss1' type="text" name="text" value="" class='tips validate[required,custom[onlyNumberSp]]' title='zxcasdsd' />
         </form>
-        <input type="button" name="name" value="xxx" valiform='aaa' class='vali btn' />
+        <input type="button" name="name" value="xxx" valiform='aaa' class='vali btn' />*@
 
     </div></div>
     <div class="col-sub">

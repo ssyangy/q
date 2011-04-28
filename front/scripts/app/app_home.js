@@ -1,6 +1,9 @@
-define(function (require, exports, module) {
+ï»¿define(function (require, exports, module) {
+    var $ = exports.jq = require('jquery.js');
     var Backbone = require('backbone.js');
     var Mustache = require('mustache.js');
+    var _ = require('underscore.js');
+    var text = exports.text = require('app/text.js');
 
     exports.app = Backbone.View.extend({
         events: {
@@ -17,7 +20,7 @@ define(function (require, exports, module) {
             this.texts.each(this.txtAdd);
         },
         txtAdd: function (txt) {
-            var view = new MovieView({ model: txt });
+            var view = new text.TextView({ model: txt });
             $(this.txtSeed).prepend(view.render().el);
         },
         key_submit: function (e) {
@@ -31,17 +34,17 @@ define(function (require, exports, module) {
             var txt1 = new text.TextModel({
                 id: 1231423,
                 username: 'hecaitou',
-                realname: 'Ä¾ÎÀ¶ş',
-                text: 'ÔÚ¸´µ©Ğ£Ô°ÅÄAliciaÊ±£¬ÒıÀ´²»ÉÙÂ·ÈËÎ§¹Û²àÄ¿¡£ÓĞÒ»¸öGGÆï×Å×ÔĞĞ³µ´ø×ÅMMÂ·¹ı£¬¾ÓÈ»ÔÚ³µÉÏĞĞ×¢Ä¿Àñ£¬Ö±ÖÁ¿´²»¼ûAliciaÎªÖ¹¡£³µºó×ùµÄMMÁ³¶¼±äÉ«ÁË¡£¡£¡£',
-                pushtime: '2011Äê4ÔÂ19ÈÕ 10:34:20',
+                realname: 'æœ¨å«äºŒ',
+                text: 'åœ¨å¤æ—¦æ ¡å›­æ‹Aliciaæ—¶ï¼Œå¼•æ¥ä¸å°‘è·¯äººå›´è§‚ä¾§ç›®ã€‚æœ‰ä¸€ä¸ªGGéª‘ç€è‡ªè¡Œè½¦å¸¦ç€MMè·¯è¿‡ï¼Œå±…ç„¶åœ¨è½¦ä¸Šè¡Œæ³¨ç›®ç¤¼ï¼Œç›´è‡³çœ‹ä¸è§Aliciaä¸ºæ­¢ã€‚è½¦ååº§çš„MMè„¸éƒ½å˜è‰²äº†ã€‚ã€‚ã€‚',
+                pushtime: '2011å¹´4æœˆ19æ—¥ 10:34:20',
                 time: '',
                 attach: {
                     src: '#',
                     img: 'weiboimg.jpg',
-                    title: 'Ïë¸æËßÄãÎÒÁË½âµÄÉ½ÏÂÖÇ¾Ã£¨5.22 ·¬Íâ¾ı2ºÅ£©',
-                    soures: 'É½ÏÂÖÇ¾Ã',
-                    cate: 'È¦×Ó',
-                    desc: 'ÔÚÕâÀï£¬ÎÒÏë°ÑÎÒÖªµÀµÄÉ½ÏÂÖÇ¾Ã¾¡¿ÉÄÜÍêÕûµÄ¸æËßÄãÃÇËûÊÇÈçºÎÒ»²½Ò»²½...'
+                    title: 'æƒ³å‘Šè¯‰ä½ æˆ‘äº†è§£çš„å±±ä¸‹æ™ºä¹…ï¼ˆ5.22 ç•ªå¤–å›2å·ï¼‰',
+                    soures: 'å±±ä¸‹æ™ºä¹…',
+                    cate: 'åœˆå­',
+                    desc: 'åœ¨è¿™é‡Œï¼Œæˆ‘æƒ³æŠŠæˆ‘çŸ¥é“çš„å±±ä¸‹æ™ºä¹…å°½å¯èƒ½å®Œæ•´çš„å‘Šè¯‰ä½ ä»¬ä»–æ˜¯å¦‚ä½•ä¸€æ­¥ä¸€æ­¥...'
                 }
             });
             this.texts.add(txt1);

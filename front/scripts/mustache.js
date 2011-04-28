@@ -1,4 +1,4 @@
-define('mustache', [], function (require, exports, module) {
+﻿define('mustache', [], function (require, exports, module) {
     var $ = require('jquery');
 
     /*!

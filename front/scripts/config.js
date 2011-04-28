@@ -1,4 +1,4 @@
-define(function (require, exports) {
+﻿define(function (require, exports) {
     var $ = require('jquery.js');
 
     $.ajaxSetup({

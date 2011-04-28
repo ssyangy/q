@@ -1,19 +1,21 @@
-define(function (require, exports, module) {
+﻿define(function (require, exports, module) {
+    var $ = require('jquery.js');
     var _ = require('underscore.js');
     var Backbone = require('backbone.js');
     var Mustache = require('mustache.js');
+    var datediff = require('datediff.js');
 
     //template = $('.template').val();
     //html = Mustache.to_html(template, json).replace(/^\s*/mg, '');
 
     exports.TextModel = Backbone.Model.extend({
         initialize: function (spec) {
-            if (!spec || !spec.id || !spec.username) {
-                throw "InvalidConstructArgs";
-            }
+//            if (!spec || !spec.id || !spec.username) {
+//                throw "InvalidConstructArgs";
+//            }
             if (this.get("pushtime")) {
                 var pushtime = this.get("pushtime");
-                this.set({ "pushtime": _.datediffstamp(pushtime) });
+                this.set({ "time": datediff.getStamp(pushtime) });
             }
         },
         validate: function (stream) {
@@ -51,8 +53,13 @@ define(function (require, exports, module) {
             this.model.view = this;
         },
         render: function () {
-            $(this.el).html(ich.stream(this.model.toJSON()));
-            $(this.el).attr('stream-id', this.model.get('id'));
+            $(this.el).html(ich.stream(this.model.toJSON()))
+            .attr('stream-id', this.model.get('id'))
+            .hover(function () {
+                $(this).addClass('hover');
+            }, function () {
+                $(this).removeClass('hover');
+            });
             return this;
         },
         change: function () {

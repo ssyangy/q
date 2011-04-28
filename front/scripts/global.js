@@ -1,4 +1,4 @@
-define(function (require, exports, module) {
+﻿define(function (require, exports, module) {
     var $ = exports.jq = require('jquery.js');
     require('config.js');
     var uihelp = require('jq.ui.help.js');

@@ -243,7 +243,11 @@
     <Content Include="demo\MovieApp.js" />
     <Content Include="demo\MvcApp.htm" />
     <Content Include="scripts\ajaxupload.js" />
-    <Content Include="scripts\backbone-localstorage.js" />
+    <Content Include="scripts\app\app_friend.js" />
+    <Content Include="scripts\app\app_home.js" />
+    <Content Include="scripts\app\img.js" />
+    <Content Include="scripts\app\text.js" />
+    <Content Include="scripts\app\viedo.js" />
     <Content Include="scripts\backbone.js" />
     <Content Include="scripts\global.js" />
     <Content Include="scripts\ICanHaz.js" />
@@ -263,6 +267,7 @@
     <Content Include="scripts\jquery.validate.unobtrusive.js" />
     <Content Include="scripts\jq.validation.js" />
     <Content Include="scripts\json2.js" />
+    <Content Include="scripts\klass.js" />
     <Content Include="scripts\lavaLamp.js" />
     <Content Include="scripts\jq.limitchar.js" />
     <Content Include="scripts\jq.limitimg.js" />
@@ -307,7 +312,6 @@
     <Content Include="scripts\underscore.js" />
     <Content Include="scripts\jq.mttext.js" />
     <Content Include="scripts\jq.ui.help.js" />
-    <Content Include="scripts\weibo.js" />
     <Content Include="scripts\config.js" />
     <Content Include="demo\Todos.htm" />
     <Content Include="usersimg\1.png" />
