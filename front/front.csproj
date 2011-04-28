@@ -235,6 +235,7 @@
     <Content Include="content\smoothness\images\ui-icons_888888_256x240.png" />
     <Content Include="content\smoothness\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="content\smoothness\jquery-ui-1.8.10.custom.css" />
+    <Content Include="demo\resize.htm" />
     <Content Include="Global.asax" />
     <Content Include="demo\backbone-min.js" />
     <Content Include="demo\destroy.png" />
