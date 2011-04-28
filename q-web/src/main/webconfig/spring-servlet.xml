@@ -184,6 +184,24 @@
 							</key>
 							<value>/WEB-INF/json/group-list.xml</value>
 						</entry>
+						<entry>
+							<key>
+								<value>getGroupJoin:isJoined</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>addWeiboPicture:imgPath</value>
+							</key>
+							<value>/WEB-INF/json/image.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>addWeibo:weibo</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
 					</map>
 				</property>
 			</bean>
@@ -415,7 +433,9 @@
 	<bean id="deleteGroupJoin" class="q.web.group.DeleteGroupJoin">
 		<property name="groupDao" ref="groupDao" />
 	</bean>
-
+	<bean id="getGroupJoin" class="q.web.group.GetGroupJoin">
+		<property name="groupDao" ref="groupDao" />
+	</bean>
 	<!-- photo web -->
 	<bean id="getGroupPhoto" class="q.web.photo.GetGroupPhoto">
 	</bean>

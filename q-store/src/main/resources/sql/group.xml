@@ -82,8 +82,8 @@
 		select
 		<include refid="group.columns" />
 		from `group`
-		where abs(longitude-#longitude#) &lt; 0.001
-		and abs(latitude-#latitude#) &lt; 0.001
+		where abs(longitude-#longitude#) &lt; 0.005
+		and abs(latitude-#latitude#) &lt; 0.005
 		order by join_num limit 100
 	</select>
 	<select id="selectAllGroups" resultMap="groupResult">

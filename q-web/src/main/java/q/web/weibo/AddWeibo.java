@@ -22,7 +22,7 @@ import q.web.exception.RequestParameterInvalidException;
  * @author bububut
  * @email xalinx at gmail dot com
  * @date Feb 21, 2011
- * 
+ *
  */
 public class AddWeibo extends Resource {
 	private WeiboDao weiboDao;
@@ -30,13 +30,13 @@ public class AddWeibo extends Resource {
 	public void setWeiboDao(WeiboDao weiboDao) {
 		this.weiboDao = weiboDao;
 	}
-	
+
 	private PeopleDao peopleDao;
 
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
 	}
-	
+
 	private SearchService searchService;
 
 	public void setSearchService(SearchService searchService) {
@@ -48,16 +48,16 @@ public class AddWeibo extends Resource {
 	public void setPictureService(PictureService pictureService) {
 		this.pictureService = pictureService;
 	}
-	
+
 	private ShortUrlService shortUrlService;
-	
+
 	public void setShortUrlService(ShortUrlService shortUrlService) {
 		this.shortUrlService = shortUrlService;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -78,7 +78,7 @@ public class AddWeibo extends Resource {
 			weibo.setFromType(WeiboFromType.GROUP);
 			weibo.setFromId(groupId);
 		}
-		
+
 		this.weiboDao.addWeibo(weibo);
 		this.peopleDao.incrPeopleWeiboNumberByPeopleId(senderId);
 
@@ -96,14 +96,15 @@ public class AddWeibo extends Resource {
 		}
 
 		String from = context.getString("from");
-		if (from != null) {
+		if (StringKit.isNotEmpty(from)) {
 			context.redirectContextPath(from);
 		}
+		context.setModel("weibo", weibo);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
