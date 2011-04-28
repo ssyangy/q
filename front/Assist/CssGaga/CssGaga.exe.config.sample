@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<configuration>
+    <appSettings>
+	<add key="pathSource" value="E:\3SVN\source" />
+        <add key="webSiteUrl" value="http://qzonestyle.gtimg.cn" />
+        <add key="pathReport" value="/usr/local/imgcache/htdocs" />
+        <add key="pathDest1Name" value="xpy.min" />
+        <add key="pathDest1" value="E:\3SVN\xpy.min" />
+        <add key="pathDest2Name" value="base.min" />
+        <add key="pathDest2" value="E:\3SVN\base.min" />
+        <add key="pathDest3Name" value="func.min" />
+        <add key="pathDest3" value="E:\3SVN\func.min" />
+        <add key="pathDest4Name" value="141" />
+        <add key="pathDest4" value="\\172.25.32.141\imgcache" />
+        <add key="pathDest5Name" value="72" />
+        <add key="pathDest5" value="\\172.25.32.72\imgcache" />
+    </appSettings>
+</configuration>

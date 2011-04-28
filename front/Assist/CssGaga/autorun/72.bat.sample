@@ -1,0 +1,4 @@
+@echo off
+
+net use \\172.25.32.72 ÃÜÂë /USER:ÓÃ»§Ãû
+#start "" "\\172.25.32.72\imgcache\"
