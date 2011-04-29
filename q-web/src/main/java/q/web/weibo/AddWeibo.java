@@ -78,7 +78,10 @@ public class AddWeibo extends Resource {
 			weibo.setFromType(WeiboFromType.GROUP);
 			weibo.setFromId(groupId);
 		}
-
+		if (context.getString("latitude") != null && context.getString("longitude") != null) {
+			weibo.setLatitude(Double.parseDouble(context.getString("latitude")));
+			weibo.setLongitude(Double.parseDouble(context.getString("longitude")));
+		}
 		this.weiboDao.addWeibo(weibo);
 		this.peopleDao.incrPeopleWeiboNumberByPeopleId(senderId);
 

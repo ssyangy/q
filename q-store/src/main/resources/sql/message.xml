@@ -36,7 +36,7 @@
 			<iterate property="ids" open="(" close=")" conjunction=",">
 				#ids[]#
         	</iterate>
-	    </isNotNull>		
+	    </isNotNull>
 		<isNotNull prepend="and" property="startCreated">
 			created &lt;= #startCreated#
 		</isNotNull>
@@ -48,7 +48,7 @@
 			limit #startIndex#, #size#
 		</isNotNull>
 	</select>
-	
+
 	<insert id="insertMessage">
 		insert into message
 		(
@@ -56,12 +56,13 @@
 		) values (
 		#id#,
 		#senderId#,
+		#replyNum#,
 		0,
 		now(),
 		null
 		)
 	</insert>
-	
+
 	<typeAlias alias="messageJoin" type="q.domain.MessageJoinPeople" />
 	<resultMap id="messageJoinResult" class="messageJoin">
 		<result property="id" column="id" />
@@ -80,13 +81,13 @@
 		status,
 		created,
 		modified
-	</sql>	
+	</sql>
 	<select id="selectMessageJoinPeoplesByPage" resultMap="messageJoinResult">
 		select
 		<include refid="messageJoin.columns" />
 		from message_join_people
 		where
-		status = 0 
+		status = 0
 		<isNotNull prepend="and " property="myId">
 			(sender_id = #myId# or receiver_id = #myId# )
 		</isNotNull>
@@ -95,7 +96,7 @@
 			<iterate property="messageIds" open="(" close=")" conjunction=",">
 				#messageIds[]#
         	</iterate>
-	    </isNotNull>		
+	    </isNotNull>
 		<isNotNull prepend="and" property="startCreated">
 			created &lt;= #startCreated#
 		</isNotNull>
@@ -111,12 +112,12 @@
 		insert into message_join_people
 		(
 		<include refid="messageJoin.columns" />
-		) values 
+		) values
 		<iterate conjunction=",">
 			(#[].id#, #[].senderId#, #[].messageId#, #[].receiverId#, 0, now(), null)
         </iterate>
-	</insert>	
-	
+	</insert>
+
 	<typeAlias alias="messageReply" type="q.domain.MessageReply" />
 	<resultMap id="messageReplyResult" class="messageReply">
 		<result property="id" column="id" />
@@ -167,7 +168,7 @@
 		status = 0
 		<isNotNull prepend="and " property="quoteMessageId">
 			quote_message_id = #quoteMessageId#
-	    </isNotNull>		
+	    </isNotNull>
 		<isNotNull prepend="and" property="startCreated">
 			created &lt;= #startCreated#
 		</isNotNull>
