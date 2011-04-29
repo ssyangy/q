@@ -12,6 +12,8 @@
 		<result property="fromType" column="from_type" typeHandler="q.dao.ibatis.WeiboFromTypeHandler"/>
 		<result property="fromId" column="from_id" />
 		<result property="content" column="content" />
+		<result property="longitude" column="longitude"/>
+		<result property="latitude" column="latitude"/>
 		<result property="replyNum" column="reply_num" />
 		<result property="retweetNum" column="retweet_num" />
 		<result property="status" column="status" />
@@ -29,6 +31,8 @@
 		from_type,
 		from_id,
 		content,
+		longitude,
+		latitude,
 		reply_num,
 		retweet_num,
 		status,
@@ -118,6 +122,8 @@
 		#fromType,handler=q.dao.ibatis.WeiboFromTypeHandler#,
 		#fromId#,
 		#content#,
+		#longitude#,
+		#latitude#,
 		#replyNum#,
 		#retweetNum#,
 		0,
@@ -126,7 +132,7 @@
 		#picturePath#
 		)
 	</insert>
-	
+
 	<update id="deleteWeiboBySenderIdAndWeiboId">
 		update weibo set
 		status = 1
@@ -154,7 +160,7 @@
 		created,
 		modified
 	</sql>
-	
+
 	<update id="deleteWeiboReplyBySenderIdAndReplyId">
 		update weibo_reply set
 		status = 1
@@ -343,14 +349,14 @@
 		null
 		)
 	</insert>
-	
+
 	<update id="incrWeiboRetweetNumByWeiboId">
 		update weibo set retweet_num = retweet_num + 1 where id = #value#
 	</update>
 	<update id="decrWeiboRetweetNumByWeiboId">
 		update weibo set retweet_num = greatest(0, retweet_num - 1) where id = #value#
 	</update>
-	
+
 	<update id="incrWeiboReplyNumByReplyId">
 		update weibo set reply_num = reply_num + 1 where id = #value#
 	</update>

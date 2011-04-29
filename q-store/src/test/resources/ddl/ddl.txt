@@ -112,6 +112,8 @@ create table weibo (
 	from_type tinyint unsigned not null,
 	from_id bigint unsigned not null,
 	content varchar(10240) not null,
+	longitude double not null,
+	latitude double not null,
 	reply_num mediumint unsigned not null,
 	retweet_num mediumint unsigned not null,
 	picture_path varchar(50),

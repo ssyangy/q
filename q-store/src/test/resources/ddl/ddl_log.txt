@@ -35,3 +35,7 @@ alter table `group` add	latitude float not null;
 4-27 zhao
 alter table `group` add longitude double not null;
 alter table `group` add	latitude double not null;
+
+4-29
+alter table `weibo` add longitude double not null;
+alter table `weibo` add	latitude double not null;
