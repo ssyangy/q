@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.web.weibo;
 
@@ -18,7 +18,7 @@ import q.web.exception.RequestParameterInvalidException;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 21, 2011
- * 
+ *
  */
 public class AddWeiboReply extends Resource {
 	private WeiboDao weiboDao;
@@ -35,7 +35,7 @@ public class AddWeiboReply extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -66,19 +66,20 @@ public class AddWeiboReply extends Resource {
 			reply.setFromType(WeiboFromType.GROUP);
 			reply.setFromId(join.getGroupId());
 		}
-		
+
 		this.weiboDao.addWeiboReply(reply);
 		this.weiboDao.incrWeiboReplyNumByReplyId(reply.getQuoteWeiboId());
-		
+
 		String from = context.getString("from");
 		if (from != null) {
 			context.redirectContextPath(from);
 		}
+		context.setModel("weibo", reply);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
