@@ -1,4 +1,4 @@
-module.declare(function (require, exports, module) {
+define(function (require, exports, module) {
     var $ = jQuery = require('jquery');
 
     // VERSION: 1.8 LAST UPDATE: 9.03.2011

@@ -1,8 +1,12 @@
 ﻿@{ViewBag.Title = "圈子 - 首页";}
 <script type="text/javascript">
-    module.load('global', function (global) {
+    seajs.use('global', function (global) {
         var $ = global.jq;
+        seajs.use('jq.validation.js');
+
         $(function () {
+            global.Init();
+
             $('#inputmain').focus(function () {
                 $(this).css('height', '40');
                 $('#inputbtm').removeClass('height0');
@@ -10,12 +14,9 @@
 
             $("body").bind("keyup", function (e) {
                 var code = (e.keyCode ? e.keyCode : e.which);
-                if (code != 13 && code != 65) return;
                 var tarname = $(e.target).get(0).tagName;
 
-                if (e.ctrlKey && tarname == 'TEXTAREA' && code == 13) {
-                    $('#inputbtn').click();
-                } else if (tarname != 'INPUT' && tarname != 'TEXTAREA' && code == 65) {
+                if (tarname != 'INPUT' && tarname != 'TEXTAREA' && code == 65) {
                     $('#inputmain').focus();
                 }
             });
@@ -27,14 +28,46 @@
             var selinp = $('#selinp>a.ui-selectmenu');
             selinp.width(selinp.width() + 18).append('<span class="ui-icon ui-icon-signal-diag"></span>');
 
-            $('li.streambox').hover(function () {
-                $(this).addClass('hover');
-            }, function () {
-                $(this).removeClass('hover');
+//            $("form.vali").validationEngine({ promptPosition: "centerRight" });
+//            $("input.vali").click(function () {
+//                if ($('form.vali.' + $(this).attr('valiform')).validationEngine({ returnIsValid: true })) {
+//                    return true;
+//                } else {
+//                    return false;
+//                }
+//            });
+
+            seajs.use('app/app_home.js', function (homeapp) {
+                var txt1 = new homeapp.text.TextModel({
+                    id: 1231423,
+                    username: 'hecaitou',
+                    realname: '木卫二',
+                    text: '在复旦校园拍Alicia时，引来不少路人围观侧目。有一个GG骑着自行车带着MM路过，居然在车上行注目礼，直至看不见Alicia为止。车后座的MM脸都变色了。。。',
+                    pushtime: '2011/4/19 10:34:20',
+                    time: '',
+                    attach: {
+                        src: '#',
+                        img: 'pdouban.jpg',
+                        title: '想告诉你我了解的山下智久（5.22 番外君2号）',
+                        soures: '山下智久',
+                        cate: '圈子',
+                        desc: '在这里，我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步...'
+                    }
+                });
+                var txts = new homeapp.text.TextList();
+                txts.add(txt1);
+                window.app = new homeapp.app({
+                    el: $('body'),
+                    txtSeed: "#streams",
+                    txtModel: txts
+                });
             });
+
         });
     });
+
 </script>
+
 <div class="layout grid-m0s10">
     <div class="col-main"><div class="main-wrap pr10">
         <div class="inputbx">
@@ -64,65 +97,52 @@
                 <li class="ui-state-default crt2"><a href="#">来自圈子</a></li>
                 <li class="ui-state-default crt2"><a href="#">来自好友</a></li>
             </ul>
-
-            <script type="text/template" id="stream-template">
-              <div class="todo <%= done ? 'done' : '' %>">
-                <div class="display">
-                  <input class="check" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
-                  <div class="todo-content"></div>
-                  <span class="todo-destroy"></span>
-                </div>
-                <div class="edit">
-                  <input class="todo-input" type="text" value="" />
-                </div>
-              </div>
-            </script>
-
-            <script type="text/template" id="stats-template">
-              <div class="todo <%= done ? 'done' : '' %>">
-                <div class="display">
-                  <input class="check" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
-                  <div class="todo-content"></div>
-                  <span class="todo-destroy"></span>
-                </div>
-                <div class="edit">
-                  <input class="todo-input" type="text" value="" />
-                </div>
-              </div>
-            </script>
-            <ul id='streams'>
-                <li class='streambox' stream-id='<%= id %>'>
-                    <div class='hd'>
-                        <a href='/#!/hecaitou' title='木卫二'>
-                        <img class='img48' src="http://img3.douban.com/icon/u1128221-38.jpg" alt="木卫二">
-                        </a>
-                    </div>
-                    <div class='bd'>
-                        <div class='text'><a class='lk' href='/#!/hecaitou' title='木卫二'>海*马斯洛</a>
-在复旦校园拍Alicia时，引来不少路人围观侧目。有一个GG骑着自行车带着MM路过，居然在车上行注目礼，直至看不见Alicia为止。车后座的MM脸都变色了。。。
-                        </div>
-                        <div class='attach'>
-                            <div class='attimg'>
-                                <a href="http://dou.bz/3cwawV" title="" target="_blank">
-                                <img src="/usersimg/pdouban.jpg" class='img-w160' alt="">
-                                </a>
-                            </div>
-                            <h6><a href="http://dou.bz/1yJM1c" title="想告诉你我了解的山下智久（5.22 番外君2号）" target="_blank">想告诉你我了解的山下智久（5.22 番外君2号）</a></h6>
-                            <p class="prop">来自小组<a href="#" class='lk' target="_blank">山下智久</a></p>
-                            <p class="desc">在这里，我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步...</p>
-
-                        </div>
-                    </div>
-                    <div class='fd'>
-                        <b class='twarrow png'></b>
-                        <span class='time'>2小时前</span>
-                        <a class='replay png' href='#'>回复</a>
-                        <a class='resub ml5 png' href='#'>转发</a>
-                    </div>
-                </li>
-            </ul>
         </div>
+        <ul id='streams'>
+                
+        </ul>
+        <script type="text/html" id="stream">
+            <div class='hd'>
+                <a href='/#!/{{ username }}' title='{{ realname }}'>
+                <img class='img48' src='/usersimg/{{ username }}-48.jpg' alt='{{ realname }}'>
+                </a>
+            </div>
+            <div class='bd'>
+                <div class='text'><a class='lk' href='/#!/{{ username }}' title='{{ realname }}'>{{ realname }}</a>
+                {{ text }}
+                </div>
+                {{#attach}}
+                <div class='attach'>
+                    {{#img}}
+                        <div class='attimg'>
+                            <img src='/usersimg/{{img}}' class='img-w160' alt=''>
+                        </div>
+                    {{/img}}
+                    {{#title}}
+                        <h6><a href='{{src}}' title='{{title}}' target='_blank'>{{title}}</a></h6>
+                    {{/title}}
+                    {{#source}}
+                        <p class='prop'>来自{{#cate}}<a href='#' class='lk' target='_blank'>{{#soures}}</a></p>
+                    {{/source}}
+                    {{#desc}}
+                        <p class='desc'>{{desc}}</p>
+                    {{/desc}}
+                </div>
+                {{/attach}}
+            </div>
+            <div class='fd'>
+                <b class='twarrow png'></b>
+                <span class='time'>{{time}}</span>
+                <a class='replay png' href='#'>回复</a>
+                <a class='resub ml5 png' href='#'>转发</a>
+                <b class='cloarrow png'></b>
+            </div>
+        </script>
 
+@*        <form class='vali aaa' action=''>
+            <input id='sss1' type="text" name="text" value="" class='tips validate[required,custom[onlyNumberSp]]' title='zxcasdsd' />
+        </form>
+        <input type="button" name="name" value="xxx" valiform='aaa' class='vali btn' />*@
 
     </div></div>
     <div class="col-sub">

@@ -1,3 +1,9 @@
+
+define('mustache',[],function(require,exports,module) {
+/**
+* @license mustache.js -- Logic-less templates in JavaScript
+* See http://mustache.github.com/ for more info.
+*/
 /*
   mustache.js — Logic-less templates in JavaScript
 
@@ -323,3 +329,6 @@ var Mustache = function() {
     }
   });
 }();
+
+module.exports=Mustache;
+});

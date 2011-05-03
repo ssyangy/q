@@ -1,6 +1,6 @@
-﻿module.declare(function (require, exports, module) {
+define(function (require, exports, module) {
     var $ = require("jquery");
-    require("jq.ui");
+    require("jq.ui.js");
 
     /*
     * jQuery UI selectmenu
@@ -122,7 +122,7 @@
 			.each(function () {
 			    selectOptionData.push({
 			        value: $(this).attr('value'),
-			        text: self._formatText(jQuery(this).text()),
+			        text: self._formatText($(this).text()),
 			        selected: $(this).attr('selected'),
 			        classes: $(this).attr('class'),
 			        parentOptGroup: $(this).parent('optgroup').attr('label')
@@ -525,6 +525,6 @@
             }
         });
 
-    })(jQuery);
+    })($);
 
 });

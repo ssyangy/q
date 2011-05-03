@@ -1,4 +1,5 @@
-module.declare(function (require, exports, module) {
+define(function (require, exports) {
+    var $ = require('jquery.js');
 
     $.ajaxSetup({
         type: "POST",

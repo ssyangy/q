@@ -1,30 +1,54 @@
-module.declare(function (require, exports, module) {
-    require('backbone');
+﻿define(function (require, exports, module) {
+    var Backbone = require('backbone').Backbone;
+    require('backbone-localstorage.js');
     require('json2');
-    require('backbone-localstorage');
-    require('ICanHaz');
+    var ich = require('ICanHaz.js').ich;
     require('mustache');
 
     var Weibo = Backbone.Model.extend({
-        empty: "����Ϣ ...",
-        initialize: function () {
-            if (!this.get("content")) {
-                this.set({ "content": this.empty });
+        defaultstream: {
+            id: 1231423,
+            username: 'hecaitou',
+            realname: '木卫二',
+            text: '在复旦校园拍Alicia时，引来不少路人围观侧目。有一个GG骑着自行车带着MM路过，居然在车上行注目礼，直至看不见Alicia为止。车后座的MM脸都变色了。。。',
+            pushtime: '2011年4月19日 10:34:20',
+            time: '',
+            attach: {
+                src: '#',
+                img: 'weiboimg.jpg',
+                title: '想告诉你我了解的山下智久（5.22 番外君2号）',
+                soures: '山下智久',
+                cate: '圈子',
+                desc: '在这里，我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步...'
             }
         },
-        save: function () {
-            this.save({ content: this.get("done") });
-            //this.set({ "time": ... });
+        initialize: function () {
+            if (!this.get("stream")) {
+                this.set({"stream":this.defaultstream });
+            }
+            if (this.get("stream").pushtime) {
+                var stream = this.get("stream");
+                stream.time = _.datediffstamp(stream.pushtime);
+                this.set({"stream":stream });
+            }
         },
-        clear: function () {
-            this.view.remove();
+        validate: function (stream) {
+            if (stream.id) {
+                if (!_.isNumber(attrs.id) || attrs.id.length === 0) {
+                    return "Id must be a Number with a length";
+            }
         }
+    }
     });
 
     var WeiboList = Backbone.Collection.extend({
         model: Weibo,
-        localStorage: new Store("weibos")
+        localStorage: new Store("weibos"),
+        initialize: function () {
+            // somthing
+        }
     });
+    var Weibos = new WeiboList;
 
     var WeiboView = Backbone.View.extend({
         tagName: "li",
@@ -87,7 +111,7 @@ module.declare(function (require, exports, module) {
         }
     });
 
-    var Weibos = new WeiboList;
+    
 
     var WBapp = new WBappView;
 });

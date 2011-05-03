@@ -39,6 +39,9 @@ h6{font-weight: 800;line-height: 1.3;}
 .bodtop{border-top:1px solid #ddd;}
 .cut{text-overflow:ellipsis;white-space:nowrap;overflow:hidden;display:block;}
 .in_bk{display:-moz-inline-stack;display:inline-block;zoom:1;*display:inline;position:relative;}
+.alignbox{overflow:hidden;display:inline-block;}
+.alignbox{display:block;}
+.inl6{_display:inline;}
 .hide{display:none}
 .height0,.height0 *{height:0;visibility:hidden;}
 .show{display:block;}
@@ -183,7 +186,7 @@ body{text-align:center;}
 .grid-s12m0 .col-sub { width: 470px; margin-left: -100%; }
 
 /* HACK ----------------------------------------------------------------------------- */
-.go678 { zoom:1\9; }
+.go6789 { zoom:1\9; }
 .go67 { *zoom: 1; }
 .go6 {_zoom: 1;}
 .clear:after{content:'\0020';clear:both;height:0;display:block;}

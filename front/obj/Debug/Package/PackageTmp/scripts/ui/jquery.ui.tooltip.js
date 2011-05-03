@@ -1,5 +1,6 @@
-module.declare(function (require, exports, module) {
-    var $ = jQuery = require('jquery');
+define(function (require, exports, module) {
+    var $ = require('jquery.js');
+
     /*
     * jQuery UI Tooltip @VERSION
     *
@@ -136,6 +137,6 @@ module.declare(function (require, exports, module) {
 
         $.ui.tooltip.version = "@VERSION";
 
-    })(jQuery);
+    })($);
 
 });

@@ -1,4 +1,4 @@
-module.declare(function (require, exports, module) {
+define(function (require, exports, module) {
     var $ = jQuery = require('jquery');
     /*
     * jQuery Easing v1.3 - http://gsgd.co.uk/sandbox/jquery/easing/
@@ -10,7 +10,7 @@ module.declare(function (require, exports, module) {
     * 
     * Open source under the BSD License. 
     * 
-    * Copyright © 2008 George McGinley Smith
+    * Copyright ? 2008 George McGinley Smith
     * All rights reserved.
     * 
     * Redistribution and use in source and binary forms, with or without modification, 
@@ -179,7 +179,7 @@ module.declare(function (require, exports, module) {
     * 
     * Open source under the BSD License. 
     * 
-    * Copyright © 2001 Robert Penner
+    * Copyright ? 2001 Robert Penner
     * All rights reserved.
     * 
     * Redistribution and use in source and binary forms, with or without modification, 
