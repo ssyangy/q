@@ -352,8 +352,6 @@
 	<bean id="getProfileAvatar" class="q.web.people.GetProfileAvatar">
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
-	<bean id="addProfileAvatar" class="q.web.people.AddProfileAvatar">
-	</bean>
 	<bean id="addAvatarEdit" class="q.web.people.AddAvatarEdit">
 		<property name="pictureService" ref="pictureService"></property>
 		<property name="peopleDao" ref="peopleDao" />
