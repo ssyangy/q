@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "私信";
+    Layout = "~/Views/qcomcn/Layout.cshtml";
+}
+<link href="/content/slider.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.main-wrap{padding-right:20px;}
+.msgbox{border:1px solid #ddd;}
+.msgmem{background-color:#FEF2E7;position:relative;padding:10px;}
+.msgmem p{line-height:24px;}
+.memdel{position:absolute;top:10px;right:10px;}
+.msgrepbox{padding:10px;}
+.msgrepbox .mttextar{width:99%;height:40px;}
+.repactbox{text-align:right;}
+</style>
+<script type="text/javascript">
+    seajs.use('qcomcn.js', function (qcomcn) {
+        var $ = qcomcn.jq;
+
+        $(function () {
+            qcomcn.Init();
+
+        });
+    });
+</script>
+<h2 class='mb10'>私信</h2>
+<div class="layout grid-m0s7">
+    <div class="col-main"><div class="main-wrap">
+    <div class="msgbox">
+    <div class="msgmem">
+        <p>参与者：我，<a class="lk">alin</a>, <a class="lk">老杨</a>, <a class="lk">iceball8</a>, <a class="lk">bububut</a>, <a class="lk">YAO</a></p>
+        <p class="mems">
+        <img src="/usersimg/avatar5.jpeg" alt="#" class='img24' />
+        <img src="/usersimg/avatar5.jpeg" alt="#" class='img24' />
+        <img src="/usersimg/avatar5.jpeg" alt="#" class='img24' />
+        <img src="/usersimg/avatar5.jpeg" alt="#" class='img24' />
+        <img src="/usersimg/avatar5.jpeg" alt="#" class='img24' />
+        <img src="/usersimg/avatar5.jpeg" alt="#" class='img24' />
+        </p>
+        <a class="memdel btn">删除</a>
+    </div>
+    <div class="msgrepbox">
+        <textarea class='mttextar' style=""></textarea>
+        <div class='repactbox'><a class="memrep btn">回复</a></div>
+    </div>
+    <ul class="msglist">
+        <li>
+            <img src="/usersimg/avatar5.jpeg" alt="Alternate Text" class="sldimg" />
+            <p class='rel'><a class="lk">alin</a> <span class="time">下午 7:58</span><span class="act"><a class="lk rep">回复</a><a class="lk del">删除</a></span></p>
+            <p>乒乓球拍买好了。淘宝上搞的。红双喜。嗲</p>
+        </li>
+        <li>
+            <img src="/usersimg/avatar5.jpeg" alt="Alternate Text" class="sldimg" />
+            <p class='rel'><a class="lk">alin</a> <span class="time">下午 7:58</span><span class="act"><a class="lk rep">回复</a><a class="lk del">删除</a></span></p>
+            <p>乒乓球拍买好了。淘宝上搞的。红双喜。嗲</p>
+        </li>
+        <li>
+            <img src="/usersimg/avatar5.jpeg" alt="Alternate Text" class="sldimg" />
+            <p class='rel'><a class="lk">alin药</a><span class="time">下午 7:58</span><span class="act"><a class="lk rep">回复</a><a class="lk del">删除</a></span></p>
+            <p>乒乓球拍买好了。淘宝上搞的。红双喜。嗲</p>
+        </li>
+        <li>
+            <img src="/usersimg/avatar5.jpeg" alt="Alternate Text" class="sldimg" />
+            <p class='rel'><a class="lk">alin</a> <span class="time">下午 7:58</span><span class="act"><a class="lk rep">回复</a><a class="lk del">删除</a></span></p>
+            <p>乒乓球拍买好了。淘宝上搞的。红双喜。嗲</p>
+        </li>
+        <li class="end">
+            <img src="/usersimg/avatar5.jpeg" alt="Alternate Text" class="sldimg" />
+            <p class='rel'><a class="lk">alin</a> <span class="time">下午 7:58</span><span class="act"><a class="lk rep">回复</a><a class="lk del">删除</a></span></p>
+            <p>乒乓球拍买好了。淘宝上搞的。红双喜。嗲</p>
+        </li>
+    </ul>
+    </div>
+    </div></div>
+    <div class="col-sub">
+        <button class="ui_btn_plusthick">新私信</button>
+    </div>
+</div>

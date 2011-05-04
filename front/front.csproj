@@ -152,6 +152,7 @@
     <Content Include="content\images\arrow\sh_col.png" />
     <Content Include="content\images\arrow\sh_colh.png" />
     <Content Include="content\images\arrow\sh_ex.png" />
+    <Content Include="content\images\arrow\sh_ex2.png" />
     <Content Include="content\images\arrow\sh_exh.png" />
     <Content Include="content\images\arrow\toggle_down_dark.png" />
     <Content Include="content\images\arrow\toggle_up_dark.png" />
@@ -174,6 +175,7 @@
     <Content Include="content\images\resize.png" />
     <Content Include="content\images\star.gif" />
     <Content Include="content\images\star2.gif" />
+    <Content Include="content\images\tips\check16.png" />
     <Content Include="content\images\tips\Document Spreadsheet.png" />
     <Content Include="content\images\tips\DocumentText.png" />
     <Content Include="content\images\tips\DocumentTextG.png" />
@@ -240,7 +242,7 @@
     <Content Include="content\qcomcn.css" />
     <Content Include="content\base.css" />
     <Content Include="content\token-input.css" />
-    <Content Include="content\groupcate.css" />
+    <Content Include="content\slider.css" />
     <Content Include="demo\resize.htm" />
     <Content Include="Global.asax" />
     <Content Include="demo\backbone-min.js" />
@@ -395,9 +397,14 @@
     <Content Include="Views\qcomcn\message\Autocomplate.cshtml" />
     <Content Include="resources\loopj-jquery-tokeninput-jquery-tokeninput-1.4.2-0-g6e9dd33.zip" />
     <Content Include="Views\qcomcn\message\MsgInbox.cshtml" />
-    <Content Include="Views\qcomcn\InputMain.cshtml" />
+    <Content Include="Views\qcomcn\model\InputMain.cshtml" />
     <Content Include="Views\qcomcn\AtMe.cshtml" />
     <Content Include="Views\qcomcn\Group.cshtml" />
+    <Content Include="Views\qcomcn\message\MsgItem.cshtml" />
+    <Content Include="Views\qcomcn\Fav.cshtml" />
+    <Content Include="Views\qcomcn\Friends.cshtml" />
+    <Content Include="Views\qcomcn\model\Weibo.cshtml" />
+    <Content Include="Views\qcomcn\ForgetPwd.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -416,7 +423,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>11406</DevelopmentServerPort>
+          <DevelopmentServerPort>18729</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

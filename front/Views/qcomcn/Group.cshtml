@@ -8,11 +8,6 @@
 
         $(function () {
             qcomcn.Init();
-            $('#search_inp').focus(function () {
-                $('#search_btn').addClass('typing');
-            }).blur(function () {
-                $('#search_btn').removeClass('typing');
-            });
 
             seajs.use('app/app_home.js', function (homeapp) {
                 var txt1 = new homeapp.text.TextModel({
@@ -75,13 +70,9 @@
                     <li class="ui-state-default crt2 ui-state-active"><a href="#">讨论区</a></li>
                     <li class="ui-state-default crt2"><a href="#">成员</a></li>
                 </ul>
-                <div id="search">
-                    <input id="search_inp" class="mttext_val" type="input" name="name" value="搜索圈子、信息" />
-                    <input type="submit" id="search_btn" class="" title="搜索" value="" />
-                </div>
             </div>
             <div class='tabscont'>
-            @Html.Partial("InputMain")
+            @Html.Partial("model/InputMain")
             <ul id='streams'>
                 
             </ul>

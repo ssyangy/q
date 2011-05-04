@@ -30,6 +30,7 @@
 
         $("button.ui_btn,input.ui_btn").button();
         $("button.ui_btn_newwin").button({ icons: { primary: 'ui-icon-newwin'} });
+        $("button.ui_btn_plusthick").button({ icons: { primary: 'ui-icon-plusthick'} });
         $("button.ui_btn_comment").button({ icons: { primary: 'ui-icon-comment'} });
         $("button.ui_btn_plus").button({ icons: { primary: 'ui-icon-plus'} });
         $("button.ui_btn_cart").button({ icons: { primary: 'ui-icon-cart'} });

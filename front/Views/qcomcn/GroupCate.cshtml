@@ -2,13 +2,21 @@
     ViewBag.Title = "Quanzi";
     Layout = "~/Views/qcomcn/Layout.cshtml";
 }
-<link href="/content/groupcate.css" rel="stylesheet" type="text/css" />
+<link href="/content/slider.css" rel="stylesheet" type="text/css" />
+<style>
+#passroll a,#passroll span{font-size:18px;}
+#root{color:#FF0065;cursor:pointer;}
+#root:hover{text-decoration:underline;}
+span.pass {display:inline-block;zoom:1;*display:inline;position:relative;width:14px;height:14px;
+background:url("/content/images/arrow/sh_ex2.png") no-repeat scroll 0 0 transparent;}
+</style>
 <script type="text/javascript">
     seajs.use('qcomcn.js', function (qcomcn) {
         //seajs.use('jq.easing.js');
         var $ = qcomcn.jq;
         $(function () {
-            var lis = $("#groupcates>li");
+            qcomcn.Init();
+            var lis = $("#sldroot>li");
             lis.hover(function () {
                 $(this).addClass('hover');
             }, function () {
@@ -27,7 +35,7 @@
             });
             seajs.use('ICanHaz.js', function (ich) {
                 lis.click(function () {
-                    var groups = $("#groups");
+                    var groups = $("#sldtrunk");
                     groups.empty();
                     for (var i = 0; i < 6; i++) {
                         var groupone = { img: "avatar3.jpg", title: "樱桃小丸子", member: "1300", time: "2011-04-23", sign: "圈子签名" + i };
@@ -52,7 +60,7 @@
             </div>
             <div id="slidbox">
                 <div id="slider">
-                <ul class="grouplist" id="groupcates">
+                <ul class="sldlist" id="sldroot">
                     <li>
                         <img src="/usersimg/clock.png" alt="Alternate Text" class="groupimg" />
                         <p>八小时以外，吃喝玩乐，浮于世</p>
@@ -121,7 +129,7 @@
                         <p>{{sign}}</p>
                     </li>
                 </script>
-                <ul id="groups" class="grouplist">
+                <ul id="sldtrunk" class="sldlist">
                     
                 </ul>
                 <div id="pagger"><a class="lk mr10">上一页</a><a class="lk">下一页</a></div>

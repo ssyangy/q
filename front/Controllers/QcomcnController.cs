@@ -23,6 +23,21 @@ namespace front.Controllers
             ViewBag.Message = "Welcome to Qcomcn!";
             return View();
         }
+        public ActionResult Fav()
+        {
+            ViewBag.Message = "Welcome to Qcomcn!";
+            return View();
+        }
+        public ActionResult ForgetPwd()
+        {
+            ViewBag.Message = "Welcome to Qcomcn!";
+            return View();
+        }
+        public ActionResult Friends()
+        {
+            ViewBag.Message = "Welcome to Qcomcn!";
+            return View();
+        }
         public ActionResult MsgSend()
         {
             ViewBag.Message = "Welcome to Qcomcn!";
@@ -32,6 +47,11 @@ namespace front.Controllers
         {
             ViewBag.Message = "Welcome to Qcomcn!";
             return View("~/views/qcomcn/message/MsgInbox.cshtml");
+        }
+        public ActionResult MsgItem()
+        {
+            ViewBag.Message = "Welcome to Qcomcn!";
+            return View("~/views/qcomcn/message/MsgItem.cshtml");
         }
     }
 }
