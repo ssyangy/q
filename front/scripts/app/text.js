@@ -2,7 +2,7 @@
     var $ = require('jquery.js');
     var _ = require('underscore.js');
     var Backbone = require('backbone.js');
-    require('ICanHaz.js');
+    var ich = require('ICanHaz.js');
     var datediff = require('datediff.js');
 
     //template = $('.template').val();

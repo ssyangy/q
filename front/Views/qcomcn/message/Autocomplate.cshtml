@@ -1,0 +1,22 @@
+﻿<link href="@Url.Content("~/content/token-input.css")" rel="stylesheet" type="text/css" />
+<input type="text" id="autocom" name="blah" class='mttext' style="width:@Model;" />
+<script type="text/javascript">
+    seajs.use('jq.tokeninput.js', function (tokeninput) {
+        var $ = tokeninput.jq
+        $("#autocom").tokenInput([
+                { id: 7, name: "Ruby", value: "Ruby" },
+                { id: 11, name: "Python", value: "Python" },
+                { id: 13, name: "JavaScript", value: "JavaScript" },
+                { id: 17, name: "ActionScript", value: "ActionScript" },
+                { id: 19, name: "Scheme", value: "Scheme" },
+                { id: 23, name: "Lisp", value: "Lisp" },
+                { id: 29, name: "Ctg54yg5tyg", value: "rrr" },
+                { id: 31, name: "Fortran", value: "Fortran" },
+                { id: 37, name: "VisualBasic", value: "VisualBasic" },
+                { id: 41, name: "C", value: "ccc" },
+                { id: 43, name: "Cxzcdsfdasf", value: "Cxzcdsfdasf" },
+                { id: 47, name: "Java", value: "Java" },
+                { id: 47, name: "金梓成", value: "jzc jinzicheng" }
+            ], { hintText: "输入好友姓名 ... " });
+    });
+</script>

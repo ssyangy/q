@@ -1,0 +1,20 @@
+﻿#passroll a,#passroll span{font-size:18px;}
+#root{color:#FF0065;cursor:pointer;}
+#root:hover{text-decoration:underline;}
+span.pass {display:inline-block;zoom:1;*display:inline;position:relative;width:14px;height:14px;
+background:url("/content/images/arrow/sh_ex2.png") no-repeat scroll 0 0 transparent;}
+#slidbox{overflow:hidden;width:100%;position:relative;height:600px;}
+#slider{position:absolute;top:0;left:0;width:1100px;height:600px;}
+.grouplist{padding:5px;width:540px;}
+.grouplist li{cursor:pointer;border-bottom:1px solid #ddd;padding:10px 40px 10px 58px;position:relative;}
+#groupcates li{background:url("/content/images/arrow/next.png") no-repeat scroll 510px center transparent;}
+#groupcates li.hover{background-image:url("/content/images/arrow/next_h.png");background-color:#fefefe;}
+.grouplist li.end{border-bottom:none 0;}
+.grouplist li .groupimg{position:absolute;top:10px;left:0;}
+.grouplist li p{line-height:24px;color:#333;}
+.grouplist li .lk{margin-right:5px;}
+#groups{position:absolute;top:0;left:540px;margin-left:20px;}
+#pagger{position:absolute;bottom:0;right:0;}
+
+ul.slist li{display:inline-block;width:48px;margin:0 11px 11px 0;vertical-align:top;zoom:1;*display:inline;}
+ul.slist li.end{margin-right:0;}

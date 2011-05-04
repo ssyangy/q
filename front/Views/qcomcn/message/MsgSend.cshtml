@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "send";
+    Layout = "~/Views/qcomcn/Layout.cshtml";
+}
+<script type="text/javascript">
+    seajs.use('qcomcn.js', function (qcomcn) {
+        var $ = qcomcn.jq;
+
+        $(function () {
+            qcomcn.Init();
+        });
+    });
+</script>
+<h2 class='mb20'>发私信</h2>
+<div class="layout grid-m0s7">
+    <div class="col-main"><div class="main-wrap">
+        收信人：
+        @Html.Partial("message/Autocomplate", "100%")
+        <br />
+        你想说的：
+        <textarea class="mttextar_val" style="width:99%;height:200px;">我想你了 . . .</textarea>
+        <br />
+        <input type="button" name="name" value="发送" class='btn' />
+        <a class="lk f14 FR">取消</a>
+    </div></div>
+    <div class="col-sub">
+        
+    </div>
+</div>

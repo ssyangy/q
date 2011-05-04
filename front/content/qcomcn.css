@@ -9,11 +9,15 @@
 
 #main .wapper{padding:10px 0;}
 
-.profile{padding:10px;}
 .proline{line-height:22px;font-size:13px;}
 
 .ui-tabs{padding:0;z-index:10;}
-#streams{border:1px solid #ddd;position:relative;top:-1px;}
+.tabscont{border:1px solid #ddd;position:relative;top:-1px;}
+.inputbx{padding:5px;margin-bottom:5px;}
+#inputmain{width:99%;height:20px;}
+.inputbtm{padding:1px;position:relative;}
+#inputbtn{position:absolute;top:1px;right:1px;}
+
 li.streambox{border-bottom: 1px solid #EFF1F2;padding:10px;position: relative;min-height: 50px;cursor:pointer;_zoom:1;}
 li.streambox.hover{background-color:#fafafa;border-color:#e0e3e6;}
 li.streambox.open{background-color:#E9F0F8;border-color:#D4E1F1;}

@@ -1,0 +1,110 @@
+﻿@{
+    ViewBag.Title = "AtMe";
+    Layout = "~/Views/qcomcn/Layout.cshtml";
+}
+<script type="text/javascript">
+    seajs.use('qcomcn.js', function (qcomcn) {
+        var $ = qcomcn.jq;
+
+        $(function () {
+            qcomcn.Init();
+
+            seajs.use('app/app_home.js', function (homeapp) {
+                var txt1 = new homeapp.text.TextModel({
+                    id: 1231423,
+                    username: 'hecaitou',
+                    realname: '木卫二',
+                    text: '在复旦校园拍Alicia时，引来不少路人围观侧目。有一个GG骑着自行车带着MM路过，居然在车上行注目礼，直至看不见Alicia为止。车后座的MM脸都变色了。。。',
+                    pushtime: '2011/4/19 10:34:20',
+                    time: '',
+                    attach: {
+                        src: '#',
+                        img: 'pdouban.jpg',
+                        title: '想告诉你我了解的山下智久（5.22 番外君2号）',
+                        soures: '山下智久',
+                        cate: '圈子',
+                        desc: '在这里，我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步...'
+                    }
+                });
+                var txts = new homeapp.text.TextList();
+                txts.add(txt1);
+                window.app = new homeapp.app({
+                    el: $('body'),
+                    txtSeed: "#streams",
+                    txtModel: txts
+                });
+                txt2 = new homeapp.text.TextModel({
+                    id: 1231423,
+                    username: 'hecaitou',
+                    realname: '木卫二',
+                    text: '在复旦校园拍Alicia时，引来不少路人围观侧目。有一个GG骑着自行车带着MM路过，居然在车上行注目礼，直至看不见Alicia为止。车后座的MM脸都变色了。。。',
+                    pushtime: '2011/4/19 10:34:20',
+                    time: '',
+                    attach: {
+                        src: '#',
+                        img: 'pdouban.jpg',
+                        title: '想告诉你我了解的山下智久（5.22 番外君2号）',
+                        soures: '山下智久',
+                        cate: '圈子',
+                        desc: '在这里，我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步...'
+                    }
+                }); ;
+                txts.add(txt2);
+            });
+
+        });
+    });
+</script>
+<h2 class="mb20">&#64提到我的(3条新)</h2>
+<div style="border:1px solid #ddd;width:540px;margin-right:30px;float:left;">
+        <ul id='streams'>
+                
+        </ul>
+        <script type="text/html" id="stream">
+            <div class='hd'>
+                <a href='/#!/{{ username }}' title='{{ realname }}'>
+                <img class='img48' src='/usersimg/{{ username }}-48.jpg' alt='{{ realname }}'>
+                </a>
+            </div>
+            <div class='bd'>
+                <div class='text'><a class='lk' href='/#!/{{ username }}' title='{{ realname }}'>{{ realname }}</a>
+                {{ text }}
+                </div>
+                {{#attach}}
+                <div class='attach'>
+                    {{#img}}
+                        <div class='attimg'>
+                            <img src='/usersimg/{{img}}' class='img-w160' alt=''>
+                        </div>
+                    {{/img}}
+                    {{#title}}
+                        <h6><a href='{{src}}' title='{{title}}' target='_blank'>{{title}}</a></h6>
+                    {{/title}}
+                    {{#source}}
+                        <p class='prop'>来自{{#cate}}<a href='#' class='lk' target='_blank'>{{#soures}}</a></p>
+                    {{/source}}
+                    {{#desc}}
+                        <p class='desc'>{{desc}}</p>
+                    {{/desc}}
+                </div>
+                {{/attach}}
+            </div>
+            <div class='fd'>
+                <b class='twarrow png'></b>
+                <span class='time'>{{time}}</span>
+                <a class='replay png' href='#'>回复</a>
+                <a class='resub ml5 png' href='#'>转发</a>
+                <b class='cloarrow png'></b>
+            </div>
+        </script>
+</div>
+<div style="width:240px;float:left;">
+    <div class="profile">
+        <img src="/usersimg/avatar2.jpg" alt="portrait" class="FL mr10" />
+        <div class='proline'>
+            <a href="#" class="lk">彪马拖鞋 &#64seanlinwang</a><br />
+            <span class="mr10">上海, 长宁区</span><span>2011-05-23加入</span><br />
+            <span class="gray">我的存在就是无法避免的伤害</span><br />
+        </div>
+    </div>
+</div>

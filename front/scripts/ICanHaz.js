@@ -395,11 +395,11 @@
             };
         }
 
-        window.ich = new ICanHaz();
+        module.exports = new ICanHaz();
 
         // init itself on document ready
         $(function () {
-            ich.grabTemplates();
+            module.exports.grabTemplates();
         });
     })($);
 

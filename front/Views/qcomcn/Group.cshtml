@@ -8,7 +8,7 @@
 
         $(function () {
             qcomcn.Init();
-            $('input.mttext_val').focus(function () {
+            $('#search_inp').focus(function () {
                 $('#search_btn').addClass('typing');
             }).blur(function () {
                 $('#search_btn').removeClass('typing');
@@ -61,13 +61,13 @@
     });
 </script>
 <div class="layout grid-s5m0e6">
-        <div class="col-main"><div class="main-wrap">
+        <div class="col-main"><div class="main-wrap pr10">
             <div class="profile">
                 <img src="/usersimg/avatar2.jpg" alt="portrait" class="FL mr10" />
                 <div class='proline'>
-                    <a href="#" class="lk">彪马拖鞋 &#64seanlinwang</a><br />
-                    <span class="mr10">上海, 长宁区</span><span>2011-05-23加入</span><br />
-                    <span class="gray">我的存在就是无法避免的伤害</span><br />
+                    <p><a href="#" class="lk">我爱旅行</a></p>
+                    <p><span class="mr10">上海, 长宁区</span><span>2011-05-23加入</span></p>
+                    <p class="gray">我的存在就是无法避免的伤害</p>
                 </div>
             </div>
             <div class="ui-tabs mt10">
@@ -76,10 +76,12 @@
                     <li class="ui-state-default crt2"><a href="#">成员</a></li>
                 </ul>
                 <div id="search">
-                    <input class="mttext_val" type="type" name="name" value="搜索圈子、信息" />
-                    <input type="submit" id="search_btn" class="" title="搜索" value="">
+                    <input id="search_inp" class="mttext_val" type="input" name="name" value="搜索圈子、信息" />
+                    <input type="submit" id="search_btn" class="" title="搜索" value="" />
                 </div>
             </div>
+            <div class='tabscont'>
+            @Html.Partial("InputMain")
             <ul id='streams'>
                 
             </ul>
@@ -120,15 +122,18 @@
                     <b class='cloarrow png'></b>
                 </div>
             </script>
+            </div>
         </div></div>
         <div class="col-sub">
              @Html.Partial("NavLeft")
         </div>
         <div class="col-extra">
             <div style="height:110px;">
-            <a href="#" class='btn'>加入</a>
-            <a href="#" class='btn'>邀请</a>
-            <a href="#" class='btna'>管理</a>
+                <p>由YAO创建于2011-04-23</p><br />
+                <a href="#" class='btn'>加入</a>
+                <a href="#" class='btn'>邀请</a>
+                <a href="#" class='btna'>管理</a><br /><br />
+                <a href="#" class='btn btnw24'><span class='btnarror'></span>已加入|退出</a>
             </div>
 
             <div class="component">
@@ -139,6 +144,8 @@
             <div class="component">
             <h3>新成员<span class='separator'> · · · · · ·</span><a class='arr'>更多</a></h3>
             blablabla
+            </div>
+
             <div class="component">
             <h3>活跃成员<span class='separator'> · · · · · ·</span><a class='arr'>更多</a></h3>
             blablabla
