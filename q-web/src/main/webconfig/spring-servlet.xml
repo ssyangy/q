@@ -208,6 +208,12 @@
 							</key>
 							<value>/WEB-INF/json/check.xml</value>
 						</entry>
+						<entry>
+							<key>
+								<value>getMessageIndex:messages</value>
+							</key>
+							<value>/WEB-INF/json/message-list.xml</value>
+						</entry>
 					</map>
 				</property>
 			</bean>
