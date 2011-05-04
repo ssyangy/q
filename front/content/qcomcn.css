@@ -1,13 +1,16 @@
 ﻿@import url("base.css");
 
-#toper{border-bottom:1px dashed #D4D4D4;line-height:30px;padding:5px 0;}
-#toper .wapper{height:30px;}
+#toper{border-bottom:1px dashed #D4D4D4;line-height:30px;padding:5px 0;position:relative;z-index:9;}
+#toper .wapper{height:30px;position:relative;z-index:101;}
 #logo{font-size:24px;position:absolute;left:0;top:0;color:#FF0065}
 #nav{position:absolute;top:0;left:200px;font-size:16px;}
 #msg{position:absolute;top:0;right:100px;}
 #login{position:absolute;top:0;right:-10px;}
+#note{position:absolute;top:20px;right:0;padding:10px;background-color:#FFE300;z-index:100;}
+#note p{line-height:22px;}
 
-#main .wapper{padding:10px 0;}
+#main{position:relative;z-index:8;}
+#main .wapper{padding:10px 0;z-index:8;}
 
 .proline{line-height:22px;font-size:13px;}
 
