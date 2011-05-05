@@ -1,5 +1,5 @@
 define(function (require, exports, module) {
-    var $ = jQuery = require('jquery');
+    var $ = require('jquery');
 
     (function ($) {
         /* 
@@ -35,6 +35,6 @@ define(function (require, exports, module) {
             }
             return this;
         };
-    })(jQuery);
+    })($);
 
 });

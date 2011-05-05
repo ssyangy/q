@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Replies";
+    Layout = "~/Views/qcomcn/Layout.cshtml";
+}
+<style type="text/css">
+.replist{border-bottom:1px solid #ddd;}
+.replist li{border:1px solid #ddd;border-bottom:none 0;padding:10px 10px;}
+.replist p{line-height:24px;}
+.replist .time{position:absolute;top:0;right:100px;color:#B2B7B5}
+.replist .del{position:absolute;top:0;right:50px;}
+.repsoup{padding-left:20px;}
+.replist .repsou{border:1px solid #efefef;padding:10px 10px 10px 68px;position:relative;background-color:#fefefe;min-height:48px;color:#666}
+.replist .sldimg{position:absolute;top:10xp;left:10px;}
+</style>
+<script type="text/javascript">
+    seajs.use('qcomcn.js', function (q) {
+        var $ = q.jq;
+        $(function () {
+            q.Init();
+
+        });
+    });
+</script>
+<div class="layout grid-m0s7 mt10">
+    <div class="col-main"><div class="main-wrap pr10">
+        <p class='simptab'><span>收到的回应（23）</span><span class='split'>|</span><a class="lk">发出的回应</a></p>
+        @*@Html.Partial("model/Weibo")*@
+
+        <ul class='replist mt20'>
+            <li>
+                <p class="rel">蹄花控签到。。。。 <span class='time'>5月2日 10:33</span><a class='lk del'>删除</a></p>
+                <div class='repsou'>
+                    <img src="/usersimg/avatar5.jpeg" alt="Alternate Text" class="sldimg" />
+                    [蜜桃兔] 哇，浓香醇美，色香味俱全，好手艺啊！怪不得贤伉俪那末滴青春可爱又欢乐//加菲猫资深门徒:啊呀！偶稀饭！超级的！要是再配上一扎冰镇黑啤，那是何等享受哦！
+                </div>
+            </li>
+            <li>
+                <p class="rel">蹄花控签到。。。。 <span class='time'>5月2日 10:33</span><a class='lk del'>删除</a></p>
+                <div class='repsou'>
+                    <img src="/usersimg/avatar5.jpeg" alt="Alternate Text" class="sldimg" />
+                    [蜜桃兔] 哇，浓香醇美，色香味俱全，好手艺啊！怪不得贤伉俪那末滴青春可爱又欢乐//加菲猫资深门徒:啊呀！偶稀饭！超级的！要是再配上一扎冰镇黑啤，那是何等享受哦！
+                </div>
+            </li>
+            <li>
+                <p class="rel">蹄花控签到。。。。 <span class='time'>5月2日 10:33</span><a class='lk del'>删除</a></p>
+                <div class='repsou'>
+                    <img src="/usersimg/avatar5.jpeg" alt="Alternate Text" class="sldimg" />
+                    [蜜桃兔] 哇，浓香醇美，色香味俱全，好手艺啊！怪不得贤伉俪那末滴青春可爱又欢乐//加菲猫资深门徒:啊呀！偶稀饭！超级的！要是再配上一扎冰镇黑啤，那是何等享受哦！
+                </div>
+            </li>
+        </ul>
+    </div></div>
+    <div class="col-sub">
+        @Html.Partial("model/Profile")
+    </div>
+</div>

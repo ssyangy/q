@@ -33,7 +33,27 @@ namespace front.Controllers
             ViewBag.Message = "Welcome to Qcomcn!";
             return View();
         }
+        public ActionResult SignIn()
+        {
+            ViewBag.Message = "Welcome to Qcomcn!";
+            return View();
+        }
+        public ActionResult SignUp()
+        {
+            ViewBag.Message = "Welcome to Qcomcn!";
+            return View();
+        }
+        public ActionResult Setting()
+        {
+            ViewBag.Message = "Welcome to Qcomcn!";
+            return View();
+        }
         public ActionResult Friends()
+        {
+            ViewBag.Message = "Welcome to Qcomcn!";
+            return View();
+        }
+        public ActionResult Replies()
         {
             ViewBag.Message = "Welcome to Qcomcn!";
             return View();
@@ -52,6 +72,21 @@ namespace front.Controllers
         {
             ViewBag.Message = "Welcome to Qcomcn!";
             return View("~/views/qcomcn/message/MsgItem.cshtml");
+        }
+        public ActionResult SearchPeople()
+        {
+            ViewBag.Message = "Welcome to Qcomcn!";
+            return View("~/views/qcomcn/search/SearchPeople.cshtml");
+        }
+        public ActionResult SearchWeibo()
+        {
+            ViewBag.Message = "Welcome to Qcomcn!";
+            return View("~/views/qcomcn/search/SearchWeibo.cshtml");
+        }
+        public ActionResult SearchGroup()
+        {
+            ViewBag.Message = "Welcome to Qcomcn!";
+            return View("~/views/qcomcn/search/SearchGroup.cshtml");
         }
     }
 }

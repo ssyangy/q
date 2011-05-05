@@ -25,10 +25,14 @@
                 $(".access_" + btnid).click();
             }
         });
-        $('#search_inp').focus(function () {
-            $('#search_btn').addClass('typing');
+        $('.search_inp').focus(function () {
+            $(this).next('.search_btn').addClass('typing');
         }).blur(function () {
-            $('#search_btn').removeClass('typing');
+            $(this).next('.search_btn').removeClass('typing');
+        });
+
+        $('#btnnote').click(function () {
+            $('#note').toggle();
         });
     };
 

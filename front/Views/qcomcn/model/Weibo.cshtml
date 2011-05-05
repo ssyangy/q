@@ -39,8 +39,9 @@
                         soures: '山下智久',
                         cate: '圈子',
                         desc: '在这里，我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步...'
-                    }
-                }); ;
+                    },
+                    repmod: "装是常态。不装是病态。"
+                });
                 txts.add(txt2);
             });
         });
@@ -77,6 +78,7 @@
                     {{/desc}}
                 </div>
                 {{/attach}}
+                {{#repmod}}<div class='repmod'><span class='gray'>回应了我：</span>{{repmod}}</div>{{/repmod}}
             </div>
             <div class='fd'>
                 <b class='twarrow png'></b>
