@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Quanzi";
+    Layout = "~/Views/qcomcn/Layout.cshtml";
+}
+<script type="text/javascript">
+    seajs.use('qcomcn.js', function (qcomcn) {
+        var $ = qcomcn.jq;
+
+        $(function () {
+            qcomcn.Init();
+
+        });
+    });
+</script>
+<div class="layout grid-s5m0e6">
+        <div class="col-main"><div class="main-wrap pr10">
+            <div class="profile">
+                <img src="/usersimg/avatar2.jpg" alt="portrait" class="FL mr10" />
+                <div class='proline'>
+                    <p><a href="#" class="lk">我爱旅行</a></p>
+                    <p><span class="mr10">上海, 长宁区</span><span>2011-05-23加入</span></p>
+                    <p class="gray">我的存在就是无法避免的伤害</p>
+                </div>
+            </div>
+            <div class="ui-tabs mt10">
+                <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
+                    <li class="ui-state-default crt2"><a href="/qcomcn/Group">讨论区</a></li>
+                    <li class="ui-state-default crt2 ui-state-active"><a href="/qcomcn/GroupMember">成员</a></li>
+                </ul>
+            </div>
+            <div class='tabscont'>
+            @Html.Partial("model/UserList")
+            </div>
+        </div></div>
+        <div class="col-sub">
+             @Html.Partial("model/NavLeft")
+        </div>
+        <div class="col-extra">
+            <div style="height:110px;">
+                <p>由YAO创建于2011-04-23</p><br />
+                <a href="#" class='btn'>加入</a>
+                <a href="#" class='btn'>邀请</a>
+                <a href="#" class='btna'>管理</a><br /><br />
+                <a href="#" class='btn btnw24'><span class='btnarror'></span>已加入|退出</a>
+            </div>
+
+            <div class="component">
+            <h3>新成员<span class='separator'> · · · · · ·</span><a class='arr'>更多</a></h3>
+            <ul class="slist">
+                <li>
+                        <a href="#"><img class="img48" src="/usersimg/1.png" alt="img" /></a>
+                    <div class="gray">
+                        GEEK POWER
+                    </div>
+                </li>
+                <li class="">
+                        <a href="#"><img class="img48" src="/usersimg/sago.jpg" alt="img" /></a>
+                    <div class="gray">
+                        公司秘书丝袜
+                    </div>
+                </li>
+
+                <li class="end">
+                        <a href="#"><img class="img48" src="/usersimg/7.png" alt="img" /></a>
+                    <div class="gray">
+                        有木有！！～
+                    </div>
+                </li>
+                <li class="">
+                        <a href="#"><img class="img48" src="/usersimg/sago.jpg" alt="img" /></a>
+                    <div class="gray">
+                        公司秘书丝袜
+                    </div>
+                </li>
+                <li>
+                        <a href="#"><img class="img48" src="/usersimg/4.png" alt="img" /></a>
+                    <div class="gray">
+                        波多野结衣
+                    </div>
+                </li>
+                <li class='end'>
+                        <a href="#"><img class="img48" src="/usersimg/1.png" alt="img" /></a>
+                    <div class="gray">
+                        波多野结衣
+                    </div>
+                </li>
+            </ul>
+            </div>
+
+        </div>
+    </div>

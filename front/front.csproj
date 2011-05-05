@@ -172,6 +172,7 @@
     <Content Include="content\images\fancy_closebox.png" />
     <Content Include="content\images\fancy_left.png" />
     <Content Include="content\images\gotop.gif" />
+    <Content Include="content\images\index.png" />
     <Content Include="content\images\resize.png" />
     <Content Include="content\images\star.gif" />
     <Content Include="content\images\star2.gif" />
@@ -180,6 +181,8 @@
     <Content Include="content\images\tips\DocumentText.png" />
     <Content Include="content\images\tips\DocumentTextG.png" />
     <Content Include="content\images\tips\Exclamation.png" />
+    <Content Include="content\images\tips\fav.png" />
+    <Content Include="content\images\tips\fav_h.png" />
     <Content Include="content\images\tips\h-navigate-exit.png" />
     <Content Include="content\images\tips\h-navigate.png" />
     <Content Include="content\images\tips\Home.png" />
@@ -243,6 +246,7 @@
     <Content Include="content\base.css" />
     <Content Include="content\token-input.css" />
     <Content Include="content\slider.css" />
+    <Content Include="content\step.css" />
     <Content Include="demo\resize.htm" />
     <Content Include="Global.asax" />
     <Content Include="demo\backbone-min.js" />
@@ -264,6 +268,8 @@
     <Content Include="scripts\app\text.js" />
     <Content Include="scripts\app\viedo.js" />
     <Content Include="scripts\backbone.js" />
+    <Content Include="scripts\chinaarea.js" />
+    <Content Include="scripts\chinaareaLocation.js" />
     <Content Include="scripts\global.js" />
     <Content Include="scripts\ICanHaz.js" />
     <Content Include="scripts\jq.bgiframe.js" />
@@ -392,14 +398,14 @@
     <Content Include="resources\seajs-v0.9.0pre.zip" />
     <Content Include="Views\qcomcn\Layout.cshtml" />
     <Content Include="Views\qcomcn\model\NavLeft.cshtml" />
-    <Content Include="Views\qcomcn\GroupCate.cshtml" />
+    <Content Include="Views\qcomcn\group\GroupCate.cshtml" />
     <Content Include="Views\qcomcn\message\MsgSend.cshtml" />
     <Content Include="Views\qcomcn\message\Autocomplate.cshtml" />
     <Content Include="resources\loopj-jquery-tokeninput-jquery-tokeninput-1.4.2-0-g6e9dd33.zip" />
     <Content Include="Views\qcomcn\message\MsgInbox.cshtml" />
     <Content Include="Views\qcomcn\model\InputMain.cshtml" />
     <Content Include="Views\qcomcn\AtMe.cshtml" />
-    <Content Include="Views\qcomcn\Group.cshtml" />
+    <Content Include="Views\qcomcn\group\Group.cshtml" />
     <Content Include="Views\qcomcn\message\MsgItem.cshtml" />
     <Content Include="Views\qcomcn\Fav.cshtml" />
     <Content Include="Views\qcomcn\Friends.cshtml" />
@@ -411,6 +417,13 @@
     <Content Include="Views\qcomcn\search\SearchWeibo.cshtml" />
     <Content Include="Views\qcomcn\search\SearchGroup.cshtml" />
     <Content Include="Views\qcomcn\SignIn.cshtml" />
+    <Content Include="Views\qcomcn\SignUp.cshtml" />
+    <Content Include="Views\qcomcn\Setting.cshtml" />
+    <Content Include="Views\qcomcn\group\GroupNew.cshtml" />
+    <Content Include="Views\qcomcn\model\UserList.cshtml" />
+    <Content Include="Views\qcomcn\group\GroupMember.cshtml">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

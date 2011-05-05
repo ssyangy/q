@@ -31,13 +31,13 @@ li.streambox .bd .text{font-size: 14px;color: #333;line-height: 19px;word-wrap: 
 .attach p {line-height: 1.2;margin: 2px 0;word-wrap: break-word;}
 .attach .attimg{float:left;margin: 0 10px 0 0;vertical-align:top;position: relative;width:160px;}
 li.streambox .fd{position:relative;padding:0 120px 0 20px;height:13px;line-height:13px;color:#999;text-align:right;}
-li.streambox .fd span.time{position:absolute;left:58px;bottom:0;}
+li.streambox .fd span.stat{position:absolute;left:58px;bottom:0;}
 li.streambox .fd b.twarrow{position:absolute;left:0;bottom:0;width:13px;height:13px;background:url('/content/images/arrow/tweetarrow.png') no-repeat;display:none;}
 li.streambox.hover .fd b.twarrow{display:block;}
 li.streambox .fd b.cloarrow{position:absolute;right:0;bottom:0;width:13px;height:13px;background:url('/content/images/tips/stop.png') no-repeat;display:none;}
 li.streambox.hover .fd b.cloarrow{display:block;}
 li.streambox.hover .fd b.cloarrow:hover{background-image:url('/content/images/tips/stop_h.png')}
-li.streambox .fd a{visibility:hidden;}
+li.streambox .fd a.png{visibility:hidden;}
 li.streambox.hover .fd a{visibility:inherit;}
 li.streambox .repmod{border:1px solid #ddd;padding:5px;margin-bottom:10px;}
 

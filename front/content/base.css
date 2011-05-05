@@ -172,6 +172,8 @@ a.replay{cursor:pointer;color:#009bee;background:url(/content/images/tips/replay
 a.replay:hover{color:#F2F3F8;background:#009bee url(/content/images/tips/replay_hov.png) no-repeat scroll 2px center;}
 a.resub{cursor:pointer;color:#009bee;background:url(/content/images/tips/resub.png) no-repeat scroll 2px center;padding:0 2px 0 16px;}
 a.resub:hover{color:#F2F3F8;background:#009bee url(/content/images/tips/resub_hov.png) no-repeat scroll 2px center;}
+a.fav{cursor:pointer;color:#009bee;background:url(/content/images/tips/fav.png) no-repeat scroll 2px center;padding:0 2px 0 16px;}
+a.fav:hover{color:#F2F3F8;background:#009bee url(/content/images/tips/fav_h.png) no-repeat scroll 2px center;}
 a.lk2{cursor:pointer;}
 a.lk2:hover{text-decoration:underline;color:#88A825}
 a.lk3{cursor:pointer;color:#88A825}

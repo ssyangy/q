@@ -11,12 +11,22 @@ namespace front.Controllers
         public ActionResult Group()
         {
             ViewBag.Message = "Welcome to Qcomcn!";
-            return View();
+            return View("~/views/qcomcn/group/Group.cshtml");
         }
         public ActionResult GroupCate()
         {
             ViewBag.Message = "Welcome to Qcomcn!";
-            return View();
+            return View("~/views/qcomcn/group/GroupCate.cshtml");
+        }
+        public ActionResult GroupMember()
+        {
+            ViewBag.Message = "Welcome to Qcomcn!";
+            return View("~/views/qcomcn/group/GroupMember.cshtml");
+        }
+        public ActionResult GroupNew()
+        {
+            ViewBag.Message = "Welcome to Qcomcn!";
+            return View("~/views/qcomcn/group/GroupNew.cshtml");
         }
         public ActionResult AtMe()
         {
