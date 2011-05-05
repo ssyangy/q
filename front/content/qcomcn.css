@@ -57,7 +57,7 @@ ul.slist li.end{margin-right:0;}
 
 ul.msglist span.time{position:absolute;left:100px;top:0;color:#B2B7B5}
 ul.msglist span.act{position:absolute;right:0;top:10px;}
-ul.msglist li{cursor:pointer;border-bottom:1px solid #ddd;padding:10px 40px 10px 68px;position:relative;}
+ul.msglist li{cursor:pointer;border-bottom:1px solid #ddd;padding:10px 40px 10px 68px;position:relative;zoom:1;}
 ul.msglist li.end{border-bottom:none 0;}
 ul.msglist img.sldimg{position:absolute;top:10px;left:10px;}
 ul.msglist p{line-height:24px;color:#333;}
