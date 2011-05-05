@@ -25,10 +25,10 @@
                 $(".access_" + btnid).click();
             }
         });
-        $('.search_inp').focus(function () {
-            $(this).next('.search_btn').addClass('typing');
+        $('input.search_inp').focus(function () {
+            $(this).next('input.search_btn').addClass('typing');
         }).blur(function () {
-            $(this).next('.search_btn').removeClass('typing');
+            $(this).next('input.search_btn').removeClass('typing');
         });
 
         $('#btnnote').click(function () {

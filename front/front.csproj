@@ -338,6 +338,7 @@
     <Content Include="scripts\config.js" />
     <Content Include="demo\Todos.htm" />
     <Content Include="scripts\datediff.js" />
+    <Content Include="scripts\jq.dotimeout.js" />
     <Content Include="usersimg\1.png" />
     <Content Include="usersimg\2.png" />
     <Content Include="usersimg\3.png" />
@@ -400,7 +401,6 @@
     <Content Include="Views\qcomcn\model\NavLeft.cshtml" />
     <Content Include="Views\qcomcn\group\GroupCate.cshtml" />
     <Content Include="Views\qcomcn\message\MsgSend.cshtml" />
-    <Content Include="Views\qcomcn\message\Autocomplate.cshtml" />
     <Content Include="resources\loopj-jquery-tokeninput-jquery-tokeninput-1.4.2-0-g6e9dd33.zip" />
     <Content Include="Views\qcomcn\message\MsgInbox.cshtml" />
     <Content Include="Views\qcomcn\model\InputMain.cshtml" />
