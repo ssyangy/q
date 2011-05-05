@@ -2,28 +2,89 @@
     ViewBag.Title = "send";
     Layout = "~/Views/qcomcn/Layout.cshtml";
 }
+<link href="@Url.Content("~/content/token-input.css")" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     seajs.use('qcomcn.js', function (qcomcn) {
+        seajs.use('jq.tokeninput.js');
+        seajs.use('jq.dotimeout.js');
         var $ = qcomcn.jq;
-
+        var ffs = [
+                { id: 7, name: "Ruby", value: "Ruby" },
+                { id: 11, name: "Python", value: "Python" },
+                { id: 13, name: "JavaScript", value: "JavaScript" },
+                { id: 17, name: "ActionScript", value: "ActionScript" },
+                { id: 19, name: "Scheme", value: "Scheme" },
+                { id: 23, name: "Lisp", value: "Lisp" },
+                { id: 31, name: "Fortran", value: "Fortran" },
+                { id: 37, name: "VisualBasic", value: "VisualBasic" },
+                { id: 47, name: "Java", value: "Java" },
+                { id: 47, name: "金梓成", value: "jzc jinzicheng" },
+                { id: 222, name: "螃蟹舞步", value: "pang xie wu bu" },
+                { id: 111, name: "allen", value: "allen" }
+            ];
         $(function () {
             qcomcn.Init();
+            $("#members").buttonset();
+            $("#autocom").tokenInput(ffs, { hintText: "输入好友姓名 ... ", onAdd: tokeAdd, onDelete: tokeDel });
+            $('#members').click(function (e) {
+                var tarname = $(e.target).get(0).tagName;
+                if (tarname == 'SPAN') {
+                    var pre = [];
+                    $("label.ui-state-active", this).each(function () {
+                        var ck = $(this).prev("input[type='checkbox']");
+                        pre.push({ id: ck.val(), name: ck.attr('name') });
+                    });
+                    $('ul.token-input-list').remove();
+                    $("#autocom").tokenInput(ffs, { hintText: "输入好友姓名 ... ", prePopulate: pre, onAdd: tokeAdd, onDelete: tokeDel });
+                }
+            });
+            $('#submit').click(function () {
+                alert($("#autocom").val());
+            });
         });
+        var tokeAdd = function (item) {
+            var ck = $("input[type='checkbox'][value='" + item.id + "']");
+            if (!ck.is(':checked')) {
+                $("label[for='" + ck.attr('id') + "']").click();
+            }
+        }
+        var tokeDel = function (item) {
+            var ck = $("input[type='checkbox'][value='" + item.id + "']");
+            if (ck.is(':checked')) {
+                $("label[for='" + ck.attr('id') + "']").click();
+            }
+        }
     });
+
 </script>
 <h2 class='mb20'>发私信</h2>
-<div class="layout grid-m0s7">
+<div class="layout grid-m0s9">
     <div class="col-main"><div class="main-wrap">
         <p>收信人：</p>
-        @Html.Partial("message/Autocomplate", "100%")
+        <input type="text" id="autocom" name="blah" class='mttext' style="width:100%;" />
         <p class="mt20">你想说的：</p>
-        <p><textarea class="mttextar_val" style="width:600px;height:200px;">我想你了 . . .</textarea></p>
+        <p><textarea class="mttextar_val" style="width:600px;height:200px;">哥想你了 . . . . . .</textarea></p>
         <p style="width:600px;margin-top:5px;">
-            <input type="button" name="name" value="发送" class='btn FL' />
+            <input id="submit" type="button" name="name" value="发送" class='btn FL' />
             <a class="lk f14 FR">取消</a>
         </p>
     </div></div>
     <div class="col-sub">
-        
+        <div style="padding:10px;border:1px solid #ddd;background-color:#fefefe;">
+        <h4>点击选择私信的对象，可多人：</h4>
+        <div id="members">
+	        <input type="checkbox" id="check1" value="111" name="allen" /><label for="check1">allen</label>
+	        <input type="checkbox" id="check2" value="222" name="螃蟹舞步" /><label for="check2">螃蟹舞步</label>
+@*	        <input type="checkbox" id="check3" value="111" name="allen"  /><label for="check3">zxcacsf</label>
+	        <input type="checkbox" id="check4" value="111" name="allen"  /><label for="check4">科比</label>
+	        <input type="checkbox" id="check5" value="111" name="allen"  /><label for="check5">你太阳</label>
+	        <input type="checkbox" id="check6" value="111" name="allen"  /><label for="check6">黄家驹</label>
+	        <input type="checkbox" id="check7" value="111" name="allen"  /><label for="check7">zicjin</label>
+	        <input type="checkbox" id="check8" /><label for="check8">东邪西毒</label>
+	        <input type="checkbox" id="check9" /><label for="check9">妹妹</label>
+	        <input type="checkbox" id="check10" /><label for="check10">螃蟹舞步</label>
+	        <input type="checkbox" id="check11" /><label for="check11">勒布朗*詹姆斯</label>*@
+        </div>
+        </div>
     </div>
 </div>
