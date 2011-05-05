@@ -459,7 +459,11 @@ public class StringKit {
 	 * @since 2.0
 	 */
 	public static String[] split(String str, char separatorChar) {
-		return splitWorker(str, separatorChar, false);
+		return splitWorker(str, separatorChar, -1, false);
+	}
+
+	public static String[] split(String str, char separatorChar, int max) {
+		return splitWorker(str, separatorChar, max, false);
 	}
 
 	/**
@@ -473,7 +477,7 @@ public class StringKit {
 	 *            if <code>true</code>, adjacent separators are treated as empty token separators; if <code>false</code>, adjacent separators are treated as one separator.
 	 * @return an array of parsed Strings, <code>null</code> if null String input
 	 */
-	private static String[] splitWorker(String str, char separatorChar, boolean preserveAllTokens) {
+	private static String[] splitWorker(String str, char separatorChar, int max, boolean preserveAllTokens) {
 		// Performance tuned for 2.0 (JDK1.4)
 
 		if (str == null) {
@@ -484,12 +488,17 @@ public class StringKit {
 			return ArrayKit.EMPTY_STRING_ARRAY;
 		}
 		List<String> list = new ArrayList<String>();
-		int i = 0, start = 0;
+		int i = 0, start = 0, tokenTimes = 0;
 		boolean match = false;
 		boolean lastMatch = false;
 		while (i < len) {
 			if (str.charAt(i) == separatorChar) {
 				if (match || preserveAllTokens) {
+					tokenTimes++;
+					if (tokenTimes == max) {
+						i = len;
+						break;
+					}
 					list.add(str.substring(start, i));
 					match = false;
 					lastMatch = true;

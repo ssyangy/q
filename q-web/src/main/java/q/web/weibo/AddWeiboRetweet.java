@@ -3,9 +3,7 @@
  */
 package q.web.weibo;
 
-import q.biz.SearchService;
-import q.biz.ShortUrlService;
-import q.dao.PeopleDao;
+import q.biz.WeiboService;
 import q.dao.WeiboDao;
 import q.domain.Weibo;
 import q.domain.WeiboFromType;
@@ -27,23 +25,11 @@ public class AddWeiboRetweet extends Resource {
 	public void setWeiboDao(WeiboDao weiboDao) {
 		this.weiboDao = weiboDao;
 	}
-	
-	private PeopleDao peopleDao;
 
-	public void setPeopleDao(PeopleDao peopleDao) {
-		this.peopleDao = peopleDao;
-	}
+	private WeiboService weiboService;
 
-	private SearchService searchService;
-
-	public void setSearchService(SearchService searchService) {
-		this.searchService = searchService;
-	}
-
-	private ShortUrlService shortUrlService;
-
-	public void setShortUrlService(ShortUrlService shortUrlService) {
-		this.shortUrlService = shortUrlService;
+	public void setWeiboService(WeiboService weiboService) {
+		this.weiboService = weiboService;
 	}
 
 	/*
@@ -68,29 +54,24 @@ public class AddWeiboRetweet extends Resource {
 		retweet.setQuoteSenderId(father.getQuoteSenderId() == 0 ? father.getSenderId() : father.getQuoteSenderId());
 		retweet.setReplyWeiboId(father.getId());
 		retweet.setReplySenderId(father.getSenderId());
-		content = this.shortUrlService.urlFilter(content);
 		retweet.setContent(content);
 		WeiboJoinGroup join = weiboDao.getWeiboJoinGroupByWeiboId(father.getId());
 		if (join != null && join.isValid()) {
 			retweet.setFromType(WeiboFromType.GROUP);
 			retweet.setFromId(join.getGroupId());
 		}
-		
-		this.weiboDao.addWeibo(retweet);
-		this.peopleDao.incrPeopleWeiboNumberByPeopleId(senderId);
-		this.weiboDao.incrWeiboRetweetNumByWeiboId(retweet.getQuoteWeiboId());
-		
-		//FIXME sean will remove
-		searchService.updateWeibo(retweet);
+
+		this.weiboService.addWeiboRetweet(retweet, -1);
+
 		if (from != null) {
 			context.redirectContextPath(from);
 		}
 	}
 
 	@Override
-	public void validate(ResourceContext context) throws Exception{
+	public void validate(ResourceContext context) throws Exception {
 		long quoteId = context.getResourceIdLong();
-		if(IdCreator.isNotValidId(quoteId)) {
+		if (IdCreator.isNotValidId(quoteId)) {
 			throw new RequestParameterInvalidException("weibo:invalid");
 		}
 	}

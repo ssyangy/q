@@ -473,10 +473,7 @@
 
 	<!-- weibo web -->
 	<bean id="addWeibo" class="q.web.weibo.AddWeibo">
-		<property name="weiboDao" ref="weiboDao" />
-		<property name="peopleDao" ref="peopleDao" />
-		<property name="searchService" ref="searchService"></property>
-		<property name="shortUrlService" ref="shortUrlService"></property>
+		<property name="weiboService" ref="weiboService"></property>
 		<property name="pictureService" ref="pictureService"></property>
 	</bean>
 	<bean id="deleteWeibo" class="q.web.weibo.DeleteWeibo">
@@ -494,7 +491,7 @@
 	</bean>
 	<bean id="addWeiboReply" class="q.web.weibo.AddWeiboReply">
 		<property name="weiboDao" ref="weiboDao" />
-		<property name="shortUrlService" ref="shortUrlService" />
+		<property name="weiboService" ref="weiboService" />
 	</bean>
 	<bean id="deleteWeiboReply" class="q.web.weibo.DeleteWeibo">
 		<property name="weiboDao" ref="weiboDao" />
@@ -510,9 +507,7 @@
 	</bean>
 	<bean id="addWeiboRetweet" class="q.web.weibo.AddWeiboRetweet">
 		<property name="weiboDao" ref="weiboDao" />
-		<property name="peopleDao" ref="peopleDao" />
-		<property name="searchService" ref="searchService"></property>
-		<property name="shortUrlService" ref="shortUrlService" />
+		<property name="weiboService" ref="weiboService"></property>
 	</bean>
 	<bean id="getReplyRetweet" class="q.web.weibo.GetReplyRetweet">
 		<property name="weiboDao" ref="weiboDao" />
@@ -521,8 +516,7 @@
 	</bean>
 	<bean id="addReplyRetweet" class="q.web.weibo.AddReplyRetweet">
 		<property name="weiboDao" ref="weiboDao" />
-		<property name="peopleDao" ref="peopleDao" />
-		<property name="searchService" ref="searchService"></property>
+		<property name="weiboService" ref="weiboService"></property>
 	</bean>
 
 	<!-- favorite web -->

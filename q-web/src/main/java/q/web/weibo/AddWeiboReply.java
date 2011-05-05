@@ -3,7 +3,7 @@
  */
 package q.web.weibo;
 
-import q.biz.ShortUrlService;
+import q.biz.WeiboService;
 import q.dao.WeiboDao;
 import q.domain.Weibo;
 import q.domain.WeiboFromType;
@@ -27,10 +27,10 @@ public class AddWeiboReply extends Resource {
 		this.weiboDao = weiboDao;
 	}
 
-	private ShortUrlService shortUrlService;
-
-	public void setShortUrlService(ShortUrlService shortUrlService) {
-		this.shortUrlService = shortUrlService;
+	private WeiboService weiboService;
+	
+	public void setWeiboService(WeiboService weiboService) {
+		this.weiboService = weiboService;
 	}
 
 	/*
@@ -59,7 +59,6 @@ public class AddWeiboReply extends Resource {
 			reply.setReplySenderId(replied.getReplySenderId());
 		}
 		reply.setSenderId(senderId);
-		content = this.shortUrlService.urlFilter(content);
 		reply.setContent(content);
 		WeiboJoinGroup join = weiboDao.getWeiboJoinGroupByWeiboId(quote.getId());
 		if (join != null && join.isValid()) {
@@ -67,8 +66,7 @@ public class AddWeiboReply extends Resource {
 			reply.setFromId(join.getGroupId());
 		}
 
-		this.weiboDao.addWeiboReply(reply);
-		this.weiboDao.incrWeiboReplyNumByReplyId(reply.getQuoteWeiboId());
+		this.weiboService.addWeiboReply(reply);
 
 		String from = context.getString("from");
 		if (from != null) {

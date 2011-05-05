@@ -3,8 +3,7 @@
  */
 package q.web.weibo;
 
-import q.biz.SearchService;
-import q.dao.PeopleDao;
+import q.biz.WeiboService;
 import q.dao.WeiboDao;
 import q.domain.Weibo;
 import q.domain.WeiboFromType;
@@ -26,16 +25,10 @@ public class AddReplyRetweet extends Resource {
 		this.weiboDao = weiboDao;
 	}
 
-	private SearchService searchService;
+	private WeiboService weiboService;
 
-	public void setSearchService(SearchService searchService) {
-		this.searchService = searchService;
-	}
-
-	private PeopleDao peopleDao;
-
-	public void setPeopleDao(PeopleDao peopleDao) {
-		this.peopleDao = peopleDao;
+	public void setWeiboService(WeiboService weiboService) {
+		this.weiboService = weiboService;
 	}
 
 	/*
@@ -48,7 +41,6 @@ public class AddReplyRetweet extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long senderId = context.getCookiePeopleId();
 		String content = context.getString("content");
-		String from = context.getString("from");
 
 		WeiboReply father = weiboDao.getWeiboReplyById(context.getResourceIdLong());
 		if (father == null) {
@@ -67,16 +59,12 @@ public class AddReplyRetweet extends Resource {
 			retweet.setFromType(WeiboFromType.GROUP);
 			retweet.setFromId(join.getGroupId());
 		}
-		this.weiboDao.addWeibo(retweet);
-		this.peopleDao.incrPeopleWeiboNumberByPeopleId(senderId);
 
-		// FIXME sean
-		searchService.updateWeibo(retweet);
+		this.weiboService.addReplyRetweet(retweet, -1);
 
+		String from = context.getString("from");
 		if (from != null) {
 			context.redirectContextPath(from);
-		} else {
-			context.redirectServletPath("/weibo/" + retweet.getId());
 		}
 	}
 

@@ -154,7 +154,7 @@ public interface WeiboDao {
 
 	/**
 	 * @param quoteWeiboId
-	 * @return 
+	 * @return The number of rows effected.
 	 */
 	int incrWeiboReplyNumByReplyId(long quoteWeiboId) throws SQLException;
 

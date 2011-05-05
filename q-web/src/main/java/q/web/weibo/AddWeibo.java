@@ -4,10 +4,7 @@
 package q.web.weibo;
 
 import q.biz.PictureService;
-import q.biz.SearchService;
-import q.biz.ShortUrlService;
-import q.dao.PeopleDao;
-import q.dao.WeiboDao;
+import q.biz.WeiboService;
 import q.domain.Status;
 import q.domain.Weibo;
 import q.domain.WeiboFromType;
@@ -25,34 +22,16 @@ import q.web.exception.RequestParameterInvalidException;
  *
  */
 public class AddWeibo extends Resource {
-	private WeiboDao weiboDao;
-
-	public void setWeiboDao(WeiboDao weiboDao) {
-		this.weiboDao = weiboDao;
-	}
-
-	private PeopleDao peopleDao;
-
-	public void setPeopleDao(PeopleDao peopleDao) {
-		this.peopleDao = peopleDao;
-	}
-
-	private SearchService searchService;
-
-	public void setSearchService(SearchService searchService) {
-		this.searchService = searchService;
-	}
-
 	private PictureService pictureService;
 
 	public void setPictureService(PictureService pictureService) {
 		this.pictureService = pictureService;
 	}
 
-	private ShortUrlService shortUrlService;
-
-	public void setShortUrlService(ShortUrlService shortUrlService) {
-		this.shortUrlService = shortUrlService;
+	private WeiboService weiboService;
+	
+	public void setWeiboService(WeiboService weiboService) {
+		this.weiboService = weiboService;
 	}
 
 	/*
@@ -67,7 +46,6 @@ public class AddWeibo extends Resource {
 		long senderId = context.getCookiePeopleId();
 		weibo.setSenderId(senderId);
 		String content = context.getString("content");
-		content = this.shortUrlService.urlFilter(content);
 		weibo.setContent(content);
 		String picturePath = context.getString("picPath");
 		if (StringKit.isNotEmpty(picturePath)) {
@@ -82,16 +60,9 @@ public class AddWeibo extends Resource {
 			weibo.setLatitude(Double.parseDouble(context.getString("latitude")));
 			weibo.setLongitude(Double.parseDouble(context.getString("longitude")));
 		}
-		this.weiboDao.addWeibo(weibo);
-		this.peopleDao.incrPeopleWeiboNumberByPeopleId(senderId);
-
-		if (IdCreator.isValidIds(groupId)) {
-			this.weiboDao.addWeiboJoinGroup(weibo.getId(), weibo.getSenderId(), groupId);
-		}
-
-		//FIXME will remove here, sean
-		searchService.updateWeibo(weibo);
-
+		
+		this.weiboService.addWeibo(weibo, groupId);
+		
 		String upimgfix = context.getString("upimgfix");
 		if (StringKit.isNotEmpty(upimgfix)) {
 			int fix = Integer.parseInt(upimgfix);

@@ -13,6 +13,18 @@
 		<property name="putShortUrl" value="${q.short.upload.url}" />
 		<property name="getShortUrl" value="${q.short.url}" />
 	</bean>
-
+	<bean id="notifyService" class="q.biz.impl.DefaultNotifyService"
+		init-method="init">
+		<property name="pubHost" value="${q.push.pub.host}" />
+		<property name="pubPort" value="${q.push.pub.port}" />
+		<property name="pubTimeout" value="${q.push.pub.timeout}" />
+	</bean>
+	<bean id="weiboService" class="q.biz.impl.DefaultWeiboService">
+		<property name="notifyService" ref="notifyService" />
+		<property name="searchService" ref="searchService" />
+		<property name="shortUrlService" ref="shortUrlService" />
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
 
 </beans>
