@@ -214,6 +214,24 @@
 							</key>
 							<value>/WEB-INF/json/message-list.xml</value>
 						</entry>
+						<entry>
+							<key>
+								<value>getPeopleFollower:peoples</value>
+							</key>
+							<value>/WEB-INF/json/people-list.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>getPeopleFollowing:peoples</value>
+							</key>
+							<value>/WEB-INF/json/people-list.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>getPeopleFull:people</value>
+							</key>
+							<value>/WEB-INF/json/people.xml</value>
+						</entry>
 					</map>
 				</property>
 			</bean>
@@ -561,6 +579,7 @@
 	</bean>
 	<bean id="getMessage" class="q.web.message.GetMessage">
 		<property name="messageDao" ref="messageDao" />
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 
 	<!-- auth web -->
