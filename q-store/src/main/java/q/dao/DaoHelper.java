@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.dao;
 
@@ -16,6 +16,7 @@ import q.domain.Event;
 import q.domain.Favorite;
 import q.domain.Group;
 import q.domain.Message;
+import q.domain.MessageReply;
 import q.domain.People;
 import q.domain.PeopleJoinEvent;
 import q.domain.PeopleRelation;
@@ -28,7 +29,7 @@ import q.util.CollectionKit;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 22, 2011
- * 
+ *
  */
 public class DaoHelper {
 
@@ -247,7 +248,22 @@ public class DaoHelper {
 		}
 		return peopleMap;
 	}
-
+	public static void injectMessageRepliesWithSenderAndReceivers(PeopleDao peopleDao, List<MessageReply> replies) throws SQLException {
+		if (!CollectionKit.isEmpty(replies)) {
+			ArrayList<Long> peopleIds = new ArrayList<Long>(); // people number is less than messages count + 1
+			for (MessageReply message : replies) {
+				peopleIds.add(message.getSenderId());
+			}
+		List<People> peoples = peopleDao.getPeoplesByIds(peopleIds);
+		if (!CollectionKit.isEmpty(peoples)) {
+			Map<Long, People> peopleMap = convertToMap(peoples);
+			for (int i=0;i<replies.size();i++) {
+				MessageReply message=replies.get(i);
+				message.setSender(peopleMap.get(message.getSenderId()));
+			}
+		}
+		}
+	}
 	/**
 	 * @param peopleDao
 	 * @param events
