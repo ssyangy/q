@@ -49,7 +49,10 @@ public class DefaultNotifyService implements NotifyService {
 	@Override
 	public void notifyWeiboReply(WeiboReply reply) {
 		try {
-			pubJedis.publish("weiboReply", reply.getQuoteSenderId() + " " + reply.getContent());
+			Long rs = pubJedis.publish("weiboReply", reply.getQuoteSenderId() + " " + reply.getContent());
+			if (log.isDebugEnabled()) {
+				log.debug("rs:" + rs);
+			}
 		} catch (Exception e) {
 			log.error("", e);
 		}
@@ -63,9 +66,9 @@ public class DefaultNotifyService implements NotifyService {
 	@Override
 	public void notifyWeibo(Weibo weibo) {
 		try {
-			Integer reply = pubJedis.publish("weibo", weibo.getSenderId() + " " + weibo.getContent());
-			if(log.isDebugEnabled()) {
-				log.debug("reply:" + reply);
+			Long rs = pubJedis.publish("weibo", weibo.getSenderId() + " " + weibo.getContent());
+			if (log.isDebugEnabled()) {
+				log.debug("rs:" + rs);
 			}
 		} catch (Exception e) {
 			log.error("", e);
