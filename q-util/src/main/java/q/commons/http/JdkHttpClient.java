@@ -1,7 +1,7 @@
 /**
  *
  */
-package q.http;
+package q.commons.http;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;

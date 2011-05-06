@@ -1,4 +1,4 @@
-package q.util;
+package q.commons.image;
 
 import java.awt.Graphics;
 import java.awt.Image;

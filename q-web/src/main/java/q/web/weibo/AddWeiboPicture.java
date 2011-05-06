@@ -11,7 +11,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import q.biz.PictureService;
-import q.util.ImageKit;
+import q.commons.image.ImageKit;
 import q.web.DefaultResourceContext;
 import q.web.Resource;
 import q.web.ResourceContext;

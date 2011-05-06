@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import q.biz.PictureService;
-import q.http.JdkHttpClient;
+import q.commons.http.JdkHttpClient;
+import q.commons.image.ImageKit;
 import q.util.IdCreator;
-import q.util.ImageKit;
 
 public class DefaultPictureService implements PictureService {
 	private String imageUrl;

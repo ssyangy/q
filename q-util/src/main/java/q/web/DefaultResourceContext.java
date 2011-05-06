@@ -24,9 +24,9 @@ public class DefaultResourceContext implements ResourceContext {
 	private final HttpServletRequest request;
 	private final HttpServletResponse response;
 	private String[] paths;
-	
+
 	private String contextPath;
-	
+
 	public String getContextPath() {
 		return contextPath;
 	}
@@ -247,6 +247,8 @@ public class DefaultResourceContext implements ResourceContext {
 
 	private ErrorCodeException errorCodeException;
 
+	private String urlPrefix;
+
 	@Override
 	public void emptyView() {
 		this.isEmptyView = true;
@@ -295,6 +297,18 @@ public class DefaultResourceContext implements ResourceContext {
 			isApi = true;
 		}
 		return isApi;
+	}
+
+	/**
+	 * @param urlPrefix
+	 */
+	public void setUrlPrefix(String urlPrefix) {
+		this.urlPrefix = urlPrefix;
+	}
+
+	@Override
+	public String getUrlPrefix() {
+		return this.urlPrefix;
 	}
 
 }

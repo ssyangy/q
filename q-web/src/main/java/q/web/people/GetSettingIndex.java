@@ -1,7 +1,7 @@
 /**
  * 
  */
-package q.web.setting;
+package q.web.people;
 
 import q.web.Resource;
 import q.web.ResourceContext;

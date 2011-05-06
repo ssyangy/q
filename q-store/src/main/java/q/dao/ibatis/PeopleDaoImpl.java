@@ -201,13 +201,15 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 	public int decrPeopleWeiboNumberByPeopleId(long senderId) throws SQLException {
 		return this.sqlMapClient.update("decrPeopleWeiboNumberByPeopleId", senderId);
 	}
-	
+
 	@Override
 	public int incrPeopleWeiboNumberByPeopleId(long senderId) throws SQLException {
 		return this.sqlMapClient.update("incrPeopleWeiboNumberByPeopleId", senderId);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.dao.PeopleDao#incrPeopleFollowingNumberByPeopleId(long)
 	 */
 	@Override
@@ -215,7 +217,9 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 		return this.sqlMapClient.update("incrPeopleFollowingNumberByPeopleId", peopleId);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.dao.PeopleDao#incrPeopleFollowerNumberByPeopleId(long)
 	 */
 	@Override
@@ -223,7 +227,9 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 		return this.sqlMapClient.update("incrPeopleFollowerNumberByPeopleId", peopleId);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.dao.PeopleDao#decrPeopleFollowingNumberByPeopleId(long)
 	 */
 	@Override
@@ -231,12 +237,27 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 		return this.sqlMapClient.update("decrPeopleFollowingNumberByPeopleId", peopleId);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.dao.PeopleDao#decrPeopleFollowerNumberByPeopleId(long)
 	 */
 	@Override
 	public int decrPeopleFollowerNumberByPeopleId(long peopleId) throws SQLException {
-		return this.sqlMapClient.update("decrPeopleFollowerNumberByPeopleId", peopleId);		
+		return this.sqlMapClient.update("decrPeopleFollowerNumberByPeopleId", peopleId);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see q.dao.PeopleDao#updatePassword(java.lang.String)
+	 */
+	@Override
+	public int updatePasswordByPeopleId(long peopleId, String newPassword) throws SQLException {
+		People p = new People();
+		p.setId(peopleId);
+		p.setPassword(newPassword);
+		return this.sqlMapClient.update("updatePasswordByPeopleId", p);
 	}
 
 }

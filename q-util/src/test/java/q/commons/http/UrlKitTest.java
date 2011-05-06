@@ -1,7 +1,7 @@
 /**
  *
  */
-package q.util;
+package q.commons.http;
 
 import static org.junit.Assert.*;
 
@@ -13,6 +13,9 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import q.commons.http.UrlKit;
+import q.util.Replace;
 
 /**
  * @author lin.wangl
@@ -49,7 +52,7 @@ public class UrlKitTest {
 	}
 
 	/**
-	 * Test method for {@link com.google.code.smallcrab.utils.UrlKit#extractParameterValue(java.lang.String, java.lang.String)} .
+	 * Test method for {@link q.commons.http.google.code.smallcrab.utils.UrlKit#extractParameterValue(java.lang.String, java.lang.String)} .
 	 */
 	@Test
 	public void testExtractParameterValue() {

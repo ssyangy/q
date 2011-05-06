@@ -1,7 +1,7 @@
 /**
  *
  */
-package q.util;
+package q.commons.http;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -14,7 +14,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import q.http.JdkHttpClient;
+import q.util.Replace;
+import q.util.StringKit;
 
 /**
  * @version 2008-7-27

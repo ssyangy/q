@@ -1,7 +1,7 @@
 /**
  *
  */
-package q.http;
+package q.commons.http;
 
 import java.io.BufferedReader;
 import java.io.IOException;

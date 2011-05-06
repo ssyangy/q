@@ -294,9 +294,6 @@
 		<property name="groupDao" ref="groupDao" />
 	</bean>
 
-	<!-- setting web -->
-	<bean id="getSettingIndex" class="q.web.setting.GetSettingIndex" />
-
 	<!-- people web -->
 	<bean id="getMineIndex" class="q.web.people.GetMineIndex" />
 	<bean id="getPeopleNew" class="q.web.people.GetPeopleNew">
@@ -357,6 +354,7 @@
 		<property name="groupDao" ref="groupDao" />
 		<property name="pictureService" ref="pictureService"></property>
 	</bean>
+
 	<!-- mobile service -->
 	<bean id="addPeopleQuick" class="q.web.people.AddPeopleQuick">
 		<property name="peopleDao" ref="peopleDao" />
@@ -364,7 +362,30 @@
 		<property name="searchService" ref="searchService"></property>
 		<property name="pictureService" ref="pictureService"></property>
 	</bean>
-	<!-- profile web -->
+
+	<!-- setting web -->
+	<bean id="getPasswordReset" class="q.web.people.GetPasswordReset">
+		<property name="cacheService" ref="cacheService" />
+	</bean>
+	<bean id="addPasswordReset" class="q.web.people.AddPasswordReset">
+		<property name="cacheService" ref="cacheService" />
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="addPasswordForget" class="q.web.people.AddPasswordForget">
+		<property name="mailService" ref="mailService" />
+		<property name="cacheService" ref="cacheService" />
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="getPasswordForget" class="q.web.people.GetPasswordForget">
+	</bean>
+	<bean id="getPasswordResetInvalid" class="q.web.people.GetPasswordResetInvalid">
+	</bean>
+	<bean id="getSettingIndex" class="q.web.people.GetSettingIndex" />
+	<bean id="getSettingBasic" class="q.web.people.GetSettingBasic">
+	</bean>
+	<bean id="addSetting" class="q.web.people.AddSetting">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
 	<bean id="getProfileBasic" class="q.web.people.GetProfileBasic">
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
@@ -585,14 +606,6 @@
 	<!-- auth web -->
 	<bean id="getAuthcodeNew" class="q.web.authcode.GetAuthcodeNew">
 		<property name="authcodeDao" ref="authcodeDao" />
-	</bean>
-
-	<!-- setting web -->
-	<bean id="getSettingBasic" class="q.web.people.GetSettingBasic">
-
-	</bean>
-	<bean id="addSetting" class="q.web.people.AddSetting">
-		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 
 	<!-- search web -->

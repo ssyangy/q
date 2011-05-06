@@ -180,4 +180,10 @@ public interface PeopleDao {
 	 */
 	int decrPeopleFollowerNumberByPeopleId(long toPeopleId) throws SQLException;
 
+	/**
+	 * @param peopleId TODO
+	 * @param newPassword
+	 */
+	int updatePasswordByPeopleId(long peopleId, String newPassword) throws SQLException;
+
 }
