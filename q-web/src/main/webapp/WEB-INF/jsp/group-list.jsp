@@ -7,7 +7,7 @@
 								<div class="name-line">
 									<div class="count">
 										<span>创建于${group.time}</span>
-										<span>${group.memberNum}人</span>
+										<span>${group.joinNum}人</span>
 									</div>
 									<div class="name">
 										<a href="${urlPrefix}/group/${group.id}">${group.name}</a>

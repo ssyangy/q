@@ -9,14 +9,7 @@
     <jsp:include page="head.jsp" />
     <jsp:include page="js-areas.jsp" />
 	<script type="text/javascript">
-var areas=${rootArea.childsJson};
-var selProvince;
-var selCity;
-var selCounty;
-var cities;
-var undifined;
-
-	   function checkrealName(a){
+	function checkrealName(a){
        if(a.length<1||a.length>12){
        $("#realNamecorrect").css("display","none");
        $("#realNamewrong").css("display","block");
@@ -28,7 +21,7 @@ var undifined;
       return true;
      }
      function checkUrl(a){
-     	  return true;//skip, TODO sean
+     	  return true;//skip next, TODO sean
           var url=/^http:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]':+!]*([^<>\"\"])*$/;
           if (!url.test(a)){
               $("#urlcorrect").css("display","none");
@@ -41,7 +34,7 @@ var undifined;
               $("#urlwrong").css("display","none");
            return true;
           }
-
+       return true;
      }
   function check() {
      var cr=checkrealName($("#realName").val());

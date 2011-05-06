@@ -1,5 +1,7 @@
 package q.util;
 
+import java.util.Arrays;
+
 import junit.framework.Assert;
 
 import org.apache.commons.lang.StringUtils;
@@ -42,10 +44,22 @@ public class StringKitTest {
 		end = System.currentTimeMillis();
 		System.out.println(end - start);
 	}
-	
+
 	@Test
 	public void testEscapeJson() {
 		Assert.assertEquals("\\\"", StringKit.escapeJson("\r\n\""));
+	}
+
+	@Test
+	public void testSplit() {
+		String[] items = StringKit.split("a b c", ' ');
+		Assert.assertTrue(Arrays.equals(items, new String[] { "a", "b", "c" }));
+	}
+
+	@Test
+	public void testSplitMax() {
+		String[] items = StringKit.split("a b c", ' ', 2);
+		Assert.assertEquals(Arrays.toString(new String[] { "a", "b c" }), Arrays.toString(items));
 	}
 
 	public static void main(String[] args) {

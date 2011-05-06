@@ -47,6 +47,46 @@ public abstract class WeiboModel extends AbstractDomain implements Serializable 
 
 	private String picturePath;
 
+	private int replyNum;
+
+	private int retweetNum;
+
+	private double latitude;
+
+	private double longitude;
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public int getReplyNum() {
+		return replyNum;
+	}
+
+	public void setReplyNum(int replyNum) {
+		this.replyNum = replyNum;
+	}
+
+	public int getRetweetNum() {
+		return retweetNum;
+	}
+
+	public void setRetweetNum(int retweetNum) {
+		this.retweetNum = retweetNum;
+	}
+
 	public String getPicturePath() {
 		return picturePath;
 	}
@@ -207,7 +247,7 @@ public abstract class WeiboModel extends AbstractDomain implements Serializable 
 
 	@Override
 	public String toString() {
-		return "Weibo [senderId=" + senderId + ", senderRealName=" + senderRealName + ", quoteWeiboId=" + quoteWeiboId + ", quoteSenderId=" + quoteSenderId + ", replyWeiboId=" + replyWeiboId + ", replySenderId=" + replySenderId + ", fromType=" + fromType + ", fromId=" + fromId + ", content=" + content + ", status=" + status + ", fromPostfix=" + fromPostfix + ", id=" + id + ", created=" + created + ", modified=" + modified + ", picturePath=" + picturePath +"]";
+		return "Weibo [senderId=" + senderId + ", senderRealName=" + senderRealName + ", quoteWeiboId=" + quoteWeiboId + ", quoteSenderId=" + quoteSenderId + ", replyWeiboId=" + replyWeiboId + ", replySenderId=" + replySenderId + ", fromType=" + fromType + ", fromId=" + fromId + ", content=" + content  + ", longitude=" + longitude + ", latitude=" + latitude +", status=" + status + ", fromPostfix=" + fromPostfix + ", id=" + id + ", created=" + created + ", modified=" + modified + ", picturePath=" + picturePath +"]";
 	}
 
 }

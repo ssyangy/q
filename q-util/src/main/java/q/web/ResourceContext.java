@@ -119,4 +119,9 @@ public interface ResourceContext {
 	 * @return
 	 */
 	boolean isApiRequest();
+
+	/**
+	 * @return
+	 */
+	String getUrlPrefix();
 }

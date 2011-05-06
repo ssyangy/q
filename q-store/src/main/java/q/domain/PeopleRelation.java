@@ -30,6 +30,8 @@ public class PeopleRelation implements Serializable {
 
 	private PeopleRelationStatus status;
 
+	private PeopleRelationStatus oldStatus;
+
 	private Date created;
 
 	private Date modified;
@@ -131,6 +133,14 @@ public class PeopleRelation implements Serializable {
 	 */
 	public boolean isFollowing() {
 		return this.status.isFollowing();
+	}
+
+	public PeopleRelationStatus getOldStatus() {
+		return oldStatus;
+	}
+
+	public void setOldStatus(PeopleRelationStatus oldStatus) {
+		this.oldStatus = oldStatus;
 	}
 
 	@Override

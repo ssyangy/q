@@ -8,6 +8,8 @@ import java.net.UnknownHostException;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 高危代码,请勿修改
@@ -39,6 +41,10 @@ public class IdCreator {
 	public static void setCounterLimit(int limit) {
 		counterLimit = limit;
 	}
+	
+	public static int getCounterLimit() {
+		return counterLimit;
+	}
 
 	private static int nodeFlag = getNodeFlag();
 
@@ -63,22 +69,40 @@ public class IdCreator {
 		version = v;
 	}
 
+	private IdCreator() {
+	}
+
+	private static final Lock counterLock = new ReentrantLock();
+
 	/**
 	 * 
 	 * 
 	 * @return
 	 */
-	public synchronized static long getLongId() {
-		long now = newTimestamp();
-		if (counter >= counterLimit) { // if counter overflow, wait next millisecond
-			while (now <= counterStartTimestamp) {
-				now = newTimestamp();
+	public static long getLongId() {
+		return getLongId(newTimestamp());
+	}
+
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
+	public static long getLongId(long timestamp) {
+		counterLock.lock();
+		try {
+			if (counter >= counterLimit) { // if counter overflow, wait next millisecond
+				while (timestamp <= counterStartTimestamp) {
+					timestamp = newTimestamp();
+				}
+				counter = 0; // reset counter
+				counterStartTimestamp = timestamp; // reset start timestamp
 			}
-			counter = 0; // reset counter
-			counterStartTimestamp = now; // reset start timestamp
+			long id = (((counterStartTimestamp - baseTimestamp) * counterLimit + counter++) * 1000 + nodeFlag) * 10 + version;
+			return id;
+		} finally {
+			counterLock.unlock();
 		}
-		long id = (((counterStartTimestamp - baseTimestamp) * counterLimit + counter++) * 1000 + nodeFlag) * 10 + version;
-		return id;
 	}
 
 	private static long newTimestamp() {
@@ -86,7 +110,7 @@ public class IdCreator {
 	}
 
 	/**
-	 * FIXME
+	 * FIXME can do more check
 	 * 
 	 * @param ids
 	 * @return
@@ -99,7 +123,7 @@ public class IdCreator {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * FIXME
 	 * 

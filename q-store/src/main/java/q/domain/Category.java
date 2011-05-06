@@ -23,7 +23,7 @@ public class Category extends AbstractDomain implements Serializable {
 
 	private int groupNum;
 
-	private int memberNum;
+	private int joinNum;
 
 	public List<Group> getGroups() {
 		return groups;
@@ -65,12 +65,12 @@ public class Category extends AbstractDomain implements Serializable {
 		this.groupNum = groupNum;
 	}
 
-	public int getMemberNum() {
-		return memberNum;
+	public int getJoinNum() {
+		return joinNum;
 	}
 
-	public void setMemberNum(int memberNum) {
-		this.memberNum = memberNum;
+	public void setJoinNum(int joinNum) {
+		this.joinNum = joinNum;
 	}
 
 	@Override

@@ -13,10 +13,10 @@ import org.apache.commons.lang.StringUtils;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import q.biz.SearchService;
+import q.commons.http.JdkHttpClient;
 import q.domain.Group;
 import q.domain.People;
 import q.domain.Weibo;
-import q.http.JdkHttpClient;
 import q.log.Logger;
 
 public class SolrSearchService implements SearchService {

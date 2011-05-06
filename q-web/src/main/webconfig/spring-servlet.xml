@@ -48,6 +48,12 @@
 						</entry>
 						<entry>
 							<key>
+								<value>addPeopleQuick:people</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
+						<entry>
+							<key>
 								<value>addLogin:people</value>
 							</key>
 							<value>/WEB-INF/json/check.xml</value>
@@ -154,6 +160,78 @@
 							</key>
 							<value>/WEB-INF/json/message-replies.xml</value>
 						</entry>
+						<entry>
+							<key>
+								<value>getCategoryIndex:categorys</value>
+							</key>
+							<value>/WEB-INF/json/category-list.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>addGroup:group</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>getGroupIndex:groups</value>
+							</key>
+							<value>/WEB-INF/json/group-list.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>getSearchGroup:groups</value>
+							</key>
+							<value>/WEB-INF/json/group-list.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>getGroupJoin:isJoined</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>addWeiboPicture:imgPath</value>
+							</key>
+							<value>/WEB-INF/json/image.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>addWeibo:weibo</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>addWeiboReply:weibo</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>getMessageIndex:messages</value>
+							</key>
+							<value>/WEB-INF/json/message-list.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>getPeopleFollower:peoples</value>
+							</key>
+							<value>/WEB-INF/json/people-list.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>getPeopleFollowing:peoples</value>
+							</key>
+							<value>/WEB-INF/json/people-list.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>getPeopleFull:people</value>
+							</key>
+							<value>/WEB-INF/json/people.xml</value>
+						</entry>
 					</map>
 				</property>
 			</bean>
@@ -172,6 +250,7 @@
 				<value>getGroupNew</value>
 				<value>addGroup</value>
 				<value>getGroupFeed</value>
+				<value>getGroupIndex</value>
 				<value>getGroupFeedEvent</value>
 				<value>addGroupJoin</value>
 				<value>deleteGroupJoin</value>
@@ -206,13 +285,6 @@
 		</property>
 	</bean>
 
-	<bean id="searchService" class="q.biz.impl.SolrSearchService">
-		<property name="searchUrl" value="${q.search.url}" />
-	</bean>
-	<bean id="pictureService" class="q.biz.impl.ImgService">
-		<property name="imageUrl" value="${q.image.url}" />
-		<property name="imageUploadUrl" value="${q.image.upload.url}" />
-	</bean>
 	<!-- global web -->
 	<bean id="default" class="q.web.GetHomePage">
 		<property name="categoryDao" ref="categoryDao" />
@@ -221,9 +293,6 @@
 		<property name="eventDao" ref="eventDao" />
 		<property name="groupDao" ref="groupDao" />
 	</bean>
-
-	<!-- setting web -->
-	<bean id="getSettingIndex" class="q.web.setting.GetSettingIndex" />
 
 	<!-- people web -->
 	<bean id="getMineIndex" class="q.web.people.GetMineIndex" />
@@ -240,7 +309,7 @@
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="authcodeDao" ref="authcodeDao" />
 		<property name="searchService" ref="searchService"></property>
-		<property name="imageUrl" value="${q.image.url}" />
+		<property name="pictureService" ref="pictureService"></property>
 	</bean>
 	<bean id="getPeopleFollowing" class="q.web.people.GetPeopleFollowing">
 		<property name="peopleDao" ref="peopleDao" />
@@ -283,7 +352,63 @@
 	<bean id="addPeopleFull" class="q.web.people.AddPeopleFull">
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="groupDao" ref="groupDao" />
-		<property name="imageUrl" value="${q.image.url}" />
+		<property name="pictureService" ref="pictureService"></property>
+	</bean>
+
+	<!-- mobile service -->
+	<bean id="addPeopleQuick" class="q.web.people.AddPeopleQuick">
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="authcodeDao" ref="authcodeDao" />
+		<property name="searchService" ref="searchService"></property>
+		<property name="pictureService" ref="pictureService"></property>
+	</bean>
+
+	<!-- setting web -->
+	<bean id="getPasswordReset" class="q.web.people.GetPasswordReset">
+		<property name="cacheService" ref="cacheService" />
+	</bean>
+	<bean id="addPasswordReset" class="q.web.people.AddPasswordReset">
+		<property name="cacheService" ref="cacheService" />
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="addPasswordForget" class="q.web.people.AddPasswordForget">
+		<property name="mailService" ref="mailService" />
+		<property name="cacheService" ref="cacheService" />
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="getPasswordForget" class="q.web.people.GetPasswordForget">
+	</bean>
+	<bean id="getPasswordResetInvalid" class="q.web.people.GetPasswordResetInvalid">
+	</bean>
+	<bean id="getSettingIndex" class="q.web.people.GetSettingIndex" />
+	<bean id="getSettingBasic" class="q.web.people.GetSettingBasic">
+	</bean>
+	<bean id="addSetting" class="q.web.people.AddSetting">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="getProfileBasic" class="q.web.people.GetProfileBasic">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="addProfileBasic" class="q.web.people.AddProfileBasic">
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="searchService" ref="searchService"></property>
+		<property name="pictureService" ref="pictureService"></property>
+	</bean>
+	<bean id="getProfileAvatar" class="q.web.people.GetProfileAvatar">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="addAvatarEdit" class="q.web.people.AddAvatarEdit">
+		<property name="pictureService" ref="pictureService"></property>
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="addAvatar" class="q.web.people.AddAvatar">
+		<property name="pictureService" ref="pictureService"></property>
+	</bean>
+	<bean id="getProfileInterest" class="q.web.people.GetProfileInterest">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="addProfileInterest" class="q.web.people.AddProfileInterest">
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 
 	<!-- login web -->
@@ -357,7 +482,9 @@
 	<bean id="deleteGroupJoin" class="q.web.group.DeleteGroupJoin">
 		<property name="groupDao" ref="groupDao" />
 	</bean>
-
+	<bean id="getGroupJoin" class="q.web.group.GetGroupJoin">
+		<property name="groupDao" ref="groupDao" />
+	</bean>
 	<!-- photo web -->
 	<bean id="getGroupPhoto" class="q.web.photo.GetGroupPhoto">
 	</bean>
@@ -385,17 +512,15 @@
 
 	<!-- weibo web -->
 	<bean id="addWeibo" class="q.web.weibo.AddWeibo">
-		<property name="weiboDao" ref="weiboDao" />
-		<property name="searchService" ref="searchService"></property>
-		<property name="putShortUrl" value="${q.short.upload.url}" />
-		<property name="getShortUrl" value="${q.short.url}" />
+		<property name="weiboService" ref="weiboService"></property>
 		<property name="pictureService" ref="pictureService"></property>
 	</bean>
+	<bean id="deleteWeibo" class="q.web.weibo.DeleteWeibo">
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
 	<bean id="addWeiboPicture" class="q.web.weibo.AddWeiboPicture">
-		<property name="imageUrl" value="${q.image.url}" />
-		<property name="imageUploadUrl" value="${q.image.upload.url}" />
 		<property name="pictureService" ref="pictureService"></property>
-
 	</bean>
 	<bean id="getWeibo" class="q.web.weibo.GetWeibo">
 		<property name="weiboDao" ref="weiboDao" />
@@ -405,6 +530,11 @@
 	</bean>
 	<bean id="addWeiboReply" class="q.web.weibo.AddWeiboReply">
 		<property name="weiboDao" ref="weiboDao" />
+		<property name="weiboService" ref="weiboService" />
+	</bean>
+	<bean id="deleteWeiboReply" class="q.web.weibo.DeleteWeibo">
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="getWeiboNew" class="q.web.weibo.GetWeiboNew">
 		<property name="peopleDao" ref="peopleDao" />
@@ -416,7 +546,7 @@
 	</bean>
 	<bean id="addWeiboRetweet" class="q.web.weibo.AddWeiboRetweet">
 		<property name="weiboDao" ref="weiboDao" />
-		<property name="searchService" ref="searchService"></property>
+		<property name="weiboService" ref="weiboService"></property>
 	</bean>
 	<bean id="getReplyRetweet" class="q.web.weibo.GetReplyRetweet">
 		<property name="weiboDao" ref="weiboDao" />
@@ -425,7 +555,7 @@
 	</bean>
 	<bean id="addReplyRetweet" class="q.web.weibo.AddReplyRetweet">
 		<property name="weiboDao" ref="weiboDao" />
-		<property name="searchService" ref="searchService"></property>
+		<property name="weiboService" ref="weiboService"></property>
 	</bean>
 
 	<!-- favorite web -->
@@ -470,52 +600,12 @@
 	</bean>
 	<bean id="getMessage" class="q.web.message.GetMessage">
 		<property name="messageDao" ref="messageDao" />
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 
 	<!-- auth web -->
 	<bean id="getAuthcodeNew" class="q.web.authcode.GetAuthcodeNew">
 		<property name="authcodeDao" ref="authcodeDao" />
-	</bean>
-
-	<!-- profile web -->
-	<bean id="getProfileBasic" class="q.web.people.GetProfileBasic">
-		<property name="peopleDao" ref="peopleDao" />
-	</bean>
-	<bean id="addProfileBasic" class="q.web.people.AddProfileBasic">
-		<property name="peopleDao" ref="peopleDao" />
-		<property name="searchService" ref="searchService"></property>
-		<property name="imageUrl" value="${q.image.url}" />
-	</bean>
-	<bean id="getProfileAvatar" class="q.web.people.GetProfileAvatar">
-		<property name="imageUrl" value="${q.image.url}" />
-		<property name="peopleDao" ref="peopleDao" />
-	</bean>
-	<bean id="addProfileAvatar" class="q.web.people.AddProfileAvatar">
-	</bean>
-	<bean id="addAvatarEdit" class="q.web.people.AddAvatarEdit">
-		<property name="imageUrl" value="${q.image.url}" />
-		<property name="imageUploadUrl" value="${q.image.upload.url}" />
-		<property name="pictureService" ref="pictureService"></property>
-		<property name="peopleDao" ref="peopleDao" />
-	</bean>
-	<bean id="addAvatar" class="q.web.people.AddAvatar">
-		<property name="imageUrl" value="${q.image.url}" />
-		<property name="imageUploadUrl" value="${q.image.upload.url}" />
-		<property name="pictureService" ref="pictureService"></property>
-	</bean>
-	<bean id="getProfileInterest" class="q.web.people.GetProfileInterest">
-		<property name="peopleDao" ref="peopleDao" />
-	</bean>
-	<bean id="addProfileInterest" class="q.web.people.AddProfileInterest">
-		<property name="peopleDao" ref="peopleDao" />
-	</bean>
-
-	<!-- setting web -->
-	<bean id="getSettingBasic" class="q.web.people.GetSettingBasic">
-
-	</bean>
-	<bean id="addSetting" class="q.web.people.AddSetting">
-		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 
 	<!-- search web -->
@@ -533,4 +623,5 @@
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="searchService" ref="searchService"></property>
 	</bean>
+
 </beans>

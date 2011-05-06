@@ -51,11 +51,6 @@ public class GetPeopleFrame extends Resource {
 		}
 		People interest=peopleDao.getInterestById(peopleId);
 		People people = peopleDao.getPeopleById(peopleId);
-		people.setFollowingNum(peopleDao.getPeopleFollowingNumById(peopleId));
-		people.setFollowerNum(peopleDao.getPeopleFollowerNumById(peopleId));
-		people.setWeiboNum(weiboDao.getPeopleWeiboNumByPeopleId(peopleId));
-
-
 
 		context.setModel("people", people);
         context.setModel("interest", interest);

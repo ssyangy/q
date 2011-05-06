@@ -3,7 +3,7 @@
  */
 package q.web.weibo;
 
-import q.biz.SearchService;
+import q.biz.WeiboService;
 import q.dao.WeiboDao;
 import q.domain.Weibo;
 import q.domain.WeiboFromType;
@@ -16,7 +16,7 @@ import q.web.ResourceContext;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 24, 2011
- *
+ * 
  */
 public class AddReplyRetweet extends Resource {
 	private WeiboDao weiboDao;
@@ -24,14 +24,16 @@ public class AddReplyRetweet extends Resource {
 	public void setWeiboDao(WeiboDao weiboDao) {
 		this.weiboDao = weiboDao;
 	}
-	private SearchService searchService;
 
-	public void setSearchService(SearchService searchService) {
-		this.searchService = searchService;
+	private WeiboService weiboService;
+
+	public void setWeiboService(WeiboService weiboService) {
+		this.weiboService = weiboService;
 	}
+
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 
@@ -39,7 +41,6 @@ public class AddReplyRetweet extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long senderId = context.getCookiePeopleId();
 		String content = context.getString("content");
-		String from = context.getString("from");
 
 		WeiboReply father = weiboDao.getWeiboReplyById(context.getResourceIdLong());
 		if (father == null) {
@@ -58,17 +59,17 @@ public class AddReplyRetweet extends Resource {
 			retweet.setFromType(WeiboFromType.GROUP);
 			retweet.setFromId(join.getGroupId());
 		}
-		this.weiboDao.addWeibo(retweet);
-		searchService.updateWeibo(retweet);
+
+		this.weiboService.addReplyRetweet(retweet, -1);
+
+		String from = context.getString("from");
 		if (from != null) {
 			context.redirectContextPath(from);
-		} else {
-			context.redirectServletPath("/weibo/" + retweet.getId());
 		}
 	}
 
 	@Override
-	public void validate(ResourceContext context){
+	public void validate(ResourceContext context) {
 	}
 
 }

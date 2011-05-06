@@ -25,13 +25,17 @@
             </div>
             <div class="tweet-row">
 				<div class="tweet-text">{{text}}</div>
-				{{#picturePath}}
-				<div class='imgrote middle'>
-					<img id="img" src="{{picturePath}}-160" class="img160 weiboimg"/>
-		     	</div>
-		     	<a class='weiboImgRotateL' class='link mr10'>左转</a>
-			    <a class='weiboImgRotateR' class='link'>右转</a>
-				{{/picturePath}}
+					{{#picturePath}}
+					<img src="{{picturePath}}-160" class="img160 weiboImg"/>
+					<div class='imgPre hide'>
+						<div class='imgrote middle'>
+							<img src="{{picturePath}}-320" class="img320 preImg"/>
+				     	</div>
+				     	<a class='weiboImgRotateL link mr10'>左转</a>
+					    <a class='weiboImgRotateR link mr10'>右转</a>
+					    <a href='{{picturePath}}' class='link' target='_blank'>查看原图</a>
+				    </div>
+					{{/picturePath}}
 			</div>
 
 			{{#quote}}
@@ -52,8 +56,10 @@
                 <span class="tweet-actions">
 					{{#favorited}}<a href="#" class='favun'>取消收藏</a>{{/favorited}}
 					{{^favorited}}<a href="#" class='fav'>收藏</a>{{/favorited}}
-					<span class="link-sep">·</span><a href="#" class='btn_ret'>转发</a>
-					<span class="link-sep">·</span><a href="#" class='btn_rep'>回复</a>
+					{{#isown}}<a href="#" class='favun'>取消收藏</a>{{/isown}}
+					<span class="link-sep">·</span><a href="#" class='btn_ret'>转发{{#retweetNum}}（{{retweetNum}}）{{/retweetNum}}</a>
+					<span class="link-sep">·</span><a href="#" class='btn_rep'>回复{{#replyNum}}（{{replyNum}}）{{/replyNum}}</a>
+					{{#isown}}<a href="#" class='btn_del'>删除</a>{{/isown}}
 				</span>
             </div>
         </div>
@@ -72,31 +78,54 @@
 					{{/people}}
                     </div>
                     <div class="twtxt mt10">
-						<div class='rcontent'>{{text}}</div>
-						{{#picturePath}}<img id="img" src="{{picturePath}}-160" class="img160"/>{{/picturePath}}
+					<div class='rcontent'>{{text}}</div>
+					{{#picturePath}}
+					<img src="{{picturePath}}-160" class="img160 weiboImg"/>
+					<div class='imgPre hide'>
+						<div class='imgrote middle'>
+							<img src="{{picturePath}}-320" class="img320 preImg"/>
+				     	</div>
+				     	<a class='weiboImgRotateL link mr10'>左转</a>
+					    <a class='weiboImgRotateR link mr10'>右转</a>
+					    <a href='{{picturePath}}' class='link' target='_blank'>查看原图</a>
+				    </div>
+					{{/picturePath}}
 			{{#quote}}
 			<div class="tweet-ori">
 				<div class="tweet-ori-inner">
 					{{#people}}<a href="${urlPrefix}/people/{{id}}" class="tweet-ori-author">{{screenName}}</a>{{/people}}：
-					{{text}}
-					{{#picturePath}}<img id="img" src="{{picturePath}}-160" class="img160"/>{{/picturePath}}
-					<span class="">
+					<span class='wqcontent'>{{text}}</span><br/>
+					{{#picturePath}}
+<img id="img" src="{{picturePath}}-160" class="img160 weiboImg"/>
+					<div class='imgPre hide'>
+						<div class='imgrote middle'>
+							<img src="{{picturePath}}-320" class="img320 preImg"/>
+				     	</div>
+				     	<a class='weiboImgRotateL link mr10'>左转</a>
+					    <a class='weiboImgRotateR link mr10'>右转</a>
+					    <a href='{{picturePath}}' class='link' target='_blank'>查看原图</a>
+				    </div>
+					{{/picturePath}}
+					<div class="tweet-row clearfix">
+					<div class="tweet-actions">
 						<a href="${urlPrefix}/weibo/{{id}}">原文转发</a>
 						<span class="link-sep">·</span>
 						<a href="${urlPrefix}/weibo/{{id}}">原文回复</a>
-					</span>
+					</div>
+					</div>
 				</div>
 			</div>
 			{{/quote}}
 						<div class="mt10">
 						<span class='gray mr10'>{{screenTime}}</span>
 						<span class="gray">发自<a href="${urlPrefix}{{fromUrl}}">{{fromName}}</a></span>
-						<a class="link ml5 FR btn_hrep" href="#">回复</a>
+						<a class="link ml5 FR btn_hrep" href="#">回复{{#replyNum}}（{{replyNum}}）{{/replyNum}}</a>
 						<span class="link-sep FR">·</span>
-						<a class="link ml5 mr5 FR btn_hret" href="#">转发</a>
+						<a class="link ml5 mr5 FR btn_hret" href="#">转发{{#retweetNum}}（{{retweetNum}}）{{/retweetNum}}</a>
 						<span class="link-sep FR">·</span>
 						{{#favorited}}<a href="#" class='link mr5 FR hfavun'>取消收藏</a>{{/favorited}}
 						{{^favorited}}<a href="#" class='link mr5 FR hfav'>收藏</a>{{/favorited}}
+						{{#isown}}<a href="#" class='link mr5 FR hdel'>删除</a>{{/isown}}
 						</div>
                     </div>
 					</div>
@@ -111,12 +140,13 @@
 						{{/people}}
                         <span class="gray ml10">{{screenTime}}</span>
 
-						<a class="link ml5 FR btn_rrep">回复</a>
+						<a class="link ml5 FR btn_rrep">回复{{#replyNum}}（{{replyNum}}）{{/replyNum}}</a>
 						<span class="link-sep FR">·</span>
-						<a class="link ml5 mr5 FR btn_rret">转发</a>
+						<a class="link ml5 mr5 FR btn_rret">转发{{#retweetNum}}（{{retweetNum}}）{{/retweetNum}}</a>
 						<span class="link-sep FR">·</span>
 						{{#favorited}}<a href="#" class='link FR rfavun mr5'>取消收藏</a>{{/favorited}}
 						{{^favorited}}<a href="#" class='link FR rfav mr5'>收藏</a>{{/favorited}}
+						{{#isown}}<a href="#" class='link mr5 FR rdel'>删除</a>{{/isown}}
                         <div class="mt10 twtxtr">{{text}}</div>
                     </div>
 					{{/replies}}
@@ -125,21 +155,32 @@
 
 	</script>
 	<script type="text/javascript">
-	var ajlock = true;
+		var ajlock = true;
 
 		$(function () {
+
+		    $("img.weiboImg").live('click',function(){
+		    	$(this).addClass('hide');
+		    	$(this).next('div.imgPre').removeClass('hide');
+		    });
+		    $("img.preImg").live('click',function(){
+		    	var pre = $(this).closest('div.imgPre');
+		    	pre.addClass('hide');
+		    	pre.prev('img.weiboImg').removeClass('hide');
+		    });
+		    
 			$('a.weiboImgRotateR').live('click',function(){
 				var imgrote = $(this).prevAll('div.imgrote');
 				var rote = imgrote.data('rote');
 				if(rote == undefined) rote = 0;
-				imgrote.children('img.weiboimg').rotate(rote + 90);
+				imgrote.children('img.preImg').rotate(rote + 90);
 				imgrote.data('rote',rote + 90);
 			});
 			$('a.weiboImgRotateL').live('click',function(){
 				var imgrote = $(this).prev('div.imgrote');
 				var rote = imgrote.data('rote');
 				if(rote == undefined) rote = 0;
-				imgrote.children('img.weiboimg').rotate(rote - 90);
+				imgrote.children('img.preImg').rotate(rote - 90);
 				imgrote.data('rote',rote - 90);
 			});
 
@@ -165,12 +206,12 @@
 				    }
                 });
 			});
-
+			
 			var tweetex = $('div.tweetexpand');
 			var set = $('#page-container').offset();
 			tweetex.css('left',set.left+10);
 	        $('div.tweet').live('click',function (e) {
-	        	if($(e.target).get(0).tagName != 'A'){
+	        	if($(e.target).get(0).tagName != 'A'&&$(e.target).get(0).tagName != 'IMG'){
 	        		$('div.tweet').removeClass('tweet_act');
 	        		$(this).addClass('tweet_act');
 	        		var twid = $(this).attr('weiboid');
@@ -183,12 +224,15 @@
 					    timeout: 5000,
 					    msg:this,
 					   	success: function(json){
+					   		json.weibo.isown = (json.weibo.people.id == '${loginCookie.peopleId}');
+					   		$(json.replies).each(function(){
+					   			this.isown = (this.people.id == '${loginCookie.peopleId}');
+					   		});
 					   		tweetex.empty().append(ich.tweetexp(json));
 				            tweetex.css('left',set.left+10).show();
 				            tweetex.animate({ left: 540+set.left }, 500, 'swing',function(){$('div.dashboardbb').hide();});
 					    }
 	                });
-
 	        	}
 	        });
 	        $('a.btnreturn').live('click',function(){
@@ -197,7 +241,50 @@
 	        		tweetex.hide()
 	        	});
 	        });
-
+			$('a.btn_del').live('click',function(){
+				if(confirm('确定要删除？')){
+					var tweet = $(this).closest('div.tweet');
+					$.ajax({
+					    url: '${urlPrefix}/weibo/' + tweet.attr('weiboId'),
+					    type: 'POST',
+					    dataType: 'json',
+					    data: {_method:'delete'},
+					    msg:tweet,
+					   	success: function(json){
+				   			this.msg.slideUp("slow",function(){
+						   		   $(this).remove();
+						   	 	});				   			
+				   			if($('#twrep').attr('weiboId') == this.msg.attr('weiboId')){
+					        	$('div.dashboardbb').show();
+					        	tweetex.animate({ left: set.left+10 }, 500, 'swing',function(){
+					        		tweetex.hide();
+					        	});
+				   			}
+					    }
+					});
+				}
+			});
+			$('a.hdel').live('click',function(){
+				if(confirm('确定要删除？')){
+					var tweet = $('#twrep');
+					$.ajax({
+					    url: '${urlPrefix}/weibo/' + tweet.attr('weiboId'),
+					    type: 'POST',
+					    dataType: 'json',
+					    data: {_method:'delete'},
+					    msg:tweet,
+					   	success: function(json){
+					   		$("div.tweet[weiboid='"+this.msg.attr('weiboId')+"']").slideUp("slow",function(){
+					   		   $(this).remove();
+					   	 	});
+				        	$('div.dashboardbb').show();
+				        	tweetex.animate({ left: set.left+10 }, 500, 'swing',function(){
+				        		tweetex.hide();
+				        	});
+					    }
+					});
+				}
+			});
 	        window.onresize = window.onload = function () {
 	            gWinHeight = $(window).height();
 	            $("#body").height(gWinHeight);
@@ -222,6 +309,7 @@
 						    },
 						   	success: function(json){
 							   	$(json).each(function(){
+							   		this.isown = (this.people.id == '${loginCookie.peopleId}');
 							   		$('div.stream-items').append(ich.tweet(this));
 				                    $('div.waitSlideDown').slideDown("slow", function () {
 				                        $(this).removeClass('waitSlideDown');
@@ -248,7 +336,7 @@
 	                	  $('img.ajaxload', this).show();
 	                	  var dia = $('#dia_ret');
 	                	  $.ajax({
-							    url: $("input[type='hidden']",dia).val(),
+							    url: $("#ret_url",dia).val(),
 							    type: 'POST',
 							    dataType: 'json',
 							    data: {content:$("textarea[name='content']",dia).val()},
@@ -279,7 +367,7 @@
 		    	  $('div.wcontent',dia).empty().html($('div.twtxtr',tweet).html());
 		    	  $('div.wpeople',dia).empty().html($('a.peop',tweet).html());
 		    	  $("textarea[name='content']",dia).val('').val('//@'+$('a.peop',tweet).text().trim());
-		    	  $("#ret_url",dia).val('${urlPrefix}/weibo/'+tweet.attr('weiboid')+'/retweet');
+		    	  $("#ret_url",dia).val('${urlPrefix}/reply/'+tweet.attr('replyid')+'/retweet');
 		    	  dia.dialog("open");
 		      });
 		      $("a.btn_hret").live('click',function () {
@@ -312,7 +400,7 @@
 	                	  $('img.ajaxload', this).show();
 	                	  var dia = $('#dia_rep');
 	                	  $.ajax({
-							    url: $("input[type='hidden']",dia).val(),
+							    url: $("#rep_url",dia).val(),
 							    type: 'POST',
 							    dataType: 'json',
 							    data: {content:$("textarea[name='content']",dia).val()},
@@ -458,29 +546,39 @@
 			<div class="tweet-row">
 				<div class="tweet-text">${weibo.content}</div>
 				<c:if test="${weibo.picturePath !=null }">
-				<div class='imgrote middle'>
-					<img id="img" src="${weibo.picturePath}-160" class="img160 weiboimg"/>
-		     	</div>
-		     	<a class='weiboImgRotateL' class='link mr10'>左转</a>
-			    <a class='weiboImgRotateR' class='link'>右转</a>
+				<img src="${weibo.picturePath}-160" class="img160 weiboImg"/>
+				<div class='imgPre hide'>
+					<div class='imgrote middle'>
+						<img src="${weibo.picturePath}-320" class="img320 preImg"/>
+			     	</div>
+			     	<a class='weiboImgRotateL link mr10'>左转</a>
+				    <a class='weiboImgRotateR link mr10'>右转</a>
+				    <a href='${weibo.picturePath}' class='link' target='_blank'>查看原图</a>
+			    </div>
 				</c:if>
 			</div>
 			<c:if test="${weibo.quote.id > 0}">
 			<div class="tweet-ori" weiboid="${weibo.quote.id}">
 				<div class="tweet-ori-inner">
 					<a href="${urlPrefix}/people/${weibo.quote.people.id}" class="tweet-ori-author">${weibo.quote.people.realName}</a>：
-					<span class='wqcontent'>${weibo.quote.content}</span>
+					<span class='wqcontent'>${weibo.quote.content}</span><br/>
 					<c:if test="${weibo.quote.picturePath !=null }">
-					<div class='imgrote middle'>
-						<img id="img" src="${weibo.quote.picturePath}-160" class="img160 weiboimg"/>
-			     	</div>
-			     	<a class='weiboImgRotateL' class='link mr10'>左转</a>
-				    <a class='weiboImgRotateR' class='link'>右转</a>
+					<img src="${weibo.quote.picturePath}-160" class="img160 weiboImg"/>
+					<div class='imgPre hide'>
+						<div class='imgrote middle'>
+							<img src="${weibo.quote.picturePath}-320" class="img320 preImg"/>
+				     	</div>
+				     	<a class='weiboImgRotateL link mr10'>左转</a>
+					    <a class='weiboImgRotateR link mr10'>右转</a>
+					    <a href='${weibo.quote.picturePath}' class='link' target='_blank'>查看原图</a>
+				    </div>
 					</c:if>
+					<div class="tweet-row clearfix">
 					<div class="tweet-actions">
-						<a class="btn_sret link">原文转发</a>
+						<a class="btn_sret link" href='#'>原文转发</a>
 						<span class="link-sep">·</span>
-						<a class="btn_srep link">原文回复</a>
+						<a class="btn_srep link" href='#'>原文回复</a>
+					</div>
 					</div>
 				</div>
 			</div>
@@ -498,10 +596,27 @@
 						<a class='link favun'>取消收藏</a>
 						</c:otherwise>
 					</c:choose>
+					<c:choose>
+						<c:when test="${loginCookie.peopleId == weibo.senderId}">
+						<a class='link btn_del'>删除</a>
+						</c:when>
+					</c:choose>					
 					<span class="link-sep">·</span>
-					<a class="btn_ret link">转发</a>
+					<a class="btn_ret link" href='#'>转发
+					<c:choose>
+						<c:when test="${weibo.retweetNum != 0}">
+						（${weibo.retweetNum}）
+						</c:when>
+					</c:choose>	
+					</a>
 					<span class="link-sep">·</span>
-					<a class="btn_rep link">回复</a>
+					<a class="btn_rep link" href='#'>回复
+					<c:choose>
+						<c:when test="${weibo.replyNum != 0}">
+						（${weibo.replyNum}）
+						</c:when>
+					</c:choose>	
+					</a>
 				</span>
 			</div>
 		</div>

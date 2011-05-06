@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<param xmlns="http://serialize.q.com.cn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://serialize.q.com.cn http://www.q.net/xsd/q-serialize.xsd">
+	<type>
+		<array>
+			<type>
+				<struct>
+					<member name="id" apiName="id" apiType="string" />
+					<member name="realName" apiName="screenName" apiType="string" />
+					<member name="avatarPath" apiName="avatarPath" apiType="string" />
+				</struct>
+			</type>
+		</array>
+	</type>
+</param>

@@ -1,21 +1,24 @@
 /**
- * 
+ *
  */
 package q.web.weibo;
 
+import q.biz.WeiboService;
 import q.dao.WeiboDao;
 import q.domain.Weibo;
 import q.domain.WeiboFromType;
 import q.domain.WeiboJoinGroup;
 import q.domain.WeiboReply;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.RequestParameterInvalidException;
 
 /**
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 21, 2011
- * 
+ *
  */
 public class AddWeiboReply extends Resource {
 	private WeiboDao weiboDao;
@@ -24,9 +27,15 @@ public class AddWeiboReply extends Resource {
 		this.weiboDao = weiboDao;
 	}
 
+	private WeiboService weiboService;
+	
+	public void setWeiboService(WeiboService weiboService) {
+		this.weiboService = weiboService;
+	}
+
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -37,7 +46,7 @@ public class AddWeiboReply extends Resource {
 		long quoteId = context.getResourceIdLong();
 		Weibo quote = weiboDao.getWeiboById(quoteId);
 		if (quote == null) {
-			throw new IllegalStateException();
+			throw new RequestParameterInvalidException("weibo:invalid");
 		}
 
 		WeiboReply reply = new WeiboReply();
@@ -56,19 +65,27 @@ public class AddWeiboReply extends Resource {
 			reply.setFromType(WeiboFromType.GROUP);
 			reply.setFromId(join.getGroupId());
 		}
-		this.weiboDao.addWeiboReply(reply);
+
+		this.weiboService.addWeiboReply(reply);
+
 		String from = context.getString("from");
 		if (from != null) {
 			context.redirectContextPath(from);
 		}
+		context.setModel("weibo", reply);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-		
+		long quoteId = context.getResourceIdLong();
+		if(IdCreator.isNotValidId(quoteId)) {
+			throw new RequestParameterInvalidException("weibo:invalid");
+		}
+
 	}
 }

@@ -133,7 +133,7 @@
                       </dependency> 
                 </dependencies>
            </plugin>
-			<plugin>
+			<!-- plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
@@ -144,20 +144,17 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<!-- this is important -->
 							<overwrite>true</overwrite>
-							<!-- target -->
 							<outputDirectory>${basedir}/q-web/target/q/WEB-INF/data/</outputDirectory>
 							<resources>
 								<resource>
-									<!-- source -->
 									<directory>${basedir}/q-store/src/test/resources/data/</directory>
 								</resource>
 							</resources>
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin -->
 		</plugins>
 		<resources>
 			<!--resource>
@@ -305,6 +302,13 @@
 				<artifactId>standard</artifactId>
 				<version>1.1.2</version>
 			</dependency>
+
+			<dependency>
+				<groupId>redis.clients</groupId>
+				<artifactId>jedis</artifactId>
+				<version>1.5.2</version>
+			</dependency>
+
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>

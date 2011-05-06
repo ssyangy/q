@@ -1,11 +1,13 @@
 /**
- * 
+ *
  */
 package q.web.message;
 
 import java.util.List;
 
+import q.dao.DaoHelper;
 import q.dao.MessageDao;
+import q.dao.PeopleDao;
 import q.dao.page.MessageReplyPage;
 import q.domain.MessageReply;
 import q.util.IdCreator;
@@ -25,7 +27,11 @@ public class GetMessage extends Resource {
 	public void setMessageDao(MessageDao messageDao) {
 		this.messageDao = messageDao;
 	}
-	
+	private PeopleDao peopleDao;
+
+	public void setPeopleDao(PeopleDao peopleDao) {
+		this.peopleDao = peopleDao;
+	}
 	/* (non-Javadoc)
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
@@ -35,6 +41,7 @@ public class GetMessage extends Resource {
 		MessageReplyPage page = new MessageReplyPage();
 		page.setQuoteMessageId(mid);
 		List<MessageReply> replies = messageDao.getMessageRepliesByPage(page);
+		DaoHelper.injectMessageRepliesWithSenderAndReceivers(peopleDao, replies);
 		context.setModel("replies", replies);
 	}
 

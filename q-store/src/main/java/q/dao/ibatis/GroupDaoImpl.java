@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.dao.ibatis;
 
@@ -22,7 +22,7 @@ import q.util.IdCreator;
  * @author Zhehao
  * @author seanlinwang
  * @date Feb 15, 2011
- * 
+ *
  */
 
 public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
@@ -143,7 +143,7 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 		List<Group> groups = this.getGroupsByIds(groupIds);
 		return groups;
 	}
-	
+
 	@Override
 	public List<Group> getAllGroups() throws SQLException {
 		@SuppressWarnings("unchecked")
@@ -170,10 +170,17 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 		List<Group> groups = this.sqlMapClient.queryForList("selectGroupsByIds", groupIds);
 		return groups;
 	}
+	@Override
+	public List<Group> getGroupsByLocation(Group myLocation) throws SQLException {
+
+		@SuppressWarnings("unchecked")
+		List<Group> groups = this.sqlMapClient.queryForList("selectGroupsByLocation", myLocation);
+		return groups;
+	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.CategoryDao#getNewGroups(int)
 	 */
 	@SuppressWarnings("unchecked")
@@ -203,7 +210,7 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.GroupDao#getRecommendGroupsByGroupId(long, int)
 	 */
 	@Override
@@ -211,5 +218,7 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }

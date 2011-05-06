@@ -3,7 +3,7 @@ package q.web;
 import q.log.Logger;
 
 public abstract class Resource {
-	protected final Logger log = Logger.getLogger();
+	protected static final Logger log = Logger.getLogger();
 
 	private String name;
 

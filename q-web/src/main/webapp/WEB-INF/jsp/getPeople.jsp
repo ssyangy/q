@@ -22,7 +22,7 @@
 						<jsp:include page="weibo-list.jsp">
 							<jsp:param name="feedUrl" value="${urlPrefix}/people/${people.id}"/>
 							<jsp:param name="from" value="${urlPrefix}/people/${people.id}"/>
-						</jsp:include>					
+						</jsp:include>
 				</div>
 			</div>
 			<jsp:include page="people-dashboard.jsp"/>

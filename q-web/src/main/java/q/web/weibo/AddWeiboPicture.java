@@ -1,13 +1,8 @@
 package q.web.weibo;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,30 +11,18 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import q.biz.PictureService;
-import q.http.JdkHttpClient;
-import q.util.IdCreator;
-import q.util.ImageKit;
+import q.commons.image.ImageKit;
 import q.web.DefaultResourceContext;
 import q.web.Resource;
 import q.web.ResourceContext;
 
 public class AddWeiboPicture extends Resource{
-	private String imageUrl;
-
-	private String imageUploadUrl;
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
-	public void setImageUploadUrl(String imageUploadUrl) {
-		this.imageUploadUrl = imageUploadUrl;
-	}
 	private PictureService pictureService;
 
 	public void setPictureService(PictureService pictureService) {
 		this.pictureService = pictureService;
 	}
+	
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		// TODO Auto-generated method stub
@@ -85,7 +68,7 @@ public class AddWeiboPicture extends Resource{
 					String place = data[1].substring(data[1].indexOf(":") + 1);
 					context.setModel("imgHeight", ImageKit.load(fileItem.getInputStream()).getHeight());
 					context.setModel("imgWidth", ImageKit.load(fileItem.getInputStream()).getWidth());
-					context.setModel("imgPath", imageUrl + place);
+					context.setModel("imgPath", this.pictureService.getImageUrl() + place);
 					context.setModel("value", "上传成功");
                     }
 				}

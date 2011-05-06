@@ -64,7 +64,6 @@ public class GetEvent extends Resource {
 			}
 		}
 		
-		event.setJoinNumber(this.eventDao.getJoinNumberById(eventId));
 		int limit = 20;
 		int start = 0;
 		List<PeopleJoinEvent> peopleJoinEvents = this.eventDao.getPeopleJoinEventsById(eventId, limit, start);

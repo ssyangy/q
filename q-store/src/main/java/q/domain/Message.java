@@ -21,14 +21,16 @@ public class Message extends AbstractDomain implements Serializable {
 
 	private long senderId;
 
+	private int replyNum;
+
 	private People sender;
 
 	private List<Long> receiverIds;
-	
+
 	private List<People> receivers;
-	
+
 	private MessageReply lastReply;
-	
+
 	public MessageReply getLastReply() {
 		return lastReply;
 	}
@@ -78,11 +80,19 @@ public class Message extends AbstractDomain implements Serializable {
 		return "Message [status=" + status + ", senderId=" + senderId + ", id=" + id + ", created=" + created + ", modified=" + modified + "]";
 	}
 
+	public int getReplyNum() {
+		return replyNum;
+	}
+
+	public void setReplyNum(int replyNum) {
+		this.replyNum = replyNum;
+	}
+
 	/**
 	 * @param people
 	 */
 	public void addReceiver(People people) {
-		if(this.receivers == null) {
+		if (this.receivers == null) {
 			this.receivers = new ArrayList<People>();
 		}
 		this.receivers.add(people);

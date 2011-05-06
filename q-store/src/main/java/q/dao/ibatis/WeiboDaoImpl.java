@@ -72,7 +72,7 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 		List<Long> ids = this.getWeiboIdsByPage(page);
 		return getWeibosByIds(ids, true);
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -80,7 +80,7 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 	 */
 	@Override
 	public List<Weibo> getHotWeibosByGroupIds(List<Long> groupIds, int limit, int start) throws SQLException {
-		if(CollectionKit.isEmpty(groupIds)) {
+		if (CollectionKit.isEmpty(groupIds)) {
 			return null;
 		}
 		WeiboPage page = new WeiboPage();
@@ -93,7 +93,7 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 
 	@Override
 	public List<Weibo> getWeibosByIds(List<Long> ids, boolean needDesc) throws SQLException {
-		if(CollectionKit.isEmpty(ids)) {
+		if (CollectionKit.isEmpty(ids)) {
 			return null;
 		}
 		Map<String, Object> query = new HashMap<String, Object>();
@@ -106,7 +106,7 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 
 	@Override
 	public List<WeiboReply> getWeiboRepliesByIds(List<Long> replyIds, boolean needDesc) throws SQLException {
-		if(CollectionKit.isEmpty(replyIds)) {
+		if (CollectionKit.isEmpty(replyIds)) {
 			return null;
 		}
 		Map<String, Object> query = new HashMap<String, Object>();
@@ -186,6 +186,46 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 		return (WeiboJoinGroup) this.sqlMapClient.queryForObject("selectWeiboJoinGroupByWeiboId", weiboId);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see q.dao.WeiboDao#deleteWeiboBySenderIdAndWeiboId(long, long)
+	 */
+	@Override
+	public int deleteWeiboBySenderIdAndWeiboId(long senderId, long weiboId) throws SQLException {
+		Map<String, Long> map = new HashMap<String, Long>();
+		map.put("senderId", senderId);
+		map.put("weiboId", weiboId);
+		return this.sqlMapClient.update("deleteWeiboBySenderIdAndWeiboId", map);
+	}
+	
+	@Override
+	public int deleteWeiboReplyBySenderIdAndReplyId(long senderId, long replyId) throws SQLException {
+		Map<String, Long> map = new HashMap<String, Long>();
+		map.put("senderId", senderId);
+		map.put("replyId", replyId);
+		return this.sqlMapClient.update("deleteWeiboReplyBySenderIdAndReplyId", map);
+	}
+
+	@Override
+	public int incrWeiboRetweetNumByWeiboId(long quoteWeiboId) throws SQLException {
+		return this.sqlMapClient.update("incrWeiboRetweetNumByWeiboId", quoteWeiboId);
+	}
+
+	@Override
+	public int decrWeiboRetweetNumByWeiboId(long quoteWeiboId) throws SQLException {
+		return this.sqlMapClient.update("decrWeiboRetweetNumByWeiboId", quoteWeiboId);
+	}
+
+	@Override
+	public int incrWeiboReplyNumByReplyId(long quoteWeiboId) throws SQLException {
+		return this.sqlMapClient.update("incrWeiboReplyNumByReplyId", quoteWeiboId);
+	}
 
 
+	@Override
+	public int decrWeiboReplyNumByWeiboId(long quoteWeiboId) throws SQLException {
+		return this.sqlMapClient.update("decrWeiboReplyNumByReplyId", quoteWeiboId);
+	}
+	
 }

@@ -9,8 +9,10 @@ package q.web.group;
 import q.biz.SearchService;
 import q.dao.GroupDao;
 import q.domain.Group;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.RequestParameterInvalidException;
 
 /**
  * AddGroup action
@@ -26,21 +28,34 @@ public class AddGroup extends Resource {
 	public void setGroupDao(GroupDao groupDao) {
 		this.groupDao = groupDao;
 	}
+	
 	private SearchService searchService;
 
 	public void setSearchService(SearchService searchService) {
 		this.searchService = searchService;
 	}
+	
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		Group group = new Group();
 		group.setCreatorId(context.getCookiePeopleId()); // set group creator id from cookie
 		group.setName(context.getString("name"));
 		group.setIntro(context.getString("intro"));
+		if (context.getString("latitude") != null && context.getString("longitude") != null) {
+			group.setLatitude(Double.parseDouble(context.getString("latitude")));
+			group.setLongitude(Double.parseDouble(context.getString("longitude")));
+		}
+
 		groupDao.addGroup(group); // create group
 		groupDao.addGroupJoinCategory(group.getId(), context.getIdLong("categoryId")); // set group category
-		context.redirectServletPath("/group/" + group.getId());
 		searchService.updateGroup(group);
+
+		if(context.isApiRequest()){
+			context.setModel("group", group);
+		} else {
+			context.redirectServletPath("/group/" + group.getId());
+		}
+
 	}
 
 	/* (non-Javadoc)
@@ -48,7 +63,10 @@ public class AddGroup extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
+		long categoryId = context.getIdLong("categoryId");
+		if(IdCreator.isNotValidId(categoryId)) {
+			throw new RequestParameterInvalidException("category:invalid");
+		}
 
 	}
 }

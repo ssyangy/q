@@ -13,9 +13,9 @@ var undifined;
 var provinceExist=0;
 var cityExist=0;
 var countyExist=0;
-var hometownprovinceExist=0;
-var hometowncityExist=0;
-var hometowncountyExist=0;
+var hometownProvinceExist=0;
+var hometownCityExist=0;
+var hometownCountyExist=0;
 function changeCounty(){
 	 selCounty.options.length=0;
 	 selCounty.style.visibility = "hidden";
@@ -82,26 +82,6 @@ function changeHometownProvince(){
 		 });
 		 changeHometownCity();
 }
-function changeHometownCounty(){
-	 selHometownCounty.options.length=0;
-	 selHometownCounty.style.visibility = "hidden";
-	 if(cities != undifined) {
-		 var hometownCityId = parseInt(selHometownCity.value, 10);
-		 $.each(cities, function(index, city) {
-		 	if (city.id == hometownCityId) {
-		 		if(city.childs != undefined) {
-		 			selHometownCounty.style.visibility = "visible";
-			 		$.each(city.childs, function(index, county) {
-			 			selHometownCounty.options.add(new Option(county.name, county.id));
-			 			  if(county.id==countyExist){
-			    	            selHometownCounty.options[selHometownCounty.options.length-1].selected='selected';
-			 			  }
-			 		});
-		 		}
-		 	}
-		 });
-	 }
-}
 function changeHometownCity(){
 	selHometownCity.options.length=0;
 	selHometownCity.style.visibility = "hidden";
@@ -121,6 +101,26 @@ function changeHometownCity(){
 	 	}
 	 });
 	 changeHometownCounty();
+}
+function changeHometownCounty(){
+	 selHometownCounty.options.length=0;
+	 selHometownCounty.style.visibility = "hidden";
+	 if(cities != undifined) {
+		 var hometownCityId = parseInt(selHometownCity.value, 10);
+		 $.each(cities, function(index, city) {
+		 	if (city.id == hometownCityId) {
+		 		if(city.childs != undefined) {
+		 			selHometownCounty.style.visibility = "visible";
+			 		$.each(city.childs, function(index, county) {
+			 			selHometownCounty.options.add(new Option(county.name, county.id));
+			 			  if(county.id==hometownCountyExist){
+			    	            selHometownCounty.options[selHometownCounty.options.length-1].selected='selected';
+			 			  }
+			 		});
+		 		}
+		 	}
+		 });
+	 }
 }
 function initArea(){
 	changeProvince();
