@@ -19,7 +19,7 @@
 							<a href="${urlPrefix}/event/${event.id}">${event.name}</a>
 						</p>
 					</td> 
-					<td align="center">${event.joinNumber}/${event.number}</td> 
+					<td align="center">${event.joinNum}/${event.number}</td> 
 					<td align="center"><a href="${urlPrefix}/people/${event.creatorId}">${event.creatorRealName}</a></td> 
 				</tr> 
 				</c:forEach>
