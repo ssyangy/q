@@ -28,7 +28,7 @@
 									</c:choose>
 
 									</div>
-									<div class="count">${event.joinNumber}人参加</div>
+									<div class="count">${event.joinNum}人参加</div>
 									<div class="clearfix2"></div>
 								</div>
 							</div>

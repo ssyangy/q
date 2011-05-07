@@ -378,4 +378,7 @@
 	<update id="incrPeopleFriendNumberByPeopleId">
 		update people set friend_num = friend_num + 1 where id = #value#
 	</update>
+	<update id="updatePasswordByPeopleId">
+		update people set password = #password# where id = #id#
+	</update>
 </sqlMap>

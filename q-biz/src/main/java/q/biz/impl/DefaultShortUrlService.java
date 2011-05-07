@@ -10,10 +10,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import q.biz.ShortUrlService;
-import q.http.JdkHttpClient;
+import q.commons.http.JdkHttpClient;
+import q.commons.http.UrlKit;
 import q.log.Logger;
 import q.util.Replace;
-import q.util.UrlKit;
 
 /**
  * @author seanlinwang at gmail dot com

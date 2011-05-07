@@ -168,7 +168,8 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 
 	protected ResourceContext toResourceContext(final HttpServletRequest request, final HttpServletResponse response, String path, String[] segs) {
 		 DefaultResourceContext context = new DefaultResourceContext(request, response, segs);
-		 context.setContextPath(contextPath);
+		 context.setContextPath(this.contextPath);
+		 context.setUrlPrefix(this.urlPrefix);
 		 return context;
 	}
 

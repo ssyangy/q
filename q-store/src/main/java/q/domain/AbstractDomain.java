@@ -44,7 +44,15 @@ public abstract class AbstractDomain {
 		this.modified = modified;
 	}
 	
+	/**
+	 * TODO bad performance
+	 * @return
+	 */
 	public String getTime(){
 		return DateKit.date2SinaStyle(created, new Date());
+	}
+	
+	public String getCreatedTime(){
+		return DateKit.date2Ymdhms(created);
 	}
 }

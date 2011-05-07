@@ -10,6 +10,7 @@
 					<struct>
 						<member name="id" apiName="id" apiType="string" />
 						<member name="time" apiName="screenTime" apiType="string" />
+						<member name="createdTime" apiName="createdTime" apiType="string" />
 						<member name="content" apiName="text" apiType="string" />
 						<member name="picturePath" apiName="picturePath" apiType="string" />
 						<member name="fav" apiName="favorited" apiType="boolean" />
@@ -31,6 +32,7 @@
 								<struct>
 									<member name="id" apiName="id" apiType="string" />
 									<member name="time" apiName="screenTime" apiType="string" />
+									<member name="createdTime" apiName="createdTime" apiType="string" />
 									<member name="content" apiName="text" apiType="string" />
 									<member name="picturePath" apiName="picturePath"
 										apiType="string" />

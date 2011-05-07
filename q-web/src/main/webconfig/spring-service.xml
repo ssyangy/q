@@ -26,5 +26,18 @@
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
+	<bean id="mailService" class="q.biz.impl.DefaultMailService">
+		<property name="fromAddress" value="${q.mail.address}" />
+		<property name="username" value="${q.mail.username}" />
+		<property name="password" value="${q.mail.password}" />
+		<property name="smtpHost" value="${q.mail.smtp.host}" />
+		<property name="smtpPort" value="${q.mail.smtp.port}" />
+		<property name="smtpSsl" value="${q.mail.smtp.ssl}" />
+	</bean>
+	<bean id="cacheService" class="q.biz.impl.DefaultCacheService">
+		<property name="cacheHost" value="${q.cache.host}" />
+		<property name="cachePort" value="${q.cache.port}" />
+		<property name="cacheTimeout" value="${q.cache.timeout}" />
+	</bean>
 
 </beans>
