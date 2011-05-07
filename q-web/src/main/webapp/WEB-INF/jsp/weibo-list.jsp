@@ -1,10 +1,118 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script type="text/javascript" src="${staticUrlPrefix}/js/jQueryRotate.2.1.js"></script>
-<c:if test="${null != param['feedUrl']}">
-	<style>
-
-	</style>
+<script type="text/javascript">
+    seajs.use('jquery.js', function ($) {
+        $(function () {
+            seajs.use('app/app_home.js', function (homeapp) {
+                var txt1 = new homeapp.text.TextModel({
+                    id: 1231423,
+                    username: 'hecaitou',
+                    realname: '木卫二',
+                    text: '在复旦校园拍Alicia时，引来不少路人围观侧目。有一个GG骑着自行车带着MM路过，居然在车上行注目礼，直至看不见Alicia为止。车后座的MM脸都变色了。。。',
+                    pushtime: '2011/4/19 10:34:20',
+                    time: '',
+                    attach: {
+                        src: '#',
+                        img: 'pdouban.jpg',
+                        title: '想告诉你我了解的山下智久（5.22 番外君2号）',
+                        soures: '山下智久',
+                        cate: '圈子',
+                        desc: '在这里，我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步...'
+                    },
+                    repmod: "装是常态。不装是病态。"
+                });
+                var txts = new homeapp.text.TextList();
+                txts.add(txt1);
+                window.app = new homeapp.app({
+                    el: $('body'),
+                    txtSeed: "#streams",
+                    txtModel: txts
+                });
+                txt2 = new homeapp.text.TextModel({
+                    id: 1231423,
+                    username: 'hecaitou',
+                    realname: '木卫二',
+                    text: '在复旦校园拍Alicia时，引来不少路人围观侧目。有一个GG骑着自行车带着MM路过，居然在车上行注目礼，直至看不见Alicia为止。车后座的MM脸都变色了。。。',
+                    pushtime: '2011/4/19 10:34:20',
+                    time: '',
+                    source:"前段工程师",
+                    attach: {
+                        src: '#',
+                        img: 'pdouban.jpg',
+                        title: '想告诉你我了解的山下智久（5.22 番外君2号）',
+                        soures: '山下智久',
+                        cate: '圈子',
+                        desc: '在这里，我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步...'
+                    }
+                });
+                txts.add(txt2);
+            });
+        });
+    });
+</script>
+<ul id='streams'></ul>
+<script type="text/html" id="stream">
+<div class='hd'>
+	{{#people}}
+    <a href='${urlPrefix}/people/{{id}}' title='{{ screenName }}'>
+    <img class='img48' src='{{avatarPath}}-48' alt='{{ screenName }}'>
+    </a>
+</div>
+<div class='bd'>
+	<div class='text'><a class='lk' href='${urlPrefix}/people/{{id}}' title='{{ screenName }}'>{{ screenName }}</a>
+	{{/people}}
+	{{ text }}
+	</div>
+	{{#picturePath}}
+	<img src="{{picturePath}}-160" class="img160 weiboImg"/>
+	<div class='imgPre hide'>
+		<div class='imgrote middle'>
+			<img src="{{picturePath}}-320" class="img320 preImg"/>
+	</div>
+	<a class='weiboImgRotateL link mr10'>左转</a>
+	    <a class='weiboImgRotateR link mr10'>右转</a>
+	    <a href='{{picturePath}}' class='link' target='_blank'>查看原图</a>
+	</div>
+	{{/picturePath}}
+	{{#quote}}
+	<div class='attach'>
+		<div class='text'>
+		{{#people}}
+		<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>：
+		{{/people}}
+		{{text}}
+		</div>
+		{{#picturePath}}
+		<img src="{{picturePath}}-160" class="img160 weiboImg"/>
+		<div class='imgPre hide'>
+			<div class='imgrote middle'>
+			<img src="{{picturePath}}-320" class="img320 preImg"/>
+			</div>
+			<a class='weiboImgRotateL link mr10'>左转</a>
+	    	<a class='weiboImgRotateR link mr10'>右转</a>
+	    	<a href='{{picturePath}}' class='link' target='_blank'>查看原图</a>
+		</div>
+		{{/picturePath}}
+		<span class="">
+			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文转发</a>
+			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文回复</a>
+		</span>
+	</div>
+	{{/quote}}
+	{{#repmod}}<div class='repmod'><span class='gray'>回应了我：</span>{{repmod}}</div>{{/repmod}}
+</div>
+<div class='fd'>
+	<b class='twarrow png'></b>
+	<span class='stat'>{{time}}
+		{{#source}}<a class='ml5 lk'>{{source}}</a>{{/source}}
+	</span>
+	<a href="#" class='btn_rep png'>回复{{#replyNum}}（{{replyNum}}）{{/replyNum}}</a>
+	<a href="#" class='btn_ret ml5 png'>转发{{#retweetNum}}（{{retweetNum}}）{{/retweetNum}}</a>
+	{{#favorited}}<a href="#" class='favun ml5 png'>取消收藏</a>{{/favorited}}
+	{{^favorited}}<a href="#" class='fav ml5 png'>收藏</a>{{/favorited}}
+	{{#isown}}<b href="#" class='btn_del cloarrow png'>删除</b>{{/isown}}
+</div>
+</script>
 	<script id="tweet" type="text/html">
     <div class="stream-item tweet waitSlideDown" weiboId="{{id}}">
         <div class="tweet-image">
@@ -156,7 +264,6 @@
 	</script>
 	<script type="text/javascript">
 		var ajlock = true;
-
 		$(function () {
 
 		    $("img.weiboImg").live('click',function(){
@@ -524,112 +631,14 @@
 
 	    });
 	</script>
-</c:if>
-<div class="stream-items">
-<c:forEach items="${weibos}" var="weibo" varStatus="status">
-	<div class="stream-item tweet" weiboId=${weibo.id}>
-		<div class="tweet-image">
-			<a href="${urlPrefix}/people/${weibo.senderId}" >
-				<img height="48" width="48" src="${weibo.people.avatarPath}-48"/>
-			</a>
-		</div>
-		<div class="tweet-content">
-			<div class="tweet-row">
-				<span class="tweet-user-name">
-					<a class="tweet-screen-name user-profile-link" href="${urlPrefix}/people/${weibo.people.id}">
-					${weibo.people.realName}
-					</a>
-				</span>
-				<span class="tweet-group">发自<a href="${urlPrefix}${weibo.fromUrl}">${weibo.fromName}</a>
-				</span>
-			</div>
-			<div class="tweet-row">
-				<div class="tweet-text">${weibo.content}</div>
-				<c:if test="${weibo.picturePath !=null }">
-				<img src="${weibo.picturePath}-160" class="img160 weiboImg"/>
-				<div class='imgPre hide'>
-					<div class='imgrote middle'>
-						<img src="${weibo.picturePath}-320" class="img320 preImg"/>
-			     	</div>
-			     	<a class='weiboImgRotateL link mr10'>左转</a>
-				    <a class='weiboImgRotateR link mr10'>右转</a>
-				    <a href='${weibo.picturePath}' class='link' target='_blank'>查看原图</a>
-			    </div>
-				</c:if>
-			</div>
-			<c:if test="${weibo.quote.id > 0}">
-			<div class="tweet-ori" weiboid="${weibo.quote.id}">
-				<div class="tweet-ori-inner">
-					<a href="${urlPrefix}/people/${weibo.quote.people.id}" class="tweet-ori-author">${weibo.quote.people.realName}</a>：
-					<span class='wqcontent'>${weibo.quote.content}</span><br/>
-					<c:if test="${weibo.quote.picturePath !=null }">
-					<img src="${weibo.quote.picturePath}-160" class="img160 weiboImg"/>
-					<div class='imgPre hide'>
-						<div class='imgrote middle'>
-							<img src="${weibo.quote.picturePath}-320" class="img320 preImg"/>
-				     	</div>
-				     	<a class='weiboImgRotateL link mr10'>左转</a>
-					    <a class='weiboImgRotateR link mr10'>右转</a>
-					    <a href='${weibo.quote.picturePath}' class='link' target='_blank'>查看原图</a>
-				    </div>
-					</c:if>
-					<div class="tweet-row clearfix">
-					<div class="tweet-actions">
-						<a class="btn_sret link" href='#'>原文转发</a>
-						<span class="link-sep">·</span>
-						<a class="btn_srep link" href='#'>原文回复</a>
-					</div>
-					</div>
-				</div>
-			</div>
-			</c:if>
-			<div class="tweet-row">
-				<a href="" class="tweet-timestamp">${weibo.time}</a>
-				<span class="tweet-actions">
-					<!--<button onclick="">赞</button>
-					<span class="link-sep">·</span>-->
-					<c:choose>
-						<c:when test="${weibo.unFav}">
-						<a class='link fav'>收藏</a>
-						</c:when>
-						<c:otherwise>
-						<a class='link favun'>取消收藏</a>
-						</c:otherwise>
-					</c:choose>
-					<c:choose>
-						<c:when test="${loginCookie.peopleId == weibo.senderId}">
-						<a class='link btn_del'>删除</a>
-						</c:when>
-					</c:choose>					
-					<span class="link-sep">·</span>
-					<a class="btn_ret link" href='#'>转发
-					<c:choose>
-						<c:when test="${weibo.retweetNum != 0}">
-						（${weibo.retweetNum}）
-						</c:when>
-					</c:choose>	
-					</a>
-					<span class="link-sep">·</span>
-					<a class="btn_rep link" href='#'>回复
-					<c:choose>
-						<c:when test="${weibo.replyNum != 0}">
-						（${weibo.replyNum}）
-						</c:when>
-					</c:choose>	
-					</a>
-				</span>
-			</div>
-		</div>
-	</div>
-</c:forEach>
-</div>
+
 <div id="dia_ret" class="ui_dialog" title="转发">
 		<div class="wcontent mb10"></div>
 		<div class="wpeople mb10"></div>
 		<input id='ret_url' type='hidden' ></input>
 		<textarea name="content" rows="5" cols="50"></textarea>
 		<img src="${staticUrlPrefix}/style/images/ajaxload.gif" class="ajaxload" alt="ajaxload" />
-    </div>
+</div>
 <div id="dia_rep" class="ui_dialog" title="回复">
 		<div class="wcontent mb10"></div>
 		<div class="wpeople mb10"></div>
@@ -637,4 +646,4 @@
 		<input id='rep_wid' type='hidden'></input>
 		<textarea name="content" rows="5" cols="50"></textarea>
 		<img src="${staticUrlPrefix}/style/images/ajaxload.gif" class="ajaxload" alt="ajaxload" />
-    </div>
+</div>

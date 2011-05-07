@@ -13,7 +13,7 @@
 	<version>${q-web.version}</version>
 	<build>
 		<filters>
-			<filter>${user.home}/q-dev2.properties</filter>
+			<filter>${user.home}/q.properties</filter>
 		</filters>
 		<finalName>q</finalName>
 		<plugins>
@@ -38,7 +38,7 @@
 					<contextPath>/q</contextPath>
 					<connectors>
 						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-							<port>9997</port>
+							<port>9999</port>
 							<maxIdleTime>60000</maxIdleTime>
 						</connector>
 					</connectors>
