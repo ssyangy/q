@@ -1,0 +1,14 @@
+﻿#slidbox{overflow:hidden;width:100%;position:relative;height:600px;}
+#slider{position:absolute;top:0;left:0;width:1100px;height:600px;}
+.sldlist{padding:5px;width:540px;}
+.sldlist span.time{position:absolute;left:380px;top:0;color:#B2B7B5}
+.sldlist li{cursor:pointer;border-bottom:1px solid #ddd;padding:10px 40px 10px 58px;position:relative;zoom:1;}
+#sldroot li{background:url("/content/images/arrow/next.png") no-repeat scroll 510px center transparent;}
+#sldroot li.hover{background-image:url("/content/images/arrow/next_h.png");background-color:#fefefe;}
+.sldlist li.end{border-bottom:none 0;}
+.sldlist li img.sldimg{position:absolute;top:10px;left:0;}
+.sldlist li p{line-height:24px;color:#333;}
+.sldlist li .lk{margin-right:5px;}
+.sldlist li .act{position:absolute;top:10px;right:0;}
+#sldtrunk{position:absolute;top:0;left:540px;margin-left:20px;}
+#pagger{position:absolute;bottom:0;right:0;}

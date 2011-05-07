@@ -1,4 +1,5 @@
-﻿@import url("base.css");
+﻿@import url("main/jquery.ui.css");
+@import url("base.css");
 
 #toper{border-bottom:1px dashed #D4D4D4;line-height:30px;padding:5px 0;position:relative;z-index:9;}
 #toper .wapper{height:30px;}

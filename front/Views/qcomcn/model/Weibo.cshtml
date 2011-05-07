@@ -60,6 +60,17 @@
             <div class='bd'>
                 <div class='text'><a class='lk' href='/#!/{{ username }}' title='{{ realname }}'>{{ realname }}</a>
                 {{ text }}
+				{{#picture}}
+				<img src="/usersimg/{{ picture }}-160.jpg" class="img160 weiboImg"/>
+				<div class='imgPre hide'>
+					<div class='imgrote middle'>
+						<img src="/usersimg/{{ picture }}-320.jpg" class="img320 preImg"/>
+				    </div>
+				    <a class='weiboImgRotateL link mr10'>左转</a>
+					<a class='weiboImgRotateR link mr10'>右转</a>
+					<a href='/usersimg/{{ picture }}.jpg' class='link' target='_blank'>查看原图</a>
+				</div>
+				{{/picture}}
                 </div>
                 {{#attach}}
                 <div class='attach'>
