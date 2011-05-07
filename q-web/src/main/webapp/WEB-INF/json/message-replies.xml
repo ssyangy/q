@@ -7,6 +7,7 @@
 				<struct>
 					<member name="id" apiName="id" apiType="string" />
 					<member name="time" apiName="screenTime" apiType="string" />
+					<member name="createdTime" apiName="createdTime" apiType="string" />
 					<member name="content" apiName="text" apiType="string" />
 					<member name="sender" apiName="sender">
 						<type>
