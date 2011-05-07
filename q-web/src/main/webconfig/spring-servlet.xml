@@ -156,9 +156,15 @@
 						</entry>
 						<entry>
 							<key>
+								<value>getWeiboReply:api</value>
+							</key>
+							<value>/WEB-INF/json/weibo-replies-list.xml</value>
+						</entry>
+						<entry>
+							<key>
 								<value>getMessage:replies</value>
 							</key>
-							<value>/WEB-INF/json/message-replies.xml</value>
+							<value>/WEB-INF/json/message-replies-list.xml</value>
 						</entry>
 						<entry>
 							<key>
@@ -523,6 +529,12 @@
 		<property name="pictureService" ref="pictureService"></property>
 	</bean>
 	<bean id="getWeibo" class="q.web.weibo.GetWeibo">
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="groupDao" ref="groupDao" />
+		<property name="favoriteDao" ref="favoriteDao" />
+	</bean>
+	<bean id="getWeiboReply" class="q.web.weibo.GetWeiboReply">
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="groupDao" ref="groupDao" />
