@@ -4,7 +4,8 @@ define(function (require, exports) {
     $.ajaxSetup({
         type: "POST",
         contentType: "application/json; charset=utf-8",
-        dataType: "json"
+        dataType: "json",
+        timeout: 5000
     });
 
 });

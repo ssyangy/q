@@ -5,17 +5,12 @@
     var ich = require('ICanHaz.js');
     var datediff = require('datediff.js');
 
-    //template = $('.template').val();
-    //html = Mustache.to_html(template, json).replace(/^\s*/mg, '');
-
     exports.TextModel = Backbone.Model.extend({
         initialize: function (spec) {
-//            if (!spec || !spec.id || !spec.username) {
-//                throw "InvalidConstructArgs";
-//            }
-            if (this.get("pushtime")) {
-                var pushtime = this.get("pushtime");
-                this.set({ "time": datediff.get(pushtime) });
+            if (this.get("loginpeople")) {
+                if (this.people.id = this.get("loginpeople")) {
+                    this.set({ "isown": true });
+                }
             }
         },
         validate: function (stream) {
@@ -42,9 +37,9 @@
         className: "streambox",
         events: {
             "click .cloarrow": "remove"
-//            "dblclick div.todo-content": "edit",
-//            "click span.todo-destroy": "clear",
-//            "keypress .todo-input": "updateOnEnter"
+            //            "dblclick div.todo-content": "edit",
+            //            "click span.todo-destroy": "clear",
+            //            "keypress .todo-input": "updateOnEnter"
         },
         initialize: function () {
             _.bindAll(this, 'render', 'change', 'remove');

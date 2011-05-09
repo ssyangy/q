@@ -41,6 +41,7 @@ li.streambox.hover .fd b.cloarrow:hover{background-image:url('/content/images/ti
 li.streambox .fd a.png{visibility:hidden;}
 li.streambox.hover .fd a{visibility:inherit;}
 li.streambox .repmod{border:1px solid #ddd;padding:5px;margin-bottom:10px;}
+li.streambox .extend{padding:10px;margin-left:58px;}
 
 .search{position:absolute;top:0;right:250px;}
 #searchpage {top:30px;left:80px;width:307px;}
