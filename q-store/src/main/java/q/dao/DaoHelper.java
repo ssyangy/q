@@ -193,9 +193,10 @@ public class DaoHelper {
 				weiboMap = new HashMap<Long, Weibo>(sourceWeiboIds.size());
 				List<Weibo> weibos = weiboDao.getWeibosByIds(sourceWeiboIds, false);
 				for (Weibo weibo : weibos) {
-					if (weibo.isCommon()) {
-						weiboMap.put(weibo.getId(), weibo);
+					if(weibo.isDelete()) {
+						weibo.setContent(null);//XXX remove by sean
 					}
+					weiboMap.put(weibo.getId(), weibo);
 				}
 			}
 			Map<Long, WeiboReply> replyMap = null;
@@ -210,7 +211,8 @@ public class DaoHelper {
 			}
 			for (Favorite fav : favorites) { // inject weibo and reply sources
 				if (weiboMap != null && fav.isFromWeibo()) {
-					fav.setSource(weiboMap.get(fav.getFromId()));
+					Weibo weibo = weiboMap.get(fav.getFromId());
+					fav.setSource(weibo);
 					fav.getSource().setFav(true);
 				}
 				if (replyMap != null && fav.isFromReply()) {

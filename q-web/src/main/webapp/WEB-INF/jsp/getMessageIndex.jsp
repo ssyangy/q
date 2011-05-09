@@ -1,9 +1,65 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-	<jsp:include page="head.jsp" />
+<jsp:include page="models/head.jsp">
+	<jsp:param name="title" value="私信" />
+</jsp:include>
+<link href="${staticUrlPrefix}/content-q/slider.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    seajs.use('qcomcn.js', function (qcomcn) {
+        var $ = qcomcn.jq;
+
+        $(function () {
+            qcomcn.Init();
+            var lis = $("#sldroot>li");
+            lis.hover(function () {
+                $(this).addClass('hover');
+            }, function () {
+                $(this).removeClass('hover');
+            });
+
+        });
+    });
+</script>
+<h2 class='mb10'>私信</h2>
+<div class="layout grid-m0s7">
+    <div class="col-main"><div class="main-wrap">
+        <div id="slidbox">
+                <div id="slider">
+                <ul class="sldlist" id="sldroot">
+					<c:forEach items="${messages}" var="item">
+	                    <li>
+	                        <img src="${item.sender.avatarPath}-48" alt="sender" class="sldimg" />
+	                        <p class='rel'>${item.sender.realName} -> 
+							<c:forEach items="${item.receivers}" var="receiver" varStatus="status">
+								<a class="lk">${receiver.realName}</a>
+								<c:if test="${!status.last}">,</c:if>
+							</c:forEach>
+	                        <span class="time">${item.time}</span></p>
+	                        <p>${item.lastReply.content}</p>
+	                    </li>
+					</c:forEach>
+                </ul>
+                <script type="text/html" id="msgitem">
+                    <li>
+                        <img src="/usersimg/{{img}}" alt="Alternate Text" class="sldimg" />
+                        <p class='rel'>{{members}}<span class="time">{{time}}</span></p>
+                        <p>{{text}}</p>
+                    </li>
+                </script>
+                <ul class="sldlist" id="sldtrunk">
+                    
+                </ul>
+                <div id="pagger"><a class="lk mr10">上一页</a><a class="lk">下一页</a></div>
+                </div>
+            </div>
+    </div></div>
+    <div class="col-sub">
+        <a href='${UrlPrefix}/message/new'><button class="ui_btn_plusthick">新私信</button></a>
+    </div>
+</div>
+<jsp:include page="models/foot.jsp" />
+
+
 	<script type="text/javascript">
 	    	var friendlist = ${peoplesHintJson};
             $(function () {

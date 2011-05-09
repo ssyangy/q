@@ -6,8 +6,8 @@
 <head>
     <title>${param['title']}</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<link href="${staticUrlPrefix}/content/qcomcn.css" rel="stylesheet" type="text/css" />
-<script src="${staticUrlPrefix}/scripts/sea.js" type="text/javascript"></script>
+<link href="${staticUrlPrefix}/content-q/qcomcn.css" rel="stylesheet" type="text/css" />
+<script src="${staticUrlPrefix}/scripts-q/sea.js" type="text/javascript"></script>
 </head>
 <body>
 <div class="body">
@@ -17,9 +17,9 @@
             <ul class="list">
                 <li><a href='#'>首页</a></li>
                 <li><a class="lk" href='#'>Q博</a></li>
-                <li><a class="lk" href='/qcomcn/Group'>圈子</a></li>
+                <li><a class="lk" href='/group'>圈子</a></li>
                 <li><a class="lk" href='#'>应用</a></li>
-                <li><a class="lk" href='/qcomcn/Friends'>好友</a></li>
+                <li><a class="lk" href='/friends'>好友</a></li>
                 <li class="end"><a class="lk" href='#'>我自己</a></li>
             </ul>
         </div>
