@@ -33,6 +33,11 @@ alter table `group` add	latitude double not null;
 
 alter table `group` modify longitude double not null;
 alter table `group` modify latitude double not null;
+
 4-29
 alter table `weibo` add longitude double not null;
 alter table `weibo` add	latitude double not null;
+
+5-9
+alter table `group` add avatar_path varchar(60);
+alter table category add avatar_path varchar(60);

@@ -271,10 +271,7 @@ public class People extends AbstractDomain implements Serializable {
 	}
 
 	public boolean hasAvatar() {
-		if (avatarPath == null) {
-			return false;
-		}
-		if (avatarPath.endsWith("-def")) {  // qimg.net/a/default/male-def-24, qimg.net/a/default/female-def-24
+		if (avatarPath == null || avatarPath.endsWith("-def")) {  // qimg.net/a/default/male-def, qimg.net/a/default/female-def
 			return false;
 		}
 		return true;

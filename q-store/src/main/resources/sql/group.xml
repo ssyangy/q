@@ -8,6 +8,7 @@
 		<result property="creatorId" column="creator_id" />
 		<result property="name" column="name" />
 		<result property="intro" column="intro" />
+		<result property="avatarPath" column="avatar_path"/>
 		<result property="longitude" column="longitude" />
 		<result property="latitude" column="latitude" />
 		<result property="status" column="status" />
@@ -33,6 +34,7 @@
 		creator_id,
 		name,
 		intro,
+		avatar_path,
 		longitude,
 		latitude,
 		status,
@@ -117,6 +119,7 @@
 		#creatorId#,
 		#name#,
 		#intro#,
+		#avatarPath#,
 		#longitude#,
 		#latitude#,
 		0,
