@@ -256,7 +256,6 @@
 				<value>getGroupNew</value>
 				<value>addGroup</value>
 				<value>getGroupFeed</value>
-				<value>getGroupIndex</value>
 				<value>getGroupFeedEvent</value>
 				<value>addGroupJoin</value>
 				<value>deleteGroupJoin</value>
