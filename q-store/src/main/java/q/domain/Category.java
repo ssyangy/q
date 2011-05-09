@@ -16,6 +16,8 @@ public class Category extends AbstractDomain implements Serializable {
 	private String name;
 
 	private String intro;
+	
+	private String avatarPath;
 
 	private String status;
 
@@ -39,6 +41,21 @@ public class Category extends AbstractDomain implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public boolean hasAvatar() {
+		if (avatarPath == null || avatarPath.endsWith("-def")) {
+			return false;
+		}
+		return true;
+	}
+
+	public String getAvatarPath() {
+		return avatarPath;
+	}
+
+	public void setAvatarPath(String avatarPath) {
+		this.avatarPath = avatarPath;
 	}
 
 	public String getIntro() {

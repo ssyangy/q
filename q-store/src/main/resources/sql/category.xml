@@ -6,6 +6,7 @@
 		<result property="id" column="id" />
         <result property="name" column="name" />
         <result property="intro" column="intro" />
+        <result property="avatarPath" column="avatar_path"/>
         <result property="groupNum" column="group_num" />
         <result property="joinNum" column="join_num" />
         <result property="status" column="status" />
@@ -17,6 +18,7 @@
 	 id,
 	 name,
 	 intro,
+	 avatar_path,
 	 group_num,
 	 join_num,
 	 status,
@@ -32,13 +34,14 @@
 	</select>
 
 	<insert id="insertCategory">
-		insert into q.category
+		insert into category
 		(
 		<include refid="category.columns" />
 		) values (
 		#id#,
 		#name#,
 		#intro#,
+		#avatarPath#,
 		#groupNum#,
 		#joinNum#,
 		#status#,
