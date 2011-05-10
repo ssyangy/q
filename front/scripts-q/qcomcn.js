@@ -54,5 +54,8 @@
         $("input.mttext_val").mttext({ wval: true });
         $("textarea.mttextar").mttext({ isarea: true });
         $("textarea.mttextar_val").mttext({ isarea: true, wval: true });
+
+        $(".hov,.streambox").hover(function(){$(this).addClass('hover');},
+        function(){$(this).removeClass('hover');});
     }
 });

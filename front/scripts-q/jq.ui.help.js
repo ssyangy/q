@@ -16,6 +16,7 @@
             modal: true,
             autoOpen: false,
             hide: "drop",
+            width:350,
             buttons: {
                 "确定": function () {
                     $('input.donet', this).click();

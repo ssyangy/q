@@ -363,7 +363,6 @@
     <Content Include="content\token-input.css" />
     <Content Include="content\slider.css" />
     <Content Include="content\step.css" />
-    <Content Include="content\streambox.css" />
     <Content Include="demo\resize.htm" />
     <Content Include="Global.asax" />
     <Content Include="demo\backbone-min.js" />
@@ -378,7 +377,7 @@
     <Content Include="demo\underscore-min.js" />
     <Content Include="demo\MovieApp.js" />
     <Content Include="demo\MvcApp.htm" />
-    <Content Include="scripts-q\app\app_groupfeed.js" />
+    <Content Include="scripts-q\app\app_weibolist.js" />
     <Content Include="scripts-q\app\weibo.js" />
     <Content Include="scripts-q\backbone.js" />
     <Content Include="scripts-q\chinaarea.js" />

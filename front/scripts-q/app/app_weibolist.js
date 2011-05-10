@@ -2,7 +2,7 @@
     var $ = exports.jq = require('jquery.js');
     var Backbone = require('backbone.js');
     var _ = require('underscore.js');
-    var text = exports.text = require('app/text.js');
+    var weibo = exports.weibo = require('app/weibo.js');
 
     exports.app = Backbone.View.extend({
         events: {
@@ -11,16 +11,16 @@
         },
         initialize: function (spec) {
             this.el = spec.el;
-            _.bindAll(this, 'txtAdd');
+            _.bindAll(this, 'weiboAdd');
 
-            this.txtSeed = spec.txtSeed;
-            this.texts = spec.txtModel;
-            this.texts.bind('add', this.txtAdd);
-            this.texts.each(this.txtAdd);
+            this.wbSeed = spec.wbSeed;
+            this.weibos = spec.wbModel;
+            this.weibos.bind('add', this.weiboAdd);
+            this.weibos.each(this.weiboAdd);
         },
-        txtAdd: function (txt) {
-            var view = new text.TextView({ model: txt });
-            $(this.txtSeed).prepend(view.render().el);
+        weiboAdd: function (txt) {
+            var view = new weibo.WeiboView({ model: txt });
+            $(this.wbSeed).prepend(view.render().el);
             require('qcomcn.js').fixui();
         },
         key_submit: function (e) {
@@ -31,7 +31,7 @@
             }
         },
         submit: function () {
-            var txt1 = new text.TextModel({
+            var txt1 = new weibo.WeiboModel({
                 id: 1231423,
                 username: 'hecaitou',
                 realname: '木卫二',
@@ -47,7 +47,7 @@
                     desc: '在这里，我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步...'
                 }
             });
-            this.texts.add(txt1);
+            this.weibos.add(txt1);
         }
 
     });

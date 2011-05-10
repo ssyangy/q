@@ -26,7 +26,7 @@ li.streambox.hover{background-color:#fafafa;border-color:#e0e3e6;}
 li.streambox.open{background-color:#E9F0F8;border-color:#D4E1F1;}
 li.streambox .hd{float:left;height:48px;width:48px;}
 li.streambox .bd{margin-left: 58px;}
-li.streambox .bd .text{font-size: 14px;color: #333;line-height: 19px;word-wrap: break-word;}
+li.streambox .bd .text{font-size:14px;color:#333;line-height:19px;word-wrap:break-word;min-height:60px;_height:60px;overflow:visible;}
 .quote{color:#999;margin:10px 0;display:block;zoom:1;overflow:hidden;padding-left:10px;border-left: 2px solid #E0E3E9;}
 .quote p.prop {margin-bottom: 7px;color: #ccc;}
 .quote p {line-height: 1.2;margin: 2px 0;word-wrap: break-word;}
@@ -37,9 +37,10 @@ li.streambox.hover .fd b.twarrow{display:block;}
 li.streambox .fd b.cloarrow{position:absolute;right:0;bottom:0;width:13px;height:13px;background:url('/content/images/tips/stop.png') no-repeat;display:none;}
 li.streambox.hover .fd b.cloarrow{display:block;}
 li.streambox.hover .fd b.cloarrow:hover{background-image:url('/content/images/tips/stop_h.png')}
-li.streambox .fd a.png{visibility:hidden;}
-li.streambox.hover .fd a{visibility:inherit;}
+li.streambox a.hod{visibility:hidden;}
+li.streambox.hover a.hod{visibility:inherit;}
 li.streambox .repmod{border:1px solid #ddd;padding:5px;margin-bottom:10px;}
+li.streambox .extend{display:none;}
 
 .search{position:absolute;top:0;right:250px;}
 #searchpage {top:30px;left:80px;width:307px;}

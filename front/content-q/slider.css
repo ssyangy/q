@@ -10,5 +10,6 @@
 .sldlist li p{line-height:24px;color:#333;}
 .sldlist li .lk{margin-right:5px;}
 .sldlist li .act{position:absolute;top:10px;right:0;}
+.sldlist li .actun{position:absolute;top:10px;right:0;}
 #sldtrunk{position:absolute;top:0;left:540px;margin-left:20px;}
 #pagger{position:absolute;bottom:0;right:0;}
