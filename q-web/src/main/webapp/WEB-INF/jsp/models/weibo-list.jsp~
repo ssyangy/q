@@ -3,59 +3,42 @@
 <script type="text/javascript">
     seajs.use('qcomcn.js', function (q) {
     	var $ = q.jq;
-    	var _ = {};
-    	seajs.use('underscore.js',function(us){ _ = us});
     	var ajlock = true;
-    	window.loginCookie = '${loginCookie.peopleId}';
-    	
-        $(function () {
-            seajs.use('app/weibo.js', function (weibo) {
-            	var weibos = new weibo.WeiboList();
-            	var weiboAdd = function (txt) {
-                    var view = new weibo.WeiboView({ model: txt });
-                    $('#streams').prepend(view.render().el);
-                    q.fixui();
-                }
-            	weibos.bind('add', weiboAdd);
 
-            	$.ajax({
-            		send:function(){ ajlock = false; },
-				    url: "${param['feedUrl']}?tab=${param['tab']}",
-				    data: {size:8, startId:'999999999999999999',search:"${param['search']}"},
-				   	success: function(json){
-					   	$(json).each(function(){
-					   	 	var t = new weibo.WeiboModel(this);
-					   		weibos.add(t);
-					   	});
-				    },
-				    complete: function(){ ajlock = true; }
-				});
+        seajs.use('app/weibo.js', function (w) {
+            var ajaxweibo = function(size,startid){
+                $.ajax({
+                    send:function(){ ajlock = false; },
+                    url: "${param['feedUrl']}?tab=${param['tab']}",
+                    data: {size:size, startId:startid,search:"${param['search']}"},
+                    success: function(json){
+                        $(json).each(function(){
+                            this.old = true;
+                            var t = new w.WeiboModel(this);
+                            w.weibos.add(t);
+                        });
+                    },
+                    complete: function(){ ajlock = true; }
+                });
+            }
+            
+            $(function () {
+                w.preui();
+                ajaxweibo(8,'999999999999999999');
             	
             	var body = $('#body');
     	        var o = body[0];
                 var updateweibo = function(){
                 	if (o.scrollTop + gWinHeight < o.scrollHeight) return;
                    	if (!ajlock) return;
-       				var lis = $('li.streambox');
-       	            $.ajax({
-       	            	send:function(){ ajlock = false; },
-   					    url: "${param['feedUrl']}?tab=${param['tab']}",
-   					    data: {size:1, startId:parseInt(lis.last().attr('stream-id'))-1,search:"${param['search']}"},
-   					   	success: function(json){
-   						   	$(json).each(function(){
-   						   	 	var t = new weibo.WeiboModel(this);
-   						   		weibos.add(t);
-   						   	});
-   					    },
-   					    complete: function(){ ajlock = true; }
-       				});
+                    ajaxweibo(1,w.weibo.oldlast().get('id')-1);
 				}
-                var throttled = _.throttle(updateweibo, 100);
-                body.scroll(throttled);
-            	
+                seajs.use('underscore.js',function(_){ 
+                    var throttled = _.throttle(updateweibo, 200);
+                    body.scroll(throttled);
+                });
             });
         });
-        
     });
 </script>
 <ul id='streams'></ul>
@@ -81,7 +64,7 @@
 	</div>
 	{{/picturePath}}
 	{{#quote}}
-	<div class='attach'>
+	<div class='quote'>
 		<div class='text'>
 		{{#people}}
 		<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>：
@@ -108,48 +91,43 @@
 	{{#repmod}}<div class='repmod'><span class='gray'>回应了我：</span>{{repmod}}</div>{{/repmod}}
 </div>
 <div class='fd'>
-	<b class='twarrow png'></b>
-	<span class='stat'>{{time}}
+	<span class='stat'>{{screenTime}}
 		{{#source}}<a class='ml5 lk'>{{source}}</a>{{/source}}
 	</span>
-	<a href="#" class='replay png'>回复{{#replyNum}}（{{replyNum}}）{{/replyNum}}</a>
-	<a href="#" class='resub ml5 png'>转发{{#retweetNum}}（{{retweetNum}}）{{/retweetNum}}</a>
-	{{#favorited}}<a href="#" class='unfav ml5 png'>取消收藏</a>{{/favorited}}
-	{{^favorited}}<a href="#" class='fav ml5 png'>收藏</a>{{/favorited}}
-	{{#isown}}<b class='cloarrow png'></b>{{/isown}}
+	<a href="javascript:void(0);" class='hod replay'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
+	<a href="javascript:void(0);" class='hod resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
+	<a href="javascript:void(0);" class='hod unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
+    <a href="javascript:void(0);" class='hod fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
+	{{#isown}}<b class='cloarrow'></b>{{/isown}}
 </div>
-<div class='extend hide'></div>
-</script>
-<script type="text/html" id="stream-ext">
-    <input class='mttext' type='text' value='发表点评论。。。' />
+<div class='extend'>
+    <input class='mttext_val' type='text' value='发表点评论。。。' />
     <a class='btn'>提交</a>
-	<ul class='msglist'>
-	{{#replies}}
-	<li>
+    <ul class='msglist'></ul>
+    <a class='lk mr10 rrprev hide'>上一页</a>
+    <a class='lk rrnext hide'>下一页</a>
+ </div>
+</script>
+<script type="text/html" id="stream_ext">
 	{{#people}}
-	<a href="${urlPrefix}/people/{{id}}"><img class="wh48" src="{{avatarPath}}-48" alt="head" /></a>
+	<a href="${urlPrefix}/people/{{id}}">`<img class="wh48" src="{{avatarPath}}-48" alt="head" /></a>
 	<p><a class='link peop' href='${urlPrefix}/people/{{id}}'>{{screenName}}</a></p>
 	{{/people}}
 	<p>{{text}}</p>
-	<p><span class="gray">{{screenTime}}</span>
-		<a class="link ml5 FR btn_rrep">回复{{#replyNum}}（{{replyNum}}）{{/replyNum}}</a>
-		<span class="link-sep FR">·</span>
-		<a class="link ml5 mr5 FR btn_rret">转发{{#retweetNum}}（{{retweetNum}}）{{/retweetNum}}</a>
-		<span class="link-sep FR">·</span>
-		{{#favorited}}<a href="#" class='link FR rfavun mr5'>取消收藏</a>{{/favorited}}
-		{{^favorited}}<a href="#" class='link FR rfav mr5'>收藏</a>{{/favorited}}
-		{{#isown}}<a href="#" class='link mr5 FR rdel'>删除</a>{{/isown}}
+    <p><span class="stat">{{screenTime}}</span>
+        <a href="${urlprefix}/weibo/{{id}}" class='replay'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
+        <a href="javascript:void(0);" class='resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
+        <a href="javascript:void(0);" class='unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
+        <a href="javascript:void(0);" class='fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
+		{{#isown}}<a href="javascript:void(0);" class='lk del'>删除</a>{{/isown}}
 	</p>
-	<li>
-	{{/replies}}
-	</ul>
-	{{#hasPrev}}<button id='rrepprev' class='lk mr10'>上一页</button>{{/hasPrev}}
-	{{#hasNext}}<button id='rrepnext' class='lk'>下一页</button>{{/hasNext}}
 </script>
 <div id="dia_ret" class="ui_dialog" title="转发">
-	<div class="wcontent mb10"></div>
 	<div class="wpeople mb10"></div>
+	<div class="wsor mb10"></div>
+	<div class="wcontent mb10"></div>
 	<input id='ret_url' type='hidden' ></input>
-	<textarea name="content" rows="5" cols="50"></textarea>
-	<img src="${staticUrlPrefix}/style/images/ajaxload.gif" class="ajaxload" alt="ajaxload" />
+	<textarea name="content" class="mttextar_val" style="width:100%"></textarea>
+    <img src="${staticUrlPrefix}/content-q/images/ajax/ajaxload.gif" class="ajaxload hide" alt="ajaxload" />
+    <input type='hidden' class='donet' />
 </div>

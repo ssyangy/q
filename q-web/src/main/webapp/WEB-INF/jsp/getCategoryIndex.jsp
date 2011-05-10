@@ -12,26 +12,17 @@ span.pass {display:inline-block;zoom:1;*display:inline;position:relative;width:1
 background:url("/content/images/arrow/sh_ex2.png") no-repeat scroll 0 0 transparent;}
 </style>
 <script type="text/javascript">
-	seajs.use('qcomcn.js', function (qcomcn) {
-		//seajs.use('jq.easing.js');
-		var $ = qcomcn.jq;
+	seajs.use('qcomcn.js', function (q) {
+		var $ = q.jq;
 		$(function () {
-             qcomcn.Init();
-             
+             q.Init();
              var lis = $("#sldroot>li");
-             lis.hover(function () {
-                 $(this).addClass('hover');
-             }, function () {
-                 $(this).removeClass('hover');
-             });
              var roll = $('#passroll');
              var slider = $("#slider");
              var root = $('#root');
              root.click(function () {
                  if (root.data("clicked")) {
-                     slider.animate({
-                         left: 0
-                     }, { duration: 500, easing: "swing" });
+                    slider.animate({ left: 0 }, { duration: 500, easing: "swing" });
                     $('span.tit,span.pass', roll).remove();
                  } 
              });
@@ -41,23 +32,51 @@ background:url("/content/images/arrow/sh_ex2.png") no-repeat scroll 0 0 transpar
 				lis.click(function () {
 					groups.empty();
 					$.ajax({
-					    url: "${param['feedUrl']}?tab=${param['tab']}",
-					    data: {id:parseInt($(this).attr('gpcid'))},
+					    url: "${urlPrefix}/group",
+					    data: {catId: parseInt($(this).attr('gpcid'))},
 					   	success: function(json){
-							$(json).each(function(){
+							$(json.groups).each(function(){
 								groups.append(ich.group(this));
-							}
-							slider.animate({
-								left: -560
-							}, { duration: 500, easing: "swing" });
+							});
+							slider.animate({left: -560}, { duration: 500, easing: "swing" });
 							var grouptit = "fuck分类";
-							roll.append("<span class='pass'></span><span class='tit'>" + groupt
+							roll.append("<span class='pass'></span><span class='tit'>" + grouptit);
 							root.data("clicked", true);
 					    }
 					});
 				});
 			});
-
+			
+			$('#sldtrunk a.act').live('click',function(){
+				var li = $(this).parent('li');
+				$.ajax({
+					url: '${urlPrefix}/group/' + li.attr('gid') + '/join',
+					type: 'POST',
+					msg:this,
+					success: function(json){
+						if(json == null){
+							$(this.msg).siblings('a.actun').show();
+							$(this.msg).hide();
+						}
+					}
+				});
+			});
+			$('#sldtrunk a.actun').live('click',function(){
+				var li = $(this).parent('li');
+				$.ajax({
+					url: '${urlPrefix}/group/' + li.attr('gid') + '/join',
+					type: 'POST',
+					data:{_method:'delete'},
+					msg:this,
+					success: function(json){
+						if(json == null){
+							$(this.msg).siblings('a.act').show();
+							$(this.msg).hide();
+						}
+					}
+				});
+			});
+			
 		});
 	});
 </script>
@@ -72,24 +91,25 @@ background:url("/content/images/arrow/sh_ex2.png") no-repeat scroll 0 0 transpar
             <div id="slider">
             <ul class="sldlist" id="sldroot">
 				<c:forEach items="${cats}" var="cat" varStatus="status">
-				<li gpcid='${cat.id}'>
+				<li gpcid='${cat.id}' class='hov'>
 					<img src="${imageUrl}/default/cat-def.png" alt="gpcate" class="sldimg" >
 					<p>${cat.name}</p>
 					<p>
 						<c:forEach items="${cat.groups}" var="group" varStatus="status">
 							<a class="lk" href="${urlPrefix}/group/${group.id}">${group.name}</a>
-						</c:forEach> 
+						</c:forEach>
 					</p>
 				</li>
 				</c:forEach>
             </ul>
             <script type="text/html" id="group">
-                    <li>
-                        <img src="/usersimg/{{img}}" alt="Alternate Text" class="sldimg" />
-                        <a class='btn act'>关注</a>
-                        <p>{{title}}</p>
-                        <p>成员：{{member}}人&nbsp;&nbsp;创建于：{{time}}</p>
-                        <p>{{sign}}</p>
+                    <li gid={{id}}><a href='${urlPrefix}/group/{{id}}'>
+                        <img src="/usersimg/{{img}}" alt="avtor" class="sldimg" />
+                        <a class='btn actun {{#join}}hide{{/join}}'>关注</a>
+                        <a class='btn act {{^join}}hide{{/join}}'>取消关注</a>
+                        <p>{{name}}</p>
+                        <p>成员：{{joinNum}}人&nbsp;&nbsp;创建于：{{time}}</p>
+                        <p>{{intro}}</p></a>
                     </li>
             </script>
             <ul id="sldtrunk" class="sldlist"></ul>

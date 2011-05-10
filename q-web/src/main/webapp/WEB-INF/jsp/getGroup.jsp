@@ -4,7 +4,7 @@
 </jsp:include>
 <div class="layout grid-s5m0e6">
     <div class="col-main"><div class="main-wrap pr10">
-	<jsp:include page="models/profile.jsp" />
+		<jsp:include page="models/profile.jsp" />
         <div class="ui-tabs mt10">
             <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
                 <li class="ui-state-default crt2 ui-state-active"><a href="/qcomcn/group">讨论区</a></li>
