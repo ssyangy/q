@@ -168,7 +168,7 @@
 						</entry>
 						<entry>
 							<key>
-								<value>getCategoryIndex:categorys</value>
+								<value>getCategoryIndex:cats</value>
 							</key>
 							<value>/WEB-INF/json/category-list.xml</value>
 						</entry>
@@ -180,7 +180,7 @@
 						</entry>
 						<entry>
 							<key>
-								<value>getGroupIndex:groups</value>
+								<value>getGroupIndex:api</value>
 							</key>
 							<value>/WEB-INF/json/group-list.xml</value>
 						</entry>
