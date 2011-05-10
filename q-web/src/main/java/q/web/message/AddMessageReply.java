@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.web.message;
 
@@ -16,7 +16,7 @@ import q.web.exception.RequestParameterInvalidException;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 21, 2011
- * 
+ *
  */
 public class AddMessageReply extends Resource {
 	protected MessageDao messageDao;
@@ -33,7 +33,7 @@ public class AddMessageReply extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -63,7 +63,7 @@ public class AddMessageReply extends Resource {
 			throw new RequestParameterInvalidException("quote:invalid");
 		}
  		messageDao.addMessageReply(messageReply);
- 		
+ 		context.setModel("MessageReply", messageReply);
  		String from = context.getString("from");
  		if (from != null) {
 			context.redirectContextPath(from);
