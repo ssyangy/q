@@ -118,7 +118,7 @@
 	{{^favorited}}<a href="#" class='fav ml5 png'>收藏</a>{{/favorited}}
 	{{#isown}}<b class='cloarrow png'></b>{{/isown}}
 </div>
-<div class='extend'></div>
+<div class='extend hide'></div>
 </script>
 <script type="text/html" id="stream-ext">
     <input class='mttext' type='text' value='发表点评论。。。' />
