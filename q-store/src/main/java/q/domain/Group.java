@@ -20,6 +20,8 @@ public class Group extends AbstractDomain implements Serializable {
 	private int status;
 
 	private int joinNum;
+	
+	private String avatarPath;
 
 	public int getJoinNum() {
 		return joinNum;
@@ -77,7 +79,22 @@ public class Group extends AbstractDomain implements Serializable {
 	public void setIntro(String intro) {
 		this.intro = intro;
 	}
+	
+	public boolean hasAvatar() {
+		if (avatarPath == null || avatarPath.endsWith("-def")) {
+			return false;
+		}
+		return true;
+	}
 
+	public String getAvatarPath() {
+		return avatarPath;
+	}
+
+	public void setAvatarPath(String avatarPath) {
+		this.avatarPath = avatarPath;
+	}
+	
 	public int getStatus() {
 		return status;
 	}
