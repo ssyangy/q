@@ -12,6 +12,7 @@
 			<member name="weiboNum" apiName="weiboNum" apiType="int" />
 			<member name="friendNum" apiName="friendNum" apiType="int" />
 			<member name="email" apiName="email" apiType="string" />
-		</struct>
+			<member name="intro" apiName="intro" apiType="string" />
+ 		</struct>
 	</type>
 </param>

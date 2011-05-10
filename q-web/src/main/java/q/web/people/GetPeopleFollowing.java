@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.web.people;
 
@@ -56,7 +56,7 @@ public class GetPeopleFollowing extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long fromPeopleId = context.getResourceIdLong();
 		long loginPeopleId = context.getCookiePeopleId();
-		
+
 		GetPeopleFrame frame = new GetPeopleFrame();
 		frame.setEventDao(eventDao);
 		frame.setGroupDao(groupDao);
@@ -64,11 +64,16 @@ public class GetPeopleFollowing extends Resource {
 		frame.setWeiboDao(weiboDao);
 		frame.validate(context);
 		frame.execute(context);
-		
+		int size = context.getInt("size", 10);
+		long startId = context.getIdLong("startId");
 		PeopleRelationPage page = new PeopleRelationPage();
 		page.setFromPeopleId(fromPeopleId);
+		int fetchSize = size ;
+		page.setSize(fetchSize);
 		page.setStatus(PeopleRelationStatus.FOLLOWING);
-		page.setSize(20);
+		if (startId > 0) {
+			page.setStartId(startId);
+		}
 		page.setStartIndex(0);
 		List<PeopleRelation> relations = this.peopleDao.getPeopleRelationsByPage(page);
 		List<Long> followingIds = new ArrayList<Long>();
@@ -88,7 +93,7 @@ public class GetPeopleFollowing extends Resource {
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

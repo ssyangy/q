@@ -43,7 +43,7 @@ public class GetGroupIndex extends Resource {
 				groups = groupDao.getAllGroupsByCatId(catId);
 			}
 		} else if (method.equals("getMyGroups")) {
-			long id = context.getCookiePeopleId();
+			long id=context.getLong("id", context.getCookiePeopleId());
 			groups = groupDao.getGroupsByPeopleId(id);
 		} else if (method.equals("getNearGroups")) {
 			double latitude = Double.parseDouble(context.getString("latitude"));
