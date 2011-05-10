@@ -49,7 +49,7 @@ public class GetGroupIndex extends Resource {
 		String method=context.getString("method");
 		if(method!=null){
 		if(method.equals("getMyGroups")){
-			long id=context.getCookiePeopleId();
+			long id=context.getLong("id", context.getCookiePeopleId());
 		List<Group>groups=groupDao.getGroupsByPeopleId(id);
 		context.setModel("groups", groups);
 		}

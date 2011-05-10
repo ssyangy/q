@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.web.people;
 
@@ -63,12 +63,17 @@ public class GetPeopleFollower extends Resource {
 		frame.setWeiboDao(weiboDao);
 		frame.validate(context);
 		frame.execute(context);
-		
+		int size = context.getInt("size", 10);
+		long startId = context.getIdLong("startId");
 		PeopleRelationPage page = new PeopleRelationPage();
 		page.setToPeopleId(toPeopleId);
 		page.setStatus(PeopleRelationStatus.FOLLOWING);
-		page.setSize(20);
+		int fetchSize = size ;
+		page.setSize(fetchSize);
 		page.setStartIndex(0);
+		if (startId > 0) {
+			page.setStartId(startId);
+		}
 		List<PeopleRelation> relations = this.peopleDao.getPeopleRelationsByPage(page);
 		List<Long> followerIds = new ArrayList<Long>();
 		for(PeopleRelation relation: relations) {
@@ -87,7 +92,7 @@ public class GetPeopleFollower extends Resource {
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

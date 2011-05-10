@@ -238,6 +238,18 @@
 							</key>
 							<value>/WEB-INF/json/people.xml</value>
 						</entry>
+						<entry>
+							<key>
+								<value>getMessage:replies</value>
+							</key>
+							<value>/WEB-INF/json/message-replies-list.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>AddMessageReply:MessageReply</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
 					</map>
 				</property>
 			</bean>
@@ -614,6 +626,7 @@
 		<property name="messageDao" ref="messageDao" />
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
+
 
 	<!-- auth web -->
 	<bean id="getAuthcodeNew" class="q.web.authcode.GetAuthcodeNew">
