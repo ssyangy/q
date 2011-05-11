@@ -55,7 +55,7 @@ public class GetGroupPeople extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long groupId = context.getResourceIdLong();
 		long loginPeopleId = context.getCookiePeopleId();
-		List<Long> peopleIds = this.groupDao.getPeopleIdsByGroupId(groupId, 20, 0);
+		List<Long> peopleIds = this.groupDao.getJoinPeopleIdsByGroupId(groupId, 20, 0);
 		List<People> peoples = this.peopleDao.getPeoplesByIds(peopleIds);
 		if (loginPeopleId > 0) {
 			DaoHelper.injectPeoplesWithRelation(peopleDao, peoples, loginPeopleId);

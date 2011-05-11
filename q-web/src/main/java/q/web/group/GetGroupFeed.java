@@ -49,7 +49,7 @@ public class GetGroupFeed extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
-		List<Long> groupIds = this.groupDao.getGroupIdsByPeopleId(loginPeopleId);
+		List<Long> groupIds = this.groupDao.getGroupIdsByJoinPeopleId(loginPeopleId);
 
 		if (CollectionKit.isNotEmpty(groupIds)) {
 			int size = context.getInt("size", 10);

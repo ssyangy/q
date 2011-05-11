@@ -6,7 +6,6 @@ package q.web.weibo;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.domain.Status;
-import q.domain.Weibo;
 import q.domain.WeiboReply;
 import q.util.IdCreator;
 import q.web.Resource;
@@ -39,15 +38,10 @@ public class DeleteWeiboReply extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long loginId = context.getCookiePeopleId();
-		long weiboId = context.getResourceIdLong();
-		long replyWeiboId = context.getIdLong("replyId");
+		long replyWeiboId = context.getResourceIdLong();
 
-		Weibo weibo = this.weiboDao.getWeiboById(weiboId);
-		if (weibo == null) {
-			throw new RequestParameterInvalidException("weibo:invalid");
-		}
 		WeiboReply reply = this.weiboDao.getWeiboReplyById(replyWeiboId);
-		if (reply == null || reply.getQuoteWeiboId() != weibo.getId() || reply.getSenderId() != loginId) {
+		if (reply == null || reply.getSenderId() != loginId) {
 			throw new RequestParameterInvalidException("reply:invalid");
 		}
 
@@ -58,10 +52,6 @@ public class DeleteWeiboReply extends Resource {
 			}
 		}
 
-		String from = context.getString("from");
-		if (from != null) {
-			context.redirectContextPath(from);
-		}
 	}
 
 	/*
@@ -75,11 +65,7 @@ public class DeleteWeiboReply extends Resource {
 		if (IdCreator.isNotValidId(loginId)) {
 			throw new RequestParameterInvalidException("login:invalid");
 		}
-		long weiboId = context.getResourceIdLong();
-		if (IdCreator.isNotValidId(weiboId)) {
-			throw new RequestParameterInvalidException("weibo:invalid");
-		}
-		long replyWeiboId = context.getIdLong("replyId");
+		long replyWeiboId = context.getResourceIdLong();
 		if (IdCreator.isNotValidId(replyWeiboId)) {
 			throw new RequestParameterInvalidException("reply:invalid");
 		}

@@ -45,9 +45,9 @@ public class GetGroupFeedFrame extends Resource {
 		long loginPeopleId = context.getCookiePeopleId();
 		People people = this.peopleDao.getPeopleById(loginPeopleId);
 		context.setModel("people", people);
-		context.setModel("selectGroups", this.groupDao.getGroupsByPeopleId(loginPeopleId));
+		context.setModel("selectGroups", this.groupDao.getGroupsByJoinPeopleId(loginPeopleId));
 		
-		List<Long> groupIds = this.groupDao.getGroupIdsByPeopleId(loginPeopleId);
+		List<Long> groupIds = this.groupDao.getGroupIdsByJoinPeopleId(loginPeopleId);
 		if (CollectionKit.isNotEmpty(groupIds)) {
 			List<Group> groups = this.groupDao.getGroupsByIds(groupIds);
 			context.setModel("groups", groups);
@@ -55,11 +55,11 @@ public class GetGroupFeedFrame extends Resource {
 			List<Event> newEvents = this.eventDao.getEventsByGroupIds(groupIds, 4, 0);
 			context.setModel("newEvents", newEvents);
 			
-			List<Long> newPeopleIds = this.groupDao.getPeopleIdsByGroupIds(groupIds, 3, 0);
+			List<Long> newPeopleIds = this.groupDao.getJoinPeopleIdsByGroupIds(groupIds, 3, 0);
 			List<People> newPeoples = this.peopleDao.getPeoplesByIds(newPeopleIds);
 			context.setModel("newPeoples", newPeoples);
 			
-			List<Long> hotPeopleIds = this.groupDao.getHotGroupPeopleIds(groupIds, 3, 0);
+			List<Long> hotPeopleIds = this.groupDao.getJoinPeopleIdsByHotAndGroupIds(groupIds, 3, 0);
 			List<People> hotPeoples = this.peopleDao.getPeoplesByIds(hotPeopleIds);
 			context.setModel("hotPeoples", hotPeoples);
 			

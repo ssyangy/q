@@ -20,7 +20,7 @@ public class GetGroupJoin extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long peopleId = context.getIdLong("peopleId");
 		long groupId = context.getIdLong("groupId");
-		PeopleJoinGroup join = groupDao.getGroupPeople(peopleId, groupId);
+		PeopleJoinGroup join = groupDao.getJoinPeopleByGroupIdPeopleId(peopleId, groupId);
 		if (join != null && join.getStatus() == Status.COMMON.getValue()) {
 			context.setModel("isJoined", join);
 		}

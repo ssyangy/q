@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import q.dao.CategoryDao;
+import q.dao.DaoHelper;
 import q.dao.GroupDao;
 import q.domain.Group;
 import q.util.CollectionKit;
@@ -21,12 +21,6 @@ import q.web.ResourceContext;
  */
 public class GetGroupIndex extends Resource {
 
-	private CategoryDao categoryDao;
-
-	public void setCategoryDao(CategoryDao categoryDao) {
-		this.categoryDao = categoryDao;
-	}
-
 	private GroupDao groupDao;
 
 	public void setGroupDao(GroupDao groupDao) {
@@ -36,15 +30,19 @@ public class GetGroupIndex extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws SQLException {
 		String method = context.getString("method");
+		long loginId = context.getCookiePeopleId();
 		List<Group> groups = null;
 		if (method == null) {
 			long catId = context.getIdLong("catId");
 			if (catId > 0) {
 				groups = groupDao.getAllGroupsByCatId(catId);
 			}
+			if (loginId > 0) {
+				DaoHelper.injectGroupsWithJoined(groupDao, groups, loginId);
+			}
 		} else if (method.equals("getMyGroups")) {
-			long id=context.getLong("id", context.getCookiePeopleId());
-			groups = groupDao.getGroupsByPeopleId(id);
+			long id=context.getLong("id", loginId);
+			groups = groupDao.getGroupsByJoinPeopleId(id);
 		} else if (method.equals("getNearGroups")) {
 			double latitude = Double.parseDouble(context.getString("latitude"));
 			double longitude = Double.parseDouble(context.getString("longitude"));

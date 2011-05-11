@@ -3,11 +3,15 @@
  */
 package q.biz.impl;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 import q.biz.NotifyService;
 import q.domain.Weibo;
 import q.domain.WeiboReply;
 import q.log.Logger;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.exceptions.JedisConnectionException;
 
 /**
  * @author seanlinwang at gmail dot com
@@ -36,9 +40,17 @@ public class DefaultNotifyService implements NotifyService {
 	}
 
 	private Jedis pubJedis;
+	private Lock resetPubJedisLock = new ReentrantLock();
 
 	public void init() {
-		pubJedis = new Jedis(pubHost, pubPort, pubTimeout);
+		pubJedis = createPubJedis();
+	}
+
+	/**
+	 * @return
+	 */
+	private Jedis createPubJedis() {
+		return new Jedis(pubHost, pubPort, pubTimeout);
 	}
 
 	/*
@@ -53,6 +65,8 @@ public class DefaultNotifyService implements NotifyService {
 			if (log.isDebugEnabled()) {
 				log.debug("rs:" + rs);
 			}
+		} catch (JedisConnectionException e) {
+			this.resetPubJedis();
 		} catch (Exception e) {
 			log.error("", e);
 		}
@@ -70,8 +84,31 @@ public class DefaultNotifyService implements NotifyService {
 			if (log.isDebugEnabled()) {
 				log.debug("rs:" + rs);
 			}
+		} catch (JedisConnectionException e) {
+			this.resetPubJedis();
 		} catch (Exception e) {
 			log.error("", e);
+		}
+	}
+
+	/**
+	 * reset jedis
+	 */
+	private void resetPubJedis() {
+		if (this.resetPubJedisLock.tryLock()) {// do nothing if lock not free
+			this.resetPubJedisLock.lock();
+			try {
+				Jedis tmp = this.createPubJedis();
+				if (this.pubJedis != null) {
+					this.pubJedis.disconnect();
+				}
+				this.pubJedis = tmp;
+				log.error("resetPubJedis:" + this.pubJedis);
+			} catch (Exception e) {
+				log.error("resetPubJedis:", e);
+			} finally {
+				this.resetPubJedisLock.unlock();
+			}
 		}
 	}
 

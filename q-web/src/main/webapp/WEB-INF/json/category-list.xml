@@ -5,11 +5,14 @@
 		<array>
 			<type>
 				<struct>
+					<member name="id" apiName="id" apiType="string" />
 					<member name="name" apiName="name" apiType="string" />
+					<member name="avatarPath" apiName="avatarPath" apiType="string" />
 					<member name="intro" apiName="intro" apiType="string" />
 					<member name="groupNum" apiName="groupNum" apiType="int" />
 					<member name="joinNum" apiName="joinNum" apiType="int" />
-					<member name="id" apiName="id" apiType="string" />
+					<member name="time" apiName="screenTime" apiType="string" />
+					<member name="createdTime" apiName="createdTime" apiType="string" />
 				</struct>
 			</type>
 		</array>

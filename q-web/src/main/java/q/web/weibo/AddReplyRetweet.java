@@ -61,11 +61,6 @@ public class AddReplyRetweet extends Resource {
 		}
 
 		this.weiboService.addReplyRetweet(retweet, -1);
-
-		String from = context.getString("from");
-		if (from != null) {
-			context.redirectContextPath(from);
-		}
 	}
 
 	@Override

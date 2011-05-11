@@ -1,3 +1,4 @@
+#sean
 alter table event add district_id smallint unsigned not null;
 alter table event add address varchar(512);
 alter table event add cost varchar(512);
@@ -6,7 +7,7 @@ alter table event add started datetime not null;
 alter table event add ended datetime not null;
 
 
-4-20 sean
+#4-20 sean
 alter table people add weibo_num mediumint unsigned not null;
 alter table people add following_num mediumint unsigned not null;
 alter table people add follower_num mediumint unsigned not null;
@@ -34,10 +35,25 @@ alter table `group` add	latitude double not null;
 alter table `group` modify longitude double not null;
 alter table `group` modify latitude double not null;
 
-4-29
+#4-29 zhao
 alter table `weibo` add longitude double not null;
 alter table `weibo` add	latitude double not null;
 
-5-9
+#5-9 sean
 alter table `group` add avatar_path varchar(60);
 alter table category add avatar_path varchar(60);
+
+#5-10 sean  refactor message
+alter table message drop reply_num;
+alter table message_join_people add reply_num mediumint unsigned not null;
+create table message_reply_join_people(
+	id bigint unsigned not null primary key,
+	reply_id bigint unsigned not null,
+	sender_id bigint unsigned not null,
+	receiver_id bigint unsigned not null,
+	quote_message_id bigint unsigned not null,
+	quote_sender_id bigint unsigned not null,	
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null)
+default character set utf8 engine = innodb;
