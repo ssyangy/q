@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.biz.impl;
 
@@ -16,7 +16,7 @@ import redis.clients.jedis.exceptions.JedisConnectionException;
 /**
  * @author seanlinwang at gmail dot com
  * @date May 5, 2011
- * 
+ *
  */
 public class DefaultNotifyService implements NotifyService {
 	private static final Logger log = Logger.getLogger();
@@ -55,7 +55,7 @@ public class DefaultNotifyService implements NotifyService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.biz.NotifyService#notifyWeiboReply(q.domain.WeiboReply)
 	 */
 	@Override
@@ -74,7 +74,7 @@ public class DefaultNotifyService implements NotifyService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.biz.NotifyService#notifyWeibo(q.domain.Weibo)
 	 */
 	@Override
