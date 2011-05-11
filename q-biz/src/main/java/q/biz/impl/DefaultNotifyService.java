@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.biz.impl;
 
@@ -12,7 +12,7 @@ import redis.clients.jedis.Jedis;
 /**
  * @author seanlinwang at gmail dot com
  * @date May 5, 2011
- * 
+ *
  */
 public class DefaultNotifyService implements NotifyService {
 	private static final Logger log = Logger.getLogger();
@@ -43,7 +43,7 @@ public class DefaultNotifyService implements NotifyService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.biz.NotifyService#notifyWeiboReply(q.domain.WeiboReply)
 	 */
 	@Override
@@ -55,12 +55,13 @@ public class DefaultNotifyService implements NotifyService {
 			}
 		} catch (Exception e) {
 			log.error("", e);
+			this.init();
 		}
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.biz.NotifyService#notifyWeibo(q.domain.Weibo)
 	 */
 	@Override
@@ -72,6 +73,7 @@ public class DefaultNotifyService implements NotifyService {
 			}
 		} catch (Exception e) {
 			log.error("", e);
+			this.init();
 		}
 	}
 

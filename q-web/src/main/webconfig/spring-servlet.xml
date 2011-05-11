@@ -222,13 +222,13 @@
 						</entry>
 						<entry>
 							<key>
-								<value>getPeopleFollower:peoples</value>
+								<value>getPeopleFollower:api</value>
 							</key>
 							<value>/WEB-INF/json/people-list.xml</value>
 						</entry>
 						<entry>
 							<key>
-								<value>getPeopleFollowing:peoples</value>
+								<value>getPeopleFollowing:api</value>
 							</key>
 							<value>/WEB-INF/json/people-list.xml</value>
 						</entry>
@@ -247,6 +247,12 @@
 						<entry>
 							<key>
 								<value>AddMessageReply:MessageReply</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>addProfileBasic:people</value>
 							</key>
 							<value>/WEB-INF/json/check.xml</value>
 						</entry>
