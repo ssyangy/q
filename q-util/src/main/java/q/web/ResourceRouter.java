@@ -3,6 +3,7 @@
  */
 package q.web;
 
+import java.net.URLEncoder;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -110,22 +111,22 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		log.debug("requestURL: %s and queryString: %s", request.getRequestURL(), request.getQueryString());
 		String method = request.getMethod().toLowerCase(); // lowercase http method
-		String path = request.getRequestURI().substring(request.getContextPath().length()); // path without context and domain
-		String[] segs = StringKit.split(path, PATH_SPLIT); // split path to path segments
-		Resource resource = getResource(request, method, path, segs); // get request resource
+		String servletPath = request.getRequestURI().substring(request.getContextPath().length()); // path without context and domain
+		String[] segs = StringKit.split(servletPath, PATH_SPLIT); // split path to path segments
+		Resource resource = getResource(request, method, servletPath, segs); // get request resource
 		if (resource == null) { // if resource not exists , return 404
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-			log.debug("resource not found by method %s and path %s", method, path);
+			log.debug("resource not found by method %s and path %s", method, servletPath);
 			return null;
 		} else {
-			ResourceContext context = toResourceContext(request, response, path, segs); // construct resource context
+			ResourceContext context = toResourceContext(request, response, servletPath, segs); // construct resource context
 			boolean isJson = context.isApiRequest();
 			if (this.needLoginResources != null && this.needLoginResources.contains(resource.getName())) { // request resource need visitor login first
 				if (context.getCookiePeopleId() <= 0) { // visitor logoff
 					if (isJson) {
 						context.setErrorModel(new PeopleNotLoginException("login:用户未登录"));
 					} else {
-						context.redirectContextPath(loginPath + "?from=" + this.contextPath + path);
+						context.redirectServletPath(loginPath + "?from=" + URLEncoder.encode(servletPath, "utf-8"));
 						return null;
 					}
 				}
@@ -134,7 +135,6 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 			try {
 				resource.validate(context);
 				resource.execute(context); // execute resource if exists
-				complementModel(context); // complement model
 			} catch (ErrorCodeException e) {
 				context.setErrorModel(e);
 				log.debug("resource  %s execute ErrorCodeExeption", e, resource);
@@ -143,10 +143,19 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 				log.error("resource  %s execute exeption", e, resource);
 			}
 
+			complementModel(context); // complement model
 			ViewResolver viewResolver = null;
 			if (isJson) {
 				viewResolver = this.jsonViewResolver;
 			} else {
+				String from = context.getString("from"); // redirect to origin refferr
+				if (from != null) {
+					if (from.startsWith("http:")) {
+						context.redirectContextPath(from);
+					} else {
+						context.redirectServletPath(from);
+					}
+				}
 				viewResolver = this.defaultViewResolver;
 			}
 
@@ -167,10 +176,10 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 	}
 
 	protected ResourceContext toResourceContext(final HttpServletRequest request, final HttpServletResponse response, String path, String[] segs) {
-		 DefaultResourceContext context = new DefaultResourceContext(request, response, segs);
-		 context.setContextPath(this.contextPath);
-		 context.setUrlPrefix(this.urlPrefix);
-		 return context;
+		DefaultResourceContext context = new DefaultResourceContext(request, response, segs);
+		context.setContextPath(this.contextPath);
+		context.setUrlPrefix(this.urlPrefix);
+		return context;
 	}
 
 	protected Resource getResource(HttpServletRequest request, String method, String path, String[] segs) {

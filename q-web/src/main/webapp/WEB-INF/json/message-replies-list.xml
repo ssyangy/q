@@ -5,21 +5,25 @@
 		<struct>
 			<member name="hasPrev" apiName="hasPrev" apiType="boolean" />
 			<member name="hasNext" apiName="hasNext" apiType="boolean" />
-			<member name="groups" apiName="groups">
+			<member name="replies" apiName="replies">
 				<type>
 					<array>
 						<type>
 							<struct>
 								<member name="id" apiName="id" apiType="string" />
-								<member name="name" apiName="name" apiType="string" />
-								<member name="avatarPath" apiName="avatarPath" apiType="string" />
-								<member name="intro" apiName="intro" apiType="string" />
-								<member name="joinNum" apiName="joinNum" apiType="int" />
-								<member name="latitude" apiName="latitude" apiType="double" />
-								<member name="longitude" apiName="longitude" apiType="double" />
 								<member name="time" apiName="screenTime" apiType="string" />
 								<member name="createdTime" apiName="createdTime" apiType="string" />
-								<member name="joined" apiName="joined" apiType="boolean" />
+								<member name="content" apiName="text" apiType="string" />
+								<member name="sender" apiName="sender">
+									<type>
+										<struct>
+											<member name="id" apiName="id" apiType="string" />
+											<member name="realName" apiName="screenName" apiType="string" />
+											<member name="avatarPath" apiName="avatarPath"
+												apiType="string" />
+										</struct>
+									</type>
+								</member>
 							</struct>
 						</type>
 					</array>

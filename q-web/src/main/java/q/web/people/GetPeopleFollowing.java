@@ -1,10 +1,12 @@
 /**
- * 
+ *
  */
 package q.web.people;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import q.dao.DaoHelper;
 import q.dao.EventDao;
@@ -15,6 +17,7 @@ import q.dao.page.PeopleRelationPage;
 import q.domain.People;
 import q.domain.PeopleRelation;
 import q.domain.PeopleRelationStatus;
+import q.util.CollectionKit;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -56,7 +59,7 @@ public class GetPeopleFollowing extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long fromPeopleId = context.getResourceIdLong();
 		long loginPeopleId = context.getCookiePeopleId();
-		
+
 		GetPeopleFrame frame = new GetPeopleFrame();
 		frame.setEventDao(eventDao);
 		frame.setGroupDao(groupDao);
@@ -64,11 +67,16 @@ public class GetPeopleFollowing extends Resource {
 		frame.setWeiboDao(weiboDao);
 		frame.validate(context);
 		frame.execute(context);
-		
+		int size = context.getInt("size", 10);
+		long startId = context.getIdLong("startId");
 		PeopleRelationPage page = new PeopleRelationPage();
 		page.setFromPeopleId(fromPeopleId);
+		int fetchSize = size ;
+		page.setSize(fetchSize);
 		page.setStatus(PeopleRelationStatus.FOLLOWING);
-		page.setSize(20);
+		if (startId > 0) {
+			page.setStartId(startId);
+		}
 		page.setStartIndex(0);
 		List<PeopleRelation> relations = this.peopleDao.getPeopleRelationsByPage(page);
 		List<Long> followingIds = new ArrayList<Long>();
@@ -80,6 +88,10 @@ public class GetPeopleFollowing extends Resource {
 			DaoHelper.injectPeoplesWithRelation(peopleDao, peoples, loginPeopleId);
 		}
 		context.setModel("peoples", peoples);
+		Map<String, Object> api = new HashMap<String, Object>();
+		api.put("peoples", peoples);
+		api.put("relations", relations);
+		context.setModel("api", api);
 	}
 
 	/* (non-Javadoc)
@@ -88,7 +100,7 @@ public class GetPeopleFollowing extends Resource {
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

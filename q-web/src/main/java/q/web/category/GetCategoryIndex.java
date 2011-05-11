@@ -25,7 +25,7 @@ public class GetCategoryIndex extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws SQLException {
 		List<Category> categorys = categoryDao.getAllCategorys();
-		context.setModel("categorys", categorys);
+		context.setModel("cats", categorys);
 	}
 
 	/* (non-Javadoc)
@@ -33,7 +33,6 @@ public class GetCategoryIndex extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
 		
 	}
 

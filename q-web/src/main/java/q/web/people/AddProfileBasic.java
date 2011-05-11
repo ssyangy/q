@@ -75,11 +75,11 @@ public class AddProfileBasic extends Resource {
 			people.setUrl(url);
 		}
 		String intro = context.getString("intro");
-		if (null != url) {
+		if (null != intro) {
 			people.setIntro(intro);
 		}
 		peopleDao.updatePeopleById(people);
-
+        context.setModel("people", people);
 		// FIXME will remove from here, seanlinwang
 		if (!databasePeople.getRealName().equals(people.getRealName())) {
 			people.setUsername(databasePeople.getUsername());
@@ -91,20 +91,24 @@ public class AddProfileBasic extends Resource {
 	public void validate(ResourceContext context) throws Exception {
 		PeopleValidator.validateId(context.getCookiePeopleId());
 		PeopleValidator.validateGender(context.getInt("gender", -1));
-		PeopleValidator.validateBirthday(context.getInt("year", -1), context.getInt("month", -1), context.getInt("day", -1));
-		PeopleValidator.validateRealName(context.getString("realName"));
-		PeopleValidator.validateUrl(context.getString("url"));
 		PeopleValidator.validateIntro(context.getString("intro"));
+		PeopleValidator.validateRealName(context.getString("realName"));
+		if (!context.isApiRequest()) {
 
-		int provinceId = context.getInt("province", -1);
-		int cityId = context.getInt("city", -1);
-		int countyId = context.getInt("county", -1);
-		AreaValidator.check(provinceId, cityId, countyId);
+			PeopleValidator.validateBirthday(context.getInt("year", -1), context.getInt("month", -1), context.getInt("day", -1));
 
-		int hometownProvinceId = context.getInt("hometownProvince", -1);
-		int hometownCityId = context.getInt("hometownCity", -1);
-		int hometownCountyId = context.getInt("hometownCounty", -1);
-		AreaValidator.check(hometownProvinceId, hometownCityId, hometownCountyId);
+			PeopleValidator.validateUrl(context.getString("url"));
+
+			int provinceId = context.getInt("province", -1);
+			int cityId = context.getInt("city", -1);
+			int countyId = context.getInt("county", -1);
+			AreaValidator.check(provinceId, cityId, countyId);
+
+			int hometownProvinceId = context.getInt("hometownProvince", -1);
+			int hometownCityId = context.getInt("hometownCity", -1);
+			int hometownCountyId = context.getInt("hometownCounty", -1);
+			AreaValidator.check(hometownProvinceId, hometownCityId, hometownCountyId);
+		}
 	}
 
 }

@@ -1,12 +1,18 @@
 /**
- * 
+ *
  */
 package q.web.message;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import q.dao.MessageDao;
 import q.dao.PeopleDao;
+import q.dao.page.MessageJoinPeoplePage;
 import q.domain.Message;
+import q.domain.MessageJoinPeople;
 import q.domain.MessageReply;
+import q.domain.MessageReplyJoinPeople;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
@@ -42,32 +48,43 @@ public class AddMessageReply extends Resource {
 		messageReply.setId(IdCreator.getLongId());
 		messageReply.setContent(context.getString("content"));
 		messageReply.setSenderId(context.getCookiePeopleId());
+
 		long replyMessageId = context.getIdLong("replyMessageId");
-		if (IdCreator.isValidIds(replyMessageId)) {
-			MessageReply replied = this.messageDao.getMessageReplyById(replyMessageId);
-			if(replied == null) {
-				throw new RequestParameterInvalidException("reply:invalid");
-			}
-			messageReply.setReplyMessageId(replied.getId());
-			messageReply.setReplySenderId(replied.getSenderId());
+		MessageReply replied = this.messageDao.getMessageReplyById(replyMessageId);
+		if (replied == null) {
+			throw new RequestParameterInvalidException("reply:invalid");
 		}
+		messageReply.setReplyMessageId(replied.getId());
+		messageReply.setReplySenderId(replied.getSenderId());
+
 		long quoteMessageId = context.getResourceIdLong();
-		if (IdCreator.isValidIds(quoteMessageId)) {
-			Message quote = this.messageDao.getMessageById(quoteMessageId);
-			if(quote == null) {
-				throw new RequestParameterInvalidException("quote:invalid");
-			}
-			messageReply.setQuoteMessageId(quote.getId());
-			messageReply.setQuoteSenderId(quote.getSenderId());
-		} else {
+		Message quote = this.messageDao.getMessageById(quoteMessageId);
+		if (quote == null) {
 			throw new RequestParameterInvalidException("quote:invalid");
 		}
- 		messageDao.addMessageReply(messageReply);
- 		
- 		String from = context.getString("from");
- 		if (from != null) {
-			context.redirectContextPath(from);
+		messageReply.setQuoteMessageId(quote.getId());
+		messageReply.setQuoteSenderId(quote.getSenderId());
+		messageDao.addMessageReply(messageReply);
+
+		// connect message reply with peoples
+		MessageJoinPeoplePage joinPage = new MessageJoinPeoplePage();
+		joinPage.setMessageId(messageReply.getQuoteMessageId());
+		List<MessageJoinPeople> receivers = messageDao.getMessageJoinPeoplesByPage(joinPage); // message receivers
+		List<MessageReplyJoinPeople> replyJoins = new ArrayList<MessageReplyJoinPeople>(receivers.size());
+		for (MessageJoinPeople mjp : receivers) {
+			MessageReplyJoinPeople join = new MessageReplyJoinPeople();
+			join.setId(IdCreator.getLongId());
+			join.setReplyId(messageReply.getId());
+			join.setSenderId(messageReply.getSenderId());
+			join.setQuoteMessageId(messageReply.getQuoteMessageId());
+			join.setQuoteSenderId(messageReply.getQuoteSenderId());
+			join.setReceiverId(mjp.getReceiverId());
+			replyJoins.add(join);
 		}
+		messageDao.addMessageReplyJoinPeoples(replyJoins);
+		messageDao.incrAllMessageReplyNumberByMessageId(messageReply.getQuoteMessageId());
+		
+		context.setModel("MessageReply", messageReply);
 	}
 
 	@Override
@@ -75,6 +92,14 @@ public class AddMessageReply extends Resource {
 		long senderId = context.getCookiePeopleId();
 		if (IdCreator.isNotValidId(senderId)) {
 			throw new RequestParameterInvalidException("login:invalid");
+		}
+		long quoteMessageId = context.getResourceIdLong();
+		if (IdCreator.isNotValidId(quoteMessageId)) {
+			throw new RequestParameterInvalidException("quote:invalid");
+		}
+		long replyMessageId = context.getIdLong("replyMessageId");
+		if (IdCreator.isNotValidId(replyMessageId)) {
+			throw new RequestParameterInvalidException("reply:invalid");
 		}
 	}
 

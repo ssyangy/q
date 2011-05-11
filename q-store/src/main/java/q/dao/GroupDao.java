@@ -27,7 +27,7 @@ public interface GroupDao {
 
 	void addPeopleJoinGroup(long peopleId, long groupId) throws SQLException;
 
-	PeopleJoinGroup getGroupPeople(long peopleId, long groupId) throws SQLException;
+	PeopleJoinGroup getJoinPeopleByGroupIdPeopleId(long peopleId, long groupId) throws SQLException;
 
 	void unjoinPeopleJoinGroup(long peopleId, long groupId) throws SQLException;
 
@@ -35,14 +35,14 @@ public interface GroupDao {
 
 	public List<Group> getGroupsByIds(List<Long> groupIds) throws SQLException;
 
-	public List<Long> getGroupIdsByPeopleId(long peopleId) throws SQLException;
+	public List<Long> getGroupIdsByJoinPage(PeopleJoinGroupPage page) throws SQLException;
 
 	public List<Group>getGroupsByLocation(Group myLocation)throws SQLException;
 	/**
 	 * @param peopleId
 	 * @throws SQLException
 	 */
-	List<Group> getGroupsByPeopleId(long peopleId) throws SQLException;
+	List<Group> getGroupsByJoinPeopleId(long peopleId) throws SQLException;
 
 	/**
 	 * @param limit
@@ -80,7 +80,7 @@ public interface GroupDao {
 	 * @param start
 	 * @return
 	 */
-	List<Long> getPeopleIdsByGroupIds(List<Long> groupIds, int limit, int start) throws SQLException;
+	List<Long> getJoinPeopleIdsByGroupIds(List<Long> groupIds, int limit, int start) throws SQLException;
 
 	/**
 	 * @param groupId
@@ -88,7 +88,7 @@ public interface GroupDao {
 	 * @param start
 	 * @return
 	 */
-	List<Long> getHotGroupPeopleIds(long groupId, int limit, int start) throws SQLException;
+	List<Long> getJoinPeopleIdsByHotAndGroupId(long groupId, int limit, int start) throws SQLException;
 
 	/**
 	 * @param groupId
@@ -104,7 +104,7 @@ public interface GroupDao {
 	 * @param start
 	 * @return
 	 */
-	List<Long> getPeopleIdsByGroupId(long groupId, int limit, int start) throws SQLException;
+	List<Long> getJoinPeopleIdsByGroupId(long groupId, int limit, int start) throws SQLException;
 
 	/**
 	 * @param groupIds
@@ -112,19 +112,34 @@ public interface GroupDao {
 	 * @param start
 	 * @return
 	 */
-	List<Long> getHotGroupPeopleIds(List<Long> groupIds, int limit, int start) throws SQLException;
+	List<Long> getJoinPeopleIdsByHotAndGroupIds(List<Long> groupIds, int limit, int start) throws SQLException;
 
 	/**
 	 * @param page
 	 * @return
 	 * @throws SQLException
 	 */
-	List<Long> getPeopleIdsByPage(PeopleJoinGroupPage page) throws SQLException;
+	List<Long> getJoinPeopleIdsByJoinPage(PeopleJoinGroupPage page) throws SQLException;
 
 	/**
 	 * @return
 	 * @throws SQLException
 	 */
 	List<Group> getAllGroups() throws SQLException;
+
+	/**
+	 * @param peopleId
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Long> getGroupIdsByJoinPeopleId(long peopleId) throws SQLException;
+
+	/**
+	 * @param peopleId
+	 * @param groupIds
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Long> getGroupIdsByJoinPeopleIdAndGroupIds(long peopleId, List<Long> groupIds) throws SQLException;
 
 }

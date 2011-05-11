@@ -51,7 +51,6 @@ public class AddReplyFavorite extends Resource {
 		} else if (old.isUnFav()) {
 			this.favoriteDao.favReplyById(old.getId());
 		}
-		context.redirectReffer();
 	}
 
 	@Override

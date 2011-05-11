@@ -43,7 +43,7 @@ public class GetPeopleFeedFrame extends Resource {
 		long loginPeopleId = context.getCookiePeopleId();
 		People login = this.peopleDao.getPeopleById(loginPeopleId);
 		context.setModel("people", login);
-		context.setModel("selectGroups", this.groupDao.getGroupsByPeopleId(loginPeopleId));
+		context.setModel("selectGroups", this.groupDao.getGroupsByJoinPeopleId(loginPeopleId));
 
 		PeopleRelationPage followerPage = new PeopleRelationPage();
 		followerPage.setToPeopleId(loginPeopleId);

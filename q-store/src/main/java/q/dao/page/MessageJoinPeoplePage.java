@@ -16,15 +16,7 @@ public class MessageJoinPeoplePage extends Page implements Serializable {
 
 	private static final long serialVersionUID = 1067817795733602686L;
 
-	private Long myId;
-
-	public Long getMyId() {
-		return myId;
-	}
-
-	public void setMyId(Long myId) {
-		this.myId = myId;
-	}
+	private Long receiverId;
 	
 	private Long messageId;
 
@@ -47,6 +39,20 @@ public class MessageJoinPeoplePage extends Page implements Serializable {
 
 	public List<Long> getMessageIds() {
 		return messageIds;
+	}
+
+	/**
+	 * @param receiverId the receiverId to set
+	 */
+	public void setReceiverId(Long receiverId) {
+		this.receiverId = receiverId;
+	}
+
+	/**
+	 * @return the receiverId
+	 */
+	public Long getReceiverId() {
+		return receiverId;
 	}
 	
 	

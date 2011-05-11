@@ -1,10 +1,12 @@
 /**
- * 
+ *
  */
 package q.web.people;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import q.dao.DaoHelper;
 import q.dao.EventDao;
@@ -63,12 +65,17 @@ public class GetPeopleFollower extends Resource {
 		frame.setWeiboDao(weiboDao);
 		frame.validate(context);
 		frame.execute(context);
-		
+		int size = context.getInt("size", 10);
+		long startId = context.getIdLong("startId");
 		PeopleRelationPage page = new PeopleRelationPage();
 		page.setToPeopleId(toPeopleId);
 		page.setStatus(PeopleRelationStatus.FOLLOWING);
-		page.setSize(20);
+		int fetchSize = size ;
+		page.setSize(fetchSize);
 		page.setStartIndex(0);
+		if (startId > 0) {
+			page.setStartId(startId);
+		}
 		List<PeopleRelation> relations = this.peopleDao.getPeopleRelationsByPage(page);
 		List<Long> followerIds = new ArrayList<Long>();
 		for(PeopleRelation relation: relations) {
@@ -79,6 +86,10 @@ public class GetPeopleFollower extends Resource {
 			DaoHelper.injectPeoplesWithRelation(peopleDao, peoples, loginPeopleId);
 		}
 		context.setModel("peoples", peoples);
+		Map<String, Object> api = new HashMap<String, Object>();
+		api.put("peoples", peoples);
+		api.put("relations", relations);
+		context.setModel("api", api);
 	}
 
 	/* (non-Javadoc)
@@ -87,7 +98,7 @@ public class GetPeopleFollower extends Resource {
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

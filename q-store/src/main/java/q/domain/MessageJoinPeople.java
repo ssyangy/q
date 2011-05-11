@@ -21,6 +21,16 @@ public class MessageJoinPeople extends AbstractDomain implements Serializable {
 
 	private long receiverId;
 
+	private int replyNum;
+
+	public int getReplyNum() {
+		return replyNum;
+	}
+
+	public void setReplyNum(int replyNum) {
+		this.replyNum = replyNum;
+	}
+
 	public int getStatus() {
 		return status;
 	}

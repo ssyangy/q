@@ -21,8 +21,6 @@ public class Message extends AbstractDomain implements Serializable {
 
 	private long senderId;
 
-	private int replyNum;
-
 	private People sender;
 
 	private List<Long> receiverIds;
@@ -78,14 +76,6 @@ public class Message extends AbstractDomain implements Serializable {
 	@Override
 	public String toString() {
 		return "Message [status=" + status + ", senderId=" + senderId + ", id=" + id + ", created=" + created + ", modified=" + modified + "]";
-	}
-
-	public int getReplyNum() {
-		return replyNum;
-	}
-
-	public void setReplyNum(int replyNum) {
-		this.replyNum = replyNum;
 	}
 
 	/**

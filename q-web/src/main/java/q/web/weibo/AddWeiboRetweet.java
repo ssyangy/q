@@ -41,7 +41,6 @@ public class AddWeiboRetweet extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long senderId = context.getCookiePeopleId();
 		String content = context.getString("content");
-		String from = context.getString("from");
 
 		Weibo father = weiboDao.getWeiboById(context.getResourceIdLong());
 		if (father == null) {
@@ -63,9 +62,6 @@ public class AddWeiboRetweet extends Resource {
 
 		this.weiboService.addWeiboRetweet(retweet, -1);
 
-		if (from != null) {
-			context.redirectContextPath(from);
-		}
 	}
 
 	@Override

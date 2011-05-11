@@ -5,7 +5,6 @@
 	<resultMap id="messageResult" class="message">
 		<result property="id" column="id" />
 		<result property="senderId" column="sender_id" />
-		<result property="replyNum" column="reply_num" />
 		<result property="status" column="status" />
 		<result property="created" column="created" />
 		<result property="modified" column="modified" />
@@ -13,7 +12,6 @@
 	<sql id="message.columns">
 		id,
 		sender_id,
-		reply_num,
 		status,
 		created,
 		modified
@@ -43,7 +41,7 @@
 		<isNotNull prepend="and" property="startId">
 			id &lt;= #startId#
 		</isNotNull>
-		order by created desc
+		order by id desc
 		<isNotNull property="size">
 			limit #startIndex#, #size#
 		</isNotNull>
@@ -56,7 +54,6 @@
 		) values (
 		#id#,
 		#senderId#,
-		#replyNum#,
 		0,
 		now(),
 		null
@@ -69,6 +66,7 @@
 		<result property="senderId" column="sender_id" />
 		<result property="messageId" column="message_id" />
 		<result property="receiverId" column="receiver_id" />
+		<result property="replyNum" column="reply_num" />
 		<result property="status" column="status" />
 		<result property="created" column="created" />
 		<result property="modified" column="modified" />
@@ -78,6 +76,7 @@
 		sender_id,
 		message_id,
 		receiver_id,
+		reply_num,
 		status,
 		created,
 		modified
@@ -85,11 +84,10 @@
 	<select id="selectMessageJoinPeoplesByPage" resultMap="messageJoinResult">
 		select
 		<include refid="messageJoin.columns" />
-		from message_join_people
-		where
-		status = 0
-		<isNotNull prepend="and " property="myId">
-			(sender_id = #myId# or receiver_id = #myId# )
+		from message_join_people 
+		where status = 0 and reply_num > 0
+		<isNotNull prepend="and " property="receiverId">
+			receiver_id = #receiverId#
 		</isNotNull>
 		<isNotNull prepend="and " property="messageIds">
 			message_id in
@@ -103,10 +101,39 @@
 		<isNotNull prepend="and" property="startId">
 			id &lt;= #startId#
 		</isNotNull>
-		order by created desc
+		order by id desc
 		<isNotNull property="size">
 			limit #startIndex#, #size#
 		</isNotNull>
+	</select>
+	<select id="getMessageReceiverIdsByJoinPage" resultClass="long">
+		select receiver_id from message_join_people
+		where status = 0 and reply_num > 0
+		<isNotNull prepend="and " property="receiverId">
+			receiver_id = #receiverId#
+		</isNotNull>
+		<isNotNull prepend="and " property="messageIds">
+			message_id in
+			<iterate property="messageIds" open="(" close=")" conjunction=",">
+				#messageIds[]#
+        	</iterate>
+	    </isNotNull>
+		<isNotNull prepend="and" property="startCreated">
+			created &lt;= #startCreated#
+		</isNotNull>
+		<isNotNull prepend="and" property="startId">
+			id &lt;= #startId#
+		</isNotNull>
+		order by id desc
+		<isNotNull property="size">
+			limit #startIndex#, #size#
+		</isNotNull>
+	</select>
+	<select id="getMessageJoinPeopleByMessageIdAndReceiverIdAndStatus" resultMap="messageJoinResult">
+		select
+		<include refid="messageJoin.columns" />
+		from message_join_people
+		where status = #status# and message_id = #messageId# and receiver_id = #receiverId#
 	</select>
 	<insert id="insertMessageJoins" parameterClass="java.util.List">
 		insert into message_join_people
@@ -114,9 +141,20 @@
 		<include refid="messageJoin.columns" />
 		) values
 		<iterate conjunction=",">
-			(#[].id#, #[].senderId#, #[].messageId#, #[].receiverId#, 0, now(), null)
+			(#[].id#, #[].senderId#, #[].messageId#, #[].receiverId#, #[].replyNum#, 0, now(), null)
         </iterate>
 	</insert>
+	<update id="updateMessageJoinPeopleReplyNumByMessageIdAndReceiverId">
+		update message_join_people
+		set reply_num = #replyNum#
+		where message_id = #messageId# and receiver_id = #receiverId#
+	</update>
+	<update id="decrMessageReplyNumberByMessageIdAndReceiverId">
+		update message_join_people set reply_num = reply_num + 1 where message_id = #value#
+	</update>
+	<update id="incrAllMessageReplyNumberByMessageId">
+		update message_join_people set re
+	</update>
 
 	<typeAlias alias="messageReply" type="q.domain.MessageReply" />
 	<resultMap id="messageReplyResult" class="messageReply">
@@ -168,6 +206,90 @@
 		status = 0
 		<isNotNull prepend="and " property="quoteMessageId">
 			quote_message_id = #quoteMessageId#
+	    </isNotNull>
+	    <isNotNull prepend="and " property="ids">
+			id in
+			<iterate property="ids" open="(" close=")" conjunction=",">
+				#ids[]#
+        	</iterate>
+	    </isNotNull>
+		<isNotNull prepend="and" property="startCreated">
+			created &lt;= #startCreated#
+		</isNotNull>
+		<isNotNull prepend="and" property="startId">
+			id &lt;= #startId#
+		</isNotNull>
+		order by id desc
+		<isNotNull property="size">
+			limit #startIndex#, #size#
+		</isNotNull>
+	</select>
+	
+	<typeAlias alias="messageReplyJoin" type="q.domain.MessageReplyJoinPeople" />
+	<resultMap id="messageReplyJoinResult" class="messageReplyJoin">
+		<result property="id" column="id" />
+		<result property="replyId" column="reply_id" />
+		<result property="senderId" column="sender_id" />
+		<result property="receiverId" column="receiver_id" />
+		<result property="quoteSenderId" column="quote_sender_id" />
+		<result property="quoteMessageId" column="quote_message_id" />
+		<result property="status" column="status" />
+		<result property="created" column="created" />
+		<result property="modified" column="modified" />
+	</resultMap>
+	<sql id="messageReplyJoin.columns">
+		id,
+		reply_id,
+		sender_id,
+		receiver_id,
+		quote_sender_id,
+		quote_message_id,
+		status,
+		created,
+		modified
+	</sql>
+	<insert id="insertMessageReplyJoin">
+		insert into message_reply_join_people
+		(
+		<include refid="messageReplyJoin.columns" />
+		) values (
+		#id#,
+		#replyId#
+		#senderId#,
+		#receiverId#,
+		#quoteSenderId#,
+		#quoteMessageId#,
+		0,
+		now(),
+		null
+		)
+	</insert>
+	<insert id="insertMessageReplyJoins" parameterClass="java.util.List">
+		insert into message_reply_join_people
+		(
+		<include refid="messageReplyJoin.columns" />
+		) values
+		<iterate conjunction=",">
+			(#[].id#, #[].replyId#, #[].senderId#, #[].receiverId#, #[].quoteSenderId#, #[].quoteMessageId#, 0, now(), null)
+        </iterate>
+	</insert>
+	<update id="deleteAllMessageReplyJoinPeopleByQuoteMessageIdAndReceiverId">
+		update message_reply_join_people
+		set status = 1 
+		where quote_message_id = #quoteMessageId# and receiver_id = #receiverId# 
+	</update>
+	<update id="deleteMessageReplyByIdAndReceiverId">
+		update message_reply_join_people
+		set status = 1
+		where reply_id = #replyId# and receiver_id = #receiverId#
+	</update>
+	<select id="getMessageReplyIdsByJoinPage" resultClass="long">
+		select reply_id
+		from message_reply_join_people
+		where
+		status = 0
+		<isNotNull prepend="and " property="messageId">
+			message_id = #messageId#
 	    </isNotNull>
 		<isNotNull prepend="and" property="startCreated">
 			created &lt;= #startCreated#
