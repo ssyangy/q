@@ -3,8 +3,11 @@
  */
 package q.util;
 
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Calendar;
+import java.util.Enumeration;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -73,7 +76,7 @@ public class IdCreatorTest {
 			Assert.assertEquals(second / (1000 * 100 * 10), first / (1000 * 100 * 10)); // 1000 indicate ip flag length, 10 indicate version length
 		}
 	}
-	
+
 	@Test
 	public void testGetLongIdCounterIncrement() throws UnknownHostException {
 		for (int i = 0; i < IdCreator.getCounterLimit() / 2; i++) {
@@ -101,6 +104,16 @@ public class IdCreatorTest {
 		baseCal.set(2011, 0, 1, 0, 0, 0);
 		Assert.assertTrue(10000L * 10000 * 10000 > afterCal.getTimeInMillis() - baseCal.getTimeInMillis());
 		Assert.assertTrue(afterCal.getTimeInMillis() - baseCal.getTimeInMillis() > 1000L * 10000 * 10000);
+	}
+
+	public static void main(String[] args) throws SocketException {
+		System.out.println(IdCreator.getNodeFlag());
+		System.out.println(NetworkInterface.getByName("eth0"));
+		Enumeration<NetworkInterface> infs = NetworkInterface.getNetworkInterfaces();
+		while (infs.hasMoreElements()) {
+			System.out.println(infs.nextElement().getInetAddresses().nextElement().getHostAddress());
+		}
+
 	}
 
 }

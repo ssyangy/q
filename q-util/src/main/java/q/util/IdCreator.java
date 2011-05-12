@@ -4,12 +4,16 @@
 package q.util;
 
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
+import q.log.Logger;
 
 /**
  * 高危代码,请勿修改
@@ -20,6 +24,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * 
  */
 public class IdCreator {
+	private static final Logger log = Logger.getLogger();
 	private static long counterStartTimestamp = newTimestamp();
 
 	private static long baseTimestamp = getBaseTimestamp();
@@ -41,22 +46,37 @@ public class IdCreator {
 	public static void setCounterLimit(int limit) {
 		counterLimit = limit;
 	}
-	
+
 	public static int getCounterLimit() {
 		return counterLimit;
 	}
 
 	private static int nodeFlag = getNodeFlag();
 
-	private static int getNodeFlag() {
-		int flag = 0;
+	public static int getNodeFlag() {
+		String ip;
 		try {
-			String ip = InetAddress.getLocalHost().getHostAddress();
-			flag = Integer.valueOf(StringKit.split(ip, '.')[3]);
+			NetworkInterface eth1 = NetworkInterface.getByName("eth1");// TODO 张江机房的内网ip网卡,e.g:eth1:172.16.40.4 eth0:222.73.29.151
+			NetworkInterface eth0 = NetworkInterface.getByName("eth0");// TODO 测试机没有eth1
+			if (eth1 != null) {
+				ip = eth1.getInetAddresses().nextElement().getHostAddress();
+			} else if (eth0 != null) {
+				ip = eth0.getInetAddresses().nextElement().getHostAddress();
+			} else {
+				ip = InetAddress.getLocalHost().getHostAddress(); // TODO 开发机
+			}
 		} catch (UnknownHostException e) {
 			throw new IllegalStateException();
+		} catch (SocketException e) {
+			throw new IllegalStateException();
 		}
+		int flag = getIpLastSeg(ip);
+		log.warn("create id using ip:%s,nodeFlag:%s", ip, flag);
 		return flag;
+	}
+
+	private static int getIpLastSeg(String ip) {
+		return Integer.valueOf(StringKit.split(ip, '.')[3]);
 	}
 
 	public static void setNodeFlag(int flag) {
