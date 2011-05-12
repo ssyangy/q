@@ -5,17 +5,10 @@
 </jsp:include>
 <link href="${staticUrlPrefix}/content-q/slider.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
-    seajs.use('qcomcn.js', function (qcomcn) {
-        var $ = qcomcn.jq;
-
+    seajs.use('qcomcn.js', function (q) {
+        var $ = q.jq;
         $(function () {
-            qcomcn.Init();
-            var lis = $("#sldroot>li");
-            lis.hover(function () {
-                $(this).addClass('hover');
-            }, function () {
-                $(this).removeClass('hover');
-            });
+            q.Init();
 
         });
     });
@@ -27,7 +20,7 @@
                 <div id="slider">
                 <ul class="sldlist" id="sldroot">
 					<c:forEach items="${messages}" var="item">
-	                    <li>
+	                    <li class='hov'>
 	                        <img src="${item.sender.avatarPath}-48" alt="sender" class="sldimg" />
 	                        <p class='rel'>${item.sender.realName} -> 
 							<c:forEach items="${item.receivers}" var="receiver" varStatus="status">
@@ -58,7 +51,6 @@
     </div>
 </div>
 <jsp:include page="models/foot.jsp" />
-
 
 	<script type="text/javascript">
 	    	var friendlist = ${peoplesHintJson};

@@ -3,7 +3,6 @@
 <script type="text/javascript">
     seajs.use('qcomcn.js', function (q) {
     	var $ = q.jq;
-    	var ajlock = true;
 
         seajs.use('app/weibo.js', function (w) {
             var ajaxweibo = function(size,startid){
@@ -28,6 +27,7 @@
             	
             	var body = $('#body');
     	        var o = body[0];
+    	        var ajlock = true;
                 var updateweibo = function(){
                 	if (o.scrollTop + gWinHeight < o.scrollHeight) return;
                    	if (!ajlock) return;
