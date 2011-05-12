@@ -29,7 +29,7 @@ import q.util.CollectionKit;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 22, 2011
- *
+ * 
  */
 public class DaoHelper {
 
@@ -250,22 +250,24 @@ public class DaoHelper {
 		}
 		return peopleMap;
 	}
+
 	public static void injectMessageRepliesWithSenderAndReceivers(PeopleDao peopleDao, List<MessageReply> replies) throws SQLException {
 		if (!CollectionKit.isEmpty(replies)) {
 			ArrayList<Long> peopleIds = new ArrayList<Long>(); // people number is less than messages count + 1
 			for (MessageReply message : replies) {
 				peopleIds.add(message.getSenderId());
 			}
-		List<People> peoples = peopleDao.getPeoplesByIds(peopleIds);
-		if (!CollectionKit.isEmpty(peoples)) {
-			Map<Long, People> peopleMap = convertToMap(peoples);
-			for (int i=0;i<replies.size();i++) {
-				MessageReply message=replies.get(i);
-				message.setSender(peopleMap.get(message.getSenderId()));
+			List<People> peoples = peopleDao.getPeoplesByIds(peopleIds);
+			if (!CollectionKit.isEmpty(peoples)) {
+				Map<Long, People> peopleMap = convertToMap(peoples);
+				for (int i = 0; i < replies.size(); i++) {
+					MessageReply message = replies.get(i);
+					message.setSender(peopleMap.get(message.getSenderId()));
+				}
 			}
 		}
-		}
 	}
+
 	/**
 	 * @param peopleDao
 	 * @param events
@@ -547,6 +549,28 @@ public class DaoHelper {
 			return;
 		}
 		event.setPeople(peopleDao.getPeopleById(event.getCreatorId()));
+	}
+
+	/**
+	 * @param groupDao
+	 * @param groups
+	 * @param loginId
+	 */
+	public static void injectGroupsWithJoined(GroupDao groupDao, List<Group> groups, long peopleId) throws SQLException {
+		if (CollectionKit.isEmpty(groups)) {
+			return;
+		}
+		Set<Long> groupIdSet = new HashSet<Long>(groups.size());
+		for (Group g : groups) {
+			groupIdSet.add(g.getId());
+		}
+		List<Long> joinedGroupIds = groupDao.getGroupIdsByJoinPeopleIdAndGroupIds(peopleId, new ArrayList<Long>(groupIdSet));
+		Set<Long> joinedGroupIdSet = new HashSet<Long>(joinedGroupIds);
+		for (Group g : groups) {
+			if (joinedGroupIdSet.contains(g.getId())) {
+				g.setJoined(true);
+			}
+		}
 	}
 
 }

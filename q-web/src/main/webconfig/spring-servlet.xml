@@ -150,6 +150,24 @@
 						</entry>
 						<entry>
 							<key>
+								<value>addWeiboPicture:imgPath</value>
+							</key>
+							<value>/WEB-INF/json/image.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>addWeibo:weibo</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>addWeiboReply:weibo</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
+						<entry>
+							<key>
 								<value>getWeibo:api</value>
 							</key>
 							<value>/WEB-INF/json/weibo-and-replies-list.xml</value>
@@ -162,9 +180,15 @@
 						</entry>
 						<entry>
 							<key>
-								<value>getMessage:replies</value>
+								<value>getMessageReply:api</value>
 							</key>
 							<value>/WEB-INF/json/message-replies-list.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>getMessageIndex:api</value>
+							</key>
+							<value>/WEB-INF/json/message-list.xml</value>
 						</entry>
 						<entry>
 							<key>
@@ -198,37 +222,13 @@
 						</entry>
 						<entry>
 							<key>
-								<value>addWeiboPicture:imgPath</value>
-							</key>
-							<value>/WEB-INF/json/image.xml</value>
-						</entry>
-						<entry>
-							<key>
-								<value>addWeibo:weibo</value>
-							</key>
-							<value>/WEB-INF/json/check.xml</value>
-						</entry>
-						<entry>
-							<key>
-								<value>addWeiboReply:weibo</value>
-							</key>
-							<value>/WEB-INF/json/check.xml</value>
-						</entry>
-						<entry>
-							<key>
-								<value>getMessageIndex:messages</value>
-							</key>
-							<value>/WEB-INF/json/message-list.xml</value>
-						</entry>
-						<entry>
-							<key>
-								<value>getPeopleFollower:peoples</value>
+								<value>getPeopleFollower:api</value>
 							</key>
 							<value>/WEB-INF/json/people-list.xml</value>
 						</entry>
 						<entry>
 							<key>
-								<value>getPeopleFollowing:peoples</value>
+								<value>getPeopleFollowing:api</value>
 							</key>
 							<value>/WEB-INF/json/people-list.xml</value>
 						</entry>
@@ -240,13 +240,13 @@
 						</entry>
 						<entry>
 							<key>
-								<value>getMessage:replies</value>
+								<value>AddMessageReply:MessageReply</value>
 							</key>
-							<value>/WEB-INF/json/message-replies-list.xml</value>
+							<value>/WEB-INF/json/check.xml</value>
 						</entry>
 						<entry>
 							<key>
-								<value>AddMessageReply:MessageReply</value>
+								<value>addProfileBasic:people</value>
 							</key>
 							<value>/WEB-INF/json/check.xml</value>
 						</entry>
@@ -254,7 +254,7 @@
 				</property>
 			</bean>
 		</property>
-		<property name="loginPath" value="${q.url.prefix}" />
+		<property name="loginPath" value="/login/new" />
 		<property name="needLoginResources">
 			<set>
 				<value>getMineIndex</value>
@@ -281,10 +281,15 @@
 				<value>getMessageNew</value>
 				<value>addMessage</value>
 				<value>getMessage</value>
+				<value>getMessageReply</value>
 				<value>addMessage</value>
+				<value>deleteMessage</value>
+				<value>deleteMessageReply</value>
 				<value>addMessageReply</value>
 				<value>addWeibo</value>
+				<value>deleteWeibo</value>
 				<value>addWeiboReply</value>
+				<value>deleteWeiboReply</value>
 				<value>getWeiboNew</value>
 				<value>getReplyNew</value>
 				<value>getWeiboRetweet</value>
@@ -477,7 +482,6 @@
 		<property name="eventDao" ref="eventDao" />
 	</bean>
 	<bean id="getGroupIndex" class="q.web.group.GetGroupIndex">
-		<property name="categoryDao" ref="categoryDao" />
 		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="getGroupFeed" class="q.web.group.GetGroupFeed">
@@ -555,7 +559,7 @@
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="weiboService" ref="weiboService" />
 	</bean>
-	<bean id="deleteWeiboReply" class="q.web.weibo.DeleteWeibo">
+	<bean id="deleteWeiboReply" class="q.web.weibo.DeleteWeiboReply">
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
@@ -621,9 +625,15 @@
 		<property name="messageDao" ref="messageDao" />
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
-	<bean id="getMessage" class="q.web.message.GetMessage">
+	<bean id="getMessageReply" class="q.web.message.GetMessageReply">
 		<property name="messageDao" ref="messageDao" />
 		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="deleteMessage" class="q.web.message.DeleteMessage">
+		<property name="messageDao" ref="messageDao" />
+	</bean>
+	<bean id="deleteMessageReply" class="q.web.message.DeleteMessageReply">
+		<property name="messageDao" ref="messageDao" />
 	</bean>
 
 

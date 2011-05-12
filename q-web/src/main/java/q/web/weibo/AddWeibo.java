@@ -69,10 +69,6 @@ public class AddWeibo extends Resource {
 			pictureService.rotate(picturePath, fix);
 		}
 
-		String from = context.getString("from");
-		if (StringKit.isNotEmpty(from)) {
-			context.redirectContextPath(from);
-		}
 		context.setModel("weibo", weibo);
 	}
 

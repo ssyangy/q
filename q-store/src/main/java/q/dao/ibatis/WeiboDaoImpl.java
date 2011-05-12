@@ -213,7 +213,7 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 	}
 
 	@Override
-	public int decrWeiboRetweetNumByWeiboId(long quoteWeiboId) throws SQLException {
+	public int decrWeiboRetweetNumberByWeiboId(long quoteWeiboId) throws SQLException {
 		return this.sqlMapClient.update("decrWeiboRetweetNumByWeiboId", quoteWeiboId);
 	}
 

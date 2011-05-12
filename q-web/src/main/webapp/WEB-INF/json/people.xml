@@ -13,6 +13,9 @@
 			<member name="friendNum" apiName="friendNum" apiType="int" />
 			<member name="email" apiName="email" apiType="string" />
 			<member name="intro" apiName="intro" apiType="string" />
+			<member name="time" apiName="screenTime" apiType="string" />
+			<member name="createdTime" apiName="createdTime" apiType="string" />
+			<member name="gender.value" apiName="gender" apiType="int"/>
  		</struct>
 	</type>
 </param>

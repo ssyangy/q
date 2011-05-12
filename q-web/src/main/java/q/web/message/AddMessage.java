@@ -13,6 +13,7 @@ import q.dao.PeopleDao;
 import q.domain.Message;
 import q.domain.MessageJoinPeople;
 import q.domain.MessageReply;
+import q.domain.MessageReplyJoinPeople;
 import q.domain.People;
 import q.util.ArrayKit;
 import q.util.CollectionKit;
@@ -28,20 +29,25 @@ import q.web.exception.RequestParameterInvalidException;
  * 
  */
 public class AddMessage extends Resource {
-	protected MessageDao messageDao;
+	private MessageDao messageDao;
 
 	public void setMessageDao(MessageDao messageDao) {
 		this.messageDao = messageDao;
 	}
 
-	protected PeopleDao peopleDao;
+	private PeopleDao peopleDao;
 
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Add one message contains below steps:
+	 * <ul>
+	 * <li>add message thread, set reply num 1</li>
+	 * <li>add firstmessage reply</li>
+	 * <li>add message join peoples</li>
+	 * </ul>
 	 * 
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
@@ -51,21 +57,27 @@ public class AddMessage extends Resource {
 		message.setId(IdCreator.getLongId());
 		long senderId = context.getCookiePeopleId();
 		message.setSenderId(senderId);
+		// add message thread
+		messageDao.addMessage(message);
+
+		// connect message with peoples
 		String idsString = context.getString("receiverId");
 		String[] receiverStringIds = StringKit.split(idsString, ',');
 		Set<Long> receiverIds = IdCreator.convertIfValidIds(receiverStringIds);
-		List<MessageJoinPeople> joins = new ArrayList<MessageJoinPeople>();
+		receiverIds.add(senderId);// sender is also reply receiver
+		List<MessageJoinPeople> joins = new ArrayList<MessageJoinPeople>(receiverIds.size());
 		for (Long receiverId : receiverIds) {
 			MessageJoinPeople join = new MessageJoinPeople();
 			join.setId(IdCreator.getLongId());
 			join.setSenderId(senderId);
 			join.setMessageId(message.getId());
 			join.setReceiverId(receiverId);
+			join.setReplyNum(1);// message thread has first reply
 			joins.add(join);
 		}
-		messageDao.addMessage(message);
-		
-		//NOTICE: also insert message reply
+		messageDao.addMessageJoinPeoples(joins);
+
+		// add first message reply
 		MessageReply messageReply = new MessageReply();
 		messageReply.setId(IdCreator.getLongId());
 		messageReply.setContent(context.getString("content"));
@@ -73,14 +85,20 @@ public class AddMessage extends Resource {
 		messageReply.setQuoteMessageId(message.getId());
 		messageReply.setQuoteSenderId(message.getSenderId());
 		messageDao.addMessageReply(messageReply);
-		
-		//NOTICE: join message with people
-		messageDao.addMessageJoinPeoples(joins);
 
-		String from = context.getString("from");
-		if (from != null) {
-			context.redirectContextPath(from);
+		// connect message reply with peoples
+		List<MessageReplyJoinPeople> replyJoins = new ArrayList<MessageReplyJoinPeople>(receiverIds.size());
+		for (Long receiverId : receiverIds) {
+			MessageReplyJoinPeople join = new MessageReplyJoinPeople();
+			join.setId(IdCreator.getLongId());
+			join.setReplyId(messageReply.getId());
+			join.setSenderId(senderId);
+			join.setQuoteMessageId(message.getId());
+			join.setQuoteSenderId(message.getSenderId());
+			join.setReceiverId(receiverId);
+			replyJoins.add(join);
 		}
+		messageDao.addMessageReplyJoinPeoples(replyJoins);
 
 	}
 
@@ -88,7 +106,7 @@ public class AddMessage extends Resource {
 	public void validate(ResourceContext context) throws Exception {
 		long senderId = context.getCookiePeopleId();
 		if (senderId == 0)
-			throw new RequestParameterInvalidException("loginId invalid");
+			throw new RequestParameterInvalidException("login:invalid");
 		String[] receiverStringIds = StringKit.split(context.getString("receiverId"), ',');
 		if (ArrayKit.isEmpty(receiverStringIds)) {
 			throw new RequestParameterInvalidException("receiver:invalid");

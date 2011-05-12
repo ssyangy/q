@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author Zhehao
  * @date Feb 15, 2011
- *
+ * 
  */
 public class Group extends AbstractDomain implements Serializable {
 
@@ -20,8 +20,10 @@ public class Group extends AbstractDomain implements Serializable {
 	private int status;
 
 	private int joinNum;
-	
+
 	private String avatarPath;
+
+	private boolean joined;
 
 	public int getJoinNum() {
 		return joinNum;
@@ -30,7 +32,6 @@ public class Group extends AbstractDomain implements Serializable {
 	public void setJoinNum(int joinNumber) {
 		this.joinNum = joinNumber;
 	}
-
 
 	private double latitude;
 
@@ -79,7 +80,7 @@ public class Group extends AbstractDomain implements Serializable {
 	public void setIntro(String intro) {
 		this.intro = intro;
 	}
-	
+
 	public boolean hasAvatar() {
 		if (avatarPath == null || avatarPath.endsWith("-def")) {
 			return false;
@@ -94,7 +95,7 @@ public class Group extends AbstractDomain implements Serializable {
 	public void setAvatarPath(String avatarPath) {
 		this.avatarPath = avatarPath;
 	}
-	
+
 	public int getStatus() {
 		return status;
 	}
@@ -103,9 +104,23 @@ public class Group extends AbstractDomain implements Serializable {
 		this.status = status;
 	}
 
-	@Override
-	public String toString() {
-		return "Group [id=" + id + ", creatorId=" + creatorId + ", name=" + name + ", intro=" + intro + ", longitude=" + longitude +", latitude=" + latitude +", status=" + status + ", created=" + created + ", modified=" + modified + "]";
+	/**
+	 * @param joined
+	 *            the joined to set
+	 */
+	public void setJoined(boolean joined) {
+		this.joined = joined;
 	}
 
+	/**
+	 * @return the joined
+	 */
+	public boolean isJoined() {
+		return joined;
+	}
+
+	@Override
+	public String toString() {
+		return "Group [id=" + id + ", creatorId=" + creatorId + ", name=" + name + ", intro=" + intro + ", longitude=" + longitude + ", latitude=" + latitude + ", status=" + status + ", created=" + created + ", modified=" + modified + "]";
+	}
 }

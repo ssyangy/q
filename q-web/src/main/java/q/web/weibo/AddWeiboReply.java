@@ -56,7 +56,7 @@ public class AddWeiboReply extends Resource {
 		if (replyWeiboId > 0) { // exsits replied comment
 			WeiboReply replied = weiboDao.getWeiboReplyById(replyWeiboId);
 			reply.setReplyWeiboId(replied.getId());
-			reply.setReplySenderId(replied.getReplySenderId());
+			reply.setReplySenderId(replied.getSenderId());
 		}
 		reply.setSenderId(senderId);
 		reply.setContent(content);
@@ -68,10 +68,6 @@ public class AddWeiboReply extends Resource {
 
 		this.weiboService.addWeiboReply(reply);
 
-		String from = context.getString("from");
-		if (from != null) {
-			context.redirectContextPath(from);
-		}
 		context.setModel("weibo", reply);
 	}
 

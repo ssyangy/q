@@ -49,7 +49,7 @@ public class GetGroupFrame extends Resource {
 
 		long loginPeopleId = context.getCookiePeopleId();
 		if (loginPeopleId > 0) {
-			PeopleJoinGroup join = groupDao.getGroupPeople(loginPeopleId, groupId);
+			PeopleJoinGroup join = groupDao.getJoinPeopleByGroupIdPeopleId(loginPeopleId, groupId);
 			if (join != null && join.getStatus() == Status.COMMON.getValue()) {
 				context.setModel("join", join);
 			}
@@ -58,11 +58,11 @@ public class GetGroupFrame extends Resource {
 		List<Event> newEvents = this.eventDao.getEventsByGroupId(groupId, 4, 0);
 		context.setModel("newEvents", newEvents);
 
-		List<Long> groupPeopleIds = this.groupDao.getPeopleIdsByGroupId(groupId, 3, 0);
+		List<Long> groupPeopleIds = this.groupDao.getJoinPeopleIdsByGroupId(groupId, 3, 0);
 		List<People> groupPeoples = this.peopleDao.getPeoplesByIds(groupPeopleIds);
 		context.setModel("newPeoples", groupPeoples);
 
-		List<Long> hotGroupPeopleIds = this.groupDao.getHotGroupPeopleIds(groupId, 3, 0);
+		List<Long> hotGroupPeopleIds = this.groupDao.getJoinPeopleIdsByHotAndGroupId(groupId, 3, 0);
 		List<People> hotGroupPeoples = this.peopleDao.getPeoplesByIds(hotGroupPeopleIds);
 		context.setModel("hotPeoples", hotGroupPeoples);
 

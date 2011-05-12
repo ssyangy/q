@@ -41,20 +41,19 @@ public class DeleteWeibo extends Resource {
 		long weiboId = context.getResourceIdLong();
 
 		Weibo weibo = this.weiboDao.getWeiboById(weiboId);
-		if (weibo.getStatus() == Status.COMMON.getValue()) {
-			int rowEffected = this.weiboDao.deleteWeiboBySenderIdAndWeiboId(senderId, weiboId);
-			if (rowEffected > 0) { // decr weibo number if delete weibo successful.
-				this.peopleDao.decrPeopleWeiboNumberByPeopleId(senderId);
-				if(weibo.getQuoteWeiboId() > 0) {
-					this.weiboDao.decrWeiboRetweetNumByWeiboId(weibo.getQuoteWeiboId());
+		if (weibo.getStatus() == Status.COMMON.getValue()) { // only delete weibo which has common status
+			int rowEffected = this.weiboDao.deleteWeiboBySenderIdAndWeiboId(senderId, weiboId);//TODO use deleteWeiboById 
+			if (rowEffected > 0) { // if delete weibo successful.
+				if (rowEffected > 1) {
+					log.error("delete weibo row error:", rowEffected);
+				}
+				this.peopleDao.decrPeopleWeiboNumberByPeopleId(senderId);// decr weibo number
+				if (weibo.getQuoteWeiboId() > 0) {
+					this.weiboDao.decrWeiboRetweetNumberByWeiboId(weibo.getQuoteWeiboId());// decr weibo retweet number
 				}
 			}
 		}
 
-		String from = context.getString("from");
-		if (from != null) {
-			context.redirectContextPath(from);
-		}
 	}
 
 	/*
@@ -74,7 +73,7 @@ public class DeleteWeibo extends Resource {
 		}
 		Weibo weibo = this.weiboDao.getWeiboById(weiboId);
 		if (weibo.getSenderId() != senderId) {
-			throw new RequestParameterInvalidException("login:invalid");
+			throw new RequestParameterInvalidException("privilege:invalid");
 		}
 	}
 }

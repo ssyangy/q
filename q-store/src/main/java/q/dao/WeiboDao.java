@@ -150,7 +150,7 @@ public interface WeiboDao {
 	/**
 	 * @param quoteWeiboId
 	 */
-	int decrWeiboRetweetNumByWeiboId(long quoteWeiboId) throws SQLException;
+	int decrWeiboRetweetNumberByWeiboId(long quoteWeiboId) throws SQLException;
 
 	/**
 	 * @param quoteWeiboId

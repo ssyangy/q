@@ -54,7 +54,7 @@ public class GetPeopleFrame extends Resource {
 
 		context.setModel("people", people);
         context.setModel("interest", interest);
-		List<Group> groups = groupDao.getGroupsByPeopleId(peopleId);
+		List<Group> groups = groupDao.getGroupsByJoinPeopleId(peopleId);
 		context.setModel("groups", groups);
 
 		boolean isMe = false;

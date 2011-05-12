@@ -201,7 +201,6 @@ default character set utf8 engine = innodb;
 create table message(
 	id bigint unsigned not null primary key,
 	sender_id bigint unsigned not null,
-	reply_num mediumint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null)
@@ -212,6 +211,7 @@ create table message_join_people(
 	message_id bigint unsigned not null,
 	sender_id bigint unsigned not null,
 	receiver_id bigint unsigned not null,
+	reply_num mediumint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null)
@@ -225,6 +225,18 @@ create table message_reply(
 	reply_message_id bigint unsigned not null,
 	reply_sender_id bigint unsigned not null,
 	content varchar(1024) not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null)
+default character set utf8 engine = innodb;
+
+create table message_reply_join_people(
+	id bigint unsigned not null primary key,
+	reply_id bigint unsigned not null,
+	sender_id bigint unsigned not null,
+	receiver_id bigint unsigned not null,
+	quote_message_id bigint unsigned not null,
+	quote_sender_id bigint unsigned not null,	
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null)

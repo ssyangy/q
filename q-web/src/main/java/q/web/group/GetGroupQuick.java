@@ -17,7 +17,7 @@ public class GetGroupQuick extends Resource{
 	public void execute(ResourceContext context) throws Exception {
 		String method=context.getString("method");
 		if(method.equals("getMyGroups")){
-		List<Group>groups=groupDao.getGroupsByPeopleId(context.getResourceIdLong());
+		List<Group>groups=groupDao.getGroupsByJoinPeopleId(context.getResourceIdLong());
 		context.setModel("groups", groups);
 		}
 	}

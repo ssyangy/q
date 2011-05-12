@@ -1,12 +1,17 @@
 package q.biz.impl;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 import q.biz.PictureService;
 import q.commons.http.JdkHttpClient;
@@ -85,7 +90,7 @@ public class DefaultPictureService implements PictureService {
 			String name = picturePath.substring(di);
 			picturePath = picturePath.substring(0, di);
 			String dir = picturePath.substring(picturePath.lastIndexOf("/"));
-			sb = JdkHttpClient.postPictures(tempt, dir, name, images);
+			sb = postPictures(tempt, dir, name, images);
 		}
 		if (sb.equals("false")) {
 			return false;
@@ -93,10 +98,104 @@ public class DefaultPictureService implements PictureService {
 		return true;
 	}
 
+
+	public static boolean postPictures(URL url, long peopleId, BufferedImage[] images) throws IOException {
+		long dir = peopleId % 10000;
+		for (int i = 0; i < images.length; i++) {
+			BufferedImage temp = images[i];
+			Map<String, CharSequence> payload = new HashMap();
+			payload.put("imgdir", "a/" + String.valueOf(dir) + "/");
+			ByteArrayOutputStream os = new ByteArrayOutputStream();
+			JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
+			encoder.encode(temp);
+			InputStream is = new ByteArrayInputStream(os.toByteArray());
+			if (i == 0) {
+				HttpURLConnection connection = JdkHttpClient.getHttpConnection(url, 100000, 100000);
+				String[] data = JdkHttpClient.postMultipart(connection, payload, is, String.valueOf(peopleId) + "-128", os.size(), "image/jpeg").split(";");
+				if (!data[0].equals("success")) {
+					return false;
+				}
+				JdkHttpClient.releaseUrlConnection(connection);
+			} else if (i == 1) {
+				HttpURLConnection connection = JdkHttpClient.getHttpConnection(url, 100000, 100000);
+				String[] data = JdkHttpClient.postMultipart(connection, payload, is, String.valueOf(peopleId) + "-48", os.size(), "image/jpeg").split(";");
+				if (!data[0].equals("success")) {
+					return false;
+				}
+				JdkHttpClient.releaseUrlConnection(connection);
+			} else if (i == 2) {
+				HttpURLConnection connection = JdkHttpClient.getHttpConnection(url, 100000, 100000);
+				String[] data = JdkHttpClient.postMultipart(connection, payload, is, String.valueOf(peopleId) + "-24", os.size(), "image/jpeg").split(";");
+				if (!data[0].equals("success")) {
+					return false;
+				}
+
+			}
+		}
+		return true;
+	}
+
+	public static String postPictures(URL url, String dir, String name, BufferedImage[] images) throws IOException {
+		String toEnd = "false";
+		for (int i = 0; i < images.length; i++) {
+			BufferedImage temp = images[i];
+			Map<String, CharSequence> payload = new HashMap();
+			payload.put("imgdir", dir);
+			ByteArrayOutputStream os = new ByteArrayOutputStream();
+			JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
+			encoder.encode(temp);
+			InputStream is = new ByteArrayInputStream(os.toByteArray());
+			if (i == 0) {
+				HttpURLConnection connection = JdkHttpClient.getHttpConnection(url, 100000, 100000);
+				String[] data = JdkHttpClient.postMultipart(connection, payload, is, name + "-160", os.size(), "image/jpeg").split(";");
+				if (!data[0].equals("success")) {
+					return "false";
+				}
+				JdkHttpClient.releaseUrlConnection(connection);
+			} else if (i == 1) {
+				HttpURLConnection connection = JdkHttpClient.getHttpConnection(url, 100000, 100000);
+				String[] data = JdkHttpClient.postMultipart(connection, payload, is, name + "-320", os.size(), "image/jpeg").split(";");
+				if (!data[0].equals("success")) {
+					return "false";
+				}
+				JdkHttpClient.releaseUrlConnection(connection);
+			} else if (i == 2) {
+				HttpURLConnection connection = JdkHttpClient.getHttpConnection(url, 100000, 100000);
+				toEnd = JdkHttpClient.postMultipart(connection, payload, is, name, os.size(), "image/jpeg");
+				String[] data = toEnd.split(";");
+				if (!data[0].equals("success")) {
+					return "false";
+				}
+
+			}
+		}
+		return toEnd;
+	}
+
+	private String getDir(long id) {
+		return Long.toString((id / 10000) % 10000, Character.MAX_RADIX);
+	}
+
+	@Override
+	public String uploadAvatar(InputStream picture, long peopleId, long size, String type) throws Exception {
+		long dir = peopleId % 10000;
+		URL temp = new URL(this.imageUploadUrl);
+		HttpURLConnection con = JdkHttpClient.getHttpConnection(temp, 100000, 100000);
+		String sb;
+		try {
+			Map<String, CharSequence> payload = new HashMap<String, CharSequence>();
+			payload.put("imgdir", "a/" + dir + "/");
+			sb = JdkHttpClient.postMultipart(con, payload, picture, String.valueOf(peopleId), size, type);
+		} finally {
+			JdkHttpClient.releaseUrlConnection(con);
+		}
+		return sb;
+	}
+	
 	@Override
 	public String uploadWeiboPictures(InputStream picture) throws Exception {
 		long picId = IdCreator.getLongId();
-		String dir = Long.toString(picId % 10000, Character.MAX_RADIX);
+		String dir = "w/" + Long.toString(picId % 10000, Character.MAX_RADIX) + "/";
 		String name = Long.toString(picId, Character.MAX_RADIX);
 		BufferedImage image = ImageKit.load(picture);
 		int originWidth = image.getWidth();
@@ -125,29 +224,13 @@ public class DefaultPictureService implements PictureService {
 		images[2] = image;
 		URL temp = new URL(this.imageUploadUrl);
 		String sb;
-		sb = JdkHttpClient.postPictures(temp, dir, name, images);
+		sb = postPictures(temp, dir, name, images);
 		if (sb.equals("false")) {
 			return "false";
 		} else {
 			return sb;
 		}
 
-	}
-
-	@Override
-	public String uploadAvatar(InputStream picture, long peopleId, long size, String type) throws Exception {
-		long dir = peopleId % 10000;
-		URL temp = new URL(this.imageUploadUrl);
-		HttpURLConnection con = JdkHttpClient.getHttpConnection(temp, 100000, 100000);
-		String sb;
-		try {
-			Map<String, CharSequence> payload = new HashMap<String, CharSequence>();
-			payload.put("imgdir", "a/" + String.valueOf(dir) + "/");
-			sb = JdkHttpClient.postMultipart(con, payload, picture, String.valueOf(peopleId), size, type);
-		} finally {
-			JdkHttpClient.releaseUrlConnection(con);
-		}
-		return sb;
 	}
 
 	@Override
@@ -176,7 +259,7 @@ public class DefaultPictureService implements PictureService {
 
 		boolean sb;
 
-		sb = JdkHttpClient.postPictures(url, peopleId, images);
+		sb = postPictures(url, peopleId, images);
 		return sb;
 	}
 
@@ -199,7 +282,5 @@ public class DefaultPictureService implements PictureService {
 	public String getMaleAvatarPath() {
 		return this.imageUrl + "/default/male-def";
 	}
-	
-	
 
 }

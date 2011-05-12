@@ -4,7 +4,9 @@
 package q.web.people;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import q.dao.DaoHelper;
 import q.dao.EventDao;
@@ -84,6 +86,10 @@ public class GetPeopleFollower extends Resource {
 			DaoHelper.injectPeoplesWithRelation(peopleDao, peoples, loginPeopleId);
 		}
 		context.setModel("peoples", peoples);
+		Map<String, Object> api = new HashMap<String, Object>();
+		api.put("peoples", peoples);
+		api.put("relations", relations);
+		context.setModel("api", api);
 	}
 
 	/* (non-Javadoc)

@@ -40,7 +40,7 @@ public class AddGroupJoin extends Resource {
 	}
 
 	public void addPeopleJoinGroup(long peopleId, long groupId) throws SQLException {
-		PeopleJoinGroup join = groupDao.getGroupPeople(peopleId, groupId);
+		PeopleJoinGroup join = groupDao.getJoinPeopleByGroupIdPeopleId(peopleId, groupId);
 		if (join == null) {
 			groupDao.addPeopleJoinGroup(peopleId, groupId);
 		} else if (join.getStatus() == Status.DELETE.getValue()) {
