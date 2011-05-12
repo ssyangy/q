@@ -3,8 +3,8 @@
  */
 package q.util;
 
+import java.io.IOException;
 import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Calendar;
 import java.util.Enumeration;
@@ -106,9 +106,8 @@ public class IdCreatorTest {
 		Assert.assertTrue(afterCal.getTimeInMillis() - baseCal.getTimeInMillis() > 1000L * 10000 * 10000);
 	}
 
-	public static void main(String[] args) throws SocketException {
+	public static void main(String[] args) throws UnknownHostException, IOException {
 		System.out.println(IdCreator.getNodeFlag());
-		System.out.println(NetworkInterface.getByName("eth0"));
 		Enumeration<NetworkInterface> infs = NetworkInterface.getNetworkInterfaces();
 		while (infs.hasMoreElements()) {
 			System.out.println(infs.nextElement().getInetAddresses().nextElement().getHostAddress());

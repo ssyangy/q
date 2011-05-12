@@ -3,9 +3,8 @@
  */
 package q.util;
 
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
+import java.io.IOException;
+import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -51,24 +50,37 @@ public class IdCreator {
 		return counterLimit;
 	}
 
-	private static int nodeFlag = getNodeFlag();
-
+	private static int nodeFlag = initNodeFlag();
+	
 	public static int getNodeFlag() {
+		return nodeFlag;
+	}
+
+	private static int initNodeFlag() {
 		String ip;
+		Socket socket = null;
 		try {
-			NetworkInterface eth1 = NetworkInterface.getByName("eth1");// TODO 张江机房的内网ip网卡,e.g:eth1:172.16.40.4 eth0:222.73.29.151
-			NetworkInterface eth0 = NetworkInterface.getByName("eth0");// TODO 测试机没有eth1
-			if (eth1 != null) {
-				ip = eth1.getInetAddresses().nextElement().getHostAddress();
-			} else if (eth0 != null) {
-				ip = eth0.getInetAddresses().nextElement().getHostAddress();
-			} else {
-				ip = InetAddress.getLocalHost().getHostAddress(); // TODO 开发机
-			}
+			// NetworkInterface eth1 = NetworkInterface.getByName("eth1");// 张江机房的内网ip网卡,e.g:eth1:172.16.40.4 eth0:222.73.29.151
+			// NetworkInterface eth0 = NetworkInterface.getByName("eth0");// 测试机没有eth1
+			// if (eth1 != null) {
+			// ip = eth1.getInetAddresses().nextElement().getHostAddress();
+			// } else if (eth0 != null) {
+			// ip = eth0.getInetAddresses().nextElement().getHostAddress();
+			// } else {
+			// ip = InetAddress.getLocalHost().getHostAddress(); // 开发机
+			// }
+			socket = new Socket("www.baidu.com", 80);
+			ip = socket.getLocalAddress().getHostAddress();
 		} catch (UnknownHostException e) {
 			throw new IllegalStateException();
-		} catch (SocketException e) {
+		} catch (IOException e) {
 			throw new IllegalStateException();
+		} finally {
+			try {
+				socket.close();
+			} catch (IOException e) {
+				throw new IllegalStateException();
+			}
 		}
 		int flag = getIpLastSeg(ip);
 		log.warn("create id using ip:%s,nodeFlag:%s", ip, flag);
