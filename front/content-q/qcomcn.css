@@ -4,11 +4,12 @@
 #toper{border-bottom:1px dashed #D4D4D4;line-height:30px;padding:5px 0;position:relative;z-index:9;}
 #toper .wapper{height:30px;}
 #logo{font-size:24px;position:absolute;left:0;top:0;color:#FF0065}
-#nav{position:absolute;top:0;left:200px;font-size:16px;}
-#msg{position:absolute;top:0;right:100px;}
-#login{position:absolute;top:0;right:-10px;}
-#note{position:absolute;top:30px;right:0;padding:10px;background-color:#FFE300;z-index:99;display:none;}
-#note p{line-height:22px;}
+#msg{position:absolute;top:0;right:300px;}
+#minelist{position:absolute;top:24px;left:10px;display:none;}
+ul.dlist{border:1px solid #ddd;line-height:22px;background-color:#fff;}
+ul.dlist li{border-bottom:1px solid #ddd;border-right:none 0;float:none;padding:0 10px;}
+.tlistarr{cursor:pointer;width:14px;height:14px;background:url("/content-q/images/arrow/sh_col.png") no-repeat;}
+.tlistarr.tgt{background-image:url('/content-q/images/arrow/navlarrh.png');}
 
 #main .wapper{padding:10px 0;}
 
@@ -42,7 +43,7 @@ li.streambox.hover a.hod{visibility:inherit;}
 li.streambox .repmod{border:1px solid #ddd;padding:5px;margin-bottom:10px;}
 li.streambox .extend{display:none;}
 
-.search{position:absolute;top:0;right:250px;}
+.search{position:absolute;top:0;right:0;}
 #searchpage {top:30px;left:80px;width:307px;}
 .search .search_inp{width:150px;}
 #searchpage .search_inp{width:300px;}

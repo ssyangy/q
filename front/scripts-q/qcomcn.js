@@ -27,10 +27,6 @@
             $(this).next('input.search_btn').removeClass('typing');
         });
 
-        $('#btnnote').click(function () {
-            $('#note').toggle();
-        });
-
         var lazyLayout = _.debounce(calculateLayout, 100);
         $(window).resize(lazyLayout);
         calculateLayout();
@@ -57,5 +53,18 @@
 
         $(".hov,.streambox").hover(function(){$(this).addClass('hover');},
         function(){$(this).removeClass('hover');});
+
+        var targetfun = function(){
+            var o = $('#'+$(this).attr('target'));
+            o.toggle();
+            if($(this).hasClass('tgt')) { $(this).removeClass('tgt'); }
+            else { $(this).addClass('tgt');}
+        }
+        $('[target]').bind('click',targetfun);
+        $('body').click(function(e){
+            if(!$(e.target).attr('target')){
+                $('.tgtbox').hide();
+            }
+        });
     }
 });
