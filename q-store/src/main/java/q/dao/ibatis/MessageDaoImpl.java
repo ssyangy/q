@@ -140,7 +140,7 @@ public class MessageDaoImpl extends AbstractDaoImpl implements MessageDao {
 		join.setReceiverId(receiverId);
 		join.setMessageId(messageId);
 		join.setReplyNum(0);// reset reply num
-		return this.sqlMapClient.update("updateMessageJoinPeopleReplyNumByMessageIdAndReceiverId", join);
+		return this.sqlMapClient.update("updateMessageReplyNumByMessageIdAndReceiverId", join);
 	}
 
 	/*
@@ -169,7 +169,7 @@ public class MessageDaoImpl extends AbstractDaoImpl implements MessageDao {
 		MessageJoinPeople join = new MessageJoinPeople();
 		join.setMessageId(messageId);
 		join.setReceiverId(receiverId);
-		return this.sqlMapClient.update("decrMessageReplyNumberByMessageIdAndReceiverId", join);
+		return this.sqlMapClient.update("decrMessageReplyNumByMessageIdAndReceiverId", join);
 	}
 
 	@Override

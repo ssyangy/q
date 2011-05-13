@@ -9,10 +9,10 @@ import java.util.List;
 import q.dao.MessageDao;
 import q.dao.PeopleDao;
 import q.dao.page.MessageJoinPeoplePage;
-import q.domain.Message;
 import q.domain.MessageJoinPeople;
 import q.domain.MessageReply;
 import q.domain.MessageReplyJoinPeople;
+import q.domain.Status;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
@@ -47,7 +47,8 @@ public class AddMessageReply extends Resource {
 		MessageReply messageReply = new MessageReply();
 		messageReply.setId(IdCreator.getLongId());
 		messageReply.setContent(context.getString("content"));
-		messageReply.setSenderId(context.getCookiePeopleId());
+		long loginId = context.getCookiePeopleId();
+		messageReply.setSenderId(loginId);
 
 		long replyMessageId = context.getIdLong("replyMessageId");
 		MessageReply replied = this.messageDao.getMessageReplyById(replyMessageId);
@@ -58,13 +59,18 @@ public class AddMessageReply extends Resource {
 		messageReply.setReplySenderId(replied.getSenderId());
 
 		long quoteMessageId = context.getResourceIdLong();
-		Message quote = this.messageDao.getMessageById(quoteMessageId);
-		if (quote == null) {
+		MessageJoinPeople messageJoinPeople = messageDao.getMessageJoinPeopleByMessageIdReceiverIdStatus(quoteMessageId, loginId, Status.COMMON.getValue());
+		if (messageJoinPeople == null) {
 			throw new RequestParameterInvalidException("quote:invalid");
 		}
-		messageReply.setQuoteMessageId(quote.getId());
-		messageReply.setQuoteSenderId(quote.getSenderId());
+		messageReply.setQuoteMessageId(messageJoinPeople.getMessageId());
+		messageReply.setQuoteSenderId(messageJoinPeople.getSenderId());
+		// add message reply
 		messageDao.addMessageReply(messageReply);
+		
+		// update last message reply
+		messageJoinPeople.setLastReplyId(messageReply.getId());
+		messageJoinPeople.setLastReplySenderId(messageReply.getSenderId());
 
 		// connect message reply with peoples
 		MessageJoinPeoplePage joinPage = new MessageJoinPeoplePage();

@@ -211,6 +211,8 @@ create table message_join_people(
 	message_id bigint unsigned not null,
 	sender_id bigint unsigned not null,
 	receiver_id bigint unsigned not null,
+	last_reply_id bigint unsigned not null,
+	last_reply_sender_id bigint unsigned not null,	
 	reply_num mediumint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,

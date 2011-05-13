@@ -28,6 +28,11 @@ public class IdCreator {
 
 	private static long baseTimestamp = getBaseTimestamp();
 
+	/**
+	 * 18个9是很难达到的ID
+	 */
+	public static final long MAX_ID = 999999999999999999L;
+	
 	private static long getBaseTimestamp() {
 		Calendar baseCal = Calendar.getInstance();
 		baseCal.set(2011, 0, 1, 0, 0, 0);
