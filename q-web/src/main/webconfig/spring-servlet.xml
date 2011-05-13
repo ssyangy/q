@@ -614,7 +614,6 @@
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="getMessageNew" class="q.web.message.GetMessageNew">
-		<property name="messageDao" ref="messageDao" />
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="addMessage" class="q.web.message.AddMessage">
