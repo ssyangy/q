@@ -35,7 +35,7 @@ public class ObjectMappingPojoTest extends ApiMappingXmlTestBase {
 		pojo.setIs3D(true);
 		pojo.setTitle("jobs");
 		Convert convert = new JSONConvert(sw);
-		rspMapping.write(convert, pojo, false);
+		rspMapping.write(convert, false, pojo, false);
 		assertEquals("{\"is_3D\":true,\"title\":\"jobs\"}", sw.toString());
 	}
 	
@@ -53,7 +53,7 @@ public class ObjectMappingPojoTest extends ApiMappingXmlTestBase {
 		pojoArray.setSingle(pojo);
 		
 		Convert convert = new JSONConvert(sw);
-		rspMapping.write(convert, pojoArray, false);
+		rspMapping.write(convert, false, pojoArray, false);
 		assertEquals("{\"many\":[{\"is_3D\":true,\"title\":\"jobs\"}],\"single\":{\"is_3D\":true,\"title\":\"jobs\"}}", sw.toString());
 	}
 }

@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import q.serialize.convert.Convert;
-
+import q.serialize.util.Utils;
 
 /**
  * 对象成员映射.
@@ -327,21 +327,25 @@ public class MemberMapping<T> implements Serializable {
 	 *            所要映射写出的object
 	 * @param isFromCollection
 	 *            判断该mapping是否为数组、list或者set的子项
+	 * @return
 	 * 
 	 * @throws MappingException
 	 *             the mapping exception
 	 * @throws OperationCodeException
 	 *             the operation code exception
 	 */
-	public void write(Convert convert, Object source, boolean isFromCollection) throws MappingException, OperationCodeException {
+	public boolean write(Convert convert, boolean hasPrev, Object source, boolean isFromCollection) throws MappingException, OperationCodeException {
 		try {
 			String mappingNameTemp = this.mappingName;
 
 			mappingNameTemp = convert.processMappingName(mappingNameTemp, isFromCollection);
 			if (this.switcher != null) {
 				// 输出switcher代码
-				convert.convertSwitcher(source, mappingNameTemp, this.getSwitcher());
-				return;
+				return convert.convertSwitcher(source, hasPrev, mappingNameTemp, this.getSwitcher());
+			} else {
+				if (hasPrev) {// json using comma to split members
+					convert.convertMemberSpliter();
+				}
 			}
 
 			if (getOutputApiName() != null) {
@@ -356,6 +360,7 @@ public class MemberMapping<T> implements Serializable {
 		} catch (Exception e) {
 			throw new MappingException("write error:" + source.toString(), e);
 		}
+		return true;
 	}
 
 	/**

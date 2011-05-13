@@ -10,7 +10,6 @@ import q.serialize.mapping.MappingException;
 import q.serialize.mapping.MemberMapping;
 import q.serialize.mapping.Switcher;
 
-
 /**
  * 
  * @author cilai
@@ -39,11 +38,13 @@ public interface Convert {
 	 * MemberMapping.switcher不为空时,处理switcher对象
 	 * 
 	 * @param source
+	 * @param hasPrev
+	 *            TODO
 	 * @param mappingName
 	 * @param switcher
 	 * @throws MappingException
 	 */
-	public void convertSwitcher(Object source, String mappingName, Switcher switcher) throws MappingException;
+	public boolean convertSwitcher(Object source, boolean hasPrev, String mappingName, Switcher switcher) throws MappingException;
 
 	public void convertString(String source, String mappingName) throws MappingException, IOException;
 
@@ -171,5 +172,10 @@ public interface Convert {
 	 * 获得对象转换的类型
 	 */
 	public String getFormat();
+
+	/**
+	 * @throws MappingException
+	 */
+	void convertMemberSpliter() throws MappingException;
 
 }

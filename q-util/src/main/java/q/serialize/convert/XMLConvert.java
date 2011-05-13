@@ -40,7 +40,7 @@ public class XMLConvert extends AbstractConvert {
 		return;
 	}
 
-	public void convertSwitcher(Object source, String mappingName, Switcher switcher) throws MappingException {
+	public boolean convertSwitcher(Object source, boolean hasPrev, String mappingName, Switcher switcher) throws MappingException {
 		try {
 			writer.append(Utils.LEFT_ANGLE_BRACKET).append(mappingName.trim()).append(Utils.RIGHT_ANGLE_BRACKET);
 			writer.append(switcher.switchCase(source).toString());
@@ -48,6 +48,7 @@ public class XMLConvert extends AbstractConvert {
 		} catch (Exception e) {
 			throw new MappingException(e);
 		}
+		return true;
 	}
 
 	private void convertPrimitiveObject(Object source, String mappingName) throws MappingException, IOException {
@@ -122,7 +123,7 @@ public class XMLConvert extends AbstractConvert {
 				Object value = original.get(name);
 				if (value != null) { // value不为空的时候输出
 					value = OutputHelper.changeValue(value);
-					mm.write(this, value, false);
+					mm.write(this, false, value, false);
 					count++;
 				}
 			}
@@ -170,7 +171,7 @@ public class XMLConvert extends AbstractConvert {
 
 						value = OutputHelper.changeValue(value);
 
-						mm.write(this, value, false);
+						mm.write(this, false, value, false);
 						// 由于其他Mapping如StringMapping,IntegerMapping不存在prefix,
 						// 故临时解决方案为修改MappingName,在write完成后，设置回原来的MappingName
 						if (outPutPrefix) {
@@ -341,6 +342,13 @@ public class XMLConvert extends AbstractConvert {
 
 	public String getFormat() {
 		return Utils.XML_FORMAT;
+	}
+
+	/* (non-Javadoc)
+	 * @see q.serialize.convert.Convert#convertMemberSpliter()
+	 */
+	@Override
+	public void convertMemberSpliter() throws MappingException {
 	}
 
 }
