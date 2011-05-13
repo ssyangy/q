@@ -67,9 +67,9 @@ public class GetMessageIndex extends Resource {
 		if (startId > 0) {
 			joinPage.setStartId(startId);
 		}
-		List<Long> messageIds = messageDao.getMessageReceiverIdsByJoinPage(joinPage);
-		Map<Long, List<Long>> messageIdReceiversMap = getMessageReceiversMap(messageIds);
+		List<Long> messageIds = messageDao.getMessageIdsByJoinPage(joinPage);
 		if (CollectionKit.isNotEmpty(messageIds)) {
+			Map<Long, List<Long>> messageIdReceiversMap = getMessageReceiversMap(messageIds);
 			Map<String, Object> api = new HashMap<String, Object>();
 			if (messageIds.size() == fetchSize) {
 				if (type == asc) { // more than one previous page
@@ -81,7 +81,7 @@ public class GetMessageIndex extends Resource {
 			}
 			if (type == asc) { // this action from next page
 				hasNext = true;
-			} else if (startId != 999999999999999999L) {// this action from previous page
+			} else if (startId < 999999999999999999L) {// this action from previous page XXX sean
 				hasPrev = true;
 			}
 			MessagePage messagePage = new MessagePage();
@@ -109,7 +109,7 @@ public class GetMessageIndex extends Resource {
 	 * @throws SQLException
 	 */
 	private Map<Long, List<Long>> getMessageReceiversMap(List<Long> messageIds) throws SQLException {
-		if (CollectionKit.isNotEmpty(messageIds)) {
+		if (CollectionKit.isEmpty(messageIds)) {
 			return null;
 		}
 		Map<Long, List<Long>> messageIdReceiversMap = new HashMap<Long, List<Long>>();
