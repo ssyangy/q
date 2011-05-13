@@ -9,13 +9,15 @@
 #root{color:#FF0065;cursor:pointer;}
 #root:hover{text-decoration:underline;}
 span.pass {display:inline-block;zoom:1;*display:inline;position:relative;width:14px;height:14px;
-background:url("/content/images/arrow/sh_ex2.png") no-repeat scroll 0 0 transparent;}
+background:url("${staticUrlPrefix}/content/images/arrow/sh_ex2.png") no-repeat scroll 0 0 transparent;}
+span.tit{display:none;}
 </style>
 <script type="text/javascript">
 	seajs.use('qcomcn.js', function (q) {
 		var $ = q.jq;
 		$(function () {
              q.Init();
+             
              var lis = $("#sldroot>li");
              var roll = $('#passroll');
              var slider = $("#slider");
@@ -23,28 +25,47 @@ background:url("/content/images/arrow/sh_ex2.png") no-repeat scroll 0 0 transpar
              root.click(function () {
                  if (root.data("clicked")) {
                     slider.animate({ left: 0 }, { duration: 500, easing: "swing" });
-                    $('span.tit,span.pass', roll).remove();
+                    $('span.tit', roll).text('');
+                    root.data("clicked", false);
                  } 
              });
              
-			var groups = $("#sldtrunk");
+			var sldbox = $("#sldbox");
 			seajs.use('ICanHaz.js', function (ich) {
 				lis.click(function () {
-					groups.empty();
+					window.gpid = parseInt($(this).attr('gpcid'));
+					$('span.tit',roll).text($('p.name',this).text()).show();
+					sldbox.empty();
 					$.ajax({
 					    url: "${urlPrefix}/group",
-					    data: {catId: parseInt($(this).attr('gpcid'))},
+					    data: {catId: window.gpid},
 					   	success: function(json){
-							$(json.groups).each(function(){
-								groups.append(ich.group(this));
-							});
+					   		sldbox.append(ich.group(json));
 							slider.animate({left: -560}, { duration: 500, easing: "swing" });
-							var grouptit = "fuck分类";
-							roll.append("<span class='pass'></span><span class='tit'>" + grouptit);
 							root.data("clicked", true);
 					    }
 					});
 				});
+				$('#pagger>a.prev').live('click',function(){
+					sldbox.empty();
+					$.ajax({
+					    url: "${urlPrefix}/group",
+					    data: {catId: window.gpid, size: 10, startid: parseInt(lis.last().data('replyid')) - 1, type: 0},
+					   	success: function(json){
+					   		sldbox.append(ich.group(json));
+					    }
+					});
+				});
+				$('#pagger>a.next').live('click',function(){
+					sldbox.empty();
+					$.ajax({
+					    url: "${urlPrefix}/group",
+					    data: {catId: window.gpid},
+					   	success: function(json){
+					   		sldbox.append(ich.group(json));
+					    }
+					});
+				});				
 			});
 			
 			$('#sldtrunk a.act').live('click',function(){
@@ -84,7 +105,7 @@ background:url("/content/images/arrow/sh_ex2.png") no-repeat scroll 0 0 transpar
 <div class="layout grid-s5m0e6">
     <div class="col-main"><div class="main-wrap pr10">
         <div class="rel mb10">
-            <p id="passroll"><a id="root">圈子分类</a></p>
+            <p id="passroll"><a id="root">圈子分类</a><span class='pass'></span><span class='tit'></span></p>
             <a href="${urlPrefix}/group/new" class='btna btnw24' style="position:absolute;top:5px;right:5px;"><span class='btnadd'></span>新建圈子</a>
         </div>
         <div id="slidbox">
@@ -92,8 +113,8 @@ background:url("/content/images/arrow/sh_ex2.png") no-repeat scroll 0 0 transpar
             <ul class="sldlist" id="sldroot">
 				<c:forEach items="${cats}" var="cat" varStatus="status">
 				<li gpcid='${cat.id}' class='hov'>
-					<img src="${imageUrl}/default/cat-def.png" alt="gpcate" class="sldimg" >
-					<p>${cat.name}</p>
+					<img src="${avatarPath}-48" alt="gpcate" class="sldimg" >
+					<p class='name'>${cat.name}</p>
 					<p>
 						<c:forEach items="${cat.groups}" var="group" varStatus="status">
 							<a class="lk" href="${urlPrefix}/group/${group.id}">${group.name}</a>
@@ -102,18 +123,25 @@ background:url("/content/images/arrow/sh_ex2.png") no-repeat scroll 0 0 transpar
 				</li>
 				</c:forEach>
             </ul>
+            <div id='sldbox' ></div>
             <script type="text/html" id="group">
+					<ul id="sldtrunk" class="sldlist">
+					{{#groups}}
                     <li gid={{id}}><a href='${urlPrefix}/group/{{id}}'>
-                        <img src="/usersimg/{{img}}" alt="avtor" class="sldimg" />
-                        <a class='btn actun {{#join}}hide{{/join}}'>关注</a>
-                        <a class='btn act {{^join}}hide{{/join}}'>取消关注</a>
+                        <img src="{{avatarPath}}-48" alt="avtor" class="sldimg" />
+                        <a class='btn actun {{#joined}}hide{{joined}}'>关注</a>
+                        <a class='btn act {{^joined}}hide{{/joined}}'>取消关注</a>
                         <p>{{name}}</p>
-                        <p>成员：{{joinNum}}人&nbsp;&nbsp;创建于：{{time}}</p>
+                        <p>成员：{{joinNum}}人&nbsp;&nbsp;创建于：{{screenTime}}</p>
                         <p>{{intro}}</p></a>
                     </li>
+					{{/groups}}
+					</ul>
+					<div id="pagger">
+					{{#hasPrev}}<a class="lk mr10 prev">上一页</a>{{/hasPrev}}
+					{{#hasNext}}<a class="lk next">下一页</a>{{/hasNext}}
+					</div>
             </script>
-            <ul id="sldtrunk" class="sldlist"></ul>
-            <div id="pagger"><a class="lk mr10">上一页</a><a class="lk">下一页</a></div>
             </div>
         </div>
     </div></div>
