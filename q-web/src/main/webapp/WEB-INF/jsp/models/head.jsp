@@ -33,7 +33,7 @@
                 </li>
                 <li><a class="lk" href='${urlPrefix}/message'>私信</a></li>
                 <li><a class="lk" href='#'>设置</a></li>
-                <li class="end"><a class="lk" href='#'>退出</a></li>
+                <li class="end"><a class="lk" href='/login/delete'>退出</a></li>
             </ul>
         </div>
         <div class="search">

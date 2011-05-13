@@ -30,45 +30,41 @@ span.tit{display:none;}
                  } 
              });
              
-			var sldbox = $("#sldbox");
 			seajs.use('ICanHaz.js', function (ich) {
 				lis.click(function () {
 					window.gpid = parseInt($(this).attr('gpcid'));
 					$('span.tit',roll).text($('p.name',this).text()).show();
-					sldbox.empty();
 					$.ajax({
 					    url: "${urlPrefix}/group",
-					    data: {catId: window.gpid},
+					    data: {size:6, catId: window.gpid, startid:'999999999999999999'},
 					   	success: function(json){
-					   		sldbox.append(ich.group(json));
+					   		$("#sld2").html(ich.group(json));
 							slider.animate({left: -560}, { duration: 500, easing: "swing" });
 							root.data("clicked", true);
 					    }
 					});
 				});
 				$('#pagger>a.prev').live('click',function(){
-					sldbox.empty();
 					$.ajax({
 					    url: "${urlPrefix}/group",
-					    data: {catId: window.gpid, size: 10, startid: parseInt(lis.last().data('replyid')) - 1, type: 0},
+					    data: {size:6, catId: window.gpid, startid: parseInt(lis.last().data('replyid')) - 1, type: 0},
 					   	success: function(json){
-					   		sldbox.append(ich.group(json));
+					   		$("#sld2").html(ich.group(json));
 					    }
 					});
 				});
 				$('#pagger>a.next').live('click',function(){
-					sldbox.empty();
 					$.ajax({
 					    url: "${urlPrefix}/group",
-					    data: {catId: window.gpid},
+					    data: {size:6, catId: window.gpid, startid: parseInt(lis.fast().data('replyid')) + 1, type: 1},
 					   	success: function(json){
-					   		sldbox.append(ich.group(json));
+					   		$("#sld2").html(ich.group(json));
 					    }
 					});
 				});				
 			});
 			
-			$('#sldtrunk a.act').live('click',function(){
+			$('#sld2 a.act').live('click',function(){
 				var li = $(this).parent('li');
 				$.ajax({
 					url: '${urlPrefix}/group/' + li.attr('gid') + '/join',
@@ -82,7 +78,7 @@ span.tit{display:none;}
 					}
 				});
 			});
-			$('#sldtrunk a.actun').live('click',function(){
+			$('#sld2 a.actun').live('click',function(){
 				var li = $(this).parent('li');
 				$.ajax({
 					url: '${urlPrefix}/group/' + li.attr('gid') + '/join',
@@ -110,7 +106,7 @@ span.tit{display:none;}
         </div>
         <div id="slidbox">
             <div id="slider">
-            <ul class="sldlist" id="sldroot">
+            <ul id="sldroot" class="sldlist">
 				<c:forEach items="${cats}" var="cat" varStatus="status">
 				<li gpcid='${cat.id}' class='hov'>
 					<img src="${avatarPath}-48" alt="gpcate" class="sldimg" >
@@ -123,7 +119,7 @@ span.tit{display:none;}
 				</li>
 				</c:forEach>
             </ul>
-            <div id='sldbox' ></div>
+            <div id='sld2'></div>
             <script type="text/html" id="group">
 					<ul id="sldtrunk" class="sldlist">
 					{{#groups}}
