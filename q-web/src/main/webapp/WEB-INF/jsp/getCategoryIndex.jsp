@@ -129,8 +129,8 @@ span.tit{display:none;}
 					{{#groups}}
                     <li gid={{id}}><a href='${urlPrefix}/group/{{id}}'>
                         <img src="{{avatarPath}}-48" alt="avtor" class="sldimg" />
-                        <a class='btn actun {{#joined}}hide{{joined}}'>关注</a>
-                        <a class='btn act {{^joined}}hide{{/joined}}'>取消关注</a>
+                        <a class='btn act {{#joined}}hide_im{{/joined}}'>关注</a>
+                        <a class='btn actun	 {{^joined}}hide_im{{/joined}}'>取消关注</a>
                         <p>{{name}}</p>
                         <p>成员：{{joinNum}}人&nbsp;&nbsp;创建于：{{screenTime}}</p>
                         <p>{{intro}}</p></a>
