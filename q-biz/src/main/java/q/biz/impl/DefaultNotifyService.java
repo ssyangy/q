@@ -3,20 +3,20 @@
  */
 package q.biz.impl;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import org.apache.commons.pool.impl.GenericObjectPool.Config;
 
 import q.biz.NotifyService;
 import q.domain.Weibo;
 import q.domain.WeiboReply;
 import q.log.Logger;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.exceptions.JedisConnectionException;
 
 /**
  * @author seanlinwang at gmail dot com
  * @date May 5, 2011
- *
+ * 
  */
 public class DefaultNotifyService implements NotifyService {
 	private static final Logger log = Logger.getLogger();
@@ -39,76 +39,53 @@ public class DefaultNotifyService implements NotifyService {
 		this.pubTimeout = pubTimeout;
 	}
 
-	private Jedis pubJedis;
-	private Lock resetPubJedisLock = new ReentrantLock();
+	private JedisPool pool;
 
 	public void init() {
-		pubJedis = createPubJedis();
-	}
-
-	/**
-	 * @return
-	 */
-	private Jedis createPubJedis() {
-		return new Jedis(pubHost, pubPort, pubTimeout);
+		pool = new JedisPool(new Config(), pubHost, pubPort, pubTimeout);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.biz.NotifyService#notifyWeiboReply(q.domain.WeiboReply)
 	 */
 	@Override
 	public void notifyWeiboReply(WeiboReply reply) {
+		Jedis jedis = pool.getResource();
 		try {
-			Long rs = pubJedis.publish("weiboReply", reply.getQuoteSenderId() + " " + reply.getContent());
-			if (log.isDebugEnabled()) {
-				log.debug("rs:" + rs);
-			}
+			jedis.publish("weiboReply", reply.getQuoteSenderId() + " " + reply.getContent());
 		} catch (JedisConnectionException e) {
-			this.resetPubJedis();
+			log.error("notifyWeiboReply", e);
+			if (jedis != null) {
+				jedis.disconnect();
+			}
 		} catch (Exception e) {
-			log.error("", e);
+			log.error("notifyWeiboReply", e);
+		} finally {
+			pool.returnResource(jedis);
 		}
 	}
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.biz.NotifyService#notifyWeibo(q.domain.Weibo)
 	 */
 	@Override
 	public void notifyWeibo(Weibo weibo) {
+		Jedis jedis = pool.getResource();
 		try {
-			Long rs = pubJedis.publish("weibo", weibo.getSenderId() + " " + weibo.getContent());
-			if (log.isDebugEnabled()) {
-				log.debug("rs:" + rs);
-			}
+			jedis.publish("weibo", weibo.getSenderId() + " " + weibo.getContent());
 		} catch (JedisConnectionException e) {
-			this.resetPubJedis();
-		} catch (Exception e) {
-			log.error("", e);
-		}
-	}
-
-	/**
-	 * reset jedis
-	 */
-	private void resetPubJedis() {
-		if (this.resetPubJedisLock.tryLock()) {// do nothing if lock not free
-			this.resetPubJedisLock.lock();
-			try {
-				Jedis tmp = this.createPubJedis();
-				if (this.pubJedis != null) {
-					this.pubJedis.disconnect();
-				}
-				this.pubJedis = tmp;
-				log.error("resetPubJedis:" + this.pubJedis);
-			} catch (Exception e) {
-				log.error("resetPubJedis:", e);
-			} finally {
-				this.resetPubJedisLock.unlock();
+			log.error("notifyWeibo", e);
+			if (jedis != null) {
+				jedis.disconnect();
 			}
+		} catch (Exception e) {
+			log.error("notifyWeibo", e);
+		} finally {
+			pool.returnResource(jedis);
 		}
 	}
 
