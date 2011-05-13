@@ -33,7 +33,7 @@ public class Pojo {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
 	private Date created;
 
 	public Date getCreated() {
@@ -43,7 +43,7 @@ public class Pojo {
 	public void setCreated(Date created) {
 		this.created = created;
 	}
-	
+
 	private Date modified;
 
 	public Date getModified() {
@@ -53,7 +53,22 @@ public class Pojo {
 	public void setModified(Date modified) {
 		this.modified = modified;
 	}
-	
-	
-	
+
+	/**
+	 * @param z
+	 *            the z to set
+	 */
+	public void setZ(boolean z) {
+		this.z = z;
+	}
+
+	/**
+	 * @return the z
+	 */
+	public boolean getZ() {
+		return z;
+	}
+
+	private boolean z;
+
 }

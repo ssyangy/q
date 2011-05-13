@@ -1,17 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html>
-  <head>
-	<jsp:include page="head.jsp" />
-	<title>补充个人资料</title>
-	<jsp:include page="js-areas.jsp" />
+<head>
+    <title>补充个人资料</title>
+    <link href="${staticUrlPrefix}/content-q/qcomcn.css" rel="stylesheet" type="text/css" />
+    <link href="${staticUrlPrefix}/content-q/step.css" rel="stylesheet" type="text/css" />
+    <script src="${staticUrlPrefix}/scripts-q/sea.js" type="text/javascript"></script>
+    <style type="text/css">
+    .wapper{position:relative;height:600px;}
+    #logo{top:200px;font-size:28px;}
+    .content{position:absolute;top:260px;left:60px;}
+    p{line-height:26px;}
+    </style>
+	<script src="${staticUrlPrefix}/scripts-q/sea.js" type="text/javascript"></script>
 	<script type="text/javascript">
-	function checkLocation(){
+	areas=${rootArea.childsJson};
+	seajs.use('qcomcn.js', function (q) {
+		var $ = q.jq;
+	checkLocation = function(){
 	    $("#locationcorrect").css("display","block");
 	    $("#locationwrong").css("display","none");
 	}
-	function checkGender(){
+	 checkGender = function(){
 	    var radios=$(":radio");
 	    if(radios[0].checked == true||radios[1].checked == true){
 	    $("#sexcorrect").css("display","block");
@@ -23,7 +33,7 @@
 	    $("#sexwrong").html("性别还没有选择。");
 	    return false;
 	}
-	function checkMobile(a){
+	checkMobile = function(a){
 	   if(a==""){
 	     $("#mobilewrong").css("display","none");
          $("#mobilecorrect").css("display","none");
@@ -42,7 +52,7 @@
 
       return false;
 	}
-	function checkGroup(){
+	checkGroup = function(){
       var boxes=$(":checkbox");
          for (var i = 0; i < boxes.length; i++) {
              if (boxes[i].checked == true) {
@@ -56,7 +66,7 @@
          $("#groupwrong").html("请至少选择一个您感兴趣的圈子。");
        return false;
 	}
-	function check(){
+	check = function(){
          var cm=checkMobile($("#mobile").val());
          var cg=checkGroup();
          var csex=checkGender();
@@ -64,170 +74,135 @@
   	       return false;
 	     return true;
 	}
+
+seajs.use('jq.area.js',function(area){
 	$(document).ready(function(){
 	     provinceExist='${people.area.myProvince.id}';
-         cityExist='${people.area.myCity.id}';
-         countyExist='${people.area.myCounty.id}';
+        cityExist='${people.area.myCity.id}';
+        countyExist='${people.area.myCounty.id}';
 
-         hometownProvinceExist='${people.hometown.myProvince.id}';
-         hometownCityExist='${people.hometown.myCity.id}';
-         hometownCountyExist='${people.hometown.myCounty.id}';
-         
-          initArea();
-          initHometownArea();
-		});
+        hometownProvinceExist='${people.hometown.myProvince.id}';
+        hometownCityExist='${people.hometown.myCity.id}';
+        hometownCountyExist='${people.hometown.myCounty.id}';
+        
+        area.initArea();
+        area.initHometownArea();
+		
+		$("select[name='province']").bind('change',area.changeCity);
+		$("select[name='city']").bind('change',area.changeCounty);
+		$("select[name='hometownProvince']").bind('change',area.changeHometownCity);
+		$("select[name='hometownCity']").bind('change',area.changeHometownCounty);
+	});
+});
+
+	});
 	</script>
   </head>
   <body>
-	<div id='container'>
-		<div id='header'>
-			<span class='logo-zh'>圈子</span><span class='logo-en'>Q.com.cn</span>
-		</div>
-		<table cellspacing='0' class='columns'>
-			<tbody>
-				<tr>
-					<td id='content' class='round-left column wide'>
-						<div class='wrapper'>
-							<div class='content-heading'>
-								<div class='heading'>
-									<h2>帐号创建成功！再花几秒钟丰富以下资料就可以开始玩了！</h2>
-								</div>
-							</div>
-							<div id='signup-form'>
-								<form method='post' action='${urlPrefix}/people/${people.id}/full'  onsubmit="return check()">
-									<fieldset>
-										<table class='input-form'>
-											<tbody>
-												<tr>
-													<th><label for=''><span class="required-field">*</span>所在地：</label></th>
-													<td class='col-field'>
-														<select class='select' name="province" id="selProvince"  onchange="changeCity()">
-														</select>
-														<select class='select' name="city" id="selCity" onchange="changeCounty()">
-														</select>
-														<select class='select' name="county" id="selCounty">
-														</select>
-													</td>
-													<td class='col-help'>
-														<div class='label-box-good' style='display:none;' id="locationcorrect"></div>
-														<div class='label-box-error' style='display:none;' id="locationwrong"></div>
-													</td>
-												</tr>
-												<tr>
-													<th><label for=''><span class="required-field">*</span>家乡：</label></th>
-													<td class='col-field'>
-														<select class='select' name="hometownProvince" id="selHometownProvince"  onchange="changeHometownCity()">
-														</select>
-														<select class='select' name="hometownCity" id="selHometownCity" onchange="changeHometownCounty()">
-														</select>
-														<select class='select' name="hometownCounty" id="selHometownCounty">
-														</select>
-													</td>
-													<td class='col-help'>
-														<div class='label-box-good' style='display:none;' id="hometowncorrect"></div>
-														<div class='label-box-error' style='display:none;' id="hometownwrong"></div>
-													</td>
-												</tr>												
-												<tr>
-													<th></th>
+  <div class="wapper">
+    <h1 id="logo">Q.com.cn</h1>
+    <div class="content">
 
-													<td colspan='2' class='bottom'><span class='field-desc'></span></td>
-												</tr>
-												<tr>
-													<th><label for=''><span class="required-field">*</span>性别：</label></th>
-													<td class='col-field'>
-														<input type='radio'  name="gender" value="1" onclick="checkGender()" />
-														<span class='value-label' >男</span>&nbsp;
-														<input type='radio'  name="gender" value="2" onclick="checkGender()" />
-														<span class='value-label'>女</span>
-													</td>
-													<td class='col-help'>
-														<div class='label-box-good' style='display:none;' id="sexcorrect"></div>
-														<div class='label-box-error' style='display:none;' id="sexwrong"></div>
-													</td>
-												</tr>
-												<tr>
-													<th></th>
-													<td colspan='2' class='bottom'><span class='field-desc'></span></td>
-
-												</tr>
-												<tr>
-													<th><label for=''><span class="required-field">*</span>生日：</label></th>
-													<td class='col-field' colspan='2'>
-											             <jsp:include page="dateSelect.jsp" />
-													</td>
-												</tr>
-												<tr>
-													<th></th>
-													<td colspan='2'  class='bottom'><span class='field-desc'></span></td>
-												</tr>
-												<tr>
-													<th><label for=''><span class="required-field">*</span>学历：</label></th>
-
-													<td class='col-field'>
-														<select name="degree" class='select'>
-															<c:forEach items="${degrees}" var="degree">
-																<option value="${degree.value}">${degree.name}</option>
-															</c:forEach>
-														</select>
-													</td>
-
-													<td class='col-help'></td>
-												</tr>
-												<tr>
-													<th></th>
-													<td colspan='2'  class='bottom'><span class='field-desc'></span></td>
-												</tr>
-												<tr>
-													<th><label for=''>手机：</label></th>
-
-													<td class='col-field'><input name="mobile" id="mobile" type='text' class='text_field' size='20'
-													onblur="checkMobile(this.value)"/></td>
-													<td class="col-help">
-						                                  <div class="label-box-good" style="display: none;"
-						                                       	id="mobilecorrect"></div>
-						                                  <div class="label-box-error"style="display:none;"
-						                                       	id="mobilewrong"></div>
-						                            </td>
-												</tr>
-												<tr>
-													<th></th>
-													<td colspan='2'  class='bottom'><span class='field-desc'></span></td>
-												</tr>
-												<tr>
-													<th><label for=''><span class="required-field">*</span>感兴趣的圈子：</label></th>
-
-													<td class='col-field' colspan='2'>
-														<c:forEach items="${groups}" var="group">
-															<input name="group" type='checkbox' value="${group.id}"/><span class='group-name'>${group.name}</span>
-														</c:forEach>
-													</td>
-													<td class="col-help">
-						                                  <div class="label-box-good" style="display: none;"
-						                                       	id="groupcorrect"></div>
-						                                  <div class="label-box-error"style="display:none;"
-						                                       	id="groupwrong"></div>
-						                            </td>
-												</tr>
-												<tr>
-													<th></th>
-													<td colspan='2'  class='bottom'><span class='field-desc'></span></td>
-												</tr>
-												<tr>
-													<th></th>
-													<td colspan='2'><button class='button btn-x' type='submit' >保存! 开始玩</button></td>
-
-												</tr>
-											</tbody>
-										</table>
-									</fieldset>
-								</form>
-							</div>
-						</div>
+        <ul class='pssmap'>
+            <li class="done">
+                <div class="label">
+                    <span class="checked"></span>
+                    <span class="text">创建帐号</span>
+                </div>
+            </li>
+            <li class="selected">
+                <div class="label">
+                    <span class="checked"></span>
+                    <span class="text">填写资料</span>
+                </div>
+            </li>
+        </ul>
+        
+        <form method='post' action='${urlPrefix}/people/${people.id}/full'  onsubmit="return check()">
+        <table class='qform'>
+			<tr>
+				<td align="right">所在地：</td>
+				<td class='localArea'>
+					<select class='select' name="province" id="selProvince">
+					</select>
+					<select class='select' name="city" id="selCity">
+					</select>
+					<select class='select' name="county" id="selCounty">
+					</select>
+                </td>
+				<td class='col-help'>
+					<div class='label-box-good' style='display:none;' id="locationcorrect"></div>
+					<div class='label-box-error' style='display:none;' id="locationwrong"></div>
+				</td>                
+			</tr>        
+			<tr>
+				<th align="right">家乡：</th>
+				<td>
+					<select class='select' name="hometownProvince" id="selHometownProvince">
+					</select>
+					<select class='select' name="hometownCity" id="selHometownCity">
+					</select>
+					<select class='select' name="hometownCounty" id="selHometownCounty">
+					</select>
+				</td>
+				<td class='col-help'>
+					<div class='label-box-good' style='display:none;' id="hometowncorrect"></div>
+					<div class='label-box-error' style='display:none;' id="hometownwrong"></div>
+				</td>
+			</tr>
+			<tr>
+				<th align="right">性别：</th>
+				<td>
+					<input type='radio'  name="gender" value="1" onclick="checkGender()" />
+					<span class='value-label' >男</span>&nbsp;
+					<input type='radio'  name="gender" value="2" onclick="checkGender()" />
+					<span class='value-label'>女</span>
+				</td>
+				<td class='col-help'>
+					<div class='label-box-good' style='display:none;' id="sexcorrect"></div>
+					<div class='label-box-error' style='display:none;' id="sexwrong"></div>
+				</td>
+			</tr>
+			<tr>
+				<th align="right">生日：</th>
+				<td class='col-field' colspan='2'>
+		             <jsp:include page="models/dateSelect.jsp" />
+				</td>
+			</tr>
+			<tr>
+				<th align="right">手机：</th>
+				<td><input name="mobile" id="mobile" type='text' class='text_field' size='20' onblur="checkMobile(this.value)"/></td>
+				<td class="col-help">
+                      <div class="label-box-good" style="display: none;"
+                           	id="mobilecorrect"></div>
+                      <div class="label-box-error"style="display:none;"
+                           	id="mobilewrong"></div>
+                </td>
+			</tr>
+			<tr>
+				<th>感兴趣的圈子：</th>
+				<td align="right">
+					<c:forEach items="${groups}" var="group">
+						<input name="group" type='checkbox' value="${group.id}"/><span class='group-name'>${group.name}</span>
+					</c:forEach>
+				</td>
+				<td class="col-help">
+					<div class="label-box-good" style="display: none;"
+					    	id="groupcorrect"></div>
+					<div class="label-box-error"style="display:none;"
+					    	id="groupwrong"></div>
 					</td>
 				</tr>
-			</tbody>
+
+			<tr>
+				<td></td>
+				<td><button class='ui_btn' type='submit'>完成</button>
+				<input type='hidden' name='form' value="/group">
+				</td>
+			</tr>
 		</table>
-	</div>
-  </body>
+		</form>
+    </div>
+</div>
+</body>
 </html>

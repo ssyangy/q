@@ -106,8 +106,8 @@
 			limit #startIndex#, #size#
 		</isNotNull>
 	</select>
-	<select id="getMessageReceiverIdsByJoinPage" resultClass="long">
-		select receiver_id from message_join_people
+	<select id="getMessageIdsByJoinPage" resultClass="long">
+		select message_id from message_join_people
 		where status = 0 and reply_num > 0
 		<isNotNull prepend="and " property="receiverId">
 			receiver_id = #receiverId#

@@ -98,8 +98,8 @@ public class MessageDaoImpl extends AbstractDaoImpl implements MessageDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Long> getMessageReceiverIdsByJoinPage(MessageJoinPeoplePage joinPage) throws SQLException {
-		return (List<Long>) this.sqlMapClient.queryForList("getMessageReceiverIdsByJoinPage", joinPage);
+	public List<Long> getMessageIdsByJoinPage(MessageJoinPeoplePage joinPage) throws SQLException {
+		return (List<Long>) this.sqlMapClient.queryForList("getMessageIdsByJoinPage", joinPage);
 	}
 
 	@SuppressWarnings("unchecked")

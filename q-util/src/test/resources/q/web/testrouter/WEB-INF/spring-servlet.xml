@@ -11,6 +11,7 @@
 	</bean>
 	<bean id="router" class="q.web.ResourceRouter">
 		<property name="defaultResource" ref="main" />
+		<property name="loginPath" value="/login/new"/>
 		<property name="needLoginResources">
 			<set>
 				<value>mine</value>

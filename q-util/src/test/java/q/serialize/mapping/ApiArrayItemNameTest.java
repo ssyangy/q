@@ -46,7 +46,7 @@ public class ApiArrayItemNameTest extends MappingTestBase {
 			OperationCodeException {
 		StringWriter w = new StringWriter();
 		Convert convert = new JSONConvert(w);
-		rspMapping.write(convert, c, false);
+		rspMapping.write(convert, false, c, false);
 		//rspMapping.write(w, c, "json", false);
 		return w.toString();
 	}
@@ -55,7 +55,7 @@ public class ApiArrayItemNameTest extends MappingTestBase {
 			OperationCodeException {
 		StringWriter w = new StringWriter();
 		Convert convert = new XMLConvert(w);
-		rspMapping.write(convert, c, false);
+		rspMapping.write(convert, false, c, false);
 		//rspMapping.write(w, c, "xml", false);
 		return w.toString();
 	}

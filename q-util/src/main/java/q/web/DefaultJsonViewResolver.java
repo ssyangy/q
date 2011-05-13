@@ -90,7 +90,7 @@ public class DefaultJsonViewResolver implements ViewResolver {
 	protected void writeSuccess(Writer writer, ResourceContext context, MemberMapping<Object> memberMapping) throws MappingException, OperationCodeException {
 		Object model = context.getModel(memberMapping.getName());
 		Convert convert = new JSONConvert(writer);
-		memberMapping.write(convert, model, false);
+		memberMapping.write(convert, false, model, false);
 	}
 
 	protected void writeError(Writer writer, ErrorCodeException error) throws IOException {
