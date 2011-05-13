@@ -9,7 +9,7 @@
                 $.ajax({
                     send:function(){ ajlock = false; },
                     url: "${param['feedUrl']}?tab=${param['tab']}",
-                    data: {size:size, startId:startid,search:"${param['search']}"},
+                    data: {size:size, startId:startid, search:"${param['search']}"},
                     success: function(json){
                         $(json).each(function(){
                             this.old = true;

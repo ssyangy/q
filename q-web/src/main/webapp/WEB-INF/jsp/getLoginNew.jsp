@@ -41,7 +41,6 @@
 			<tr>
 				<td></td>
 				<td>
-				<input type="hidden" name="from" value="${from}">
 				<button type="submit" class='ui_btn'>提 交</button>
 				</td>
 			</tr>

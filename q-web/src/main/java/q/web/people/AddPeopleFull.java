@@ -85,8 +85,6 @@ public class AddPeopleFull extends Resource {
 				action.addPeopleJoinGroup(peopleId, groupId);
 			}
 		}
-		context.setModel("people", people);
-		context.redirectServletPath("/group/feed");
 	}
 
 	@Override

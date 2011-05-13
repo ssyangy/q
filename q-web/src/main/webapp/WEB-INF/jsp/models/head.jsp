@@ -10,6 +10,7 @@
 <script src="${staticUrlPrefix}/scripts-q/sea.js" type="text/javascript"></script>
 <script type="text/javascript">
     window.loginCookie = '${loginCookie.peopleId}';
+    window.urlprefix = '${urlPrefix}';
 </script>
 </head>
 <body>
@@ -18,7 +19,7 @@
         <a id='logo'>Q.com.cn</a>
         <div id="msg">
             <ul class="list">
-                <li><a href='#'>首页</a></li>
+                <li><a href='${urlPrefix}/category'>首页</a></li>
                 <li class='rel'><a class="lk" href='#'>${loginCookie.realName}</a>
                 <span target='minelist' class='in_bk tlistarr'></span>
 		        <div id="minelist" class='tgtbox'>
