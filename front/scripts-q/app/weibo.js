@@ -12,10 +12,10 @@
     exports.preui = function(){
         ich = require('ICanHaz.js');
         var rdia = $('#dia_ret');
-        $('input.donet',rdia).click(function(){
+        $('input.donet', rdia).click(function(){
             $('img.ajaxload', rdia).show();
             $.ajax({
-                url: $("#ret_url",rdia).val(),
+                url: $(".ret_url", rdia).val(),
                 type: 'POST',
                 data: {content:$(".mttextar_val",rdia).val()},
                 msg:rdia,
@@ -154,7 +154,7 @@
             var src = this.model.get('source');
             if(src) $('.wsrc',rdia).html(src);
             $('.mttextar',rdia).val('//@'+this.model.get('people').screenName+' ');
-            $(".ret_url",rdia).val(con.urlprefix+'/weibo/'+this.model.get('id')+'/retweet');
+            $(".ret_url",rdia).val(window.urlprefix+'/weibo/'+this.model.get('id')+'/retweet');
             rdia.dialog("open");
         },
         fav:function(){

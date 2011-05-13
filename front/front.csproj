@@ -378,6 +378,7 @@
     <Content Include="demo\MovieApp.js" />
     <Content Include="demo\MvcApp.htm" />
     <Content Include="scripts-q\app\app_weibolist.js" />
+    <Content Include="scripts-q\app\weibo-rep.js" />
     <Content Include="scripts-q\app\weibo.js" />
     <Content Include="scripts-q\backbone.js" />
     <Content Include="scripts-q\chinaarea.js" />
@@ -447,6 +448,7 @@
     <Content Include="scripts-q\ui\jquery.ui.tooltip.js" />
     <Content Include="scripts-q\ui\jquery.ui.widget.js" />
     <Content Include="scripts-q\underscore.js" />
+    <Content Include="scripts-q\jq.area.js" />
     <Content Include="scripts\ajaxupload.js" />
     <Content Include="scripts\app\app_friend.js" />
     <Content Include="scripts\app\app_home.js" />

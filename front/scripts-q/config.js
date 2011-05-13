@@ -3,11 +3,15 @@ define(function (require, exports) {
 
     $.ajaxSetup({
         type: "GET",
-        contentType: "application/json; charset=utf-8",
+        //contentType: "application/json; charset=utf-8",
         dataType: "json",
         timeout: 5000
     });
 
-    exports.urlprefix = 'http://www.jin.q.net:9997/q';
-
+    seajs.config({
+        charset: 'utf-8',
+        timeout: 20000,
+        debug: false
+    });
 });
+
