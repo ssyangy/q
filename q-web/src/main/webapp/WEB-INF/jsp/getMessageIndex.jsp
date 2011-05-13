@@ -4,12 +4,21 @@
 	<jsp:param name="title" value="私信" />
 </jsp:include>
 <link href="${staticUrlPrefix}/content-q/slider.css" rel="stylesheet" type="text/css" />
+<style>
+#passroll a,#passroll span{font-size:18px;}
+#root{color:#FF0065;cursor:pointer;}
+#root:hover{text-decoration:underline;}
+span.pass {display:inline-block;zoom:1;*display:inline;position:relative;width:14px;height:14px;
+background:url("${staticUrlPrefix}/content/images/arrow/sh_ex2.png") no-repeat scroll 0 0 transparent;}
+span.tit{display:none;}
+</style>
 <script type="text/javascript">
     seajs.use('qcomcn.js', function (q) {
         var $ = q.jq;
         $(function () {
             q.Init();
-
+			
+            
         });
     });
 </script>
@@ -17,7 +26,19 @@
 <div class="layout grid-m0s7">
     <div class="col-main"><div class="main-wrap">
         <div id="slidbox">
-                <div id="slider">
+            <div id="slider">
+            	<script type="text/html" id="msgitem">
+	                    <li class='hov'>
+	                        <img src="${item.sender.avatarPath}-48" alt="sender" class="sldimg" />
+	                        <p class='rel'>${item.sender.realName} -> 
+							<c:forEach items="${item.receivers}" var="receiver" varStatus="status">
+								<a class="lk">${receiver.realName}</a>
+								<c:if test="${!status.last}">,</c:if>
+							</c:forEach>
+	                        <span class="time">${item.time}</span></p>
+	                        <p>${item.lastReply.content}</p>
+	                    </li>
+				</script>
                 <ul class="sldlist" id="sldroot">
 					<c:forEach items="${messages}" var="item">
 	                    <li class='hov'>
@@ -33,21 +54,42 @@
 					</c:forEach>
                 </ul>
                 <script type="text/html" id="msgitem">
+					<div class="msgmem">
+						<p>参与者：我，
+						{{#peoples}}
+						<a class="lk">{{name}}</a>, 
+						{{/peoples}}
+						<p class="mems">
+						{{#peoples}}
+						<img src="{{avator}}" alt="avator" class='img24' />
+						{{/peoples}}
+						</p>
+						<a class="memdel btn">删除</a>
+					</div>
+					<div class="msgrepbox">
+						<textarea class='mttextar' style=""></textarea>
+						<div class='repactbox'><a class="memrep btn">回复</a></div>
+					</div>
+					<ul class="sldlist" id="sldmsg">
+					{{#msg}}
                     <li>
                         <img src="/usersimg/{{img}}" alt="Alternate Text" class="sldimg" />
                         <p class='rel'>{{members}}<span class="time">{{time}}</span></p>
                         <p>{{text}}</p>
                     </li>
+					{{^msg}}
+					</ul>
+					<div id="pagger">
+					{{#hasPrev}}<a class="lk mr10 prev">上一页</a>{{/hasPrev}}
+					{{#hasNext}}<a class="lk next">下一页</a>{{/hasNext}}
+					</div>
                 </script>
-                <ul class="sldlist" id="sldtrunk">
-                    
-                </ul>
-                <div id="pagger"><a class="lk mr10">上一页</a><a class="lk">下一页</a></div>
-                </div>
+                <div id='sld2'></div>
             </div>
+        </div>
     </div></div>
     <div class="col-sub">
-        <a href='${UrlPrefix}/message/new'><button class="ui_btn_plusthick">新私信</button></a>
+        <a href='${urlPrefix}/message/new'><button class="ui_btn_plusthick">新私信</button></a>
     </div>
 </div>
 <jsp:include page="models/foot.jsp" />

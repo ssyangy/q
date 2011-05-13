@@ -19,11 +19,7 @@
 								<member name="longitude" apiName="longitude" apiType="double" />
 								<member name="time" apiName="screenTime" apiType="string" />
 								<member name="createdTime" apiName="createdTime" apiType="string" />
-								<member name="joined" apiName="joined" apiType="boolean">
-									<switch>
-										<case type="boolean" value="true" apiValue="true" />
-									</switch>
-								</member>
+								<member name="joined" apiName="joined" apiType="boolean"/>
 							</struct>
 						</type>
 					</array>
