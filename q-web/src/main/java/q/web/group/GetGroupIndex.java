@@ -41,8 +41,7 @@ public class GetGroupIndex extends Resource {
 				DaoHelper.injectGroupsWithJoined(groupDao, groups, loginId);
 			}
 		} else if (method.equals("getMyGroups")) {
-			long id=context.getLong("id", loginId);
-			groups = groupDao.getGroupsByJoinPeopleId(id);
+			groups = groupDao.getGroupsByJoinPeopleId(loginId);
 		} else if (method.equals("getNearGroups")) {
 			double latitude = Double.parseDouble(context.getString("latitude"));
 			double longitude = Double.parseDouble(context.getString("longitude"));
