@@ -3,12 +3,6 @@
 <%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
 	<script type="text/javascript">
 	$(function(){
-        window.onresize = window.onload = function () {
-            gWinHeight = $(window).height();
-            $("#body").height(gWinHeight);
-            tweetex.height(gWinHeight-146);
-            $('div.main-content').css('min-height',gWinHeight-100);
-        };
         $('#dia_fow').dialog({
             resizable: false,
             modal: true,

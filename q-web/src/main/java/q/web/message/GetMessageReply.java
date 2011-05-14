@@ -48,7 +48,7 @@ public class GetMessageReply extends Resource {
 		MessageReplyJoinPeoplePage joinPage = new MessageReplyJoinPeoplePage();
 		joinPage.setQuoteMessageId(mid);
 		int size = context.getInt("size", 10);
-		long startId = context.getIdLong("startId");
+		long startId = context.getIdLong("startId", IdCreator.MAX_ID);
 		int type = context.getInt("type", 0);
 		int asc = 1;
 		if (type == asc) { // 1 indicate asc
@@ -60,10 +60,7 @@ public class GetMessageReply extends Resource {
 		boolean hasNext = false;
 		int fetchSize = size + 1;
 		joinPage.setSize(fetchSize);
-		joinPage.setStartIndex(0);
-		if (startId > 0) {
-			joinPage.setStartId(startId);
-		}
+		joinPage.setStartId(startId);
 		List<Long> replyIds = this.messageDao.getMessageReplyIdsByJoinPage(joinPage);
 
 		Map<String, Object> api = new HashMap<String, Object>();
@@ -78,18 +75,17 @@ public class GetMessageReply extends Resource {
 			}
 			if (type == asc) { // this action from next page
 				hasNext = true;
-			} else if (startId != 999999999999999999L) {// this action from previous page
+			} else if (startId < IdCreator.MAX_ID) {// this action from previous page
 				hasPrev = true;
 			}
 			List<MessageReply> replies = this.messageDao.getMessageRepliesByIds(replyIds);
 			if (CollectionKit.isNotEmpty(replies)) {
 				DaoHelper.injectMessageRepliesWithSenderAndReceivers(peopleDao, replies);
 				api.put("replies", replies);
+				api.put("hasPrev", hasPrev);
+				api.put("hasNext", hasNext);
 			}
 		}
-
-		api.put("hasPrev", hasPrev);
-		api.put("hasNext", hasNext);
 		context.setModel("api", api);
 	}
 

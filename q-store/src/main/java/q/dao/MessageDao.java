@@ -114,7 +114,7 @@ public interface MessageDao {
 	 * @param joinPage
 	 * @return
 	 */
-	public List<Long> getMessageReceiverIdsByJoinPage(MessageJoinPeoplePage joinPage) throws SQLException;
+	public List<Long> getMessageIdsByJoinPage(MessageJoinPeoplePage joinPage) throws SQLException;
 
 	/**
 	 * @param replyId

@@ -54,14 +54,27 @@ public class JSONConvert extends AbstractConvert {
 
 	}
 
-	public void convertSwitcher(Object source, String mappingName, Switcher switcher) throws MappingException {
-		try {
-			writer.append(Utils.DOUBLE_QUOTE).append(mappingName.trim()).append(Utils.DOUBLE_QUOTE).append(Utils.COLON).append(Utils.DOUBLE_QUOTE);
-			writer.append(switcher.switchCase(source).toString());
-			writer.append(Utils.DOUBLE_QUOTE);
-		} catch (Exception e) {
-			throw new MappingException(e);
+	public boolean convertSwitcher(Object source, boolean hasPrev, String mappingName, Switcher switcher) throws MappingException {
+		Object switchResult = switcher.switchCase(source);
+		if (switchResult != null) {
+			try {
+				if (hasPrev) {// json using comma to split members
+					this.convertMemberSpliter();
+				}
+				writer.append(Utils.DOUBLE_QUOTE).append(mappingName.trim()).append(Utils.DOUBLE_QUOTE).append(Utils.COLON);
+				if (switchResult instanceof String) {
+					writer.append(Utils.DOUBLE_QUOTE);
+					writer.append(switchResult.toString());
+					writer.append(Utils.DOUBLE_QUOTE);
+				} else {
+					writer.append(switchResult.toString());
+				}
+			} catch (Exception e) {
+				throw new MappingException(e);
+			}
+			return true;
 		}
+		return false;
 	}
 
 	public void convertBoolean(Boolean source, String mappingName) throws MappingException {
@@ -128,22 +141,20 @@ public class JSONConvert extends AbstractConvert {
 
 	public void convertMap(Map<String, MemberMapping<?>> memberMappings, Map<?, ?> original, ExceptionExpressInfo exceptionExpress, String mappingName, boolean isFromCollection) throws MappingException {
 		try {
-			int count = 0;
 			if (original.size() >= 1) {
 				convertStartTag(mappingName, true);
 			}
+			boolean hasPrev = false;
 			for (MemberMapping<?> mm : memberMappings.values()) {
-				// XXX only suport Map<String,Object>, if key is not a String,
-				// use key.toString()
+				// XXX only suport Map<String,Object>, if key is not a String, use key.toString() instead.
 				String name = mm.getName().toString();
 				Object value = original.get(name);
 				if (value != null) { // value不为空的时候输出
-					if (count > 0) {
-						writer.append(Utils.COMMA);
-					}
 					value = OutputHelper.changeValue(value);
-					mm.write(this, value, false);
-					count++;
+					boolean writed = mm.write(this, hasPrev, value, false);
+					if (writed) {
+						hasPrev = true;
+					}
 				}
 			}
 			if (original.size() >= 1) {
@@ -165,7 +176,7 @@ public class JSONConvert extends AbstractConvert {
 				convertStartTag(mappingName, true);
 
 			if (memberMappings != null && memberMappings.size() != 0) {
-				int count = 0;
+				boolean hasPrev = false;
 				for (MemberMapping<?> mm : memberMappings.values()) {
 					String key = mm.getName();
 
@@ -179,11 +190,7 @@ public class JSONConvert extends AbstractConvert {
 						value = ReflectKit.invokeGetter(source, m);
 					}
 					if (value != null) {
-						if (count > 0) {// json格式输出逗号
-							writer.append(Utils.COMMA);
-						}
 						// 如果Prefix存在,mappingName需要写出prefix
-
 						// 由于其他Mapping如StringMapping,IntegerMapping不存在prefix,
 						// 故临时解决方案为修改MappingName,在write完成后，设置回原来的MappingName
 						String realMappingName = mm.getMappingName();
@@ -192,13 +199,15 @@ public class JSONConvert extends AbstractConvert {
 						}
 
 						value = OutputHelper.changeValue(value);
-						mm.write(this, value, false);
+						boolean writed = mm.write(this, hasPrev, value, false);
+						if (writed) {
+							hasPrev = true;
+						}
 						// 由于其他Mapping如StringMapping,IntegerMapping不存在prefix,
 						// 故临时解决方案为修改MappingName,在write完成后，设置回原来的MappingName
 						if (outPutPrefix) {
 							mm.setMappingName(realMappingName);
 						}
-						count++;
 					}
 				}
 			}
@@ -219,6 +228,15 @@ public class JSONConvert extends AbstractConvert {
 			if (needLB) {
 				writer.append(Utils.LB);
 			}
+		} catch (Exception e) {
+			throw new MappingException(e);
+		}
+	}
+
+	@Override
+	public void convertMemberSpliter() throws MappingException {
+		try {
+			writer.append(Utils.COMMA);
 		} catch (Exception e) {
 			throw new MappingException(e);
 		}

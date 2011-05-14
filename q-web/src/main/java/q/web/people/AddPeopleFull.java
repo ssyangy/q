@@ -46,9 +46,9 @@ public class AddPeopleFull extends Resource {
 		people.setId(peopleId);
 		Gender gender = Gender.convertValue(context.getInt("gender", -1));
 		if (gender.isFemale()) {
-			people.setAvatarPath(this.pictureService.getFemaleAvatarPath());
+			people.setAvatarPath(this.pictureService.getDefaultFemaleAvatarPath());
 		} else {
-			people.setAvatarPath(this.pictureService.getMaleAvatarPath());
+			people.setAvatarPath(this.pictureService.getDefaultMaleAvatarPath());
 		}
 		people.setGender(gender);
 
@@ -85,8 +85,6 @@ public class AddPeopleFull extends Resource {
 				action.addPeopleJoinGroup(peopleId, groupId);
 			}
 		}
-		context.setModel("people", people);
-		context.redirectServletPath("/group/feed");
 	}
 
 	@Override

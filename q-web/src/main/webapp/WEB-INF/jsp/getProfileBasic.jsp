@@ -215,7 +215,7 @@ $(document).ready(function(){
 								<tr>
 									<th><label for=''>生日：</label></th>
 									<td class='col-field' colspan='2'>
-										 <jsp:include page="dateSelect.jsp" />
+										 <jsp:include page="models/dateSelect.jsp" />
 									</td>
 								</tr>
 								<tr>

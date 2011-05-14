@@ -193,9 +193,10 @@ public class DaoHelper {
 				weiboMap = new HashMap<Long, Weibo>(sourceWeiboIds.size());
 				List<Weibo> weibos = weiboDao.getWeibosByIds(sourceWeiboIds, false);
 				for (Weibo weibo : weibos) {
-					if (weibo.isCommon()) {
-						weiboMap.put(weibo.getId(), weibo);
+					if (weibo.isDelete()) {
+						weibo.setContent(null);// XXX remove by sean
 					}
+					weiboMap.put(weibo.getId(), weibo);
 				}
 			}
 			Map<Long, WeiboReply> replyMap = null;
@@ -210,7 +211,8 @@ public class DaoHelper {
 			}
 			for (Favorite fav : favorites) { // inject weibo and reply sources
 				if (weiboMap != null && fav.isFromWeibo()) {
-					fav.setSource(weiboMap.get(fav.getFromId()));
+					Weibo weibo = weiboMap.get(fav.getFromId());
+					fav.setSource(weibo);
 					fav.getSource().setFav(true);
 				}
 				if (replyMap != null && fav.isFromReply()) {
@@ -222,14 +224,44 @@ public class DaoHelper {
 
 	}
 
-	public static Map<Long, People> injectMessagesWithSenderAndReceivers(PeopleDao peopleDao, List<Message> messages) throws SQLException {
+	/**
+	 * @param messageDao
+	 * @param messages
+	 */
+	public static void injectMessagesWithLastReply(MessageDao messageDao, List<Message> messages) throws SQLException {
+		if (CollectionKit.isEmpty(messages)) {
+			return;
+		}
+		List<Long> replyIds = new ArrayList<Long>(messages.size());
+		for (Message message : messages) {
+			replyIds.add(message.getLastReplyId());
+		}
+		List<MessageReply> replies = messageDao.getMessageRepliesByIds(replyIds);
+		if (CollectionKit.isEmpty(replies)) {
+			return;
+		}
+		Map<Long, MessageReply> messageId2ReplyMap = new HashMap<Long, MessageReply>();
+		for (MessageReply reply : replies) {
+			messageId2ReplyMap.put(reply.getQuoteMessageId(), reply);
+		}
+		for (Message message : messages) {
+			message.setLastReply(messageId2ReplyMap.get(message.getId()));
+		}
+
+	}
+
+	public static Map<Long, People> injectMessagesWithSenderAndReceiversAndLastReplySender(PeopleDao peopleDao, List<Message> messages) throws SQLException {
 		if (CollectionKit.isEmpty(messages)) {
 			return null;
 		}
-		HashSet<Long> peopleIds = new HashSet<Long>(messages.size() + 1); // people number is less than messages count + 1
+		HashSet<Long> peopleIds = new HashSet<Long>(messages.size() * 2);
 		for (Message message : messages) {
 			peopleIds.add(message.getSenderId());
 			peopleIds.addAll(message.getReceiverIds());
+			MessageReply lastReply = message.getLastReply();
+			if (lastReply != null) {//TODO 测试数据比较混乱,先加上 sean
+				peopleIds.add(lastReply.getSenderId());
+			}
 		}
 		if (CollectionKit.isEmpty(peopleIds)) {
 			return null;
@@ -244,6 +276,10 @@ public class DaoHelper {
 			message.setSender(peopleMap.get(message.getSenderId()));
 			for (Long mid : message.getReceiverIds()) {
 				message.addReceiver(peopleMap.get(mid));
+			}
+			MessageReply lastReply = message.getLastReply();
+			if (lastReply != null) {
+				lastReply.setSender(peopleMap.get(lastReply.getSenderId()));
 			}
 		}
 		return peopleMap;

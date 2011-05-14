@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-     	<script type="text/javascript" src="${staticUrlPrefix}/js/jQueryRotate.2.1.js"></script>
+		<script type="text/javascript" src="${staticUrlPrefix}/scripts-q/jquery-1.5.2.min.js"></script>
+     	<script type="text/javascript" src="${staticUrlPrefix}/scripts-q/jQueryRotate.2.1.js"></script>
       	<script type="text/javascript">
       	var isImg=false;
 	    var upimgfix = 0;
@@ -149,61 +150,51 @@
       $("#img").attr("src",imgPath+"-160");
 	}
 	</script>
-<div class="main-tweet-box group">
-	<div class="tweet-box">
-		<div class="bg">
-			<form action="${urlPrefix}/weibo" method="post">
-			<div class="text-area">
-				<textarea name="content" class="twitter-anywhere-tweet-box-editor" style="width: 470px; height: 56px; "></textarea>
-			</div>
-			<div class="tweet-button-container">
-				<div class="submit">
-								<c:choose>
-				<c:when test="${param['selectGroup'] != null}">
-					<select name="groupId">
-						<option value="0">发到圈子？</option>
-						<c:forEach items="${selectGroups}" var="group">
-			                <option value="${group.id}">${group.name}</option>
-		                </c:forEach>
-		            </select>
-				</c:when>
-				<c:otherwise>
-					<input type="hidden" name="groupId" value="${group.id}" />
-				</c:otherwise>
-			</c:choose>
-				<button id='btnSubTweet' class="button" >发表</button>
-
-				</div>
-				<div class="bar">插入：<a href="">表情</a><a id='trDialog_img' class='link'>图片</a><a href="">视频</a>
-				    <div id='upimgpbox' class='hide'>
-                                <img id="img" src='#' class='img160' /><br />
-                                <a id='upimgdel' class="link">删除</a>
-                                </div>
-				</div>
-				<div class="clearfix2"></div>
-			</div>
-			<input type="hidden" name="from" value="${param['from']}"/>
-			
-			<input type="hidden" name="picPath" id="picPath" />
-			<input type="hidden" name="upimgfix" id="upimgfix"  />
-			</form>
+<form action="${urlPrefix}/weibo" method="post">
+<div class="inputbx">
+    <textarea id="inputmain" name="content" class="mttextar_val">说点什么 . . .</textarea>
+    <div id="inputbtm" class="rel mt5 clear height0">
+        <div class="tal">
+            插入：<a class="lk mr10">表情</a> <a id='trDialog_img' class="lk mr10">图片</a>
+        </div>
+		<div id='upimgpbox' class='hide'>
+			<img id="img" src='#' class='img160' /><br />
+			<a id='upimgdel' class="link">删除</a>
 		</div>
-		
-	</div>
-</div>		
-    <div id="dia_img" title="上传图片">
-    <form action="${urlPrefix}/WeiboPicture"  id="formImg" name="formImg"  encType="multipart/form-data" method="post" onsubmit="return up()" target="hidden_frame" >
-    <input type="file" name="file" id="file" accept="image/gif, image/jpeg" onchange="check()" style="width:450"></input>
-    <div style='display:none;' id="imgWrong"></div>
-        <input type="submit" value="上传图片" onclick="check()"  ></input>
-		<p>Uploaded files:</p>
-		<ol class='files hide' >
-		<div class='upimgbox middle imgrote'>
-		 <img id='upimg'  src='' />
-		</div>
-		<a id='imgRotateL' class='link mr10'>左转</a>
-		<a id='imgRotateR' class='link'>右转</a>
-		</ol>
-        <iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>
-     </form>
+		<c:choose>
+			<c:when test="${param['selectGroup'] != null}">
+				<select name="groupId">
+					<option value="0">发到圈子？</option>
+					<c:forEach items="${selectGroups}" var="group">
+		                <option value="${group.id}">${group.name}</option>
+	                </c:forEach>
+	            </select>
+			</c:when>
+			<c:otherwise>
+				<input type="hidden" name="groupId" value="${group.id}" />
+			</c:otherwise>
+		</c:choose>
+        <input id="btnSubTweet" type="button" name="name" value="发表" class="btn btninp" />
+		<input type="hidden" name="from" value="${param['from']}"/>
+		<input type="hidden" name="picPath" id="picPath" />
+		<input type="hidden" name="upimgfix" id="upimgfix"  />        
     </div>
+</div>
+</form>
+
+<div id="dia_img" title="上传图片">
+<form action="${urlPrefix}/WeiboPicture"  id="formImg" name="formImg"  encType="multipart/form-data" method="post" onsubmit="return up()" target="hidden_frame" >
+<input type="file" name="file" id="file" accept="image/gif, image/jpeg" onchange="check()" style="width:450"></input>
+<div style='display:none;' id="imgWrong"></div>
+<input type="submit" value="上传图片" onclick="check()"  ></input>
+<p>Uploaded files:</p>
+<ol class='files hide' >
+<div class='upimgbox middle imgrote'>
+ <img id='upimg'  src='' />
+</div>
+<a id='imgRotateL' class='link mr10'>左转</a>
+<a id='imgRotateR' class='link'>右转</a>
+</ol>
+<iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>
+</form>
+</div>

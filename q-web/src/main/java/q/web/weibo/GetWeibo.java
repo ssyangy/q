@@ -121,16 +121,20 @@ public class GetWeibo extends Resource {
 			}
 		}
 		
-
-		Map<String, Object> api = new HashMap<String, Object>();
-		api.put("weibo", weibo);
-		if (CollectionKit.isNotEmpty(replies)) {
-			api.put("replies", replies);
-		}
 		
-		api.put("hasPrev", hasPrev);
-		api.put("hasNext", hasNext);
-		context.setModel("api", api);
+		if(context.isApiRequest()) {
+			Map<String, Object> api = new HashMap<String, Object>();
+			api.put("weibo", weibo);
+			if (CollectionKit.isNotEmpty(replies)) {
+				api.put("replies", replies);
+			}
+			
+			api.put("hasPrev", hasPrev);
+			api.put("hasNext", hasNext);
+			context.setModel("api", api);
+		} else {
+			context.setModel("weibo", weibo);
+		}
 	}
 
 	/*

@@ -17,6 +17,7 @@ import q.dao.page.MessagePage;
 import q.domain.Message;
 import q.domain.MessageJoinPeople;
 import q.util.CollectionKit;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -27,6 +28,7 @@ import q.web.ResourceContext;
  * 
  */
 public class GetMessageIndex extends Resource {
+
 	private MessageDao messageDao;
 
 	public void setMessageDao(MessageDao messageDao) {
@@ -48,7 +50,7 @@ public class GetMessageIndex extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
 		int size = context.getInt("size", 10);
-		long startId = context.getIdLong("startId");
+		long startId = context.getIdLong("startId", IdCreator.MAX_ID);
 		int type = context.getInt("type", 0);
 
 		MessageJoinPeoplePage joinPage = new MessageJoinPeoplePage();
@@ -61,16 +63,17 @@ public class GetMessageIndex extends Resource {
 		}
 		boolean hasPrev = false;
 		boolean hasNext = false;
-		int fetchSize = size + 1;
+		int fetchSize = size + 1;// to discover has prev or has next
 		joinPage.setSize(fetchSize);
-		joinPage.setStartIndex(0);
-		if (startId > 0) {
-			joinPage.setStartId(startId);
+		joinPage.setStartId(startId);
+		List<MessageJoinPeople> messageJoinPeoples = messageDao.getMessageJoinPeoplesByPage(joinPage);
+		Map<Long, MessageJoinPeople> messageId2MessageJoinPeopleMap = new HashMap<Long, MessageJoinPeople>();
+		List<Long> messageIds = new ArrayList<Long>(messageJoinPeoples.size());
+		for (MessageJoinPeople join : messageJoinPeoples) {
+			messageIds.add(join.getMessageId());
+			messageId2MessageJoinPeopleMap.put(join.getMessageId(), join);
 		}
-		List<Long> messageIds = messageDao.getMessageReceiverIdsByJoinPage(joinPage);
-		Map<Long, List<Long>> messageIdReceiversMap = getMessageReceiversMap(messageIds);
-		if (CollectionKit.isNotEmpty(messageIds)) {
-			Map<String, Object> api = new HashMap<String, Object>();
+		if (CollectionKit.isNotEmpty(messageJoinPeoples)) {
 			if (messageIds.size() == fetchSize) {
 				if (type == asc) { // more than one previous page
 					hasPrev = true;
@@ -81,21 +84,32 @@ public class GetMessageIndex extends Resource {
 			}
 			if (type == asc) { // this action from next page
 				hasNext = true;
-			} else if (startId != 999999999999999999L) {// this action from previous page
+			} else if (startId < IdCreator.MAX_ID) {// this action from previous page
 				hasPrev = true;
 			}
 			MessagePage messagePage = new MessagePage();
 			messagePage.setIds(messageIds);
 			List<Message> messages = messageDao.getMessagesByPage(messagePage);
+			Map<String, Object> api = new HashMap<String, Object>();
 			if (CollectionKit.isNotEmpty(messages)) {
+				Map<Long, List<Long>> messageId2ReceiverIdsMap = getMessageReceiversMap(messageIds);
 				for (Message msg : messages) {
-					msg.setReceiverIds(messageIdReceiversMap.get(msg.getId())); // set message receiver
+					msg.setReceiverIds(messageId2ReceiverIdsMap.get(msg.getId())); // set message receiver
+					MessageJoinPeople join = messageId2MessageJoinPeopleMap.get(msg.getId());
+					if (join != null) {
+						msg.setReplyNum(join.getReplyNum());
+						msg.setLastReplyId(join.getLastReplyId());
+						msg.setLastReplySenderId(join.getLastReplySenderId());
+					} else {
+						log.error("invalid join -> messageId:%s,peopleId:%s", msg.getId(), loginPeopleId);
+					}
 				}
-				DaoHelper.injectMessagesWithSenderAndReceivers(peopleDao, messages);
+				DaoHelper.injectMessagesWithLastReply(messageDao, messages); // inject last reply using lastReplyId
+				DaoHelper.injectMessagesWithSenderAndReceiversAndLastReplySender(peopleDao, messages); // inject sender, receivers, lastReply.sender
 				api.put("messages", messages);
+				api.put("hasPrev", hasPrev);
+				api.put("hasNext", hasNext);
 			}
-			api.put("hasPrev", hasPrev);
-			api.put("hasNext", hasNext);
 			context.setModel("api", api);
 		}
 
@@ -109,7 +123,7 @@ public class GetMessageIndex extends Resource {
 	 * @throws SQLException
 	 */
 	private Map<Long, List<Long>> getMessageReceiversMap(List<Long> messageIds) throws SQLException {
-		if (CollectionKit.isNotEmpty(messageIds)) {
+		if (CollectionKit.isEmpty(messageIds)) {
 			return null;
 		}
 		Map<Long, List<Long>> messageIdReceiversMap = new HashMap<Long, List<Long>>();

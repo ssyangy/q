@@ -43,6 +43,10 @@ public class AddLogin extends Resource {
 		}
 		context.setModel("people", people);
 		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), people.getRealName(), people.getUsername())); // set login cookie
+		String from = context.getString("from"); // redirect to origin refferr
+		if (from == null) {
+			context.redirectServletPath("");
+		}
 	}
 
 	/*

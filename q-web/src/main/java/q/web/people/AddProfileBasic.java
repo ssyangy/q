@@ -42,9 +42,9 @@ public class AddProfileBasic extends Resource {
 		people.setGender(gender);
 		if (!databasePeople.hasAvatar()) {
 			if (gender.isFemale()) {
-				people.setAvatarPath(this.pictureService.getFemaleAvatarPath());
+				people.setAvatarPath(this.pictureService.getDefaultFemaleAvatarPath());
 			} else {
-				people.setAvatarPath(this.pictureService.getMaleAvatarPath());
+				people.setAvatarPath(this.pictureService.getDefaultMaleAvatarPath());
 			}
 		}
 

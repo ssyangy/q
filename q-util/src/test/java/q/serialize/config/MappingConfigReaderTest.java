@@ -471,7 +471,7 @@ public class MappingConfigReaderTest extends MappingTestBase {
 		StringWriter sw = new StringWriter();
 		Album source = getAlbum();
 		Convert convert = new XMLConvert(sw);
-		itemMapping.write(convert, source, false);
+		itemMapping.write(convert, false, source, false);
 		assertEquals("<album>" +
 				"<aid>123</aid>" +
 				"<ints_name list=\"true\">" +
