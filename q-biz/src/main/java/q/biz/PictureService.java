@@ -21,10 +21,20 @@ public interface PictureService {
 	/**
 	 * @return
 	 */
-	public String getFemaleAvatarPath();
+	public String getDefaultFemaleAvatarPath();
 
 	/**
 	 * @return
 	 */
-	public String getMaleAvatarPath();
+	public String getDefaultMaleAvatarPath();
+
+	/**
+	 * @return
+	 */
+	public String getDefaultGroupAvatarPath();
+
+	/**
+	 * @return
+	 */
+	public String getDefaultCategoryAvatarPath();
 }

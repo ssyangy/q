@@ -100,6 +100,14 @@
 		<url-pattern>/message</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+	<servlet-name>spring</servlet-name>
+		<url-pattern>/messageReply/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>/messageReply</url-pattern>
+	</servlet-mapping>	
+	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/group/*</url-pattern>
 	</servlet-mapping>
@@ -212,14 +220,14 @@
 	<!-- ====================================================== -->
 	<error-page>
 		<error-code>500</error-code>
-		<location>/error-500.html</location>
+		<location>/error/hungUp</location>
 	</error-page>
 	<error-page>
 		<error-code>404</error-code>
-		<location>/error-404.html</location>
+		<location>/error/notExist</location>
 	</error-page>
 	<error-page>
 		<error-code>403</error-code>
-		<location>/error-403.html</location>
+		<location>/error/forbid</location>
 	</error-page>
 </web-app>

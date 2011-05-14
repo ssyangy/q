@@ -125,7 +125,7 @@ public class IdCreator {
 	 * 
 	 * @return
 	 */
-	public static long getLongId(long timestamp) {
+	private static long getLongId(long timestamp) {
 		counterLock.lock();
 		try {
 			if (counter >= counterLimit) { // if counter overflow, wait next millisecond

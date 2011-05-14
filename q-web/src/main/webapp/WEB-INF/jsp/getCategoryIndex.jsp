@@ -109,7 +109,7 @@ span.tit{display:none;}
             <ul id="sldroot" class="sldlist">
 				<c:forEach items="${cats}" var="cat" varStatus="status">
 				<li gpcid='${cat.id}' class='hov'>
-					<img src="${avatarPath}-48" alt="gpcate" class="sldimg" >
+					<img src="${cat.avatarPath}" alt="gpcate" class="sldimg" >
 					<p class='name'>${cat.name}</p>
 					<p>
 						<c:forEach items="${cat.groups}" var="group" varStatus="status">
@@ -124,7 +124,7 @@ span.tit{display:none;}
 					<ul id="sldtrunk" class="sldlist">
 					{{#groups}}
                     <li gid={{id}}><a href='${urlPrefix}/group/{{id}}'>
-                        <img src="{{avatarPath}}-48" alt="avtor" class="sldimg" />
+                        <img src="{{avatarPath}}" alt="avtor" class="sldimg" />
                         <a class='btn act {{#joined}}hide_im{{/joined}}'>关注</a>
                         <a class='btn actun	 {{^joined}}hide_im{{/joined}}'>取消关注</a>
                         <p>{{name}}</p>

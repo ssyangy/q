@@ -148,7 +148,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 			if (isJson) {
 				viewResolver = this.jsonViewResolver;
 			} else {
-				if (!loginPath.equals(servletPath)) {
+				if (!loginPath.equals(servletPath) && !context.isCommitted()) {
 					String from = context.getString("from"); // redirect to origin refferr
 					if (from != null) {
 						if (from.startsWith("http:")) {

@@ -1,31 +1,24 @@
 /**
  * 
  */
-package q.web.login;
+package q.web.error;
 
 import q.web.Resource;
 import q.web.ResourceContext;
 
 /**
- * @author seanlinwang
- * @email xalinx at gmail dot com
- * @date Feb 21, 2011
- * 
+ * @author seanlinwang at gmail dot com
+ * @date May 14, 2011
+ *
  */
-public class DeleteLogin extends Resource {
+public class getErrorForbid extends Resource {
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		((q.web.DefaultResourceContext) context).removeLoginCookie();
-		String from = context.getString("from"); // redirect to origin refferr
-		if (from == null) {
-			context.redirectServletPath("");
-		}
+
 	}
 
 	/* (non-Javadoc)
@@ -33,6 +26,7 @@ public class DeleteLogin extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+
 	}
 
 }

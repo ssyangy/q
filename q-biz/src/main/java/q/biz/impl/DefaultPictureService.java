@@ -274,13 +274,26 @@ public class DefaultPictureService implements PictureService {
 	}
 
 	@Override
-	public String getFemaleAvatarPath() {
+	public String getDefaultFemaleAvatarPath() {
 		return this.imageUrl + "/default/female-def";
 	}
 
 	@Override
-	public String getMaleAvatarPath() {
+	public String getDefaultMaleAvatarPath() {
 		return this.imageUrl + "/default/male-def";
 	}
+
+	@Override
+	public String getDefaultGroupAvatarPath() {
+		return this.imageUrl + "/default/group-def";
+	}
+
+	@Override
+	public String getDefaultCategoryAvatarPath() {
+		return this.imageUrl + "/default/cat-def";
+	}
+	
+	
+	
 
 }

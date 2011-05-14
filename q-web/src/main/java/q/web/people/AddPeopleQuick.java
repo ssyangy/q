@@ -54,7 +54,7 @@ public class AddPeopleQuick extends Resource {
 		people.setRealName(context.getString("realName"));
 		people.setGender(Gender.convertValue(context.getInt("gender", 0)));
 		people.setLoginToken("xxxx");// FIXME wanglin
-		people.setAvatarPath(this.pictureService.getMaleAvatarPath());
+		people.setAvatarPath(this.pictureService.getDefaultMaleAvatarPath());
 		peopleDao.addPeople(people);
 		context.setModel("people", people);
 		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), people.getRealName(), people.getUsername())); // set login cookie

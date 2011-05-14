@@ -54,7 +54,7 @@ public class GetHomePage extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws IOException, SQLException {
 		if(context.isLogin()) {
-			context.redirectServletPath("/group");
+			context.redirectServletPath("/category");
 			return;
 		}
 		int areaId = 310104;//FIXME 徐汇区 wanglin
