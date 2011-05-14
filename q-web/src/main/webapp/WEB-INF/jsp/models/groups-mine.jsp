@@ -6,10 +6,10 @@
 <div class='unav_group'>
 	<c:choose>
 	<c:when test="${param['id']} == 0">
-		<a href='${urlPrefix}/group' class='in_bk unav_item unav_action'>找圈子</a>
+		<a href='${urlPrefix}/category' class='in_bk unav_item unav_action'>找圈子</a>
 	</c:when>
 	<c:otherwise>
-		<a href='${urlPrefix}/group' class='in_bk unav_item'>找圈子</a>
+		<a href='${urlPrefix}/category' class='in_bk unav_item'>找圈子</a>
 	</c:otherwise>
 	</c:choose>	
 

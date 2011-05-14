@@ -303,6 +303,8 @@
 				<value>getProfileBasic</value>
 				<value>getProfileAvatar</value>
 				<value>getFavoriteIndex</value>
+				<value>getReplyIndex</value>
+				<value>getAtIndex</value>
 			</set>
 		</property>
 	</bean>
@@ -589,6 +591,8 @@
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="weiboService" ref="weiboService"></property>
 	</bean>
+	<bean id="getReplyIndex" class="q.web.weibo.GetReplyIndex"></bean>
+	<bean id="getAtIndex" class="q.web.weibo.getAtIndex"></bean>
 
 	<!-- favorite web -->
 	<bean id="getFavoriteIndex" class="q.web.favorite.GetFavoriteIndex">
