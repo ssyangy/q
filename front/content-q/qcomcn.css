@@ -8,7 +8,7 @@
 #minelist{position:absolute;top:24px;left:10px;display:none;}
 ul.dlist{border:1px solid #ddd;line-height:22px;background-color:#fff;}
 ul.dlist li{border-bottom:1px solid #ddd;border-right:none 0;float:none;padding:0 10px;}
-.tlistarr{cursor:pointer;width:14px;height:14px;background:url("images/arrow/sh_col.png") no-repeat;}
+.tlistarr{cursor:pointer;width:14px;height:14px;background:url('images/arrow/sh_col.png') no-repeat;}
 .tlistarr.tgt{background-image:url('images/arrow/navlarrh.png');}
 
 #main .wapper{padding:10px 0;}

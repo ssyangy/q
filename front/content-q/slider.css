@@ -3,8 +3,8 @@
 .sldlist{padding:5px;width:540px;}
 .sldlist span.time{position:absolute;left:380px;top:0;color:#B2B7B5}
 .sldlist li{cursor:pointer;border-bottom:1px solid #ddd;padding:10px 40px 10px 58px;position:relative;zoom:1;}
-#sldroot li{background:url("/content/images/arrow/next.png") no-repeat scroll 510px center transparent;}
-#sldroot li.hover{background-image:url("/content/images/arrow/next_h.png");background-color:#fefefe;}
+#sldroot li{background:url('images/arrow/next.png') no-repeat scroll 510px center transparent;}
+#sldroot li.hover{background-image:url('images/arrow/next_h.png');background-color:#fefefe;}
 .sldlist li.end{border-bottom:none 0;}
 .sldlist li img.sldimg{position:absolute;top:10px;left:0;}
 .sldlist li p{line-height:24px;color:#333;}

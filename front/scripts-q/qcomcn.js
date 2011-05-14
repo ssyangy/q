@@ -51,20 +51,19 @@
         $("textarea.mttextar").mttext({ isarea: true });
         $("textarea.mttextar_val").mttext({ isarea: true, wval: true });
 
-        $(".hov,.streambox").hover(function(){$(this).addClass('hover');},
-        function(){$(this).removeClass('hover');});
+        $(".hov,.streambox").hover(function () { $(this).addClass('hover'); },
+        function () { $(this).removeClass('hover'); });
 
-        var targetfun = function(){
-            var o = $('#'+$(this).attr('target'));
+        $('[target]').bind('click', function () {
+            var o = $('#' + $(this).attr('target'));
             o.toggle();
-            if($(this).hasClass('tgt')) { $(this).removeClass('tgt'); }
-            else { $(this).addClass('tgt');}
-        }
-        $('[target]').bind('click',targetfun);
-        $('body').click(function(e){
-            if(!$(e.target).attr('target')){
-                $('.tgtbox').hide();
-            }
+            if (o.is(':hidden')) { $(this).removeClass('tgt'); }
+            else { $(this).addClass('tgt'); }
         });
+//        $('body').click(function (e) {
+//            if (!$(e.target).attr('target')) {
+//                $('.tgtbox').hide();
+//            }
+//        });
     }
 });

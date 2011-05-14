@@ -139,15 +139,15 @@ a.acu{background-color:#9F0000;border-bottom:2px solid #E1E1E1;color:#fff;font-s
 a.acu:hover{border-bottom:medium none;margin-top:1px;}
 .qq{background:transparent url(/content/images/tips/Question4.png) no-repeat scroll right center;padding-right:15px!important;height:12px;line-height:12px;cursor:pointer;}
 
-.btna,.btn {-moz-border-radius:3px;-webkit-border-radius:3px;background:url("/content/images/btn-w.gif") repeat-x scroll left top #D8D8D8;border-color:#BBB #BBB #999;border-style:solid;border-width:1px;color:#333;cursor:pointer;display:inline-block;font-size:1.1em;padding:3px 10px;text-align:center;text-shadow:0 1px #F0F0F0;}
+.btna,.btn {-moz-border-radius:3px;-webkit-border-radius:3px;background:url('images/btn-w.gif') repeat-x scroll left top #D8D8D8;border-color:#BBB #BBB #999;border-style:solid;border-width:1px;color:#333;cursor:pointer;display:inline-block;font-size:1.1em;padding:3px 10px;text-align:center;text-shadow:0 1px #F0F0F0;}
 .btna:hover, .btn:hover {border-bottom:1px solid #444;border-color:#666 #666 #444;text-decoration:none;}
 .btna:active, .btn:active{background:none repeat scroll 0 0 #E0E0E0;border-color:#999;text-shadow:none;}
-.btna {background-color:#C3DD82;background-image:url("/content/images/btn-g.gif");border-bottom:1px solid #648517;border-color:#8CB332 #8CB332 #648517;color:#406A24;text-shadow:0 1px #D4ED95;}
+.btna {background-color:#C3DD82;background-image:url('images/btn-g.gif');border-bottom:1px solid #648517;border-color:#8CB332 #8CB332 #648517;color:#406A24;text-shadow:0 1px #D4ED95;}
 .btna .light {color:#8DA766;font-weight:normal;}
 .btna:hover, .btna:active {border-bottom:1px solid #405A04;border-color:#648517 #648517 #405A04;text-decoration:none;}
 .btna:active {background:none repeat scroll 0 0 #C3DD82;border-color:#8CB332;}
 .btnw{padding-left:16px;position:relative;}
-.btnw .settings {background:url("/content/images/btn-set.gif") no-repeat scroll 0 0 transparent;position:absolute;top:6px;left:3px;width:10px;height:10px;}
+.btnw .settings {background:url('images/btn-set.gif') no-repeat scroll 0 0 transparent;position:absolute;top:6px;left:3px;width:10px;height:10px;}
 .btnw:hover .settings {background-position:0 -15px;}
 .btnl {border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;background-color:#D0E5F2;border:1px solid #D0E5F2;font-weight:bold;padding:4px 8px;cursor:pointer;}
 .btnl:hover {border-color:#9FBBCD;text-decoration:none;}
