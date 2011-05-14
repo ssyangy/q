@@ -54,16 +54,17 @@
         $(".hov,.streambox").hover(function () { $(this).addClass('hover'); },
         function () { $(this).removeClass('hover'); });
 
-        $('[target]').bind('click', function () {
-            var o = $('#' + $(this).attr('target'));
+        $('[target]').unbind('click').click(function () {
+            var t = $(this);
+            var o = $('#' + t.attr('target'));
             o.toggle();
-            if (o.is(':hidden')) { $(this).removeClass('tgt'); }
-            else { $(this).addClass('tgt'); }
+            if (o.is(':hidden')) t.removeClass('tgt');
+            else t.addClass('tgt');
         });
-//        $('body').click(function (e) {
-//            if (!$(e.target).attr('target')) {
-//                $('.tgtbox').hide();
-//            }
-//        });
+        $('body').unbind('click').click(function (e) {
+            if (!$(e.target).attr('target')) {
+                $('.tgtbox').hide();
+            }
+        });
     }
 });

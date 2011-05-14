@@ -230,7 +230,6 @@
     <Content Include="content-q\main\jquery.ui.css" />
     <Content Include="content-q\navleft.css" />
     <Content Include="content-q\qcomcn.css" />
-    <Content Include="content-q\site.css" />
     <Content Include="content-q\slider.css" />
     <Content Include="content-q\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="content-q\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
