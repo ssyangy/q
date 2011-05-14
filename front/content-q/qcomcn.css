@@ -8,8 +8,8 @@
 #minelist{position:absolute;top:24px;left:10px;display:none;}
 ul.dlist{border:1px solid #ddd;line-height:22px;background-color:#fff;}
 ul.dlist li{border-bottom:1px solid #ddd;border-right:none 0;float:none;padding:0 10px;}
-.tlistarr{cursor:pointer;width:14px;height:14px;background:url("/content-q/images/arrow/sh_col.png") no-repeat;}
-.tlistarr.tgt{background-image:url('/content-q/images/arrow/navlarrh.png');}
+.tlistarr{cursor:pointer;width:14px;height:14px;background:url("images/arrow/sh_col.png") no-repeat;}
+.tlistarr.tgt{background-image:url('images/arrow/navlarrh.png');}
 
 #main .wapper{padding:10px 0;}
 
@@ -33,11 +33,11 @@ li.streambox .bd .text{font-size:14px;color:#333;line-height:19px;word-wrap:brea
 .quote p {line-height: 1.2;margin: 2px 0;word-wrap: break-word;}
 li.streambox .fd{position:relative;padding:0 120px 0 20px;height:13px;line-height:13px;color:#999;text-align:right;}
 li.streambox .fd span.stat{position:absolute;left:58px;bottom:0;}
-li.streambox .fd b.twarrow{position:absolute;left:0;bottom:0;width:13px;height:13px;background:url('/content/images/arrow/tweetarrow.png') no-repeat;display:none;}
+li.streambox .fd b.twarrow{position:absolute;left:0;bottom:0;width:13px;height:13px;background:url('images/arrow/tweetarrow.png') no-repeat;display:none;}
 li.streambox.hover .fd b.twarrow{display:block;}
-li.streambox .fd b.cloarrow{position:absolute;right:0;bottom:0;width:13px;height:13px;background:url('/content/images/tips/stop.png') no-repeat;display:none;}
+li.streambox .fd b.cloarrow{position:absolute;right:0;bottom:0;width:13px;height:13px;background:url('images/tips/stop.png') no-repeat;display:none;}
 li.streambox.hover .fd b.cloarrow{display:block;}
-li.streambox.hover .fd b.cloarrow:hover{background-image:url('/content/images/tips/stop_h.png')}
+li.streambox.hover .fd b.cloarrow:hover{background-image:url('images/tips/stop_h.png')}
 li.streambox a.hod{visibility:hidden;}
 li.streambox.hover a.hod{visibility:inherit;}
 li.streambox .repmod{border:1px solid #ddd;padding:5px;margin-bottom:10px;}
