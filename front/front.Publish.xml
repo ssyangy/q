@@ -6,7 +6,11 @@
     <file relUrl="Assist/IKVM.NET/IKVM.Runtime.JNI.dll" publishTime="04/17/2011 05:09:04" />
     <file relUrl="scripts/ICanHaz.js" publishTime="05/13/2011 22:38:56" />
     <file relUrl="demo/underscore-min.js" publishTime="04/29/2011 22:26:38" />
+<<<<<<< HEAD
     <file relUrl="content-q/site.css" publishTime="05/14/2011 15:05:17" />
+=======
+    <file relUrl="content-q/site.css" publishTime="05/14/2011 14:53:37" />
+>>>>>>> 60dc9252c1ed93dc91510a6a0cda9d8f0ee0fb79
     <file relUrl="scripts-q/jq.repurl.js" publishTime="05/13/2011 22:38:54" />
     <file relUrl="Assist/IKVM.NET/IKVM.OpenJDK.XML.Crypto.dll" publishTime="04/17/2011 05:09:04" />
     <file relUrl="content-q/main/images/ui-bg_flat_0_aaaaaa_40x100.png" publishTime="05/13/2011 22:38:54" />
@@ -368,7 +372,11 @@
     <file relUrl="scripts-q/ui/jquery.effects.core.js" publishTime="05/13/2011 22:38:55" />
     <file relUrl="scripts-q/jq.rotate.js" publishTime="05/13/2011 22:38:54" />
     <file relUrl="usersimg/1.png" publishTime="04/17/2011 05:09:16" />
+<<<<<<< HEAD
     <file relUrl="content/site.css" publishTime="05/14/2011 15:05:17" />
+=======
+    <file relUrl="content/site.css" publishTime="05/14/2011 14:53:30" />
+>>>>>>> 60dc9252c1ed93dc91510a6a0cda9d8f0ee0fb79
     <file relUrl="Views/qcomcn/search/SearchPeople.cshtml" publishTime="05/13/2011 22:38:53" />
     <file relUrl="scripts/ui/jquery.effects.highlight.js" publishTime="04/17/2011 05:09:15" />
     <file relUrl="content-q/navleft.css" publishTime="05/13/2011 22:38:54" />
