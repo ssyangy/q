@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<method xmlns="http://apimapping.taobao.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://apimapping.taobao.com http://10.1.5.104/top/apimapping.xsd"
+	interfaceName="q.serialize.mapping.config.AlbumService"
+	interfaceVersion="1.0.0">
+	<methodCall name="addPicture" apiName="taobao.album.pic.add">
+		<params>
+			<param type="int" apiName="aid" />
+			<param type="byte[]" apiName="pic" />
+		</params>
+	</methodCall>
+	<methodResponse>
+		<!-- 表示无返回，对外的api应当避免这种情况出现，这里仅测试需要 -->
+	</methodResponse>
+</method>

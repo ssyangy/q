@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="favorites">
+	<typeAlias alias="favorite" type="q.domain.Favorite" />
+	<resultMap id="favoriteResult" class="favorite">
+		<result property="id" column="id" />
+		<result property="fromType" column="from_type" typeHandler="q.dao.ibatis.FavoriteFromTypeHandler"/>
+		<result property="fromId" column="from_id" />
+		<result property="creatorId" column="creator_id" />
+		<result property="senderId" column="sender_id" />
+		<result property="status" column="status" typeHandler="q.dao.ibatis.FavoriteStatusHandler"/>
+		<result property="created" column="created" />
+		<result property="modified" column="modified" />
+	</resultMap>
+	<sql id="favorite.columns">
+		id,
+		from_type,
+		from_id,
+		creator_id,
+		sender_id,
+		status,
+		created,
+		modified
+	</sql>
+
+	<select id="selectFavoriteByPage" resultMap="favoriteResult">
+		select
+		<include refid="favorite.columns" />
+		from favorite
+		<dynamic prepend="where">
+			<isNotNull property="fromIds">
+				from_id in
+				<iterate property="fromIds" open="(" close=")" conjunction=",">
+					#fromIds[]#
+	        	</iterate>
+	        </isNotNull>
+			<isNotNull prepend="and" property="id">
+				id = #id#
+			</isNotNull>
+			<isNotNull prepend="and" property="fromType">
+				from_type = #fromType,handler=q.dao.ibatis.FavoriteFromTypeHandler#
+			</isNotNull>
+			<isNotNull prepend="and" property="fromId">
+				from_id = #fromId#
+			</isNotNull>
+			<isNotNull prepend="and" property="creatorId">
+				creator_id = #creatorId#
+			</isNotNull>
+		</dynamic>
+	</select>
+	
+	<select id="selectFavoriteFromIdsByPage" resultClass="long">
+		select from_id
+		from favorite
+		<dynamic prepend="where">
+			<isNotNull prepend="and" property="fromIds">
+				from_id in
+				<iterate property="fromIds" open="(" close=")" conjunction=",">
+					#fromIds[]#
+	        	</iterate>
+	        </isNotNull>
+			<isNotNull prepend="and" property="id">
+				id = #id#
+			</isNotNull>
+			<isNotNull prepend="and" property="fromType">
+				from_type = #fromType,handler=q.dao.ibatis.FavoriteFromTypeHandler#
+			</isNotNull>
+			<isNotNull prepend="and" property="fromId">
+				from_id = #fromId#
+			</isNotNull>
+			<isNotNull prepend="and" property="creatorId">
+				creator_id = #creatorId#
+			</isNotNull>
+			<isNotNull prepend="and" property="status">
+				status = #status,handler=q.dao.ibatis.FavoriteStatusHandler#
+			</isNotNull>
+		</dynamic>
+	</select>
+
+	<select id="selectFavoritesByPage" resultMap="favoriteResult">
+		select
+		<include refid="favorite.columns" />
+		from favorite
+		where status = 1
+		<isNotNull prepend="and " property="creatorId">
+			creator_id = #creatorId#
+		</isNotNull>
+		<isNotNull prepend="and " property="senderIds">
+				sender_id in
+				<iterate property="senderIds" open="(" close=")" conjunction=",">
+					#senderIds[]#
+	        	</iterate>
+		</isNotNull>		
+		<isNotNull prepend="and " property="startCreated">
+			created &lt;= #startCreated#
+		</isNotNull>
+		<isNotNull prepend="and " property="startId">
+			id &lt;= #startId#
+		</isNotNull>
+		order by created desc
+		limit #startIndex#, #size#
+	</select>
+	
+	<update id="updateFavoriteStatus">
+		update favorite set
+		status = #status,handler=q.dao.ibatis.FavoriteStatusHandler#,
+		modified = null
+		<dynamic prepend="where">
+			<isNotNull prepend="and" property="id">
+				id = #id#
+			</isNotNull>
+			<isNotNull prepend="and" property="fromType">
+				from_type = #fromType,handler=q.dao.ibatis.FavoriteFromTypeHandler#
+			</isNotNull>
+			<isNotNull prepend="and" property="fromId">
+				from_id = #fromId#
+			</isNotNull>
+			<isNotNull prepend="and" property="creatorId">
+				creator_id = #creatorId#
+			</isNotNull>
+		</dynamic>
+	</update>
+
+	<insert id="insertFavorite">
+		insert into favorite
+		(
+		<include refid="favorite.columns" />
+		) values (
+		#id#,
+		#fromType,handler=q.dao.ibatis.FavoriteFromTypeHandler#,
+		#fromId#,
+		#creatorId#,
+		#senderId#,
+		#status,handler=q.dao.ibatis.FavoriteStatusHandler#,
+		now(),
+		null
+		)
+	</insert>
+
+</sqlMap>

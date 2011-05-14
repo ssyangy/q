@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<param xmlns="http://serialize.q.com.cn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://serialize.q.com.cn http://www.q.net/xsd/q-serialize.xsd">
+	<type>
+		<struct>
+			<member name="hasPrev" apiName="hasPrev" apiType="boolean" />
+			<member name="hasNext" apiName="hasNext" apiType="boolean" />
+			<member name="groups" apiName="groups">
+				<type>
+					<array>
+						<type>
+							<struct>
+								<member name="id" apiName="id" apiType="string" />
+								<member name="name" apiName="name" apiType="string" />
+								<member name="avatarPath" apiName="avatarPath" apiType="string" />
+								<member name="intro" apiName="intro" apiType="string" />
+								<member name="joinNum" apiName="joinNum" apiType="int" />
+								<member name="latitude" apiName="latitude" apiType="double" />
+								<member name="longitude" apiName="longitude" apiType="double" />
+								<member name="time" apiName="screenTime" apiType="string" />
+								<member name="createdTime" apiName="createdTime" apiType="string" />
+								<member name="joined" apiName="joined" apiType="boolean"/>
+							</struct>
+						</type>
+					</array>
+				</type>
+			</member>
+		</struct>
+	</type>
+</param>

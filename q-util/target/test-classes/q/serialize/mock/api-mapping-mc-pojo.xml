@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<method xmlns="http://apimapping.taobao.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://apimapping.taobao.com http://confluence.taobao.ali.com:8080/download/attachments/94798567/apimapping.xsd"
+	interfaceName="q.serialize.album.AlbumService"
+	interfaceVersion="1.0.0">
+
+	<methodCall name="addAlbum" apiName="taobao.album.add">
+		<params>
+			<param >
+				<type class="q.serialize.mock.domain.Pojo">
+					<struct>
+						<member name="title" apiName="name" type="string"/>
+						<member name="is3D" apiName="is_3D" type="boolean" />
+						<member name="resultCount" apiName="result_count" type="int" />
+					</struct>
+				</type>
+			</param>
+		</params>
+	</methodCall>
+
+	<methodResponse>
+
+	</methodResponse>
+</method>

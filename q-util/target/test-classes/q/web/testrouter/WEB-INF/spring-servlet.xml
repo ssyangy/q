@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="publicUrlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<value>
+				/*=router
+			</value>
+		</property>
+	</bean>
+	<bean id="router" class="q.web.ResourceRouter">
+		<property name="defaultResource" ref="main" />
+		<property name="loginPath" value="/login/new"/>
+		<property name="needLoginResources">
+			<set>
+				<value>mine</value>
+			</set>
+		</property>
+	</bean>
+	<!-- biz -->
+	<bean id="main" class="q.web.testrouter.Main" />
+	<bean id="addA" class="q.web.testrouter.AddA"></bean>
+	<bean id="addAJoin" class="q.web.testrouter.AddAJoin"></bean>
+	<bean id="getA" class="q.web.testrouter.GetA"></bean>
+	<bean id="getANew" class="q.web.testrouter.GetANew"></bean>
+	<bean id="getAIndex" class="q.web.testrouter.GetAIndex"></bean>
+	<bean id="getAEdit" class="q.web.testrouter.GetAEdit"></bean>
+	<bean id="updateA" class="q.web.testrouter.UpdateA"></bean>
+	<bean id="deleteA" class="q.web.testrouter.DeleteA"></bean>
+</beans>

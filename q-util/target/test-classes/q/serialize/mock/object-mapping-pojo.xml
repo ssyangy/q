@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<param xmlns="http://serialize.q.com.cn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://serialize.q.com.cn http://www.q.net/xsd/q-serialize.xsd">
+	<type>
+		<struct>
+			<member name="is3D" apiName="is_3D" apiType="boolean" />
+			<member name="created" apiName="created" apiType="java.util.Date" />
+			<member name="modified" apiName="modified" apiType="string" />
+			<member name="title" apiName="title" apiType="string" />
+		</struct>
+	</type>
+</param>

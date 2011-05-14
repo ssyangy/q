@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<method xmlns="http://apimapping.taobao.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://apimapping.taobao.com apimapping.xsd"
+	interfaceName="q.serialize.album.AlbumService"
+	interfaceVersion="1.0.0">
+
+	<methodCall name="addAlbum" apiName="taobao.album.add">
+		<params>
+			<param type="string" apiName="s">
+				<switch>
+					<case apiType="string" apiValue="s" value="x" />
+				</switch>
+			</param>
+			<param type="char" apiName="c">
+				<switch>
+					<case apiType="string" apiValue="c" value="x" />
+				</switch>
+			</param>
+			<param type="boolean" apiName="b">
+				<switch>
+					<case apiType="string" apiValue="true" value="false" />
+				</switch>
+			</param>
+			<param type="byte" apiName="byte">
+				<switch>
+					<case apiType="string" apiValue="1" value="2" />
+				</switch>
+			</param>
+			<param type="short" apiName="short">
+				<switch>
+					<case apiType="string" apiValue="1" value="2" />
+				</switch>
+			</param>
+			<param type="int" apiName="i">
+				<switch>
+					<case apiType="string" apiValue="1" value="2" />
+				</switch>
+			</param>
+			<param type="long" apiName="l">
+				<switch>
+					<case apiType="string" apiValue="1" value="2" />
+				</switch>
+			</param>
+			<param type="float" apiName="f">
+				<switch>
+					<case apiType="string" apiValue="1.0" value="2.0" />
+				</switch>
+			</param>
+			<param type="double" apiName="d">
+				<switch>
+					<case apiType="string" apiValue="1.0" value="2.0" />
+				</switch>
+			</param>
+		</params>
+	</methodCall>
+
+	<methodResponse>
+
+	</methodResponse>
+</method>

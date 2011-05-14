@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<method xmlns="http://apimapping.taobao.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://apimapping.taobao.com apimapping.xsd"
+	interfaceName="q.serialize.album.AlbumService"
+	interfaceVersion="1.0.0">
+	<methodCall name="addAlbum" apiName="taobao.album.add">
+		<params>
+			<param>
+				<type class="q.serialize.album.Album">
+					<struct>
+						<member name="id" type="int" apiName="aid" />
+						<member name="userId" type="long" apiName="user_id" />
+						<member name="name" type="string" apiName="title" />
+						<member name="picNum" type="java.lang.Integer" apiName="pic_num" />
+						<member name="f" type="float" apiName="f_name" />
+						<member name="valid" type="boolean" apiName="valid" />
+						<member name="strs" type="string[]" apiName="strs_name" />
+						<member name="ints" type="int[]" apiName="ints_name"/>
+						<member name="floats" type="float[]" apiName="floats_name" />
+						<member name="doubles" type="double[]" apiName="doubles_name" />
+						<member name="list_long" apiName="long_list" type="java.lang.Long list" />
+						<member name="list_float" apiName="float_list" type="java.lang.Float list" />
+						<member name="list_double" apiName="double_list" type="java.lang.Double list" />
+						<member name="intt" type="int" apiName="intt_name">
+							<switch>
+								<case apiType="string" apiValue="c_seller" value="0" />
+								<case apiType="java.lang.String" apiValue="b_seller" value="1" />
+								<case apiType="float" apiValue="0.2" value="2"/>
+								<case apiType="double" apiValue="0.3" value="3"/>
+								<default value="-1" />
+							</switch>
+						</member>
+						<member name="album_object" apiName="album_object">
+							<type class="q.serialize.album.Album2">
+								<struct>
+									<member name="cid" type="string" apiName="album_object.cid" />
+								</struct>
+							</type>
+						</member>
+					</struct>
+				</type>
+			</param>
+			<param type="int" apiName="aid" />
+			<param type="string" apiName="$session_uid" />
+			<param>
+				<type class="com.notexist.class">
+					<struct>
+						<member name="id" type="int" apiName="aid" />
+					</struct>
+				</type>
+			</param>
+		</params>
+	</methodCall>
+	<methodResponse>
+		<param exceptionExpress="success=false,code,msg">
+			<type>
+				<struct>
+					<member name="item" apiName="album">
+						<type>
+							<struct>
+								<member name="id" apiName="aid" apiType="string" />
+								<member name="userId" apiName="user_id" apiType="long" />
+								<member name="name" apiName="title" apiType="string" />
+								<member name="picNum" apiName="pic_num" apiType="int" />
+								<member name="f" apiType="java.lang.Double" apiName="f_name" />
+								<member name="valid" apiName="valid" apiType="boolean" />
+								<member name="strs" apiName="strs_name" apiArrayItemName="str"  apiType="string[]" />
+								<member name="ints" apiName="ints_name">
+									<type class="java.util.List">
+										<array apiArrayItemName="int_name">
+											<type class="java.lang.Integer list" />
+										</array>
+									</type>
+								</member>
+								<member name="floats" apiName="floats_name" apiType="java.lang.Float list" />
+								<member name="doubles" apiName="doubles_name" apiType="java.lang.Double list" />
+								<member name="list_long" apiName="long_list" apiType="long[]" />
+								<member name="list_float" apiName="float_list" apiType="java.lang.Float list" />
+								<member name="list_double" apiName="double_list"
+									apiType="java.lang.Double list" />
+								<member name="intt" apiName="intt_name" apiType="string">
+									<switch>
+										<case type="int" value="0" apiValue="c_seller" />
+										<case type="java.lang.Integer" value="1" apiValue="b_seller" />
+										<case type="long" value="1" apiValue="d_seller" />
+										<case type="java.lang.Long" value="2" apiValue="e_seller" />
+										<case type="int" value="3" />
+										<default apiValue="other" />
+									</switch>
+								</member>
+							</struct>
+						</type>
+					</member>
+				</struct>
+			</type>
+		</param>
+	</methodResponse>
+</method>

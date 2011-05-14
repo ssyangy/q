@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<method xmlns="http://apimapping.taobao.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://apimapping.taobao.com http://confluence.taobao.ali.com:8080/download/attachments/94798567/apimapping.xsd"
+	interfaceName="q.serialize.album.AlbumService"
+	interfaceVersion="1.0.0">
+
+	<methodCall name="addAlbum" apiName="taobao.album.add">
+	</methodCall>
+
+	<methodResponse>
+		<!-- int[][] or Collection<int[]> or Collecion[] -->
+		<param apiName="iaa">
+			<type>
+				<array apiArrayItemName="ia">
+					<type>
+						<array apiArrayItemName="i">
+							<type class="int" />
+						</array>
+					</type>
+				</array>
+			</type>
+		</param>
+	</methodResponse>
+</method>

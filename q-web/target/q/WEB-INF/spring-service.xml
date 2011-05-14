@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<bean id="searchService" class="q.biz.impl.SolrSearchService">
+		<property name="searchUrl" value="http://192.168.1.100:8080" />
+	</bean>
+	<bean id="pictureService" class="q.biz.impl.DefaultPictureService">
+		<property name="imageUrl" value="http://qimg.net" />
+		<property name="imageUploadUrl" value="http://upload.qimg.net/upload.php" />
+	</bean>
+	<bean id="shortUrlService" class="q.biz.impl.DefaultShortUrlService">
+		<property name="putShortUrl" value="http://upload.qshort.net/add/" />
+		<property name="getShortUrl" value="http://qshort.net" />
+	</bean>
+	<bean id="notifyService" class="q.biz.impl.DefaultNotifyService"
+		init-method="init">
+		<property name="pubHost" value="192.168.1.100" />
+		<property name="pubPort" value="6379" />
+		<property name="pubTimeout" value="500" />
+	</bean>
+	<bean id="weiboService" class="q.biz.impl.DefaultWeiboService">
+		<property name="notifyService" ref="notifyService" />
+		<property name="searchService" ref="searchService" />
+		<property name="shortUrlService" ref="shortUrlService" />
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="mailService" class="q.biz.impl.DefaultMailService">
+		<property name="fromAddress" value="qcomcn.noreply@gmail.com" />
+		<property name="username" value="qcomcn.noreply@gmail.com" />
+		<property name="password" value="qcomcnzhangjiangjifang" />
+		<property name="smtpHost" value="smtp.gmail.com" />
+		<property name="smtpPort" value="465" />
+		<property name="smtpSsl" value="true" />
+	</bean>
+	<bean id="cacheService" class="q.biz.impl.DefaultCacheService">
+		<property name="cacheHost" value="192.168.1.100" />
+		<property name="cachePort" value="6379" />
+		<property name="cacheTimeout" value="500" />
+	</bean>
+
+</beans>
