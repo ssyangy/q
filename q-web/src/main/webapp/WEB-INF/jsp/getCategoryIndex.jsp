@@ -123,13 +123,13 @@ seajs.use('qcomcn.js', function (q) {
             <script type="text/html" id="group">
 					<ul id="sldtrunk" class="sldlist">
 					{{#groups}}
-                    <li gid={{id}}><a href='${urlPrefix}/group/{{id}}'>
+                    <li gid={{id}}>
                         <img src="{{avatarPath}}" alt="avtor" class="sldimg" />
                         <a class='btn act {{#joined}}hide_im{{/joined}}'>关注</a>
                         <a class='btn actun	 {{^joined}}hide_im{{/joined}}'>取消关注</a>
-                        <p>{{name}}</p>
+                        <p><a href='/group/{{id}}' class='lk'>{{name}}</a></p>
                         <p>成员：{{joinNum}}人&nbsp;&nbsp;创建于：{{screenTime}}</p>
-                        <p>{{intro}}</p></a>
+                        <p>{{intro}}</p>
                     </li>
 					{{/groups}}
 					</ul>
