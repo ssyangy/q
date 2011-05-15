@@ -1,13 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<jsp:include page="models/head.jsp">
+	<jsp:param name="title" value="设置" />
+</jsp:include>
+<script type="text/javascript">
 
-<html>
-  <head>
-     <jsp:include page="head.jsp" />
-	 <script type="text/javascript">
+seajs.use('qcomcn.js', function (q) {
+	$ = q.jq;
+	$(function () {
+         q.Init();
+	});
+});
+
 function checkNewPassword(a){
        if(a.length<6||a.length>16){
        $("#newpasswordcorrect").css("display","none");
@@ -91,93 +95,58 @@ function check() {
     }
 });
 }
-		</script>
-	</head>
-  <body>
-	<div id="doc">
-            <jsp:include page="top.jsp"/>
-		<div id="settings">
-			<div id="settings-container">
-				<div class="heading">
-					<h2>帐户设置</h2>
+</script>
+<h2 class="mb20">设置</h2>
+<div class="ui-tabs mt10">
+    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
+        <li class="ui-state-default crt2"><a href="#">头像</a></li>
+        <li class="ui-state-default crt2 ui-state-active"><a href="#">基本信息</a></li>
+        <li class="ui-state-default crt2"><a href="#">修改密码</a></li>
+    </ul>
+</div>
+<table class='qform'>
+	<tr>
+			<th align="right">当前密码：</th>
+			<td class='col-field'><input type='password' id="oldpassword" name="oldpassword" class='mttext' size='20'/></td>
+			<td class='col-help'>
+				<div class='label-box-good' id="passwordcorrect" style='display:none;'></div>
+				<div class='label-box-error' id="passwordwrong" style='display:none;'></div>
+			</td>
+	</tr>
+	<tr>
+			<th></th>
+			<td colspan='2' class='bottom'><span class='field-desc'><a class="lk" href="/password/fprget">密码忘记了？</a></span></td>
+	</tr>
+	<tr>
+			<th align="right">新密码：</th>
+			<td class='col-field'><input type='password' class='mttext' size='20'
+			id="newPassword" name="newPassword" onblur="checkNewPassword(this.value)"/></td>
+			<td class='col-help'>
+				<div class='label-box-good' id="newpasswordcorrect" style='display:none;'></div>
+				<div class='label-box-error'id="newpasswordwrong" style='display:none;'></div>
+			</td>
+	</tr>
+	<tr>
+			<th align="right">密码确认：</th>
+			<td class='col-field'><input type='password' class='mttext' size='20'
+			id="confirmPassword" name="confirmPassword" onblur="recheckPassword(this.value)"/></td>
+			<td class='col-help'>
+                   <div class='label-box-good'  style='display:none;' id="repasswordcorrect"></div>
+				<div class='label-box-error' style='display:none;' id="repasswordwrong"></div>
+			</td>
+	</tr>
+	<tr>
+		<th></th>
+		<td colspan='2'><button class='btn' type='button' onclick="check()">保存</button></td>
+	</tr>
+	<tr>
+		<th></th>
+		<td colspan='2'>
+			<div style='display:none;' id="savewrong"></div>
+			<div style='display:none;' id="savecorrect"></div>
+		</td>
+	</tr>
+</table>
+</div><jsp:include page="models/foot.jsp" />
 
-				</div>
-				<div id="tabs" class="ui-tabs ui-widget">
-					<jsp:include page="setting-tag.jsp">
-							<jsp:param value="basic" name="tab"/>
-						</jsp:include>
-					<div id="tabs-1" class="tab-canvas">
-						<form id="password-setting" action="">
-							<table id="setting-form" class='input-form'>
-								<tbody>
-									<tr>
-										<th><label for=''>当前密码：</label></th>
-										<td class='col-field'><input type='password' id="oldpassword" name="oldpassword" class='text_field' size='20'/></td>
 
-										<td class='col-help'>
-											<div class='label-box-good' id="passwordcorrect" style='display:none;'></div>
-											<div class='label-box-error' id="passwordwrong" style='display:none;'></div>
-										</td>
-									</tr>
-									<tr>
-										<th></th>
-										<td colspan='2' class='bottom'><span class='field-desc'><a href="">密码忘记了？</a></span></td>
-
-									</tr>
-									<tr>
-										<th><label for=''>新密码：</label></th>
-										<td class='col-field'><input type='password' class='text_field' size='20'
-										id="newPassword" name="newPassword" onblur="checkNewPassword(this.value)"/></td>
-										<td class='col-help'>
-											<div class='label-box-good' id="newpasswordcorrect" style='display:none;'></div>
-											<div class='label-box-error'id="newpasswordwrong" style='display:none;'></div>
-										</td>
-									</tr>
-
-									<tr>
-										<th></th>
-										<td colspan='2' class='bottom'><span class='field-desc'></span></td>
-									</tr>
-									<tr>
-										<th><label for=''>密码确认：</label></th>
-										<td class='col-field'><input type='password' class='text_field' size='20'
-										id="confirmPassword" name="confirmPassword" onblur="recheckPassword(this.value)"/></td>
-										<td class='col-help'>
-                                            <div class='label-box-good'  style='display:none;' id="repasswordcorrect"></div>
-											<div class='label-box-error' style='display:none;' id="repasswordwrong"></div>
-										</td>
-									</tr>
-									<tr>
-										<th></th>
-										<td colspan='2' class='bottom'></td>
-									</tr>
-									<tr>
-
-										<th></th>
-										<td colspan='2'><button class='button btn-x' type='button' onclick="check()">保存</button></td>
-									</tr>
-									 <tr>
-			                            <th></th>
-			                            <td colspan='2'>
-										 <div style='display:none;' id="savewrong"></div>
-		                                 <div style='display:none;' id="savecorrect"></div>
-		                                </td>
-
-			                        </tr>
-								</tbody>
-							</table>
-						</form>
-					</div>
-					<div id="tabs-2" class="tab-canvas">
-					</div>
-					<div id="tabs-3" class="tab-canvas">
-					</div>
-					<div id="tabs-4" class="tab-canvas">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-  </body>
-</html>

@@ -13,89 +13,89 @@ background:url("${staticUrlPrefix}/content/images/arrow/sh_ex2.png") no-repeat s
 span.tit{display:none;}
 </style>
 <script type="text/javascript">
-	seajs.use('qcomcn.js', function (q) {
-		var $ = q.jq;
-		$(function () {
-             q.Init();
-             
-             var lis = $("#sldroot>li");
-             var roll = $('#passroll');
-             var slider = $("#slider");
-             var root = $('#root');
-             root.click(function () {
-                 if (root.data("clicked")) {
-                    slider.animate({ left: 0 }, { duration: 500, easing: "swing" });
-                    $('span.tit', roll).text('');
-                    root.data("clicked", false);
-                 } 
-             });
-             
-			seajs.use('ICanHaz.js', function (ich) {
-				lis.click(function () {
-					window.gpid = parseInt($(this).attr('gpcid'));
-					$('span.tit',roll).text($('p.name',this).text()).show();
-					$.ajax({
-					    url: "${urlPrefix}/group",
-					    data: {size:6, catId: window.gpid, startid:'999999999999999999'},
-					   	success: function(json){
-					   		$("#sld2").html(ich.group(json));
-							slider.animate({left: -560}, { duration: 500, easing: "swing" });
-							root.data("clicked", true);
-					    }
-					});
-				});
-				$('#pagger>a.prev').live('click',function(){
-					$.ajax({
-					    url: "${urlPrefix}/group",
-					    data: {size:6, catId: window.gpid, startid: parseInt(lis.last().data('replyid')) - 1, type: 0},
-					   	success: function(json){
-					   		$("#sld2").html(ich.group(json));
-					    }
-					});
-				});
-				$('#pagger>a.next').live('click',function(){
-					$.ajax({
-					    url: "${urlPrefix}/group",
-					    data: {size:6, catId: window.gpid, startid: parseInt(lis.fast().data('replyid')) + 1, type: 1},
-					   	success: function(json){
-					   		$("#sld2").html(ich.group(json));
-					    }
-					});
-				});				
-			});
-			
-			$('#sld2 a.act').live('click',function(){
-				var li = $(this).parent('li');
+seajs.use('qcomcn.js', function (q) {
+	var $ = q.jq;
+	$(function () {
+         q.Init();
+         
+         var lis = $("#sldroot>li");
+         var roll = $('#passroll');
+         var slider = $("#slider");
+         var root = $('#root');
+         root.click(function () {
+             if (root.data("clicked")) {
+                slider.animate({ left: 0 }, { duration: 500, easing: "swing" });
+                $('span.tit', roll).text('');
+                root.data("clicked", false);
+             } 
+         });
+         
+		seajs.use('ICanHaz.js', function (ich) {
+			lis.click(function () {
+				window.gpid = parseInt($(this).attr('gpcid'));
+				$('span.tit',roll).text($('p.name',this).text()).show();
 				$.ajax({
-					url: '${urlPrefix}/group/' + li.attr('gid') + '/join',
-					type: 'POST',
-					msg:this,
-					success: function(json){
-						if(json == null){
-							$(this.msg).siblings('a.actun').show();
-							$(this.msg).hide();
-						}
-					}
+				    url: "${urlPrefix}/group",
+				    data: {size:6, catId: window.gpid, startid:'999999999999999999'},
+				   	success: function(json){
+				   		$("#sld2").html(ich.group(json));
+						slider.animate({left: -560}, { duration: 500, easing: "swing" });
+						root.data("clicked", true);
+				    }
 				});
 			});
-			$('#sld2 a.actun').live('click',function(){
-				var li = $(this).parent('li');
+			$('#pagger>a.prev').live('click',function(){
 				$.ajax({
-					url: '${urlPrefix}/group/' + li.attr('gid') + '/join',
-					type: 'POST',
-					data:{_method:'delete'},
-					msg:this,
-					success: function(json){
-						if(json == null){
-							$(this.msg).siblings('a.act').show();
-							$(this.msg).hide();
-						}
-					}
+				    url: "${urlPrefix}/group",
+				    data: {size:6, catId: window.gpid, startid: parseInt(lis.last().data('replyid')) - 1, type: 0},
+				   	success: function(json){
+				   		$("#sld2").html(ich.group(json));
+				    }
 				});
 			});
-			
+			$('#pagger>a.next').live('click',function(){
+				$.ajax({
+				    url: "${urlPrefix}/group",
+				    data: {size:6, catId: window.gpid, startid: parseInt(lis.fast().data('replyid')) + 1, type: 1},
+				   	success: function(json){
+				   		$("#sld2").html(ich.group(json));
+				    }
+				});
+			});				
 		});
+		
+		$('#sld2 a.act').live('click',function(){
+			var li = $(this).parent('li');
+			$.ajax({
+				url: '${urlPrefix}/group/' + li.attr('gid') + '/join',
+				type: 'POST',
+				msg:this,
+				success: function(json){
+					if(json == null){
+						$(this.msg).siblings('a.actun').removeClass('hide_im');
+						$(this.msg).addClass('hide_im');
+					}
+				}
+			});
+		});
+		$('#sld2 a.actun').live('click',function(){
+			var li = $(this).parent('li');
+			$.ajax({
+				url: '${urlPrefix}/group/' + li.attr('gid') + '/join',
+				type: 'POST',
+				data:{_method:'delete'},
+				msg:this,
+				success: function(json){
+					if(json == null){
+						$(this.msg).siblings('a.act').removeClass('hide_im');
+						$(this.msg).addClass('hide_im');
+					}
+				}
+			});
+		});
+		
 	});
+});
 </script>
 
 <div class="layout grid-s5m0e6">
