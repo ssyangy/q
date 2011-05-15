@@ -12,7 +12,6 @@ import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.dao.page.WeiboPage;
-import q.domain.Group;
 import q.domain.Weibo;
 import q.web.Resource;
 import q.web.ResourceContext;
