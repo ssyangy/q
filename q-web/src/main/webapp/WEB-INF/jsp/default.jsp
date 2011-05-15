@@ -38,6 +38,31 @@
             $(function () {
                 q.Init();
             });
+            check = function(){
+        		  var username=$("#username").val();
+        		  var password=$("#password").val();
+        		  $.ajax({
+        		    url: '${urlPrefix}/login',
+        		    type: 'POST',
+        		    dataType: 'json',
+        		    data:{password:password,username:username},
+        		    timeout: 5000,
+        		    error: function(){
+        		    	console.log("error");
+        		    },
+        		   	success: function(json){
+        		        if(json.id != null){
+        		            document.location.href="${urlPrefix}/group/feed"
+        		         } else {
+        		          var errorkind = errorType(json.error);
+        		          var errormsg = errorContext(json.error);
+        		          var loginWrong = $("#loginWrong");
+        		          loginWrong.css("display","block");
+        		          loginWrong.html(errormsg);
+        		      }
+        		    }
+				});
+			}            
         });
     </script>
 </head>
@@ -53,11 +78,11 @@
 				<tbody>
 					<tr>
 						<th>邮箱：</th>
-						<td><input type='text' class='mttext' size='23'></td>
+						<td><input type='text' class='mttext' size='23' accesskey='l'></td>
 					</tr>
 					<tr>
 						<th>密码：</th>
-						<td><input type='text' class='mttext' size='23'></td>
+						<td><input type='text' class='mttext' size='23' accesskey='l'></td>
 					</tr>
 					<tr>
 						<th></th>
@@ -65,7 +90,7 @@
 					</tr>
 					<tr>
 						<th></th>
-						<td><a href="#" class="btn">登 录</a><a href="signup.html" class="lk ml20">立即注册</a></td>
+						<td><a href="#" class="btn access_l" onclick="check()">登 录</a><a href="signup.html" class="lk ml20">立即注册</a></td>
 					</tr>
 				</tbody>
 			</table>
