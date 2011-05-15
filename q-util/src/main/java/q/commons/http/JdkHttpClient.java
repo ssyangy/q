@@ -14,11 +14,10 @@ import java.util.Map;
 
 /**
  * JDK实现的UrlFetch
- *
- * 在恶劣情况下，如果请求过于频繁（如每秒数百次）且单次请求耗时较长， 有可能导致客户端连接来不及释放，耗尽计算机端口资源。在这种环境 下，推荐使用
- * <code>com.taobao.api.HttpClientUrlFetch</code>
- *
- *
+ * 
+ * 在恶劣情况下，如果请求过于频繁（如每秒数百次）且单次请求耗时较长， 有可能导致客户端连接来不及释放，耗尽计算机端口资源。在这种环境 下，推荐使用 <code>com.taobao.api.HttpClientUrlFetch</code>
+ * 
+ * 
  */
 
 public class JdkHttpClient {
@@ -30,7 +29,7 @@ public class JdkHttpClient {
 
 	/**
 	 * 获得HttpUrlConnection链接
-	 *
+	 * 
 	 * @return
 	 * @throws IOException
 	 */
@@ -42,29 +41,31 @@ public class JdkHttpClient {
 		con.setConnectTimeout(connectTimeOut);
 		return con;
 	}
-    public static BufferedReader getSearch(HttpURLConnection connection){
-    	BufferedReader br;
-    	try{
-    	connection.connect();
-    	br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-    	}
-    	catch(Exception e){
-    		return null;
-    	}
-        return br;
-    }
+
+	public static BufferedReader getSearch(HttpURLConnection connection) {
+		BufferedReader br;
+		try {
+			connection.connect();
+			br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+		} catch (Exception e) {
+			return null;
+		}
+		return br;
+	}
+
 	/**
 	 * 释放HttpUrlConnection链接
-	 *
+	 * 
 	 * @param connection
 	 * @throws IOException
 	 */
 
-	public static void releaseUrlConnection(HttpURLConnection connection)  throws IOException{
+	public static void releaseUrlConnection(HttpURLConnection connection) throws IOException {
 		connection.getInputStream().close();
 		connection.disconnect();
 		connection = null;
 	}
+
 	public static String post(HttpURLConnection connection, Map<String, CharSequence> params) throws IOException {
 		String buffer = FetchUtil.paramsToBuffer(params.entrySet(), "&", "=");
 
@@ -78,35 +79,36 @@ public class JdkHttpClient {
 		String body = FetchUtil.inputStreamToString(connection.getInputStream());
 		return body;
 	}
-	public static String postString(HttpURLConnection connection,String data)throws IOException{
+
+	public static String postString(HttpURLConnection connection, String data) throws IOException {
 		connection.setRequestMethod("POST");
 		connection.setRequestProperty("User-Agent", "Mozilla/5.0");
 		connection.setDoInput(true);
 		connection.setDoOutput(true);
 		connection.addRequestProperty("Content-Type", "text/xml");
-		connection.addRequestProperty("charset","UTF-8");
-		OutputStream out=null;
-		try{
-		//data=URLEncoder.encode(data, "UTF-8");
-		out = connection.getOutputStream();
-		out.write(data.getBytes());
-		out.flush();
-		}
-		finally {
-		out.close();
+		connection.addRequestProperty("charset", "UTF-8");
+		OutputStream out = null;
+		try {
+			out = connection.getOutputStream();
+			out.write(data.getBytes());
+			out.flush();
+		} finally {
+			if (out != null) {
+				out.close();
+			}
 
 		}
 		String body = FetchUtil.inputStreamToString(connection.getInputStream());
 		return body;
 
 	}
-    public static InputStream getMultipart(HttpURLConnection connection) throws IOException{
-    	InputStream data=connection.getInputStream();
-         return data;
-    }
-   
 
-	public static String postMultipart(HttpURLConnection connection, Map<String, CharSequence> payload, InputStream bufin, String filename ,long length,String fileContentType) throws IOException {
+	public static InputStream getMultipart(HttpURLConnection connection) throws IOException {
+		InputStream data = connection.getInputStream();
+		return data;
+	}
+
+	public static String postMultipart(HttpURLConnection connection, Map<String, CharSequence> payload, InputStream bufin, String filename, long length, String fileContentType) throws IOException {
 		String boundary = Long.toString(System.currentTimeMillis(), 16);
 		byte[] data = null;
 		byte[] endData = null;
@@ -152,28 +154,18 @@ public class JdkHttpClient {
 
 	}
 
-	public static boolean exists(String   URLName){
-	      try   {
-	          HttpURLConnection.setFollowRedirects(false);
-	          HttpURLConnection   con   =
-	                (HttpURLConnection)   new   URL(URLName).openConnection();
-	          con.setRequestMethod("HEAD");
-	          return   (con.getResponseCode()   ==   HttpURLConnection.HTTP_OK);
-	          }
-	         catch  (Exception   e) {
-	                return   false;
-	          }
-	   }
+	public static boolean exists(String URLName) {
+		try {
+			HttpURLConnection.setFollowRedirects(false);
+			HttpURLConnection con = (HttpURLConnection) new URL(URLName).openConnection();
+			con.setRequestMethod("HEAD");
+			return (con.getResponseCode() == HttpURLConnection.HTTP_OK);
+		} catch (Exception e) {
+			return false;
+		}
+	}
 	/*
-	public static void main(String args[]) throws IOException{
-      String filePath="/home/zhao/下载/xx.jpg";
-      File a=new File(filePath);
-      Map<String, CharSequence> payload = new HashMap();
-		payload.put("imgdir", "a/");
-		URL temp = new URL("http://upload.qimg.net/upload.php");
-		HttpURLConnection con = JdkHttpClient.getHttpConnection(temp, 100000, 100000);
-        String xx=postMultipart(con,payload, a, "xx.jpg", "image/gif");
-        System.out.println(xx);
-	}*/
+	 * public static void main(String args[]) throws IOException{ String filePath="/home/zhao/下载/xx.jpg"; File a=new File(filePath); Map<String, CharSequence> payload = new HashMap(); payload.put("imgdir", "a/"); URL temp = new URL("http://upload.qimg.net/upload.php"); HttpURLConnection con = JdkHttpClient.getHttpConnection(temp, 100000, 100000); String xx=postMultipart(con,payload, a, "xx.jpg", "image/gif"); System.out.println(xx); }
+	 */
 
 }

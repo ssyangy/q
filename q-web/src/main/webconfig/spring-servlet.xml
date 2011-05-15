@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
-	<bean id="publicUrlMapping"
-		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	<bean id="publicUrlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
 			<value>
 				/*=router
@@ -12,8 +11,7 @@
 			<value>true</value>
 		</property>
 	</bean>
-	<bean id="jspViewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
 			<value>/WEB-INF/jsp/</value>
 		</property>
@@ -317,8 +315,8 @@
 		<property name="eventDao" ref="eventDao" />
 		<property name="groupDao" ref="groupDao" />
 	</bean>
-	<bean id="getErrorHungUp" class="q.web.error.getErrorHungUp"/>
-	<bean id="getErrorNotExist" class="q.web.error.getErrorNotExist"/>
+	<bean id="getErrorHungUp" class="q.web.error.getErrorHungUp" />
+	<bean id="getErrorNotExist" class="q.web.error.getErrorNotExist" />
 	<bean id="getErrorForbid" class="q.web.error.getErrorForbid" />
 
 	<!-- people web -->
@@ -407,7 +405,6 @@
 	</bean>
 	<bean id="getPasswordResetInvalid" class="q.web.people.GetPasswordResetInvalid">
 	</bean>
-	<bean id="getSettingIndex" class="q.web.people.GetSettingIndex" />
 	<bean id="getSettingBasic" class="q.web.people.GetSettingBasic">
 	</bean>
 	<bean id="addSetting" class="q.web.people.AddSetting">
@@ -455,7 +452,7 @@
 	<bean id="addCategory" class="q.web.category.AddCategory">
 		<property name="categoryDao" ref="categoryDao" />
 		<property name="redirectPath" value="/category" />
-		<property name="pictureService" ref="pictureService"/>
+		<property name="pictureService" ref="pictureService" />
 	</bean>
 	<bean id="getCategoryNew" class="q.web.category.GetCategoryNew">
 	</bean>
@@ -463,8 +460,8 @@
 	<!-- group web -->
 	<bean id="addGroup" class="q.web.group.AddGroup">
 		<property name="groupDao" ref="groupDao" />
-		<property name="searchService" ref="searchService"/>
-		<property name="pictureService" ref="pictureService"/>
+		<property name="searchService" ref="searchService" />
+		<property name="pictureService" ref="pictureService" />
 	</bean>
 	<bean id="getGroupNew" class="q.web.group.GetGroupNew">
 		<property name="categoryDao" ref="categoryDao" />
@@ -540,8 +537,8 @@
 
 	<!-- weibo web -->
 	<bean id="addWeibo" class="q.web.weibo.AddWeibo">
-		<property name="weiboService" ref="weiboService"/>
-		<property name="pictureService" ref="pictureService"/>
+		<property name="weiboService" ref="weiboService" />
+		<property name="pictureService" ref="pictureService" />
 	</bean>
 	<bean id="deleteWeibo" class="q.web.weibo.DeleteWeibo">
 		<property name="weiboDao" ref="weiboDao" />
