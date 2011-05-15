@@ -501,6 +501,7 @@
     <Content Include="scripts\qcomcn.js" />
     <Content Include="scripts\querystring.js" />
     <Content Include="scripts\sea.js" />
+    <Content Include="scripts-q\src\jquery-1.5.2.min.js" />
     <Content Include="scripts\ui\jquery.effects.blind.js" />
     <Content Include="scripts\ui\jquery.effects.bounce.js" />
     <Content Include="scripts\ui\jquery.effects.clip.js" />
@@ -542,6 +543,7 @@
     <Content Include="scripts\config.js" />
     <Content Include="demo\Todos.htm" />
     <Content Include="scripts\datediff.js" />
+    <Content Include="scripts-q\src\jQueryRotate.2.1.js" />
     <Content Include="usersimg\1.png" />
     <Content Include="usersimg\2.png" />
     <Content Include="usersimg\3.png" />
@@ -627,6 +629,7 @@
     </Content>
     <Content Include="Views\qcomcn\model\Weibo.cshtml" />
     <Content Include="resources\seajs-v0.9.0.zip" />
+    <Content Include="Views\qcomcn\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
