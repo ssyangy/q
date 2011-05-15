@@ -2,6 +2,14 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="圈子:${group.name}" />
 </jsp:include>
+<script type="text/javascript">
+    seajs.use('qcomcn.js', function (q) {
+        var $ = q.jq;
+        $(function () {
+            q.Init();
+        });
+    });
+</script>
 <div class="layout grid-s5m0e6">
     <div class="col-main"><div class="main-wrap pr10">
 		<jsp:include page="models/profile.jsp" />
