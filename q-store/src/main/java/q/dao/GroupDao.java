@@ -142,4 +142,10 @@ public interface GroupDao {
 	 */
 	List<Long> getGroupIdsByJoinPeopleIdAndGroupIds(long peopleId, List<Long> groupIds) throws SQLException;
 
+	/**
+	 * @param catIds
+	 * @return
+	 */
+	List<Group> getAllPromotedGroups(List<Long> catIds) throws SQLException;
+
 }

@@ -1,6 +1,7 @@
 package q.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public class Category extends AbstractDomain implements Serializable {
 	private static final long serialVersionUID = 1611557472302730738L;
-
+	
 	private String name;
 
 	private String intro;
@@ -33,6 +34,13 @@ public class Category extends AbstractDomain implements Serializable {
 
 	public void setGroups(List<Group> groups) {
 		this.groups = groups;
+	}
+	
+	public void addGroup(Group g) {
+		if(this.groups == null) {
+			this.groups = new ArrayList<Group>();
+		}
+		this.groups.add(g);
 	}
 
 	public String getName() {
@@ -94,4 +102,5 @@ public class Category extends AbstractDomain implements Serializable {
 	public String toString() {
 		return "Category [id=" + id + ", name=" + name + ", " + "intro=" + intro + ", status=" + status + ", created=" + created + ", modified=" + modified + "]";
 	}
+	
 }

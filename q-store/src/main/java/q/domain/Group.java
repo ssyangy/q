@@ -25,6 +25,23 @@ public class Group extends AbstractDomain implements Serializable {
 
 	private boolean joined;
 
+	private long categoryId;
+
+	/**
+	 * @param categoryId
+	 *            the categoryId to set
+	 */
+	public void setCategoryId(long categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	/**
+	 * @return the categoryId
+	 */
+	public long getCategoryId() {
+		return categoryId;
+	}
+
 	public int getJoinNum() {
 		return joinNum;
 	}

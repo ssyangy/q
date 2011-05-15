@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Q.com.cn</title>
-    <link href="${staicUrlPrfix}/content-q/jquery.ui.css")" rel="stylesheet" type="text/css" />
-    <link href="${staicUrlPrfix}/content-q/qcomcn.css")" rel="stylesheet" type="text/css" />
+    <link href="${staticUrlPrefix}/content-q/jquery.ui.css")" rel="stylesheet" type="text/css" />
+    <link href="${staticUrlPrefix}/content-q/qcomcn.css")" rel="stylesheet" type="text/css" />
     <style type="text/css">
 	    .wapper{position:relative;height:600px;width:800px;}
 	    #index{margin:20px auto;padding:20px 0px;width:800px;background-color:#fff;}
@@ -39,20 +41,20 @@
                 q.Init();
             });
             check = function(){
-        		  var username=$("#username").val();
+        		  var email=$("#email").val();
         		  var password=$("#password").val();
         		  $.ajax({
         		    url: '${urlPrefix}/login',
         		    type: 'POST',
         		    dataType: 'json',
-        		    data:{password:password,username:username},
+        		    data:{password:password,email:email},
         		    timeout: 5000,
         		    error: function(){
         		    	console.log("error");
         		    },
         		   	success: function(json){
         		        if(json.id != null){
-        		            document.location.href="${urlPrefix}/group/feed"
+        		            document.location.href="${urlPrefix}"
         		         } else {
         		          var errorkind = errorType(json.error);
         		          var errormsg = errorContext(json.error);
@@ -62,8 +64,27 @@
         		      }
         		    }
 				});
-			}            
+			}
+			            
         });
+function errorType(error){
+  var exist=error.indexOf(':');
+  if(exist>-1){
+    var errorkind=error.substring(0, exist);
+    return errorkind;
+  } else{
+	return null;
+  }
+}
+function errorContext(error){
+ var exist=error.indexOf(':');
+  if(exist>-1){
+    var errorcontext=error.substring(exist+1, error.length);
+    return errorcontext;
+  } else{
+	return null;
+  }
+}        
     </script>
 </head>
 <body>
@@ -74,23 +95,24 @@
 			<div class="slogan">找到志趣相投的朋友，吃喝玩乐应有尽有，圈子就是好玩！有圈子才尽兴！<br />喂！...你哪个圈儿的？！</div>
 		</div>
 		<div class="signin-area input-form">
+			<div class="" style="display: none;color:red;" id="loginWrong"></div>
 			<table>
 				<tbody>
 					<tr>
 						<th>邮箱：</th>
-						<td><input type='text' class='mttext' size='23' accesskey='l'></td>
+						<td><input id="email" name="email" type='text' class='mttext' size='23' accesskey='l'></td>
 					</tr>
 					<tr>
 						<th>密码：</th>
-						<td><input type='text' class='mttext' size='23' accesskey='l'></td>
+						<td><input id="password" name="password" type='text' class='mttext' size='23' accesskey='l'></td>
 					</tr>
 					<tr>
 						<th></th>
-						<td><input type="checkbox"> 保持登录状态<a href="forgot_password.html" class="lk ml20">忘记密码</a></td>
+						<td><input type="checkbox">保持登录状态<a href="${urlPrefix}/password/forget" class="lk ml20">忘记密码</a></td>
 					</tr>
 					<tr>
 						<th></th>
-						<td><a href="#" class="btn access_l" onclick="check()">登 录</a><a href="signup.html" class="lk ml20">立即注册</a></td>
+						<td><a href="#" class="btn access_l" onclick="check()">登 录</a><a href="${urlPrefix}/people/new" class="lk ml20">立即注册</a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -105,132 +127,45 @@
 					<h3>圈子分类</h3>
 					<table class="groups-cat" width="100%">
 						<tbody>
+							<c:forEach items="${cats}" var="cat" varStatus="status">
 							<tr>
-								<th><img src="images/clock.png"></th>
-								<td><div class="desc"><div class="action"><a href="">更多...</a></div><div>八小时以外是另一个我</div></div>
-									<div class="group"><a href="group.html">吃好喝好</a><a href="">泡吧</a><a href="">麻将</a><a href="">扑克</a><a href="">桌游</a><a href="">三国杀</a><a href="">旅行</a></div>
+								<th><img src="${cat.avatarPath}"></th>
+								<td>
+									<div class="desc">
+										<div class="action"><a href="${urlPrefix}/category">${cat.name}</a></div>
+									</div>
+									<div class="group">
+										<c:forEach items="${cat.groups}" var="group" varStatus="status">
+											<a href="${urlPrefix}/group/${group.id}">${group.name}</a>
+										</c:forEach>
+									</div>
 								</td>
 							</tr>
-							<tr>
-								<th><img src="images/clock.png"></th>
-								<td><div class="desc"><div class="action"><a href="">更多...</a></div><div>八小时以外是另一个我</div></div>
-									<div class="group"><a href="">吃好喝好</a><a href="">泡吧</a><a href="">麻将</a><a href="">扑克</a><a href="">桌游</a><a href="">三国杀</a><a href="">旅行</a></div>
-								</td>
-							</tr>
-							<tr>
-								<th><img src="images/clock.png"></th>
-								<td><div class="desc"><div class="action"><a href="">更多...</a></div><div>八小时以外是另一个我</div></div>
-									<div class="group"><a href="">吃好喝好</a><a href="">泡吧</a><a href="">麻将</a><a href="">扑克</a><a href="">桌游</a><a href="">三国杀</a><a href="">旅行</a></div>
-								</td>
-							</tr>
-							<tr>
-								<th><img src="images/clock.png"></th>
-								<td><div class="desc"><div class="action"><a href="">更多...</a></div><div>八小时以外是另一个我</div></div>
-									<div class="group"><a href="">吃好喝好</a><a href="">泡吧</a><a href="">麻将</a><a href="">扑克</a><a href="">桌游</a><a href="">三国杀</a><a href="">旅行</a></div>
-								</td>
-							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
 				</div>
-				<div class="member-online">
-					<div class="head-line">
-						<div class="head-h3"><h3>同城在线</h3></div>
-						<div class="location">上海 - 长宁区</div>
-						<div class="clear"></div>
-					</div>
-					<div class="photo-wall">
-						<div class="one-photo"><img src="images/1.png" width="72" height="72"></div>
-						<div class="one-photo"><img src="images/2.png" width="72" height="72"></div>
-						<div class="one-photo"><img src="images/3.png" width="72" height="72"></div>
-						<div class="one-photo"><img src="images/4.png" width="72" height="72"></div>
-						<div class="one-photo"><img src="images/5.png" width="72" height="72"></div>
-						<div class="one-photo"><img src="images/6.png" width="72" height="72"></div>
-						<div class="one-photo"><img src="images/7.png" width="72" height="72"></div>
-						<div class="one-photo"><img src="images/avatar3.jpg" width="72" height="72"></div>
-						<div class="one-photo"><img src="images/avatar5.jpeg" width="72" height="72"></div>
-						<div class="one-photo"><img src="images/1.png" width="72" height="72"></div>
-						<div class="one-photo"><img src="images/2.png" width="72" height="72"></div>
-						<div class="one-photo"><img src="images/3.png" width="72" height="72"></div>
-						<div class="clear"></div>
-					</div>
-				</div>
 			</div>
 			<div class="side">
-				<div class="hot-events">
-					<h3>活动ING</h3>
-					<table width="100%">
-						<tr>
-							<td width="17%">02-14</td>
-							<td width="23%">长宁区</td>
-							<td><a href="event.html">G+ 新天地单身派对</a></td>
-						</tr>
-						<tr>
-							<td width="17%">01-01</td>
-							<td width="23%">黄浦区</td>
-							<td><a href="">MUSE倒计时，苍井空</a></td>
-						</tr>
-						<tr>
-							<td width="17%">02-14</td>
-							<td width="23%">长宁区</td>
-							<td><a href="">G+ 新天地单身派对</a></td>
-						</tr>
-						<tr>
-							<td width="17%">01-01</td>
-							<td width="23%">黄浦区</td>
-							<td><a href="">MUSE倒计时，苍井空</a></td>
-						</tr>
-						<tr>
-							<td width="17%">02-14</td>
-							<td width="23%">长宁区</td>
-							<td><a href="">G+ 新天地单身派对</a></td>
-						</tr>
-						<tr>
-							<td width="17%">01-01</td>
-							<td width="23%">黄浦区</td>
-							<td><a href="">MUSE倒计时，苍井空</a></td>
-						</tr>
-						<tr>
-							<td width="17%">02-14</td>
-							<td width="23%">长宁区</td>
-							<td><a href="">G+ 新天地单身派对</a></td>
-						</tr>
-						<tr>
-							<td width="17%">01-01</td>
-							<td width="23%">黄浦区</td>
-							<td><a href="">MUSE倒计时，苍井空</a></td>
-						</tr>
-					</table>
-				</div>
 				<div class="hot-tweets">
 					<h3>热议ING</h3>
-					<div class="one-tweet">
-						<div class="avatar">
-							<img src="images/avatar3.jpg">
+					<c:forEach items="${hotWeibos}" var="weibo">
+						<div class="one-tweet">
+							<div class="avatar">
+								<a href="${urlPrefix}/people/${weibo.people.id}">
+									<img src="${weibo.people.avatarPath}-24">
+								</a>
+							</div>
+							<div class="brief">
+								<a href="${urlPrefix}/people/${weibo.people.id}" class="author">${weibo.people.realName}</a>
+								<a href="${urlPrefix}/weibo/${weibo.id}">
+									<q:omit maxLength="40">${weibo.content}</q:omit>
+								</a>
+							</div>
+							<div class="clear"></div>
 						</div>
-						<div class="brief">
-							<a href="" class"author">Lodge</a>：话说每年也只有315的时候，国内的媒体才有功夫打假之类的，不然怎么可能所有的的事情都在315的时候爆出来，平时就没见报过啥呢
-						</div>
-						<div class="clear"></div>
-					</div>
-					<div class="one-tweet">
-						<div class="avatar">
-							<img src="images/avatar3.jpg">
-						</div>
-						<div class="brief">
-							<a href="" class"author">Lodge</a>：发现家里有一瓶梅子酒…喝着梅酒看中央电视台
-						</div>
-						<div class="clear"></div>
-					</div>
-					<div class="one-tweet">
-						<div class="avatar">
-							<img src="images/avatar3.jpg">
-						</div>
-						<div class="brief">
-							<a href="" class"author">Lodge</a>：话说每年也只有315的时候，国内的媒体才有功夫打假之类的，不然怎么可能所有的的事情都在315的时候爆出来，平时就没见报过啥呢
-						</div>
-						<div class="clear"></div>
-					</div>
+					</c:forEach>
 				</div>
 			</div>
 			<div class="clear"></div>

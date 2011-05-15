@@ -32,21 +32,17 @@ public class AddLogin extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		String username = context.getString("username");
+		String email = context.getString("email");
 		String password = context.getString("password");
-		People people = this.peopleDao.getPeopleByEmail(username);
+		People people = this.peopleDao.getPeopleByEmail(email);
 		if (null == people) {
-			throw new PeopleNotExistException("username:邮箱不存在");
+			throw new PeopleNotExistException("email:邮箱不存在");
 		}
 		if (!people.getPassword().equals(password)) {
 			throw new PeopleLoginPasswordException("password:密码错误");
 		}
 		context.setModel("people", people);
 		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), people.getRealName(), people.getUsername())); // set login cookie
-		String from = context.getString("from"); // redirect to origin refferr
-		if (from == null) {
-			context.redirectServletPath("");
-		}
 	}
 
 	/*

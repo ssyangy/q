@@ -236,4 +236,13 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see q.dao.GroupDao#getAllPromotedGroups(java.util.List)
+	 */
+	@Override
+	public List<Group> getAllPromotedGroups(List<Long> catIds) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

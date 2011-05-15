@@ -41,7 +41,7 @@
 			<a href="#" class='btn btnw24'><span class='btnarror'></span>已加入|退出</a>
 		</div>
 		<div class="component">
-			<h3>新成员<span class='separator'> · · · · · ·</span><a class='arr'>更多</a></h3>
+			<h3>新成员</h3>
 			<jsp:include page="models/groups-newmembers.jsp" />
 		</div>
 	</div>

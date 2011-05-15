@@ -192,6 +192,7 @@ create table group_join_category(
 	id bigint unsigned not null primary key,
 	group_id bigint unsigned not null,
 	category_id bigint unsigned not null,
+	promote tinyint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null)

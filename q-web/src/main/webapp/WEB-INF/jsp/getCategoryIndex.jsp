@@ -127,7 +127,7 @@ seajs.use('qcomcn.js', function (q) {
                         <img src="{{avatarPath}}" alt="avtor" class="sldimg" />
                         <a class='btn act {{#joined}}hide_im{{/joined}}'>关注</a>
                         <a class='btn actun	 {{^joined}}hide_im{{/joined}}'>取消关注</a>
-                        <p><a href='/group/{{id}}' class='lk'>{{name}}</a></p>
+                       <p><a href='${urlPrefix}/group/{{id}}' class='lk'>{{name}}</a></p>
                         <p>成员：{{joinNum}}人&nbsp;&nbsp;创建于：{{screenTime}}</p>
                         <p>{{intro}}</p>
                     </li>
@@ -149,7 +149,7 @@ seajs.use('qcomcn.js', function (q) {
     <div class="col-extra pt20">
 
         <div class="component">
-        <h3>圈子推荐<span class='separator'> · · · · · ·</span><a class='arr'>更多</a></h3>
+        <h3>圈子推荐</h3>
         <ul class="slist">
             <li>
                     <a href="#"><img class="img48" src="/usersimg/1.png" alt="img" /></a>
