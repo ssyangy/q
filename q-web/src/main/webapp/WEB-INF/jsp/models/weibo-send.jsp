@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-		<script type="text/javascript" src="${staticUrlPrefix}/scripts-q/jquery-1.5.2.min.js"></script>
-     	<script type="text/javascript" src="${staticUrlPrefix}/scripts-q/jQueryRotate.2.1.js"></script>
+		<script type="text/javascript" src="${staticUrlPrefix}/scripts-q/src/jquery-1.5.2.min.js"></script>
+     	<script type="text/javascript" src="${staticUrlPrefix}/scripts-q/src/jQueryRotate.2.1.js"></script>
       	<script type="text/javascript">
+        seajs.use('qcomcn.js', function (q) {
+        	var $ = q.jq;
+        	$(function () {
+        		q.init();
+        	});
+        });
       	var isImg=false;
 	    var upimgfix = 0;
 	    var realHeight;
@@ -154,35 +160,35 @@
 <div class="inputbx">
     <textarea id="inputmain" name="content" class="mttextar_val">说点什么 . . .</textarea>
     <div id="inputbtm" class="rel mt5 clear height0">
-        <div class="tal">
-            插入：<a class="lk mr10">表情</a> <a id='trDialog_img' class="lk mr10">图片</a>
-        </div>
-		<div id='upimgpbox' class='hide'>
-			<img id="img" src='#' class='img160' /><br />
-			<a id='upimgdel' class="link">删除</a>
-		</div>
-		<c:choose>
-			<c:when test="${param['selectGroup'] != null}">
-				<select name="groupId">
-					<option value="0">发到圈子？</option>
-					<c:forEach items="${selectGroups}" var="group">
-		                <option value="${group.id}">${group.name}</option>
-	                </c:forEach>
-	            </select>
-			</c:when>
-			<c:otherwise>
-				<input type="hidden" name="groupId" value="${group.id}" />
-			</c:otherwise>
-		</c:choose>
-        <input id="btnSubTweet" type="button" name="name" value="发表" class="btn btninp" />
-		<input type="hidden" name="from" value="${param['from']}"/>
-		<input type="hidden" name="picPath" id="picPath" />
-		<input type="hidden" name="upimgfix" id="upimgfix"  />        
+	<div class="tal">
+		插入：<a class="lk mr10">表情</a> <a id='trDialog_img' class="lk mr10">图片</a>
+	</div>
+	<div id='upimgpbox' class='hide'>
+		<img id="img" src='#' class='img160' /><br />
+		<a id='upimgdel' class="link">删除</a>
+	</div>
+	<c:choose>
+		<c:when test="${param['selectGroup'] != null}">
+			<select name="groupId">
+				<option value="0">发到圈子？</option>
+				<c:forEach items="${selectGroups}" var="group">
+	                <option value="${group.id}">${group.name}</option>
+	               </c:forEach>
+	           </select>
+		</c:when>
+		<c:otherwise>
+			<input type="hidden" name="groupId" value="${group.id}" />
+		</c:otherwise>
+	</c:choose>
+	<input id="btnSubTweet" type="button" name="name" value="发表" class="btn btninp" />
+	<input type="hidden" name="from" value="${param['from']}"/>
+	<input type="hidden" name="picPath" id="picPath" />
+	<input type="hidden" name="upimgfix" id="upimgfix"  />
     </div>
 </div>
 </form>
 
-<div id="dia_img" title="上传图片">
+<div id="dia_img" class='ui_dialog' title="上传图片">
 <form action="${urlPrefix}/WeiboPicture"  id="formImg" name="formImg"  encType="multipart/form-data" method="post" onsubmit="return up()" target="hidden_frame" >
 <input type="file" name="file" id="file" accept="image/gif, image/jpeg" onchange="check()" style="width:450"></input>
 <div style='display:none;' id="imgWrong"></div>
