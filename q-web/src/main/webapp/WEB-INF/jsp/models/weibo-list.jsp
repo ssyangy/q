@@ -3,11 +3,10 @@
 <script type="text/javascript">
     seajs.use('qcomcn.js', function (q) {
     	var $ = q.jq;
-
         seajs.use('app/weibo.js', function (w) {
             var ajaxweibo = function(size,startid){
                 $.ajax({
-                    send:function(){ ajlock = false; },
+                    send: function(){ ajlock = false; },
                     url: "${param['feedUrl']}?tab=${param['tab']}",
                     data: {size:size, startId:startid, search:"${param['search']}"},
                     success: function(json){
@@ -20,14 +19,12 @@
                     complete: function(){ ajlock = true; }
                 });
             }
-            
             $(function () {
                 w.preui();
+    	        var ajlock = true;                
                 ajaxweibo(8,'999999999999999999');
-            	
             	var body = $('#body');
     	        var o = body[0];
-    	        var ajlock = true;
                 var updateweibo = function(){
                 	if (o.scrollTop + gWinHeight < o.scrollHeight) return;
                    	if (!ajlock) return;

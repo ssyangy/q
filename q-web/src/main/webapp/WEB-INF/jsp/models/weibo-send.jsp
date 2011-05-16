@@ -6,12 +6,12 @@ var upimgfix = 0;
 var realHeight;
 var realWidth;
 var imgPath;
-var hasPicture = false;
 seajs.use('qcomcn.js', function (q) {
     var $ = q.jq;
     seajs.use('jq.rotate.js');
     seajs.use('jq.ui.js');
     seajs.use('jq.ui.help.js');
+    
     $(function () {
         $('#inputmain').focus(function () {
             $(this).css('height', '40');
@@ -34,18 +34,33 @@ seajs.use('qcomcn.js', function (q) {
             }
             isImg = false;
         });
-        var dia_img = $("#dia_img");
+        dia_img = $("#dia_img");
+        bindImgDia = function () {
+            dia_img.dialog("open");
+            upimgfix = 0;
+        }
+        dia_img.data('hasPicture',false);
         $('input.donet', dia_img).click(function () {
-            if (hasPicture) {
+            if (dia_img.data('hasPicture')) {
                 $("#picPath").attr("value", imgPath);
                 $("#upimgfix").attr("value", upimgfix);
-                setImg();
+                
+                if (realHeight > realWidth) {
+                    $("#img").attr("width", 160 * realWidth / realHeight);
+                    $("#img").attr("height", 160);
+                }
+                else {
+                    $("#img").attr("height", 160 * realHeight / realWidth);
+                    $("#img").attr("width", 160);
+                }
+                $("#img").attr("src", imgPath + "-160");
+                
                 $('#trDialog_img').unbind();
                 $('#upimgpbox').removeClass('hide');
                 $('#upimgpbox img').rotate(upimgfix);
                 $('#file').attr("value", "");
                 $('ol.files').addClass('hide');
-                haspicture = false;
+                dia_img.data('hasPicture',false);
             }
             $("#file").attr("value", '');
             dia_img.dialog("close");
@@ -64,10 +79,7 @@ seajs.use('qcomcn.js', function (q) {
             $("#upimgfix").attr("value", upimgfix);
             dia_img.dialog("close");
         });        
-        bindImgDia = function () {
-            dia_img.dialog("open");
-            upimgfix = 0;
-        }
+
         $("#trDialog_img").bind('click', bindImgDia);
         $('#upimgdel').click(function () {
             $("#file").attr("value", '');
@@ -91,63 +103,23 @@ seajs.use('qcomcn.js', function (q) {
             upimgfix += 270;
         });
         $("#radio").buttonset();
-        var button = $('#btnUploadImg'), interval;
+        var check = function () {
+            var filepath = document.getElementById("file").value;
+            filepath = filepath.substring(filepath.lastIndexOf('.') + 1, filepath.length);
+            if (filepath != 'jpg' && filepath != 'gif' && filepath != 'png' && filepath != 'jpeg' && filepath != 'JPEG' && filepath != 'JPG' && filepath != 'GIF') {
+                $("#imgwrong").css("display", "block");
+                $("#imgwrong").html("这不是一个图片文件!");
+                document.getElementById("file").value = "";
+                isImg = false;
+                return;
+            }
+            $("#imgwrong").css("display", "none");
+            isImg = true;
+        }
+        $('#file').bind('click',check);
+        $('#upimgsub').bind('onchange',check);
+        $('#formImg').bind('submit',function () { return isImg; });
     });
-    check = function () {
-        var filepath = document.getElementById("file").value;
-        filepath = filepath.substring(filepath.lastIndexOf('.') + 1, filepath.length);
-        if (filepath != 'jpg' && filepath != 'gif' && filepath != 'png' && filepath != 'jpeg' && filepath != 'JPEG' && filepath != 'JPG' && filepath != 'GIF') {
-            $("#imgwrong").css("display", "block");
-            $("#imgwrong").html("这不是一个图片文件!");
-            document.getElementById("file").value = "";
-            isImg = false;
-            return;
-        }
-        $("#imgwrong").css("display", "none");
-        isImg = true;
-    }
-    up = function () { return isImg; }
-    notAImg = function () {
-        isImg = false;
-        $("#imgwrong").css("display", "block");
-        $("#imgwrong").html("这不是一个图片文件!");
-    }
-    reloadImg = function (x, y, z) {
-        realHeight = x;
-        realWidth = y;
-        imgPath = z;
-        $('ol.files').removeClass('hide');
-        $("#picPath").attr("value", imgPath);
-        if (realHeight > realWidth) {
-            max = "height";
-            imageWidth = realWidth * 320 / realHeight;
-            imageHeight = 320;
-        }
-        else {
-            max = "width";
-            imageHeight = realHeight * 320 / realWidth;
-            imageWidth = 320;
-        }
-        $("#upimg").attr("width", imageWidth);
-        $("#upimg").attr("height", imageHeight);
-        $("#upimg").attr("src", imgPath + "-320");
-        $('#upimg').rotate(upimgfix);
-        hasPicture = true;
-    }
-    wrong = function(s) {
-        alert(s);
-    }
-    setImg = function() {
-        if (realHeight > realWidth) {
-            $("#img").attr("width", 160 * realWidth / realHeight);
-            $("#img").attr("height", 160);
-        }
-        else {
-            $("#img").attr("height", 160 * realHeight / realWidth);
-            $("#img").attr("width", 160);
-        }
-        $("#img").attr("src", imgPath + "-160");
-    }
 });
 </script>
 <form action="${urlPrefix}/weibo" method="post">
@@ -176,7 +148,7 @@ seajs.use('qcomcn.js', function (q) {
 	<div id='upimgpbox' class='hide'>
 		<img id="img" src='#' class='img160' /><br />
 		<a id='upimgdel' class="link">删除</a>
-	</div>    
+	</div>
 </div>
 </form>
 
@@ -184,7 +156,7 @@ seajs.use('qcomcn.js', function (q) {
 <form action="${urlPrefix}/WeiboPicture"  id="formImg" name="formImg" encType="multipart/form-data" method="post" onsubmit="return up()" target="hidden_frame" >
 	<input type="file" name="file" id="file" accept="image/gif, image/jpeg" onchange="check()" style="width:450"></input>
 	<div style='display:none;' id="imgWrong"></div>
-	<input type="submit" value="上传图片" onclick="check()"></input>
+	<input id='upimgsub' type="submit" value="上传图片" onclick="check()"></input>
 	<p>Uploaded files:</p>
 	<ol class='files hide' >
 		<div class='upimgbox middle imgrote'><img id='upimg'  src='' /></div>
