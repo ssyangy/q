@@ -2,13 +2,6 @@
 <jsp:include page="models/head-unsign.jsp">
 	<jsp:param name="title" value="补充个人资料" />
 </jsp:include>
-    <style type="text/css">
-    .wapper{position:relative;height:600px;}
-    #logo{top:200px;font-size:28px;}
-    .content{position:absolute;top:260px;left:60px;}
-    p{line-height:26px;}
-    </style>
-	<script src="${staticUrlPrefix}/scripts-q/sea.js" type="text/javascript"></script>
 	<script type="text/javascript">
 	areas=${rootArea.childsJson};
 	seajs.use('qcomcn.js', function (q) {
@@ -132,7 +125,7 @@ seajs.use('jq.area.js',function(area){
 				</td>                
 			</tr>        
 			<tr>
-				<th align="right">家乡：</th>
+				<td align="right">家乡：</td>
 				<td>
 					<select class='select' name="hometownProvince" id="selHometownProvince">
 					</select>
@@ -147,7 +140,7 @@ seajs.use('jq.area.js',function(area){
 				</td>
 			</tr>
 			<tr>
-				<th align="right">性别：</th>
+				<td align="right">性别：</td>
 				<td>
 					<input type='radio'  name="gender" value="1" onclick="checkGender()" />
 					<span class='value-label' >男</span>&nbsp;
@@ -160,14 +153,14 @@ seajs.use('jq.area.js',function(area){
 				</td>
 			</tr>
 			<tr>
-				<th align="right">生日：</th>
+				<td align="right">生日：</td>
 				<td class='col-field' colspan='2'>
 		             <jsp:include page="models/dateSelect.jsp" />
 				</td>
 			</tr>
 			<tr>
-				<th align="right">手机：</th>
-				<td><input name="mobile" id="mobile" type='text' class='text_field' size='20' onblur="checkMobile(this.value)"/></td>
+				<td align="right">手机：</td>
+				<td><input name="mobile" id="mobile" type='text' class='mttext' size='20' onblur="checkMobile(this.value)"/></td>
 				<td class="col-help">
                       <div class="label-box-good" style="display: none;"
                            	id="mobilecorrect"></div>
@@ -176,7 +169,7 @@ seajs.use('jq.area.js',function(area){
                 </td>
 			</tr>
 			<tr>
-				<th>感兴趣的圈子：</th>
+				<td align="right>感兴趣的圈子：</td>
 				<td align="right">
 					<c:forEach items="${groups}" var="group">
 						<input name="group" type='checkbox' value="${group.id}"/><span class='group-name'>${group.name}</span>
