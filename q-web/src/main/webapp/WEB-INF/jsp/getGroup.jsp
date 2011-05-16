@@ -36,9 +36,15 @@
 	<div class="col-extra">
 		<div style="height:110px;">
 			<p>由YAO创建于${group.time}</p><br />
-			<a href="#" class='btn'>加入</a>
+			<c:choose>
+				<c:when test="${join == null}">
+						<a class="btn" href="#" onclick="joinGroup(this,'${group.id}')">加入</button>
+				</c:when>
+				<c:otherwise>
+						<a class="btn btnw24" href="#" onclick="unJoinGroup(this,'${group.id}')">已加入,退出</button>
+				</c:otherwise>
+			</c:choose>			
 			<a href="#" class='btna'>管理</a><br /><br />
-			<a href="#" class='btn btnw24'><span class='btnarror'></span>已加入|退出</a>
 		</div>
 		<div class="component">
 			<h3>新成员</h3>
