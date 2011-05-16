@@ -43,6 +43,12 @@ public class AddLogin extends Resource {
 		}
 		context.setModel("people", people);
 		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), people.getRealName(), people.getUsername())); // set login cookie
+
+		if (!context.isApiRequest()) {
+			if (context.getString("from") == null) {
+				context.redirectServletPath("");
+			}
+		}
 	}
 
 	/*
@@ -52,7 +58,7 @@ public class AddLogin extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		
+
 	}
 
 }
