@@ -3,12 +3,13 @@
 <sqlMap namespace="groups">
 	<typeAlias alias="group" type="q.domain.Group" />
 	<typeAlias alias="pjg" type="q.domain.PeopleJoinGroup" />
+	<typeAlias alias="gjc" type="q.domain.GroupJoinCategory" />
 	<resultMap id="groupResult" class="group">
 		<result property="id" column="id" />
 		<result property="creatorId" column="creator_id" />
 		<result property="name" column="name" />
 		<result property="intro" column="intro" />
-		<result property="avatarPath" column="avatar_path"/>
+		<result property="avatarPath" column="avatar_path" />
 		<result property="longitude" column="longitude" />
 		<result property="latitude" column="latitude" />
 		<result property="status" column="status" />
@@ -25,8 +26,12 @@
 		<result property="peopleId" column="people_id" />
 		<result property="groupId" column="group_id" />
 		<result property="status" column="status" />
-		<result property="created" column="created" />
-		<result property="modified" column="modified" />
+	</resultMap>
+	<resultMap id="gjcResult" class="gjc">
+		<result property="id" column="id" />
+		<result property="groupId" column="group_id" />
+		<result property="categoryId" column="category_id" />
+		<result property="status" column="status" />
 	</resultMap>
 
 	<sql id="group.columns">
@@ -41,6 +46,18 @@
 		created,
 		modified,
 		join_num
+	</sql>
+	<sql id="pjg.columns">
+		id,
+		people_id,
+		group_id,
+		status
+	</sql>
+	<sql id="gjc.columns">
+		id,
+		group_id,
+		category_id,
+		status
 	</sql>
 
 	<select id="selectIdNamesByIds" resultMap="groupIdNameResult">
@@ -102,6 +119,21 @@
 		category_id = #value#
 	</select>
 
+	<select id="getPromotedGroupJoinCategoriesByCatIds" resultMap="gjcResult">
+		select
+		<include refid="gjc.columns" />
+		from
+		group_join_category
+		where
+		status = 0 and promote > 0
+		<isNotNull prepend="and " property="categoryIds">
+			category_id in
+			<iterate property="categoryIds" open="(" close=")" conjunction=",">
+				#categoryIds[]#
+        	</iterate>
+		</isNotNull>
+	</select>
+
 	<select id="selectNewGroups" resultMap="groupResult">
 		select
 		<include refid="group.columns" />
@@ -147,15 +179,6 @@
 		null
 		)
 	</insert>
-
-	<sql id="pjg.columns">
-		id,
-		people_id,
-		group_id,
-		status,
-		created,
-		modified
-	</sql>
 
 	<insert id="insertPeopleJoinGroup">
 		insert into people_join_group
@@ -224,6 +247,7 @@
 			limit #startIndex#, #size#
 		</isNotNull>
 	</select>
+
 	<select id="selectJoinGroupIdsByPage" resultClass="long">
 		select group_id
 		from people_join_group

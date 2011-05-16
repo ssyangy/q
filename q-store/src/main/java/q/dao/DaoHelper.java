@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 import q.dao.page.PeopleRelationPage;
+import q.domain.Category;
 import q.domain.Event;
 import q.domain.Favorite;
 import q.domain.Group;
@@ -603,6 +604,29 @@ public class DaoHelper {
 		for (Group g : groups) {
 			if (joinedGroupIdSet.contains(g.getId())) {
 				g.setJoined(true);
+			}
+		}
+	}
+
+	/**
+	 * @param groupDao
+	 * @param categorys
+	 * @throws SQLException 
+	 */
+	public static void injectCategoriesWithPromotedGroups(GroupDao groupDao, List<Category> categorys) throws SQLException {
+		List<Long> catIds = new ArrayList<Long>(categorys.size());
+		Map<Long, Category> catId2CatMap = new HashMap<Long, Category>(categorys.size());
+		for (Category cat : categorys) {
+			catIds.add(cat.getId());
+			catId2CatMap.put(cat.getId(), cat);
+		}
+		List<Group> promotedGroups = groupDao.getAllPromotedGroups(catIds);
+		if (CollectionKit.isNotEmpty(promotedGroups)) {
+			for (Group group : promotedGroups) {
+				Category category = catId2CatMap.get(group.getCategoryId());//现在一个群只支持一个类目推荐位
+				if (category != null) {
+					category.addGroup(group);
+				}
 			}
 		}
 	}
