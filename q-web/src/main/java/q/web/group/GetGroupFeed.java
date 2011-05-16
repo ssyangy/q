@@ -91,7 +91,6 @@ public class GetGroupFeed extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
 
 	}
 }

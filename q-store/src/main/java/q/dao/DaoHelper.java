@@ -631,4 +631,15 @@ public class DaoHelper {
 		}
 	}
 
+	/**
+	 * @param peopleDao
+	 * @param group
+	 */
+	public static void injectGroupWithCreator(PeopleDao peopleDao, Group group) throws SQLException{
+		if(group == null) {
+			return;
+		}
+		group.setCreator(peopleDao.getPeopleById(group.getCreatorId()));
+	}
+
 }

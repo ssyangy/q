@@ -33,8 +33,6 @@ public class GetPeopleFull extends Resource {
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// FIXME wanglin
-
 	}
 
 }

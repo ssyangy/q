@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
 <jsp:include page="models/head-unsign.jsp">
 	<jsp:param name="title" value="补充个人资料" />
 </jsp:include>
@@ -160,7 +162,7 @@ seajs.use('jq.area.js',function(area){
 			</tr>
 			<tr>
 				<td align="right">手机：</td>
-				<td><input name="mobile" id="mobile" type='text' class='mttext' size='20' onblur="checkMobile(this.value)"/></td>
+				<td><input name="mobile" id="mobile" type='text' class='mttext' size='20' onblur="checkMobile(this.value)" value="${people.mobile}"/></td>
 				<td class="col-help">
                       <div class="label-box-good" style="display: none;"
                            	id="mobilecorrect"></div>
@@ -169,24 +171,23 @@ seajs.use('jq.area.js',function(area){
                 </td>
 			</tr>
 			<tr>
-				<td align="right>感兴趣的圈子：</td>
+				<td align="right">感兴趣的圈子：</td>
 				<td align="right">
 					<c:forEach items="${groups}" var="group">
 						<input name="group" type='checkbox' value="${group.id}"/><span class='group-name'>${group.name}</span>
 					</c:forEach>
 				</td>
 				<td class="col-help">
-					<div class="label-box-good" style="display: none;"
-					    	id="groupcorrect"></div>
-					<div class="label-box-error"style="display:none;"
-					    	id="groupwrong"></div>
-					</td>
-				</tr>
+					<div class="label-box-good" style="display: none;" id="groupcorrect"></div>
+					<div class="label-box-error"style="display:none;" id="groupwrong"></div>
+				</td>
+			</tr>
 
 			<tr>
 				<td></td>
-				<td><button class='ui_btn' type='submit'>完成</button>
-				<input type='hidden' name='form' value="/group">
+				<td>
+					<button class='ui_btn' type='submit'>完成</button>
+					<input type='hidden' name='from' value="/"/>
 				</td>
 			</tr>
 		</table>

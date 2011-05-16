@@ -65,7 +65,7 @@ public class GetGroup extends Resource {
 		long loginPeopleId = context.getCookiePeopleId();
 		int size = context.getInt("size", 10);
 		long startId = context.getIdLong("startId");
-		String tab = context.getString("tab");
+		//String tab = context.getString("tab");
 
 		WeiboPage page = new WeiboPage();
 		page.setGroupId(groupId);
@@ -74,9 +74,9 @@ public class GetGroup extends Resource {
 		if (startId > 0) {
 			page.setStartId(startId);
 		}
-		if ("created".equals(tab)) {
-			page.setSenderId(loginPeopleId);
-		}
+//		if ("created".equals(tab)) {
+//			page.setSenderId(loginPeopleId);
+//		}
 		List<Long> weiboIds = weiboDao.getWeiboIdsByPage(page);
 		List<Weibo> weibos = weiboDao.getWeibosByIds(weiboIds, true);
 		DaoHelper.injectWeiboModelsWithQuote(weiboDao, weibos);

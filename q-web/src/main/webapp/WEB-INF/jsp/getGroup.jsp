@@ -37,7 +37,7 @@
 	</div>
 	<div class="col-extra">
 		<div style="height:110px;">
-			<p>由YAO创建于${group.time}</p><br />
+			<p>由${group.creator.realName}创建于${group.time}</p><br />
 			<c:choose>
 				<c:when test="${join == null}">
 						<a class="btn" href="#" onclick="joinGroup(this,'${group.id}')">加入</button>

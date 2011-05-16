@@ -206,12 +206,12 @@
 		<tr>
 			<td align="right">生日：</td>
 			<td class='col-field' colspan='2'>
-				 <jsp:include page="dateSelect.jsp" />
+				 <jsp:include page="models/dateSelect.jsp" />
 			</td>
 		</tr>
 		<tr>
 			<td align="right">博客或个人网址：</td>
-			<td class='col-field'><input type='text' input name="url" value="${people.url}"
+			<td class='col-field'><input type='text' name="url" value="${people.url}"
 			class='mttext' size='40' id="url" onblur="checkUrl(this.value)"></td>
 			<td class="col-help">
     	          <div class="label-box-good" style="display: none;"

@@ -26,6 +26,8 @@ public class Group extends AbstractDomain implements Serializable {
 	private boolean joined;
 
 	private long categoryId;
+	
+	private People creator;
 
 	/**
 	 * @param categoryId
@@ -136,6 +138,21 @@ public class Group extends AbstractDomain implements Serializable {
 		return joined;
 	}
 
+
+	/**
+	 * @param creator the creator to set
+	 */
+	public void setCreator(People creator) {
+		this.creator = creator;
+	}
+
+	/**
+	 * @return the creator
+	 */
+	public People getCreator() {
+		return creator;
+	}
+	
 	@Override
 	public String toString() {
 		return "Group [id=" + id + ", creatorId=" + creatorId + ", name=" + name + ", intro=" + intro + ", longitude=" + longitude + ", latitude=" + latitude + ", status=" + status + ", created=" + created + ", modified=" + modified + "]";

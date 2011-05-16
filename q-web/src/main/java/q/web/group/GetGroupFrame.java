@@ -7,14 +7,13 @@ import q.dao.EventDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
-import q.domain.Event;
 import q.domain.Group;
 import q.domain.People;
 import q.domain.PeopleJoinGroup;
 import q.domain.Status;
-import q.domain.Weibo;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.RequestParameterInvalidException;
 
 public class GetGroupFrame extends Resource {
 	private GroupDao groupDao;
@@ -45,6 +44,10 @@ public class GetGroupFrame extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long groupId = context.getResourceIdLong();
 		Group group = groupDao.getGroupById(groupId);
+		if(group == null) {
+			throw new RequestParameterInvalidException("group:invalid");
+		}
+		DaoHelper.injectGroupWithCreator(peopleDao, group);
 		context.setModel("group", group);
 
 		long loginPeopleId = context.getCookiePeopleId();
@@ -85,7 +88,6 @@ public class GetGroupFrame extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
 
 	}
 }
