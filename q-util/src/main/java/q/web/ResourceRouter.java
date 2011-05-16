@@ -191,6 +191,9 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 			resource = this.defaultResource;
 			resource.setName("default");
 		} else {
+			if("error".equals(segs[0])) {//XXX sean, e.g /error/notExist
+				resource = this.getGetResource(resourceName);
+			}else {
 			// get resource by resourceName and method
 			if (HTTP_METHOD_POST.equals(method)) {
 				String _method = request.getParameter(HTTP_INNER_METHOD);
@@ -208,6 +211,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 			} else if (HTTP_METHOD_GET.equals(method)) {
 				resource = this.getGetResource(resourceName);
 			}
+			} 
 		}
 		log.debug("get resource:%s by method:%s and path:%s, resourceName:%s", resource, method, path, resourceName);
 		return resource;
