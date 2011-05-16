@@ -4,12 +4,14 @@
 package q.dao.ibatis;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import q.dao.GroupDao;
+import q.dao.page.GroupJoinCategoryPage;
 import q.dao.page.PeopleJoinGroupPage;
 import q.domain.Group;
 import q.domain.GroupJoinCategory;
@@ -189,7 +191,6 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 
 	@Override
 	public List<Group> getGroupsByLocation(Group myLocation) throws SQLException {
-
 		@SuppressWarnings("unchecked")
 		List<Group> groups = this.sqlMapClient.queryForList("selectGroupsByLocation", myLocation);
 		return groups;
@@ -236,13 +237,32 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.dao.GroupDao#getAllPromotedGroups(java.util.List)
 	 */
 	@Override
-	public List<Group> getAllPromotedGroups(List<Long> catIds) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Group> getAllPromotedGroups(List<Long> categoryIds) throws SQLException {
+		GroupJoinCategoryPage page = new GroupJoinCategoryPage();
+		page.setCategoryIds(categoryIds);
+		@SuppressWarnings("unchecked")
+		List<GroupJoinCategory> joins = this.sqlMapClient.queryForList("getPromotedGroupJoinCategoriesByCatIds", page);
+		if (CollectionKit.isEmpty(joins)) {
+			return null;
+		}
+		Map<Long, GroupJoinCategory> groupId2CatMap = new HashMap<Long, GroupJoinCategory>(joins.size());
+		for (GroupJoinCategory join : joins) {
+			groupId2CatMap.put(join.getGroupId(), join);
+		}
+		Set<Long> groupIdSet = groupId2CatMap.keySet();
+		List<Group> groups = this.getGroupsByIds(new ArrayList<Long>(groupIdSet));
+		for (Group group : groups) {
+			GroupJoinCategory join = groupId2CatMap.get(group.getId());
+			if (join != null) {
+				group.setCategoryId(join.getCategoryId());
+			}
+		}
+		return groups;
 	}
-
 }

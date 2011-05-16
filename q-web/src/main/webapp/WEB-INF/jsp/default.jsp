@@ -104,7 +104,7 @@ function errorContext(error){
 					</tr>
 					<tr>
 						<th>密码：</th>
-						<td><input id="password" name="password" type='text' class='mttext' size='23' accesskey='l'></td>
+						<td><input id="password" name="password" type='password' class='mttext' size='23' accesskey='l'></td>
 					</tr>
 					<tr>
 						<th></th>
