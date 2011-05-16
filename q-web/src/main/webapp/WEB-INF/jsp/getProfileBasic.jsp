@@ -1,14 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html>
-  <head>
-    <jsp:include page="head.jsp" />
-    <jsp:include page="js-areas.jsp" />
+<jsp:include page="models/head.jsp">
+	<jsp:param name="title" value="设置" />
+</jsp:include>
 	<script type="text/javascript">
+	areas=${rootArea.childsJson};
+	seajs.use('qcomcn.js', function (q) {
+		$ = q.jq;
+		$(function () {
+	         q.Init();
+		});
+	});
 	function checkrealName(a){
        if(a.length<1||a.length>12){
        $("#realNamecorrect").css("display","none");
@@ -124,148 +126,107 @@ $(document).ready(function(){
 		//$tabs.tabs('select', 0);
 		});
 	</script>
-  </head>
-  <body >
-	<div id="doc">
-	      <jsp:include page="top.jsp"/>
-		<div id="settings">
-			<div id="settings-container">
-				<div class="heading">
-					<h2>个人资料设定</h2>
-				</div>
-				<div id="tabs" class="ui-tabs ui-widget">
-						<jsp:include page="profile-tag.jsp">
-							<jsp:param value="basic" name="tab"/>
-						</jsp:include>
-					<div id="tabs-1" class="tab-canvas">
-						<table id="setting-form" class='input-form'>
-							<tbody>
-								<tr>
-									<th><label for=''>昵称：</label></th>
-									<td class='col-field'>
-									<input type='text' value="${people.realName}" class='text_field' size='20' id="realName" onblur="checkrealName(this.value)">
 
-									</input>
-									</td>
-									<td class="col-help">
-					     	          <div class="label-box-good" style="display: none;"
-						              id="realNamecorrect"></div>
-						              <div class="label-box-error" style="display: none;"
-							          id="realNamewrong"></div>
-					            	</td>
-								</tr>
-								<tr>
-									<th></th>
-									<td colspan='2' class='bottom'><span class='field-desc'></span></td>
-								</tr>
-								<tr>
-													<th><label for=''>所在地：</label></th>
-													<td class='col-field'>
-														<select class='select' name="province" id="selProvince"  onchange="changeCity()">
-														</select>
-														<select class='select' name="city" id="selCity" onchange="changeCounty()">
-														</select>
-														<select class='select' name="county" id="selCounty">
-														</select>
-													</td>
-													<td class='col-help'>
-														<div class='label-box-good' style='display:none;' id="locationcorrect"></div>
-														<div class='label-box-error' style='display:none;' id="locationwrong"></div>
-													</td>
-												</tr>
-								<tr>
-									<th></th>
-									<td colspan='2' class='bottom'><span class='field-desc'></span></td>
-								</tr>
-								<tr>
-													<th><label for=''>家乡：</label></th>
-													<td class='col-field'>
-														<select class='select' name="hometownProvince" id="selHometownProvince"  onchange="changeHometownCity()">
-														</select>
-														<select class='select' name="hometownCity" id="selHometownCity" onchange="changeHometownCounty()">
-														</select>
-														<select class='select' name="hometownCounty" id="selHometownCounty">
-														</select>
-													</td>
-													<td class='col-help'>
-														<div class='label-box-good' style='display:none;' id="hometowncorrect"></div>
-														<div class='label-box-error' style='display:none;' id="hometownwrong"></div>
-													</td>
-												</tr>
-								<tr>
-									<th></th>
-									<td colspan='2' class='bottom'><span class='field-desc'></span></td>
-								</tr>
-								<tr>
-									<th><label for=''>性别：</label></th>
-									<td class='col-field'>
-										<input type='radio' value='1' name="gender" id="male" <c:choose><c:when test="${people.gender.value == 1}">checked="checked"</c:when></c:choose> />
-										<span class='value-label'>男</span>&nbsp;&nbsp;
-										<input type='radio' value='2' name="gender" id="female" <c:choose><c:when test="${people.gender.value == 2}">checked="checked"</c:when></c:choose>/>
-										<span class='value-label'>女</span>
-									</td>
-									<td class='col-help'>
-										<div class='label-box-good'></div>
-									</td>
-								</tr>
-								<tr>
-									<th></th>
-									<td colspan='2' class='bottom'><span class='field-desc'></span></td>
-								</tr>
-								<tr>
-									<th><label for=''>生日：</label></th>
-									<td class='col-field' colspan='2'>
-										 <jsp:include page="models/dateSelect.jsp" />
-									</td>
-								</tr>
-								<tr>
-									<th></th>
-									<td colspan='2'  class='bottom'><span class='field-desc'></span></td>
-								</tr>
-								<tr>
-									<th><label for=''>博客或个人网址：</label></th>
-									<td class='col-field'><input type='text' input name="url" value="${people.url}"
-									class='text_field' size='40' id="url" onblur="checkUrl(this.value)"></td>
-									<td class="col-help">
-					     	          <div class="label-box-good" style="display: none;"
-						              id="urlcorrect"></div>
-						              <div class="label-box-error" style="display: none;"
-							          id="urlwrong"></div>
-					            	</td>
-								</tr>
-								<tr>
-									<th></th>
-									<td colspan='2'  class='bottom'><span class='field-desc'></span></td>
-								</tr>
-								<tr>
-									<th><label for=''>关于我：</label></th>
-									<td class='col-field'><textarea cols="50" rows="6" id="intro">${people.intro}</textarea></td>
-									<td class='col-help'></td>
-								</tr>
-								<tr>
-									<th></th>
-									<td colspan='2'  class='bottom'><span class='field-desc'></span></td>
-								</tr>
-								<tr>
-										<th></th>
-										<td colspan='2'><button class='button btn-x' type="button" onclick="check()" >保存修改</button></td>
+<h2>个人资料设定</h2>
+<div class="ui-tabs mt10">
+    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
+        <li class="ui-state-default crt2"><a href="${urlPrefix}/profile/avatar">头像</a></li>
+        <li class="ui-state-default crt2 ui-state-active"><a href="${urlPrefix}/profile/basic">基本信息</a></li>
+        <li class="ui-state-default crt2"><a href="${urlPrefix}/setting/basic">修改密码</a></li>
+    </ul>
+</div>
+<div class='tabscont'>
+<table id="setting-form" class='qform'>
+		<tr>
+			<th align="right">昵称：</th>
+			<td class='col-field'>
+			<input type='text' value="${people.realName}" class='mttext' size='20' id="realName" onblur="checkrealName(this.value)">
 
-			                    </tr>
-			                    <tr>
-			                            <th></th>
-			                            <td colspan='2'>
-										 <div style='display:none;' id="savewrong"></div>
-		                                 <div style='display:none;' id="savecorrect"></div>
-		                                </td>
+			</input>
+			</td>
+			<td class="col-help">
+    	          <div class="label-box-good" style="display: none;"
+              id="realNamecorrect"></div>
+              <div class="label-box-error" style="display: none;"
+	          id="realNamewrong"></div>
+           	</td>
+		</tr>
+		<tr>
+							<th align="right">所在地：</th>
+							<td class='col-field'>
+								<select class='select' name="province" id="selProvince"  onchange="changeCity()">
+								</select>
+								<select class='select' name="city" id="selCity" onchange="changeCounty()">
+								</select>
+								<select class='select' name="county" id="selCounty">
+								</select>
+							</td>
+							<td class='col-help'>
+								<div class='label-box-good' style='display:none;' id="locationcorrect"></div>
+								<div class='label-box-error' style='display:none;' id="locationwrong"></div>
+							</td>
+						</tr>
+		<tr>
+							<th align="right">家乡：</th>
+							<td class='col-field'>
+								<select class='select' name="hometownProvince" id="selHometownProvince"  onchange="changeHometownCity()">
+								</select>
+								<select class='select' name="hometownCity" id="selHometownCity" onchange="changeHometownCounty()">
+								</select>
+								<select class='select' name="hometownCounty" id="selHometownCounty">
+								</select>
+							</td>
+							<td class='col-help'>
+								<div class='label-box-good' style='display:none;' id="hometowncorrect"></div>
+								<div class='label-box-error' style='display:none;' id="hometownwrong"></div>
+							</td>
+						</tr>
+		<tr>
+			<th align="right">性别：</th>
+			<td class='col-field'>
+				<input type='radio' value='1' name="gender" id="male" <c:choose><c:when test="${people.gender.value == 1}">checked="checked"</c:when></c:choose> />
+				<span class='value-label'>男</span>&nbsp;&nbsp;
+				<input type='radio' value='2' name="gender" id="female" <c:choose><c:when test="${people.gender.value == 2}">checked="checked"</c:when></c:choose>/>
+				<span class='value-label'>女</span>
+			</td>
+			<td class='col-help'>
+				<div class='label-box-good'></div>
+			</td>
+		</tr>
+		<tr>
+			<th align="right">生日：</th>
+			<td class='col-field' colspan='2'>
+				 <jsp:include page="dateSelect.jsp" />
+			</td>
+		</tr>
+		<tr>
+			<th align="right">博客或个人网址：</th>
+			<td class='col-field'><input type='text' input name="url" value="${people.url}"
+			class='mttext' size='40' id="url" onblur="checkUrl(this.value)"></td>
+			<td class="col-help">
+    	          <div class="label-box-good" style="display: none;"
+              id="urlcorrect"></div>
+              <div class="label-box-error" style="display: none;"
+	          id="urlwrong"></div>
+           	</td>
+		</tr>
+		<tr>
+			<th align="right">关于我：</th>
+			<td class='col-field'><textarea cols="50" rows="6" id="intro">${people.intro}</textarea></td>
+			<td class='col-help'></td>
+		</tr>
+		<tr>
+				<th></th>
+				<td colspan='2'><button class='btn' type="button" onclick="check()" >保存修改</button></td>
 
-			                    </tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</div>
-  </body>
-</html>
+                 </tr>
+                 <tr>
+                         <th></th>
+                         <td colspan='2'>
+				 <div style='display:none;' id="savewrong"></div>
+                             <div style='display:none;' id="savecorrect"></div>
+                            </td>
+                 </tr>
+</table>
+</div>
+</div><jsp:include page="models/foot.jsp" />					

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="圈子:${group.name}" />
 </jsp:include>

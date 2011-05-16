@@ -12,6 +12,7 @@ import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.dao.page.WeiboPage;
+import q.domain.People;
 import q.domain.Weibo;
 import q.web.Resource;
 import q.web.ResourceContext;
@@ -20,7 +21,7 @@ import q.web.ResourceContext;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 16, 2011
- *
+ * 
  */
 public class GetGroup extends Resource {
 	private GroupDao groupDao;
@@ -55,7 +56,7 @@ public class GetGroup extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -87,6 +88,10 @@ public class GetGroup extends Resource {
 		context.setModel("weibos", weibos);
 
 		if (!context.isApiRequest()) {
+			if (loginPeopleId > 0) {
+				People me = this.peopleDao.getPeopleById(loginPeopleId);
+				context.setModel("people", me);
+			}
 			GetGroupFrame frame = new GetGroupFrame();
 			frame.setEventDao(eventDao);
 			frame.setGroupDao(groupDao);
@@ -99,7 +104,7 @@ public class GetGroup extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
