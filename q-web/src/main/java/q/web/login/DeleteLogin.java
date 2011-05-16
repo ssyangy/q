@@ -24,7 +24,7 @@ public class DeleteLogin extends Resource {
 		((q.web.DefaultResourceContext) context).removeLoginCookie();
 		String from = context.getString("from"); // redirect to origin refferr
 		if (from == null) {
-			context.redirectServletPath("");
+			context.redirectServletPath("/");
 		}
 	}
 
