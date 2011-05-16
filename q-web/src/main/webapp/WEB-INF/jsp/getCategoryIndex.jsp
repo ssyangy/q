@@ -151,43 +151,16 @@ seajs.use('qcomcn.js', function (q) {
         <div class="component">
         <h3>圈子推荐</h3>
         <ul class="slist">
-            <li>
-                    <a href="#"><img class="img48" src="/usersimg/1.png" alt="img" /></a>
+            <c:forEach items="${recommendGroups}" var="group" varStatus="status">
+            <li class="<c:if test="${status.count%3==0}">end</c:if>">
+                <a href="${urlPrefix}/group/${group.id}">
+                	<img class="img48" src="${group.avatarPath}" alt="img" />
+                </a>
                 <div class="gray">
-                    GEEK POWER
+                    <a href="${urlPrefix}/group/${group.id}">${group.name}</a>
                 </div>
             </li>
-            <li class="">
-                    <a href="#"><img class="img48" src="/usersimg/sago.jpg" alt="img" /></a>
-                <div class="gray">
-                    公司秘书丝袜
-                </div>
-            </li>
-
-            <li class="end">
-                    <a href="#"><img class="img48" src="/usersimg/7.png" alt="img" /></a>
-                <div class="gray">
-                    有木有！！～
-                </div>
-            </li>
-            <li class="">
-                    <a href="#"><img class="img48" src="/usersimg/sago.jpg" alt="img" /></a>
-                <div class="gray">
-                    公司秘书丝袜
-                </div>
-            </li>
-            <li>
-                    <a href="#"><img class="img48" src="/usersimg/4.png" alt="img" /></a>
-                <div class="gray">
-                    波多野结衣
-                </div>
-            </li>
-            <li class='end'>
-                    <a href="#"><img class="img48" src="/usersimg/1.png" alt="img" /></a>
-                <div class="gray">
-                    波多野结衣
-                </div>
-            </li>
+			</c:forEach>
         </ul>
         </div>
 

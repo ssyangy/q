@@ -466,6 +466,7 @@
 	</bean>
 	<bean id="getGroupNew" class="q.web.group.GetGroupNew">
 		<property name="categoryDao" ref="categoryDao" />
+		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="getGroup" class="q.web.group.GetGroup">
 		<property name="groupDao" ref="groupDao" />

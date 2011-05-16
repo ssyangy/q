@@ -21,6 +21,8 @@ public class GroupJoinCategory implements Serializable{
 	private Date created;
 
 	private Date modified;
+	
+	private int promote;
 
 	public long getId() {
 		return id;
@@ -73,6 +75,20 @@ public class GroupJoinCategory implements Serializable{
 	@Override
 	public String toString() {
 		return "Category [id=" + id + ", groupId=" + groupId + ", " + "categoryId=" + categoryId + ", status=" + status + ", created=" + created + ", modified=" + modified + "]";
+	}
+
+	/**
+	 * @param promote the promote to set
+	 */
+	public void setPromote(int promote) {
+		this.promote = promote;
+	}
+
+	/**
+	 * @return the promote
+	 */
+	public int getPromote() {
+		return promote;
 	}
 
 }

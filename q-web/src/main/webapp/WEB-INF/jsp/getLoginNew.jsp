@@ -10,7 +10,7 @@
         <table class='qform'>
 			<tr>
 				<td align="right">邮箱：</td>
-				<td><input name="username" type='text' class='mttext' size='23'></td>
+				<td><input name="email" type='text' class='mttext' size='23'></td>
 			</tr>
 			<tr>
 				<td align="right">密码：</td>

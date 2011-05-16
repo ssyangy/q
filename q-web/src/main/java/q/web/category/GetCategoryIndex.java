@@ -6,7 +6,9 @@ import java.util.List;
 import q.dao.CategoryDao;
 import q.dao.DaoHelper;
 import q.dao.GroupDao;
+import q.dao.page.GroupRecommendPage;
 import q.domain.Category;
+import q.domain.Group;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -35,6 +37,20 @@ public class GetCategoryIndex extends Resource {
 		List<Category> categories = categoryDao.getAllCategorys();
 		DaoHelper.injectCategoriesWithPromotedGroups(groupDao, categories);
 		context.setModel("cats", categories);
+		if (!context.isApiRequest()) {
+			long loginId = context.getCookiePeopleId();
+			if (loginId > 0) {
+				List<Group> groups = groupDao.getGroupsByJoinPeopleId(loginId);
+				context.setModel("groups", groups);
+			}
+			List<Group> recommendGroups = null;
+			GroupRecommendPage page = new GroupRecommendPage();
+			if (loginId > 0) {
+				page.setPeopleId(loginId);
+			}
+			recommendGroups = groupDao.getRecommendGroupsByPage(page);
+			context.setModel("recommendGroups", recommendGroups);
+		}
 	}
 
 	/*

@@ -26,12 +26,17 @@
 		<result property="peopleId" column="people_id" />
 		<result property="groupId" column="group_id" />
 		<result property="status" column="status" />
+		<result property="created" column="created" />
+		<result property="modified" column="modified" />
 	</resultMap>
 	<resultMap id="gjcResult" class="gjc">
 		<result property="id" column="id" />
 		<result property="groupId" column="group_id" />
 		<result property="categoryId" column="category_id" />
+		<result property="promote" column="promote" />
 		<result property="status" column="status" />
+		<result property="created" column="created" />
+		<result property="modified" column="modified" />
 	</resultMap>
 
 	<sql id="group.columns">
@@ -51,13 +56,18 @@
 		id,
 		people_id,
 		group_id,
-		status
+		status,
+		created,
+		modified
 	</sql>
 	<sql id="gjc.columns">
 		id,
 		group_id,
 		category_id,
-		status
+		promote,
+		status,
+		created,
+		modified		
 	</sql>
 
 	<select id="selectIdNamesByIds" resultMap="groupIdNameResult">
@@ -112,6 +122,25 @@
 		order by created desc
 	</select>
 
+	<select id="getGroupsByPage" resultMap="groupResult">
+		select
+		<include refid="group.columns" />
+		from `group`
+		<dynamic prepend="where ">
+			<isNotNull prepend="and " property="groupIds">
+				group_id in
+				<iterate property="groupIds" open="(" close=")" conjunction=",">
+					#groupIds[]#
+	        	</iterate>
+			</isNotNull>
+			<isNotNull prepend="and " property="startId">
+				id &lt;= #startId#
+			</isNotNull>
+		</dynamic>
+		order by id desc
+		limit #startIndex#, #size#
+	</select>
+
 	<select id="selectGroupIdsByCatId" resultClass="long">
 		select group_id
 		from group_join_category
@@ -132,14 +161,6 @@
 				#categoryIds[]#
         	</iterate>
 		</isNotNull>
-	</select>
-
-	<select id="selectNewGroups" resultMap="groupResult">
-		select
-		<include refid="group.columns" />
-		from `group`
-		order by created desc
-		limit #value#;
 	</select>
 
 	<insert id="insertGroup">
@@ -164,16 +185,12 @@
 	<insert id="insertGroupJoinCategory">
 		insert into group_join_category
 		(
-		id,
-		group_id,
-		category_id,
-		status,
-		created,
-		modified
+		<include refid="gjc.columns" />
 		) values (
 		#id#,
 		#groupId#,
 		#categoryId#,
+		#promote#,
 		0,
 		now(),
 		null
@@ -188,7 +205,7 @@
 		#id#,
 		#peopleId#,
 		#groupId#,
-		#status#,
+		0,
 		now(),
 		null
 		)

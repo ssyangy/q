@@ -12,7 +12,7 @@
     window.loginCookie = '${loginCookie.peopleId}';
     window.urlprefix = '${urlPrefix}';
 </script>
-<jsp:include page="models/js-common.jsp" />
+<jsp:include page="js-common.jsp" />
 </head>
 <body>
 <div class="body">
