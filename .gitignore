@@ -1,0 +1,7 @@
+*/target/*
+
+!.gitignore
+*/.*/*
+*~
+*.[ao]
+*/logq/*
