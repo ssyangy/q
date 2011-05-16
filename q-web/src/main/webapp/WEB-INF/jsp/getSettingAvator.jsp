@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="models/head.jsp">
-	<jsp:param name="title" value="修改密码" />
+	<jsp:param name="title" value="设置" />
 </jsp:include>
 <script type="text/javascript">
 
@@ -96,12 +96,12 @@ function check() {
 });
 }
 </script>
-<h2 class="mb20">修改密码</h2>
+<h2 class="mb20">设置</h2>
 <div class="ui-tabs mt10">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
         <li class="ui-state-default crt2"><a href="#">头像</a></li>
-        <li class="ui-state-default crt2"><a href="#">基本信息</a></li>
-        <li class="ui-state-default crt2 ui-state-active"><a href="#">修改密码</a></li>
+        <li class="ui-state-default crt2 ui-state-active"><a href="#">基本信息</a></li>
+        <li class="ui-state-default crt2"><a href="#">修改密码</a></li>
     </ul>
 </div>
 <table class='qform'>

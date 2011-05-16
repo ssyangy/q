@@ -1,19 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html>
-  <head>
-    <jsp:include page="head.jsp" />
-    <link rel="stylesheet" type="text/css" href="${staticUrlPrefix}/style/jcrop/jquery-jcrop-0.9.8.css"  />
+<jsp:include page="models/head.jsp">
+	<jsp:param name="title" value="修改头像" />
+</jsp:include>
+    <link rel="stylesheet" type="text/css" href="${staticUrlPrefix}/content-q/jcrop/jquery-jcrop-0.9.8.css"  />
      <style type="text/css">
     .imgbox{float:left;width:300px;margin-right:10px;}
     .imgmain{float:left;width:600px;}
-     </style>
-    <script type="text/javascript" src="${staticUrlPrefix}/js/jquery-jcrop-0.9.8.min.js"></script>
+     </style>    
+    <script type="text/javascript" src="${staticUrlPrefix}/scripts-q/src/jq.jcrop.js"></script>     
 	<script type="text/javascript">
+	seajs.use('qcomcn.js', function (q) {
+		$ = q.jq;
+		$(function () {
+	         q.Init();
+		});
+	});
     var realWidth;
     var realHeight;
     var imageWidth;
@@ -261,21 +263,16 @@
 	}
 }
 	</script>
-  </head>
-  <body >
-	<div id="doc">
-	  <jsp:include page="top.jsp"/>
-	 	<div id="settings">
-			<div id="settings-container">
-				<div class="heading">
-					<h2>个人资料设定</h2>
-				</div>
-				   <div id="tabs" class="ui-tabs ui-widget">
-						<jsp:include page="profile-tag.jsp">
-							<jsp:param value="avatar" name="tab"/>
-						</jsp:include>
 
-<div id="tabs-2" class="tabs-widget clearfix pt10">
+<h2>设置头像</h2>
+<div class="ui-tabs mt10">
+    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
+        <li class="ui-state-default crt2"><a href="#">头像</a></li>
+        <li class="ui-state-default crt2 ui-state-active"><a href="#">基本信息</a></li>
+        <li class="ui-state-default crt2"><a href="#">修改密码</a></li>
+    </ul>
+</div>
+<div class='tabscont'>
 
 <div class="imgbox"><div id="myImage"></div></div>
 <div class="imgmain">
@@ -301,15 +298,10 @@
 	<div style='display:none;' id="savecorrect"></div>
 	<input type="button" id="saveButton" style='display:none;' value='保存' onclick="save()"></input>
 	<input type="button" id="cancelButton" style='display:none;' value='取消' ></input>
-
 </div>
 </div>
 
 </div>
 
-				</div>
-			</div>
-		</div>
-	</div>
-  </body>
-</html>
+</div>
+<jsp:include page="models/foot.jsp" />		
