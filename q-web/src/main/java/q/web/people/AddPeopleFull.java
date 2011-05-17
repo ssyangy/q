@@ -96,6 +96,9 @@ public class AddPeopleFull extends Resource {
 		if (this.peopleDao.getPeopleById(peopleId) == null) {
 			throw new PeopleNotExistException("people:用户不存在");
 		}
+		
+		int gender = context.getInt("gender", -1);
+		PeopleValidator.validateGender(gender);
 
 		int provinceId = context.getInt("province", -1);
 		int cityId = context.getInt("city", -1);
@@ -111,11 +114,6 @@ public class AddPeopleFull extends Resource {
 			AreaValidator.check(hometownProvinceId, hometownCityId, hometownCountyId);
 		}
 
-		int gender = context.getInt("gender", -1);
-		if (gender > 0) {
-			PeopleValidator.validateGender(gender);
-		}
-		
 		int year = context.getInt("year", -1);
 		int month = context.getInt("month", -1);
 		int day = context.getInt("day", -1);

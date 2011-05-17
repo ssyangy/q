@@ -82,6 +82,11 @@ public class AddWeiboReply extends Resource {
 		if(IdCreator.isNotValidId(quoteId)) {
 			throw new RequestParameterInvalidException("weibo:invalid");
 		}
+		
+		String content = context.getString("content");
+		if(null == content) {
+			throw new RequestParameterInvalidException("content:invalid");
+		}
 
 	}
 }
