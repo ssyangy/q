@@ -9,7 +9,7 @@
 #root{color:#FF0065;cursor:pointer;}
 #root:hover{text-decoration:underline;}
 span.pass {display:inline-block;zoom:1;*display:inline;position:relative;width:14px;height:14px;
-background:url("${staticUrlPrefix}/content/images/arrow/sh_ex2.png") no-repeat scroll 0 0 transparent;}
+background:url("${staticUrlPrefix}/content-q/images/arrow/sh_ex2.png") no-repeat scroll 0 0 transparent;}
 span.tit{display:none;}
 </style>
 <script type="text/javascript">

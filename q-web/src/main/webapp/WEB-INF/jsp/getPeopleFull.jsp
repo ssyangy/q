@@ -76,15 +76,13 @@ seajs.use('jq.area.js',function(area){
 	     var monthx=document.getElementById("selMonth");
 	     var dayx=document.getElementById("selDay");
 
-
-         $.each(yearx.options, function(index, option) {
+		$.each(yearx.options, function(index, option) {
 		 	 if(option.value==yeartemp){
 			    option.selected='selected';
 			 }
-	
-		 });
-         monthx.options[monthtemp-1].selected='selected';
-         dayx.options[daytemp-1].selected='selected';
+		});
+        if(monthtemp != '0') monthx.options[monthtemp-1].selected='selected';
+        if(daytemp != '0') dayx.options[daytemp-1].selected='selected';
 		         
 	    provinceExist='${people.area.myProvince.id}';
         cityExist='${people.area.myCity.id}';
@@ -94,9 +92,9 @@ seajs.use('jq.area.js',function(area){
         hometownCityExist='${people.hometown.myCity.id}';
         hometownCountyExist='${people.hometown.myCounty.id}';
         
-        area.initArea();
-        area.initHometownArea();
-		
+        area.changeProvince();
+        area.changeHometownProvince();
+        
 		$("select[name='province']").bind('change',area.changeCity);
 		$("select[name='city']").bind('change',area.changeCounty);
 		$("select[name='hometownProvince']").bind('change',area.changeHometownCity);
