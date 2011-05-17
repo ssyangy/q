@@ -123,7 +123,6 @@
             }
             $('div.extend', this.el).toggle();
         },
-        defajaxurl: { size: 10, type: 0 },
         rrprev: function () {
             var lis = $('li.repbox', this.el);
             var urlp = { startid: parseInt(lis.last().data('replyid')) - 1 };

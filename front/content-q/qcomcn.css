@@ -75,3 +75,7 @@ ul.mabe li{border:none 0;}
 
 table.qform td{padding:10px;}
 table.qform td[align="right"]{vertical-align:top;padding-top:16px;}
+
+.tweet{padding:0 0 0 68px;position:relative;font-size:14px;}
+.tweet img.avator{position:absolute;top:0;left:0;}
+.tweet p{line-height:24px;}
