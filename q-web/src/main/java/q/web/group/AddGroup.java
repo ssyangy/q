@@ -6,6 +6,7 @@ package q.web.group;
  * @date Feb 15, 2011
  *
  */
+import q.biz.PictureService;
 import q.biz.SearchService;
 import q.dao.GroupDao;
 import q.domain.Group;
@@ -35,6 +36,12 @@ public class AddGroup extends Resource {
 		this.searchService = searchService;
 	}
 
+	private PictureService pictureService;
+
+	public void setPictureService(PictureService pictureService) {
+		this.pictureService = pictureService;
+	}
+
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		Group group = new Group();
@@ -47,6 +54,7 @@ public class AddGroup extends Resource {
 			group.setLatitude(Double.parseDouble(context.getString("latitude")));
 			group.setLongitude(Double.parseDouble(context.getString("longitude")));
 		}
+		group.setAvatarPath(pictureService.getDefaultGroupAvatarPath());
 
 		groupDao.addGroup(group); // create group
 		groupDao.addGroupJoinCategory(group.getId(), context.getIdLong("categoryId")); // set group category

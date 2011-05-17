@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 import q.dao.page.PeopleRelationPage;
+import q.domain.Category;
 import q.domain.Event;
 import q.domain.Favorite;
 import q.domain.Group;
@@ -193,8 +194,8 @@ public class DaoHelper {
 				weiboMap = new HashMap<Long, Weibo>(sourceWeiboIds.size());
 				List<Weibo> weibos = weiboDao.getWeibosByIds(sourceWeiboIds, false);
 				for (Weibo weibo : weibos) {
-					if(weibo.isDelete()) {
-						weibo.setContent(null);//XXX remove by sean
+					if (weibo.isDelete()) {
+						weibo.setContent(null);// XXX remove by sean
 					}
 					weiboMap.put(weibo.getId(), weibo);
 				}
@@ -224,14 +225,44 @@ public class DaoHelper {
 
 	}
 
-	public static Map<Long, People> injectMessagesWithSenderAndReceivers(PeopleDao peopleDao, List<Message> messages) throws SQLException {
+	/**
+	 * @param messageDao
+	 * @param messages
+	 */
+	public static void injectMessagesWithLastReply(MessageDao messageDao, List<Message> messages) throws SQLException {
+		if (CollectionKit.isEmpty(messages)) {
+			return;
+		}
+		List<Long> replyIds = new ArrayList<Long>(messages.size());
+		for (Message message : messages) {
+			replyIds.add(message.getLastReplyId());
+		}
+		List<MessageReply> replies = messageDao.getMessageRepliesByIds(replyIds);
+		if (CollectionKit.isEmpty(replies)) {
+			return;
+		}
+		Map<Long, MessageReply> messageId2ReplyMap = new HashMap<Long, MessageReply>();
+		for (MessageReply reply : replies) {
+			messageId2ReplyMap.put(reply.getQuoteMessageId(), reply);
+		}
+		for (Message message : messages) {
+			message.setLastReply(messageId2ReplyMap.get(message.getId()));
+		}
+
+	}
+
+	public static Map<Long, People> injectMessagesWithSenderAndReceiversAndLastReplySender(PeopleDao peopleDao, List<Message> messages) throws SQLException {
 		if (CollectionKit.isEmpty(messages)) {
 			return null;
 		}
-		HashSet<Long> peopleIds = new HashSet<Long>(messages.size() + 1); // people number is less than messages count + 1
+		HashSet<Long> peopleIds = new HashSet<Long>(messages.size() * 2);
 		for (Message message : messages) {
 			peopleIds.add(message.getSenderId());
 			peopleIds.addAll(message.getReceiverIds());
+			MessageReply lastReply = message.getLastReply();
+			if (lastReply != null) {//TODO 测试数据比较混乱,先加上 sean
+				peopleIds.add(lastReply.getSenderId());
+			}
 		}
 		if (CollectionKit.isEmpty(peopleIds)) {
 			return null;
@@ -246,6 +277,10 @@ public class DaoHelper {
 			message.setSender(peopleMap.get(message.getSenderId()));
 			for (Long mid : message.getReceiverIds()) {
 				message.addReceiver(peopleMap.get(mid));
+			}
+			MessageReply lastReply = message.getLastReply();
+			if (lastReply != null) {
+				lastReply.setSender(peopleMap.get(lastReply.getSenderId()));
 			}
 		}
 		return peopleMap;
@@ -571,6 +606,40 @@ public class DaoHelper {
 				g.setJoined(true);
 			}
 		}
+	}
+
+	/**
+	 * @param groupDao
+	 * @param categorys
+	 * @throws SQLException 
+	 */
+	public static void injectCategoriesWithPromotedGroups(GroupDao groupDao, List<Category> categorys) throws SQLException {
+		List<Long> catIds = new ArrayList<Long>(categorys.size());
+		Map<Long, Category> catId2CatMap = new HashMap<Long, Category>(categorys.size());
+		for (Category cat : categorys) {
+			catIds.add(cat.getId());
+			catId2CatMap.put(cat.getId(), cat);
+		}
+		List<Group> promotedGroups = groupDao.getAllPromotedGroups(catIds);
+		if (CollectionKit.isNotEmpty(promotedGroups)) {
+			for (Group group : promotedGroups) {
+				Category category = catId2CatMap.get(group.getCategoryId());//现在一个群只支持一个类目推荐位
+				if (category != null) {
+					category.addGroup(group);
+				}
+			}
+		}
+	}
+
+	/**
+	 * @param peopleDao
+	 * @param group
+	 */
+	public static void injectGroupWithCreator(PeopleDao peopleDao, Group group) throws SQLException{
+		if(group == null) {
+			return;
+		}
+		group.setCreator(peopleDao.getPeopleById(group.getCreatorId()));
 	}
 
 }

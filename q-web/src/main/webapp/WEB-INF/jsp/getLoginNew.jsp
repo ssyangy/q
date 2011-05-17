@@ -1,25 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>登陆</title>
-    <link href="${staticUrlPrefix}/content-q/qcomcn.css" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-    .wapper{position:relative;height:600px;}
-    #logo{top:200px;font-size:28px;}
-    .content{position:absolute;top:260px;left:60px;}
-    p{line-height:26px;}
-    </style>
-	<script src="${staticUrlPrefix}/scripts-q/sea.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        seajs.use('qcomcn.js', function (q) {
-            var $ = q.jq;
-            $(function () {
-                q.Init();
-            });
-        });
-    </script>
-</head>
+<jsp:include page="models/head-unsign.jsp">
+	<jsp:param name="title" value="登陆" />
+</jsp:include>
 <body>
 <div class="wapper">
     <h1 id="logo">Q.com.cn</h1>
@@ -28,7 +10,7 @@
         <table class='qform'>
 			<tr>
 				<td align="right">邮箱：</td>
-				<td><input name="username" type='text' class='mttext' size='23'></td>
+				<td><input name="email" type='text' class='mttext' size='23'></td>
 			</tr>
 			<tr>
 				<td align="right">密码：</td>

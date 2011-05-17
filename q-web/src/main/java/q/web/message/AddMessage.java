@@ -60,11 +60,21 @@ public class AddMessage extends Resource {
 		// add message thread
 		messageDao.addMessage(message);
 
+		// add first message reply
+		MessageReply messageReply = new MessageReply();
+		messageReply.setId(IdCreator.getLongId());
+		messageReply.setContent(context.getString("content"));
+		messageReply.setSenderId(message.getSenderId());
+		messageReply.setQuoteMessageId(message.getId());
+		messageReply.setQuoteSenderId(message.getSenderId());
+		// 因为是第一个回复,所以不需要设置replyMessageId和replySenderId
+		messageDao.addMessageReply(messageReply);
+
 		// connect message with peoples
 		String idsString = context.getString("receiverId");
 		String[] receiverStringIds = StringKit.split(idsString, ',');
 		Set<Long> receiverIds = IdCreator.convertIfValidIds(receiverStringIds);
-		receiverIds.add(senderId);// sender is also reply receiver
+		receiverIds.add(senderId);// 发送者也需要接收该回复
 		List<MessageJoinPeople> joins = new ArrayList<MessageJoinPeople>(receiverIds.size());
 		for (Long receiverId : receiverIds) {
 			MessageJoinPeople join = new MessageJoinPeople();
@@ -73,18 +83,11 @@ public class AddMessage extends Resource {
 			join.setMessageId(message.getId());
 			join.setReceiverId(receiverId);
 			join.setReplyNum(1);// message thread has first reply
+			join.setLastReplyId(messageReply.getId()); // set last message reply id
+			join.setLastReplySenderId(messageReply.getSenderId()); // set last message reply sender id
 			joins.add(join);
 		}
 		messageDao.addMessageJoinPeoples(joins);
-
-		// add first message reply
-		MessageReply messageReply = new MessageReply();
-		messageReply.setId(IdCreator.getLongId());
-		messageReply.setContent(context.getString("content"));
-		messageReply.setSenderId(message.getSenderId());
-		messageReply.setQuoteMessageId(message.getId());
-		messageReply.setQuoteSenderId(message.getSenderId());
-		messageDao.addMessageReply(messageReply);
 
 		// connect message reply with peoples
 		List<MessageReplyJoinPeople> replyJoins = new ArrayList<MessageReplyJoinPeople>(receiverIds.size());

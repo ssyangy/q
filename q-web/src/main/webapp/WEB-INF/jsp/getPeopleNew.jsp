@@ -1,18 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>登陆注册</title>
-    <link href="${staticUrlPrefix}/content-q/qcomcn.css" rel="stylesheet" type="text/css" />
-    <link href="${staticUrlPrefix}/content-q/step.css" rel="stylesheet" type="text/css" />
-    <script src="${staticUrlPrefix}/scripts-q/sea.js" type="text/javascript"></script>
-    <style type="text/css">
-    .wapper{position:relative;height:600px;}
-    #logo{top:200px;font-size:28px;}
-    .content{position:absolute;top:260px;left:60px;}
-    p{line-height:26px;}
-    </style>
-	<script src="${staticUrlPrefix}/scripts-q/sea.js" type="text/javascript"></script>
+<jsp:include page="models/head-unsign.jsp">
+	<jsp:param name="title" value="登陆注册" />
+</jsp:include>
     <script type="text/javascript">
         seajs.use('qcomcn.js', function (q) {
             var $ = q.jq;
@@ -271,7 +260,6 @@
             });
         });
     </script>
-</head>
 <body>
 <div class="wapper">
     <h1 id="logo">Q.com.cn</h1>

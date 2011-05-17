@@ -1,7 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="圈子:${group.name}" />
 </jsp:include>
+<script type="text/javascript">
+    seajs.use('qcomcn.js', function (q) {
+        $ = q.jq;
+        $(function () {
+            q.Init();
+        });
+    });
+</script>
 <div class="layout grid-s5m0e6">
     <div class="col-main"><div class="main-wrap pr10">
 		<jsp:include page="models/profile.jsp" />
@@ -27,13 +37,22 @@
 	</div>
 	<div class="col-extra">
 		<div style="height:110px;">
-			<p>由YAO创建于${group.time}</p><br />
-			<a href="#" class='btn'>加入</a>
-			<a href="#" class='btna'>管理</a><br /><br />
-			<a href="#" class='btn btnw24'><span class='btnarror'></span>已加入|退出</a>
+			<p>由${group.creator.realName}创建于${group.time}</p><br />
+			<c:choose>
+				<c:when test="${join == null}">
+						<a class="btn" href="#" onclick="joinGroup(this,'${group.id}')">加入</a>
+				</c:when>
+				<c:otherwise>
+						<a class="btn btnw24" href="#" onclick="unJoinGroup(this,'${group.id}')">已加入,退出</a>
+				</c:otherwise>
+			</c:choose>
+			<c:if test="${loginCookie.peopleId == group.creator.id}">			
+				<a href="${urlPrefix}/group/edit" class='btna'>管理</a>
+			</c:if>
+			<br /><br />
 		</div>
 		<div class="component">
-			<h3>新成员<span class='separator'> · · · · · ·</span><a class='arr'>更多</a></h3>
+			<h3>新成员</h3>
 			<jsp:include page="models/groups-newmembers.jsp" />
 		</div>
 	</div>

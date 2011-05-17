@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import q.dao.page.GroupRecommendPage;
 import q.dao.page.PeopleJoinGroupPage;
 import q.domain.Group;
 import q.domain.PeopleJoinGroup;
@@ -15,7 +16,7 @@ import q.domain.PeopleJoinGroup;
 /**
  * @author Zhehao
  * @date Feb 15, 2011
- *
+ * 
  */
 public interface GroupDao {
 
@@ -37,7 +38,8 @@ public interface GroupDao {
 
 	public List<Long> getGroupIdsByJoinPage(PeopleJoinGroupPage page) throws SQLException;
 
-	public List<Group>getGroupsByLocation(Group myLocation)throws SQLException;
+	public List<Group> getGroupsByLocation(Group myLocation) throws SQLException;
+
 	/**
 	 * @param peopleId
 	 * @throws SQLException
@@ -96,14 +98,6 @@ public interface GroupDao {
 	 * @param start
 	 * @return
 	 */
-	List<Group> getRecommendGroupsByGroupId(long groupId, int limit, int start) throws SQLException;
-
-	/**
-	 * @param groupId
-	 * @param limit
-	 * @param start
-	 * @return
-	 */
 	List<Long> getJoinPeopleIdsByGroupId(long groupId, int limit, int start) throws SQLException;
 
 	/**
@@ -141,5 +135,17 @@ public interface GroupDao {
 	 * @throws SQLException
 	 */
 	List<Long> getGroupIdsByJoinPeopleIdAndGroupIds(long peopleId, List<Long> groupIds) throws SQLException;
+
+	/**
+	 * @param catIds
+	 * @return
+	 */
+	List<Group> getAllPromotedGroups(List<Long> catIds) throws SQLException;
+
+	/**
+	 * @param page
+	 * @return
+	 */
+	List<Group> getRecommendGroupsByPage(GroupRecommendPage page) throws SQLException;
 
 }

@@ -4,12 +4,16 @@
 package q.dao.ibatis;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import q.dao.GroupDao;
+import q.dao.page.GroupJoinCategoryPage;
+import q.dao.page.GroupPage;
+import q.dao.page.GroupRecommendPage;
 import q.dao.page.PeopleJoinGroupPage;
 import q.domain.Group;
 import q.domain.GroupJoinCategory;
@@ -188,7 +192,6 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 
 	@Override
 	public List<Group> getGroupsByLocation(Group myLocation) throws SQLException {
-
 		@SuppressWarnings("unchecked")
 		List<Group> groups = this.sqlMapClient.queryForList("selectGroupsByLocation", myLocation);
 		return groups;
@@ -199,10 +202,11 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 	 *
 	 * @see q.dao.CategoryDao#getNewGroups(int)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Group> getNewGroups(int i) throws SQLException {
-		return (List<Group>) this.sqlMapClient.queryForList("selectNewGroups", i);
+	public List<Group> getNewGroups(int limit) throws SQLException {
+		GroupPage page = new GroupPage();
+		page.setSize(limit);
+		return (List<Group>) this.getGroupsByPage(page);
 	}
 
 	@Override
@@ -227,12 +231,43 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 	/*
 	 * (non-Javadoc)
 	 *
-	 * @see q.dao.GroupDao#getRecommendGroupsByGroupId(long, int)
+	 * @see q.dao.GroupDao#getAllPromotedGroups(java.util.List)
 	 */
 	@Override
-	public List<Group> getRecommendGroupsByGroupId(long groupId, int limit, int start) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Group> getAllPromotedGroups(List<Long> categoryIds) throws SQLException {
+		GroupJoinCategoryPage page = new GroupJoinCategoryPage();
+		page.setCategoryIds(categoryIds);
+		@SuppressWarnings("unchecked")
+		List<GroupJoinCategory> joins = this.sqlMapClient.queryForList("getPromotedGroupJoinCategoriesByCatIds", page);
+		if (CollectionKit.isEmpty(joins)) {
+			return null;
+		}
+		Map<Long, GroupJoinCategory> groupId2CatMap = new HashMap<Long, GroupJoinCategory>(joins.size());
+		for (GroupJoinCategory join : joins) {
+			groupId2CatMap.put(join.getGroupId(), join);
+		}
+		Set<Long> groupIdSet = groupId2CatMap.keySet();
+		List<Group> groups = this.getGroupsByIds(new ArrayList<Long>(groupIdSet));
+		for (Group group : groups) {
+			GroupJoinCategory join = groupId2CatMap.get(group.getId());
+			if (join != null) {
+				group.setCategoryId(join.getCategoryId());
+			}
+		}
+		return groups;
 	}
 
+	public List<Group> getGroupsByPage(GroupPage page) throws SQLException {
+		@SuppressWarnings("unchecked")
+		List<Group> groups = this.sqlMapClient.queryForList("getGroupsByPage", page);
+		return groups;
+	}
+
+	@Override
+	public List<Group> getRecommendGroupsByPage(GroupRecommendPage page) throws SQLException {
+		// FIXME sean, use new groups instead
+		GroupPage gpage = new GroupPage();
+		gpage.setSize(6);
+		return this.getGroupsByPage(gpage);
+	}
 }

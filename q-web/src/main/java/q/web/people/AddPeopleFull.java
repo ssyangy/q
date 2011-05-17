@@ -46,9 +46,9 @@ public class AddPeopleFull extends Resource {
 		people.setId(peopleId);
 		Gender gender = Gender.convertValue(context.getInt("gender", -1));
 		if (gender.isFemale()) {
-			people.setAvatarPath(this.pictureService.getFemaleAvatarPath());
+			people.setAvatarPath(this.pictureService.getDefaultFemaleAvatarPath());
 		} else {
-			people.setAvatarPath(this.pictureService.getMaleAvatarPath());
+			people.setAvatarPath(this.pictureService.getDefaultMaleAvatarPath());
 		}
 		people.setGender(gender);
 
@@ -96,19 +96,30 @@ public class AddPeopleFull extends Resource {
 		if (this.peopleDao.getPeopleById(peopleId) == null) {
 			throw new PeopleNotExistException("people:用户不存在");
 		}
+		
+		int gender = context.getInt("gender", -1);
+		PeopleValidator.validateGender(gender);
 
 		int provinceId = context.getInt("province", -1);
 		int cityId = context.getInt("city", -1);
 		int countyId = context.getInt("county", -1);
-		AreaValidator.check(provinceId, cityId, countyId);
+		if (provinceId > 0) {
+			AreaValidator.check(provinceId, cityId, countyId);
+		}
 
 		int hometownProvinceId = context.getInt("hometownProvince", -1);
 		int hometownCityId = context.getInt("hometownCity", -1);
 		int hometownCountyId = context.getInt("hometownCounty", -1);
-		AreaValidator.check(hometownProvinceId, hometownCityId, hometownCountyId);
+		if (hometownProvinceId > 0) {
+			AreaValidator.check(hometownProvinceId, hometownCityId, hometownCountyId);
+		}
 
-		PeopleValidator.validateGender(context.getInt("gender", -1));
-		PeopleValidator.validateBirthday(context.getInt("selYear", -1), context.getInt("selMonth", -1), context.getInt("selDay", -1));
+		int year = context.getInt("year", -1);
+		int month = context.getInt("month", -1);
+		int day = context.getInt("day", -1);
+		if (year > 0) {
+			PeopleValidator.validateBirthday(year, month, day);
+		}
 
 		String[] groupIds = context.getStringArray("group");
 		if (ArrayUtils.isEmpty(groupIds)) {

@@ -44,9 +44,9 @@
 		#avatarPath#,
 		#groupNum#,
 		#joinNum#,
-		#status#,
-		#created#,
-		#modified#		
+		0,
+		now(),
+		null		
 		)
 	</insert>
  

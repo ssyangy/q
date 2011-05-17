@@ -34,17 +34,18 @@ public class AddProfileBasic extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		People people = new People();
 		long peopleId = context.getCookiePeopleId();
-		People databasePeople = peopleDao.getPeopleById(peopleId);
 
 		people.setId(peopleId);
 		people.setRealName(context.getString("realName"));
 		Gender gender = Gender.convertValue(context.getInt("gender", -1));
 		people.setGender(gender);
+
+		People databasePeople = peopleDao.getPeopleById(peopleId);
 		if (!databasePeople.hasAvatar()) {
 			if (gender.isFemale()) {
-				people.setAvatarPath(this.pictureService.getFemaleAvatarPath());
+				people.setAvatarPath(this.pictureService.getDefaultFemaleAvatarPath());
 			} else {
-				people.setAvatarPath(this.pictureService.getMaleAvatarPath());
+				people.setAvatarPath(this.pictureService.getDefaultMaleAvatarPath());
 			}
 		}
 
@@ -72,14 +73,12 @@ public class AddProfileBasic extends Resource {
 			if (StringKit.isNotEmpty(url) && !(url.startsWith("http://") || url.startsWith("https://"))) {
 				url = "http://" + url;
 			}
-			people.setUrl(url);
 		}
+		people.setUrl(url);
 		String intro = context.getString("intro");
-		if (null != intro) {
-			people.setIntro(intro);
-		}
+		people.setIntro(intro);
 		peopleDao.updatePeopleById(people);
-        context.setModel("people", people);
+		context.setModel("people", people);
 		// FIXME will remove from here, seanlinwang
 		if (!databasePeople.getRealName().equals(people.getRealName())) {
 			people.setUsername(databasePeople.getUsername());
@@ -90,23 +89,40 @@ public class AddProfileBasic extends Resource {
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		PeopleValidator.validateId(context.getCookiePeopleId());
-		PeopleValidator.validateGender(context.getInt("gender", -1));
-		PeopleValidator.validateIntro(context.getString("intro"));
-		PeopleValidator.validateRealName(context.getString("realName"));
-		if (!context.isApiRequest()) {
+		int gender = context.getInt("gender", -1);
+		PeopleValidator.validateGender(gender);
 
-			PeopleValidator.validateBirthday(context.getInt("year", -1), context.getInt("month", -1), context.getInt("day", -1));
+		String intro = context.getString("intro");
+		if (intro != null) {
+			PeopleValidator.validateIntro(intro);
+		}
 
-			PeopleValidator.validateUrl(context.getString("url"));
+		String realName = context.getString("realName");
+		PeopleValidator.validateRealName(realName);
 
-			int provinceId = context.getInt("province", -1);
-			int cityId = context.getInt("city", -1);
-			int countyId = context.getInt("county", -1);
+		int year = context.getInt("year", -1);
+		int month = context.getInt("month", -1);
+		int day = context.getInt("day", -1);
+		if (year > 0) {
+			PeopleValidator.validateBirthday(year, month, day);
+		}
+
+		String url = context.getString("url");
+		if (url != null) {
+			PeopleValidator.validateUrl(url);
+		}
+
+		int provinceId = context.getInt("province", -1);
+		int cityId = context.getInt("city", -1);
+		int countyId = context.getInt("county", -1);
+		if (provinceId > 0) {
 			AreaValidator.check(provinceId, cityId, countyId);
+		}
 
-			int hometownProvinceId = context.getInt("hometownProvince", -1);
-			int hometownCityId = context.getInt("hometownCity", -1);
-			int hometownCountyId = context.getInt("hometownCounty", -1);
+		int hometownProvinceId = context.getInt("hometownProvince", -1);
+		int hometownCityId = context.getInt("hometownCity", -1);
+		int hometownCountyId = context.getInt("hometownCounty", -1);
+		if (hometownProvinceId > 0) {
 			AreaValidator.check(hometownProvinceId, hometownCityId, hometownCountyId);
 		}
 	}

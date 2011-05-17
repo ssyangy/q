@@ -1,27 +1,54 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html>
-  <head>
-    <jsp:include page="head.jsp" />
-    <link rel="stylesheet" type="text/css" href="${staticUrlPrefix}/style/jcrop/jquery-jcrop-0.9.8.css"  />
+<jsp:include page="models/head.jsp">
+	<jsp:param name="title" value="修改头像" />
+</jsp:include>
+    <link rel="stylesheet" type="text/css" href="${staticUrlPrefix}/content-q/jcrop/jquery-jcrop-0.9.8.css"  />
      <style type="text/css">
     .imgbox{float:left;width:300px;margin-right:10px;}
     .imgmain{float:left;width:600px;}
      </style>
-    <script type="text/javascript" src="${staticUrlPrefix}/js/jquery-jcrop-0.9.8.min.js"></script>
+    <script type="text/javascript" src="${staticUrlPrefix}/scripts-q/src/jquery-1.6.1.js"></script>   
+    <script type="text/javascript" src="${staticUrlPrefix}/scripts-q/src/jq.jcrop.js"></script>
 	<script type="text/javascript">
-    var realWidth;
-    var realHeight;
-    var imageWidth;
-    var imageHeight;
-	var isImg=true;
-    var cutter;
-    var divide=1;
-	function up(){
+	$(function () {
+
+		cutter = new jQuery.UtrialAvatarCutter(
+			{
+				//主图片所在容器ID
+				content : "myImage",
+		
+				//缩略图配置,ID:所在容器ID;width,height:缩略图大小
+				purviews : [{id:"picture_24",width:24,height:24},{id:"picture_48",width:48,height:48},{id:"picture_128",width:128,height:128}],
+		
+				//选择器默认大小
+				selector : {width:100,height:100}
+			}
+		
+		);
+		if("${avatarExists}"=="true"){
+		var img=new Image();
+		img.src="${avatarPath}";
+		var dick=setInterval(function(){
+			if(img.complete){
+				clearInterval(dick);
+				reloadImg(img.height,img.width,"${avatarPath}");
+				cutter.init();
+			}
+		},100);
+		 $("#saveButton").css("display","block");
+		  $("#cancelButton").css("display","block");
+		}
+	});
+
+var realWidth;
+var realHeight;
+var imageWidth;
+var imageHeight;
+var isImg=true;
+var cutter;
+var divide=1;
+function up(){
 	if(isImg==true){
 		cutter = new jQuery.UtrialAvatarCutter(
 				{
@@ -115,34 +142,7 @@
         $("#imgwrong").css("display","none");
           isImg=true;
     }
-       $(document).ready(function(){
-          cutter = new jQuery.UtrialAvatarCutter(
-   				{
-   					//主图片所在容器ID
-   					content : "myImage",
 
-   					//缩略图配置,ID:所在容器ID;width,height:缩略图大小
-   					purviews : [{id:"picture_24",width:24,height:24},{id:"picture_48",width:48,height:48},{id:"picture_128",width:128,height:128}],
-
-   					//选择器默认大小
-   					selector : {width:100,height:100}
-   				}
-
-   			);
-   			if("${avatarExists}"=="true"){
-    		var img=new Image();
-    		img.src="${avatarPath}";
-    		var dick=setInterval(function(){
-    			if(img.complete){
-    				clearInterval(dick);
-    				reloadImg(img.height,img.width,"${avatarPath}");
-    				cutter.init();
-    			}
-    		},100);
-    		 $("#saveButton").css("display","block");
-    		  $("#cancelButton").css("display","block");
-            }
-    	});
 
     jQuery.UtrialAvatarCutter = function(config){
 	var h,w,x,y;
@@ -245,7 +245,7 @@
 		x = ((ow - select_width) / 2);
 		y = ((oh - select_height) / 2);
 		//这是原Jcrop配置,修改此处可修改Jcrop的其它各种功能
-		api = $.Jcrop('#'+img_id,{
+		api = jQuery.Jcrop('#'+img_id,{
 			aspectRatio: 1,
 			onChange: preview,
 			onSelect: preview
@@ -261,21 +261,16 @@
 	}
 }
 	</script>
-  </head>
-  <body >
-	<div id="doc">
-	  <jsp:include page="top.jsp"/>
-	 	<div id="settings">
-			<div id="settings-container">
-				<div class="heading">
-					<h2>个人资料设定</h2>
-				</div>
-				   <div id="tabs" class="ui-tabs ui-widget">
-						<jsp:include page="profile-tag.jsp">
-							<jsp:param value="avatar" name="tab"/>
-						</jsp:include>
 
-<div id="tabs-2" class="tabs-widget clearfix pt10">
+<h2>设置头像</h2>
+<div class="ui-tabs mt10">
+    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
+        <li class="ui-state-default crt2 ui-state-active"><a href="${urlPrefix}/profile/avatar">头像</a></li>
+        <li class="ui-state-default crt2"><a href="${urlPrefix}/profile/basic">基本信息</a></li>
+        <li class="ui-state-default crt2"><a href="${urlPrefix}/setting/basic">修改密码</a></li>
+    </ul>
+</div>
+<div class='tabscont'>
 
 <div class="imgbox"><div id="myImage"></div></div>
 <div class="imgmain">
@@ -301,15 +296,10 @@
 	<div style='display:none;' id="savecorrect"></div>
 	<input type="button" id="saveButton" style='display:none;' value='保存' onclick="save()"></input>
 	<input type="button" id="cancelButton" style='display:none;' value='取消' ></input>
-
 </div>
 </div>
 
 </div>
 
-				</div>
-			</div>
-		</div>
-	</div>
-  </body>
-</html>
+</div>
+<jsp:include page="models/foot.jsp" />		

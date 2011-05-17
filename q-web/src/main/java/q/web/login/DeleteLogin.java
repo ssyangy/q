@@ -22,6 +22,10 @@ public class DeleteLogin extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		((q.web.DefaultResourceContext) context).removeLoginCookie();
+		String from = context.getString("from"); // redirect to origin refferr
+		if (from == null) {
+			context.redirectServletPath("/");
+		}
 	}
 
 	/* (non-Javadoc)
@@ -29,8 +33,6 @@ public class DeleteLogin extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

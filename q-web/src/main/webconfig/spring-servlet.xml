@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
-	<bean id="publicUrlMapping"
-		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	<bean id="publicUrlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
 			<value>
 				/*=router
@@ -12,8 +11,7 @@
 			<value>true</value>
 		</property>
 	</bean>
-	<bean id="jspViewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
 			<value>/WEB-INF/jsp/</value>
 		</property>
@@ -303,6 +301,8 @@
 				<value>getProfileBasic</value>
 				<value>getProfileAvatar</value>
 				<value>getFavoriteIndex</value>
+				<value>getReplyIndex</value>
+				<value>getAtIndex</value>
 			</set>
 		</property>
 	</bean>
@@ -315,6 +315,9 @@
 		<property name="eventDao" ref="eventDao" />
 		<property name="groupDao" ref="groupDao" />
 	</bean>
+	<bean id="getErrorHungUp" class="q.web.error.getErrorHungUp" />
+	<bean id="getErrorNotExist" class="q.web.error.getErrorNotExist" />
+	<bean id="getErrorForbid" class="q.web.error.getErrorForbid" />
 
 	<!-- people web -->
 	<bean id="getMineIndex" class="q.web.people.GetMineIndex" />
@@ -402,7 +405,6 @@
 	</bean>
 	<bean id="getPasswordResetInvalid" class="q.web.people.GetPasswordResetInvalid">
 	</bean>
-	<bean id="getSettingIndex" class="q.web.people.GetSettingIndex" />
 	<bean id="getSettingBasic" class="q.web.people.GetSettingBasic">
 	</bean>
 	<bean id="addSetting" class="q.web.people.AddSetting">
@@ -445,11 +447,13 @@
 
 	<!-- category web -->
 	<bean id="getCategoryIndex" class="q.web.category.GetCategoryIndex">
+		<property name="groupDao" ref="groupDao" />
 		<property name="categoryDao" ref="categoryDao" />
 	</bean>
 	<bean id="addCategory" class="q.web.category.AddCategory">
 		<property name="categoryDao" ref="categoryDao" />
 		<property name="redirectPath" value="/category" />
+		<property name="pictureService" ref="pictureService" />
 	</bean>
 	<bean id="getCategoryNew" class="q.web.category.GetCategoryNew">
 	</bean>
@@ -457,10 +461,12 @@
 	<!-- group web -->
 	<bean id="addGroup" class="q.web.group.AddGroup">
 		<property name="groupDao" ref="groupDao" />
-		<property name="searchService" ref="searchService"></property>
+		<property name="searchService" ref="searchService" />
+		<property name="pictureService" ref="pictureService" />
 	</bean>
 	<bean id="getGroupNew" class="q.web.group.GetGroupNew">
 		<property name="categoryDao" ref="categoryDao" />
+		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="getGroup" class="q.web.group.GetGroup">
 		<property name="groupDao" ref="groupDao" />
@@ -533,8 +539,8 @@
 
 	<!-- weibo web -->
 	<bean id="addWeibo" class="q.web.weibo.AddWeibo">
-		<property name="weiboService" ref="weiboService"></property>
-		<property name="pictureService" ref="pictureService"></property>
+		<property name="weiboService" ref="weiboService" />
+		<property name="pictureService" ref="pictureService" />
 	</bean>
 	<bean id="deleteWeibo" class="q.web.weibo.DeleteWeibo">
 		<property name="weiboDao" ref="weiboDao" />
@@ -584,6 +590,8 @@
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="weiboService" ref="weiboService"></property>
 	</bean>
+	<bean id="getReplyIndex" class="q.web.weibo.GetReplyIndex"></bean>
+	<bean id="getAtIndex" class="q.web.weibo.getAtIndex"></bean>
 
 	<!-- favorite web -->
 	<bean id="getFavoriteIndex" class="q.web.favorite.GetFavoriteIndex">
@@ -614,7 +622,6 @@
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="getMessageNew" class="q.web.message.GetMessageNew">
-		<property name="messageDao" ref="messageDao" />
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="addMessage" class="q.web.message.AddMessage">

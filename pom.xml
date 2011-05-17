@@ -38,7 +38,7 @@
     <repository>  
       <id>qmaven2</id>  
       <name>qcomcn maven2 repo</name>  
-      <url>http://qimg.net/m2repo</url>  
+      <url>repo1.maven.org</url>  
       <releases>  
         <enabled>true</enabled>  
       </releases>  

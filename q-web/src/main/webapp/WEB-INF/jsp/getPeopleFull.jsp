@@ -1,18 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>补充个人资料</title>
-    <link href="${staticUrlPrefix}/content-q/qcomcn.css" rel="stylesheet" type="text/css" />
-    <link href="${staticUrlPrefix}/content-q/step.css" rel="stylesheet" type="text/css" />
-    <script src="${staticUrlPrefix}/scripts-q/sea.js" type="text/javascript"></script>
-    <style type="text/css">
-    .wapper{position:relative;height:600px;}
-    #logo{top:200px;font-size:28px;}
-    .content{position:absolute;top:260px;left:60px;}
-    p{line-height:26px;}
-    </style>
-	<script src="${staticUrlPrefix}/scripts-q/sea.js" type="text/javascript"></script>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
+<jsp:include page="models/head-unsign.jsp">
+	<jsp:param name="title" value="补充个人资料" />
+</jsp:include>
 	<script type="text/javascript">
 	areas=${rootArea.childsJson};
 	seajs.use('qcomcn.js', function (q) {
@@ -77,7 +68,25 @@
 
 seajs.use('jq.area.js',function(area){
 	$(document).ready(function(){
-	     provinceExist='${people.area.myProvince.id}';
+	     yeartemp='${people.year + 1900}';
+	     monthtemp='${people.month}';
+	     daytemp='${people.day}';
+
+	     var yearx=document.getElementById("selYear");
+	     var monthx=document.getElementById("selMonth");
+	     var dayx=document.getElementById("selDay");
+
+
+         $.each(yearx.options, function(index, option) {
+		 	 if(option.value==yeartemp){
+			    option.selected='selected';
+			 }
+	
+		 });
+         monthx.options[monthtemp-1].selected='selected';
+         dayx.options[daytemp-1].selected='selected';
+		         
+	    provinceExist='${people.area.myProvince.id}';
         cityExist='${people.area.myCity.id}';
         countyExist='${people.area.myCounty.id}';
 
@@ -136,7 +145,7 @@ seajs.use('jq.area.js',function(area){
 				</td>                
 			</tr>        
 			<tr>
-				<th align="right">家乡：</th>
+				<td align="right">家乡：</td>
 				<td>
 					<select class='select' name="hometownProvince" id="selHometownProvince">
 					</select>
@@ -151,11 +160,11 @@ seajs.use('jq.area.js',function(area){
 				</td>
 			</tr>
 			<tr>
-				<th align="right">性别：</th>
+				<td align="right">性别：</td>
 				<td>
-					<input type='radio'  name="gender" value="1" onclick="checkGender()" />
+					<input type='radio'  name="gender" value="1" <c:choose><c:when test="${people.gender.value == 1}">checked="checked"</c:when></c:choose> onclick="checkGender()" />
 					<span class='value-label' >男</span>&nbsp;
-					<input type='radio'  name="gender" value="2" onclick="checkGender()" />
+					<input type='radio'  name="gender" value="2" <c:choose><c:when test="${people.gender.value == 2}">checked="checked"</c:when></c:choose> onclick="checkGender()" />
 					<span class='value-label'>女</span>
 				</td>
 				<td class='col-help'>
@@ -164,14 +173,18 @@ seajs.use('jq.area.js',function(area){
 				</td>
 			</tr>
 			<tr>
-				<th align="right">生日：</th>
+				<td align="right">生日：</td>
 				<td class='col-field' colspan='2'>
-		             <jsp:include page="models/dateSelect.jsp" />
+		             <jsp:include page="models/dateSelect.jsp"/>
 				</td>
+				<td class="col-help">
+	    	      <div class="label-box-good" style="display: none;" id="birthdaycorrect"></div>
+	              <div class="label-box-error" style="display: none;" id="birthdaywrong"></div>
+	           	</td>				
 			</tr>
 			<tr>
-				<th align="right">手机：</th>
-				<td><input name="mobile" id="mobile" type='text' class='text_field' size='20' onblur="checkMobile(this.value)"/></td>
+				<td align="right">手机：</td>
+				<td><input name="mobile" id="mobile" type='text' class='mttext' size='20' onblur="checkMobile(this.value)" value="${people.mobile}"/></td>
 				<td class="col-help">
                       <div class="label-box-good" style="display: none;"
                            	id="mobilecorrect"></div>
@@ -180,24 +193,23 @@ seajs.use('jq.area.js',function(area){
                 </td>
 			</tr>
 			<tr>
-				<th>感兴趣的圈子：</th>
+				<td align="right">感兴趣的圈子：</td>
 				<td align="right">
 					<c:forEach items="${groups}" var="group">
 						<input name="group" type='checkbox' value="${group.id}"/><span class='group-name'>${group.name}</span>
 					</c:forEach>
 				</td>
 				<td class="col-help">
-					<div class="label-box-good" style="display: none;"
-					    	id="groupcorrect"></div>
-					<div class="label-box-error"style="display:none;"
-					    	id="groupwrong"></div>
-					</td>
-				</tr>
+					<div class="label-box-good" style="display: none;" id="groupcorrect"></div>
+					<div class="label-box-error"style="display:none;" id="groupwrong"></div>
+				</td>
+			</tr>
 
 			<tr>
 				<td></td>
-				<td><button class='ui_btn' type='submit'>完成</button>
-				<input type='hidden' name='form' value="/group">
+				<td>
+					<button class='ui_btn' type='submit'>完成</button>
+					<input type='hidden' name='from' value="/"/>
 				</td>
 			</tr>
 		</table>

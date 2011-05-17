@@ -27,6 +27,12 @@ public class Message extends AbstractDomain implements Serializable {
 
 	private List<People> receivers;
 
+	private int replyNum;
+
+	private long lastReplyId;
+
+	private long lastReplySenderId;
+
 	private MessageReply lastReply;
 
 	public MessageReply getLastReply() {
@@ -73,11 +79,6 @@ public class Message extends AbstractDomain implements Serializable {
 		return receiverIds;
 	}
 
-	@Override
-	public String toString() {
-		return "Message [status=" + status + ", senderId=" + senderId + ", id=" + id + ", created=" + created + ", modified=" + modified + "]";
-	}
-
 	/**
 	 * @param people
 	 */
@@ -88,4 +89,53 @@ public class Message extends AbstractDomain implements Serializable {
 		this.receivers.add(people);
 	}
 
+	/**
+	 * @param replyNum
+	 *            the replyNum to set
+	 */
+	public void setReplyNum(int replyNum) {
+		this.replyNum = replyNum;
+	}
+
+	/**
+	 * @return the replyNum
+	 */
+	public int getReplyNum() {
+		return replyNum;
+	}
+
+	@Override
+	public String toString() {
+		return "Message [status=" + status + ", senderId=" + senderId + ", id=" + id + ", created=" + created + ", modified=" + modified + "]";
+	}
+
+	/**
+	 * @param lastReplyId
+	 *            the lastReplyId to set
+	 */
+	public void setLastReplyId(long lastReplyId) {
+		this.lastReplyId = lastReplyId;
+	}
+
+	/**
+	 * @return the lastReplyId
+	 */
+	public long getLastReplyId() {
+		return lastReplyId;
+	}
+
+	/**
+	 * @param lastReplySenderId
+	 *            the lastReplySenderId to set
+	 */
+	public void setLastReplySenderId(long lastReplySenderId) {
+		this.lastReplySenderId = lastReplySenderId;
+	}
+
+	/**
+	 * @return the lastReplySenderId
+	 */
+	public long getLastReplySenderId() {
+		return lastReplySenderId;
+	}
 }

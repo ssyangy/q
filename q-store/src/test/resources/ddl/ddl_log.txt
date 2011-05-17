@@ -57,3 +57,10 @@ create table message_reply_join_people(
 	created datetime not null,
 	modified timestamp not null)
 default character set utf8 engine = innodb;
+
+#5-12 sean 
+alter table message_join_people add last_reply_id bigint unsigned not null;
+alter table message_join_people add last_reply_sender_id bigint unsigned not null;
+
+#5-15 sean
+alter table group_join_category add promote tinyint unsigned not null;

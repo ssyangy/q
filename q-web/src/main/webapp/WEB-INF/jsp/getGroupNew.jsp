@@ -57,6 +57,7 @@
 				<div class='label-box-error' style=''></div> 
 			</td>
 		</tr>
+		<!-- 
 		<tr>
 			<td align="right">所在地：</td>
 			<td class='localArea'>
@@ -68,7 +69,7 @@
 			<td>
 
             </td>
-		</tr>
+		</tr> -->
 		<tr>
 			<td align="right">所在分类：</td>
 			<td>

@@ -192,6 +192,7 @@ create table group_join_category(
 	id bigint unsigned not null primary key,
 	group_id bigint unsigned not null,
 	category_id bigint unsigned not null,
+	promote tinyint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null)
@@ -211,6 +212,8 @@ create table message_join_people(
 	message_id bigint unsigned not null,
 	sender_id bigint unsigned not null,
 	receiver_id bigint unsigned not null,
+	last_reply_id bigint unsigned not null,
+	last_reply_sender_id bigint unsigned not null,	
 	reply_num mediumint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,

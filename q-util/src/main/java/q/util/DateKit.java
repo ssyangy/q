@@ -126,15 +126,16 @@ public class DateKit {
 
 		return new String(str);
 	}
-	
 
 	/**
 	 * 03-12 11:24
+	 * 
 	 * @param date
 	 * @return
 	 */
 	public static String date2Mdhm(Date date) {
-		if(null == date) return null;
+		if (null == date)
+			return null;
 		Calendar c = new GregorianCalendar();
 		c.setTime(date);
 		int m = c.get(GregorianCalendar.MONTH) + 1;
@@ -212,7 +213,8 @@ public class DateKit {
 	 * @return
 	 */
 	public static String date2Md(Date date) {
-		if(null == date) return null;
+		if (null == date)
+			return null;
 		Calendar c = new GregorianCalendar();
 		c.setTime(date);
 		int m = c.get(GregorianCalendar.MONTH) + 1;
@@ -230,5 +232,21 @@ public class DateKit {
 		return sb.toString();
 	}
 
+	/**
+	 * Check the date is exists.
+	 * 
+	 * @param year
+	 * @param month
+	 * @param day
+	 * @return
+	 */
+	public static boolean isExists(int year, int month, int day) {
+		if (year < 1 || month < 1 || month > 12 || day < 1 || day > 31) {
+			return false;
+		}
+		month = month - 1;
+		GregorianCalendar gc = new GregorianCalendar(year, month, day);
+		return (gc.get(Calendar.YEAR) == year) && (gc.get(Calendar.MONTH) == month) && (gc.get(Calendar.DAY_OF_MONTH) == day);
+	}
 
 }

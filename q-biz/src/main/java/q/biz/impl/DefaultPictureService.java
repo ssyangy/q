@@ -196,7 +196,7 @@ public class DefaultPictureService implements PictureService {
 	public String uploadWeiboPictures(InputStream picture) throws Exception {
 		long picId = IdCreator.getLongId();
 		String dir = "w/" + Long.toString(picId % 10000, Character.MAX_RADIX) + "/";
-		String name = Long.toString(picId, Character.MAX_RADIX);
+		String name = Long.toString(picId, Character.MAX_RADIX) + ".jpg";
 		BufferedImage image = ImageKit.load(picture);
 		int originWidth = image.getWidth();
 		int originHeight = image.getHeight();
@@ -274,13 +274,26 @@ public class DefaultPictureService implements PictureService {
 	}
 
 	@Override
-	public String getFemaleAvatarPath() {
+	public String getDefaultFemaleAvatarPath() {
 		return this.imageUrl + "/default/female-def";
 	}
 
 	@Override
-	public String getMaleAvatarPath() {
+	public String getDefaultMaleAvatarPath() {
 		return this.imageUrl + "/default/male-def";
 	}
+
+	@Override
+	public String getDefaultGroupAvatarPath() {
+		return this.imageUrl + "/default/group-def";
+	}
+
+	@Override
+	public String getDefaultCategoryAvatarPath() {
+		return this.imageUrl + "/default/cat-def";
+	}
+	
+	
+	
 
 }

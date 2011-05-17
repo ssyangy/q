@@ -13,93 +13,89 @@ background:url("${staticUrlPrefix}/content/images/arrow/sh_ex2.png") no-repeat s
 span.tit{display:none;}
 </style>
 <script type="text/javascript">
-	seajs.use('qcomcn.js', function (q) {
-		var $ = q.jq;
-		$(function () {
-             q.Init();
-             
-             var lis = $("#sldroot>li");
-             var roll = $('#passroll');
-             var slider = $("#slider");
-             var root = $('#root');
-             root.click(function () {
-                 if (root.data("clicked")) {
-                    slider.animate({ left: 0 }, { duration: 500, easing: "swing" });
-                    $('span.tit', roll).text('');
-                    root.data("clicked", false);
-                 } 
-             });
-             
-			var sldbox = $("#sldbox");
-			seajs.use('ICanHaz.js', function (ich) {
-				lis.click(function () {
-					window.gpid = parseInt($(this).attr('gpcid'));
-					$('span.tit',roll).text($('p.name',this).text()).show();
-					sldbox.empty();
-					$.ajax({
-					    url: "${urlPrefix}/group",
-					    data: {catId: window.gpid},
-					   	success: function(json){
-					   		sldbox.append(ich.group(json));
-							slider.animate({left: -560}, { duration: 500, easing: "swing" });
-							root.data("clicked", true);
-					    }
-					});
-				});
-				$('#pagger>a.prev').live('click',function(){
-					sldbox.empty();
-					$.ajax({
-					    url: "${urlPrefix}/group",
-					    data: {catId: window.gpid, size: 10, startid: parseInt(lis.last().data('replyid')) - 1, type: 0},
-					   	success: function(json){
-					   		sldbox.append(ich.group(json));
-					    }
-					});
-				});
-				$('#pagger>a.next').live('click',function(){
-					sldbox.empty();
-					$.ajax({
-					    url: "${urlPrefix}/group",
-					    data: {catId: window.gpid},
-					   	success: function(json){
-					   		sldbox.append(ich.group(json));
-					    }
-					});
-				});				
-			});
-			
-			$('#sldtrunk a.act').live('click',function(){
-				var li = $(this).parent('li');
+seajs.use('qcomcn.js', function (q) {
+	var $ = q.jq;
+	$(function () {
+         q.Init();
+         
+         var lis = $("#sldroot>li");
+         var roll = $('#passroll');
+         var slider = $("#slider");
+         var root = $('#root');
+         root.click(function () {
+             if (root.data("clicked")) {
+                slider.animate({ left: 0 }, { duration: 500, easing: "swing" });
+                $('span.tit', roll).text('');
+                root.data("clicked", false);
+             } 
+         });
+         
+		seajs.use('ICanHaz.js', function (ich) {
+			lis.click(function () {
+				window.gpid = parseInt($(this).attr('gpcid'));
+				$('span.tit',roll).text($('p.name',this).text()).show();
 				$.ajax({
-					url: '${urlPrefix}/group/' + li.attr('gid') + '/join',
-					type: 'POST',
-					msg:this,
-					success: function(json){
-						if(json == null){
-							$(this.msg).siblings('a.actun').show();
-							$(this.msg).hide();
-						}
-					}
+				    url: "${urlPrefix}/group",
+				    data: {size:6, catId: window.gpid, startid:'999999999999999999'},
+				   	success: function(json){
+				   		$("#sld2").html(ich.group(json));
+						slider.animate({left: -560}, { duration: 500, easing: "swing" });
+						root.data("clicked", true);
+				    }
 				});
 			});
-			$('#sldtrunk a.actun').live('click',function(){
-				var li = $(this).parent('li');
+			$('#pagger>a.prev').live('click',function(){
 				$.ajax({
-					url: '${urlPrefix}/group/' + li.attr('gid') + '/join',
-					type: 'POST',
-					data:{_method:'delete'},
-					msg:this,
-					success: function(json){
-						if(json == null){
-							$(this.msg).siblings('a.act').show();
-							$(this.msg).hide();
-						}
-					}
+				    url: "${urlPrefix}/group",
+				    data: {size:6, catId: window.gpid, startid: parseInt(lis.last().data('replyid')) - 1, type: 0},
+				   	success: function(json){
+				   		$("#sld2").html(ich.group(json));
+				    }
 				});
 			});
-			
+			$('#pagger>a.next').live('click',function(){
+				$.ajax({
+				    url: "${urlPrefix}/group",
+				    data: {size:6, catId: window.gpid, startid: parseInt(lis.fast().data('replyid')) + 1, type: 1},
+				   	success: function(json){
+				   		$("#sld2").html(ich.group(json));
+				    }
+				});
+			});				
 		});
+		
+		$('#sld2 a.act').live('click',function(){
+			var li = $(this).parent('li');
+			$.ajax({
+				url: '${urlPrefix}/group/' + li.attr('gid') + '/join',
+				type: 'POST',
+				msg:this,
+				success: function(json){
+					if(json == null){
+						$(this.msg).siblings('a.actun').removeClass('hide_im');
+						$(this.msg).addClass('hide_im');
+					}
+				}
+			});
+		});
+		$('#sld2 a.actun').live('click',function(){
+			var li = $(this).parent('li');
+			$.ajax({
+				url: '${urlPrefix}/group/' + li.attr('gid') + '/join',
+				type: 'POST',
+				data:{_method:'delete'},
+				msg:this,
+				success: function(json){
+					if(json == null){
+						$(this.msg).siblings('a.act').removeClass('hide_im');
+						$(this.msg).addClass('hide_im');
+					}
+				}
+			});
+		});
+		
 	});
+});
 </script>
 
 <div class="layout grid-s5m0e6">
@@ -110,10 +106,10 @@ span.tit{display:none;}
         </div>
         <div id="slidbox">
             <div id="slider">
-            <ul class="sldlist" id="sldroot">
+            <ul id="sldroot" class="sldlist">
 				<c:forEach items="${cats}" var="cat" varStatus="status">
 				<li gpcid='${cat.id}' class='hov'>
-					<img src="${avatarPath}-48" alt="gpcate" class="sldimg" >
+					<img src="${cat.avatarPath}" alt="gpcate" class="sldimg" >
 					<p class='name'>${cat.name}</p>
 					<p>
 						<c:forEach items="${cat.groups}" var="group" varStatus="status">
@@ -123,17 +119,17 @@ span.tit{display:none;}
 				</li>
 				</c:forEach>
             </ul>
-            <div id='sldbox' ></div>
+            <div id='sld2'></div>
             <script type="text/html" id="group">
 					<ul id="sldtrunk" class="sldlist">
 					{{#groups}}
-                    <li gid={{id}}><a href='${urlPrefix}/group/{{id}}'>
-                        <img src="{{avatarPath}}-48" alt="avtor" class="sldimg" />
-                        <a class='btn actun {{#joined}}hide{{joined}}'>关注</a>
-                        <a class='btn act {{^joined}}hide{{/joined}}'>取消关注</a>
-                        <p>{{name}}</p>
+                    <li gid={{id}}>
+                        <img src="{{avatarPath}}" alt="avtor" class="sldimg" />
+                        <a class='btn act {{#joined}}hide_im{{/joined}}'>关注</a>
+                        <a class='btn actun	 {{^joined}}hide_im{{/joined}}'>取消关注</a>
+                       <p><a href='${urlPrefix}/group/{{id}}' class='lk'>{{name}}</a></p>
                         <p>成员：{{joinNum}}人&nbsp;&nbsp;创建于：{{screenTime}}</p>
-                        <p>{{intro}}</p></a>
+                        <p>{{intro}}</p>
                     </li>
 					{{/groups}}
 					</ul>
@@ -153,45 +149,18 @@ span.tit{display:none;}
     <div class="col-extra pt20">
 
         <div class="component">
-        <h3>圈子推荐<span class='separator'> · · · · · ·</span><a class='arr'>更多</a></h3>
+        <h3>圈子推荐</h3>
         <ul class="slist">
-            <li>
-                    <a href="#"><img class="img48" src="/usersimg/1.png" alt="img" /></a>
+            <c:forEach items="${recommendGroups}" var="group" varStatus="status">
+            <li class="<c:if test="${status.count%3==0}">end</c:if>">
+                <a href="${urlPrefix}/group/${group.id}">
+                	<img class="img48" src="${group.avatarPath}" alt="img" />
+                </a>
                 <div class="gray">
-                    GEEK POWER
+                    <a href="${urlPrefix}/group/${group.id}">${group.name}</a>
                 </div>
             </li>
-            <li class="">
-                    <a href="#"><img class="img48" src="/usersimg/sago.jpg" alt="img" /></a>
-                <div class="gray">
-                    公司秘书丝袜
-                </div>
-            </li>
-
-            <li class="end">
-                    <a href="#"><img class="img48" src="/usersimg/7.png" alt="img" /></a>
-                <div class="gray">
-                    有木有！！～
-                </div>
-            </li>
-            <li class="">
-                    <a href="#"><img class="img48" src="/usersimg/sago.jpg" alt="img" /></a>
-                <div class="gray">
-                    公司秘书丝袜
-                </div>
-            </li>
-            <li>
-                    <a href="#"><img class="img48" src="/usersimg/4.png" alt="img" /></a>
-                <div class="gray">
-                    波多野结衣
-                </div>
-            </li>
-            <li class='end'>
-                    <a href="#"><img class="img48" src="/usersimg/1.png" alt="img" /></a>
-                <div class="gray">
-                    波多野结衣
-                </div>
-            </li>
+			</c:forEach>
         </ul>
         </div>
 

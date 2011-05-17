@@ -11,7 +11,14 @@
 <script type="text/javascript">
     window.loginCookie = '${loginCookie.peopleId}';
     window.urlprefix = '${urlPrefix}';
+	seajs.use('qcomcn.js', function (q) {
+		$ = q.jq;
+		$(function () {
+			q.Init();
+		});
+	});
 </script>
+<jsp:include page="js-common.jsp" />
 </head>
 <body>
 <div class="body">
@@ -20,20 +27,20 @@
         <div id="msg">
             <ul class="list">
                 <li><a href='${urlPrefix}/category'>首页</a></li>
-                <li class='rel'><a class="lk" href='#'>${loginCookie.realName}</a>
+                <li class='rel'><a class="lk" href='${urlPrefix}/people/${loginCookie.peopleId}'>${loginCookie.realName}</a>
                 <span target='minelist' class='in_bk tlistarr'></span>
 		        <div id="minelist" class='tgtbox'>
 		            <ul class="dlist">
-		                <li><a class='lk' href='#'>我的主页</a></li>
-		                <li><a class="lk" href='#'>&#64提到我的</a></li>
-		                <li><a class="lk" href='/category'>我的回复</a></li>
-		                <li class="end"><a class="lk" href='#'>我的收藏</a></li>
+		                <li><a class='lk' href='${urlPrefix}/people/${loginCookie.peopleId}'>我的主页</a></li>
+		                <li><a class="lk" href='${urlPrefix}/at'>&#64提到我的</a></li>
+		                <li><a class="lk" href='${urlPrefix}/reply'>我的回复</a></li>
+		                <li class="end"><a class="lk" href='${urlPrefix}/favorite'>我的收藏</a></li>
 		            </ul>
 		        </div>
                 </li>
                 <li><a class="lk" href='${urlPrefix}/message'>私信</a></li>
-                <li><a class="lk" href='#'>设置</a></li>
-                <li class="end"><a class="lk" href='#'>退出</a></li>
+                <li><a class="lk" href='${urlPrefix}/setting/basic'>设置</a></li>
+                <li class="end"><a class="lk" href='${urlPrefix}/login/delete'>退出</a></li>
             </ul>
         </div>
         <div class="search">

@@ -13,6 +13,7 @@ import q.commons.pinyin.Pinyin;
 import q.dao.PeopleDao;
 import q.domain.People;
 import q.util.CollectionKit;
+import q.web.Resource;
 import q.web.ResourceContext;
 
 /**
@@ -21,7 +22,7 @@ import q.web.ResourceContext;
  * @date Feb 21, 2011
  * 
  */
-public class GetMessageNew extends AddMessage {
+public class GetMessageNew extends Resource {
 	private PeopleDao peopleDao;
 
 	public void setPeopleDao(PeopleDao peopleDao) {
@@ -46,6 +47,7 @@ public class GetMessageNew extends AddMessage {
 		List<Long> followingIds = peopleDao.getAllFollowingId(loginPeopleId);
 		List<People> followings = peopleDao.getPeoplesByIds(followingIds);
 		String peoplesHintJson = this.getPeoplesHintJson(followings);
+		context.setModel("followings", followings);
 		context.setModel("peoplesHintJson", peoplesHintJson);
 	}
 
@@ -95,6 +97,11 @@ public class GetMessageNew extends AddMessage {
 		buffer.append("id:\"");
 		buffer.append(people.getId());
 		buffer.append("\"}");
+	}
+
+	@Override
+	public void validate(ResourceContext context) throws Exception {
+		
 	}
 
 }
