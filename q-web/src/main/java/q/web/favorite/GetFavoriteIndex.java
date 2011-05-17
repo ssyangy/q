@@ -131,7 +131,7 @@ public class GetFavoriteIndex extends Resource {
 			}
 			Map<String, Object> api = new HashMap<String, Object>();
 			if (CollectionKit.isNotEmpty(favorites)) {
-				api.put("favorites", favorites);
+				api.put("weibos", favorites);
 			}
 			api.put("hasPrev", hasPrev);
 			api.put("hasNext", hasNext);

@@ -24,7 +24,7 @@
 			<jsp:param name="from" value="${urlPrefix}/group/${group.id}"/>
 		</jsp:include>
 		<jsp:include page="models/weibo-list.jsp">
-			<jsp:param name="feedUrl" value="${urlPrefix}/group/${group.id}" />
+			<jsp:param name="feedUrl" value="${urlPrefix}/group/${group.id}/weibo" />
 		</jsp:include>
 		</div>
       </div></div>

@@ -56,13 +56,9 @@ public class IdCreator {
 		return counterLimit;
 	}
 
-	private static int nodeFlag = initNodeFlag();
+	private static int nodeFlag;
 
-	public static int getNodeFlag() {
-		return nodeFlag;
-	}
-
-	private static int initNodeFlag() {
+	static {
 		String ip = null;
 		Socket socket = null;
 		try {
@@ -95,9 +91,12 @@ public class IdCreator {
 		} catch (UnknownHostException e) {
 			log.error("can't get local address", e);
 		}
-		int flag = getIpLastSeg(ip);
-		log.warn("create id using ip:%s,nodeFlag:%s", ip, flag);
-		return flag;
+		nodeFlag = getIpLastSeg(ip);
+		log.warn("create id using ip:%s,nodeFlag:%s", ip, nodeFlag);
+	}
+
+	public static int getNodeFlag() {
+		return nodeFlag;
 	}
 
 	private static int getIpLastSeg(String ip) {
@@ -144,8 +143,7 @@ public class IdCreator {
 				counter = 0; // reset counter
 				counterStartTimestamp = timestamp; // reset start timestamp
 			}
-			long id = (((counterStartTimestamp - baseTimestamp) * counterLimit + counter++) * 1000 + nodeFlag)
-					* 10 + version;
+			long id = (((counterStartTimestamp - baseTimestamp) * counterLimit + counter++) * 1000 + nodeFlag) * 10 + version;
 			return id;
 		} finally {
 			counterLock.unlock();
@@ -210,8 +208,7 @@ public class IdCreator {
 	 * @return
 	 * @throws IllegalArgumentException
 	 */
-	public static Set<Long> convertIfValidIds(String... ids)
-			throws IllegalArgumentException {
+	public static Set<Long> convertIfValidIds(String... ids) throws IllegalArgumentException {
 		Set<Long> result = new HashSet<Long>(ids.length);
 		for (String id : ids) {
 			try {
