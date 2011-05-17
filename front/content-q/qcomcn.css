@@ -42,7 +42,10 @@ li.streambox.hover .fd b.cloarrow:hover{background-image:url('/content/images/ti
 li.streambox a.hod{visibility:hidden;}
 li.streambox.hover a.hod{visibility:inherit;}
 li.streambox .repmod{border:1px solid #ddd;padding:5px;margin-bottom:10px;}
-li.streambox .extend{display:none;}
+li.streambox .extend{display:none;padding:10px 0 5px 58px;}
+li.streambox ul.msglist li{padding-left:44px;}
+li.streambox input.reply_val{width:200px;}
+li.streambox span.actions{position:absolute;right:0;top:0;}
 
 .search{position:absolute;top:0;right:0;}
 #searchpage {top:30px;left:80px;width:307px;}

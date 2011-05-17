@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="e0fc835f-5ce6-4dbb-a522-2cde9dce1cc9" name="jin@JIN-PC 2011-05-14 15:33:28" runUser="jin-PC\jin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="默认测试设置" id="38ff31cd-ffb1-47eb-b681-c19beb71cfe0">
+    <Deployment runDeploymentRoot="jin_JIN-PC 2011-05-14 15_33_28">
+      <DeploymentItem filename="D:\Work\q-front\front\bin\front.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2011-05-14T15:33:28.8610187+08:00" queuing="2011-05-14T15:33:28.8610187+08:00" start="2011-05-14T15:33:28.8610187+08:00" finish="2011-05-14T15:33:42.2537847+08:00" />
+  <ResultSummary outcome="Error">
+    <Counters total="18" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="18" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+    <RunInfos>
+      <RunInfo computerName="JIN-PC" outcome="Error" timestamp="2011-05-14T15:33:41.8627623+08:00">
+        <Text>测试宿主进程意外退出。</Text>
+      </RunInfo>
+      <RunInfo computerName="JIN-PC" outcome="Error" timestamp="2011-05-14T15:33:42.2497845+08:00">
+        <Text>未能对测试运行“jin@JIN-PC 2011-05-14 15:33:28”进行排队: 无法启动代理进程。</Text>
+        <Exception>Microsoft.VisualStudio.TestTools.Exceptions.EqtException: 无法启动代理进程。
+   在 Microsoft.VisualStudio.TestTools.TestManagement.LocalControllerProxy.PrepareProcess(TestRun run)
+   在 Microsoft.VisualStudio.TestTools.TestManagement.LocalControllerProxy.InitializeController(TestRun run)
+   在 Microsoft.VisualStudio.TestTools.TestManagement.ControllerProxy.QueueTestRunWorker(Object state)</Exception>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="Register_Post_ReturnsViewIfModelStateIsInvalid" storage="d:\work\q-front\front.tests\bin\debug\front.tests.dll" id="c1ccba7f-14e9-ef74-5a26-b6ae986d4370">
+      <Execution id="2297f315-0fc2-4468-94d2-c79d9062a693" />
+      <TestMethod codeBase="D:/Work/q-front/front.Tests/bin/Debug/front.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="front.Tests.Controllers.AccountControllerTest, front.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Register_Post_ReturnsViewIfModelStateIsInvalid" />
+    </UnitTest>
+    <UnitTest name="ChangePassword_Post_ReturnsViewIfModelStateIsInvalid" storage="d:\work\q-front\front.tests\bin\debug\front.tests.dll" id="d130e03e-2b48-21cf-59b2-b4ccd68913c0">
+      <Execution id="790113db-a075-4791-ba47-1bf2bc8272d7" />
+      <TestMethod codeBase="D:/Work/q-front/front.Tests/bin/Debug/front.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="front.Tests.Controllers.AccountControllerTest, front.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ChangePassword_Post_ReturnsViewIfModelStateIsInvalid" />
+    </UnitTest>
+    <UnitTest name="LogOn_Post_ReturnsViewIfModelStateIsInvalid" storage="d:\work\q-front\front.tests\bin\debug\front.tests.dll" id="3ca350b5-3367-a6b3-7497-118a93738020">
+      <Execution id="32720d3b-6d64-47ed-bd5d-0d6b593fe40e" />
+      <TestMethod codeBase="D:/Work/q-front/front.Tests/bin/Debug/front.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="front.Tests.Controllers.AccountControllerTest, front.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LogOn_Post_ReturnsViewIfModelStateIsInvalid" />
+    </UnitTest>
+    <UnitTest name="LogOn_Get_ReturnsView" storage="d:\work\q-front\front.tests\bin\debug\front.tests.dll" id="3822f62c-e512-a3cc-5ea0-57b37281ab41">
+      <Execution id="a3120d2d-e4ad-4537-a7ec-46109c53bef3" />
+      <TestMethod codeBase="D:/Work/q-front/front.Tests/bin/Debug/front.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="front.Tests.Controllers.AccountControllerTest, front.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LogOn_Get_ReturnsView" />
+    </UnitTest>
+    <UnitTest name="LogOff_LogsOutAndRedirects" storage="d:\work\q-front\front.tests\bin\debug\front.tests.dll" id="553553e7-a922-03b2-18f7-03c30a441029">
+      <Execution id="d11c3dbd-4a08-4afe-9eb0-8aa1626459e6" />
+      <TestMethod codeBase="D:/Work/q-front/front.Tests/bin/Debug/front.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="front.Tests.Controllers.AccountControllerTest, front.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LogOff_LogsOutAndRedirects" />
+    </UnitTest>
+    <UnitTest name="LogOn_Post_ReturnsRedirectOnSuccess_WithLocalReturnUrl" storage="d:\work\q-front\front.tests\bin\debug\front.tests.dll" id="03b5dce2-b629-0795-09cd-2c6099ee33a2">
+      <Execution id="bb9f3ebb-4cb0-4f6b-8833-5666aa52c08d" />
+      <TestMethod codeBase="D:/Work/q-front/front.Tests/bin/Debug/front.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="front.Tests.Controllers.AccountControllerTest, front.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LogOn_Post_ReturnsRedirectOnSuccess_WithLocalReturnUrl" />
+    </UnitTest>
+    <UnitTest name="About" storage="d:\work\q-front\front.tests\bin\debug\front.tests.dll" id="c7f0f505-82bb-c6f8-a754-b13dc3616d46">
+      <Execution id="7c2bf20f-e3e8-4369-8a90-ec0f7f5f1e61" />
+      <TestMethod codeBase="D:/Work/q-front/front.Tests/bin/Debug/front.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="front.Tests.Controllers.HomeControllerTest, front.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="About" />
+    </UnitTest>
+    <UnitTest name="Register_Post_ReturnsViewIfRegistrationFails" storage="d:\work\q-front\front.tests\bin\debug\front.tests.dll" id="2d5bac03-8fa4-616f-e3e4-f553a9368aec">
+      <Execution id="bae918ef-5eae-4aa9-8e7d-da5dda44b717" />
+      <TestMethod codeBase="D:/Work/q-front/front.Tests/bin/Debug/front.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="front.Tests.Controllers.AccountControllerTest, front.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Register_Post_ReturnsViewIfRegistrationFails" />
+    </UnitTest>
+    <UnitTest name="Register_Post_ReturnsRedirectOnSuccess" storage="d:\work\q-front\front.tests\bin\debug\front.tests.dll" id="f2853f48-bd65-b1f5-5f39-0e6bcd7f5aa2">
+      <Execution id="36721cc0-f2c8-4421-8eee-765da768621b" />
+      <TestMethod codeBase="D:/Work/q-front/front.Tests/bin/Debug/front.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="front.Tests.Controllers.AccountControllerTest, front.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Register_Post_ReturnsRedirectOnSuccess" />
+    </UnitTest>
+    <UnitTest name="LogOn_Post_ReturnsRedirectToHomeOnSuccess_WithExternalReturnUrl" storage="d:\work\q-front\front.tests\bin\debug\front.tests.dll" id="b41ea179-d4cf-d4af-a169-03ed095b4585">
+      <Execution id="9079c12e-1a15-47ea-a695-434ea8fec47e" />
+      <TestMethod codeBase="D:/Work/q-front/front.Tests/bin/Debug/front.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="front.Tests.Controllers.AccountControllerTest, front.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LogOn_Post_ReturnsRedirectToHomeOnSuccess_WithExternalReturnUrl" />
+    </UnitTest>
+    <UnitTest name="Index" storage="d:\work\q-front\front.tests\bin\debug\front.tests.dll" id="c0f0d6e0-c181-8eb6-9a36-950751c100d2">
+      <Execution id="82168ae3-5604-49c2-80d8-6224f1a0e467" />
+      <TestMethod codeBase="D:/Work/q-front/front.Tests/bin/Debug/front.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="front.Tests.Controllers.HomeControllerTest, front.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Index" />
+    </UnitTest>
+    <UnitTest name="ChangePassword_Get_ReturnsView" storage="d:\work\q-front\front.tests\bin\debug\front.tests.dll" id="dbe6b432-1bf0-f831-5db0-30fa7bef9eb0">
+      <Execution id="bc871ffc-b141-48d5-819d-4f8d9811fc82" />
+      <TestMethod codeBase="D:/Work/q-front/front.Tests/bin/Debug/front.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="front.Tests.Controllers.AccountControllerTest, front.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ChangePassword_Get_ReturnsView" />
+    </UnitTest>
+    <UnitTest name="LogOn_Post_ReturnsRedirectOnSuccess_WithoutReturnUrl" storage="d:\work\q-front\front.tests\bin\debug\front.tests.dll" id="4c229974-b6eb-03fb-5509-c34854e5b3f1">
+      <Execution id="8b1f1151-a755-4d3e-84b6-ce2de37dd39c" />
+      <TestMethod codeBase="D:/Work/q-front/front.Tests/bin/Debug/front.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="front.Tests.Controllers.AccountControllerTest, front.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LogOn_Post_ReturnsRedirectOnSuccess_WithoutReturnUrl" />
+    </UnitTest>
+    <UnitTest name="ChangePassword_Post_ReturnsRedirectOnSuccess" storage="d:\work\q-front\front.tests\bin\debug\front.tests.dll" id="fa39214a-9535-5d55-2ca7-fd532a75e250">
+      <Execution id="5bbf0787-b692-4274-b473-0d69cc64a4fc" />
+      <TestMethod codeBase="D:/Work/q-front/front.Tests/bin/Debug/front.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="front.Tests.Controllers.AccountControllerTest, front.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ChangePassword_Post_ReturnsRedirectOnSuccess" />
+    </UnitTest>
+    <UnitTest name="ChangePassword_Post_ReturnsViewIfChangePasswordFails" storage="d:\work\q-front\front.tests\bin\debug\front.tests.dll" id="4288f9eb-08a1-e489-90ee-f9db27c750e8">
+      <Execution id="46dfd159-73a2-4f7a-ab61-af557f4f0d97" />
+      <TestMethod codeBase="D:/Work/q-front/front.Tests/bin/Debug/front.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="front.Tests.Controllers.AccountControllerTest, front.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ChangePassword_Post_ReturnsViewIfChangePasswordFails" />
+    </UnitTest>
+    <UnitTest name="ChangePasswordSuccess_ReturnsView" storage="d:\work\q-front\front.tests\bin\debug\front.tests.dll" id="d8af1da6-c45c-f572-47b7-7445b549dbce">
+      <Execution id="31ebbf93-b69a-4f23-ad5a-6194d15f1a80" />
+      <TestMethod codeBase="D:/Work/q-front/front.Tests/bin/Debug/front.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="front.Tests.Controllers.AccountControllerTest, front.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ChangePasswordSuccess_ReturnsView" />
+    </UnitTest>
+    <UnitTest name="Register_Get_ReturnsView" storage="d:\work\q-front\front.tests\bin\debug\front.tests.dll" id="3bd78902-4666-275a-79fe-515f59371076">
+      <Execution id="d0e5c4b7-3a1f-4287-856a-c11c7f0645f7" />
+      <TestMethod codeBase="D:/Work/q-front/front.Tests/bin/Debug/front.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="front.Tests.Controllers.AccountControllerTest, front.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Register_Get_ReturnsView" />
+    </UnitTest>
+    <UnitTest name="LogOn_Post_ReturnsViewIfValidateUserFails" storage="d:\work\q-front\front.tests\bin\debug\front.tests.dll" id="d27d6701-395e-e1b2-068d-f4d8fa147db3">
+      <Execution id="ee9250c4-9960-457b-ab03-2b0b40f32a98" />
+      <TestMethod codeBase="D:/Work/q-front/front.Tests/bin/Debug/front.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="front.Tests.Controllers.AccountControllerTest, front.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LogOn_Post_ReturnsViewIfValidateUserFails" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="dbe6b432-1bf0-f831-5db0-30fa7bef9eb0" executionId="bc871ffc-b141-48d5-819d-4f8d9811fc82" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fa39214a-9535-5d55-2ca7-fd532a75e250" executionId="5bbf0787-b692-4274-b473-0d69cc64a4fc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4288f9eb-08a1-e489-90ee-f9db27c750e8" executionId="46dfd159-73a2-4f7a-ab61-af557f4f0d97" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d130e03e-2b48-21cf-59b2-b4ccd68913c0" executionId="790113db-a075-4791-ba47-1bf2bc8272d7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d8af1da6-c45c-f572-47b7-7445b549dbce" executionId="31ebbf93-b69a-4f23-ad5a-6194d15f1a80" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="553553e7-a922-03b2-18f7-03c30a441029" executionId="d11c3dbd-4a08-4afe-9eb0-8aa1626459e6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3822f62c-e512-a3cc-5ea0-57b37281ab41" executionId="a3120d2d-e4ad-4537-a7ec-46109c53bef3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4c229974-b6eb-03fb-5509-c34854e5b3f1" executionId="8b1f1151-a755-4d3e-84b6-ce2de37dd39c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="03b5dce2-b629-0795-09cd-2c6099ee33a2" executionId="bb9f3ebb-4cb0-4f6b-8833-5666aa52c08d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b41ea179-d4cf-d4af-a169-03ed095b4585" executionId="9079c12e-1a15-47ea-a695-434ea8fec47e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3ca350b5-3367-a6b3-7497-118a93738020" executionId="32720d3b-6d64-47ed-bd5d-0d6b593fe40e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d27d6701-395e-e1b2-068d-f4d8fa147db3" executionId="ee9250c4-9960-457b-ab03-2b0b40f32a98" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3bd78902-4666-275a-79fe-515f59371076" executionId="d0e5c4b7-3a1f-4287-856a-c11c7f0645f7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f2853f48-bd65-b1f5-5f39-0e6bcd7f5aa2" executionId="36721cc0-f2c8-4421-8eee-765da768621b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2d5bac03-8fa4-616f-e3e4-f553a9368aec" executionId="bae918ef-5eae-4aa9-8e7d-da5dda44b717" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c1ccba7f-14e9-ef74-5a26-b6ae986d4370" executionId="2297f315-0fc2-4468-94d2-c79d9062a693" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c0f0d6e0-c181-8eb6-9a36-950751c100d2" executionId="82168ae3-5604-49c2-80d8-6224f1a0e467" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c7f0f505-82bb-c6f8-a754-b13dc3616d46" executionId="7c2bf20f-e3e8-4369-8a90-ec0f7f5f1e61" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="bc871ffc-b141-48d5-819d-4f8d9811fc82" testId="dbe6b432-1bf0-f831-5db0-30fa7bef9eb0" testName="ChangePassword_Get_ReturnsView" computerName="JIN-PC" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bc871ffc-b141-48d5-819d-4f8d9811fc82">
+    </UnitTestResult>
+    <UnitTestResult executionId="5bbf0787-b692-4274-b473-0d69cc64a4fc" testId="fa39214a-9535-5d55-2ca7-fd532a75e250" testName="ChangePassword_Post_ReturnsRedirectOnSuccess" computerName="JIN-PC" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5bbf0787-b692-4274-b473-0d69cc64a4fc">
+    </UnitTestResult>
+    <UnitTestResult executionId="46dfd159-73a2-4f7a-ab61-af557f4f0d97" testId="4288f9eb-08a1-e489-90ee-f9db27c750e8" testName="ChangePassword_Post_ReturnsViewIfChangePasswordFails" computerName="JIN-PC" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="46dfd159-73a2-4f7a-ab61-af557f4f0d97">
+    </UnitTestResult>
+    <UnitTestResult executionId="790113db-a075-4791-ba47-1bf2bc8272d7" testId="d130e03e-2b48-21cf-59b2-b4ccd68913c0" testName="ChangePassword_Post_ReturnsViewIfModelStateIsInvalid" computerName="JIN-PC" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="790113db-a075-4791-ba47-1bf2bc8272d7">
+    </UnitTestResult>
+    <UnitTestResult executionId="31ebbf93-b69a-4f23-ad5a-6194d15f1a80" testId="d8af1da6-c45c-f572-47b7-7445b549dbce" testName="ChangePasswordSuccess_ReturnsView" computerName="JIN-PC" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="31ebbf93-b69a-4f23-ad5a-6194d15f1a80">
+    </UnitTestResult>
+    <UnitTestResult executionId="d11c3dbd-4a08-4afe-9eb0-8aa1626459e6" testId="553553e7-a922-03b2-18f7-03c30a441029" testName="LogOff_LogsOutAndRedirects" computerName="JIN-PC" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d11c3dbd-4a08-4afe-9eb0-8aa1626459e6">
+    </UnitTestResult>
+    <UnitTestResult executionId="a3120d2d-e4ad-4537-a7ec-46109c53bef3" testId="3822f62c-e512-a3cc-5ea0-57b37281ab41" testName="LogOn_Get_ReturnsView" computerName="JIN-PC" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a3120d2d-e4ad-4537-a7ec-46109c53bef3">
+    </UnitTestResult>
+    <UnitTestResult executionId="8b1f1151-a755-4d3e-84b6-ce2de37dd39c" testId="4c229974-b6eb-03fb-5509-c34854e5b3f1" testName="LogOn_Post_ReturnsRedirectOnSuccess_WithoutReturnUrl" computerName="JIN-PC" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8b1f1151-a755-4d3e-84b6-ce2de37dd39c">
+    </UnitTestResult>
+    <UnitTestResult executionId="bb9f3ebb-4cb0-4f6b-8833-5666aa52c08d" testId="03b5dce2-b629-0795-09cd-2c6099ee33a2" testName="LogOn_Post_ReturnsRedirectOnSuccess_WithLocalReturnUrl" computerName="JIN-PC" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bb9f3ebb-4cb0-4f6b-8833-5666aa52c08d">
+    </UnitTestResult>
+    <UnitTestResult executionId="9079c12e-1a15-47ea-a695-434ea8fec47e" testId="b41ea179-d4cf-d4af-a169-03ed095b4585" testName="LogOn_Post_ReturnsRedirectToHomeOnSuccess_WithExternalReturnUrl" computerName="JIN-PC" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9079c12e-1a15-47ea-a695-434ea8fec47e">
+    </UnitTestResult>
+    <UnitTestResult executionId="32720d3b-6d64-47ed-bd5d-0d6b593fe40e" testId="3ca350b5-3367-a6b3-7497-118a93738020" testName="LogOn_Post_ReturnsViewIfModelStateIsInvalid" computerName="JIN-PC" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="32720d3b-6d64-47ed-bd5d-0d6b593fe40e">
+    </UnitTestResult>
+    <UnitTestResult executionId="ee9250c4-9960-457b-ab03-2b0b40f32a98" testId="d27d6701-395e-e1b2-068d-f4d8fa147db3" testName="LogOn_Post_ReturnsViewIfValidateUserFails" computerName="JIN-PC" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ee9250c4-9960-457b-ab03-2b0b40f32a98">
+    </UnitTestResult>
+    <UnitTestResult executionId="d0e5c4b7-3a1f-4287-856a-c11c7f0645f7" testId="3bd78902-4666-275a-79fe-515f59371076" testName="Register_Get_ReturnsView" computerName="JIN-PC" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d0e5c4b7-3a1f-4287-856a-c11c7f0645f7">
+    </UnitTestResult>
+    <UnitTestResult executionId="36721cc0-f2c8-4421-8eee-765da768621b" testId="f2853f48-bd65-b1f5-5f39-0e6bcd7f5aa2" testName="Register_Post_ReturnsRedirectOnSuccess" computerName="JIN-PC" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="36721cc0-f2c8-4421-8eee-765da768621b">
+    </UnitTestResult>
+    <UnitTestResult executionId="bae918ef-5eae-4aa9-8e7d-da5dda44b717" testId="2d5bac03-8fa4-616f-e3e4-f553a9368aec" testName="Register_Post_ReturnsViewIfRegistrationFails" computerName="JIN-PC" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bae918ef-5eae-4aa9-8e7d-da5dda44b717">
+    </UnitTestResult>
+    <UnitTestResult executionId="2297f315-0fc2-4468-94d2-c79d9062a693" testId="c1ccba7f-14e9-ef74-5a26-b6ae986d4370" testName="Register_Post_ReturnsViewIfModelStateIsInvalid" computerName="JIN-PC" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2297f315-0fc2-4468-94d2-c79d9062a693">
+    </UnitTestResult>
+    <UnitTestResult executionId="82168ae3-5604-49c2-80d8-6224f1a0e467" testId="c0f0d6e0-c181-8eb6-9a36-950751c100d2" testName="Index" computerName="JIN-PC" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="82168ae3-5604-49c2-80d8-6224f1a0e467">
+    </UnitTestResult>
+    <UnitTestResult executionId="7c2bf20f-e3e8-4369-8a90-ec0f7f5f1e61" testId="c7f0f505-82bb-c6f8-a754-b13dc3616d46" testName="About" computerName="JIN-PC" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7c2bf20f-e3e8-4369-8a90-ec0f7f5f1e61">
+    </UnitTestResult>
+  </Results>
+</TestRun>

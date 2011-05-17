@@ -53,18 +53,13 @@
         remove: function () {	
             if(!confirm('确定要删除？')) return;
             $.ajax({
-                url: con.urlprefix+'/reply/' + this.model.get('id'),
+                url: window.urlprefix + '/reply/' + this.model.get('id'),
                 type: 'POST',
                 data: {_method:'delete'},
                 msg:this,
                 success: function(m){
-                    if(m.error_code) {
-                        alert('delete faild!');
-                        return;
-                    }
-                    $(this.msg.el).slideUp("slow",function(){
-                        $(this).remove();
-                    });
+                    if(m) return;
+                    $(this.msg.el).slideUp("slow",function(){ $(this).remove(); });
                 }
             });
         },
@@ -80,7 +75,7 @@
         },
         fav:function(){
             $.ajax({
-                url: con.urlprefix + '/reply/' + this.model.get('id') + '/favorite',
+                url: window.urlprefix + '/reply/' + this.model.get('id') + '/favorite',
                 type: 'POST',
                 msg:this,
                 success: function(){
@@ -91,7 +86,7 @@
         },
         unfav:function(){
             $.ajax({
-                url: con.urlprefix + '/reply/' + this.model.get('id') + '/favorite',
+                url: window.urlprefix + '/reply/' + this.model.get('id') + '/favorite',
                 type: 'POST',
                 data:{_method:'delete'},
                 msg:this,
