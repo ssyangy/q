@@ -14,7 +14,13 @@
 </script>
 <div class="layout grid-s5m0e6">
     <div class="col-main"><div class="main-wrap pr10">
-		<jsp:include page="models/profile.jsp" />
+        <div class="profile">
+            <img src="${group.avatarPath}" alt="portrait" class="FL mr10" />
+            <div class='proline'>
+                <p>${group.name}</p>
+                <p class="gray">${group.intro}</p>
+            </div>
+        </div>
         <div class="ui-tabs mt10">
             <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
                 <li class="ui-state-default crt2 ui-state-active"><a href="/qcomcn/group">讨论区</a></li>

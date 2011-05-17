@@ -293,6 +293,9 @@
 			<isNotNull prepend = "and " property="quoteWeiboId">
 				quote_weibo_id = #quoteWeiboId#
 			</isNotNull>
+			<isNotNull prepend = "and " property="quoteSenderId">
+				quote_sender_id = #quoteSenderId#
+			</isNotNull>			
 			<isNotNull prepend = "and " property="quoteSenderIds">
 				quote_sender_id in
 				<iterate property="quoteSenderIds" open="(" close=")" conjunction=",">
