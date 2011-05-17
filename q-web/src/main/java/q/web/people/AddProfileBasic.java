@@ -90,19 +90,15 @@ public class AddProfileBasic extends Resource {
 	public void validate(ResourceContext context) throws Exception {
 		PeopleValidator.validateId(context.getCookiePeopleId());
 		int gender = context.getInt("gender", -1);
-		if (gender > 0) {
-			PeopleValidator.validateGender(gender);
-		}
-		
+		PeopleValidator.validateGender(gender);
+
 		String intro = context.getString("intro");
 		if (intro != null) {
 			PeopleValidator.validateIntro(intro);
 		}
-		
+
 		String realName = context.getString("realName");
-		if (realName != null) {
-			PeopleValidator.validateRealName(realName);
-		}
+		PeopleValidator.validateRealName(realName);
 
 		int year = context.getInt("year", -1);
 		int month = context.getInt("month", -1);

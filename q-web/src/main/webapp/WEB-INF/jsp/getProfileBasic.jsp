@@ -98,6 +98,10 @@
 		            $("#birthdaycorrect").css("display","none");
 		            $("#birthdaywrong").css("display","block");
 		            $("#birthdaywrong").html(errorContext(json.error));
+		           }else if(errorkind=="gender"){
+		            $("#gendercorrect").css("display","none");
+		            $("#genderwrong").css("display","block");
+		            $("#genderwrong").html(errorContext(json.error));
 		           }
 		      }
 		    }
@@ -206,9 +210,10 @@
 				<input type='radio' value='2' name="gender" id="female" <c:choose><c:when test="${people.gender.value == 2}">checked="checked"</c:when></c:choose>/>
 				<span class='value-label'>女</span>
 			</td>
-			<td class='col-help'>
-				<div class='label-box-good'></div>
-			</td>
+			<td class="col-help">
+    	      <div class="label-box-good" style="display: none;" id="gendercorrect"></div>
+              <div class="label-box-error" style="display: none;" id="genderwrong"></div>
+           	</td>
 		</tr>
 		<tr>
 			<td align="right">生日：</td>
