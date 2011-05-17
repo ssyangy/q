@@ -4,6 +4,7 @@
 package q.util;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Calendar;
@@ -32,7 +33,7 @@ public class IdCreator {
 	 * 18个9是很难达到的ID
 	 */
 	public static final long MAX_ID = 999999999999999999L;
-	
+
 	private static long getBaseTimestamp() {
 		Calendar baseCal = Calendar.getInstance();
 		baseCal.set(2011, 0, 1, 0, 0, 0);
@@ -56,17 +57,19 @@ public class IdCreator {
 	}
 
 	private static int nodeFlag = initNodeFlag();
-	
+
 	public static int getNodeFlag() {
 		return nodeFlag;
 	}
 
 	private static int initNodeFlag() {
-		String ip;
+		String ip = null;
 		Socket socket = null;
 		try {
-			// NetworkInterface eth1 = NetworkInterface.getByName("eth1");// 张江机房的内网ip网卡,e.g:eth1:172.16.40.4 eth0:222.73.29.151
-			// NetworkInterface eth0 = NetworkInterface.getByName("eth0");// 测试机没有eth1
+			// NetworkInterface eth1 = NetworkInterface.getByName("eth1");//
+			// 张江机房的内网ip网卡,e.g:eth1:172.16.40.4 eth0:222.73.29.151
+			// NetworkInterface eth0 = NetworkInterface.getByName("eth0");//
+			// 测试机没有eth1
 			// if (eth1 != null) {
 			// ip = eth1.getInetAddresses().nextElement().getHostAddress();
 			// } else if (eth0 != null) {
@@ -76,16 +79,21 @@ public class IdCreator {
 			// }
 			socket = new Socket("www.baidu.com", 80);
 			ip = socket.getLocalAddress().getHostAddress();
-		} catch (UnknownHostException e) {
-			throw new IllegalStateException();
 		} catch (IOException e) {
-			throw new IllegalStateException();
+			log.error("can't get local address", e);
 		} finally {
 			try {
-				socket.close();
+				if (socket != null) {
+					socket.close();
+				}
 			} catch (IOException e) {
-				throw new IllegalStateException();
+				log.error("can't get local address", e);
 			}
+		}
+		try {
+			ip = InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			log.error("can't get local address", e);
 		}
 		int flag = getIpLastSeg(ip);
 		log.warn("create id using ip:%s,nodeFlag:%s", ip, flag);
@@ -128,14 +136,16 @@ public class IdCreator {
 	private static long getLongId(long timestamp) {
 		counterLock.lock();
 		try {
-			if (counter >= counterLimit) { // if counter overflow, wait next millisecond
+			if (counter >= counterLimit) { // if counter overflow, wait next
+											// millisecond
 				while (timestamp <= counterStartTimestamp) {
 					timestamp = newTimestamp();
 				}
 				counter = 0; // reset counter
 				counterStartTimestamp = timestamp; // reset start timestamp
 			}
-			long id = (((counterStartTimestamp - baseTimestamp) * counterLimit + counter++) * 1000 + nodeFlag) * 10 + version;
+			long id = (((counterStartTimestamp - baseTimestamp) * counterLimit + counter++) * 1000 + nodeFlag)
+					* 10 + version;
 			return id;
 		} finally {
 			counterLock.unlock();
@@ -200,7 +210,8 @@ public class IdCreator {
 	 * @return
 	 * @throws IllegalArgumentException
 	 */
-	public static Set<Long> convertIfValidIds(String... ids) throws IllegalArgumentException {
+	public static Set<Long> convertIfValidIds(String... ids)
+			throws IllegalArgumentException {
 		Set<Long> result = new HashSet<Long>(ids.length);
 		for (String id : ids) {
 			try {

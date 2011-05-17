@@ -4,16 +4,10 @@
 	<jsp:param name="title" value="私信" />
 </jsp:include>
 <link href="${staticUrlPrefix}/content-q/slider.css" rel="stylesheet" type="text/css" />
-<style>
-
-</style>
 <script type="text/javascript">
     seajs.use('qcomcn.js', function (q) {
         var $ = q.jq;
-        
         $(function () {
-        	q.Init();
-        	
         	seajs.use('ICanHaz.js', function (ich) {
 	            var sldroot = $('#sldroot');
 	            var intmsglist = function(json){

@@ -7,10 +7,7 @@
 <script type="text/javascript">
     seajs.use('qcomcn.js', function (qcomcn) {
         var $ = qcomcn.jq;
-        seajs.use('chinaarea.js');
-        seajs.use('jq.jcrop.js');
         $(function () {
-            qcomcn.Init();
 
             var pheight = 331.6;
             $('#cropbox').Jcrop({

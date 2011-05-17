@@ -5,12 +5,8 @@
 </jsp:include>
 	<script type="text/javascript">
 	areas=${rootArea.childsJson};
-	var $ = {};
 	seajs.use('qcomcn.js', function (q) {
 		$ = q.jq;
-		$(function () {
-	         q.Init();
-		});
 		
 		checkrealName = function (a){
 		       if(a.length<1||a.length>12){
@@ -125,8 +121,8 @@
 					 }
 			
 				 });
-		         monthx.options[monthtemp-1].selected='selected';
-		         dayx.options[daytemp-1].selected='selected';
+		         if(monthtemp != '0') monthx.options[monthtemp-1].selected='selected';
+		         if(daytemp != '0') dayx.options[daytemp-1].selected='selected';
 
 		         provinceExist='${people.area.myProvince.id}';
 		         cityExist='${people.area.myCity.id}';
@@ -136,13 +132,13 @@
 		         hometownCityExist='${people.hometown.myCity.id}';
 		         hometownCountyExist='${people.hometown.myCounty.id}';
 
-		         area.initArea();
-		         area.initHometownArea();
+		         area.changeProvince();
+		         area.changeHometownProvince();
 		         
 		 		$("select[name='province']").bind('change',area.changeCity);
 				$("select[name='city']").bind('change',area.changeCounty);
 				$("select[name='hometownProvince']").bind('change',area.changeHometownCity);
-				$("select[name='hometownCity']").bind('change',area.changeHometownCounty);		         
+				$("select[name='hometownCity']").bind('change',area.changeHometownCounty);
 			});	
 		});
 	
@@ -238,7 +234,7 @@
 		</tr>
 		<tr>
 			<td align="right">关于我：</td>
-			<td class='col-field'><textarea cols="50" rows="6" id="intro">${people.intro}</textarea></td>
+			<td class='col-field'><textarea style='width:250px;height:100px;' id="intro" class='mttextar'>${people.intro}</textarea></td>
 			<td class='col-help'></td>
 		</tr>
 		<tr>
