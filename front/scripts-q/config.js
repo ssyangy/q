@@ -3,7 +3,7 @@ define(function (require, exports) {
 
     $.ajaxSetup({
         type: "GET",
-        contentType: "application/json; charset=utf-8",
+   //     contentType: "application/json; charset=utf-8",
         dataType: "json",
         timeout: 5000
     });

@@ -108,7 +108,8 @@
                 }
             });
         },
-        initrep: function(){
+        initrep: function(m){
+            if(m && m.error_code) return;
             $.ajax({
                 url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply",
                 data: { size: 10, startid: '999999999999999999' },
