@@ -3,61 +3,102 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="微博" />
 </jsp:include>
-<script type="text/javascript">
-seajs.use('qcomcn.js', function (q) {
-	$ = q.jq;
-	$(function () {
-         q.Init();
-	});
-});
+<script type="text/html" id="stream_ext">
+	{{#people}}
+	<a href="${urlPrefix}/people/{{id}}"><img class="wh24 sldimg" src="{{avatarPath}}-24" alt="head" /></a>
+	<p>
+	<a class='lk' href='${urlPrefix}/people/{{id}}'>{{screenName}}</a>
+	{{/people}}
+	{{text}}
+	</p>
+    <p class='rel'>
+		<span class="stat gray">{{screenTime}}</span>
+		<span class='actions'>
+        <a href="${urlprefix}/weibo/{{id}}" class='replay'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
+        <a href="javascript:void(0);" class='resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
+        <a href="javascript:void(0);" class='unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
+        <a href="javascript:void(0);" class='fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
+		{{#isown}}<a href="javascript:void(0);" class='lk del'>删除</a>{{/isown}}
+		</span>
+	</p>
 </script>
-
-	<div>
-		<c:out value="${weibo.content}" /><br/>
-		<c:if test="${weibo.quoteWeiboId >0}">
-			<a href="<c:out value="${urlPrefix}/weibo/${weibo.quoteWeiboId}"/>">原文</a>&nbsp;
-		</c:if>	
-		<a href="<c:out value="${urlPrefix}/people/${weibo.senderId}"/>">
-			<c:out value="${weibo.senderRealName}" />
-		</a>&nbsp;
-		<c:out value="${weibo.time}" />&nbsp;
-		<a href="<c:out value="${urlPrefix}${weibo.fromUrl}" />">
-			<c:out value="${weibo.fromName}" />
-		</a>
-		<br />
-	</div>
-	<div>
-		<form action="<c:out value="${urlPrefix}/weibo/${weibo.id}/reply"/>"
-			method="post"><textarea name="content" rows="5" cols="50"></textarea>
-		<button>回复</button>
-		</form>
-	</div>
-	<div>
-		<c:forEach items="${replies}" var="reply" varStatus="status">
-			<br>${reply.content}<br/>
-			<form action="${urlPrefix}/reply/${reply.id}/favorite" method="post">
-			<c:choose>
-				<c:when test="${reply.unFav}">
-				<button>收藏</button>
-				</c:when>
-				<c:otherwise>
-				<input type="hidden" name="_method"  value="delete"/>
-				<button>取消收藏</button>
-				</c:otherwise>
-			</c:choose>
-			</form>
-			<a href="${urlPrefix}/reply/${reply.id}/retweet?from=${urlPrefix}/weibo/${weibo.id}">			
-			<c:choose>
-				<c:when test="${reply.fromGroup}">分享给好友</c:when>
-				<c:otherwise>转发</c:otherwise>
-			</c:choose>
-			</a>
-			<a href="#">回复</a>&nbsp;
-			<a href="${urlPrefix}/people/${reply.senderId}">${reply.senderRealName}</a>&nbsp;${reply.time}&nbsp;
-			<a href="${urlPrefix}${reply.fromUrl}">
-				${reply.fromName}
-			</a>
-			<br />
-		</c:forEach>
-	</div>
+<script type="text/javascript">
+    seajs.use('qcomcn.js', function (q) {
+    	var $ = q.jq;
+        seajs.use('app/weibo-rep.js', function (w) {
+            $(function () {
+                $.ajax({
+                    url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply",
+                    data: { size: 10, startid: '999999999999999999' },
+                    success: this.suc_repajax
+                });
+                var defajaxurl: { size: 10, type: 0 },
+                $('a.rrprev').live('click',function(){
+                    var lis = $('li.repbox', this.el);
+                    var urlp = { startid: parseInt(lis.last().data('replyid')) - 1 };
+                    _.extend(urlp, this.defajaxurl);
+                    $.ajax({
+                        url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
+                        success: this.suc_repajax
+                    });
+                });
+                $('a.rrnext').live('click',function(){
+                    var lis = $('li.repbox', this.el);
+                    var urlp = { startid: parseInt(lis.last().data('replyid')) - 1,type:1 };
+                    _.extend(urlp, this.defajaxurl);
+                    $.ajax({
+                        url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
+                        success: this.suc_repajax
+                    });
+                });                
+                var ul = $('ul.msglist');
+                var suc_reqajax = function(json){
+                    if (json.hasPrev) { $('.rrprev', this.el).show() } else { $('.rrprev', this.el).hide() };
+                    if (json.hasNext) { $('.rrnext', this.el).show() } else { $('.rrnext', this.el).hide() };
+                    ul.empty();
+                    $(json.replies).each(function () {
+                        var rr = new rep.WeiboRepModel(this);
+                        var view = new rep.WeiboRepView({ model: rr });
+                        ul.append(view.render().el);
+                    });
+                    q.fixui();
+                }
+            });
+        });
+    });
+</script>
+<div class="layout grid-m0s7">
+<div class="col-main"><div class="main-wrap pr10">
+    <div class='tweet'>
+	    <a href="#"><img src="/userimg/avatar5.jpeg" alt='avator' /></a>
+	    <p><a class="lk">${weibo.senderRealName}</a><span class='time ml10'></span></p>
+	    <p>
+	    
+	    </p>
+    </div>
+    <div class="tw-sub">
+	    <form action="${urlPrefix}/weibo/${weibo.id}/reply">
+	    <textarea id="repinp" class="mttextar_val">回复点什么 . . .</textarea>
+	    <a class='btn'>回复</a>
+	    </form>
+    </div>
+    <div class="tw-reps">
+    <ul class="msglist mb5"></ul>
+    <a class='lk mr10 rrprev hide'>上一页</a>
+    <a class='lk rrnext hide'>下一页</a>
+    </div>
+</div></div>
+<div class="col-sub">
+    
+</div></div>
+	
+<div id="dia_ret" class="ui_dialog" title="转发">
+	<div class="wpeople mb10"></div>
+	<div class="wsor mb10"></div>
+	<div class="wcontent mb10"></div>
+	<input class='ret_url' type='hidden' ></input>
+	<textarea name="content" class="mttextar_val" style="width:100%"></textarea>
+    <img src="${staticUrlPrefix}/content-q/images/ajax/ajaxload.gif" class="ajaxload hide" alt="ajaxload" />
+    <input type='hidden' class='donet' />
+</div>	
 </div><jsp:include page="models/foot.jsp" />
