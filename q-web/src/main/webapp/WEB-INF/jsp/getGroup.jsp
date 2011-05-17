@@ -40,13 +40,16 @@
 			<p>由${group.creator.realName}创建于${group.time}</p><br />
 			<c:choose>
 				<c:when test="${join == null}">
-						<a class="btn" href="#" onclick="joinGroup(this,'${group.id}')">加入</button>
+						<a class="btn" href="#" onclick="joinGroup(this,'${group.id}')">加入</a>
 				</c:when>
 				<c:otherwise>
-						<a class="btn btnw24" href="#" onclick="unJoinGroup(this,'${group.id}')">已加入,退出</button>
+						<a class="btn btnw24" href="#" onclick="unJoinGroup(this,'${group.id}')">已加入,退出</a>
 				</c:otherwise>
-			</c:choose>			
-			<a href="#" class='btna'>管理</a><br /><br />
+			</c:choose>
+			<c:if test="${loginCookie.peopleId == group.creator.id}">			
+				<a href="${urlPrefix}/group/edit" class='btna'>管理</a>
+			</c:if>
+			<br /><br />
 		</div>
 		<div class="component">
 			<h3>新成员</h3>

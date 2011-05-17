@@ -52,7 +52,7 @@
         <p style="width:600px;margin-top:5px;">
             <input id="submit" type="submit" name="submite" value="发送" class='btn FL' />
             <input name='from' value='${urlPrefix}/message' type='hidden' />
-            <a class="lk f14 FR" href='${urlPrefix}/category'>取消</a>
+            <a class="lk f14 FR" href='${urlPrefix}/message'>取消</a>
         </p>
         </form>
     </div></div>
