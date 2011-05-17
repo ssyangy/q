@@ -264,7 +264,9 @@
 				<value>addPeopleFollowing</value>
 				<value>deletePeopleFollowing</value>
 				<value>getGroupNew</value>
+				<value>getGroupEdit</value>
 				<value>addGroup</value>
+				<value>updateGroup</value>
 				<value>getGroupFeed</value>
 				<value>getGroupFeedEvent</value>
 				<value>addGroupJoin</value>
@@ -461,7 +463,17 @@
 		<property name="searchService" ref="searchService" />
 		<property name="pictureService" ref="pictureService" />
 	</bean>
+	<bean id="updateGroup" class="q.web.group.UpdateGroup">
+		<property name="groupDao" ref="groupDao" />
+		<property name="categoryDao" ref="categoryDao" />
+		<property name="searchService" ref="searchService" />
+		<property name="pictureService" ref="pictureService" />
+	</bean>
 	<bean id="getGroupNew" class="q.web.group.GetGroupNew">
+		<property name="categoryDao" ref="categoryDao" />
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+	<bean id="getGroupEdit" class="q.web.group.GetGroupEdit">
 		<property name="categoryDao" ref="categoryDao" />
 		<property name="groupDao" ref="groupDao" />
 	</bean>
@@ -545,7 +557,7 @@
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="groupDao" ref="groupDao" />
 		<property name="favoriteDao" ref="favoriteDao" />
-	</bean>	
+	</bean>
 	<bean id="addWeibo" class="q.web.weibo.AddWeibo">
 		<property name="weiboService" ref="weiboService" />
 		<property name="pictureService" ref="pictureService" />

@@ -11,5 +11,5 @@
 	</c:otherwise>
 </c:choose>
 <c:if test="${loginCookie.peopleId == group.creator.id}">			
-	<a href="${urlPrefix}/group/edit" class='btna'>管理</a>
+	<a href="${urlPrefix}/group/${group.id}/edit" class='btna'>管理</a>
 </c:if>

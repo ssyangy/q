@@ -11,6 +11,7 @@ import java.util.Set;
 import q.dao.page.GroupRecommendPage;
 import q.dao.page.PeopleJoinGroupPage;
 import q.domain.Group;
+import q.domain.GroupJoinCategory;
 import q.domain.PeopleJoinGroup;
 
 /**
@@ -147,5 +148,21 @@ public interface GroupDao {
 	 * @return
 	 */
 	List<Group> getRecommendGroupsByPage(GroupRecommendPage page) throws SQLException;
+
+	/**
+	 * @return
+	 */
+	List<GroupJoinCategory> getGroupJoinCategoriesByGroupId(long groupId) throws SQLException;
+
+	/**
+	 * @param groupId
+	 * @param ids
+	 */
+	int deleteGroupJoinCategoriesByjoinIdsAndGroupId(long groupId, List<Long> ids) throws SQLException;
+
+	/**
+	 * @param group
+	 */
+	int  updateGroup(Group group) throws SQLException;
 
 }
