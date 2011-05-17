@@ -68,7 +68,25 @@
 
 seajs.use('jq.area.js',function(area){
 	$(document).ready(function(){
-	     provinceExist='${people.area.myProvince.id}';
+	     yeartemp='${people.year + 1900}';
+	     monthtemp='${people.month}';
+	     daytemp='${people.day}';
+
+	     var yearx=document.getElementById("selYear");
+	     var monthx=document.getElementById("selMonth");
+	     var dayx=document.getElementById("selDay");
+
+
+         $.each(yearx.options, function(index, option) {
+		 	 if(option.value==yeartemp){
+			    option.selected='selected';
+			 }
+	
+		 });
+         monthx.options[monthtemp-1].selected='selected';
+         dayx.options[daytemp-1].selected='selected';
+		         
+	    provinceExist='${people.area.myProvince.id}';
         cityExist='${people.area.myCity.id}';
         countyExist='${people.area.myCounty.id}';
 
@@ -144,9 +162,9 @@ seajs.use('jq.area.js',function(area){
 			<tr>
 				<td align="right">性别：</td>
 				<td>
-					<input type='radio'  name="gender" value="1" onclick="checkGender()" />
+					<input type='radio'  name="gender" value="1" <c:choose><c:when test="${people.gender.value == 1}">checked="checked"</c:when></c:choose> onclick="checkGender()" />
 					<span class='value-label' >男</span>&nbsp;
-					<input type='radio'  name="gender" value="2" onclick="checkGender()" />
+					<input type='radio'  name="gender" value="2" <c:choose><c:when test="${people.gender.value == 2}">checked="checked"</c:when></c:choose> onclick="checkGender()" />
 					<span class='value-label'>女</span>
 				</td>
 				<td class='col-help'>
@@ -157,8 +175,12 @@ seajs.use('jq.area.js',function(area){
 			<tr>
 				<td align="right">生日：</td>
 				<td class='col-field' colspan='2'>
-		             <jsp:include page="models/dateSelect.jsp" />
+		             <jsp:include page="models/dateSelect.jsp"/>
 				</td>
+				<td class="col-help">
+	    	      <div class="label-box-good" style="display: none;" id="birthdaycorrect"></div>
+	              <div class="label-box-error" style="display: none;" id="birthdaywrong"></div>
+	           	</td>				
 			</tr>
 			<tr>
 				<td align="right">手机：</td>

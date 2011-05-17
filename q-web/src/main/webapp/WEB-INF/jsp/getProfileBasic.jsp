@@ -77,12 +77,12 @@
 		    error: function(){
 		    },
 		   success: function(json){
-		        if(json== null){
+		       if(json == null || json.id != null){
 		            $("#savecorrect").css("display","block");
 		            $("#savewrong").css("display","none");
-		            $("#savecorrect").html("修改数据成功");
+		            $("#savecorrect").html("修改成功");
 		            //document.location.href="${urlPrefix}/profile/avator"; //跳转
-		         }
+		       }
 		       else {
 		          var errorkind=errorType(json.error);
 		          if(errorkind=="url"){
@@ -94,7 +94,11 @@
 		            $("#realNamecorrect").css("display","none");
 		            $("#realNamewrong").css("display","block");
 		            $("#realNamewrong").html(errorContext(json.error));
-		          }
+		           } else if(errorkind=="birthday"){
+		            $("#birthdaycorrect").css("display","none");
+		            $("#birthdaywrong").css("display","block");
+		            $("#birthdaywrong").html(errorContext(json.error));
+		           }
 		      }
 		    }
 		});
@@ -102,18 +106,23 @@
 		
 		seajs.use('jq.area.js',function(area){
 			$(document).ready(function(){
-		         yeartemp='${people.year}';
+		         yeartemp='${people.year + 1900}';
 			     monthtemp='${people.month}';
 			     daytemp='${people.day}';
 
-			    var yearx=document.getElementById("selYear");
-			    var monthx=document.getElementById("selMonth");
-			    var dayx=document.getElementById("selDay");
+			     var yearx=document.getElementById("selYear");
+			     var monthx=document.getElementById("selMonth");
+			     var dayx=document.getElementById("selDay");
 
-		        yearx.options[yearx.options.length-yeartemp-1].selected='selected';
 
-		        //monthx.options[monthtemp-1].selected='selected';
-		        //dayx.options[daytemp-1].selected='selected';
+		         $.each(yearx.options, function(index, option) {
+				 	 if(option.value==yeartemp){
+					    option.selected='selected';
+					 }
+			
+				 });
+		         monthx.options[monthtemp-1].selected='selected';
+		         dayx.options[daytemp-1].selected='selected';
 
 		         provinceExist='${people.area.myProvince.id}';
 		         cityExist='${people.area.myCity.id}';
@@ -151,8 +160,6 @@
 			<td align="right">昵称：</td>
 			<td class='col-field'>
 			<input type='text' value="${people.realName}" class='mttext' size='20' id="realName" onblur="checkrealName(this.value)">
-
-			</input>
 			</td>
 			<td class="col-help">
     	          <div class="label-box-good" style="display: none;"
@@ -208,6 +215,10 @@
 			<td class='col-field' colspan='2'>
 				 <jsp:include page="models/dateSelect.jsp" />
 			</td>
+			<td class="col-help">
+    	      <div class="label-box-good" style="display: none;" id="birthdaycorrect"></div>
+              <div class="label-box-error" style="display: none;" id="birthdaywrong"></div>
+           	</td>
 		</tr>
 		<tr>
 			<td align="right">博客或个人网址：</td>
@@ -233,10 +244,10 @@
                  <tr>
                          <th></th>
                          <td colspan='2'>
-				 <div style='display:none;' id="savewrong"></div>
+				 			<div style='display:none;' id="savewrong"></div>
                              <div style='display:none;' id="savecorrect"></div>
-                            </td>
+                         </td>
                  </tr>
 </table>
 </div>
-</div><jsp:include page="models/foot.jsp" />					
+<jsp:include page="models/foot.jsp" />					

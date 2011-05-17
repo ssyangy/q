@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.validator.GenericValidator;
 
 import q.domain.Gender;
+import q.util.DateKit;
 import q.util.IdCreator;
 import q.util.StringKit;
 import q.web.exception.RequestParameterInvalidException;
@@ -183,14 +184,8 @@ public class PeopleValidator {
 	 * @throws RequestParameterInvalidException
 	 */
 	public static void validateBirthday(int year, int month, int day) throws RequestParameterInvalidException {
-		if (year < 1) {
-			throw new RequestParameterInvalidException("year:invalid");
-		}
-		if (month < 1 || month > 12) {
-			throw new RequestParameterInvalidException("month:invalid");
-		}
-		if (day < 1 || day > 32) {
-			throw new RequestParameterInvalidException("day:invalid");
+		if (!DateKit.isExists(year, month, day)) {
+			throw new RequestParameterInvalidException("birthday:这一天不存在");
 		}
 	}
 

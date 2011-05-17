@@ -65,16 +65,14 @@ function check() {
     error: function(){
     },
    success: function(json){
-       if(json== null){
+       if(json == null || json.id != null){
             $("#savecorrect").css("display","block");
             $("#savewrong").css("display","none");
             $("#savecorrect").html("修改密码成功");
             $("#passwordwrong").css("display","none");
             $("#newpasswordwrong").css("display","none");
             $("#repasswordwrong").css("display","none");
-            //document.location.href="${urlPrefix}/profile/avator"; //跳转
-         }
-       else {
+       }else {
           var errorkind=errorType(json.error);
           if(errorkind=="oldPassword"){
             $("#passwordcorrect").css("display","none");
@@ -137,7 +135,7 @@ function check() {
 	</tr>
 	<tr>
 		<th></th>
-		<td colspan='2'><button class='btn' type='button' onclick="check()">保存</button></td>
+		<td colspan='2'><button class='btn' type='button' onclick="check()">保存修改</button></td>
 	</tr>
 	<tr>
 		<th></th>
@@ -147,6 +145,6 @@ function check() {
 		</td>
 	</tr>
 </table>
-</div><jsp:include page="models/foot.jsp" />
+<jsp:include page="models/foot.jsp" />
 
 
