@@ -9,13 +9,7 @@ var selHometownCity;
 var selHometownCounty;
 var cities;
 var undifined;
-var provinceExist=0;
-var cityExist=0;
-var countyExist=0;
-var hometownProvinceExist=0;
-var hometownCityExist=0;
-var hometownCountyExist=0;
-function changeCounty(){
+exports.changeCounty = function(){
 	 selCounty.options.length=0;
 	 selCounty.style.visibility = "hidden";
 	 if(cities != undifined) {
@@ -35,7 +29,7 @@ function changeCounty(){
 		 });
 	 }
 }
-function changeCity(){
+exports.changeCity = function(){
 	selCity.options.length=0;
 	selCity.style.visibility = "hidden";
 	 var areaId = parseInt(selProvince.value, 10);
@@ -49,13 +43,13 @@ function changeCity(){
 		 			if(area.id==cityExist){
 		    	        selCity.options[selCity.options.length-1].selected='selected';
 		 			}
-		 		});
+		 		});     
 	 		}
 	 	}
 	 });
-	 changeCounty();
+	 exports.changeCounty();
 }
-function changeProvince(){
+exports.changeProvince = function(){
 	selProvince = $("#selProvince")[0];
 	selCity = $("#selCity")[0];
 	selCounty = $("#selCounty")[0];
@@ -67,9 +61,9 @@ function changeProvince(){
 		 	}
 
 	 });
-	 changeCity();
+	 exports.changeCity();
 }
-function changeHometownProvince(){
+exports.changeHometownProvince = function(){
 	selHometownProvince = $("#selHometownProvince")[0];
 	selHometownCity = $("#selHometownCity")[0];
 	selHometownCounty = $("#selHometownCounty")[0];
@@ -79,9 +73,9 @@ function changeHometownProvince(){
 			    	selHometownProvince.options[selHometownProvince.options.length-1].selected='selected';
 			 	}
 		 });
-		 changeHometownCity();
+     exports.changeHometownCity();
 }
-function changeHometownCity(){
+exports.changeHometownCity = function(){
 	selHometownCity.options.length=0;
 	selHometownCity.style.visibility = "hidden";
 	 var areaId = parseInt(selHometownProvince.value, 10);
@@ -99,9 +93,9 @@ function changeHometownCity(){
 	 		}
 	 	}
 	 });
-	 changeHometownCounty();
+	 exports.changeHometownCounty();
 }
-function changeHometownCounty(){
+exports.changeHometownCounty = function(){
 	 selHometownCounty.options.length=0;
 	 selHometownCounty.style.visibility = "hidden";
 	 if(cities != undifined) {
@@ -121,10 +115,5 @@ function changeHometownCounty(){
 		 });
 	 }
 }
-exports.initArea = function(){
-	changeProvince();
-}
-exports.initHometownArea = function(){
-	changeHometownProvince();
-}
+
 });
