@@ -3,11 +3,7 @@
  */
 package q.commons.http;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
@@ -200,6 +196,7 @@ public class UrlKit {
 	}
 
 	public static String replaceUrl(String content, Replace replace) {
+		if(content == null) return null;
 		StringBuffer sb = new StringBuffer();
 		Pattern p = Pattern
 				.compile("http://[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&:]*");

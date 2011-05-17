@@ -79,7 +79,7 @@ public class DateKitTest {
 		Date now = beforeCal.getTime();
 		Assert.assertEquals("今天 21:22", DateKit.date2SinaStyle(before, now));
 	}
-	
+
 	@Test
 	public void testDate2SinaStyleTheSameDayPrefixZero() {
 		Calendar beforeCal = Calendar.getInstance();
@@ -99,7 +99,7 @@ public class DateKitTest {
 		Date now = beforeCal.getTime();
 		Assert.assertEquals("5分钟前", DateKit.date2SinaStyle(before, now));
 	}
-	
+
 	@Test
 	public void testDate2SinaStyleOneHour() {
 		Calendar beforeCal = Calendar.getInstance();
@@ -118,7 +118,7 @@ public class DateKitTest {
 		beforeCal.set(Calendar.SECOND, 5);
 		Date now = beforeCal.getTime();
 		Assert.assertEquals("10秒前", DateKit.date2SinaStyle(before, now));
-		
+
 		beforeCal.set(Calendar.SECOND, 0);
 		now = beforeCal.getTime();
 		Assert.assertEquals("10秒前", DateKit.date2SinaStyle(before, now));
@@ -147,7 +147,7 @@ public class DateKitTest {
 		now = beforeCal.getTime();
 		Assert.assertEquals("1分钟前", DateKit.date2SinaStyle(before, now));
 	}
-	
+
 	/**
 	 * 创建时间超前于web服务器
 	 */
@@ -160,19 +160,29 @@ public class DateKitTest {
 		Date now = beforeCal.getTime();
 		Assert.assertEquals("10秒前", DateKit.date2SinaStyle(before, now));
 	}
-	
+
 	@Test
 	public void testDate2Mdhm() {
 		Calendar beforeCal = Calendar.getInstance();
 		beforeCal.set(2010, 5, 25, 22, 22, 0);
 		Assert.assertEquals("06-25 22:22", DateKit.date2Mdhm(beforeCal.getTime()));
 	}
-	
+
 	@Test
 	public void testDate2YMdhms() {
 		Calendar beforeCal = Calendar.getInstance();
 		beforeCal.set(2010, 5, 25, 22, 22, 0);
 		Assert.assertEquals("2010-06-25 22:22:00", DateKit.date2Ymdhms(beforeCal.getTime()));
+	}
+
+	@Test
+	public void testIsExists() {
+		Assert.assertFalse(DateKit.isExists(2000, 0, 31));
+		Assert.assertFalse(DateKit.isExists(2000, 4, 31));
+
+		Assert.assertTrue(DateKit.isExists(2000, 1, 31));
+		Assert.assertTrue(DateKit.isExists(2000, 2, 29));
+		Assert.assertTrue(DateKit.isExists(2004, 2, 29));
 	}
 
 }

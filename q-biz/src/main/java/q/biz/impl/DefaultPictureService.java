@@ -196,7 +196,7 @@ public class DefaultPictureService implements PictureService {
 	public String uploadWeiboPictures(InputStream picture) throws Exception {
 		long picId = IdCreator.getLongId();
 		String dir = "w/" + Long.toString(picId % 10000, Character.MAX_RADIX) + "/";
-		String name = Long.toString(picId, Character.MAX_RADIX);
+		String name = Long.toString(picId, Character.MAX_RADIX) + ".jpg";
 		BufferedImage image = ImageKit.load(picture);
 		int originWidth = image.getWidth();
 		int originHeight = image.getHeight();
