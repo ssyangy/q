@@ -141,7 +141,7 @@ seajs.use('jq.area.js',function(area){
 					<div class='label-box-good' style='display:none;' id="locationcorrect"></div>
 					<div class='label-box-error' style='display:none;' id="locationwrong"></div>
 				</td>                
-			</tr>        
+			</tr>
 			<tr>
 				<td align="right">家乡：</td>
 				<td>

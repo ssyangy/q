@@ -3,16 +3,6 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="${group.name}-成员" />
 </jsp:include>
-
-<script type="text/javascript">
-seajs.use('qcomcn.js', function (qcomcn) {
-    var $ = qcomcn.jq;
-    $(function () {
-        qcomcn.Init();
-
-    });
-});
-</script>
 <div class="layout grid-s5m0e6">
     <div class="col-main"><div class="main-wrap pr10">
 		<jsp:include page="models/profile.jsp"></jsp:include>

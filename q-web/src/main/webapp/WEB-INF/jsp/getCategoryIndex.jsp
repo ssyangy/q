@@ -16,7 +16,6 @@ span.tit{display:none;}
 seajs.use('qcomcn.js', function (q) {
 	var $ = q.jq;
 	$(function () {
-         q.Init();
          
          var lis = $("#sldroot>li");
          var roll = $('#passroll');

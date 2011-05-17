@@ -11,7 +11,6 @@
      
         var ffs = ${peoplesHintJson};
         $(function () {
-            q.Init();
             $("#members").buttonset();
             $("#autocom").tokenInput(ffs, { hintText: "输入好友姓名 ... ", onAdd: tokeAdd, onDelete: tokeDel });
             $('#members').click(function (e) {

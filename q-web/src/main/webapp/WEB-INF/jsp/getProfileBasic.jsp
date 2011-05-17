@@ -5,12 +5,8 @@
 </jsp:include>
 	<script type="text/javascript">
 	areas=${rootArea.childsJson};
-	var $ = {};
 	seajs.use('qcomcn.js', function (q) {
 		$ = q.jq;
-		$(function () {
-	         q.Init();
-		});
 		
 		checkrealName = function (a){
 		       if(a.length<1||a.length>12){

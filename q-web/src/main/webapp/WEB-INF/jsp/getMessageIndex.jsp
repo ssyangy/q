@@ -12,7 +12,6 @@
         var $ = q.jq;
         
         $(function () {
-        	q.Init();
         	
         	seajs.use('ICanHaz.js', function (ich) {
 	            var sldroot = $('#sldroot');
