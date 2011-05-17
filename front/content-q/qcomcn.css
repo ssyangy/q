@@ -21,6 +21,7 @@ ul.dlist li{border-bottom:1px solid #ddd;border-right:none 0;float:none;padding:
 #inputmain{width:99%;height:20px;}
 .inputbtm{padding:1px;position:relative;}
 #inputbtn{position:absolute;top:1px;right:1px;}
+#btnSubTweet{position:absolute;top:0;right:0;}
 
 li.streambox{border-bottom: 1px solid #EFF1F2;padding:10px;position: relative;min-height: 50px;cursor:pointer;_zoom:1;}
 li.streambox.hover{background-color:#fafafa;border-color:#e0e3e6;}

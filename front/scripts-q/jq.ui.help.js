@@ -22,6 +22,7 @@
                     $('input.donet', this).click();
                 },
                 "取消": function () {
+                    $('input.undonet', this).click();
                     $(this).dialog("close");
                 }
             }

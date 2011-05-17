@@ -4,7 +4,6 @@
     var Backbone = require('backbone.js');
     var rep = require('app/weibo-rep.js');
     var q = require('qcomcn.js');
-    var con = require('config.js');
     require('jq.rotate.js');
 
     var ich = {};
@@ -93,7 +92,7 @@
         remove: function () {
             if (!confirm('确定要删除？')) return;
             $.ajax({
-                url: con.urlprefix + '/weibo/' + this.model.get('id'),
+                url: window.urlprefix + '/weibo/' + this.model.get('id'),
                 type: 'POST',
                 data: { _method: 'delete' },
                 msg: this,
@@ -111,7 +110,7 @@
         togreplay: function () {
             if (!this.initreps) {
                 $.ajax({
-                    url: con.urlprefix + "/weibo/" + this.model.get('id') + "/reply",
+                    url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply",
                     data: { size: 10, startid: '999999999999999999' },
                     success: this.suc_repajax
                 });
@@ -125,7 +124,7 @@
             var urlp = { startid: parseInt(lis.last().data('replyid')) - 1 };
             _.extend(urlp, this.defajaxurl);
             $.ajax({
-                url: con.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
+                url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
                 success: this.suc_repajax
             });
         },
@@ -134,7 +133,7 @@
             var urlp = { startid: parseInt(lis.last().data('replyid')) - 1,type:1 };
             _.extend(urlp, this.defajaxurl);
             $.ajax({
-                url: con.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
+                url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
                 success: this.suc_repajax
             });
         },
@@ -162,7 +161,7 @@
         },
         fav: function () {
             $.ajax({
-                url: con.urlprefix + '/weibo/' + this.model.get('id') + '/favorite',
+                url: window.urlprefix + '/weibo/' + this.model.get('id') + '/favorite',
                 type: 'POST',
                 msg: this,
                 success: function () {
@@ -173,7 +172,7 @@
         },
         unfav: function () {
             $.ajax({
-                url: con.urlprefix + '/weibo/' + this.model.get('id') + '/favorite',
+                url: window.urlprefix + '/weibo/' + this.model.get('id') + '/favorite',
                 type: 'POST',
                 data: { _method: 'delete' },
                 msg: this,

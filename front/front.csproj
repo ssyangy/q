@@ -429,6 +429,8 @@
     <Content Include="scripts-q\lavaLamp.js" />
     <Content Include="scripts-q\qcomcn.js" />
     <Content Include="scripts-q\sea.js" />
+    <Content Include="scripts-q\src\jq.jcrop.js" />
+    <Content Include="scripts-q\src\jquery-1.6.1.js" />
     <Content Include="scripts-q\ui\jquery.effects.blind.js" />
     <Content Include="scripts-q\ui\jquery.effects.bounce.js" />
     <Content Include="scripts-q\ui\jquery.effects.clip.js" />
