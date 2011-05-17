@@ -67,7 +67,8 @@
             "click .resub": "resub",
             "click .fav": "fav",
             "click .unfav": "unfav",
-            "click .replay": "togreplay",
+            "click .togreply": "togreply",
+            "click .reply_btn": "reply",
             "click .rrprev": "rrprev",
             "click .rrnext": "rrnext",
             "click img.weiboImg": "weiboimg",
@@ -76,7 +77,7 @@
             "click a.weiboImgRotateL": "imgrotatel"
         },
         initialize: function () {
-            _.bindAll(this, 'render', 'change', 'remove', 'suc_repajax');
+            _.bindAll(this, 'render', 'change', 'remove', 'suc_repajax','initrep');
             this.model.bind('change', this.change);
             this.model.bind('remove', this.remove);
             this.model.view = this;
@@ -97,7 +98,7 @@
                 data: { _method: 'delete' },
                 msg: this,
                 success: function (m) {
-                    if (m.error_code) {
+                    if (m) {
                         alert('delete faild!');
                         return;
                     }
@@ -107,13 +108,16 @@
                 }
             });
         },
-        togreplay: function () {
+        initrep: function(){
+            $.ajax({
+                url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply",
+                data: { size: 10, startid: '999999999999999999' },
+                success: this.suc_repajax
+            });
+        },
+        togreply: function () {
             if (!this.initreps) {
-                $.ajax({
-                    url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply",
-                    data: { size: 10, startid: '999999999999999999' },
-                    success: this.suc_repajax
-                });
+                this.initrep();
                 this.initreps = true;
             }
             $('div.extend', this.el).toggle();
@@ -148,6 +152,15 @@
                 ul.append(view.render().el);
             });
             q.fixui();
+        },
+        reply:function(){
+            $.ajax({
+                url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply",
+                type: 'POST',
+                data:{content: $('input.reply_val',this.el).val()},
+                success: this.initrep
+            });
+            $('input.reply_val',this.el).val('');
         },
         resub: function () {
             var rdia = $('#dia_ret');

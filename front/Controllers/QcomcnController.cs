@@ -8,6 +8,11 @@ namespace front.Controllers
 {
     public class QcomcnController : Controller
     {
+        public ActionResult Index()
+        {
+            ViewBag.Message = "Welcome to Qcomcn!";
+            return View("~/views/qcomcn/Index.cshtml");
+        }
         public ActionResult Group()
         {
             ViewBag.Message = "Welcome to Qcomcn!";
