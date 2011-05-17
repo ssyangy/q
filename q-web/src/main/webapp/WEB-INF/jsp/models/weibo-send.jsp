@@ -72,12 +72,11 @@ seajs.use('qcomcn.js', function (q) {
             $("#trDialog_img").bind('click', bindImgDia);
             isImg = false;
             upimgfix = 0;
-            hasPicture = false;
+            dia_img.data('hasPicture',false);
             imgPath = null;
             $("#file").attr("value", '');
             $("#picPath").attr("value", imgPath);
             $("#upimgfix").attr("value", upimgfix);
-            dia_img.dialog("close");
         });        
 
         $("#trDialog_img").bind('click', bindImgDia);
@@ -89,7 +88,7 @@ seajs.use('qcomcn.js', function (q) {
             $("#trDialog_img").bind('click', bindImgDia);
             isImg = false;
             upimgfix = 0;
-            hasPicture = false;
+            dia_img.data('hasPicture',false);
             imgPath = null;
             $("#picPath").attr("value", imgPath);
             $("#upimgfix").attr("value", upimgfix);
@@ -116,10 +115,55 @@ seajs.use('qcomcn.js', function (q) {
             $("#imgwrong").css("display", "none");
             isImg = true;
         }
-        $('#file').bind('click',check);
-        $('#upimgsub').bind('onchange',check);
+        $('#file').bind('change',check);
+        $('#upimgsub').bind('click',check);
         $('#formImg').bind('submit',function () { return isImg; });
     });
+    
+    up = function(){
+    	return isImg;
+    	}
+    	   function notAImg(){
+        	isImg=false;
+             $("#imgwrong").css("display","block");
+             $("#imgwrong").html("这不是一个图片文件!");
+        }
+    reloadImg = function(x,y,z){
+        realHeight=x;
+    	realWidth=y;
+    	imgPath=z;
+    	$('ol.files').removeClass('hide');
+        $("#picPath").attr("value",imgPath);
+          if(realHeight>realWidth){
+             max="height";
+        	 imageWidth=realWidth*320/realHeight;
+             imageHeight=320;
+          }
+          else{
+             max="width";
+        	 imageHeight=realHeight*320/realWidth;
+             imageWidth=320;
+          }
+          $("#upimg").attr("width",imageWidth);
+          $("#upimg").attr("height",imageHeight);
+          $("#upimg").attr("src",imgPath+"-320");
+    	$('#upimg').rotate(upimgfix);
+    		dia_img.data('hasPicture',true);
+    	}
+    	function wrong(s){
+    	alert(s);
+    	}
+    	function setImg(){
+         if(realHeight>realWidth){
+          $("#img").attr("width",160*realWidth/realHeight);
+          $("#img").attr("height",160);
+         }
+         else{
+          $("#img").attr("height",160*realHeight/realWidth);
+          $("#img").attr("width",160);
+         }
+          $("#img").attr("src",imgPath+"-160");
+    	}
 });
 </script>
 <form action="${urlPrefix}/weibo" method="post">
@@ -140,23 +184,23 @@ seajs.use('qcomcn.js', function (q) {
 				<input type="hidden" name="groupId" value="${group.id}" />
 			</c:otherwise>
 		</c:choose>
-		<input id="btnSubTweet" type="button" name="name" value="发表" class="btn btninp" />
+		<input id="btnSubTweet" type="submit" name="name" value="发表" class="btn btninp" />
 		<input type="hidden" name="from" value="${param['from']}"/>
 		<input type="hidden" name="picPath" id="picPath" />
 		<input type="hidden" name="upimgfix" id="upimgfix"  />
     </div>
 	<div id='upimgpbox' class='hide'>
 		<img id="img" src='#' class='img160' /><br />
-		<a id='upimgdel' class="link">删除</a>
+		<a id='upimgdel' class="lk">删除</a>
 	</div>
 </div>
 </form>
 
 <div id="dia_img" class='ui_dialog' title="上传图片">
 <form action="${urlPrefix}/WeiboPicture"  id="formImg" name="formImg" encType="multipart/form-data" method="post" onsubmit="return up()" target="hidden_frame" >
-	<input type="file" name="file" id="file" accept="image/gif, image/jpeg" onchange="check()" style="width:450"></input>
+	<input type="file" name="file" id="file" accept="image/gif, image/jpeg" style="width:450"></input>
 	<div style='display:none;' id="imgWrong"></div>
-	<input id='upimgsub' type="submit" value="上传图片" onclick="check()"></input>
+	<input id='upimgsub' type="submit" value="上传图片"></input>
 	<p>Uploaded files:</p>
 	<ol class='files hide' >
 		<div class='upimgbox middle imgrote'><img id='upimg'  src='' /></div>
