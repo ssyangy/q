@@ -11,6 +11,12 @@
 <script type="text/javascript">
     window.loginCookie = '${loginCookie.peopleId}';
     window.urlprefix = '${urlPrefix}';
+	seajs.use('qcomcn.js', function (q) {
+		$ = q.jq;
+		$(function () {
+			q.Init();
+		});
+	});
 </script>
 <jsp:include page="js-common.jsp" />
 </head>

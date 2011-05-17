@@ -7,23 +7,48 @@
      <style type="text/css">
     .imgbox{float:left;width:300px;margin-right:10px;}
     .imgmain{float:left;width:600px;}
-     </style>    
-    <script type="text/javascript" src="${staticUrlPrefix}/scripts-q/src/jq.jcrop.js"></script>     
+     </style>
+    <script type="text/javascript" src="${staticUrlPrefix}/scripts-q/src/jquery-1.6.1.js"></script>   
+    <script type="text/javascript" src="${staticUrlPrefix}/scripts-q/src/jq.jcrop.js"></script>
 	<script type="text/javascript">
-	seajs.use('qcomcn.js', function (q) {
-		$ = q.jq;
-		$(function () {
-	         q.Init();
-		});
+	$(function () {
+
+		cutter = new jQuery.UtrialAvatarCutter(
+			{
+				//主图片所在容器ID
+				content : "myImage",
+		
+				//缩略图配置,ID:所在容器ID;width,height:缩略图大小
+				purviews : [{id:"picture_24",width:24,height:24},{id:"picture_48",width:48,height:48},{id:"picture_128",width:128,height:128}],
+		
+				//选择器默认大小
+				selector : {width:100,height:100}
+			}
+		
+		);
+		if("${avatarExists}"=="true"){
+		var img=new Image();
+		img.src="${avatarPath}";
+		var dick=setInterval(function(){
+			if(img.complete){
+				clearInterval(dick);
+				reloadImg(img.height,img.width,"${avatarPath}");
+				cutter.init();
+			}
+		},100);
+		 $("#saveButton").css("display","block");
+		  $("#cancelButton").css("display","block");
+		}
 	});
-    var realWidth;
-    var realHeight;
-    var imageWidth;
-    var imageHeight;
-	var isImg=true;
-    var cutter;
-    var divide=1;
-	function up(){
+
+var realWidth;
+var realHeight;
+var imageWidth;
+var imageHeight;
+var isImg=true;
+var cutter;
+var divide=1;
+function up(){
 	if(isImg==true){
 		cutter = new jQuery.UtrialAvatarCutter(
 				{
@@ -117,34 +142,7 @@
         $("#imgwrong").css("display","none");
           isImg=true;
     }
-       $(document).ready(function(){
-          cutter = new jQuery.UtrialAvatarCutter(
-   				{
-   					//主图片所在容器ID
-   					content : "myImage",
 
-   					//缩略图配置,ID:所在容器ID;width,height:缩略图大小
-   					purviews : [{id:"picture_24",width:24,height:24},{id:"picture_48",width:48,height:48},{id:"picture_128",width:128,height:128}],
-
-   					//选择器默认大小
-   					selector : {width:100,height:100}
-   				}
-
-   			);
-   			if("${avatarExists}"=="true"){
-    		var img=new Image();
-    		img.src="${avatarPath}";
-    		var dick=setInterval(function(){
-    			if(img.complete){
-    				clearInterval(dick);
-    				reloadImg(img.height,img.width,"${avatarPath}");
-    				cutter.init();
-    			}
-    		},100);
-    		 $("#saveButton").css("display","block");
-    		  $("#cancelButton").css("display","block");
-            }
-    	});
 
     jQuery.UtrialAvatarCutter = function(config){
 	var h,w,x,y;
@@ -247,7 +245,7 @@
 		x = ((ow - select_width) / 2);
 		y = ((oh - select_height) / 2);
 		//这是原Jcrop配置,修改此处可修改Jcrop的其它各种功能
-		api = $.Jcrop('#'+img_id,{
+		api = jQuery.Jcrop('#'+img_id,{
 			aspectRatio: 1,
 			onChange: preview,
 			onSelect: preview
