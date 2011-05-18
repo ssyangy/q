@@ -9,11 +9,11 @@
 		<result property="quoteSenderId" column="quote_sender_id" />
 		<result property="replyWeiboId" column="reply_weibo_id" />
 		<result property="replySenderId" column="reply_sender_id" />
-		<result property="fromType" column="from_type" typeHandler="q.dao.ibatis.WeiboFromTypeHandler"/>
+		<result property="fromType" column="from_type" typeHandler="q.dao.ibatis.WeiboFromTypeHandler" />
 		<result property="fromId" column="from_id" />
 		<result property="content" column="content" />
-		<result property="longitude" column="longitude"/>
-		<result property="latitude" column="latitude"/>
+		<result property="longitude" column="longitude" />
+		<result property="latitude" column="latitude" />
 		<result property="replyNum" column="reply_num" />
 		<result property="retweetNum" column="retweet_num" />
 		<result property="status" column="status" />
@@ -60,10 +60,10 @@
 		from weibo
 		where id in
 		<iterate property="ids" open="(" close=")" conjunction=",">
-		#ids[]#
+			#ids[]#
         </iterate>
-        <isNotNull property="desc">
-		order by id desc
+		<isNotNull property="desc">
+			order by id desc
 		</isNotNull>
 	</select>
 
@@ -76,9 +76,6 @@
 		<iterate property="senderIds" open="(" close=")" conjunction=",">
 			#senderIds[]#
         </iterate>
-		<isNotNull prepend="and " property="startCreated">
-			created &lt;= #startCreated#
-		</isNotNull>
 		<isNotNull prepend="and " property="startId">
 			id &lt; #startId#
 		</isNotNull>
@@ -95,9 +92,6 @@
 		where status = 0
 		<isNotNull prepend="and " property="senderId">
 			sender_id = #senderId#
-		</isNotNull>
-		<isNotNull prepend="and " property="startCreated">
-			created &lt;= #startCreated#
 		</isNotNull>
 		<isNotNull prepend="and " property="startId">
 			id &lt; #startId#
@@ -170,7 +164,7 @@
 		and status = 0;
 	</update>
 
-	<select id="selectWeiboIdsByJoinPage" resultClass="long">
+	<select id="selectWeiboIdsByPage" resultClass="long">
 		select weibo_id
 		from weibo_join_group
 		<dynamic prepend="where ">
@@ -179,34 +173,19 @@
 				<iterate property="groupIds" open="(" close=")" conjunction=",">
 					#groupIds[]#
 	        	</iterate>
-	        </isNotNull>
+			</isNotNull>
 			<isNotNull prepend="and " property="groupId">
 				group_id = #groupId#
 			</isNotNull>
 			<isNotNull prepend="and " property="senderId">
 				sender_id = #senderId#
 			</isNotNull>
-			<isNotNull prepend = "and " property="startId">
-				<isEqual property="desc" compareValue="true" >
-					id &lt; #startId#
-				</isEqual>
-				<isEqual property="desc" compareValue="false" >
-					id &gt; #startId#
-				</isEqual>
+			<isNotNull prepend="and " property="startId">
+				id &lt; #startId#
 			</isNotNull>
 		</dynamic>
-		order by id
-		<isNotNull property="desc"  prepend=" ">
-			<isEqual property="desc" compareValue="true" >
-				desc
-			</isEqual>
-			<isEqual property="desc" compareValue="false">
-				asc
-			</isEqual>
-		</isNotNull>
-		<isNotNull property="size">
-			limit #startIndex#, #size#
-		</isNotNull>
+		order by id desc
+		limit #startIndex#, #size#
 	</select>
 
 
@@ -250,7 +229,7 @@
 		<result property="quoteSenderId" column="quote_sender_id" />
 		<result property="replyWeiboId" column="reply_weibo_id" />
 		<result property="replySenderId" column="reply_sender_id" />
-		<result property="fromType" column="from_type" typeHandler="q.dao.ibatis.WeiboFromTypeHandler"/>
+		<result property="fromType" column="from_type" typeHandler="q.dao.ibatis.WeiboFromTypeHandler" />
 		<result property="fromId" column="from_id" />
 		<result property="content" column="content" />
 		<result property="replyNum" column="reply_num" />
@@ -289,10 +268,10 @@
 		from weibo_reply
 		where id in
 		<iterate property="ids" open="(" close=")" conjunction=",">
-		#ids[]#
+			#ids[]#
         </iterate>
-        <isNotNull property="desc">
-		order by id desc
+		<isNotNull property="desc">
+			order by id desc
 		</isNotNull>
 	</select>
 
@@ -301,37 +280,33 @@
 		select
 		<include refid="reply.columns" />
 		from weibo_reply
-		<dynamic prepend="where ">
-			<isNotNull prepend = "and " property="quoteWeiboId">
-				quote_weibo_id = #quoteWeiboId#
+		where status = 0
+		<isNotNull prepend="and " property="quoteWeiboId">
+			quote_weibo_id = #quoteWeiboId#
 			</isNotNull>
-			<isNotNull prepend = "and " property="quoteSenderId">
-				quote_sender_id = #quoteSenderId#
-			</isNotNull>			
-			<isNotNull prepend = "and " property="quoteSenderIds">
-				quote_sender_id in
-				<iterate property="quoteSenderIds" open="(" close=")" conjunction=",">
-					#quoteSenderIds[]#
+		<isNotNull prepend="and " property="quoteSenderId">
+			quote_sender_id = #quoteSenderId#
+			</isNotNull>
+		<isNotNull prepend="and " property="quoteSenderIds">
+			quote_sender_id in
+			<iterate property="quoteSenderIds" open="(" close=")" conjunction=",">
+				#quoteSenderIds[]#
 		        </iterate>
+		</isNotNull>
+		<isNotNull prepend="and " property="senderId">
+			sender_id = #senderId#
 			</isNotNull>
-			<isNotNull prepend = "and " property="senderId">
-				sender_id = #senderId#
-			</isNotNull>
-			<isNotNull prepend = "and " property="startCreated">
-				created &lt;= #startCreated#
-			</isNotNull>
-			<isNotNull prepend = "and " property="startId">
-				<isEqual property="desc" compareValue="true" >
-					id &lt; #startId#
+		<isNotNull prepend="and " property="startId">
+			<isEqual property="desc" compareValue="true">
+				id &lt; #startId#
 				</isEqual>
-				<isEqual property="desc" compareValue="false" >
-					id &gt; #startId#
+			<isEqual property="desc" compareValue="false">
+				id &gt; #startId#
 				</isEqual>
-			</isNotNull>
-		</dynamic>
+		</isNotNull>
 		order by id
-		<isNotNull property="desc"  prepend=" ">
-			<isEqual property="desc" compareValue="true" >
+		<isNotNull property="desc" prepend=" ">
+			<isEqual property="desc" compareValue="true">
 				desc
 			</isEqual>
 			<isEqual property="desc" compareValue="false">

@@ -27,17 +27,12 @@
 		select
 		<include refid="message.columns" />
 		from message
-		where
-		status = 0
+		where status = 0
 		<isNotNull prepend="and " property="ids">
 			id in
 			<iterate property="ids" open="(" close=")" conjunction=",">
 				#ids[]#
         	</iterate>
-		</isNotNull>
-		<isNotNull prepend="and" property="startCreated">
-			created &lt;=
-			#startCreated#
 		</isNotNull>
 		<isNotNull prepend="and" property="startId">
 			id &lt; #startId#
@@ -96,13 +91,9 @@
 		</isNotNull>
 		<isNotNull prepend="and " property="messageIds">
 			message_id in
-			<iterate property="messageIds" open="(" close=")"
-				conjunction=",">
+			<iterate property="messageIds" open="(" close=")" conjunction=",">
 				#messageIds[]#
         	</iterate>
-		</isNotNull>
-		<isNotNull prepend="and " property="startCreated">
-			created &lt;= #startCreated#
 		</isNotNull>
 		<isNotNull prepend="and " property="startId">
 			last_reply_id &lt; #startId#
@@ -120,13 +111,9 @@
 		</isNotNull>
 		<isNotNull prepend="and " property="messageIds">
 			message_id in
-			<iterate property="messageIds" open="(" close=")"
-				conjunction=",">
+			<iterate property="messageIds" open="(" close=")" conjunction=",">
 				#messageIds[]#
         	</iterate>
-		</isNotNull>
-		<isNotNull prepend="and " property="startCreated">
-			created &lt;= #startCreated#
 		</isNotNull>
 		<isNotNull prepend="and " property="startId">
 			last_reply_id &lt; #startId#
@@ -136,14 +123,13 @@
 			limit #startIndex#, #size#
 		</isNotNull>
 	</select>
-	<select id="getMessageJoinPeopleByMessageIdAndReceiverIdAndStatus"
-		resultMap="messageJoinResult">
+	<select id="getMessageJoinPeopleByMessageIdAndReceiverIdAndStatus" resultMap="messageJoinResult">
 		select
 		<include refid="messageJoin.columns" />
 		from message_join_people
-		where 
-		status = #status# and 
-		message_id = #messageId# and 
+		where
+		status = #status# and
+		message_id = #messageId# and
 		receiver_id = #receiverId#
 	</select>
 	<insert id="insertMessageJoins" parameterClass="java.util.List">
@@ -161,12 +147,12 @@
 		where message_id = #messageId# and receiver_id = #receiverId#
 	</update>
 	<update id="decrMessageReplyNumByMessageIdAndReceiverId">
-		update message_join_people 
-		set reply_num = reply_num + 1 
+		update message_join_people
+		set reply_num = reply_num + 1
 		where message_id = #messageId# and receiver_id = #receiverId# 
 	</update>
 	<update id="incrAllMessageReplyNumberByMessageId">
-		update message_join_people 
+		update message_join_people
 		set reply_num = reply_num + 1
 		where message_id = #value#
 	</update>
@@ -229,14 +215,23 @@
 				#ids[]#
         	</iterate>
 		</isNotNull>
-		<isNotNull prepend="and" property="startCreated">
-			created &lt;=
-			#startCreated#
+		<isNotNull prepend="and " property="startId">
+			<isEqual property="desc" compareValue="true">
+				id &lt; #startId#
+				</isEqual>
+			<isEqual property="desc" compareValue="false">
+				id &gt; #startId#
+				</isEqual>
 		</isNotNull>
-		<isNotNull prepend="and" property="startId">
-			id &lt; #startId#
+		order by id
+		<isNotNull property="desc" prepend=" ">
+			<isEqual property="desc" compareValue="true">
+				desc
+			</isEqual>
+			<isEqual property="desc" compareValue="false">
+				asc
+			</isEqual>
 		</isNotNull>
-		order by id desc
 		<isNotNull property="size">
 			limit #startIndex#, #size#
 		</isNotNull>
@@ -312,24 +307,10 @@
 		<isNotNull prepend="and " property="quoteMessageId">
 			quote_message_id = #quoteMessageId#
 	    </isNotNull>
-		<isNotNull prepend = "and " property="startId">
-				<isEqual property="desc" compareValue="true" >
-					id &lt; #startId#
-				</isEqual>
-				<isEqual property="desc" compareValue="false" >
-					id &gt; #startId#
-				</isEqual>
-			</isNotNull>
-		</dynamic>
-		order by id
-		<isNotNull property="desc"  prepend=" ">
-			<isEqual property="desc" compareValue="true" >
-				desc
-			</isEqual>
-			<isEqual property="desc" compareValue="false">
-				asc
-			</isEqual>
+		<isNotNull prepend="and" property="startId">
+			id &lt; #startId#
 		</isNotNull>
+		order by id desc
 		<isNotNull property="size">
 			limit #startIndex#, #size#
 		</isNotNull>

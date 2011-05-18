@@ -37,7 +37,7 @@ public interface GroupDao {
 
 	public List<Group> getGroupsByIds(List<Long> groupIds) throws SQLException;
 
-	public List<Long> getGroupIdsByJoinPage(PeopleJoinGroupPage page) throws SQLException;
+	public List<Long> getGroupIdsByPeopleJoinGroupPage(PeopleJoinGroupPage page) throws SQLException;
 
 	public List<Group> getGroupsByLocation(Group myLocation) throws SQLException;
 
@@ -116,11 +116,6 @@ public interface GroupDao {
 	 */
 	List<Long> getJoinPeopleIdsByJoinPage(PeopleJoinGroupPage page) throws SQLException;
 
-	/**
-	 * @return
-	 * @throws SQLException
-	 */
-	List<Group> getAllGroups() throws SQLException;
 
 	/**
 	 * @param peopleId

@@ -91,9 +91,6 @@
 					#senderIds[]#
 	        	</iterate>
 		</isNotNull>		
-		<isNotNull prepend="and " property="startCreated">
-			created &lt;= #startCreated#
-		</isNotNull>
 		<isNotNull prepend="and " property="startId">
 			id &lt; #startId#
 		</isNotNull>

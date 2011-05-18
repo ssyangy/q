@@ -100,25 +100,11 @@
 		hope
 	</sql>
 
-	<select id="selectPeopleFollowingNumById" resultClass="int">
-		select
-		count(id)
-		from people_relation
-		where status = 3
-		and from_people_id = #value#
-	</select>
     <select id="selectPasswordById" resultClass="String">
         select password
         from people
         where id=#value#
     </select>
-	<select id="selectPeopleFollowerNumById" resultClass="int">
-		select
-		count(id)
-		from people_relation
-		where status = 3
-		and to_people_id = #value#
-	</select>
 
 	<select id="selectPeopleIdRealNamesByIds" resultMap="peopleIdRealNameResult">
 		select
@@ -282,10 +268,6 @@
 				<iterate property="toPeopleIds" open="(" close=")" conjunction=",">
 					#toPeopleIds[]#
         		</iterate>
-			</isNotNull>
-			<isNotNull prepend="and" property="startCreated">
-				created &lt;= #startCreated#
-
 			</isNotNull>
 			<isNotNull prepend="and" property="startId">
 				id &lt; #startId#

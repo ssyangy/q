@@ -173,16 +173,6 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 	}
 
 	@Override
-	public int getPeopleFollowingNumById(long peopleId) throws SQLException {
-		return (Integer) this.sqlMapClient.queryForObject("selectPeopleFollowingNumById", peopleId);
-	}
-
-	@Override
-	public int getPeopleFollowerNumById(long peopleId) throws SQLException {
-		return (Integer) this.sqlMapClient.queryForObject("selectPeopleFollowerNumById", peopleId);
-	}
-
-	@Override
 	public People getInterestById(long pid) throws SQLException {
 		return (People) this.sqlMapClient.queryForObject("selectPeopleInterestsById", pid);
 	}

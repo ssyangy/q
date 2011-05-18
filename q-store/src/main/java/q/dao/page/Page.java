@@ -4,7 +4,6 @@
 package q.dao.page;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author seanlinwang
@@ -14,8 +13,6 @@ import java.util.Date;
  */
 public class Page implements Serializable {
 	private static final long serialVersionUID = -4271255854510793304L;
-
-	private Date startCreated;
 
 	private Integer startIndex = 0;
 
@@ -31,14 +28,6 @@ public class Page implements Serializable {
 
 	public void setDesc(Boolean desc) {
 		this.desc = desc;
-	}
-
-	public Date getStartCreated() {
-		return startCreated;
-	}
-
-	public void setStartCreated(Date startCreated) {
-		this.startCreated = startCreated;
 	}
 
 	public Integer getStartIndex() {

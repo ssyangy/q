@@ -96,18 +96,6 @@ public interface PeopleDao {
 	int updatePeopleRelationStatusByFromIdAndToId(PeopleRelationStatus newStatus, PeopleRelationStatus oldStatus, long fromPeopleId, long toPeopleId) throws SQLException;
 
 	/**
-	 * @param peopleId
-	 * @return
-	 */
-	int getPeopleFollowingNumById(long peopleId) throws SQLException;
-
-	/**
-	 * @param peopleId
-	 * @return
-	 */
-	int getPeopleFollowerNumById(long peopleId) throws SQLException;
-
-	/**
 	 * @param email
 	 * @return
 	 */
