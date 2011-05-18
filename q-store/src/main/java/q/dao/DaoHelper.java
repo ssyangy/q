@@ -16,6 +16,7 @@ import q.domain.Category;
 import q.domain.Event;
 import q.domain.Favorite;
 import q.domain.Group;
+import q.domain.GroupJoinCategory;
 import q.domain.Message;
 import q.domain.MessageReply;
 import q.domain.People;
@@ -640,6 +641,24 @@ public class DaoHelper {
 			return;
 		}
 		group.setCreator(peopleDao.getPeopleById(group.getCreatorId()));
+	}
+
+	/**
+	 * @param groupDao
+	 * @param categoryDao
+	 * @param group
+	 * @throws SQLException 
+	 */
+	public static void injectGroupWithCategory(GroupDao groupDao, CategoryDao categoryDao, Group group) throws SQLException {
+		if(null == group) {
+			return;
+		}
+		List<GroupJoinCategory> joins = groupDao.getGroupJoinCategoriesByGroupId(group.getId());
+		if(CollectionKit.isEmpty(joins)) {
+			return;
+		}
+		Category cat = categoryDao.getCategoryById(joins.get(0).getCategoryId());
+		group.setCategory(cat);
 	}
 
 }

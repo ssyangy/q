@@ -4,12 +4,8 @@
 	<jsp:param name="title" value="修改密码" />
 </jsp:include>
 <script type="text/javascript">
-
 seajs.use('qcomcn.js', function (q) {
 	$ = q.jq;
-	$(function () {
-         q.Init();
-	});
 });
 
 function checkNewPassword(a){

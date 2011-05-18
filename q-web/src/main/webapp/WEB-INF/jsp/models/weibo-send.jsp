@@ -8,7 +8,7 @@ var realWidth;
 var imgPath;
 seajs.use('qcomcn.js', function (q) {
     var $ = q.jq;
-    seajs.use('jq.rotate.js');
+    seajs.use('jqplus/jq.rotate.js');
     seajs.use('jq.ui.js');
     seajs.use('jq.ui.help.js');
     
@@ -196,7 +196,7 @@ seajs.use('qcomcn.js', function (q) {
 </div>
 </form>
 
-<div id="dia_img" class='ui_dialog' title="上传图片">
+<div id="dia_img" class='ui_dialog hide' title="上传图片">
 <form action="${urlPrefix}/WeiboPicture"  id="formImg" name="formImg" encType="multipart/form-data" method="post" onsubmit="return up()" target="hidden_frame" >
 	<input type="file" name="file" id="file" accept="image/gif, image/jpeg" style="width:450"></input>
 	<div style='display:none;' id="imgWrong"></div>

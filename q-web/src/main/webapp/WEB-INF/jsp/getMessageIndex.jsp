@@ -4,21 +4,15 @@
 	<jsp:param name="title" value="私信" />
 </jsp:include>
 <link href="${staticUrlPrefix}/content-q/slider.css" rel="stylesheet" type="text/css" />
-<style>
-
-</style>
 <script type="text/javascript">
     seajs.use('qcomcn.js', function (q) {
         var $ = q.jq;
-        
         $(function () {
-        	q.Init();
-        	
         	seajs.use('ICanHaz.js', function (ich) {
 	            var sldroot = $('#sldroot');
 	            var intmsglist = function(json){
 	            	sldroot.html(ich.msglist(json));
-	            	q.fixui();
+	            	q.fixui(sldroot);
 	            }
 	            $.ajax({ url: "${urlPrefix}/message",
 	                data: {size:5, startId:"999999999999999999"},

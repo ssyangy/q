@@ -16,6 +16,6 @@ public interface CategoryDao {
 
 	void addCategory(Category p) throws SQLException;
 
-	Category getCategoryById(int cid) throws SQLException;
+	Category getCategoryById(long cid) throws SQLException;
 
 }

@@ -26,7 +26,7 @@ import q.util.IdCreator;
  * @author Zhehao
  * @author seanlinwang
  * @date Feb 15, 2011
- *
+ * 
  */
 
 public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
@@ -199,7 +199,7 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.dao.CategoryDao#getNewGroups(int)
 	 */
 	@Override
@@ -230,7 +230,7 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.dao.GroupDao#getAllPromotedGroups(java.util.List)
 	 */
 	@Override
@@ -270,4 +270,33 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 		gpage.setSize(6);
 		return this.getGroupsByPage(gpage);
 	}
+
+	@Override
+	public List<GroupJoinCategory> getGroupJoinCategoriesByGroupId(long groupId) throws SQLException {
+		@SuppressWarnings("unchecked")
+		List<GroupJoinCategory> joins = this.sqlMapClient.queryForList("getGroupJoinCategoriesByGroupId", groupId);
+		return joins;
+	}
+
+	@Override
+	public int deleteGroupJoinCategoriesByjoinIdsAndGroupId(final long groupId, final List<Long> ids) throws SQLException {
+		Object temp = new Object() {
+			@SuppressWarnings("unused")
+			public long getGroupId() {
+				return groupId;
+			}
+
+			@SuppressWarnings("unused")
+			public List<Long> getIds() {
+				return ids;
+			}
+		};
+		return this.sqlMapClient.update("deleteGroupJoinCategoriesByjoinIdsAndGroupId", temp);
+	}
+
+	@Override
+	public int updateGroup(Group group) throws SQLException {
+		return this.sqlMapClient.update("updateGroupById", group);
+	}
+
 }

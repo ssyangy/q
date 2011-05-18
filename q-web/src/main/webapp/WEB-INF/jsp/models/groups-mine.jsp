@@ -15,7 +15,7 @@
 
 	<c:forEach items="${groups}" var="group" varStatus="status">
 		<c:choose>
-		<c:when test="${param['id']} == ${group.id}">
+		<c:when test="${param['id'] == group.id}">
 			<a href="${urlPrefix}/group/${group.id}" class='in_bk unav_item unav_action'>${group.name}</a>
 		</c:when>
 		<c:otherwise>

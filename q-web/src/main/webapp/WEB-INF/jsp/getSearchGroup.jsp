@@ -3,14 +3,6 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="搜索" />
 </jsp:include>
-<script type="text/javascript">
-    seajs.use('qcomcn.js', function (q) {
-        var $ = q.jq;
-        $(function () {
-            q.Init();
-        });
-    });
-</script>
 <div class="layout grid-m0s7">
 <div class="col-main"><div class="main-wrap pr10">
 <h2 class='mt20'>搜索</h2>

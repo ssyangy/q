@@ -96,6 +96,19 @@
 		from `group`
 		where id=#value#
 	</select>
+	
+	<update id="updateGroupById">
+		update `group`
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="intro">
+				intro=#intro#
+			</isNotNull>
+		    <isNotNull prepend="," property="name">
+				name=#name#
+			</isNotNull>
+		</dynamic>
+		where id=#id#
+	</update>
 
 	<select id="selectGroupsByIds" resultMap="groupResult">
 		select
@@ -144,8 +157,25 @@
 	<select id="selectGroupIdsByCatId" resultClass="long">
 		select group_id
 		from group_join_category
+		where status = 0
+		and category_id = #value#
+	</select>
+	
+	<update id="deleteGroupJoinCategoriesByjoinIdsAndGroupId">
+		update group_join_category set status = 1 where group_id = #groupId#
+		and id in
+		<iterate property="ids" open="(" close=")" conjunction=",">
+				#ids[]#
+        </iterate>
+	</update>
+	
+	<select id="getGroupJoinCategoriesByGroupId" resultMap="gjcResult">
+		select
+		<include refid="gjc.columns" />
+		from
+		group_join_category
 		where
-		category_id = #value#
+		status = 0 and group_id = #value#
 	</select>
 
 	<select id="getPromotedGroupJoinCategoriesByCatIds" resultMap="gjcResult">

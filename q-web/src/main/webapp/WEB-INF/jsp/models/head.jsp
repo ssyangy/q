@@ -12,7 +12,7 @@
     window.loginCookie = '${loginCookie.peopleId}';
     window.urlprefix = '${urlPrefix}';
 	seajs.use('qcomcn.js', function (q) {
-		$ = q.jq;
+		var $ = q.jq;
 		$(function () {
 			q.Init();
 		});
@@ -21,14 +21,15 @@
 <jsp:include page="js-common.jsp" />
 </head>
 <body>
-<div class="body">
+<div id="body">
     <div id="toper"><div class="wapper">
         <a id='logo'>Q.com.cn</a>
         <div id="msg">
             <ul class="list">
                 <li><a href='${urlPrefix}/category'>首页</a></li>
+                <li><a href='${urlPrefix}/people/${loginCookie.peopleId}/following'>好友</a></li>
                 <li class='rel'><a class="lk" href='${urlPrefix}/people/${loginCookie.peopleId}'>${loginCookie.realName}</a>
-                <span target='minelist' class='in_bk tlistarr'></span>
+                <span tgtt='minelist' class='in_bk tlistarr'></span>
 		        <div id="minelist" class='tgtbox'>
 		            <ul class="dlist">
 		                <li><a class='lk' href='${urlPrefix}/people/${loginCookie.peopleId}'>我的主页</a></li>

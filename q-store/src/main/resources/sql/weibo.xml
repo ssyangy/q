@@ -63,7 +63,7 @@
 		#ids[]#
         </iterate>
         <isNotNull property="desc">
-		order by created desc
+		order by id desc
 		</isNotNull>
 	</select>
 
@@ -82,7 +82,7 @@
 		<isNotNull prepend="and " property="startId">
 			id &lt;= #startId#
 		</isNotNull>
-		order by created desc
+		order by id desc
 		<isNotNull property="size">
 			limit #startIndex#, #size#
 		</isNotNull>
@@ -102,7 +102,7 @@
 		<isNotNull prepend="and " property="startId">
 			id &lt;= #startId#
 		</isNotNull>
-		order by created desc
+		order by id desc
 		<isNotNull property="size">
 			limit #startIndex#, #size#
 		</isNotNull>
@@ -193,7 +193,7 @@
 				id &lt;= #startId#
 			</isNotNull>
 		</dynamic>
-		order by created desc
+		order by id desc
 		limit #startIndex#, #size#
 	</select>
 
@@ -280,7 +280,7 @@
 		#ids[]#
         </iterate>
         <isNotNull property="desc">
-		order by created desc
+		order by id desc
 		</isNotNull>
 	</select>
 
@@ -293,6 +293,9 @@
 			<isNotNull prepend = "and " property="quoteWeiboId">
 				quote_weibo_id = #quoteWeiboId#
 			</isNotNull>
+			<isNotNull prepend = "and " property="quoteSenderId">
+				quote_sender_id = #quoteSenderId#
+			</isNotNull>			
 			<isNotNull prepend = "and " property="quoteSenderIds">
 				quote_sender_id in
 				<iterate property="quoteSenderIds" open="(" close=")" conjunction=",">

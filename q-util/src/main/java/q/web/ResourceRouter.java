@@ -136,11 +136,15 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 				resource.validate(context);
 				resource.execute(context); // execute resource if exists
 			} catch (ErrorCodeException e) {
-				context.setErrorModel(e);
-				log.debug("resource  %s execute ErrorCodeExeption", e, resource);
+				if (isJson) {
+					context.setErrorModel(e); // api请求错误常见,不记录错误日志
+				} else {
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+					throw e;
+				}
 			} catch (Exception e) {// resource internal error
-				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				log.error("resource  %s execute exeption", e, resource);
+				throw e;
 			}
 
 			complementModel(context); // complement model
@@ -191,27 +195,27 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 			resource = this.defaultResource;
 			resource.setName("default");
 		} else {
-			if("error".equals(segs[0])) {//XXX sean, e.g /error/notExist
+			if ("error".equals(segs[0])) {// XXX sean, e.g /error/notExist
 				resource = this.getGetResource(resourceName);
-			}else {
-			// get resource by resourceName and method
-			if (HTTP_METHOD_POST.equals(method)) {
-				String _method = request.getParameter(HTTP_INNER_METHOD);
-				if (null == _method) {
-					resource = this.getPostResource(resourceName);
-				} else {
-					_method = _method.toLowerCase();
-					if (HTTP_METHOD_UPDATE.equals(_method)) {
-						resource = this.getUpdateResource(resourceName);
+			} else {
+				// get resource by resourceName and method
+				if (HTTP_METHOD_POST.equals(method)) {
+					String _method = request.getParameter(HTTP_INNER_METHOD);
+					if (null == _method) {
+						resource = this.getPostResource(resourceName);
+					} else {
+						_method = _method.toLowerCase();
+						if (HTTP_METHOD_UPDATE.equals(_method)) {
+							resource = this.getUpdateResource(resourceName);
+						}
+						if (HTTP_METHOD_DELETE.equals(_method)) {
+							resource = this.getDeleteResource(resourceName);
+						}
 					}
-					if (HTTP_METHOD_DELETE.equals(_method)) {
-						resource = this.getDeleteResource(resourceName);
-					}
+				} else if (HTTP_METHOD_GET.equals(method)) {
+					resource = this.getGetResource(resourceName);
 				}
-			} else if (HTTP_METHOD_GET.equals(method)) {
-				resource = this.getGetResource(resourceName);
 			}
-			} 
 		}
 		log.debug("get resource:%s by method:%s and path:%s, resourceName:%s", resource, method, path, resourceName);
 		return resource;

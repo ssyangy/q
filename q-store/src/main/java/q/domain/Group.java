@@ -27,6 +27,8 @@ public class Group extends AbstractDomain implements Serializable {
 
 	private long categoryId;
 	
+	private Category category;
+	
 	private People creator;
 
 	/**
@@ -156,5 +158,19 @@ public class Group extends AbstractDomain implements Serializable {
 	@Override
 	public String toString() {
 		return "Group [id=" + id + ", creatorId=" + creatorId + ", name=" + name + ", intro=" + intro + ", longitude=" + longitude + ", latitude=" + latitude + ", status=" + status + ", created=" + created + ", modified=" + modified + "]";
+	}
+
+	/**
+	 * @param category the category to set
+	 */
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	/**
+	 * @return the category
+	 */
+	public Category getCategory() {
+		return category;
 	}
 }

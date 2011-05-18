@@ -12,8 +12,6 @@ import org.apache.commons.collections.CollectionUtils;
 
 import q.dao.DaoHelper;
 import q.dao.FavoriteDao;
-import q.dao.GroupDao;
-import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.dao.page.WeiboReplyPage;
 import q.domain.WeiboReply;
@@ -21,30 +19,17 @@ import q.util.CollectionKit;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
-import q.web.exception.RequestParameterInvalidException;
 
 /**
  * @author seanlinwang at gmail dot com
- * @date May 7, 2011
+ * @date May 14, 2011
  * 
  */
-public class GetWeiboReply extends Resource {
+public class GetReplySended extends Resource {
 	private WeiboDao weiboDao;
 
 	public void setWeiboDao(WeiboDao weiboDao) {
 		this.weiboDao = weiboDao;
-	}
-
-	private PeopleDao peopleDao;
-
-	public void setPeopleDao(PeopleDao peopleDao) {
-		this.peopleDao = peopleDao;
-	}
-
-	private GroupDao groupDao;
-
-	public void setGroupDao(GroupDao groupDao) {
-		this.groupDao = groupDao;
 	}
 
 	private FavoriteDao favoriteDao;
@@ -60,15 +45,12 @@ public class GetWeiboReply extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		long weiboId = context.getResourceIdLong();
 		long loginPeopleId = context.getCookiePeopleId();
-
-		WeiboReplyPage page = new WeiboReplyPage();
-		page.setQuoteWeiboId(weiboId);
 		int size = context.getInt("size", 10);
 		long startId = context.getIdLong("startId", IdCreator.MAX_ID);
 		int type = context.getInt("type", 0);
 		int asc = 1;
+		WeiboReplyPage page = new WeiboReplyPage();
 		if (type == asc) { // 1 indicate asc
 			page.setDesc(false);
 		} else {
@@ -81,6 +63,7 @@ public class GetWeiboReply extends Resource {
 		if (startId > 0) {
 			page.setStartId(startId);
 		}
+		page.setSenderId(loginPeopleId);
 		List<WeiboReply> replies = weiboDao.getWeiboRepliesByPage(page);
 		if (CollectionKit.isNotEmpty(replies)) {
 			if (replies.size() == fetchSize) {
@@ -101,13 +84,8 @@ public class GetWeiboReply extends Resource {
 				CollectionUtils.reverseArray(array);
 				replies = Arrays.asList(array);
 			}
-			DaoHelper.injectWeiboModelsWithPeople(peopleDao, replies);
-			DaoHelper.injectWeiboModelsWithFrom(groupDao, replies);
-			if (loginPeopleId > 0) {
-				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, replies, loginPeopleId);
-			}
+			DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, replies, loginPeopleId);
 		}
-
 		Map<String, Object> api = new HashMap<String, Object>();
 		if (CollectionKit.isNotEmpty(replies)) {
 			api.put("replies", replies);
@@ -125,10 +103,6 @@ public class GetWeiboReply extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		long weiboId = context.getResourceIdLong();
-		if (IdCreator.isNotValidId(weiboId)) {
-			throw new RequestParameterInvalidException("weibo:invalid");
-		}
 	}
 
 }
