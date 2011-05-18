@@ -4,7 +4,7 @@
     var Backbone = require('backbone.js');
     var rep = require('app/weibo-rep.js');
     var q = require('qcomcn.js');
-    require('jq.rotate.js');
+    require('jqplus/jq.rotate.js');
 
     var ich = {};
     var seed = {};

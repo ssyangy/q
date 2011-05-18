@@ -1,6 +1,6 @@
 ﻿define(function (require, exports) {
     var $ = require('jquery.js');
-    var loc = require('chinaareaLocation.js');
+    var loc = require('back/chinaareaLocation.js');
 
     /* 
     * 使用前您一定要引入jQurey及压缩包中的两个脚本文件,如
