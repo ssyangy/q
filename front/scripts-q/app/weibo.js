@@ -77,7 +77,7 @@
             "click a.weiboImgRotateL": "imgrotatel"
         },
         initialize: function () {
-            _.bindAll(this, 'render', 'change', 'remove', 'suc_repajax','initrep');
+            _.bindAll(this, 'render', 'change', 'remove', 'suc_repajax', 'initrep');
             this.model.bind('change', this.change);
             this.model.bind('remove', this.remove);
             this.model.view = this;
@@ -108,8 +108,8 @@
                 }
             });
         },
-        initrep: function(m){
-            if(m && m.error_code) return;
+        initrep: function (m) {
+            if (m && m.error_code) return;
             $.ajax({
                 url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply",
                 data: { size: 10, startid: '999999999999999999' },
@@ -125,7 +125,7 @@
         },
         rrprev: function () {
             var lis = $('li.repbox', this.el);
-            var urlp = { startid: parseInt(lis.last().data('replyid')) - 1 };
+            var urlp = { startid: parseInt(lis.last().data('replyid')), type: 1 };
             _.extend(urlp, this.defajaxurl);
             $.ajax({
                 url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
@@ -134,7 +134,7 @@
         },
         rrnext: function () {
             var lis = $('li.repbox', this.el);
-            var urlp = { startid: parseInt(lis.last().data('replyid')) - 1,type:1 };
+            var urlp = { startid: parseInt(lis.last().data('replyid')) };
             _.extend(urlp, this.defajaxurl);
             $.ajax({
                 url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
@@ -153,14 +153,14 @@
             });
             q.fixui(ul);
         },
-        reply:function(){
+        reply: function () {
             $.ajax({
                 url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply",
                 type: 'POST',
-                data:{content: $('input.reply_val',this.el).val()},
+                data: { content: $('input.reply_val', this.el).val() },
                 success: this.initrep
             });
-            $('input.reply_val',this.el).val('');
+            $('input.reply_val', this.el).val('');
         },
         resub: function () {
             var rdia = $('#dia_ret');
