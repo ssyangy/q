@@ -7,7 +7,7 @@
 <script type="text/javascript">
     seajs.use('qcomcn.js', function (q) {
         var $ = q.jq;
-        seajs.use('jq.tokeninput.js');
+        seajs.use('jqplus/jq.tokeninput.js');
      
         var ffs = ${peoplesHintJson};
         $(function () {
