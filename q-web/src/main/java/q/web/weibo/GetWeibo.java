@@ -78,7 +78,7 @@ public class GetWeibo extends Resource {
 		WeiboReplyPage page = new WeiboReplyPage();
 		page.setQuoteWeiboId(weiboId);
 		int size = context.getInt("size", 10);
-		long startId = context.getIdLong("startId");
+		long startId = context.getIdLong("startId", IdCreator.MAX_ID);
 		int type = context.getInt("type", 0);
 		int asc = 1;
 		if (type == asc) { // 1 indicate asc
@@ -106,7 +106,7 @@ public class GetWeibo extends Resource {
 			}
 			if (type == asc) { // this action from next page
 				hasNext = true;
-			} else if(startId != 999999999999999999L){// this action from previous page
+			} else if(startId != IdCreator.MAX_ID){// this action from previous page
 				hasPrev = true;
 			}
 			if (type == asc) { // reverse asc to desc

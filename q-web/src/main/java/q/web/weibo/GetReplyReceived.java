@@ -76,7 +76,7 @@ public class GetReplyReceived extends Resource {
 			}
 			if (type == asc) { // this action from next page
 				hasNext = true;
-			} else if (startId != 999999999999999999L) {// this action from previous page
+			} else if (startId != IdCreator.MAX_ID) {// this action from previous page
 				hasPrev = true;
 			}
 			if (type == asc) { // reverse asc to desc
