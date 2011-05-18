@@ -10,6 +10,7 @@ import q.dao.GroupDao;
 import q.domain.Group;
 import q.util.CollectionKit;
 import q.util.LocationKit;
+import q.util.StringKit;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -17,7 +18,7 @@ import q.web.ResourceContext;
  * @author Zhehao
  * @author seanlinwang
  * @date Feb 15, 2011
- * 
+ *
  */
 public class GetGroupIndex extends Resource {
 
@@ -31,6 +32,7 @@ public class GetGroupIndex extends Resource {
 	public void execute(ResourceContext context) throws SQLException {
 		String method = context.getString("method");
 		long loginId = context.getCookiePeopleId();
+		String id=context.getString("id");
 		List<Group> groups = null;
 		if (method == null) {
 			long catId = context.getIdLong("catId");
@@ -41,7 +43,12 @@ public class GetGroupIndex extends Resource {
 				DaoHelper.injectGroupsWithJoined(groupDao, groups, loginId);
 			}
 		} else if (method.equals("getMyGroups")) {
+			if(!StringKit.isEmpty(id)){
+				groups = groupDao.getGroupsByJoinPeopleId(Long.valueOf(id));
+			}
+			else{
 			groups = groupDao.getGroupsByJoinPeopleId(loginId);
+			}
 		} else if (method.equals("getNearGroups")) {
 			double latitude = Double.parseDouble(context.getString("latitude"));
 			double longitude = Double.parseDouble(context.getString("longitude"));
@@ -70,7 +77,7 @@ public class GetGroupIndex extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override

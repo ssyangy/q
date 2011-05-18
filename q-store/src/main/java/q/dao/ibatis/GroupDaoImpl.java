@@ -26,14 +26,13 @@ import q.util.IdCreator;
  * @author Zhehao
  * @author seanlinwang
  * @date Feb 15, 2011
- * 
+ *
  */
 
 public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 
 	@Override
 	public void addGroup(Group group) throws SQLException {
-		group.setId(IdCreator.getLongId());
 		this.sqlMapClient.insert("insertGroup", group);
 
 	}
@@ -200,7 +199,7 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.CategoryDao#getNewGroups(int)
 	 */
 	@Override
@@ -231,7 +230,7 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.GroupDao#getAllPromotedGroups(java.util.List)
 	 */
 	@Override
