@@ -65,7 +65,7 @@ public class GetGroupFeed extends Resource {
 			if (startId > 0) {
 				page.setStartId(startId);
 			}
-			List<Long> ids = this.weiboDao.getWeiboIdsByPage(page);
+			List<Long> ids = this.weiboDao.getWeiboIdsByJoinPage(page);
 			List<Weibo> weibos = this.weiboDao.getWeibosByIds(ids, true);
 			DaoHelper.injectWeiboModelsWithFrom(groupDao, weibos);
 			DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);

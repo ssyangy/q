@@ -58,8 +58,8 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Long> getWeiboIdsByPage(WeiboPage page) throws SQLException {
-		List<Long> ids = (List<Long>) this.sqlMapClient.queryForList("selectWeiboIdsByPage", page);
+	public List<Long> getWeiboIdsByJoinPage(WeiboPage page) throws SQLException {
+		List<Long> ids = (List<Long>) this.sqlMapClient.queryForList("selectWeiboIdsByJoinPage", page);
 		return ids;
 	}
 
@@ -69,7 +69,7 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 		page.setGroupId(groupId);
 		page.setSize(limit);
 		page.setStartIndex(start);
-		List<Long> ids = this.getWeiboIdsByPage(page);
+		List<Long> ids = this.getWeiboIdsByJoinPage(page);
 		return getWeibosByIds(ids, true);
 	}
 
@@ -87,7 +87,7 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 		page.setStartIndex(start);
 		page.setSize(limit);
 		page.setGroupIds(groupIds);
-		List<Long> ids = this.getWeiboIdsByPage(page);
+		List<Long> ids = this.getWeiboIdsByJoinPage(page);
 		return getWeibosByIds(ids, true);
 	}
 

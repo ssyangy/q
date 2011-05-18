@@ -38,7 +38,7 @@ public interface WeiboDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	List<Long> getWeiboIdsByPage(WeiboPage page) throws SQLException;
+	List<Long> getWeiboIdsByJoinPage(WeiboPage page) throws SQLException;
 
 	/**
 	 * @param page
