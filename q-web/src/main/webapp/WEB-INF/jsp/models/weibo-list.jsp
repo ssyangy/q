@@ -3,6 +3,7 @@
 <script type="text/javascript">
     seajs.use('qcomcn.js', function (q) {
     	var $ = q.jq;
+    	var ajlock = true;
         seajs.use(['app/weibo.js','underscore.js'], function (w, _) {
             var ajaxweibo = function(size,startid){
                 $.ajax({
@@ -21,7 +22,6 @@
             }
             $(function () {
                 w.preui();
-    	        var ajlock = true;                
                 ajaxweibo(8,'999999999999999999');
     	        var o = window.body[0];
                 var updateweibo = function(){

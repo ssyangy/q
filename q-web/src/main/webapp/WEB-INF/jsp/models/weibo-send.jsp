@@ -9,8 +9,6 @@ var imgPath;
 seajs.use('qcomcn.js', function (q) {
     var $ = q.jq;
     seajs.use('jqplus/jq.rotate.js');
-    seajs.use('jq.ui.js');
-    seajs.use('jq.ui.help.js');
     
     $(function () {
         $('#inputmain').focus(function () {
