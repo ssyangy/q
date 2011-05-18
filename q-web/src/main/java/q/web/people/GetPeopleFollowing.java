@@ -68,7 +68,6 @@ public class GetPeopleFollowing extends Resource {
 		if (startId > 0) {
 			page.setStartId(startId);
 		}
-		page.setStartIndex(0);
 		List<PeopleRelation> relations = this.peopleDao.getPeopleRelationsByPage(page);
 		List<Long> followingIds = new ArrayList<Long>();
 		for(PeopleRelation relation: relations) {
@@ -78,7 +77,6 @@ public class GetPeopleFollowing extends Resource {
 		if (loginPeopleId > 0) {
 			DaoHelper.injectPeoplesWithRelation(peopleDao, peoples, loginPeopleId);
 		}
-		context.setModel("peoples", peoples);
 		Map<String, Object> api = new HashMap<String, Object>();
 		api.put("peoples", peoples);
 		api.put("relations", relations);
@@ -90,8 +88,6 @@ public class GetPeopleFollowing extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-
 	}
 
 }

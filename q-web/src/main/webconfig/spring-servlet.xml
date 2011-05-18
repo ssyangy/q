@@ -618,7 +618,10 @@
 		<property name="favoriteDao" ref="favoriteDao" />
 		<property name="weiboDao" ref="weiboDao" />
 	</bean>
-	<bean id="getAtIndex" class="q.web.weibo.getAtIndex"></bean>
+	<bean id="getAtIndex" class="q.web.weibo.getAtIndex">
+		<property name="weiboDao" ref="weiboDao" />
+		<property name="searchService" ref="searchService"></property>
+	</bean>
 
 	<!-- favorite web -->
 	<bean id="getFavoriteIndex" class="q.web.favorite.GetFavoriteIndex">

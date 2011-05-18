@@ -57,6 +57,7 @@ public class GetPeopleFollower extends Resource {
 		frame.setPeopleDao(peopleDao);
 		frame.validate(context);
 		frame.execute(context);
+		 
 		int size = context.getInt("size", 10);
 		long startId = context.getIdLong("startId");
 		PeopleRelationPage page = new PeopleRelationPage();
@@ -64,7 +65,6 @@ public class GetPeopleFollower extends Resource {
 		page.setStatus(PeopleRelationStatus.FOLLOWING);
 		int fetchSize = size ;
 		page.setSize(fetchSize);
-		page.setStartIndex(0);
 		if (startId > 0) {
 			page.setStartId(startId);
 		}
@@ -77,7 +77,6 @@ public class GetPeopleFollower extends Resource {
 		if (loginPeopleId > 0) {
 			DaoHelper.injectPeoplesWithRelation(peopleDao, peoples, loginPeopleId);
 		}
-		context.setModel("peoples", peoples);
 		Map<String, Object> api = new HashMap<String, Object>();
 		api.put("peoples", peoples);
 		api.put("relations", relations);
@@ -89,8 +88,6 @@ public class GetPeopleFollower extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-
 	}
 
 }
