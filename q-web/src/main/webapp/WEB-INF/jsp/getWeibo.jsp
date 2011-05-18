@@ -35,7 +35,7 @@
                 var defajaxurl: { size: 10, type: 0 },
                 $('a.rrprev').live('click',function(){
                     var lis = $('li.repbox', this.el);
-                    var urlp = { startid: parseInt(lis.last().data('replyid')) - 1 };
+                    var urlp = { startid: parseInt(lis.last().data('replyid')), type:1 };
                     _.extend(urlp, this.defajaxurl);
                     $.ajax({
                         url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
@@ -44,7 +44,7 @@
                 });
                 $('a.rrnext').live('click',function(){
                     var lis = $('li.repbox', this.el);
-                    var urlp = { startid: parseInt(lis.last().data('replyid')) - 1,type:1 };
+                    var urlp = { startid: parseInt(lis.last().data('replyid')) };
                     _.extend(urlp, this.defajaxurl);
                     $.ajax({
                         url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
