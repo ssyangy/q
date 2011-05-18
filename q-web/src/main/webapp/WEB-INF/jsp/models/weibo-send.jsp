@@ -195,7 +195,7 @@ seajs.use('qcomcn.js', function (q) {
 </form>
 
 <div id="dia_img" class='ui_dialog hide' title="上传图片">
-<form action="${urlPrefix}/WeiboPicture"  id="formImg" name="formImg" encType="multipart/form-data" method="post" onsubmit="return up()" target="hidden_frame" >
+<form action="${urlPrefix}/weibo/picture"  id="formImg" name="formImg" encType="multipart/form-data" method="post" onsubmit="return up()" target="hidden_frame" >
 	<input type="file" name="file" id="file" accept="image/gif, image/jpeg" style="width:450"></input>
 	<div style='display:none;' id="imgWrong"></div>
 	<input id='upimgsub' type="submit" value="上传图片"></input>

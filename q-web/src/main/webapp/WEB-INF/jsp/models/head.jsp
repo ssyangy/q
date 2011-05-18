@@ -33,8 +33,8 @@
 		        <div id="minelist" class='tgtbox'>
 		            <ul class="dlist">
 		                <li><a class='lk' href='${urlPrefix}/people/${loginCookie.peopleId}'>我的主页</a></li>
-		                <li><a class="lk" href='${urlPrefix}/at'>&#64提到我的</a></li>
-		                <li><a class="lk" href='${urlPrefix}/reply'>我的回复</a></li>
+		                <li><a class="lk" href='${urlPrefix}/at'>&#64;提到我的</a></li>
+		                <li><a class="lk" href='${urlPrefix}/reply/received'>我的回复</a></li>
 		                <li class="end"><a class="lk" href='${urlPrefix}/favorite'>我的收藏</a></li>
 		            </ul>
 		        </div>

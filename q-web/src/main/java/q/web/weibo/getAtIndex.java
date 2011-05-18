@@ -73,7 +73,7 @@ public class getAtIndex extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		if (context.getCookiePeopleId() > 0) {
+		if (context.getCookiePeopleId() < 0) {
 			throw new RequestParameterInvalidException("login:invalid");
 		}
 	}
