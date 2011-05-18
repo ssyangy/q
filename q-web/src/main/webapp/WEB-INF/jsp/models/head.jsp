@@ -21,7 +21,7 @@
 <jsp:include page="js-common.jsp" />
 </head>
 <body>
-<div class="body">
+<div id="body">
     <div id="toper"><div class="wapper">
         <a id='logo'>Q.com.cn</a>
         <div id="msg">
