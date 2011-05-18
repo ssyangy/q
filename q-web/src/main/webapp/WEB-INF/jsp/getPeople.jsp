@@ -20,6 +20,8 @@
 	<a href="${urlPrefix}/group/${group.id}" class='ik'>${group.name}</a>
 </c:forEach>
 </ul>
-<jsp:include page="models/weibo-list.jsp" />
+<jsp:include page="models/weibo-list.jsp">
+	<jsp:param name="feedUrl" value="${urlPrefix}/people/${people.id}/weibo" />
+</jsp:include>
 </div>
 <jsp:include page="models/foot.jsp" />

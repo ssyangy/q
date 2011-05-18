@@ -88,7 +88,6 @@
 			<td></td>
 			<td>
 				<button type='submit' class="ui_btn button">创建圈子</button>
-				<a href="${urlPrefix}/group" class="lk">取消</a>
 			</td>
 		</tr>
 	</table>

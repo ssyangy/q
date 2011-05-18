@@ -27,6 +27,7 @@
         <div id="msg">
             <ul class="list">
                 <li><a href='${urlPrefix}/category'>首页</a></li>
+                <li><a href='${urlPrefix}/people/${loginCookie.peopleId}/following'>好友</a></li>
                 <li class='rel'><a class="lk" href='${urlPrefix}/people/${loginCookie.peopleId}'>${loginCookie.realName}</a>
                 <span tgtt='minelist' class='in_bk tlistarr'></span>
 		        <div id="minelist" class='tgtbox'>

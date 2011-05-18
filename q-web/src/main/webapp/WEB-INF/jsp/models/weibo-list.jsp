@@ -10,7 +10,7 @@
                     url: "${param['feedUrl']}?tab=${param['tab']}",
                     data: {size:size, startId:startid, search:"${param['search']}"},
                     success: function(json){
-                        $(json).each(function(){
+                        $(json.weibos).each(function(){
                             this.old = true;
                             var t = new w.WeiboModel(this);
                             w.weibos.add(t);

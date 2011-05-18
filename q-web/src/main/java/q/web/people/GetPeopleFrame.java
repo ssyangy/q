@@ -6,7 +6,6 @@ import java.util.List;
 import q.dao.EventDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
-import q.dao.WeiboDao;
 import q.dao.page.PeopleRelationPage;
 import q.domain.Event;
 import q.domain.Group;
@@ -36,11 +35,6 @@ public class GetPeopleFrame extends Resource {
 		this.eventDao = eventDao;
 	}
 
-	private WeiboDao weiboDao;
-
-	public void setWeiboDao(WeiboDao weiboDao) {
-		this.weiboDao = weiboDao;
-	}
 
 	@Override
 	public void execute(ResourceContext context) throws Exception {

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package q.web.weibo;
 
 import java.util.Arrays;
@@ -15,30 +12,30 @@ import q.dao.FavoriteDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
-import q.dao.page.WeiboReplyPage;
-import q.domain.WeiboReply;
+import q.dao.page.WeiboPage;
+import q.domain.Weibo;
 import q.util.CollectionKit;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
-import q.web.exception.RequestParameterInvalidException;
 
 /**
- * @author seanlinwang at gmail dot com
- * @date May 7, 2011
+ * @author seanlinwang
+ * @email xalinx at gmail dot com
+ * @date Jan 18, 2011
  * 
  */
-public class GetWeiboReply extends Resource {
-	private WeiboDao weiboDao;
-
-	public void setWeiboDao(WeiboDao weiboDao) {
-		this.weiboDao = weiboDao;
-	}
-
+public class GetPeopleWeibo extends Resource {
 	private PeopleDao peopleDao;
 
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
+	}
+
+	private WeiboDao weiboDao;
+
+	public void setWeiboDao(WeiboDao weiboDao) {
+		this.weiboDao = weiboDao;
 	}
 
 	private GroupDao groupDao;
@@ -53,22 +50,15 @@ public class GetWeiboReply extends Resource {
 		this.favoriteDao = favoriteDao;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see q.web.Resource#execute(q.web.ResourceContext)
-	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		long weiboId = context.getResourceIdLong();
+		long peopleId = context.getResourceIdLong();
 		long loginPeopleId = context.getCookiePeopleId();
-
-		WeiboReplyPage page = new WeiboReplyPage();
-		page.setQuoteWeiboId(weiboId);
 		int size = context.getInt("size", 10);
 		long startId = context.getIdLong("startId", IdCreator.MAX_ID);
 		int type = context.getInt("type", 0);
 		int asc = 1;
+		WeiboPage page = new WeiboPage();
 		if (type == asc) { // 1 indicate asc
 			page.setDesc(false);
 		} else {
@@ -81,15 +71,16 @@ public class GetWeiboReply extends Resource {
 		if (startId > 0) {
 			page.setStartId(startId);
 		}
-		List<WeiboReply> replies = weiboDao.getWeiboRepliesByPage(page);
-		if (CollectionKit.isNotEmpty(replies)) {
-			if (replies.size() == fetchSize) {
+		page.setSenderId(peopleId);
+		List<Weibo> weibos = weiboDao.getWeibosByPage(page);
+		if (CollectionKit.isNotEmpty(weibos)) {
+			if (weibos.size() == fetchSize) {
 				if (type == asc) { // more than one previous page
 					hasPrev = true;
 				} else { // more than one next page
 					hasNext = true;
 				}
-				replies.remove(replies.size() - 1);// remove last one
+				weibos.remove(weibos.size() - 1);// remove last one
 			}
 			if (type == asc) { // this action from next page
 				hasNext = true;
@@ -97,25 +88,26 @@ public class GetWeiboReply extends Resource {
 				hasPrev = true;
 			}
 			if (type == asc) { // reverse asc to desc
-				WeiboReply[] array = replies.toArray(new WeiboReply[replies.size()]);
+				Weibo[] array = weibos.toArray(new Weibo[weibos.size()]);
 				CollectionUtils.reverseArray(array);
-				replies = Arrays.asList(array);
+				weibos = Arrays.asList(array);
 			}
-			DaoHelper.injectWeiboModelsWithPeople(peopleDao, replies);
-			DaoHelper.injectWeiboModelsWithFrom(groupDao, replies);
+			DaoHelper.injectWeiboModelsWithQuote(weiboDao, weibos);
+			DaoHelper.injectWeiboModelsWithPeople(peopleDao, weibos);
+			DaoHelper.injectWeiboModelsWithFrom(groupDao, weibos);
 			if (loginPeopleId > 0) {
-				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, replies, loginPeopleId);
+				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
 			}
 		}
-
 		Map<String, Object> api = new HashMap<String, Object>();
-		if (CollectionKit.isNotEmpty(replies)) {
-			api.put("replies", replies);
+		if (CollectionKit.isNotEmpty(weibos)) {
+			api.put("weibos", weibos);
 		}
 
 		api.put("hasPrev", hasPrev);
 		api.put("hasNext", hasNext);
 		context.setModel("api", api);
+
 	}
 
 	/*
@@ -125,10 +117,6 @@ public class GetWeiboReply extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		long weiboId = context.getResourceIdLong();
-		if (IdCreator.isNotValidId(weiboId)) {
-			throw new RequestParameterInvalidException("weibo:invalid");
-		}
-	}
 
+	}
 }

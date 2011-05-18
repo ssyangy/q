@@ -29,23 +29,25 @@ public class AddGroup extends Resource {
 	public void setGroupDao(GroupDao groupDao) {
 		this.groupDao = groupDao;
 	}
-	
+
 	private SearchService searchService;
 
 	public void setSearchService(SearchService searchService) {
 		this.searchService = searchService;
 	}
-	
+
 	private PictureService pictureService;
 
 	public void setPictureService(PictureService pictureService) {
 		this.pictureService = pictureService;
 	}
-	
+
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		Group group = new Group();
-		group.setCreatorId(context.getCookiePeopleId()); // set group creator id from cookie
+		group.setId(IdCreator.getLongId());
+		long loginId = context.getCookiePeopleId();
+		group.setCreatorId(loginId); // set group creator id from cookie
 		group.setName(context.getString("name"));
 		group.setIntro(context.getString("intro"));
 		if (context.getString("latitude") != null && context.getString("longitude") != null) {
@@ -56,6 +58,7 @@ public class AddGroup extends Resource {
 
 		groupDao.addGroup(group); // create group
 		groupDao.addGroupJoinCategory(group.getId(), context.getIdLong("categoryId")); // set group category
+		groupDao.addPeopleJoinGroup(group.getCreatorId(), group.getId());
 		searchService.updateGroup(group);
 
 		if(context.isApiRequest()){
