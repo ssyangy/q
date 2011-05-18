@@ -50,7 +50,7 @@
                         url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
                         success: this.suc_repajax
                     });
-                });                
+                });
                 var ul = $('ul.msglist');
                 var suc_reqajax = function(json){
                     if (json.hasPrev) { $('.rrprev', this.el).show() } else { $('.rrprev', this.el).hide() };
@@ -61,7 +61,7 @@
                         var view = new rep.WeiboRepView({ model: rr });
                         ul.append(view.render().el);
                     });
-                    q.fixui();
+                    q.fixui(ul);
                 }
             });
         });

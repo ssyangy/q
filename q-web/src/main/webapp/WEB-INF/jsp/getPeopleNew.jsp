@@ -255,7 +255,6 @@
        		  }
        		}
             $(function () {
-                q.Init();
                 reloadVerify_img();
             });
         });

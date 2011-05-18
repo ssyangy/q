@@ -12,7 +12,7 @@
 	            var sldroot = $('#sldroot');
 	            var intmsglist = function(json){
 	            	sldroot.html(ich.msglist(json));
-	            	q.fixui();
+	            	q.fixui(sldroot);
 	            }
 	            $.ajax({ url: "${urlPrefix}/message",
 	                data: {size:5, startId:"999999999999999999"},
