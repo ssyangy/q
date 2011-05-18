@@ -6,6 +6,7 @@ package q.web.message;
 import java.util.ArrayList;
 import java.util.List;
 
+import q.biz.NotifyService;
 import q.dao.MessageDao;
 import q.dao.PeopleDao;
 import q.dao.page.MessageJoinPeoplePage;
@@ -37,6 +38,16 @@ public class AddMessageReply extends Resource {
 		this.peopleDao = peopleDao;
 	}
 
+	/**
+	 * @param notifyService
+	 *            the notifyService to set
+	 */
+	public void setNotifyService(NotifyService notifyService) {
+		this.notifyService = notifyService;
+	}
+
+	private NotifyService notifyService;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -67,7 +78,7 @@ public class AddMessageReply extends Resource {
 		messageReply.setQuoteSenderId(messageJoinPeople.getSenderId());
 		// add message reply
 		messageDao.addMessageReply(messageReply);
-		
+
 		// update last message reply
 		messageJoinPeople.setLastReplyId(messageReply.getId());
 		messageJoinPeople.setLastReplySenderId(messageReply.getSenderId());
@@ -77,6 +88,7 @@ public class AddMessageReply extends Resource {
 		joinPage.setMessageId(messageReply.getQuoteMessageId());
 		List<MessageJoinPeople> receivers = messageDao.getMessageJoinPeoplesByPage(joinPage); // message receivers
 		List<MessageReplyJoinPeople> replyJoins = new ArrayList<MessageReplyJoinPeople>(receivers.size());
+		List<Long> receiverIds = new ArrayList<Long>(receivers.size());
 		for (MessageJoinPeople mjp : receivers) {
 			MessageReplyJoinPeople join = new MessageReplyJoinPeople();
 			join.setId(IdCreator.getLongId());
@@ -86,10 +98,12 @@ public class AddMessageReply extends Resource {
 			join.setQuoteSenderId(messageReply.getQuoteSenderId());
 			join.setReceiverId(mjp.getReceiverId());
 			replyJoins.add(join);
+			receiverIds.add(mjp.getReceiverId());
 		}
 		messageDao.addMessageReplyJoinPeoples(replyJoins);
 		messageDao.incrAllMessageReplyNumberByMessageId(messageReply.getQuoteMessageId());
-		
+		notifyService.notifyMessageReply(messageReply, receiverIds);// notify new messages
+
 		context.setModel("MessageReply", messageReply);
 	}
 

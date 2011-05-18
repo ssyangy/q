@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import q.biz.NotifyService;
 import q.dao.MessageDao;
 import q.dao.PeopleDao;
 import q.domain.Message;
@@ -40,6 +41,15 @@ public class AddMessage extends Resource {
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
 	}
+	
+	/**
+	 * @param notifyService the notifyService to set
+	 */
+	public void setNotifyService(NotifyService notifyService) {
+		this.notifyService = notifyService;
+	}
+
+	private NotifyService notifyService;
 
 	/**
 	 * Add one message contains below steps:
@@ -102,6 +112,7 @@ public class AddMessage extends Resource {
 			replyJoins.add(join);
 		}
 		messageDao.addMessageReplyJoinPeoples(replyJoins);
+		notifyService.notifyMessageReply(messageReply, receiverIds);//notify new messages
 
 	}
 

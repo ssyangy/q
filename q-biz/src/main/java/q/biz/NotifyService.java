@@ -3,6 +3,9 @@
  */
 package q.biz;
 
+import java.util.Collection;
+
+import q.domain.MessageReply;
 import q.domain.Weibo;
 import q.domain.WeiboReply;
 
@@ -22,5 +25,10 @@ public interface NotifyService {
 	 * @param weibo
 	 */
 	void notifyWeibo(Weibo weibo);
+	
+	/**
+	 * @param reply
+	 */
+	void notifyMessageReply(MessageReply reply, Collection<Long> receiverIds);
 
 }

@@ -3,9 +3,13 @@
  */
 package q.biz.impl;
 
+import java.util.Collection;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.pool.impl.GenericObjectPool.Config;
 
 import q.biz.NotifyService;
+import q.domain.MessageReply;
 import q.domain.Weibo;
 import q.domain.WeiboReply;
 import q.log.Logger;
@@ -84,6 +88,24 @@ public class DefaultNotifyService implements NotifyService {
 			}
 		} catch (Exception e) {
 			log.error("notifyWeibo", e);
+		} finally {
+			pool.returnResource(jedis);
+		}
+	}
+
+	@Override
+	public void notifyMessageReply(MessageReply reply, Collection<Long> receiverIds) {
+		Jedis jedis = pool.getResource();
+		String receiversStr = StringUtils.join(receiverIds, ',');
+		try {
+			jedis.publish("message", receiversStr + " " + reply.getContent());
+		} catch (JedisConnectionException e) {
+			log.error("notifyMessageReply", e);
+			if (jedis != null) {
+				jedis.disconnect();
+			}
+		} catch (Exception e) {
+			log.error("notifyMessageReply", e);
 		} finally {
 			pool.returnResource(jedis);
 		}

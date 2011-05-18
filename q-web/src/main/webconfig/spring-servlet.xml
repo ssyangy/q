@@ -657,10 +657,12 @@
 	<bean id="addMessage" class="q.web.message.AddMessage">
 		<property name="messageDao" ref="messageDao" />
 		<property name="peopleDao" ref="peopleDao" />
+		<property name="notifyService" ref="notifyService"/>
 	</bean>
 	<bean id="addMessageReply" class="q.web.message.AddMessageReply">
 		<property name="messageDao" ref="messageDao" />
 		<property name="peopleDao" ref="peopleDao" />
+		<property name="notifyService" ref="notifyService"/>
 	</bean>
 	<bean id="getMessageReply" class="q.web.message.GetMessageReply">
 		<property name="messageDao" ref="messageDao" />
