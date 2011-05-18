@@ -12,8 +12,6 @@
     require('jq.mttext.js');
 
     exports.Init = function () {
-        exports.fixui();
-
         $("input[accesskey]").bind("keydown", function (e) {
             var code = (e.keyCode ? e.keyCode : e.which);
             if (code == 13) {
@@ -27,44 +25,45 @@
             $(this).next('input.search_btn').removeClass('typing');
         });
 
-        var lazyLayout = _.debounce(calculateLayout, 100);
+        window.body = $("#body");
+        var calculateLayout = (function () {
+            window.gWinHeight = $(window).height();
+            window.body.height(window.gWinHeight);
+        })();
+        var lazyLayout = _.debounce(calculateLayout, 300);
         $(window).resize(lazyLayout);
-        calculateLayout();
-    };
 
-    var calculateLayout = function () {
-        gWinHeight = $(window).height();
-        $("#body").height(gWinHeight);
-    }
-
-    exports.fixui = function () {
-        uihelp.init();
-
-        $('.tw_txt').repurl();
-        if (ie6) {
-            $(".png").pngFix();
-            $('img').imgLimit({ size: [120, 160, 320] });
-        }
-
-        $("input.mttext").mttext();
-        $("input.mttext_val").mttext({ wval: true });
-        $("textarea.mttextar").mttext({ isarea: true });
-        $("textarea.mttextar_val").mttext({ isarea: true, wval: true });
-
-        $(".hov,.streambox").hover(function(){$(this).addClass('hover');},
-        function(){$(this).removeClass('hover');});
-
-        var targetfun = function(){
-            var o = $('#'+$(this).attr('target'));
-            o.toggle();
-            if($(this).hasClass('tgt')) { $(this).removeClass('tgt'); }
-            else { $(this).addClass('tgt');}
-        }
-        $('[target]').bind('click',targetfun);
-        $('body').click(function(e){
+        exports.fixui(window.body);
+        window.body.click(function(e){
             if(!$(e.target).attr('target')){
                 $('.tgtbox').hide();
             }
+        });        
+    }
+
+    exports.fixui = function (bax) {
+        uihelp.init();
+
+        $('.tw_txt',bax).repurl();
+        if (ie6) {
+            $(".png",bax).pngFix();
+            $('img',bax).imgLimit({ size: [120, 160, 320] });
+        }
+
+        $("input.mttext",bax).mttext();
+        $("input.mttext_val",bax).mttext({ wval: true });
+        $("textarea.mttextar",bax).mttext({ isarea: true });
+        $("textarea.mttextar_val",bax).mttext({ isarea: true, wval: true });
+
+        $(".hov,.streambox",bax).hover(function(){$(this).addClass('hover');},
+        function(){$(this).removeClass('hover');});
+
+        $('[target]',bax).bind('click',function(){
+            var o = $(this);
+            $('#'+o.attr('target')).toggle();
+            if(o.hasClass('tgt')) { o.removeClass('tgt'); }
+            else { o.addClass('tgt'); }
         });
+
     }
 });

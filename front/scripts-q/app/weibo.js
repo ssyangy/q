@@ -55,7 +55,7 @@
         },
         oldlast: function () {
             var olds = this.filter(function (w) { return w.get('old'); });
-            return olds.last();
+            return _.last(olds);
         }
     });
 
@@ -151,7 +151,7 @@
                 var view = new rep.WeiboRepView({ model: rr });
                 ul.append(view.render().el);
             });
-            q.fixui();
+            q.fixui(ul);
         },
         reply:function(){
             $.ajax({
@@ -227,7 +227,7 @@
         } else {
             seed.prepend(view.render().el);
         }
-        q.fixui();
+        q.fixui(seed);
     }
     exports.weibos.bind('add', weiboAdd);
 
