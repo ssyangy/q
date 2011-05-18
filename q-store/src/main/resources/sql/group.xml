@@ -118,7 +118,7 @@
 		<iterate open="(" close=")" conjunction=",">
 			#[]#
         </iterate>
-		order by created desc
+		order by id desc
 	</select>
 	<select id="selectGroupsByLocation" resultMap="groupResult">
 		select
@@ -132,7 +132,7 @@
 		select
 		<include refid="group.columns" />
 		from `group`
-		order by created desc
+		order by id desc
 	</select>
 
 	<select id="getGroupsByPage" resultMap="groupResult">
@@ -147,7 +147,7 @@
 	        	</iterate>
 			</isNotNull>
 			<isNotNull prepend="and " property="startId">
-				id &lt;= #startId#
+				id &lt; #startId#
 			</isNotNull>
 		</dynamic>
 		order by id desc
@@ -283,13 +283,13 @@
 				#startCreated#
 			</isNotNull>
 			<isNotNull prepend="and " property="startId">
-				id &lt;= #startId#
+				id &lt; #startId#
 			</isNotNull>
 		</dynamic>
 		<isNotNull property="groupIds">
 			group by people_id
 	    </isNotNull>
-		order by created desc
+		order by id desc
 		<isNotNull property="size">
 			limit #startIndex#, #size#
 		</isNotNull>
@@ -319,10 +319,10 @@
 				#startCreated#
 			</isNotNull>
 			<isNotNull prepend="and " property="startId">
-				id &lt;= #startId#
+				id &lt; #startId#
 			</isNotNull>
 		</dynamic>
-		order by created desc
+		order by id desc
 		<isNotNull property="size">
 			limit #startIndex#, #size#
 		</isNotNull>

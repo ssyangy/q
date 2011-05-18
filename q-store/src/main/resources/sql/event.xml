@@ -66,7 +66,7 @@
 		<iterate open="(" close=")" conjunction=",">
 			#[]#
         </iterate>
-        order by created desc
+        order by id desc
 	</select>
 
 	<select id="selectPageEvents" resultMap="eventResult">
@@ -87,7 +87,7 @@
         		</iterate>
 			</isNotNull>
 		</dynamic>
-		order by created desc
+		order by id desc
 		limit #startIndex#, #size#
 	</select>
 
@@ -183,7 +183,7 @@
 				#groupIds[]#
        		</iterate>
        	</isNotNull>				
-		order by created desc
+		order by id desc
 		<isNotNull property="size">
 			limit #startIndex#, #size#
 		</isNotNull>

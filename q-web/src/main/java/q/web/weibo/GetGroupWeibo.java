@@ -80,7 +80,7 @@ public class GetGroupWeibo extends Resource {
 		if (startId > 0) {
 			page.setStartId(startId);
 		}
-		List<Long> weiboIds = weiboDao.getWeiboIdsByPage(page);
+		List<Long> weiboIds = weiboDao.getWeiboIdsByJoinPage(page);
 		List<Weibo> weibos = weiboDao.getWeibosByIds(weiboIds, true);
 		if (CollectionKit.isNotEmpty(weibos)) {
 			if (weibos.size() == fetchSize) {

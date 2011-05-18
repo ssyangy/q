@@ -288,11 +288,11 @@
 
 			</isNotNull>
 			<isNotNull prepend="and" property="startId">
-				id &lt;= #startId#
+				id &lt; #startId#
 			</isNotNull>
 		</dynamic>
 		<isNotNull property="size">
-				order by created desc limit #startIndex#, #size#
+				order by id desc limit #startIndex#, #size#
 		</isNotNull>
 	</select>
 
@@ -324,7 +324,7 @@
 			</isNotNull>
 		</dynamic>
 		<isNotNull property="size">
-				order by created desc limit #startIndex#, #size#
+				order by id desc limit #startIndex#, #size#
 		</isNotNull>
 	</select>
     <select id="selectPeopleInterestsById" resultMap="peopleInterestResult">
