@@ -11,11 +11,11 @@
     .content{position:absolute;top:260px;left:60px;}
     p{line-height:26px;}
     </style>
-    <script src="@Html.Script("/scripts/sea.js")" type="text/javascript"></script>
+    <script src="@Html.Script("/scripts-q/sea.js")" type="text/javascript"></script>
     <script type="text/javascript">
         seajs.use('qcomcn.js', function (q) {
             var $ = q.jq;
-            seajs.use('chinaarea.js');
+            seajs.use('back/chinaarea.js');
 
             $(function () {
                 q.Init();
