@@ -35,7 +35,7 @@
 
         exports.fixui(window.body);
         window.body.click(function(e){
-            if(!$(e.target).attr('target')){
+            if(!$(e.target).attr('tgtt')){
                 $('.tgtbox').hide();
             }
         });        
@@ -58,9 +58,9 @@
         $(".hov,.streambox",bax).hover(function(){$(this).addClass('hover');},
         function(){$(this).removeClass('hover');});
 
-        $('[target]',bax).bind('click',function(){
+        $('[tgtt]',bax).bind('click',function(){
             var o = $(this);
-            $('#'+o.attr('target')).toggle();
+            $('#'+o.attr('tgtt')).toggle();
             if(o.hasClass('tgt')) { o.removeClass('tgt'); }
             else { o.addClass('tgt'); }
         });
