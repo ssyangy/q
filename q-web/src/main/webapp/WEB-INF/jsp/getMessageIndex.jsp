@@ -20,13 +20,13 @@
 	            });
 	            $('a.next',sldroot).live('click',function(){
 	                $.ajax({ url: "${urlPrefix}/message",
-	                    data: {size:10, startId:$('ul.sldlist>li',sldroot).last().attr('stream-id')-1},
+	                    data: {size:10, startId:$('ul.sldlist>li',sldroot).last().attr('stream-id')},
 	                    success: intmsglist
 	                });
 	            });
 	            $('a.prev',sldroot).live('click',function(){
 	                $.ajax({ url: "${urlPrefix}/message",
-	                    data: {size:10, startId:$('ul.sldlist>li',sldroot).first().attr('stream-id')+1},
+	                    data: {size:10, startId:$('ul.sldlist>li',sldroot).first().attr('stream-id'), type:1},
 	                    success: intmsglist
 	                });
 	            });
@@ -45,7 +45,7 @@
 				$('#pagger>a.prev').live('click',function(){
 					$.ajax({
 					    url: "${urlPrefix}/message/"+window.msgid+"/reply",
-					    data: {size:10, startid: parseInt($('li.msgrepli').last().data('replyId')) - 1, type: 0},
+					    data: {size:10, startid: parseInt($('li.msgrepli').last().data('replyId')), type: 1},
 					   	success: function(json){
 					   		$("#sld2").html(ich.msgitem(json));
 					    }
@@ -54,7 +54,7 @@
 				$('#pagger>a.next').live('click',function(){
 					$.ajax({
 					    url: "${urlPrefix}/message/"+window.msgid+"/reply",
-					    data: {size:10, startid: parseInt($('li.msgrepli').fast().data('replyId')) + 1, type: 1},
+					    data: {size:10, startid: parseInt($('li.msgrepli').fast().data('replyId'))},
 					   	success: function(json){
 					   		$("#sld2").html(ich.msgitem(json));
 					    }

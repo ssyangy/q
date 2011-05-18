@@ -46,7 +46,7 @@ seajs.use('qcomcn.js', function (q) {
 			$('#pagger>a.prev').live('click',function(){
 				$.ajax({
 				    url: "${urlPrefix}/group",
-				    data: {size:6, catId: window.gpid, startid: parseInt(lis.last().data('replyid')) - 1, type: 0},
+				    data: {size:6, catId: window.gpid, startid: parseInt(lis.last().data('replyid')), type: 1},
 				   	success: function(json){
 				   		$("#sld2").html(ich.group(json));
 				    }
@@ -55,7 +55,7 @@ seajs.use('qcomcn.js', function (q) {
 			$('#pagger>a.next').live('click',function(){
 				$.ajax({
 				    url: "${urlPrefix}/group",
-				    data: {size:6, catId: window.gpid, startid: parseInt(lis.fast().data('replyid')) + 1, type: 1},
+				    data: {size:6, catId: window.gpid, startid: parseInt(lis.fast().data('replyid'))},
 				   	success: function(json){
 				   		$("#sld2").html(ich.group(json));
 				    }

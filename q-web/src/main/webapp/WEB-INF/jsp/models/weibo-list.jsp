@@ -15,6 +15,7 @@
                             this.old = true;
                             var t = new w.WeiboModel(this);
                             w.weibos.add(t);
+                            //alert("e"+w.weibos.oldlast().get('id'));
                         });
                     },
                     complete: function(){ ajlock = true; }
@@ -27,7 +28,8 @@
                 var updateweibo = function(){
                 	if (o.scrollTop + window.gWinHeight < o.scrollHeight) return;
                    	if (!ajlock) return;
-                    ajaxweibo(1,w.weibos.oldlast().get('id')-1);
+                   	//alert("b"+w.weibos.oldlast().get('id'));
+                    ajaxweibo(1,w.weibos.oldlast().get('id'));
 				}
                 var throttled = _.throttle(updateweibo, 300);
                 window.body.scroll(updateweibo);
