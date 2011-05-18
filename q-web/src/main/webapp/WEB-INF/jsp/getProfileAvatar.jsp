@@ -8,7 +8,7 @@
     .imgbox{float:left;width:300px;margin-right:10px;}
     .imgmain{float:left;width:600px;}
      </style>
-    <script type="text/javascript" src="${staticUrlPrefix}/scripts-q/src/jquery-1.6.1.js"></script>   
+    <script type="text/javascript" src="${staticUrlPrefix}/scripts-q/src/jquery-1.6.1.js"></script>
     <script type="text/javascript" src="${staticUrlPrefix}/scripts-q/src/jq.jcrop.js"></script>
 	<script type="text/javascript">
 	$(function () {
@@ -17,14 +17,14 @@
 			{
 				//主图片所在容器ID
 				content : "myImage",
-		
+
 				//缩略图配置,ID:所在容器ID;width,height:缩略图大小
 				purviews : [{id:"picture_24",width:24,height:24},{id:"picture_48",width:48,height:48},{id:"picture_128",width:128,height:128}],
-		
+
 				//选择器默认大小
 				selector : {width:100,height:100}
 			}
-		
+
 		);
 		if("${avatarExists}"=="true"){
 		var img=new Image();
@@ -48,7 +48,9 @@ var imageHeight;
 var isImg=true;
 var cutter;
 var divide=1;
-function up(){
+function upload(){
+check();
+$("#hidden_frame").css("display","none");
 	if(isImg==true){
 		cutter = new jQuery.UtrialAvatarCutter(
 				{
@@ -67,6 +69,7 @@ function up(){
 	return isImg;
 	}
 	function save(){
+
 	var data = cutter.submit();
 	var x1=data.x;
 	var y1=data.y;
@@ -276,16 +279,17 @@ function up(){
 <div class="imgmain">
 从电脑中选择你喜欢的照片：<br />
 <span class="gray">您可以上传JPG、JPEG、GIF或PNG文件。</span><br /><br />
-<form action="${urlPrefix}/Avatar"  id="form1" name="form1"  encType="multipart/form-data" method="post" target="hidden_frame" onsubmit="return up()">
+<form action="${urlPrefix}/Avatar"  id="form1" name="form1"  encType="multipart/form-data" method="post" target="hidden_frame" onsubmit="return upload()">
 <ul>
 <li>1. <input type="file" name="file" id="file" accept="image/gif, image/jpeg" onchange="check()" style="width:450"></input></li>
-<li>2. <input type="submit" value="上传头像"></input></li>
+<li>2. <input type="submit" value="上传头像" ></input></li>
 <li>3. 随意拖拽或缩放大图中的虚线方格，下方预览的小图即为保存后的头像图标。
 </li>
-<div style='display:none;' id="imgWrong"></div>
+</ul>
+<div style='display:none;' id="imgwrong"></div>
 <iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>
 </form>
-</ul>
+
 <div class='clearfix'>
 <div id="picture_24" class="wh24" style="overflow:hidden;float:left;"></div>
 <div id="picture_48" class="wh48 ml10" style="overflow:hidden;float:left;"></div>
@@ -301,5 +305,5 @@ function up(){
 
 </div>
 
-</div>
-<jsp:include page="models/foot.jsp" />		
+
+<jsp:include page="models/foot.jsp" />
