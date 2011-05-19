@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<param xmlns="http://serialize.q.com.cn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://serialize.q.com.cn http://www.q.net/xsd/q-serialize.xsd">
+<param xmlns="http://serialize.q.com.cn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://serialize.q.com.cn http://www.q.net/xsd/q-serialize.xsd">
 	<type>
 		<struct>
 			<member name="id" apiName="id" apiType="string" />
@@ -15,7 +14,28 @@
 			<member name="intro" apiName="intro" apiType="string" />
 			<member name="time" apiName="screenTime" apiType="string" />
 			<member name="createdTime" apiName="createdTime" apiType="string" />
-			<member name="gender.value" apiName="gender" apiType="int"/>
- 		</struct>
+			<member name="gender.value" apiName="gender" apiType="int" />
+			<member name="following" apiName="following" apiType="boolean" />
+			<member name="area" apiName="area">
+				<type>
+					<struct>
+						<member name="id" apiName="id" apiType="string" />
+						<member name="myProvince.name" apiName="province" apiType="string" />
+						<member name="myCity.name" apiName="city" apiType="string" />
+						<member name="myCounty.name" apiName="county" apiType="string" />
+					</struct>
+				</type>
+			</member>
+			<member name="hometown" apiName="hometown">
+				<type>
+					<struct>
+						<member name="id" apiName="id" apiType="string" />
+						<member name="myProvince.name" apiName="province" apiType="string" />
+						<member name="myCity.name" apiName="city" apiType="string" />
+						<member name="myCounty.name" apiName="county" apiType="string" />
+					</struct>
+				</type>
+			</member>
+		</struct>
 	</type>
 </param>
