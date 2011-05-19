@@ -265,9 +265,14 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 	}
 
 	@Override
-	public List<GroupJoinCategory> getGroupJoinCategoriesByGroupId(long groupId) throws SQLException {
+	public List<GroupJoinCategory> getGroupJoinCategoriesByGroupIdAndStatus(long groupId, Status status) throws SQLException {
+		GroupJoinCategoryPage page = new GroupJoinCategoryPage();
+		if (status != null) {
+			page.setStatus(status.getValue());
+		}
+		page.setGroupId(groupId);
 		@SuppressWarnings("unchecked")
-		List<GroupJoinCategory> joins = this.sqlMapClient.queryForList("getGroupJoinCategoriesByGroupId", groupId);
+		List<GroupJoinCategory> joins = this.sqlMapClient.queryForList("getGroupJoinCategoriesByPage", page);
 		return joins;
 	}
 

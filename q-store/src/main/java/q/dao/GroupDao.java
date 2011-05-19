@@ -13,6 +13,7 @@ import q.dao.page.PeopleJoinGroupPage;
 import q.domain.Group;
 import q.domain.GroupJoinCategory;
 import q.domain.PeopleJoinGroup;
+import q.domain.Status;
 
 /**
  * @author Zhehao
@@ -147,7 +148,7 @@ public interface GroupDao {
 	/**
 	 * @return
 	 */
-	List<GroupJoinCategory> getGroupJoinCategoriesByGroupId(long groupId) throws SQLException;
+	List<GroupJoinCategory> getGroupJoinCategoriesByGroupIdAndStatus(long groupId, Status status) throws SQLException;
 
 	/**
 	 * @param groupId

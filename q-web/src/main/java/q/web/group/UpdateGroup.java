@@ -74,8 +74,8 @@ public class UpdateGroup extends Resource {
 		group.setIntro(context.getString("intro"));
 		groupDao.updateGroup(group); // create group
 		long categoryId = context.getIdLong("categoryId");
-		List<GroupJoinCategory> joins = groupDao.getGroupJoinCategoriesByGroupId(groupId);
-		boolean hasCat = false;
+		List<GroupJoinCategory> joins = groupDao.getGroupJoinCategoriesByGroupIdAndStatus(groupId, null); // get joins ignore status
+		boolean hasCat = false; // weather selected category is already exists
 		GroupJoinCategory hasCatDeleted = null;
 		List<Long> deleteJoinIds = new ArrayList<Long>();
 		for (GroupJoinCategory join : joins) {
@@ -89,13 +89,13 @@ public class UpdateGroup extends Resource {
 			}
 		}
 		if (!hasCat) { // add new join
-			groupDao.addGroupJoinCategory(group.getId(), categoryId); 
+			groupDao.addGroupJoinCategory(group.getId(), categoryId);
 		} else if (hasCatDeleted != null) { // reopen deleted and selected join
 			groupDao.updateGroupJoinCategoryStatus(hasCatDeleted.getId(), Status.COMMON.getValue(), Status.DELETE.getValue());
 		}
 		groupDao.deleteGroupJoinCategoriesByjoinIdsAndGroupId(group.getId(), deleteJoinIds); // delete old joins
 
-		searchService.updateGroup(group);
+		searchService.updateGroup(group); // update search
 
 		context.setModel("group", group);
 	}
@@ -108,11 +108,16 @@ public class UpdateGroup extends Resource {
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		long groupId = context.getResourceIdLong();
+		long loginId = context.getCookiePeopleId();
 		if (IdCreator.isNotValidId(groupId)) {
 			throw new RequestParameterInvalidException("group:invalid");
 		}
-		if (groupDao.getGroupById(groupId) == null) {
+		Group group = groupDao.getGroupById(groupId);
+		if (group == null) {
 			throw new RequestParameterInvalidException("group:invalid");
+		}
+		if (group.getCreatorId() != loginId) {
+			throw new RequestParameterInvalidException("login:invalid");
 		}
 		long categoryId = context.getIdLong("categoryId");
 		if (IdCreator.isNotValidId(categoryId)) {

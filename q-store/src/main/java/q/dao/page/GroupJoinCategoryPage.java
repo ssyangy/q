@@ -19,6 +19,10 @@ public class GroupJoinCategoryPage extends Page {
 	private Integer newStatus;
 
 	private Integer oldStatus;
+	
+	private Integer status;
+	
+	private Long groupId;
 
 	private Long id;
 
@@ -80,6 +84,34 @@ public class GroupJoinCategoryPage extends Page {
 	 */
 	public Long getId() {
 		return id;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public Integer getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param groupId the groupId to set
+	 */
+	public void setGroupId(Long groupId) {
+		this.groupId = groupId;
+	}
+
+	/**
+	 * @return the groupId
+	 */
+	public Long getGroupId() {
+		return groupId;
 	}
 
 }

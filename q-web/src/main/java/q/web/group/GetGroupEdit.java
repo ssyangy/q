@@ -46,7 +46,6 @@ public class GetGroupEdit extends Resource {
 		Group group = groupDao.getGroupById(groupId);
 		DaoHelper.injectGroupWithCategory(groupDao, categoryDao, group);
 		context.setModel("group", group);
-
 	}
 
 	/* (non-Javadoc)
@@ -55,8 +54,16 @@ public class GetGroupEdit extends Resource {
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		long groupId = context.getResourceIdLong();
+		long loginId = context.getCookiePeopleId();
 		if(IdCreator.isNotValidId(groupId)) {
 			throw new RequestParameterInvalidException("group:invalid");
+		}
+		Group group = groupDao.getGroupById(groupId);
+		if (group == null) {
+			throw new RequestParameterInvalidException("group:invalid");
+		}
+		if (group.getCreatorId() != loginId) {
+			throw new RequestParameterInvalidException("login:invalid");
 		}
 		
 	}

@@ -22,6 +22,7 @@ import q.domain.MessageReply;
 import q.domain.People;
 import q.domain.PeopleJoinEvent;
 import q.domain.PeopleRelation;
+import q.domain.Status;
 import q.domain.Weibo;
 import q.domain.WeiboModel;
 import q.domain.WeiboReply;
@@ -653,7 +654,7 @@ public class DaoHelper {
 		if(null == group) {
 			return;
 		}
-		List<GroupJoinCategory> joins = groupDao.getGroupJoinCategoriesByGroupId(group.getId());
+		List<GroupJoinCategory> joins = groupDao.getGroupJoinCategoriesByGroupIdAndStatus(group.getId(), Status.COMMON);
 		if(CollectionKit.isEmpty(joins)) {
 			return;
 		}

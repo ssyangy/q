@@ -321,13 +321,23 @@ public class GroupDaoImplTest {
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getGroupJoinCategoriesByGroupId(long)}.
+	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getGroupJoinCategoriesByGroupIdAndStatus(long, Status)}.
 	 * 
 	 * @throws SQLException
 	 */
 	@Test
-	public void testGetGroupJoinCategoriesByGroupId() throws SQLException {
-		groupDao.getGroupJoinCategoriesByGroupId(1L);
+	public void testGetGroupJoinCategoriesByGroupIdAndStatusWithCommonStatus() throws SQLException {
+		groupDao.getGroupJoinCategoriesByGroupIdAndStatus(0L, Status.COMMON);
+	}
+
+	/**
+	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getGroupJoinCategoriesByGroupIdAndStatus(long, Status)}.
+	 * 
+	 * @throws SQLException
+	 */
+	@Test
+	public void testGetGroupJoinCategoriesByGroupIdAndStatusWithNullStatus() throws SQLException {
+		groupDao.getGroupJoinCategoriesByGroupIdAndStatus(0L, null);
 	}
 
 	/**
