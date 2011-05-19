@@ -5,5 +5,16 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="我的粉丝" />
 </jsp:include>
-<jsp:include page="models/people-list.jsp"></jsp:include>
+<div class="layout grid-m0s7 mt10">
+    <div class="col-main"><div class="main-wrap pr10">
+        <p class='simptab'><a class="lk">我的关注（23）</a><span class='split'>|</span><span>我的粉丝（123）</span></p>
+        <jsp:include page="models/people-list.jsp">
+		
+		</jsp:include>
+    </div></div>
+    <div class="col-sub">
+        <h3>可能感兴趣的</h3>
+        
+    </div>
+</div>
 <jsp:include page="models/foot.jsp" />
