@@ -31,7 +31,7 @@ public class GetSearchPeople extends Resource{
 	        if(bs!=null){
 	        if(bs.size()>0){
 	        peoples =  this.peopleDao.getPeoplesByIds(bs);
-	        DaoHelper.injectPeoplesWithRelation(peopleDao, peoples, loginPeopleId);
+	        DaoHelper.injectPeoplesWithVisitorRelation(peopleDao, peoples, loginPeopleId);
 	        context.setModel("peoples", peoples);
 
 	        }

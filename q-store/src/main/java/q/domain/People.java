@@ -64,6 +64,8 @@ public class People extends AbstractDomain implements Serializable {
 	private String url;
 
 	private boolean following = false;
+	
+	private PeopleRelation relation;
 
 	// =========================================
 
@@ -335,6 +337,20 @@ public class People extends AbstractDomain implements Serializable {
 	@Override
 	public String toString() {
 		return "People [id=" + id + ", username=" + username + ", password=" + password + ", loginToken=" + loginToken + ", realName=" + realName + ", email=" + email + ", mobile=" + mobile + ", year=" + year + ", month=" + month + ", day=" + day + ", countryCode=" + countryCode + ", area=" + area + ", hometown=" + hometown + ", gender=" + gender + ", bloodTypeId=" + bloodTypeId + ", degree=" + degree + ", roleId=" + roleId + ", status=" + status + ", created=" + created + ", modified=" + modified + ", friendNum=" + friendNum + ", followNum=" + followerNum + ", followingNum=" + followingNum + ", weiboNum=" + weiboNum + ", url=" + url + ", intro=" + intro + ", avatarPath=" + avatarPath + ", book=" + book + ", film=" + film + ", music=" + music + ", idol=" + idol + ", hope=" + hope + "]";
+	}
+
+	/**
+	 * @param relation the relation to set
+	 */
+	public void setRelation(PeopleRelation relation) {
+		this.relation = relation;
+	}
+
+	/**
+	 * @return the relation
+	 */
+	public PeopleRelation getRelation() {
+		return relation;
 	}
 
 }

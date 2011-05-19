@@ -374,7 +374,7 @@ public class DaoHelper {
 	 * @param fromPeopleId
 	 * @throws SQLException
 	 */
-	public static void injectPeoplesWithRelation(PeopleDao peopleDao, List<People> peoples, Long fromPeopleId) throws SQLException {
+	public static void injectPeoplesWithVisitorRelation(PeopleDao peopleDao, List<People> peoples, Long fromPeopleId) throws SQLException {
 		if (CollectionKit.isEmpty(peoples)) {
 			return;
 		}
