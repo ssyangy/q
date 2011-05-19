@@ -4,9 +4,12 @@
 package q.web.group;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import q.dao.DaoHelper;
 import q.dao.EventDao;
@@ -105,22 +108,31 @@ public class GetGroupPeople extends Resource {
 				} else if (startId != IdCreator.MAX_ID) {// this action from previous page
 					hasPrev = true;
 				}
-				
+				if (type == asc) { // reverse asc to desc
+					PeopleJoinGroup[] array = joins.toArray(new PeopleJoinGroup[joins.size()]);
+					CollectionUtils.reverseArray(array);
+					joins = Arrays.asList(array);
+				}
 				List<Long> peopleIds = new ArrayList<Long>(joins.size());
-				Map<Long, PeopleJoinGroup> peopleId2JoinMap = new HashMap<Long, PeopleJoinGroup>(joins.size());
 				for (PeopleJoinGroup join : joins) {
 					peopleIds.add(join.getPeopleId());
-					peopleId2JoinMap.put(join.getPeopleId(), join);
 				}
 				List<People> peoples = this.peopleDao.getPeoplesByIds(peopleIds);
 				if (CollectionKit.isNotEmpty(peoples)) {
 					if (loginPeopleId > 0) {
 						DaoHelper.injectPeoplesWithVisitorRelation(peopleDao, peoples, loginPeopleId);
 					}
-					for(People people: peoples) {
-						people.setJoinGroup(peopleId2JoinMap.get(people.getId()));
+					List<People> orderPeoples = new ArrayList<People>(peoples.size());
+					Map<Long, People> peopleId2PeopleMap = new HashMap<Long, People>();
+					for (People people : peoples) {
+						peopleId2PeopleMap.put(people.getId(), people); // init people map
 					}
-					api.put("peoples", peoples);
+					for (PeopleJoinGroup relation : joins) {
+						People people = peopleId2PeopleMap.get(relation.getPeopleId());
+						relation.setPeople(people);// set people relation
+						orderPeoples.add(people);
+					}
+					api.put("peoples", orderPeoples);
 				}
 			}
 			api.put("hasPrev", hasPrev);

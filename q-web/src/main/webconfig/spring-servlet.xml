@@ -124,7 +124,7 @@
 						</entry>
 						<entry>
 							<key>
-								<value>getSearchIndex:api</value>
+								<value>getSearchWeibo:api</value>
 							</key>
 							<value>/WEB-INF/json/weibo-list.xml</value>
 						</entry>
@@ -688,17 +688,17 @@
 	</bean>
 
 	<!-- search web -->
-	<bean id="getSearchIndex" class="q.web.people.GetSearchIndex">
+	<bean id="getSearchWeibo" class="q.web.search.GetSearchWeibo">
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="groupDao" ref="groupDao" />
 		<property name="searchService" ref="searchService"></property>
 	</bean>
-	<bean id="getSearchGroup" class="q.web.people.GetSearchGroup">
+	<bean id="getSearchGroup" class="q.web.search.GetSearchGroup">
 		<property name="searchService" ref="searchService"></property>
 		<property name="groupDao" ref="groupDao" />
 	</bean>
-	<bean id="getSearchPeople" class="q.web.people.GetSearchPeople">
+	<bean id="getSearchPeople" class="q.web.search.GetSearchPeople">
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="searchService" ref="searchService"></property>
 	</bean>

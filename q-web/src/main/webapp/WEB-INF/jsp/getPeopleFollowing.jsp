@@ -10,7 +10,7 @@
         <p class='simptab'>
         	<span>我的关注（${people.followingNum}）</span>
         	<span class='split'>|</span>
-        	<a class="lk" href="${urlPrefix}/people/follower">我的粉丝（${people.followerNum}）</a>
+        	<a class="lk" href="${urlPrefix}/people/${people.id}/follower">我的粉丝（${people.followerNum}）</a>
        	</p>
         <jsp:include page="models/people-list.jsp">
 			<jsp:param name="feedUrl" value="${urlPrefix}/people/${people.id}/following" />

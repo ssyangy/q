@@ -82,6 +82,9 @@ public class GetMessageNew extends Resource {
 		Set<String> pinyins = Pinyin.getPinyin(people.getRealName());
 		if (CollectionKit.isNotEmpty(pinyins)) {
 			buffer.append(StringUtils.join(pinyins, ' '));
+			if(pinyins.size() == 1) {
+				buffer.append(' ');
+			}
 		}
 		buffer.append(people.getUsername());
 		buffer.append("\",");
@@ -91,8 +94,8 @@ public class GetMessageNew extends Resource {
 		buffer.append("username:\"");
 		buffer.append(people.getUsername());
 		buffer.append("\",");
-		buffer.append("realName:\"");
-		buffer.append(people.getRealName());
+		buffer.append("name:\"");
+		buffer.append(people.getRealName()+"@"+people.getUsername());
 		buffer.append("\",");
 		buffer.append("id:\"");
 		buffer.append(people.getId());

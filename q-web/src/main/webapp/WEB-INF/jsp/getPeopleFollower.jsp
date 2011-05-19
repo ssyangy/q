@@ -8,12 +8,12 @@
 <div class="layout grid-m0s7 mt10">
     <div class="col-main"><div class="main-wrap pr10">
         <p class='simptab'>
-	        <a class="lk" href="${urlPrefix}/people/following">我的关注（${people.followingNum}）</a>
+	        <a class="lk" href="${urlPrefix}/people/${people.id}/following">我的关注（${people.followingNum}）</a>
 	        <span class='split'>|</span>
 	        <span>我的粉丝（${people.followerNum}）</span>
         </p>
         <jsp:include page="models/people-list.jsp">
-			<jsp:param name="feedUrl" value="${urlPrefix}/people/${id}/follower" />
+			<jsp:param name="feedUrl" value="${urlPrefix}/people/${people.id}/follower" />
 			<jsp:param name="orderId" value="relation" />			
 		</jsp:include>
     </div></div>

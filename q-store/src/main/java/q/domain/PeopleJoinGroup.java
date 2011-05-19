@@ -53,4 +53,13 @@ public class PeopleJoinGroup  extends AbstractDomain implements Serializable{
 		return "EventJoin [id=" + id + ", peopleId=" + peopleId + ", groupId=" + groupId + ", status=" + status + ", created=" + created + ", modified=" + modified + "]";
 	}
 
+	/**
+	 * @param people
+	 */
+	public void setPeople(People people) {
+		if(people != null) {
+			people.setJoinGroup(this);
+		}
+	}
+
 }

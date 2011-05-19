@@ -1,4 +1,4 @@
-package q.web.people;
+package q.web.search;
 
 import java.util.List;
 
@@ -6,7 +6,6 @@ import q.biz.SearchService;
 import q.dao.DaoHelper;
 import q.dao.PeopleDao;
 import q.domain.People;
-import q.domain.WeiboModel;
 import q.web.Resource;
 import q.web.ResourceContext;
 

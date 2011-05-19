@@ -1,4 +1,4 @@
-package q.web.people;
+package q.web.search;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import q.domain.WeiboModel;
 import q.web.Resource;
 import q.web.ResourceContext;
 
-public class GetSearchIndex extends Resource {
+public class GetSearchWeibo extends Resource {
 	private WeiboDao weiboDao;
 
 	public void setWeiboDao(WeiboDao weiboDao) {
