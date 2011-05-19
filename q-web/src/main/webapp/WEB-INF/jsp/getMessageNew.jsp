@@ -10,7 +10,7 @@
         seajs.use('jqplus/jq.tokeninput.js');
         var ffs = ${peoplesHintJson};
         var tips = "输入好友姓名 ... ";
-        var preitem = { id: "${param['id']}", name: "${param['prem']}" };
+        
         $(function () {
             $("#members").buttonset();
             
@@ -27,12 +27,7 @@
                 }
             }
             
-            var preval = [];
-            if(preitem.id) {
-            	tokeAdd(preitem);
-            	preval.push(preitem);
-            }
-            $("#autocom").tokenInput(ffs, { hintText: tips, prePopulate: preval, onAdd: tokeAdd, onDelete: tokeDel });
+            $("#autocom").tokenInput(ffs, { hintText: tips, onAdd: tokeAdd, onDelete: tokeDel });
             $('#members').click(function (e) {
                 var tarname = $(e.target).get(0).tagName;
                 if (tarname == 'SPAN') {
