@@ -1,7 +1,8 @@
-﻿#slidbox{overflow:hidden;width:100%;position:relative;height:600px;}
+﻿#slidbox{overflow:hidden;position:relative;height:600px;}
 #slider{position:absolute;top:0;left:0;width:1100px;height:600px;}
 .sldlist{padding:5px;width:540px;}
-.sldlist span.time{position:absolute;left:380px;top:0;color:#B2B7B5}
+.sldlist span.time{position:absolute;right:0;top:0;color:#B2B7B5}
+.sldlist span.actions{position:absolute;right:0;top:0;}
 .sldlist li{cursor:pointer;border-bottom:1px solid #ddd;padding:10px 40px 10px 58px;position:relative;zoom:1;}
 #sldroot li{background:url("images/arrow/next.png") no-repeat scroll 510px center transparent;}
 #sldroot li.hover{background-image:url("images/arrow/next_h.png");background-color:#fefefe;}
