@@ -8,6 +8,7 @@ import q.domain.PeopleRelation;
 import q.domain.PeopleRelationStatus;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.RequestParameterInvalidException;
 
 /**
  * @author seanlinwang
@@ -40,7 +41,7 @@ public class AddPeopleFollowing extends Resource {
 			this.peopleDao.incrPeopleFollowerNumberByPeopleId(toPeopleId);
 		} else if (oldRelation.isStranger()) {
 			int rowEffected = this.peopleDao.updatePeopleRelationStatusById(PeopleRelationStatus.FOLLOWING, PeopleRelationStatus.STRANGER, oldRelation.getId());
-			if(rowEffected > 0) {
+			if (rowEffected > 0) {
 				this.peopleDao.incrPeopleFollowingNumberByPeopleId(fromPeopleId);
 				this.peopleDao.incrPeopleFollowerNumberByPeopleId(toPeopleId);
 			}
@@ -48,13 +49,18 @@ public class AddPeopleFollowing extends Resource {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-		
+		long fromPeopleId = context.getCookiePeopleId();
+		long toPeopleId = context.getResourceIdLong();
+		if (fromPeopleId == toPeopleId) {
+			throw new RequestParameterInvalidException("toPeople:不能关注自己");
+		}
 	}
 
 }
