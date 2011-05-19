@@ -89,7 +89,7 @@
 	});
 	</script>
 <script type="text/html" id="members">
-    <li stream_id='{{id}}'>
+    {{# ${param['orderId']} }}<li stream_id='{{ id }}'>{{/ ${param['orderId']} }}
         <a href="${urlPrefix}/people/{{id}}"><img src="{{avatarPath}}-48" alt="{{screenName}}" class="sldimg" /></a>
         <p><a class="lk dispname" href="${urlPrefix}/people/{{id}}">{{screenName}}</a></p>
         <p>{{area.province}&nbsp;{{area.city}}</p>
