@@ -8,11 +8,11 @@
     exports.WeiboRepModel = Backbone.Model.extend({
         initialize: function (spec) {
             var people = this.get('people');
-            if (people&&(people.id == window.loginCookie)){
+            if (people && (people.id == window.loginCookie)) {
                 this.set({ "isown": true });
             }
-            if(this.get("delete")){
-                this.set({"text":"该评论已被删除."});
+            if (this.get("delete")) {
+                this.set({ "text": "该评论已被删除." });
             }
         },
         validate: function (stream) {
@@ -28,13 +28,13 @@
     });
 
     exports.WeiboRepView = Backbone.View.extend({
-        tagName:'li',
-        className:'repbox',
+        tagName: 'li',
+        className: 'repbox',
         events: {
             "click .del": "remove",
-            "click .resub":"resub",
-            "click .fav":"fav",
-            "click .unfav":"unfav"
+            "click .resub": "resub",
+            "click .fav": "fav",
+            "click .unfav": "unfav"
         },
         initialize: function () {
             _.bindAll(this, 'render', 'change', 'remove');
@@ -50,50 +50,38 @@
         change: function () {
             $(this.el).html(ich.stream(this.model.toJSON()));
         },
-        remove: function () {	
-            if(!confirm('确定要删除？')) return;
-            $.ajax({
-                url: window.urlprefix + '/reply/' + this.model.get('id'),
-                type: 'POST',
-                data: {_method:'delete'},
-                msg:this,
-                success: function(m){
-                    if(m) return;
-                    $(this.msg.el).slideUp("slow",function(){ $(this).remove(); });
-                }
-            });
+        remove: function () {
+            if (!confirm('确定要删除？')) return;
+            $.ajax({ url: window.urlprefix + '/reply/' + this.model.get('id'), type: 'POST', msg: this,
+                data: { _method: 'delete' },
+                success: function (m) {
+                    if (m) return;
+                    $(this.msg.el).css({ "overflow": "hidden" }).slideUp("slow", function () { $(this).remove(); });
+                } });
         },
-        resub:function(){
+        resub: function () {
             var rdia = $('#dia_ret');
-            $('.wcontent',rdia).html(this.model.get('text'));
-            $('.wpeople',rdia).html(this.model.get('people').screenName);
+            $('.wcontent', rdia).html(this.model.get('text'));
+            $('.wpeople', rdia).html(this.model.get('people').screenName);
             var src = this.model.get('source');
-            if(src) $('.wsrc',rdia).html(src);
-            $('.mttextar',rdia).val('//@'+this.model.get('people').screenName+' ');
-            $(".ret_url",rdia).val(con.urlprefix+'/reply/'+this.model.get('id')+'/retweet');
+            if (src) $('.wsrc', rdia).html(src);
+            $('.mttextar', rdia).val('//@' + this.model.get('people').screenName + ' ');
+            $(".ret_url", rdia).val(con.urlprefix + '/reply/' + this.model.get('id') + '/retweet');
             rdia.dialog("open");
         },
-        fav:function(){
-            $.ajax({
-                url: window.urlprefix + '/reply/' + this.model.get('id') + '/favorite',
-                type: 'POST',
-                msg:this,
-                success: function(){
-                    $('.fav',this.msg.el).addClass('hide');
-                    $('.unfav',this.msg.el).removeClass('hide');
-                }
+        fav: function () {
+            $.ajax({ url: window.urlprefix + '/reply/' + this.model.get('id') + '/favorite',type: 'POST', msg: this,
+                success: function () {
+                    $('.fav', this.msg.el).addClass('hide');
+                    $('.unfav', this.msg.el).removeClass('hide'); }
             });
         },
-        unfav:function(){
-            $.ajax({
-                url: window.urlprefix + '/reply/' + this.model.get('id') + '/favorite',
-                type: 'POST',
-                data:{_method:'delete'},
-                msg:this,
-                success: function(){
-                    $('.unfav',this.msg.el).addClass('hide');
-                    $('.fav',this.msg.el).removeClass('hide');
-                }
+        unfav: function () {
+            $.ajax({ url: window.urlprefix + '/reply/' + this.model.get('id') + '/favorite', type: 'POST', msg: this,
+                data: { _method: 'delete' },
+                success: function () {
+                    $('.unfav', this.msg.el).addClass('hide');
+                    $('.fav', this.msg.el).removeClass('hide'); }
             });
         }
     });

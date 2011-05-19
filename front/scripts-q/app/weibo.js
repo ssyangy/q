@@ -92,34 +92,23 @@
         },
         remove: function () {
             if (!confirm('确定要删除？')) return;
-            $.ajax({
-                url: window.urlprefix + '/weibo/' + this.model.get('id'),
-                type: 'POST',
-                data: { _method: 'delete' },
-                msg: this,
+            $.ajax({ url: window.urlprefix + '/weibo/' + this.model.get('id'), type: 'POST', msg: this,
+                data: { _method: 'delete' }, 
                 success: function (m) {
-                    if (m) {
-                        alert('delete faild!');
-                        return;
-                    }
-                    $(this.msg.el).slideUp("slow", function () {
-                        $(this).remove();
-                    });
-                }
-            });
+                    if (m) return;
+                    $(this.msg.el).css({ "overflow": "hidden" }).slideUp("slow", function () { $(this).remove(); }); 
+                } });
         },
         initrep: function (m) {
             if (m && m.error_code) return;
-            $.ajax({
-                url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply",
+            $.ajax({ url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply",
                 data: { size: 10, startid: '999999999999999999' },
-                success: this.suc_repajax
-            });
+                success: this.suc_repajax });
         },
         togreply: function () {
-            if (!this.initreps) {
+            if (!this.isinitrep) {
                 this.initrep();
-                this.initreps = true;
+                this.isinitrep = true;
             }
             $('div.extend', this.el).toggle();
         },
@@ -127,23 +116,17 @@
             var lis = $('li.repbox', this.el);
             var urlp = { startid: parseInt(lis.last().data('replyid')), type: 1 };
             _.extend(urlp, this.defajaxurl);
-            $.ajax({
-                url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
-                success: this.suc_repajax
-            });
+            $.ajax({ url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
+                success: this.suc_repajax });
         },
         rrnext: function () {
             var lis = $('li.repbox', this.el);
             var urlp = { startid: parseInt(lis.last().data('replyid')) };
             _.extend(urlp, this.defajaxurl);
-            $.ajax({
-                url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
-                success: this.suc_repajax
-            });
+            $.ajax({ url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
+                success: this.suc_repajax });
         },
         suc_repajax: function (json) {
-            if (json.hasPrev) { $('.rrprev', this.el).show() } else { $('.rrprev', this.el).hide() };
-            if (json.hasNext) { $('.rrnext', this.el).show() } else { $('.rrnext', this.el).hide() };
             var ul = $('.extend>ul.msglist', this.el);
             ul.empty();
             $(json.replies).each(function () {
@@ -151,15 +134,14 @@
                 var view = new rep.WeiboRepView({ model: rr });
                 ul.append(view.render().el);
             });
+            var pv = $('a.rrprev', this.el); pv.hide(); if (json.hasPrev) pv.show();
+            var nt = $('a.rrnext', this.el); nt.hide(); if (json.hasNext) nt.show();
             q.fixui(ul);
         },
         reply: function () {
-            $.ajax({
-                url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply",
-                type: 'POST',
+            $.ajax({ url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply", type: 'POST',
                 data: { content: $('input.reply_val', this.el).val() },
-                success: this.initrep
-            });
+                success: this.initrep });
             $('input.reply_val', this.el).val('');
         },
         resub: function () {
@@ -173,27 +155,17 @@
             rdia.dialog("open");
         },
         fav: function () {
-            $.ajax({
-                url: window.urlprefix + '/weibo/' + this.model.get('id') + '/favorite',
-                type: 'POST',
-                msg: this,
-                success: function () {
-                    $('.fav', this.msg.el).addClass('hide');
-                    $('.unfav', this.msg.el).removeClass('hide');
-                }
-            });
+            $.ajax({ url: window.urlprefix + '/weibo/' + this.model.get('id') + '/favorite', type: 'POST', msg: this,
+                success: function () { 
+                    $('a.fav', this.msg.el).addClass('hide');
+                    $('a.unfav', this.msg.el).removeClass('hide');} });
         },
         unfav: function () {
-            $.ajax({
-                url: window.urlprefix + '/weibo/' + this.model.get('id') + '/favorite',
-                type: 'POST',
+            $.ajax({ url: window.urlprefix + '/weibo/' + this.model.get('id') + '/favorite', type: 'POST', msg: this,
                 data: { _method: 'delete' },
-                msg: this,
-                success: function () {
+                success: function () { 
                     $('.unfav', this.msg.el).addClass('hide');
-                    $('.fav', this.msg.el).removeClass('hide');
-                }
-            });
+                    $('.fav', this.msg.el).removeClass('hide');} });
         },
         weiboimg: function () {
             $('img.weiboImg', this.el).hide();
