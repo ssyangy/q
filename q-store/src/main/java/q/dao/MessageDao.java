@@ -121,7 +121,7 @@ public interface MessageDao {
 	 * @param receiverId
 	 * @return
 	 */
-	public int deleteMessageReplyById(long replyId, long receiverId) throws SQLException;
+	public int deleteMessageReplyByIdAndReceiverId(long replyId, long receiverId) throws SQLException;
 
 	/**
 	 * @param messageId
