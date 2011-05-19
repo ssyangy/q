@@ -86,7 +86,7 @@
 	        });	        
 
 		});
-	});
+	}); 
 	</script>
 <script type="text/html" id="members">
     {{# ${param['orderId']} }}<li stream_id='{{ id }}'>{{/ ${param['orderId']} }}
