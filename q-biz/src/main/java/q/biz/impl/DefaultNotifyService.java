@@ -58,7 +58,7 @@ public class DefaultNotifyService implements NotifyService {
 	public void notifyWeiboReply(WeiboReply reply) {
 		Jedis jedis = pool.getResource();
 		try {
-			jedis.publish("weiboReply", reply.getQuoteSenderId() + " " + reply.getContent());
+			jedis.publish("weiboReply", reply.getQuoteSenderId() + " " + reply.getId());
 		} catch (JedisConnectionException e) {
 			log.error("notifyWeiboReply", e);
 			if (jedis != null) {
@@ -80,7 +80,7 @@ public class DefaultNotifyService implements NotifyService {
 	public void notifyWeibo(Weibo weibo) {
 		Jedis jedis = pool.getResource();
 		try {
-			jedis.publish("weibo", weibo.getSenderId() + " " + weibo.getContent());
+			jedis.publish("weibo", weibo.getSenderId() + " " + weibo.getId());
 		} catch (JedisConnectionException e) {
 			log.error("notifyWeibo", e);
 			if (jedis != null) {
@@ -94,11 +94,28 @@ public class DefaultNotifyService implements NotifyService {
 	}
 
 	@Override
+	public void notifyGroupWeibo(long groupId, Weibo weibo) {
+		Jedis jedis = pool.getResource();
+		try {
+			jedis.publish("group", groupId + " " + weibo.getId());
+		} catch (JedisConnectionException e) {
+			log.error("notifyGroupWeibo", e);
+			if (jedis != null) {
+				jedis.disconnect();
+			}
+		} catch (Exception e) {
+			log.error("notifyGroupWeibo", e);
+		} finally {
+			pool.returnResource(jedis);
+		}
+	}
+
+	@Override
 	public void notifyMessageReply(MessageReply reply, Collection<Long> receiverIds) {
 		Jedis jedis = pool.getResource();
 		String receiversStr = StringUtils.join(receiverIds, ',');
 		try {
-			jedis.publish("message", receiversStr + " " + reply.getContent());
+			jedis.publish("message", receiversStr + " " + reply.getId());
 		} catch (JedisConnectionException e) {
 			log.error("notifyMessageReply", e);
 			if (jedis != null) {
