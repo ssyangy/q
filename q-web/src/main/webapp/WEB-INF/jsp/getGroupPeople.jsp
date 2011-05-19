@@ -14,7 +14,9 @@
 	        </ul>
 		</div>
 		<div class='tabscont'>
-		<jsp:include page="models/people-list.jsp"></jsp:include>
+			<jsp:include page="models/people-list.jsp">
+			<jsp:param name="feedUrl" value="${urlPrefix}/group/${group.id}" />
+			</jsp:include>
 		</div>
 	</div></div>
 	<div class="col-sub">
