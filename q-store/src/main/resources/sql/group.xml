@@ -171,7 +171,7 @@
 		from
 		group_join_category
 		where
-		status = 0 and group_id = #value#
+		group_id = #value#
 	</select>
 
 	<select id="getPromotedGroupJoinCategoriesByCatIds" resultMap="gjcResult">
@@ -274,14 +274,27 @@
 			<isNotNull prepend="and " property="groupId">
 				group_id = #groupId#
 			</isNotNull>
-			<isNotNull prepend="and " property="startId">
-				id &lt; #startId#
+			<isNotNull prepend = "and " property="startId">
+				<isEqual property="desc" compareValue="true" >
+					id &lt;= #startId#
+				</isEqual>
+				<isEqual property="desc" compareValue="false" >
+					id &gt;= #startId#
+				</isEqual>
 			</isNotNull>
 		</dynamic>
 		<isNotNull property="groupIds">
 			group by people_id
 	    </isNotNull>
-		order by id desc
+		order by id
+		<isNotNull property="desc"  prepend=" ">
+			<isEqual property="desc" compareValue="true" >
+				desc
+			</isEqual>
+			<isEqual property="desc" compareValue="false">
+				asc
+			</isEqual>
+		</isNotNull>
 		<isNotNull property="size">
 			limit #startIndex#, #size#
 		</isNotNull>
@@ -315,5 +328,12 @@
 			limit #startIndex#, #size#
 		</isNotNull>
 	</select>
+	
+	<update id="updateGroupJoinCategoryStatusByPage">
+		update group_join_category
+		set status = #newStatus#
+		where id = #id#
+		and status = #oldStatus#
+	</update>
 
 </sqlMap>

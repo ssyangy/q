@@ -160,4 +160,11 @@ public interface GroupDao {
 	 */
 	int  updateGroup(Group group) throws SQLException;
 
+	/**
+	 * @param joinId
+	 * @param newStatus
+	 * @param oldStatus
+	 */
+	int updateGroupJoinCategoryStatus(long joinId, int newStatus, int oldStatus) throws SQLException;
+
 }

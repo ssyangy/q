@@ -15,6 +15,7 @@ import q.dao.CategoryDao;
 import q.dao.GroupDao;
 import q.domain.Group;
 import q.domain.GroupJoinCategory;
+import q.domain.Status;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
@@ -48,7 +49,8 @@ public class UpdateGroup extends Resource {
 	}
 
 	/**
-	 * @param categoryDao the categoryDao to set
+	 * @param categoryDao
+	 *            the categoryDao to set
 	 */
 	public void setCategoryDao(CategoryDao categoryDao) {
 		this.categoryDao = categoryDao;
@@ -63,7 +65,6 @@ public class UpdateGroup extends Resource {
 
 	private CategoryDao categoryDao;
 
-
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long groupId = context.getResourceIdLong();
@@ -75,19 +76,25 @@ public class UpdateGroup extends Resource {
 		long categoryId = context.getIdLong("categoryId");
 		List<GroupJoinCategory> joins = groupDao.getGroupJoinCategoriesByGroupId(groupId);
 		boolean hasCat = false;
+		GroupJoinCategory hasCatDeleted = null;
 		List<Long> deleteJoinIds = new ArrayList<Long>();
-		for(GroupJoinCategory join: joins) {
-			if(join.getCategoryId() == categoryId) {
+		for (GroupJoinCategory join : joins) {
+			if (join.getCategoryId() == categoryId) {
 				hasCat = true;
+				if (join.getStatus() == Status.DELETE.getValue()) {
+					hasCatDeleted = join;
+				}
 			} else {
-				deleteJoinIds .add(join.getId());
+				deleteJoinIds.add(join.getId());
 			}
 		}
-		if(!hasCat) {
-			groupDao.addGroupJoinCategory(group.getId(), categoryId); // set group category if new
-		} 
-		groupDao.deleteGroupJoinCategoriesByjoinIdsAndGroupId(group.getId(), deleteJoinIds);
-		
+		if (!hasCat) { // add new join
+			groupDao.addGroupJoinCategory(group.getId(), categoryId); 
+		} else if (hasCatDeleted != null) { // reopen deleted and selected join
+			groupDao.updateGroupJoinCategoryStatus(hasCatDeleted.getId(), Status.COMMON.getValue(), Status.DELETE.getValue());
+		}
+		groupDao.deleteGroupJoinCategoriesByjoinIdsAndGroupId(group.getId(), deleteJoinIds); // delete old joins
+
 		searchService.updateGroup(group);
 
 		context.setModel("group", group);

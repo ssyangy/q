@@ -163,7 +163,6 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 		return groups;
 	}
 
-
 	@Override
 	public List<Long> getExsitGroupIdsByIds(List<Long> groupIds) throws SQLException {
 		if (CollectionKit.isEmpty(groupIds)) {
@@ -291,6 +290,15 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 	@Override
 	public int updateGroup(Group group) throws SQLException {
 		return this.sqlMapClient.update("updateGroupById", group);
+	}
+
+	@Override
+	public int updateGroupJoinCategoryStatus(long joinId, int newStatus, int oldStatus) throws SQLException {
+		GroupJoinCategoryPage page = new GroupJoinCategoryPage();
+		page.setId(joinId);
+		page.setNewStatus(newStatus);
+		page.setOldStatus(oldStatus);
+		return this.sqlMapClient.update("updateGroupJoinCategoryStatusByPage", page);
 	}
 
 }
