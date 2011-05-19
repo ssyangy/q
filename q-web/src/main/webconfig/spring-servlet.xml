@@ -388,21 +388,21 @@
 	</bean>
 
 	<!-- setting web -->
-	<bean id="getPasswordReset" class="q.web.people.GetPasswordReset">
+	<bean id="getPasswordReset" class="q.web.login.GetPasswordReset">
 		<property name="cacheService" ref="cacheService" />
 	</bean>
-	<bean id="addPasswordReset" class="q.web.people.AddPasswordReset">
+	<bean id="addPasswordReset" class="q.web.login.AddPasswordReset">
 		<property name="cacheService" ref="cacheService" />
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
-	<bean id="addPasswordForget" class="q.web.people.AddPasswordForget">
+	<bean id="addPasswordForget" class="q.web.login.AddPasswordForget">
 		<property name="mailService" ref="mailService" />
 		<property name="cacheService" ref="cacheService" />
 		<property name="peopleDao" ref="peopleDao" />
 	</bean>
-	<bean id="getPasswordForget" class="q.web.people.GetPasswordForget">
+	<bean id="getPasswordForget" class="q.web.login.GetPasswordForget">
 	</bean>
-	<bean id="getPasswordResetInvalid" class="q.web.people.GetPasswordResetInvalid">
+	<bean id="getPasswordResetInvalid" class="q.web.login.GetPasswordResetInvalid">
 	</bean>
 	<bean id="getSettingBasic" class="q.web.people.GetSettingBasic">
 	</bean>

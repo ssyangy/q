@@ -1,7 +1,7 @@
 /**
  * 
  */
-package q.web.people;
+package q.web.login;
 
 import q.biz.CacheService;
 import q.biz.PasswordResetToken;
