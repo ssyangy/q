@@ -232,6 +232,12 @@
 						</entry>
 						<entry>
 							<key>
+								<value>getGroupPeople:api</value>
+							</key>
+							<value>/WEB-INF/json/people-list.xml</value>
+						</entry>						
+						<entry>
+							<key>
 								<value>getPeopleFull:people</value>
 							</key>
 							<value>/WEB-INF/json/people.xml</value>

@@ -104,7 +104,7 @@ public class GetGroupPeople extends Resource {
 					hasPrev = true;
 				}
 				List<People> peoples = this.peopleDao.getPeoplesByIds(peopleIds);
-				if (CollectionKit.isEmpty(peoples)) {
+				if (CollectionKit.isNotEmpty(peoples)) {
 					if (loginPeopleId > 0) {
 						DaoHelper.injectPeoplesWithVisitorRelation(peopleDao, peoples, loginPeopleId);
 					}
