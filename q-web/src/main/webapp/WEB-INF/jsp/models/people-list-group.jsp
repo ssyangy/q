@@ -10,7 +10,9 @@
             	var nt = $('a.mbnext'); nt.hide(); if (json.hasNext) nt.show();	            
 	            mems.empty();
                 $(json.peoples).each(function(){
-                	mems.append(ich.members(this));
+                	var mm = ich.members(this);
+                	$(mm).data("groupjoinid",this.joinGroup.id);
+                	mems.append(mm);
                 });
 			}
 			$.ajax({ url:"${param['feedUrl']}",
@@ -18,12 +20,12 @@
 				success:mem_ajsucc });
 			$('a.mbprev').live('click',function(){
 				$.ajax({ url:"${param['feedUrl']}",
-					data:{startId:$("li",mems).first().attr("stream_id"),size:10, type:1},
+					data:{startId:$("li",mems).first().data("groupjoinid"),size:10, type:1},
 					success:mem_ajsucc });
 			});
 			$('a.mbnext').live('click',function(){
 				$.ajax({ url:"${param['feedUrl']}",
-					data:{startId:$("li",mems).last().attr("stream_id") ,size:10},
+					data:{startId:$("li",mems).last().data("groupjoinid") ,size:10},
 					success:mem_ajsucc });
 			});
 

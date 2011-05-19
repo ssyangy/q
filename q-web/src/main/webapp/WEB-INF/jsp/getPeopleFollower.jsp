@@ -7,9 +7,13 @@
 </jsp:include>
 <div class="layout grid-m0s7 mt10">
     <div class="col-main"><div class="main-wrap pr10">
-        <p class='simptab'><a class="lk">我的关注（23）</a><span class='split'>|</span><span>我的粉丝（123）</span></p>
+        <p class='simptab'>
+	        <a class="lk" href="${urlPrefix}/people/following">我的关注（${people.followingNum}）</a>
+	        <span class='split'>|</span>
+	        <span>我的粉丝（${people.followerNum}）</span>
+        </p>
         <jsp:include page="models/people-list.jsp">
-			<jsp:param name="feedUrl" value="${urlPrefix}/people/${id}/Follower" />
+			<jsp:param name="feedUrl" value="${urlPrefix}/people/${id}/follower" />
 		</jsp:include>
     </div></div>
     <div class="col-sub">
