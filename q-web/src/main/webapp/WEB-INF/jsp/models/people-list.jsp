@@ -6,27 +6,27 @@
 		$(function(){
 			var mems = $('#mems');
 			$.ajax({
-				url:"${param['feedUrl']}?tab=${param['tab']}",
+				url:"${param['feedUrl']}",
 				data:{startId:"999999999999999999",size:10},
 				success:mem_ajsucc
 			});
 			$('a.mbprev').live('click',function(){
 				$.ajax({
-					url:"${param['feedUrl']}?tab=${param['tab']}",
+					url:"${param['feedUrl']}",
 					data:{startId:$("li",mems).first().attr("stream_id"),size:10, type:1},
 					success:mem_ajsucc
 				});
 			});
 			$('a.mbnext').live('click',function(){
 				$.ajax({
-					url:"${param['feedUrl']}?tab=${param['tab']}",
+					url:"${param['feedUrl']}",
 					data:{startId:$("li",mems).last().attr("stream_id") ,size:10},
 					success:mem_ajsucc
 				});
 			});
 			var mem_ajsucc = function(json){
-	            if (json.hasPrev) { $('a.mbprev').show() } else { $('a.mbprev').hide() };
-	            if (json.hasNext) { $('a.mbnext').show() } else { $('a.mbnext').hide() };
+            	var pv = $('a.mbprev'); pv.hide(); if (json.hasPrev) pv.show();
+            	var nt = $('a.mbnext'); nt.hide(); if (json.hasNext) nt.show();	            
 	            mems.empty();
                 $(json.peoples).each(function(){
                 	ich.members();

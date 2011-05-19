@@ -9,7 +9,7 @@
     <div class="col-main"><div class="main-wrap pr10">
         <p class='simptab'><span>我的关注（23）</span><span class='split'>|</span><a class="lk">我的粉丝（123）</a></p>
         <jsp:include page="models/people-list.jsp">
-		
+			<jsp:param name="feedUrl" value="${urlPrefix}/people/${id}/Following" />
 		</jsp:include>
     </div></div>
     <div class="col-sub">

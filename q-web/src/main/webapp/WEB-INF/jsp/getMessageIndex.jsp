@@ -10,54 +10,75 @@
         $(function () {
         	seajs.use('ICanHaz.js', function (ich) {
 	            var sldroot = $('#sldroot');
+	            var sldrootul = $('ul.sldlist',sldroot);
 	            var intmsglist = function(json){
-	            	sldroot.html(ich.msglist(json));
+		            sldrootul.empty();
+	                $(json.messages).each(function(){
+	                	var li = ich.msglist(this);
+	                	li.data('members',this.receivers)
+	                	sldrootul.append(li);
+	                });
+	            	var pv = $('a.prev',sldroot); pv.hide(); if (json.hasPrev) pv.show();
+	            	var nt = $('a.next',sldroot); nt.hide(); if (json.hasNext) nt.show();	                
 	            	q.fixui(sldroot);
 	            }
+	            
 	            $.ajax({ url: "${urlPrefix}/message",
-	                data: {size:5, startId:"999999999999999999"},
+	                data: {size:7, startId:"999999999999999999"},
 	                success: intmsglist
 	            });
 	            $('a.next',sldroot).live('click',function(){
 	                $.ajax({ url: "${urlPrefix}/message",
-	                    data: {size:10, startId:$('ul.sldlist>li',sldroot).last().attr('stream-id')},
+	                    data: {size:7, startId:$('ul.sldlist>li',sldroot).last().attr('stream_id')},
 	                    success: intmsglist
 	                });
 	            });
 	            $('a.prev',sldroot).live('click',function(){
 	                $.ajax({ url: "${urlPrefix}/message",
-	                    data: {size:10, startId:$('ul.sldlist>li',sldroot).first().attr('stream-id'), type:1},
+	                    data: {size:7, startId:$('ul.sldlist>li',sldroot).first().attr('stream_id'), type:1},
 	                    success: intmsglist
 	                });
 	            });
 	            
+	            var sld2 = $("#sld2");
+	            var sld2ul = $('ul.sldlist',sld2);
+	            var partners = $('span.partner',sld2);
+	            var mems = $('p.mems',sld2);
+	            var msgli_ajsucc = function(j){
+	            	sld2ul.empty();
+	                $(j.replies).each(function(){
+	                	sld2ul.append(ich.msgitem(this));
+	                });
+	            	var pv = $('a.mrprev',sld2); pv.hide(); if (j.hasPrev) pv.show();
+	            	var nt = $('a.mrnext',sld2); nt.hide(); if (j.hasNext) nt.show();	                
+	            }
 	            $('li.msgli',sldroot).live('click',function(){
-					window.msgid = parseInt($(this).attr('stream-id'));
-					$.ajax({
-					    url: "${urlPrefix}/message/"+window.msgid+"/reply",
+					window.msgid = parseInt($(this).attr('stream_id'));
+					window.msgmem = parseInt($(this).data('members'));					
+					$.ajax({ url: "${urlPrefix}/message/"+window.msgid+"/reply", msg:$(this)
 					    data: {size:10, startid:'999999999999999999'},
-					   	success: function(json){
-					   		$("#sld2").html(ich.msgitem(json));
-							$('#slider').animate({left: -560}, { duration: 500, easing: "swing" });
+					   	success: function(j){
+					   		$('#slider').animate({left: -560}, { duration: 500, easing: "swing" });
+					   		partners.empty();
+					   		mems.empty();
+					   		$(window.msgmem).each(function(){
+					   			partners.append("<a class='lk' href='${urlPrefix}/people/"+this.id+"'>"+this.screenName+"</a>");
+					   			mems.append("<img src='"+this.avatarPath+"-24' alt='ato' />");
+					   		});
+					   		msgli_ajsucc(j);
 					    }
 					});
 				});
-				$('#pagger>a.prev').live('click',function(){
-					$.ajax({
-					    url: "${urlPrefix}/message/"+window.msgid+"/reply",
-					    data: {size:10, startid: parseInt($('li.msgrepli').last().data('replyId')), type: 1},
-					   	success: function(json){
-					   		$("#sld2").html(ich.msgitem(json));
-					    }
+				$('a.mrprev',sld2).live('click',function(){
+					$.ajax({ url: "${urlPrefix}/message/"+window.msgid+"/reply",
+					    data: {size:10, startid: parseInt($('li',sld2ul).last().data('reply_id')), type: 1},
+					   	success: msgli_ajsucc
 					});
 				});
-				$('#pagger>a.next').live('click',function(){
-					$.ajax({
-					    url: "${urlPrefix}/message/"+window.msgid+"/reply",
-					    data: {size:10, startid: parseInt($('li.msgrepli').fast().data('replyId'))},
-					   	success: function(json){
-					   		$("#sld2").html(ich.msgitem(json));
-					    }
+				$('a.mrnext',sld2).live('click',function(){
+					$.ajax({ url: "${urlPrefix}/message/"+window.msgid+"/reply",
+					    data: {size:10, startid: parseInt($('li',sld2ul).fast().data('reply_id'))},
+					   	success: msgli_ajsucc
 					});
 				});	
         	});
@@ -70,9 +91,7 @@
         <div id="slidbox">
             <div id="slider">
             	<script type="text/html" id="msglist">
-						<ul class="sldlist">
-						{{#messages}}
-	                    <li class='msgli hov' stream-id='{{id}}'>
+	                    <li class='msgli hov' stream_id='{{id}}'>
 							{{#sender}}
 	                        <img src="{{avatarPath}}-48" alt="sender" class="sldimg" />
 	                        <p class='rel'>{{screenName}}
@@ -84,47 +103,38 @@
 	                        <span class="time">{{screenTime}}</span></p>
 	                        {{#lastReply}}<p>{{text}}</p>{{/lastReply}}
 	                    </li>
-						{{/messages}}
-						</ul>
-					<div id="pagger">
-					{{#hasPrev}}<a class="lk mr10 prev">上一页</a>{{/hasPrev}}
-					{{#hasNext}}<a class="lk next">下一页</a>{{/hasNext}}
-					</div>	
 				</script>
-				<div id="sldroot"></div>
+				<div id="sldroot">
+					<ul class="sldlist"></ul>
+					<div class="pagger">
+					<a class="lk mr10 prev">上一页</a>
+					<a class="lk next">下一页</a>
+					</div>	
+				</div>
                 <script type="text/html" id="msgitem">
-					<div class="msgmem">
-						<p>参与者：我，
-						{{#peoples}}
-						<a class="lk">{{name}}</a>, 
-						{{/peoples}}
-						<p class="mems">
-						{{#peoples}}
-						<img src="{{avator}}" alt="avator" class='img24' />
-						{{/peoples}}
-						</p>
+                    <li reply_id='{{id}}'>
+						{{sender}}
+                        <img src="{{avatarPath-48}}" alt="avatar" class="sldimg" />
+                        <p class='rel'>{{screenName}}{{/sender}}<span class="time">{{screenTime}}</span></p>
+                        <p>{{text}}</p>
+                    </li>
+                </script>
+                <div id='sld2'>
+                	<div class="msgmem">
+						<p>参与者：我，<span class='partner'></span></p>
+						<p class="mems"></p>
 						<a class="memdel btn">删除</a>
 					</div>
 					<div class="msgrepbox">
 						<textarea class='mttextar' style=""></textarea>
 						<div class='repactbox'><a class="memrep btn">回复</a></div>
 					</div>
-					<ul class="sldlist" id="sldmsg">
-					{{#replies}}
-                    <li class='msgrepli' replyId='{{id}}'>
-						{{sender}}
-                        <img src="{{avatarPath-48}}" alt="avatar" class="sldimg" />
-                        <p class='rel'>{{screenName}}{{/sender}}<span class="time">{{screenTime}}</span></p>
-                        <p>{{text}}</p>
-                    </li>
-					{{/replies}}
-					</ul>
-					<div id="pagger">
-					{{#hasPrev}}<a class="lk mr10 prev">上一页</a>{{/hasPrev}}
-					{{#hasNext}}<a class="lk next">下一页</a>{{/hasNext}}
-					</div>
-                </script>
-                <div id='sld2'></div>
+					<ul class="sldlist"></ul>
+					<div class="pagger">
+					{{#hasPrev}}<a class="lk mr10 mrprev">上一页</a>{{/hasPrev}}
+					{{#hasNext}}<a class="lk mrnext">下一页</a>{{/hasNext}}
+					</div>					
+                </div>
             </div>
         </div>
     </div></div>
