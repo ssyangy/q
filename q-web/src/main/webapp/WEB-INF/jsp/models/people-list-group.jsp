@@ -18,12 +18,12 @@
 			$.ajax({ url:"${param['feedUrl']}",
 				data:{startId:"999999999999999999",size:10},
 				success:mem_ajsucc });
-			$('a.mbprev').live('click',function(){
+			$('a.mbprev').click(function(){
 				$.ajax({ url:"${param['feedUrl']}",
 					data:{startId:$("li",mems).first().data("groupjoinid"),size:10, type:1},
 					success:mem_ajsucc });
 			});
-			$('a.mbnext').live('click',function(){
+			$('a.mbnext').click(function(){
 				$.ajax({ url:"${param['feedUrl']}",
 					data:{startId:$("li",mems).last().data("groupjoinid") ,size:10},
 					success:mem_ajsucc });
@@ -32,19 +32,21 @@
 			$("a.unwat").live('click', function () {
 	          	  var stream = $(this).closest('li');
 	          	  $.ajax({ url: '${urlPrefix}/people/'+stream.attr('stream_id') +"/following", msg:$(this), type: 'POST',
+	          			data:{_method:'delete'},
 					   	success: function(m){
-							if(m != null) return;
-							this.msg.removeClass('unwat').addClass('wat').text("关注");
+					   		if (m != null && !m.id) return;
+					   		this.msg.addClass('hide_im');
+							this.msg.siblings('a.wat').removeClass('hide_im');
 							this.msg.siblings('a.btnletter').hide();
 					    } });
 			});
 			$("a.wat").live('click', function () {
 	          	  var stream = $(this).closest('li');
 	          	  $.ajax({ url: '${urlPrefix}/people/'+stream.attr('stream_id') +"/following", msg:$(this), type: 'POST',
-	          			data:{_method:'delete'},
 					   	success: function(m){
-							if(m != null) return;
-							this.msg.removeClass('wat').addClass('unwat').text("解除关注");
+					   		if (m != null && !m.id) return;
+					   		this.msg.addClass('hide_im');
+							this.msg.siblings('a.unwat').removeClass('hide_im');
 							this.msg.siblings('a.btnletter').show();
 					    } });
 			});
@@ -97,7 +99,8 @@
         <span class="act">
 			<a class="btna btnletter" href='javascript:void(0);'>私信</a>
 			<a class="btn btnat">&#64</a>
-			<a class="btn unwat">解除关注</a>
+			<a class="btn unwat {{^following}}hide_im{{/following}}">解除关注</a>
+			<a class="btn wat {{#following}}hide_im{{/following}}">关注</a>
 		</span>
     </li>
 </script>
