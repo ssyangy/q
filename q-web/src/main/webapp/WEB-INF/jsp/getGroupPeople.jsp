@@ -15,7 +15,7 @@
 		</div>
 		<div class='tabscont'>
 			<jsp:include page="models/people-list.jsp">
-			<jsp:param name="feedUrl" value="${urlPrefix}/group/${group.id}" />
+			<jsp:param name="feedUrl" value="${urlPrefix}/group/${group.id}/people" />
 			</jsp:include>
 		</div>
 	</div></div>
