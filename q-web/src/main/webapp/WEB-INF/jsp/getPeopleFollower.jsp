@@ -14,6 +14,7 @@
         </p>
         <jsp:include page="models/people-list.jsp">
 			<jsp:param name="feedUrl" value="${urlPrefix}/people/${id}/follower" />
+			<jsp:param name="orderId" value="relation" />			
 		</jsp:include>
     </div></div>
     <div class="col-sub">
