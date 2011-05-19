@@ -21,6 +21,7 @@ import q.domain.Message;
 import q.domain.MessageReply;
 import q.domain.People;
 import q.domain.PeopleJoinEvent;
+import q.domain.PeopleJoinGroup;
 import q.domain.PeopleRelation;
 import q.domain.Status;
 import q.domain.Weibo;
@@ -35,6 +36,16 @@ import q.util.CollectionKit;
  * 
  */
 public class DaoHelper {
+	public static List<Long> convertPeopleJoinGroupsToPeopleIds(List<PeopleJoinGroup> joins) {
+		if (CollectionKit.isEmpty(joins)) {
+			return null;
+		}
+		List<Long> peopleIds = new ArrayList<Long>(joins.size());
+		for (PeopleJoinGroup join : joins) {
+			peopleIds.add(join.getPeopleId());
+		}
+		return peopleIds;
+	}
 
 	public static void injectWeiboModelsWithFavorite(FavoriteDao favoriteDao, List<? extends WeiboModel> weiboModels, long peopleId) throws SQLException {
 		if (CollectionKit.isNotEmpty(weiboModels)) {
@@ -262,7 +273,7 @@ public class DaoHelper {
 			peopleIds.add(message.getSenderId());
 			peopleIds.addAll(message.getReceiverIds());
 			MessageReply lastReply = message.getLastReply();
-			if (lastReply != null) {//TODO 测试数据比较混乱,先加上 sean
+			if (lastReply != null) {// TODO 测试数据比较混乱,先加上 sean
 				peopleIds.add(lastReply.getSenderId());
 			}
 		}
@@ -613,7 +624,7 @@ public class DaoHelper {
 	/**
 	 * @param groupDao
 	 * @param categorys
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public static void injectCategoriesWithPromotedGroups(GroupDao groupDao, List<Category> categorys) throws SQLException {
 		List<Long> catIds = new ArrayList<Long>(categorys.size());
@@ -625,7 +636,7 @@ public class DaoHelper {
 		List<Group> promotedGroups = groupDao.getAllPromotedGroups(catIds);
 		if (CollectionKit.isNotEmpty(promotedGroups)) {
 			for (Group group : promotedGroups) {
-				Category category = catId2CatMap.get(group.getCategoryId());//现在一个群只支持一个类目推荐位
+				Category category = catId2CatMap.get(group.getCategoryId());// 现在一个群只支持一个类目推荐位
 				if (category != null) {
 					category.addGroup(group);
 				}
@@ -637,8 +648,8 @@ public class DaoHelper {
 	 * @param peopleDao
 	 * @param group
 	 */
-	public static void injectGroupWithCreator(PeopleDao peopleDao, Group group) throws SQLException{
-		if(group == null) {
+	public static void injectGroupWithCreator(PeopleDao peopleDao, Group group) throws SQLException {
+		if (group == null) {
 			return;
 		}
 		group.setCreator(peopleDao.getPeopleById(group.getCreatorId()));
@@ -648,14 +659,14 @@ public class DaoHelper {
 	 * @param groupDao
 	 * @param categoryDao
 	 * @param group
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public static void injectGroupWithCategory(GroupDao groupDao, CategoryDao categoryDao, Group group) throws SQLException {
-		if(null == group) {
+		if (null == group) {
 			return;
 		}
 		List<GroupJoinCategory> joins = groupDao.getGroupJoinCategoriesByGroupIdAndStatus(group.getId(), Status.COMMON);
-		if(CollectionKit.isEmpty(joins)) {
+		if (CollectionKit.isEmpty(joins)) {
 			return;
 		}
 		Category cat = categoryDao.getCategoryById(joins.get(0).getCategoryId());

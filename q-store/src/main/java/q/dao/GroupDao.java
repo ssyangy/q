@@ -115,7 +115,7 @@ public interface GroupDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	List<Long> getJoinPeopleIdsByJoinPage(PeopleJoinGroupPage page) throws SQLException;
+	List<PeopleJoinGroup> selectPeopleJoinGroupsByPage(PeopleJoinGroupPage page) throws SQLException;
 
 
 	/**

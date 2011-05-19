@@ -264,8 +264,9 @@
 		group_id=#groupId#
 	</select>
 
-	<select id="selectJoinPeopleIdsByPage" resultClass="long">
-		select people_id
+	<select id="selectPeopleJoinGroupsByPage" resultMap="pjgResult">
+		select
+		<include refid="pjg.columns" />
 		from people_join_group
 		<dynamic prepend="where">
 			<isNotNull prepend="and " property="status">

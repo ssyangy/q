@@ -3,6 +3,7 @@
  */
 package q.web.group;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.dao.page.PeopleJoinGroupPage;
 import q.domain.People;
+import q.domain.PeopleJoinGroup;
 import q.util.CollectionKit;
 import q.util.IdCreator;
 import q.web.Resource;
@@ -87,26 +89,36 @@ public class GetGroupPeople extends Resource {
 				page.setStartId(startId);
 			}
 			page.setGroupId(groupId);
-			List<Long> peopleIds = this.groupDao.getJoinPeopleIdsByJoinPage(page);
+			List<PeopleJoinGroup> joins = this.groupDao.selectPeopleJoinGroupsByPage(page);
 			Map<String, Object> api = new HashMap<String, Object>();
-			if (CollectionKit.isNotEmpty(peopleIds)) {
-				if (peopleIds.size() == fetchSize) {
+			if (CollectionKit.isNotEmpty(joins)) {
+				if (joins.size() == fetchSize) {
 					if (type == asc) { // more than one previous page
 						hasPrev = true;
 					} else { // more than one next page
 						hasNext = true;
 					}
-					peopleIds.remove(peopleIds.size() - 1);// remove last one
+					joins.remove(joins.size() - 1);// remove last one
 				}
 				if (type == asc) { // this action from next page
 					hasNext = true;
 				} else if (startId != IdCreator.MAX_ID) {// this action from previous page
 					hasPrev = true;
 				}
+				
+				List<Long> peopleIds = new ArrayList<Long>(joins.size());
+				Map<Long, PeopleJoinGroup> peopleId2JoinMap = new HashMap<Long, PeopleJoinGroup>(joins.size());
+				for (PeopleJoinGroup join : joins) {
+					peopleIds.add(join.getPeopleId());
+					peopleId2JoinMap.put(join.getPeopleId(), join);
+				}
 				List<People> peoples = this.peopleDao.getPeoplesByIds(peopleIds);
 				if (CollectionKit.isNotEmpty(peoples)) {
 					if (loginPeopleId > 0) {
 						DaoHelper.injectPeoplesWithVisitorRelation(peopleDao, peoples, loginPeopleId);
+					}
+					for(People people: peoples) {
+						people.setJoinGroup(peopleId2JoinMap.get(people.getId()));
 					}
 					api.put("peoples", peoples);
 				}

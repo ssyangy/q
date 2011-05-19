@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import q.dao.DaoHelper;
 import q.dao.GroupDao;
 import q.dao.page.GroupJoinCategoryPage;
 import q.dao.page.GroupPage;
@@ -76,7 +77,7 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 		page.setSize(limit);
 		page.setStartIndex(start);
 		page.setGroupId(groupId);
-		return getJoinPeopleIdsByJoinPage(page);
+		return DaoHelper.convertPeopleJoinGroupsToPeopleIds(selectPeopleJoinGroupsByPage(page));
 	}
 
 	@Override
@@ -85,13 +86,14 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 		page.setSize(limit);
 		page.setStartIndex(start);
 		page.setGroupIds(groupIds);
-		return getJoinPeopleIdsByJoinPage(page);
+		return DaoHelper.convertPeopleJoinGroupsToPeopleIds(selectPeopleJoinGroupsByPage(page));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Long> getJoinPeopleIdsByJoinPage(PeopleJoinGroupPage page) throws SQLException {
-		return (List<Long>) this.sqlMapClient.queryForList("selectJoinPeopleIdsByPage", page);
+	public List<PeopleJoinGroup> selectPeopleJoinGroupsByPage(PeopleJoinGroupPage page) throws SQLException {
+		List<PeopleJoinGroup> joins = (List<PeopleJoinGroup>) this.sqlMapClient.queryForList("selectPeopleJoinGroupsByPage", page);
+		return joins;
 	}
 
 	@Override

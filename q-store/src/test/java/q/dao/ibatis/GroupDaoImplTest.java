@@ -118,18 +118,18 @@ public class GroupDaoImplTest {
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getJoinPeopleIdsByJoinPage(q.dao.page.PeopleJoinGroupPage)}.
+	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#selectPeopleJoinGroupsByPage(q.dao.page.PeopleJoinGroupPage)}.
 	 * 
 	 * @throws SQLException
 	 */
 	@Test
-	public void testGetJoinPeopleIdsByJoinPage() throws SQLException {
+	public void testSelectPeopleJoinGroupsByPage() throws SQLException {
 		PeopleJoinGroupPage page = new PeopleJoinGroupPage();
 		page.setDesc(false);
 		page.setGroupId(1L);
 		page.setStartId(1000L);
 		page.setSize(10);
-		groupDao.getJoinPeopleIdsByJoinPage(page);
+		groupDao.selectPeopleJoinGroupsByPage(page);
 	}
 
 	/**
