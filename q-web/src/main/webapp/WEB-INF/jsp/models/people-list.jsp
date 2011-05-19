@@ -5,25 +5,6 @@
 		var $ = q.jq;
 		$(function(){
 			var mems = $('#mems');
-			$.ajax({
-				url:"${param['feedUrl']}",
-				data:{startId:"999999999999999999",size:10},
-				success:mem_ajsucc
-			});
-			$('a.mbprev').live('click',function(){
-				$.ajax({
-					url:"${param['feedUrl']}",
-					data:{startId:$("li",mems).first().attr("stream_id"),size:10, type:1},
-					success:mem_ajsucc
-				});
-			});
-			$('a.mbnext').live('click',function(){
-				$.ajax({
-					url:"${param['feedUrl']}",
-					data:{startId:$("li",mems).last().attr("stream_id") ,size:10},
-					success:mem_ajsucc
-				});
-			});
 			var mem_ajsucc = function(json){
             	var pv = $('a.mbprev'); pv.hide(); if (json.hasPrev) pv.show();
             	var nt = $('a.mbnext'); nt.hide(); if (json.hasNext) nt.show();	            
@@ -33,75 +14,107 @@
                 	mems.append(ich.members(this));
                 });
 			}
-			var dia_fow = $("#dia_fow");
-	        $('input.donet', dia_fow).click(function () {
-            	  $('img.ajaxload', this).show();
-              	  var dia = $('#dia_fow');
-              	  $.ajax({
-					    url: '${urlPrefix}/weibo',
-					    type: 'POST',
-					    data: {content:$("textarea[name='content']",dia).val()},
-					   	success: function(m){
-					   		dia_fow.dialog("close");
-					   		$('img.ajaxload', dia_fow).hide();
-					    }
-              	  });
-	        });
-			var dia_letter = $("#dia_letter");
-	        $('input.donet', dia_letter).click(function () {
-            	  $('img.ajaxload', this).show();
-              	  var dia = $('#dia_letter');
-              	  $.ajax({
-				    url: $("#letter_url",dia).val(),
-				    type: 'POST',
-				    dataType: 'json',
-				    data: {content:$("textarea[name='content']",dia).val()},
-				   	success: function(m){
-				   		dia.dialog("close");
-				   		$('img.ajaxload', dia).hide();
-				    }
-              	  });
-	        });	        
-			$("a.btn_fow").live('click', function () {
-				var stream = $(this).closest('div.stream-item');
-				$("textarea[name='content']",dia_fow).val('').val('//@'+$('span.display-name',stream).text().trim());
-				dia_fow.dialog("open");
+			$.ajax({ url:"${param['feedUrl']}",
+				data:{startId:"999999999999999999",size:10},
+				success:mem_ajsucc });
+			$('a.mbprev').live('click',function(){
+				$.ajax({ url:"${param['feedUrl']}",
+					data:{startId:$("li",mems).first().attr("stream_id"),size:10, type:1},
+					success:mem_ajsucc });
 			});
-			$("a.btn_letter").live('click', function () {
-				var stream = $(this).closest('div.stream-item');
-				$('div.wpeople',dia_letter).empty().html('发私信给：'+ $('span.display-name',stream).text().trim());
+			$('a.mbnext').live('click',function(){
+				$.ajax({ url:"${param['feedUrl']}",
+					data:{startId:$("li",mems).last().attr("stream_id") ,size:10},
+					success:mem_ajsucc });
+			});
+
+			$("a.unwat").live('click', function () {
+	          	  var stream = $(this).closest('li');
+	          	  $.ajax({ url: '${urlPrefix}/people/'+stream.attr('stream_id') +"/following", msg:$(this), type: 'POST',
+					   	success: function(m){
+							if(m != null) return;
+							this.msg.removeClass('unwat').addClass('wat').text("关注");
+							this.msg.siblings('a.btnletter').hide();
+					    } });
+			});
+			$("a.wat").live('click', function () {
+	          	  var stream = $(this).closest('li');
+	          	  $.ajax({ url: '${urlPrefix}/people/'+stream.attr('stream_id') +"/following", msg:$(this), type: 'POST',
+	          			data:{_method:'delete'},
+					   	success: function(m){
+							if(m != null) return;
+							this.msg.removeClass('wat').addClass('unwat').text("解除关注");
+							this.msg.siblings('a.btnletter').show();
+					    } });
+			});
+			
+			var dia_ret = $("#dia_ret");
+			$("a.btnat").live('click', function () {
+				var stream = $(this).closest('li');
+				$("textarea[name='content']",dia_ret).val('').val('//@'+$('a.dispname',stream).text().trim());
+				dia_ret.dialog("open");
+			});
+	        $('input.donet', dia_ret).live("click",function () {
+				$('img.ajaxload', this).show();
+				var dia = $('#dia_fow');
+				$.ajax({ url: '${urlPrefix}/weibo', type: 'POST',
+					data: {content:$("textarea[name='content']",dia).val()},
+					success: function(m){
+						dia_ret.dialog("close");
+						$('img.ajaxload', dia_fow).hide();
+					} });
+	        });
+
+			var dia_letter = $("#dia_letter");
+			$("a.btnletter").live('click', function () {
+				var stream = $(this).closest('li');
+				$('div.wpeople',dia_letter).empty().html('发私信给：'+ $('a.dispname',stream).text().trim());
 				$("textarea[name='content']",dia_letter).val('');
-				var peopleid = $('input.peopleid',stream).val();
-				$("#letter_url",dia_letter).val('${urlPrefix}/message?receiverId='+peopleid);
+				$("#letter_url",dia_letter).val('${urlPrefix}/message?receiverId='+stream.attr('stream_id'));
 				dia_letter.dialog("open");
 			});
+	        $('input.donet', dia_letter).live("click",function () {
+				$('img.ajaxload', this).show();
+				var dia = $('#dia_letter');
+				$.ajax({ url: $("#letter_url",dia).val(), type: 'POST',
+					data: {content:$("textarea[name='content']",dia).val()},
+					success: function(m){
+						dia.dialog("close");
+						$('img.ajaxload', dia).hide();
+					} });
+	        });	        
+
 		});
 	});
 	</script>
 <script type="text/html" id="members">
     <li stream_id='{{id}}'>
-        <a href="${urlPrefix}/people/{{id}}"><img src="{{avatarPath}}" alt="{{realName}}" class="sldimg" /></a>
-        <p><a class="lk" href="${urlPrefix}/people/{{id}}">{{realName}}</a></p>
-        <p>{{area.myProvince.name}&nbsp;{{area.myCity.name}}&nbsp;{{area.myCounty.name}}</p>
-        <p>{{ntro}}</p>
-        <span class="act"><a class="btna msg">私信</a><a class="btn at">&#64</a><a class="btn unwat">解除关注</a></span>
+        <a href="${urlPrefix}/people/{{id}}"><img src="{{avatarPath}}-48" alt="{{screenName}}" class="sldimg" /></a>
+        <p><a class="lk dispname" href="${urlPrefix}/people/{{id}}">{{screenName}}</a></p>
+        <p>{{area.province}&nbsp;{{area.city}}</p>
+        <p>{{ntro}}&nbsp;</p>
+        <span class="act">
+			<a class="btna btnletter" href='javascript:void(0);'>私信</a>
+			<a class="btn btnat">&#64</a>
+			<a class="btn unwat">解除关注</a>
+		</span>
     </li>
 </script>
 <ul id='mems' class="msglist"></ul>
 <a class='lk mr10 mbprev hide'>上一页</a>
 <a class='lk mbnext hide'>下一页</a>
 
-<div id="dia_fow" class="ui_dialog" title="@">
-	<textarea name="content" rows="5" cols="50"></textarea>
-	<img src="${staticUrlPrefix}/style/images/ajaxload.gif" class="ajaxload" alt="ajaxload" />
+<div id="dia_ret" class="ui_dialog" title="@">
+	<textarea name="content" style="width:100%;height:100px;"></textarea>
+	<img src="${staticUrlPrefix}/content-q/images/ajaxload.gif" class="ajaxload" alt="ajaxload" />
 	<input type='hidden' class='donet' />
 	<input type='hidden' class='undonet' />
 </div>
 <div id="dia_letter" class="ui_dialog" title="私信">
 	<div class="wpeople mb10"></div>
 	<input id='letter_url' type='hidden'></input>
-	<textarea name="content" rows="5" cols="50"></textarea>
-	<img src="${staticUrlPrefix}/style/images/ajaxload.gif" class="ajaxload" alt="ajaxload" />
+	<textarea name="content" style="width:100%;height:100px;"></textarea>
+	<img src="${staticUrlPrefix}/content-q/images/ajaxload.gif" class="ajaxload" alt="ajaxload" />
 	<input type='hidden' class='donet' />
 	<input type='hidden' class='undonet' />		
 </div>
