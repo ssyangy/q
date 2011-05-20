@@ -66,13 +66,13 @@ public class getAtIndex extends Resource {
 		long loginPeopleId = context.getCookiePeopleId();
 		if (context.isApiRequest()) {
 			String username = context.getLoginCookie().getUsername();
-			List<Long> bs = searchService.searchWeibo("@" + username);
 			int size = context.getInt("size", 10);
 			long startId = context.getIdLong("startId", IdCreator.MAX_ID);
 			int type = context.getInt("type", 0);
 			boolean hasPrev = false;
 			boolean hasNext = false;
 			Map<String, Object> api = new HashMap<String, Object>();
+			List<Long> bs = searchService.searchWeibo("@" + username, size);
 			if (CollectionKit.isNotEmpty(bs)) {
 				List<Weibo> weibos = weiboDao.getWeibosByIds(bs, true);
 				if (CollectionKit.isNotEmpty(weibos)) {

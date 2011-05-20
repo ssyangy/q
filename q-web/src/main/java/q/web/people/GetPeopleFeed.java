@@ -70,7 +70,7 @@ public class GetPeopleFeed extends Resource {
 			long startId = context.getIdLong("startId");
 			String tab = context.getString("tab");
 			if ("at".equals(tab)) {// fixme realname id?
-				List<Long> bs = searchService.searchWeibo("@"+peopleTemp.getUsername());
+				List<Long> bs = searchService.searchWeibo("@"+peopleTemp.getUsername(), size);
 				if (CollectionKit.isNotEmpty(bs)) {
 					weibos = weiboDao.getWeibosByIds(bs, true);
 				}
