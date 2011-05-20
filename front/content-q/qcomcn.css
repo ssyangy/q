@@ -6,7 +6,7 @@
 #toper .wapper{height:30px;}
 #logo{font-size:24px;position:absolute;left:0;top:0;color:#FF0065}
 #msg{position:absolute;top:0;right:300px;}
-#minelist{position:absolute;top:24px;left:10px;display:none;}
+#minelist{position:absolute;top:24px;left:10px;display:none;width:90px;}
 ul.dlist{border:1px solid #ddd;line-height:22px;background-color:#fff;}
 ul.dlist li{border-bottom:1px solid #ddd;border-right:none 0;float:none;padding:0 10px;}
 .tlistarr{cursor:pointer;width:14px;height:14px;background:url(images/arrow/sh_col.png) no-repeat;}
@@ -49,7 +49,7 @@ li.streambox input.reply_val{width:200px;}
 li.streambox span.actions{position:absolute;right:0;top:0;}
 
 .search{position:absolute;top:0;right:0;}
-#searchpage {top:30px;left:80px;width:307px;}
+#searchpage {top:30px;left:80px;}
 .search .search_inp{width:150px;}
 #searchpage .search_inp{width:300px;}
 .search .search_btn {border:none;height:24px;width:24px;cursor: pointer;position:absolute;top:4px;right:2px;
