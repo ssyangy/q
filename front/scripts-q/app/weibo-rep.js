@@ -26,6 +26,13 @@
         }
     });
 
+    exports.WeiboRepList = Backbone.Collection.extend({
+        model: exports.WeiboRepModel,
+        initialize: function () {
+            // somthing
+        }
+    });
+
     exports.WeiboRepView = Backbone.View.extend({
         tagName: 'li',
         className: 'repbox',
@@ -33,7 +40,8 @@
             "click .del": "remove",
             "click .resub": "resub",
             "click .fav": "fav",
-            "click .unfav": "unfav"
+            "click .unfav": "unfav",
+            "click .replay": "replay"
         },
         initialize: function () {
             _.bindAll(this, 'render', 'change', 'remove');
@@ -56,7 +64,8 @@
                 success: function (m) {
                     if (m) return;
                     $(this.msg.el).css({ "overflow": "hidden" }).slideUp("slow", function () { $(this).remove(); });
-                } });
+                } 
+            });
         },
         resub: function () {
             var rdia = $('#dia_ret');
@@ -68,11 +77,15 @@
             $(".ret_url", rdia).val(window.urlprefix + '/reply/' + this.model.get('id') + '/retweet');
             rdia.dialog("open");
         },
+        replay: function () {
+            $("input.reply_val", this.model.get("parent")).val(this.model.get("people").screenname).focus();
+        },
         fav: function () {
-            $.ajax({ url: window.urlprefix + '/reply/' + this.model.get('id') + '/favorite',type: 'POST', msg: this,
+            $.ajax({ url: window.urlprefix + '/reply/' + this.model.get('id') + '/favorite', type: 'POST', msg: this,
                 success: function () {
                     $('.fav', this.msg.el).addClass('hide');
-                    $('.unfav', this.msg.el).removeClass('hide'); }
+                    $('.unfav', this.msg.el).removeClass('hide');
+                }
             });
         },
         unfav: function () {
@@ -80,7 +93,8 @@
                 data: { _method: 'delete' },
                 success: function () {
                     $('.unfav', this.msg.el).addClass('hide');
-                    $('.fav', this.msg.el).removeClass('hide'); }
+                    $('.fav', this.msg.el).removeClass('hide');
+                }
             });
         }
     });

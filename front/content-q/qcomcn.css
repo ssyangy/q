@@ -11,6 +11,8 @@ ul.dlist{border:1px solid #ddd;line-height:22px;background-color:#fff;}
 ul.dlist li{border-bottom:1px solid #ddd;border-right:none 0;float:none;padding:0 10px;}
 .tlistarr{cursor:pointer;width:14px;height:14px;background:url(images/arrow/sh_col.png) no-repeat;}
 .tlistarr.tgt{background-image:url(images/arrow/navlarrh.png);}
+#note{position:absolute;top:30px;right:0;padding:10px;background-color:#FFE300;z-index:99;display:none;}
+#note p{line-height:22px;}
 
 #main .wapper{padding:10px 0;}
 
@@ -69,6 +71,7 @@ ul.msglist li.end{border-bottom:none 0;}
 ul.msglist img.sldimg{position:absolute;top:10px;left:10px;}
 ul.msglist p{line-height:24px;color:#333;}
 ul.msglist a.lk,ul.msglist a.btn,ul.msglist a.btna{margin-right:5px;}
+.pagger{margin-top:5px;}
 
 .simptab{font-size:16px;}
 .simptab .split{margin:0 10px;}

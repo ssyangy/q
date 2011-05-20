@@ -74,8 +74,8 @@
             "click .reply_btn": "reply",
             "click .rrprev": "rrprev",
             "click .rrnext": "rrnext",
-            "click img.weiboImg": "weiboimg",
-            "click img.preImg": "preimg",
+            "click img.weiboImg": "toggleimg",
+            "click img.preImg": "toggleimg",
             "click a.weiboImgRotateR": "imgrotater",
             "click a.weiboImgRotateL": "imgrotatel"
         },
@@ -103,8 +103,21 @@
                 }
             });
         },
+        suc_repajax: function (json) {
+            var ul = $('.extend>ul.msglist', this.el);
+            ul.empty();
+            var el = this.el;
+            $(json.replies).each(function () {
+                this.parent = el;
+                var rr = new rep.WeiboRepModel(this);
+                var view = new rep.WeiboRepView({ model: rr });
+                ul.append(view.render().el);
+            });
+            var pv = $('a.rrprev', this.el); pv.hide(); if (json.hasPrev) pv.show();
+            var nt = $('a.rrnext', this.el); nt.hide(); if (json.hasNext) nt.show();
+        },
         initrep: function (m) {
-            if (m && m.error_code) return;
+            if (m && !m.id) return;
             $.ajax({ url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply",
                 data: { size: 10, startid: '999999999999999999' },
                 success: this.suc_repajax
@@ -119,31 +132,17 @@
         },
         rrprev: function () {
             var lis = $('li.repbox', this.el);
-            var urlp = { startid: parseInt(lis.last().data('replyid')), type: 1 };
-            _.extend(urlp, this.defajaxurl);
-            $.ajax({ url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
+            $.ajax({ url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply",
+                data: { startid: lis.last().data('replyid'), size: 10, type: 1 },
                 success: this.suc_repajax
             });
         },
         rrnext: function () {
             var lis = $('li.repbox', this.el);
-            var urlp = { startid: parseInt(lis.last().data('replyid')) };
-            _.extend(urlp, this.defajaxurl);
-            $.ajax({ url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
+            $.ajax({ url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply",
+                data: { startid: lis.last().data('replyid'), size: 10 },
                 success: this.suc_repajax
             });
-        },
-        suc_repajax: function (json) {
-            var ul = $('.extend>ul.msglist', this.el);
-            ul.empty();
-            $(json.replies).each(function () {
-                var rr = new rep.WeiboRepModel(this);
-                var view = new rep.WeiboRepView({ model: rr });
-                ul.append(view.render().el);
-            });
-            var pv = $('a.rrprev', this.el); pv.hide(); if (json.hasPrev) pv.show();
-            var nt = $('a.rrnext', this.el); nt.hide(); if (json.hasNext) nt.show();
-            q.fixui(ul);
         },
         reply: function () {
             $.ajax({ url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply", type: 'POST',
@@ -179,13 +178,9 @@
                 }
             });
         },
-        weiboimg: function () {
-            $('img.weiboImg', this.el).hide();
-            $('div.imgPre', this.el).show();
-        },
-        preimg: function () {
-            $('div.imgPre', this.el).hide();
-            $('img.weiboImg', this.el).show();
+        toggleimg: function () {
+            $('div.imgPre', this.el).toggle();
+            $('img.weiboImg', this.el).toggle();
         },
         imgrotater: function () {
             var imgrote = $('div.imgrote', this.el);
