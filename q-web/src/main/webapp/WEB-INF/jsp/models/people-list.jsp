@@ -14,16 +14,16 @@
                 });
 			}
 			$.ajax({ url:"${param['feedUrl']}",
-				data:{startId:"999999999999999999",size:10},
+				data:{startId:"999999999999999999",size:10, search:"${param['search']}"},
 				success:mem_ajsucc });
 			$('a.mbprev').click(function(){
 				$.ajax({ url:"${param['feedUrl']}",
-					data:{startId:$("li",mems).first().attr("stream_id"),size:10, type:1},
+					data:{startId:$("li",mems).first().attr("stream_id"),size:10, search:"${param['search']}", type:1},
 					success:mem_ajsucc });
 			});
 			$('a.mbnext').click(function(){
 				$.ajax({ url:"${param['feedUrl']}",
-					data:{startId:$("li",mems).last().attr("stream_id"),size:10},
+					data:{startId:$("li",mems).last().attr("stream_id"),size:10, search:"${param['search']}"},
 					success:mem_ajsucc });
 			});
 

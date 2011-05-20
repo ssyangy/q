@@ -82,6 +82,7 @@ public class GetGroupWeibo extends Resource {
 		}
 		List<Long> weiboIds = weiboDao.getWeiboIdsByJoinPage(page);
 		List<Weibo> weibos = weiboDao.getWeibosByIds(weiboIds, true);
+		Map<String, Object> api = new HashMap<String, Object>();
 		if (CollectionKit.isNotEmpty(weibos)) {
 			if (weibos.size() == fetchSize) {
 				if (type == asc) { // more than one previous page
@@ -107,9 +108,6 @@ public class GetGroupWeibo extends Resource {
 			if (loginPeopleId > 0) {
 				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
 			}
-		}
-		Map<String, Object> api = new HashMap<String, Object>();
-		if (CollectionKit.isNotEmpty(weibos)) {
 			api.put("weibos", weibos);
 		}
 		api.put("hasPrev", hasPrev);

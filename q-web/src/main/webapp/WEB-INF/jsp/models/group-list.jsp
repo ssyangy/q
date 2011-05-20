@@ -16,16 +16,16 @@
                 });
 			}
 			$.ajax({ url:"${param['feedUrl']}",
-				data:{startId:"999999999999999999",size:10, search:${param['search']}},
+				data:{startId:"999999999999999999",size:10, search:"${param['search']}"},
 				success: gbs_ajsucc });
 			$('a.gbprev', gbs).click(function(){
 				$.ajax({ url:"${param['feedUrl']}",
-					data:{startId:$("li",gbul).first().attr("stream_id"),size:10, type:1},
+					data:{startId:$("li",gbul).first().attr("stream_id"),size:10, search:"${param['search']}", type:1},
 					success: gbs_ajsucc });
 			});
 			$('a.gbnext', gbs).click(function(){
 				$.ajax({ url:"${param['feedUrl']}",
-					data:{startId:$("li",gbul).last().attr("stream_id"),size:10},
+					data:{startId:$("li",gbul).last().attr("stream_id"),size:10, search:"${param['search']}"},
 					success: gbs_ajsucc });
 			});
 
