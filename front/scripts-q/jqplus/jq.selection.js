@@ -1,19 +1,18 @@
 define(function (require, exports, module) {
-    var $ = jQuery = require('jquery');
 
-    (function ($) {
-        //jQuery(this).get(0).options.length;
-        jQuery.fn.selVal = function (v) {
+    return function ($) {
+        //$(this).get(0).options.length;
+        $.fn.selVal = function (v) {
             if ($(this).val() != v) {
                 $(this).val(v).trigger("change");
             }
         }
         //获得选中项的索引 
-        jQuery.fn.getSelectedIndex = function () {
+        $.fn.getSelectedIndex = function () {
             return $(this).get(0).selectedIndex;
         }
         //获得当前选中项的文本 
-        jQuery.fn.getSelectedText = function () {
+        $.fn.getSelectedText = function () {
             if ($(this).get(0).options.length < 2) {
                 return "";
             }
@@ -24,7 +23,7 @@ define(function (require, exports, module) {
             }
         }
         //获得当前选中项的值 
-        jQuery.fn.getSelectedValue = function () {
+        $.fn.getSelectedValue = function () {
             if ($(this).get(0).options.length == 0) {
                 return "";
             }
@@ -33,11 +32,11 @@ define(function (require, exports, module) {
             }
         }
         //设置select中值为value的项为选中 
-        jQuery.fn.setSelectedValue = function (value) {
+        $.fn.setSelectedValue = function (value) {
             $(this).get(0).value = value;
         }
         //设置select中文本为text的第一项被选中 
-        jQuery.fn.setSelectedText = function (text) {
+        $.fn.setSelectedText = function (text) {
             var isExist = false;
             var count = $(this).get(0).options.length;
             for (var i = 0; i < count; i++) {
@@ -52,7 +51,7 @@ define(function (require, exports, module) {
             }
         }
         //设置选中指定索引项 
-        jQuery.fn.setSelectedIndex = function (index) {
+        $.fn.setSelectedIndex = function (index) {
             var count = $(this).get(0).options.length;
             if (index >= count || index < 0) {
                 alert("选中项索引超出范围");
@@ -62,7 +61,7 @@ define(function (require, exports, module) {
             }
         }
         //判断select项中是否存在值为value的项 
-        jQuery.fn.isExistItem = function (value) {
+        $.fn.isExistItem = function (value) {
             var isExist = false;
             var count = $(this).get(0).options.length;
             for (var i = 0; i < count; i++) {
@@ -74,7 +73,7 @@ define(function (require, exports, module) {
             return isExist;
         }
         //向select中添加一项，显示内容为text，值为value,如果该项值已存在，则提示 
-        jQuery.fn.addOption = function (text, value) {
+        $.fn.addOption = function (text, value) {
             if (this.isExistItem(value)) {
                 alert("待添加项的值已存在");
             }
@@ -83,7 +82,7 @@ define(function (require, exports, module) {
             }
         }
         //删除select中值为value的项，如果该项不存在，则提示 
-        jQuery.fn.removeItem = function (value) {
+        $.fn.removeItem = function (value) {
             if (this.isExistItem(value)) {
                 var count = $(this).get(0).options.length;
                 for (var i = 0; i < count; i++) {
@@ -98,7 +97,7 @@ define(function (require, exports, module) {
             }
         }
         //删除select中指定索引的项 
-        jQuery.fn.removeIndex = function (index) {
+        $.fn.removeIndex = function (index) {
             var count = $(this).get(0).options.length;
             if (index >= count || index < 0) {
                 alert("待删除项索引超出范围");
@@ -108,14 +107,14 @@ define(function (require, exports, module) {
             }
         }
         //删除select中选定的项 
-        jQuery.fn.removeSelected = function () {
+        $.fn.removeSelected = function () {
             var index = this.getSelectedIndex();
             this.removeIndex(index);
         }
         //清除select中的所有项 
-        jQuery.fn.clearAll = function () {
+        $.fn.clearAll = function () {
             $(this).get(0).options.length = 0;
         }
-    })(jQuery);
+    }
 
 });

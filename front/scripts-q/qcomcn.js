@@ -1,18 +1,12 @@
 ﻿define(function (require, exports, module) {
-    var $ = exports.jq = require('jquery.js');
-
-    require('config.js');
+    var $ = exports.jq = require('jquery');
+    require('config.js')($);
+    require('jqplus/jq.repurl.js')($);
+    require('jqplus/jq.mttext.js')($);
     var uihelp = require('ui/jq.ui.help.js');
-    require('jqplus/jq.repurl.js');
-    var ie6 = ($.browser.msie && $.browser.version < 7.0);
-    if (ie6) {
-        require('jqplus/jq.pngFix.js');
-        require('jqplus/jq.limitimg.js');
-    }
-    require('jqplus/jq.mttext.js');
 
-    exports.Init = function () {
-        uihelp.init();
+    $(function () {
+        uihelp.init($);
         $('input.search_inp').focus(function () {
             $(this).next('input.search_btn').addClass('typing');
         }).blur(function () {
@@ -29,7 +23,7 @@
 
         var body = $("#body");
         if (body) {
-            var _ = require('underscore.js');
+            var _ = require('underscore');
             window.body = body;
             var win = $(window);
             var calculateLayout = (function () {
@@ -39,10 +33,10 @@
             var lazyLayout = _.debounce(calculateLayout, 300);
             win.resize(lazyLayout);
         }
-    }
+    });
 
     exports.fixui = function (box) {
-        uihelp.fix(box);
+        uihelp.fix($, box);
 
         $("input[accesskey]", box).bind("keydown", function (e) {
             var code = (e.keyCode ? e.keyCode : e.which);
@@ -53,9 +47,11 @@
         });
 
         $('.tw_txt', box).repurl();
-        if (ie6) {
+        if ($.support.opacity) {
+            require('jqplus/jq.pngFix.js')($);
             $(".png", box).pngFix();
-            $('img', box).imgLimit({ size: [120, 160, 320] });
+            //require('jqplus/jq.limitimg.js');
+            //$('img', box).imgLimit({ size: [120, 160, 320] });
         }
 
         $("input.mttext", box).mttext();

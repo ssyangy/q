@@ -1,7 +1,5 @@
 define(function (require, exports, module) {
-    var $ = require('jquery');
-
-    (function ($) {
+    return function($){
         /* 
         * @example $('div').bgiframe();
         * @before <div><p>Paragraph</p></div>
@@ -35,6 +33,6 @@ define(function (require, exports, module) {
             }
             return this;
         };
-    })($);
+    }
 
 });

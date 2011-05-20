@@ -1,5 +1,5 @@
 define(function (require, exports, module) {
-    var $ = jQuery = require('jquery');
+    return function ($) { 
 
     /**
     * Jcrop v.0.9.8 (minimized)
@@ -8,8 +8,6 @@ define(function (require, exports, module) {
     * Released under MIT License - this header must remain with code
     */
 
-
-    (function ($) {
         $.Jcrop = function (obj, opt) {
             var obj = obj, opt = opt; if (typeof (obj) !== 'object') obj = $(obj)[0]; if (typeof (opt) !== 'object') opt = {}; if (!('trackDocument' in opt)) {
                 opt.trackDocument = $.browser.msie ? false : true; if ($.browser.msie && $.browser.version.split('.')[0] == '8')
@@ -23,7 +21,7 @@ define(function (require, exports, module) {
                     { return [ox, oy]; }; function moveOffset(offset)
                     { var ox = offset[0], oy = offset[1]; if (0 > x1 + ox) ox -= ox + x1; if (0 > y1 + oy) oy -= oy + y1; if (boundy < y2 + oy) oy += boundy - (y2 + oy); if (boundx < x2 + ox) ox += boundx - (x2 + ox); x1 += ox; x2 += ox; y1 += oy; y2 += oy; }; function getCorner(ord) {
                         var c = getFixed(); switch (ord)
-                        { case 'ne': return [c.x2, c.y]; case 'nw': return [c.x, c.y]; case 'se': return [c.x2, c.y2]; case 'sw': return [c.x, c.y2]; } 
+                        { case 'ne': return [c.x2, c.y]; case 'nw': return [c.x, c.y]; case 'se': return [c.x2, c.y2]; case 'sw': return [c.x, c.y2]; }
                     }; function getFixed() {
                         if (!options.aspectRatio) return getRect(); var aspect = options.aspectRatio, min_x = options.minSize[0] / xscale, min_y = options.minSize[1] / yscale, max_x = options.maxSize[0] / xscale, max_y = options.maxSize[1] / yscale, rw = x2 - x1, rh = y2 - y1, rwa = Math.abs(rw), rha = Math.abs(rh), real_ratio = rwa / rha, xx, yy; if (max_x == 0) { max_x = boundx * 10 }
                         if (max_y == 0) { max_y = boundy * 10 }
@@ -31,20 +29,20 @@ define(function (require, exports, module) {
                             yy = y2; w = rha * aspect; xx = rw < 0 ? x1 - w : w + x1; if (xx < 0)
                             { xx = 0; h = Math.abs((xx - x1) / aspect); yy = rh < 0 ? y1 - h : h + y1; }
                             else if (xx > boundx)
-                            { xx = boundx; h = Math.abs((xx - x1) / aspect); yy = rh < 0 ? y1 - h : h + y1; } 
+                            { xx = boundx; h = Math.abs((xx - x1) / aspect); yy = rh < 0 ? y1 - h : h + y1; }
                         }
                         else {
                             xx = x2; h = rwa / aspect; yy = rh < 0 ? y1 - h : y1 + h; if (yy < 0)
                             { yy = 0; w = Math.abs((yy - y1) * aspect); xx = rw < 0 ? x1 - w : w + x1; }
                             else if (yy > boundy)
-                            { yy = boundy; w = Math.abs(yy - y1) * aspect; xx = rw < 0 ? x1 - w : w + x1; } 
+                            { yy = boundy; w = Math.abs(yy - y1) * aspect; xx = rw < 0 ? x1 - w : w + x1; }
                         }
                         if (xx > x1) {
                             if (xx - x1 < min_x) { xx = x1 + min_x; } else if (xx - x1 > max_x) { xx = x1 + max_x; }
-                            if (yy > y1) { yy = y1 + (xx - x1) / aspect; } else { yy = y1 - (xx - x1) / aspect; } 
+                            if (yy > y1) { yy = y1 + (xx - x1) / aspect; } else { yy = y1 - (xx - x1) / aspect; }
                         } else if (xx < x1) {
                             if (x1 - xx < min_x) { xx = x1 - min_x } else if (x1 - xx > max_x) { xx = x1 - max_x; }
-                            if (yy > y1) { yy = y1 + (x1 - xx) / aspect; } else { yy = y1 - (x1 - xx) / aspect; } 
+                            if (yy > y1) { yy = y1 + (x1 - xx) / aspect; } else { yy = y1 - (x1 - xx) / aspect; }
                         }
                         if (xx < 0) { x1 -= xx; xx = 0; } else if (xx > boundx) { x1 -= xx - boundx; xx = boundx; }
                         if (yy < 0) { y1 -= yy; yy = 0; } else if (yy > boundy) { y1 -= yy - boundy; yy = boundy; }
@@ -93,10 +91,10 @@ define(function (require, exports, module) {
                     { $sel.show(); $img.css('opacity', options.bgOpacity); awake = true; }; function release()
                     { disableHandles(); $sel.hide(); $img.css('opacity', 1); awake = false; }; function showHandles() {
                         if (seehandles)
-                        { moveHandles(Coords.getFixed()); $hdl_holder.show(); } 
+                        { moveHandles(Coords.getFixed()); $hdl_holder.show(); }
                     }; function enableHandles() {
                         seehandles = true; if (options.allowResize)
-                        { moveHandles(Coords.getFixed()); $hdl_holder.show(); return true; } 
+                        { moveHandles(Coords.getFixed()); $hdl_holder.show(); return true; }
                     }; function disableHandles()
                     { seehandles = false; $hdl_holder.hide(); }; function animMode(v)
                     { (animating = v) ? disableHandles() : enableHandles(); }; function done()
@@ -107,11 +105,11 @@ define(function (require, exports, module) {
                     { $trk.mousemove(trackMove).mouseup(trackUp).mouseout(trackUp); }
                     function toFront() {
                         $trk.css({ zIndex: 450 }); if (trackDoc)
-                        { $(document).mousemove(trackMove).mouseup(trackUp); } 
+                        { $(document).mousemove(trackMove).mouseup(trackUp); }
                     }
                     function toBack() {
                         $trk.css({ zIndex: 290 }); if (trackDoc)
-                        { $(document).unbind('mousemove', trackMove).unbind('mouseup', trackUp); } 
+                        { $(document).unbind('mousemove', trackMove).unbind('mouseup', trackUp); }
                     }
                     function trackMove(e)
                     { onMove(mouseAbs(e)); }; function trackUp(e) {
@@ -123,7 +121,7 @@ define(function (require, exports, module) {
                 } (); var KeyManager = function () {
                     var $keymgr = $('<input type="radio" />').css({ position: 'absolute', left: '-30px' }).keypress(parseKey).blur(onBlur), $keywrap = $('<div />').css({ position: 'absolute', overflow: 'hidden' }).append($keymgr); function watchKeys() {
                         if (options.keySupport)
-                        { $keymgr.show(); $keymgr.focus(); } 
+                        { $keymgr.show(); $keymgr.focus(); }
                     }; function onBlur(e)
                     { $keymgr.hide(); }; function doNudge(e, x, y)
                     { if (options.allowMove) { Coords.moveOffset([x, y]); Selection.updateVisible(); }; e.preventDefault(); e.stopPropagation(); }; function parseKey(e) {
@@ -135,7 +133,7 @@ define(function (require, exports, module) {
                 { var pos = $(obj).offset(); return [pos.left, pos.top]; }; function mouseAbs(e)
                 { return [(e.pageX - docOffset[0]), (e.pageY - docOffset[1])]; }; function myCursor(type) {
                     if (type != lastcurs)
-                    { Tracker.setCursor(type); lastcurs = type; } 
+                    { Tracker.setCursor(type); lastcurs = type; }
                 }; function startDragMode(mode, pos) {
                     docOffset = getPos($img); Tracker.setCursor(mode == 'move' ? mode : mode + '-resize'); if (mode == 'move')
                         return Tracker.activateHandlers(createMover(pos), doneSelect); var fc = Coords.getFixed(); var opp = oppLockCorner(mode); var opc = Coords.getCorner(oppLockCorner(opp)); Coords.setPressed(Coords.getCorner(opp)); Coords.setCurrent(opc); Tracker.activateHandlers(dragmodeHandler(mode, fc), doneSelect);
@@ -196,7 +194,8 @@ define(function (require, exports, module) {
                     { $img.attr('src', options.outerImage); delete (options.outerImage); }
                     Selection.refresh();
                 }; $hdl_holder.hide(); interfaceUpdate(true); var api = { animateTo: animateTo, setSelect: setSelect, setOptions: setOptionsNew, tellSelect: tellSelect, tellScaled: tellScaled, disable: disableCrop, enable: enableCrop, cancel: cancelCrop, focus: KeyManager.watchKeys, getBounds: function () { return [boundx * xscale, boundy * yscale]; }, getWidgetSize: function () { return [boundx, boundy]; }, release: Selection.release, destroy: destroy }; $origimg.data('Jcrop', api); return api;
-        }; $.fn.Jcrop = function (options) {
+            }; 
+        $.fn.Jcrop = function (options) {
             function attachWhenDone(from)
             { var loadsrc = options.useImg || from.src; var img = new Image(); img.onload = function () { $.Jcrop(from, options); }; img.src = loadsrc; }; if (typeof (options) !== 'object') options = {}; this.each(function () {
                 if ($(this).data('Jcrop'))
@@ -204,6 +203,7 @@ define(function (require, exports, module) {
                 else attachWhenDone(this);
             }); return this;
         };
-    })(jQuery);
+
+    };
 
 });

@@ -1,6 +1,5 @@
 define(function (require, exports, module) {
-    var $ = jQuery = require('jquery');
-    (function ($) {
+    return function () {
         $.fn.limitChar = function (options) {
             var opts = $.extend({
                 numobj: "limit",
@@ -38,5 +37,5 @@ define(function (require, exports, module) {
                 });
             }
         }
-    })(jQuery);
+    }
 });

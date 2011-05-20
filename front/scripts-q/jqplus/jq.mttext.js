@@ -1,8 +1,6 @@
 define(function (require, exports, module) {
-    var $ = require("jquery");
 
-    (function ($) {
-
+    return function ($) {
         $.fn.mttext = function (options) {
             var opts = $.extend({
                 wval: false
@@ -40,7 +38,6 @@ define(function (require, exports, module) {
                 }
             });
         }
-
-    })($);
+    }
 
 });

@@ -1,5 +1,5 @@
 define(function (require, exports, module) {
-    var $ = jQuery = require('jquery');
+    return function (jQuery) {
     /**
     * --------------------------------------------------------------------
     * jQuery-Plugin "pngFix"
@@ -19,7 +19,7 @@ define(function (require, exports, module) {
     * @desc Fixes all PNG's within div with class examples, provides blank gif for input with png
     * --------------------------------------------------------------------
     */
-    (function ($) {
+
         jQuery.fn.pngFix = function (settings) {
             // Settings
             settings = jQuery.extend({
@@ -82,6 +82,6 @@ define(function (require, exports, module) {
             }
             return jQuery;
         };
-    })(jQuery);
+    }
 
 });

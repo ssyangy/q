@@ -404,13 +404,13 @@
     <Content Include="scripts-q\jqplus\jq.cookie.js" />
     <Content Include="scripts-q\jqplus\jq.jcrop.js" />
     <Content Include="scripts-q\jqplus\jq.limitchar.js" />
-    <Content Include="scripts-q\jqplus\jq.limitimg.js" />
     <Content Include="scripts-q\jqplus\jq.mttext.js" />
     <Content Include="scripts-q\jqplus\jq.pngFix.js" />
     <Content Include="scripts-q\jqplus\jq.repurl.js" />
     <Content Include="scripts-q\jqplus\jq.rotate.js" />
     <Content Include="scripts-q\jqplus\jq.selection.js" />
     <Content Include="scripts-q\jqplus\jq.tokeninput.js" />
+    <Content Include="scripts-q\src\jquery-1.6.1.js" />
     <Content Include="scripts-q\ui\jq.ui.help.js" />
     <Content Include="scripts-q\ui\jq.ui.js" />
     <Content Include="scripts-q\ui\jq.ui.selectmenu.js" />

@@ -1,9 +1,8 @@
 ﻿define(function (require, exports, module) {
-    var $ = require('jquery.js');
-    var _ = require('underscore.js');
-    var Backbone = require('backbone.js');
-    var ich = require('ICanHaz.js');
-    var con = require('config.js');
+    var $ = require('jquery');
+    var _ = require('underscore');
+    var Backbone = require('backbone');
+    var ich = require('ICanHaz');
 
     exports.WeiboRepModel = Backbone.Model.extend({
         initialize: function (spec) {
@@ -66,7 +65,7 @@
             var src = this.model.get('source');
             if (src) $('.wsrc', rdia).html(src);
             $('.mttextar', rdia).val('//@' + this.model.get('people').screenName + ' ');
-            $(".ret_url", rdia).val(con.urlprefix + '/reply/' + this.model.get('id') + '/retweet');
+            $(".ret_url", rdia).val(window.urlprefix + '/reply/' + this.model.get('id') + '/retweet');
             rdia.dialog("open");
         },
         fav: function () {

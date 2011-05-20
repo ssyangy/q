@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
     var $ = require("jquery");
-
+    return function($) {
     /*
     * jQuery UI selectmenu
     *
@@ -10,8 +10,6 @@ define(function (require, exports, module) {
     *
     * http://docs.jquery.com/UI
     */
-
-    (function ($) {
 
         $.widget("ui.selectmenu", {
             _init: function () {
@@ -524,6 +522,6 @@ define(function (require, exports, module) {
             }
         });
 
-    })($);
+    }
 
 });

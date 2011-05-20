@@ -1,15 +1,16 @@
 ﻿define(function (require, exports, module) {
-    var $ = require('jquery.js');
-    var _ = require('underscore.js');
-    var Backbone = require('backbone.js');
+    var _ = require('underscore');
+    var Backbone = require('backbone');
     var rep = require('app/weibo-rep.js');
-    var q = require('qcomcn.js');
-    require('jqplus/jq.rotate.js');
 
     var ich = {};
     var seed = {};
-    exports.preui = function () {
-        ich = require('ICanHaz.js');
+    var $ = {};
+    exports.init = function (q) {
+        $ = q.jq;
+        require('jqplus/jq.rotate.js')($);
+        ich = require('ICanHaz');
+
         var rdia = $('#dia_ret');
         $('input.donet', rdia).click(function () {
             $('img.ajaxload', rdia).show();
@@ -93,17 +94,19 @@
         remove: function () {
             if (!confirm('确定要删除？')) return;
             $.ajax({ url: window.urlprefix + '/weibo/' + this.model.get('id'), type: 'POST', msg: this,
-                data: { _method: 'delete' }, 
+                data: { _method: 'delete' },
                 success: function (m) {
                     if (m) return;
-                    $(this.msg.el).css({ "overflow": "hidden" }).slideUp("slow", function () { $(this).remove(); }); 
-                } });
+                    $(this.msg.el).css({ "overflow": "hidden" }).slideUp("slow", function () { $(this).remove(); });
+                }
+            });
         },
         initrep: function (m) {
             if (m && m.error_code) return;
             $.ajax({ url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply",
                 data: { size: 10, startid: '999999999999999999' },
-                success: this.suc_repajax });
+                success: this.suc_repajax
+            });
         },
         togreply: function () {
             if (!this.isinitrep) {
@@ -117,14 +120,16 @@
             var urlp = { startid: parseInt(lis.last().data('replyid')), type: 1 };
             _.extend(urlp, this.defajaxurl);
             $.ajax({ url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
-                success: this.suc_repajax });
+                success: this.suc_repajax
+            });
         },
         rrnext: function () {
             var lis = $('li.repbox', this.el);
             var urlp = { startid: parseInt(lis.last().data('replyid')) };
             _.extend(urlp, this.defajaxurl);
             $.ajax({ url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
-                success: this.suc_repajax });
+                success: this.suc_repajax
+            });
         },
         suc_repajax: function (json) {
             var ul = $('.extend>ul.msglist', this.el);
@@ -141,7 +146,8 @@
         reply: function () {
             $.ajax({ url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply", type: 'POST',
                 data: { content: $('input.reply_val', this.el).val() },
-                success: this.initrep });
+                success: this.initrep
+            });
             $('input.reply_val', this.el).val('');
         },
         resub: function () {
@@ -156,16 +162,20 @@
         },
         fav: function () {
             $.ajax({ url: window.urlprefix + '/weibo/' + this.model.get('id') + '/favorite', type: 'POST', msg: this,
-                success: function () { 
+                success: function () {
                     $('a.fav', this.msg.el).addClass('hide');
-                    $('a.unfav', this.msg.el).removeClass('hide');} });
+                    $('a.unfav', this.msg.el).removeClass('hide');
+                }
+            });
         },
         unfav: function () {
             $.ajax({ url: window.urlprefix + '/weibo/' + this.model.get('id') + '/favorite', type: 'POST', msg: this,
                 data: { _method: 'delete' },
-                success: function () { 
+                success: function () {
                     $('.unfav', this.msg.el).addClass('hide');
-                    $('.fav', this.msg.el).removeClass('hide');} });
+                    $('.fav', this.msg.el).removeClass('hide');
+                }
+            });
         },
         weiboimg: function () {
             $('img.weiboImg', this.el).hide();
