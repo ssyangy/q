@@ -78,10 +78,11 @@
 	</li>
 </ul>
 </div>
-<div class="search"><input class="search_inp mttext_val"
-	type="text" name="name" value="搜索圈子、信息" /> <input type="submit"
-	class="search_btn" title="搜索" value="" /></div>
-
+<div class="search">
+<form action="${urlPrefix}/search/weibo">
+	<input class="search_inp mttext_val"type="text" name="name" value="搜索圈子、信息" /> 
+	<input type="submit" class="search_btn" title="搜索" value="" /></div>
+</form>
 </div>
 </div>
 
