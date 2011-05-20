@@ -12,7 +12,8 @@
         <table class='qform'>
 			<tr>
 				<td align="right">忘记密码：</td>
-				<td><input name="email" type='text' class='mttext' size='23' value="填写注册邮箱或者用户名"></td>
+				<td><input name="email" type='text' class='mttext' size='23' onblur="if(this.value==''){this.value='填写注册邮箱或者用户名'};" onfocus="if(this.value=='填写注册邮箱或者用户名') this.value='';" value="填写注册邮箱或者用户名"/>
+				</td>
 			</tr>
 			<tr>
 				<td></td>
