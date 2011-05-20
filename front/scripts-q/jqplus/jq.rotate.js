@@ -1,5 +1,5 @@
 define(function (require, exports, module) {
-    return function (jQuery) {
+    return function ($) {
 
     // VERSION: 1.8 LAST UPDATE: 9.03.2011
     /* 
@@ -17,7 +17,7 @@ define(function (require, exports, module) {
         // After compresion replace it back to var IE = 'v' == '\v'
         var IE = eval('"v"=="\v"');
 
-        jQuery.fn.extend({
+        $.fn.extend({
             ImageRotate: function (parameters) {
                 // If this element is already a Wilq32.PhotoEffect object, skip creation
                 if (this.Wilq32 && this.Wilq32.PhotoEffect) return;
@@ -72,7 +72,7 @@ define(function (require, exports, module) {
                     } else {
                         var self = this;
                         // TODO: Remove jQuery dependency
-                        jQuery(this._img).bind("load", function () {
+                        $(this._img).bind("load", function () {
                             self._Loader(parameters);
                         });
                     }
@@ -109,13 +109,13 @@ define(function (require, exports, module) {
                         var oldEvents = this._parameters.bind;
                         for (var a in oldEvents) if (oldEvents.hasOwnProperty(a))
                         // TODO: Remove jQuery dependency
-                            jQuery(this._eventObj).unbind(a, oldEvents[a]);
+                            $(this._eventObj).unbind(a, oldEvents[a]);
                     }
 
                     this._parameters.bind = events;
                     for (var a in events) if (events.hasOwnProperty(a))
                     // TODO: Remove jQuery dependency
-                        jQuery(this._eventObj).bind(a, events[a]);
+                        $(this._eventObj).bind(a, events[a]);
                 }
             },
 
