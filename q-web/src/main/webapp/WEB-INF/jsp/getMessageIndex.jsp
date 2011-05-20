@@ -3,8 +3,15 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="私信" />
 </jsp:include>
+<<<<<<< HEAD
 <link href="${staticUrlPrefix}/content-q/slider.css" rel="stylesheet" type="text/css" />   
 <style type="text/css">
+=======
+<style>
+#slidbox{width:560px;}
+<style type="text/css">
+.main-wrap{padding-right:20px;}
+>>>>>>> cfa822d0126f523926da258d1b1a86782dc063fe
 .msgbox{border:1px solid #ddd;}
 .msgmem{background-color:#FEF2E7;position:relative;padding:10px;}
 .msgmem p{line-height:24px;}
@@ -13,6 +20,11 @@
 .msgrepbox .mttextar{width:99%;height:40px;}
 .repactbox{text-align:right;}
 </style>
+<<<<<<< HEAD
+=======
+</style>
+<link href='${staticUrlPrefix}/content-q/slider.css' rel='stylesheet' type='text/css' />
+>>>>>>> cfa822d0126f523926da258d1b1a86782dc063fe
 <script type="text/javascript">
     seajs.use('qcomcn.js', function (q) {
         var $ = q.jq;
@@ -62,19 +74,19 @@
 	            	var nt = $('a.mrnext',sld2); nt.hide(); if (j.hasNext) nt.show();	                
 	            }
 	            $('li.msgli',sldroot).live('click',function(){
-					window.msgid = parseInt($(this).attr('stream_id'));
-					window.msgmem = parseInt($(this).data('members'));					
-					$.ajax({ url: "${urlPrefix}/message/"+window.msgid+"/reply", msg:$(this)
+					window.msgid = $(this).attr('stream_id');
+					window.msgmem = $(this).data('members');					
+					$.ajax({ url: "${urlPrefix}/message/"+window.msgid+"/reply", msg:$(this),
 					    data: {size:10, startid:'999999999999999999'},
 					   	success: function(j){
 					   		$('#slider').animate({left: -560}, { duration: 500, easing: "swing" });
-					   		partners.empty();
+					   		partners.empty();	
 					   		mems.empty();
 					   		$(window.msgmem).each(function(){
 					   			partners.append("<a class='lk' href='${urlPrefix}/people/"+this.id+"'>"+this.screenName+"</a>");
 					   			mems.append("<img src='"+this.avatarPath+"-24' alt='ato' />");
 					   		});
-					   		msgli_ajsucc(j);
+					   		if(j.replies) msgli_ajsucc(j);
 					    }
 					});
 				});
@@ -89,7 +101,26 @@
 					    data: {size:10, startid: parseInt($('li',sld2ul).fast().data('reply_id'))},
 					   	success: msgli_ajsucc
 					});
-				});	
+				});
+				
+				$('#btnrep').click(function(){
+					$.ajax({ url: "${urlPrefix}/message/"+window.msgid+"/reply", type:"POST",
+					    data: {content: $("#tboxrep").val(),replymessageid:$('#replaysource').val() },
+					   	success: function(m){
+					   		if (m != null && !m.id) return;
+							$.ajax({ url: "${urlPrefix}/message/"+window.msgid+"/reply",
+							    data: {size:10, startid:'999999999999999999'},
+							   	success: msgli_ajsucc
+							});
+							$("#tboxrep").val("");
+					   	}
+					});
+				});
+				$('a.mrrep').live("click",function(){
+					var stream = $(this).closest('li');
+					$('#replaysource').val(stream.attr("reply_id"));
+					$("#tboxrep").val("回复："+$('a.scn',stream).text()+" ").focus();
+				});
         	});
         });
     });
@@ -113,19 +144,22 @@
 	                        {{#lastReply}}<p>{{text}}</p>{{/lastReply}}
 	                    </li>
 				</script>
-				<div id="sldroot">
+				<div id="sldroot" class="sldlist">
 					<ul class="sldlist"></ul>
 					<div class="pagger">
-					<a class="lk mr10 prev">上一页</a>
-					<a class="lk next">下一页</a>
+					<a class="lk mr10 prev hide">上一页</a>
+					<a class="lk next hide">下一页</a>
 					</div>	
 				</div>
                 <script type="text/html" id="msgitem">
                     <li reply_id='{{id}}'>
-						{{sender}}
+						{{#sender}}
                         <img src="{{avatarPath-48}}" alt="avatar" class="sldimg" />
-                        <p class='rel'>{{screenName}}{{/sender}}<span class="time">{{screenTime}}</span></p>
-                        <p>{{text}}</p>
+                        <p class='rel'><a class="lk scn">{{screenName}}</a>
+						{{/sender}}
+							<span class="time">{{screenTime}}</span>
+						</p>
+                        <p class="rel">{{text}}<span class="act"><a class="mrrep lk">回复</a></span></p>
                     </li>
                 </script>
                 <div id='sld2'>
@@ -135,14 +169,21 @@
 						<a class="memdel btn">删除</a>
 					</div>
 					<div class="msgrepbox">
-						<textarea class='mttextar' style=""></textarea>
-						<div class='repactbox'><a class="memrep btn">回复</a></div>
+						<textarea id="tboxrep" class='mttextar' style=""></textarea>
+						<input type="hidden" id="replaysource"/>
+						<div class='repactbox'><a id="btnrep" class="btn">回复</a></div>
 					</div>
 					<ul class="sldlist"></ul>
 					<div class="pagger">
+<<<<<<< HEAD
 					{{#hasPrev}}<a class="lk mr10 mrprev">上一页</a>{{/hasPrev}}
 					{{#hasNext}}<a class="lk mrnext">下一页</a>{{/hasNext}}
 					</div>
+=======
+					<a class="lk mr10 mrprev hide">上一页</a>
+					<a class="lk mrnext hide">下一页</a>
+					</div>	
+>>>>>>> cfa822d0126f523926da258d1b1a86782dc063fe
                 </div>
             </div>
         </div>

@@ -31,4 +31,10 @@ public interface NotifyService {
 	 */
 	void notifyMessageReply(MessageReply reply, Collection<Long> receiverIds);
 
+	/**
+	 * @param groupId
+	 * @param weibo
+	 */
+	void notifyGroupWeibo(long groupId, Weibo weibo);
+
 }

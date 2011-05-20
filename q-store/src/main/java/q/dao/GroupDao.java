@@ -13,6 +13,7 @@ import q.dao.page.PeopleJoinGroupPage;
 import q.domain.Group;
 import q.domain.GroupJoinCategory;
 import q.domain.PeopleJoinGroup;
+import q.domain.Status;
 
 /**
  * @author Zhehao
@@ -114,7 +115,7 @@ public interface GroupDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	List<Long> getJoinPeopleIdsByJoinPage(PeopleJoinGroupPage page) throws SQLException;
+	List<PeopleJoinGroup> selectPeopleJoinGroupsByPage(PeopleJoinGroupPage page) throws SQLException;
 
 
 	/**
@@ -147,7 +148,7 @@ public interface GroupDao {
 	/**
 	 * @return
 	 */
-	List<GroupJoinCategory> getGroupJoinCategoriesByGroupId(long groupId) throws SQLException;
+	List<GroupJoinCategory> getGroupJoinCategoriesByGroupIdAndStatus(long groupId, Status status) throws SQLException;
 
 	/**
 	 * @param groupId
@@ -159,5 +160,12 @@ public interface GroupDao {
 	 * @param group
 	 */
 	int  updateGroup(Group group) throws SQLException;
+
+	/**
+	 * @param joinId
+	 * @param newStatus
+	 * @param oldStatus
+	 */
+	int updateGroupJoinCategoryStatus(long joinId, int newStatus, int oldStatus) throws SQLException;
 
 }

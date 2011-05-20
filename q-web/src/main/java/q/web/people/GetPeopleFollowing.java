@@ -23,6 +23,7 @@ import q.util.CollectionKit;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.RequestParameterInvalidException;
 
 /**
  * @author seanlinwang
@@ -86,9 +87,6 @@ public class GetPeopleFollowing extends Resource {
 			if (startId > 0) {
 				page.setStartId(startId);
 			}
-			if (startId > 0) {
-				page.setStartId(startId);
-			}
 			List<PeopleRelation> relations = this.peopleDao.getPeopleRelationsByPage(page);
 			Map<String, Object> api = new HashMap<String, Object>();
 			if (CollectionKit.isNotEmpty(relations)) {
@@ -111,19 +109,24 @@ public class GetPeopleFollowing extends Resource {
 					relations = Arrays.asList(array);
 				}
 				List<Long> followingIds = new ArrayList<Long>();
-				Map<Long, PeopleRelation> peopleId2RelationMap = new HashMap<Long, PeopleRelation>();
 				for (PeopleRelation relation : relations) {
 					followingIds.add(relation.getToPeopleId());
-					peopleId2RelationMap.put(relation.getToPeopleId(), relation);
 				}
 				List<People> peoples = this.peopleDao.getPeoplesByIds(followingIds);
 				if (loginPeopleId > 0) {
 					DaoHelper.injectPeoplesWithVisitorRelation(peopleDao, peoples, loginPeopleId);
 				}
+				List<People> orderPeoples = new ArrayList<People>(peoples.size());
+				Map<Long, People> peopleId2PeopleMap = new HashMap<Long, People>();
 				for (People people : peoples) {
-					people.setRelation(peopleId2RelationMap.get(people.getId()));
+					peopleId2PeopleMap.put(people.getId(), people); // init people map
 				}
-				api.put("peoples", peoples);
+				for (PeopleRelation relation : relations) {
+					People people = peopleId2PeopleMap.get(relation.getToPeopleId());
+					relation.setPeople(people);// set people relation
+					orderPeoples.add(people);
+				}
+				api.put("peoples", orderPeoples);
 			}
 			api.put("hasPrev", hasPrev);
 			api.put("hasNext", hasNext);
@@ -138,6 +141,10 @@ public class GetPeopleFollowing extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+		long fromPeopleId = context.getResourceIdLong();
+		if(IdCreator.isNotValidId(fromPeopleId) ){
+			throw new RequestParameterInvalidException("fromPeopleId:invalid");
+		}
 	}
 
 }

@@ -82,10 +82,10 @@ public class GetMessageReply extends Resource {
 			if (CollectionKit.isNotEmpty(replies)) {
 				DaoHelper.injectMessageRepliesWithSenderAndReceivers(peopleDao, replies);
 				api.put("replies", replies);
-				api.put("hasPrev", hasPrev);
-				api.put("hasNext", hasNext);
 			}
 		}
+		api.put("hasPrev", hasPrev);
+		api.put("hasNext", hasNext);
 		context.setModel("api", api);
 	}
 

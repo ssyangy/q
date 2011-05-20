@@ -94,7 +94,7 @@ public class DefaultWeiboService implements WeiboService {
 	public void addReplyRetweet(Weibo retweet, long groupId) throws Exception {
 		this.addWeiboCommon(retweet, groupId);
 	}
-	
+
 	private void addWeiboCommon(Weibo weibo, long groupId) throws Exception {
 		weibo.setContent(this.shortUrlService.urlFilter(weibo.getContent()));
 		this.weiboDao.addWeibo(weibo);
@@ -102,9 +102,11 @@ public class DefaultWeiboService implements WeiboService {
 		if (IdCreator.isValidIds(groupId)) {
 			this.weiboDao.addWeiboJoinGroup(weibo.getId(), weibo.getSenderId(), groupId);
 		}
-		// FIXME will remove here, sean
-		this.searchService.updateWeibo(weibo);
+		this.searchService.updateWeibo(weibo); // FIXME will remove here, sean
 		this.notifyService.notifyWeibo(weibo);
+		if (IdCreator.isValidIds(groupId)) {
+			this.notifyService.notifyGroupWeibo(groupId, weibo);
+		}
 
 	}
 

@@ -148,4 +148,13 @@ public class PeopleRelation implements Serializable {
 		return "PeopleRelation [id=" + id + ", fromPeopleId=" + fromPeopleId + ", fromPeopleRealName=" + fromPeopleRealName + ", toPeopleId=" + toPeopleId + ", toPeopleRealName=" + toPeopleRealName + ", alias=" + alias + ", status=" + status + ", created=" + created + ", modified=" + modified + "]";
 	}
 
+	/**
+	 * @param people
+	 */
+	public void setPeople(People people) {
+		if(people != null) {
+			people.setRelation(this);
+		}
+	}
+
 }

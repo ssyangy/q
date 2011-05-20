@@ -146,7 +146,11 @@ public class PeopleDaoImplTest {
 	@Test
 	public void testGetPeopleRelationsByPage() throws SQLException {
 		PeopleRelationPage page = new PeopleRelationPage();
-		page.setToPeopleId(1L);
+		page.setFromPeopleId(0L);
+		page.setStatus(PeopleRelationStatus.FOLLOWING);
+		page.setDesc(true);
+		page.setSize(5);
+		page.setStartId(9999999L);
 		peopleDao.getPeopleRelationsByPage(page);
 	}
 
@@ -292,5 +296,7 @@ public class PeopleDaoImplTest {
 	public void testUpdatePasswordByPeopleId() throws SQLException {
 		peopleDao.updatePasswordByPeopleId(1L, "xxx");
 	}
+
+
 
 }

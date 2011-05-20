@@ -65,6 +65,7 @@ public class GetReplySended extends Resource {
 		}
 		page.setSenderId(loginPeopleId);
 		List<WeiboReply> replies = weiboDao.getWeiboRepliesByPage(page);
+		Map<String, Object> api = new HashMap<String, Object>();
 		if (CollectionKit.isNotEmpty(replies)) {
 			if (replies.size() == fetchSize) {
 				if (type == asc) { // more than one previous page
@@ -85,12 +86,8 @@ public class GetReplySended extends Resource {
 				replies = Arrays.asList(array);
 			}
 			DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, replies, loginPeopleId);
-		}
-		Map<String, Object> api = new HashMap<String, Object>();
-		if (CollectionKit.isNotEmpty(replies)) {
 			api.put("replies", replies);
 		}
-
 		api.put("hasPrev", hasPrev);
 		api.put("hasNext", hasNext);
 		context.setModel("api", api);

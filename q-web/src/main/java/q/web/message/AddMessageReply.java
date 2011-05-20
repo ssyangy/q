@@ -62,12 +62,14 @@ public class AddMessageReply extends Resource {
 		messageReply.setSenderId(loginId);
 
 		long replyMessageId = context.getIdLong("replyMessageId");
-		MessageReply replied = this.messageDao.getMessageReplyById(replyMessageId);
-		if (replied == null) {
-			throw new RequestParameterInvalidException("reply:invalid");
+		if (replyMessageId > 0) {
+			MessageReply replied = this.messageDao.getMessageReplyById(replyMessageId);
+			if (replied == null) {
+				throw new RequestParameterInvalidException("reply:invalid");
+			}
+			messageReply.setReplyMessageId(replied.getId());
+			messageReply.setReplySenderId(replied.getSenderId());
 		}
-		messageReply.setReplyMessageId(replied.getId());
-		messageReply.setReplySenderId(replied.getSenderId());
 
 		long quoteMessageId = context.getResourceIdLong();
 		MessageJoinPeople messageJoinPeople = messageDao.getMessageJoinPeopleByMessageIdReceiverIdStatus(quoteMessageId, loginId, Status.COMMON.getValue());
@@ -86,7 +88,8 @@ public class AddMessageReply extends Resource {
 		// connect message reply with peoples
 		MessageJoinPeoplePage joinPage = new MessageJoinPeoplePage();
 		joinPage.setMessageId(messageReply.getQuoteMessageId());
-		List<MessageJoinPeople> receivers = messageDao.getMessageJoinPeoplesByPage(joinPage); // message receivers
+		List<MessageJoinPeople> receivers = messageDao.getMessageJoinPeoplesByPage(joinPage); // message
+																								// receivers
 		List<MessageReplyJoinPeople> replyJoins = new ArrayList<MessageReplyJoinPeople>(receivers.size());
 		List<Long> receiverIds = new ArrayList<Long>(receivers.size());
 		for (MessageJoinPeople mjp : receivers) {
@@ -102,7 +105,9 @@ public class AddMessageReply extends Resource {
 		}
 		messageDao.addMessageReplyJoinPeoples(replyJoins);
 		messageDao.incrAllMessageReplyNumberByMessageId(messageReply.getQuoteMessageId());
-		notifyService.notifyMessageReply(messageReply, receiverIds);// notify new messages
+		notifyService.notifyMessageReply(messageReply, receiverIds);// notify
+																	// new
+																	// messages
 
 		context.setModel("MessageReply", messageReply);
 	}
@@ -118,8 +123,10 @@ public class AddMessageReply extends Resource {
 			throw new RequestParameterInvalidException("quote:invalid");
 		}
 		long replyMessageId = context.getIdLong("replyMessageId");
-		if (IdCreator.isNotValidId(replyMessageId)) {
-			throw new RequestParameterInvalidException("reply:invalid");
+		if (replyMessageId > 0) {
+			if (IdCreator.isNotValidId(replyMessageId)) {
+				throw new RequestParameterInvalidException("reply:invalid");
+			}
 		}
 	}
 

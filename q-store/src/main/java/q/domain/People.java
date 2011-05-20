@@ -66,6 +66,8 @@ public class People extends AbstractDomain implements Serializable {
 	private boolean following = false;
 	
 	private PeopleRelation relation;
+	
+	private PeopleJoinGroup joinGroup;
 
 	// =========================================
 
@@ -351,6 +353,20 @@ public class People extends AbstractDomain implements Serializable {
 	 */
 	public PeopleRelation getRelation() {
 		return relation;
+	}
+
+	/**
+	 * @param joinGroup the joinGroup to set
+	 */
+	public void setJoinGroup(PeopleJoinGroup joinGroup) {
+		this.joinGroup = joinGroup;
+	}
+
+	/**
+	 * @return the joinGroup
+	 */
+	public PeopleJoinGroup getJoinGroup() {
+		return joinGroup;
 	}
 
 }

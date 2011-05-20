@@ -157,7 +157,7 @@ public class MessageDaoImpl extends AbstractDaoImpl implements MessageDao {
 	}
 
 	@Override
-	public int deleteMessageReplyById(long replyId, long receiverId) throws SQLException {
+	public int deleteMessageReplyByIdAndReceiverId(long replyId, long receiverId) throws SQLException {
 		MessageReplyJoinPeople join = new MessageReplyJoinPeople();
 		join.setReceiverId(receiverId);
 		join.setReplyId(replyId);

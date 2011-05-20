@@ -17,6 +17,7 @@ import q.dao.page.GroupPage;
 import q.dao.page.GroupRecommendPage;
 import q.dao.page.PeopleJoinGroupPage;
 import q.domain.Group;
+import q.domain.Status;
 
 /**
  * @author seanlinwang at gmail dot com
@@ -117,14 +118,18 @@ public class GroupDaoImplTest {
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getJoinPeopleIdsByJoinPage(q.dao.page.PeopleJoinGroupPage)}.
+	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#selectPeopleJoinGroupsByPage(q.dao.page.PeopleJoinGroupPage)}.
 	 * 
 	 * @throws SQLException
 	 */
 	@Test
-	public void testGetJoinPeopleIdsByJoinPage() throws SQLException {
+	public void testSelectPeopleJoinGroupsByPage() throws SQLException {
 		PeopleJoinGroupPage page = new PeopleJoinGroupPage();
-		groupDao.getJoinPeopleIdsByJoinPage(page);
+		page.setDesc(false);
+		page.setGroupId(1L);
+		page.setStartId(1000L);
+		page.setSize(10);
+		groupDao.selectPeopleJoinGroupsByPage(page);
 	}
 
 	/**
@@ -170,7 +175,8 @@ public class GroupDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getJoinPeopleIdsByHotAndGroupId(long, int, int)}.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	@Test
 	public void testGetJoinPeopleIdsByHotAndGroupId() throws SQLException {
@@ -179,7 +185,8 @@ public class GroupDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getJoinPeopleIdsByHotAndGroupIds(java.util.List, int, int)}.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	@Test
 	public void testGetJoinPeopleIdsByHotAndGroupIds() throws SQLException {
@@ -188,7 +195,8 @@ public class GroupDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#unjoinPeopleJoinGroup(long, long)}.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	@Test
 	public void testUnjoinPeopleJoinGroup() throws SQLException {
@@ -197,7 +205,8 @@ public class GroupDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#rejoinPeopleJoinGroup(long, long)}.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	@Test
 	public void testRejoinPeopleJoinGroup() throws SQLException {
@@ -206,17 +215,18 @@ public class GroupDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getAllGroupsByCatId(long)}.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	@Test
 	public void testGetAllGroupsByCatId() throws SQLException {
 		groupDao.getAllGroupsByCatId(0L);
 	}
 
-
 	/**
 	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getExsitGroupIdsByIds(java.util.List)}.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	@Test
 	public void testGetExsitGroupIdsByIds() throws SQLException {
@@ -225,7 +235,8 @@ public class GroupDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getGroupsByIds(java.util.List)}.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	@Test
 	public void testGetGroupsByIds() throws SQLException {
@@ -234,7 +245,8 @@ public class GroupDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getGroupsByLocation(q.domain.Group)}.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	@Test
 	public void testGetGroupsByLocation() throws SQLException {
@@ -246,7 +258,8 @@ public class GroupDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getNewGroups(int)}.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	@Test
 	public void testGetNewGroups() throws SQLException {
@@ -255,7 +268,8 @@ public class GroupDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getHotGroups(int)}.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	@Test
 	public void testGetHotGroups() throws SQLException {
@@ -264,7 +278,8 @@ public class GroupDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getGroupIdNameMapByIds(java.util.Set)}.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	@Test
 	public void testGetGroupIdNameMapByIds() throws SQLException {
@@ -273,7 +288,8 @@ public class GroupDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getAllPromotedGroups(java.util.List)}.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	@Test
 	public void testGetAllPromotedGroups() throws SQLException {
@@ -282,7 +298,8 @@ public class GroupDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getGroupsByPage(q.dao.page.GroupPage)}.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	@Test
 	public void testGetGroupsByPage() throws SQLException {
@@ -293,7 +310,8 @@ public class GroupDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getRecommendGroupsByPage(q.dao.page.GroupRecommendPage)}.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	@Test
 	public void testGetRecommendGroupsByPage() throws SQLException {
@@ -303,17 +321,29 @@ public class GroupDaoImplTest {
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getGroupJoinCategoriesByGroupId(long)}.
-	 * @throws SQLException 
+	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getGroupJoinCategoriesByGroupIdAndStatus(long, Status)}.
+	 * 
+	 * @throws SQLException
 	 */
 	@Test
-	public void testGetGroupJoinCategoriesByGroupId() throws SQLException {
-		groupDao.getGroupJoinCategoriesByGroupId(1L);
+	public void testGetGroupJoinCategoriesByGroupIdAndStatusWithCommonStatus() throws SQLException {
+		groupDao.getGroupJoinCategoriesByGroupIdAndStatus(0L, Status.COMMON);
+	}
+
+	/**
+	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getGroupJoinCategoriesByGroupIdAndStatus(long, Status)}.
+	 * 
+	 * @throws SQLException
+	 */
+	@Test
+	public void testGetGroupJoinCategoriesByGroupIdAndStatusWithNullStatus() throws SQLException {
+		groupDao.getGroupJoinCategoriesByGroupIdAndStatus(0L, null);
 	}
 
 	/**
 	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#deleteGroupJoinCategoriesByjoinIdsAndGroupId(long, java.util.List)}.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	@Test
 	public void testDeleteGroupJoinCategoriesByjoinIdsAndGroupId() throws SQLException {
@@ -322,13 +352,24 @@ public class GroupDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#updateGroup(q.domain.Group)}.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	@Test
 	public void testUpdateGroup() throws SQLException {
 		Group group = new Group();
 		group.setName("xxx");
 		groupDao.updateGroup(group);
+	}
+
+	/**
+	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#updateGroupJoinCategoryStatus(long, int, int)}.
+	 * 
+	 * @throws SQLException
+	 */
+	@Test
+	public void testupdateGroupJoinCategoryStatus() throws SQLException {
+		groupDao.updateGroupJoinCategoryStatus(1L, Status.COMMON.getValue(), Status.DELETE.getValue());
 	}
 
 }

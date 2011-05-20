@@ -8,7 +8,7 @@
 		<property name="url">
 			<value>
 			<![CDATA[
-			jdbc:mysql://192.168.1.100/q?useUnicode=true&characterEncoding=utf8
+			jdbc:mysql://192.168.1.200/qtest?useUnicode=true&characterEncoding=utf8
 			]]>
 			</value>
 		</property>

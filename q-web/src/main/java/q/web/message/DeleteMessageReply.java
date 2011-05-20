@@ -39,7 +39,7 @@ public class DeleteMessageReply extends Resource {
 		if(reply == null || reply.getSenderId() != loginId) {
 			throw new RequestParameterInvalidException("privilege:invalid");
 		}
-		int rowEffected = this.messageDao.deleteMessageReplyById(replyId, loginId);
+		int rowEffected = this.messageDao.deleteMessageReplyByIdAndReceiverId(replyId, loginId);
 		if (rowEffected > 0) {
 			if (rowEffected > 1) {
 				log.error("delete row:", rowEffected);

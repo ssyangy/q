@@ -52,6 +52,15 @@
 										</struct>
 									</type>
 								</member>
+								<member name="joinGroup" apiName="joinGroup">
+									<type>
+										<struct>
+											<member name="id" apiName="id" apiType="string" />
+											<member name="time" apiName="screenTime" apiType="string" />
+											<member name="createdTime" apiName="createdTime" apiType="string" />
+										</struct>
+									</type>
+								</member>
 							</struct>
 						</type>
 					</array>

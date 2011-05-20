@@ -8,23 +8,12 @@
     seajs.use('qcomcn.js', function (q) {
         var $ = q.jq;
         seajs.use('jqplus/jq.tokeninput.js');
-     
         var ffs = ${peoplesHintJson};
+        var tips = "输入好友姓名 ... ";
+        
         $(function () {
             $("#members").buttonset();
-            $("#autocom").tokenInput(ffs, { hintText: "输入好友姓名 ... ", onAdd: tokeAdd, onDelete: tokeDel });
-            $('#members').click(function (e) {
-                var tarname = $(e.target).get(0).tagName;
-                if (tarname == 'SPAN') {
-                    var pre = [];
-                    $("label.ui-state-active", this).each(function () {
-                        var ck = $(this).prev("input[type='checkbox']");
-                        pre.push({ id: ck.val(), name: ck.attr('name') });
-                    });
-                    $('ul.token-input-list').remove();
-                    $("#autocom").tokenInput(ffs, { hintText: "输入好友姓名 ... ", prePopulate: pre, onAdd: tokeAdd, onDelete: tokeDel });
-                }
-            });
+            
             var tokeAdd = function (item) {
                 var ck = $("input[type='checkbox'][value='" + item.id + "']");
                 if (!ck.is(':checked')) {
@@ -36,7 +25,22 @@
                 if (ck.is(':checked')) {
                     $("label[for='" + ck.attr('id') + "']").click();
                 }
-            }            
+            }
+            
+            $("#autocom").tokenInput(ffs, { hintText: tips, onAdd: tokeAdd, onDelete: tokeDel });
+            $('#members').click(function (e) {
+                var tarname = $(e.target).get(0).tagName;
+                if (tarname == 'SPAN') {
+                    var pre = [];
+                    $("label.ui-state-active", this).each(function () {
+                        var ck = $(this).prev("input[type='checkbox']");
+                        pre.push({ id: ck.val(), name: ck.attr('name') });
+                    });
+                    $('ul.token-input-list').remove();
+                    $("#autocom").tokenInput(ffs, { hintText: tips, prePopulate: pre, onAdd: tokeAdd, onDelete: tokeDel });
+                }
+            });
+
         });
 	});
 </script>

@@ -113,7 +113,7 @@ public class DefaultResourceContext implements ResourceContext {
 		if (id <= 0) {
 			id = defaultValue;
 		}
-		return defaultValue;
+		return id;
 	}
 
 	@Override

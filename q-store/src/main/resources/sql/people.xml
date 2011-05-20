@@ -253,28 +253,42 @@
 		select
 		<include refid="relation.columns" />
 		from people_relation
-		<dynamic prepend="where">
-			<isNotNull prepend="and" property="status">
+		<dynamic prepend="where ">
+			<isNotNull prepend="and " property="status">
 				status = #status,handler=q.dao.ibatis.PeopleRelationStatusHandler#
 			</isNotNull>
-			<isNotNull prepend="and" property="fromPeopleId">
+			<isNotNull prepend="and " property="fromPeopleId">
 				from_people_id = #fromPeopleId#
 			</isNotNull>
-			<isNotNull prepend="and" property="toPeopleId">
+			<isNotNull prepend="and " property="toPeopleId">
 				to_people_id = #toPeopleId#
 			</isNotNull>
-			<isNotNull prepend="and" property="toPeopleIds">
+			<isNotNull prepend="and " property="toPeopleIds">
 				to_people_id in
 				<iterate property="toPeopleIds" open="(" close=")" conjunction=",">
 					#toPeopleIds[]#
         		</iterate>
 			</isNotNull>
-			<isNotNull prepend="and" property="startId">
-				id &lt; #startId#
+			<isNotNull prepend = "and " property="startId">
+				<isEqual property="desc" compareValue="true" >
+					id &lt; #startId#
+				</isEqual>
+				<isEqual property="desc" compareValue="false" >
+					id &gt; #startId#
+				</isEqual>
 			</isNotNull>
 		</dynamic>
+		order by id
+		<isNotNull property="desc"  prepend=" ">
+			<isEqual property="desc" compareValue="true" >
+				desc
+			</isEqual>
+			<isEqual property="desc" compareValue="false">
+				asc
+			</isEqual>
+		</isNotNull>
 		<isNotNull property="size">
-				order by id desc limit #startIndex#, #size#
+			limit #startIndex#, #size#
 		</isNotNull>
 	</select>
 
