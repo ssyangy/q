@@ -9,16 +9,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="${staticUrlPrefix}/content-q/qcomcn.css" rel="stylesheet"
 	type="text/css" />
-<script src="${staticUrlPrefix}/scripts-q/sea.js" type="text/javascript"></script>
+<script src="${staticUrlPrefix}/scripts-q/sea.js" data-main="qcomcn.js"></script>
 <script type="text/javascript">
 	window.loginCookie = '${loginCookie.peopleId}';
 	window.urlprefix = '${urlPrefix}';
-	seajs.use('qcomcn.js', function(q) {
-		var $ = q.jq;
-		$(function() {
-			q.Init();
-		});
-	});
 </script>
 <jsp:include page="js-common.jsp" />
 </head>

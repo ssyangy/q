@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-    seajs.use('qcomcn.js', function (q) {
+    seajs.use(['qcomcn.js','app/weibo.js','underscore.js'], function (q, w, _) {
     	var $ = q.jq;
-    	var ajlock = true;
-        seajs.use(['app/weibo.js','underscore.js'], function (w, _) {
+        $(function () {
+            w.init(q);
+            
+        	var ajlock = true;
             var ajaxweibo = function(size,startid){
                 $.ajax({
                     send: function(){ ajlock = false; },
@@ -20,20 +22,17 @@
                     },
                     complete: function(){ ajlock = true; }
                 });
-            }
-            $(function () {
-                w.preui();
-                ajaxweibo(8,'999999999999999999');
-    	        var o = window.body[0];
-                var updateweibo = function(){
-                	if (o.scrollTop + window.gWinHeight < o.scrollHeight) return;
-                   	if (!ajlock) return;
-                   	//alert("b"+w.weibos.oldlast().get('id'));
-                    ajaxweibo(1,w.weibos.oldlast().get('id'));
-				}
-                var throttled = _.throttle(updateweibo, 300);
-                window.body.scroll(updateweibo);
-            });
+            }            
+            ajaxweibo(8,'999999999999999999');
+	        var o = window.body[0];
+            var updateweibo = function(){
+            	if (o.scrollTop + window.gWinHeight < o.scrollHeight) return;
+               	if (!ajlock) return;
+               	//alert("b"+w.weibos.oldlast().get('id'));
+                ajaxweibo(1,w.weibos.oldlast().get('id'));
+}
+            var throttled = _.throttle(updateweibo, 300);
+            window.body.scroll(updateweibo);
         });
     });
 </script>
