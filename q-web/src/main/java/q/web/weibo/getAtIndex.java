@@ -42,28 +42,23 @@ public class getAtIndex extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		String username = context.getLoginCookie().getUsername();
-		List<Long> bs = searchService.searchWeibo("@" + username);
-		int size = context.getInt("size", 10);
-		long startId = context.getIdLong("startId", IdCreator.MAX_ID);
-		int type = context.getInt("type", 0);
-		int asc = 1;
-		FavoritePage page = new FavoritePage();
-		if (type == asc) { // 1 indicate asc
-			page.setDesc(false);
-		} else {
-			page.setDesc(true);
+		if (context.isApiRequest()) {
+			String username = context.getLoginCookie().getUsername();
+			List<Long> bs = searchService.searchWeibo("@" + username);
+			int size = context.getInt("size", 10);
+			long startId = context.getIdLong("startId", IdCreator.MAX_ID);
+			int type = context.getInt("type", 0);
+			boolean hasPrev = false;
+			boolean hasNext = false;
+			Map<String, Object> api = new HashMap<String, Object>();
+			if (CollectionKit.isNotEmpty(bs)) {
+				List<Weibo> weibos = weiboDao.getWeibosByIds(bs, true);
+				api.put("weibos", weibos);
+			}
+			api.put("hasPrev", hasPrev);
+			api.put("hasNext", hasNext);
+			context.setModel("api", api);
 		}
-		boolean hasPrev = false;
-		boolean hasNext = false;
-		Map<String, Object> api = new HashMap<String, Object>();
-		if (CollectionKit.isNotEmpty(bs)) {
-			List<Weibo> weibos = weiboDao.getWeibosByIds(bs, true);
-			api.put("weibos", weibos);
-		}
-		api.put("hasPrev", hasPrev);
-		api.put("hasNext", hasNext);
-		context.setModel("api", api);
 	}
 
 	/*
