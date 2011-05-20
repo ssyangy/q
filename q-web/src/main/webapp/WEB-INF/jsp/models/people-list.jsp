@@ -52,7 +52,7 @@
 			var dia_ret = $("#dia_ret");
 			$("a.btnat").live('click', function () {
 				var stream = $(this).closest('li');
-				$("textarea[name='content']",dia_ret).val('').val('//@'+$('a.dispname',stream).text().trim());
+				$("textarea[name='content']",dia_ret).val('').val('//@'+$('a.username',stream).text().trim());
 				dia_ret.dialog("open");
 			});
 	        $('input.donet', dia_ret).live("click",function () {
@@ -69,7 +69,7 @@
 			var dia_letter = $("#dia_letter");
 			$("a.btnletter").live('click', function () {
 				var stream = $(this).closest('li');
-				$('div.wpeople',dia_letter).empty().html('发私信给：'+ $('a.dispname',stream).text().trim());
+				$('div.wpeople',dia_letter).empty().html('发私信给：'+ $('a.username',stream).text().trim());
 				$("textarea[name='content']",dia_letter).val('');
 				$("#letter_url",dia_letter).val('${urlPrefix}/message?receiverId='+stream.attr('people_id'));
 				dia_letter.dialog("open");
@@ -91,10 +91,11 @@
 <script type="text/html" id="members">
     <li stream_id='{{# ${param['orderId']} }}{{ id }}{{/ ${param['orderId']} }}' people_id="{{id}}">
         <a href="${urlPrefix}/people/{{id}}"><img src="{{avatarPath}}-48" alt="{{screenName}}" class="sldimg" /></a>
-        <p><a class="lk dispname" href="${urlPrefix}/people/{{id}}">{{screenName}}</a></p>
+        <p><a class="lk" href="${urlPrefix}/people/{{id}}">{{screenName}}</a></p>
         <p>{{area.province}&nbsp;{{area.city}}</p>
         <p>{{ntro}}&nbsp;</p>
         <span class="act">
+			<span class='username hide'>{{username}}</span>
 			<a class="btna btnletter" href='javascript:void(0);'>私信</a>
 			<a class="btn btnat">&#64</a>
 			<a class="btn unwat {{^following}}hide_im{{/following}}">解除关注</a>
@@ -106,13 +107,13 @@
 <a class='lk mr10 mbprev hide'>上一页</a>
 <a class='lk mbnext hide'>下一页</a>
 
-<div id="dia_ret" class="ui_dialog" title="@">
+<div id="dia_ret" class="ui_dialog hide" title="@">
 	<textarea name="content" style="width:100%;height:100px;"></textarea>
 	<img src="${staticUrlPrefix}/content-q/images/ajaxload.gif" class="ajaxload" alt="ajaxload" />
 	<input type='hidden' class='donet' />
 	<input type='hidden' class='undonet' />
 </div>
-<div id="dia_letter" class="ui_dialog" title="私信">
+<div id="dia_letter" class="ui_dialog hide" title="私信">
 	<div class="wpeople mb10"></div>
 	<input id='letter_url' type='hidden'></input>
 	<textarea name="content" style="width:100%;height:100px;"></textarea>
