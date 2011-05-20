@@ -82,13 +82,13 @@
 				});
 				$('a.mrprev',sld2).live('click',function(){
 					$.ajax({ url: "${urlPrefix}/message/"+window.msgid+"/reply",
-					    data: {size:10, startid: parseInt($('li',sld2ul).last().data('reply_id')), type: 1},
+					    data: {size:10, startid: parseInt($('li',sld2ul).last().attr('reply_id')), type: 1},
 					   	success: msgli_ajsucc
 					});
 				});
 				$('a.mrnext',sld2).live('click',function(){
 					$.ajax({ url: "${urlPrefix}/message/"+window.msgid+"/reply",
-					    data: {size:10, startid: parseInt($('li',sld2ul).first().data('reply_id'))},
+					    data: {size:10, startid: parseInt($('li',sld2ul).first().attr('reply_id'))},
 					   	success: msgli_ajsucc
 					});
 				});

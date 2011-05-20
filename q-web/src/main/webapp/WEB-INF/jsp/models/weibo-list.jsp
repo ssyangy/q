@@ -122,7 +122,7 @@
 		</span>
 	</p>
 </script>
-<div id="dia_ret" class="ui_dialog" title="转发">
+<div id="dia_ret" class="ui_dialog hide" title="转发">
 	<div class="wpeople mb10"></div>
 	<div class="wsor mb10"></div>
 	<div class="wcontent mb10"></div>
