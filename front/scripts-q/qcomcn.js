@@ -46,7 +46,7 @@
             }
         });
 
-        $('.tw_txt', box).repurl();
+        $('.fixurl', box).repurl();
         if ($.support.opacity) {
             require('jqplus/jq.pngFix.js')($);
             $(".png", box).pngFix();
