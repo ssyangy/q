@@ -26,7 +26,7 @@ public class MailSender {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param mailInfo
 	 * @throws MessagingException
 	 */
@@ -60,7 +60,7 @@ public class MailSender {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param mailInfo
 	 * @throws MessagingException
 	 */
@@ -100,19 +100,19 @@ public class MailSender {
 
 		Transport.send(mailMessage);
 	}
-	
+
 	public static void main(String[] args) throws MessagingException {
 		MailInfo mailInfo = new MailInfo();
-		mailInfo.setMailServerHost("smtp.gmail.com");
-		mailInfo.setMailServerPort(465);
-		mailInfo.setValidate(true);
-		mailInfo.setSsl(true);
-		mailInfo.setUserName("qcomcn.noreply@gmail.com");
-		mailInfo.setPassword("qcomcnzhangjiangjifang");
-		mailInfo.setFromAddress("qcomcn.noreply@gmail.com");
-		mailInfo.setToAddress("xalinx@gmail.com");
+		mailInfo.setMailServerHost("smtp.yeah.net");
+		mailInfo.setMailServerPort(25);
+//		mailInfo.setValidate(true);
+//		mailInfo.setSsl(true);
+		mailInfo.setUserName("wwwqcomcn@yeah.net");
+		mailInfo.setPassword("qcomcn");
+		mailInfo.setFromAddress("wwwqcomcn@yeah.net");
+		mailInfo.setToAddress("wangjing4j@sina.com");
 		mailInfo.setSubject("测试");
-		mailInfo.setContent("来自iceball1@163.com的邮件,密码为123456<img id='authimg'  src='http://www.baidu.com/img/baidu_sylogo1.gif' />");
+		mailInfo.setContent("来自iceball1@163.com的邮件,密码为123456<img id='authimg'  src='http://www.163.com/img/baidu_sylogo1.gif' />");
 		// sms.sendTextMail(mailInfo);
 		MailSender.sendHtmlMail(mailInfo);
 	}

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.web.login;
 
@@ -25,7 +25,7 @@ public class GetPasswordReset extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		context.setModel("key", context.getResourceId());
+		context.setModel("key", context.getString("token"));
 	}
 
 	/* (non-Javadoc)
@@ -33,7 +33,7 @@ public class GetPasswordReset extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		String key = context.getResourceId();
+		String key = context.getString("token");
 		PasswordResetToken token = this.cacheService.getPasswordResetToken(key);
 		if(token == null) {
 			context.redirectServletPath("/password/reset/invalid");
