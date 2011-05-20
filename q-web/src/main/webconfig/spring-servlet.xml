@@ -130,6 +130,12 @@
 						</entry>
 						<entry>
 							<key>
+								<value>getAtIndex:api</value>
+							</key>
+							<value>/WEB-INF/json/weibo-list.xml</value>
+						</entry>						
+						<entry>
+							<key>
 								<value>getFavoriteIndex:api</value>
 							</key>
 							<value>/WEB-INF/json/weibo-list.xml</value>
@@ -235,7 +241,13 @@
 								<value>getGroupPeople:api</value>
 							</key>
 							<value>/WEB-INF/json/people-list.xml</value>
-						</entry>						
+						</entry>
+						<entry>
+							<key>
+								<value>getSearchPeople:api</value>
+							</key>
+							<value>/WEB-INF/json/people-list.xml</value>
+						</entry>												
 						<entry>
 							<key>
 								<value>getPeopleFull:people</value>
