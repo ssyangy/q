@@ -6,8 +6,10 @@
     var ich = {};
     var seed = {};
     var $ = {};
-    exports.init = function (q) {
-        $ = q.jq;
+    var q = {};
+    exports.init = function (qcomcn) {
+        q = qcomcn;
+        $ = qcomcn.jq;
         require('jqplus/jq.rotate.js')($);
         ich = require('ICanHaz');
 
