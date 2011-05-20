@@ -3,7 +3,16 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="私信" />
 </jsp:include>
-<link href="${staticUrlPrefix}/content-q/slider.css" rel="stylesheet" type="text/css" />
+<link href="${staticUrlPrefix}/content-q/slider.css" rel="stylesheet" type="text/css" />   
+<style type="text/css">
+.msgbox{border:1px solid #ddd;}
+.msgmem{background-color:#FEF2E7;position:relative;padding:10px;}
+.msgmem p{line-height:24px;}
+.memdel{position:absolute;top:10px;right:10px;_right:30px;}
+.msgrepbox{padding:10px;}
+.msgrepbox .mttextar{width:99%;height:40px;}
+.repactbox{text-align:right;}
+</style>
 <script type="text/javascript">
     seajs.use('qcomcn.js', function (q) {
         var $ = q.jq;
@@ -133,7 +142,7 @@
 					<div class="pagger">
 					{{#hasPrev}}<a class="lk mr10 mrprev">上一页</a>{{/hasPrev}}
 					{{#hasNext}}<a class="lk mrnext">下一页</a>{{/hasNext}}
-					</div>					
+					</div>
                 </div>
             </div>
         </div>
