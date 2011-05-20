@@ -12,6 +12,8 @@ import org.apache.commons.collections.CollectionUtils;
 
 import q.dao.DaoHelper;
 import q.dao.FavoriteDao;
+import q.dao.GroupDao;
+import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.dao.page.WeiboReplyPage;
 import q.domain.WeiboReply;
@@ -36,6 +38,18 @@ public class GetReplyReceived extends Resource {
 
 	public void setFavoriteDao(FavoriteDao favoriteDao) {
 		this.favoriteDao = favoriteDao;
+	}
+
+	private PeopleDao peopleDao;
+
+	public void setPeopleDao(PeopleDao peopleDao) {
+		this.peopleDao = peopleDao;
+	}
+
+	private GroupDao groupDao;
+
+	public void setGroupDao(GroupDao groupDao) {
+		this.groupDao = groupDao;
 	}
 
 	/*
@@ -65,6 +79,7 @@ public class GetReplyReceived extends Resource {
 		}
 		page.setQuoteSenderId(loginPeopleId);
 		List<WeiboReply> replies = weiboDao.getWeiboRepliesByPage(page);
+		Map<String, Object> api = new HashMap<String, Object>();
 		if (CollectionKit.isNotEmpty(replies)) {
 			if (replies.size() == fetchSize) {
 				if (type == asc) { // more than one previous page
@@ -84,13 +99,12 @@ public class GetReplyReceived extends Resource {
 				CollectionUtils.reverseArray(array);
 				replies = Arrays.asList(array);
 			}
+			DaoHelper.injectWeiboModelsWithQuote(weiboDao, replies);
+			DaoHelper.injectWeiboModelsWithPeople(peopleDao, replies);
+			DaoHelper.injectWeiboModelsWithFrom(groupDao, replies);
 			DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, replies, loginPeopleId);
-		}
-		Map<String, Object> api = new HashMap<String, Object>();
-		if (CollectionKit.isNotEmpty(replies)) {
 			api.put("replies", replies);
 		}
-
 		api.put("hasPrev", hasPrev);
 		api.put("hasNext", hasNext);
 		context.setModel("api", api);

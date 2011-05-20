@@ -63,6 +63,8 @@ public class StringKitTest {
 	}
 
 	public static void main(String[] args) {
-		new StringKitTest().testCapitalizeSpeed();
+		//new StringKitTest().testCapitalizeSpeed();
+		System.out.println((int)'\r');
+		System.out.println((int)'\n');
 	}
 }

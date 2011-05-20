@@ -133,7 +133,7 @@
 								<value>getAtIndex:api</value>
 							</key>
 							<value>/WEB-INF/json/weibo-list.xml</value>
-						</entry>						
+						</entry>
 						<entry>
 							<key>
 								<value>getFavoriteIndex:api</value>
@@ -247,7 +247,7 @@
 								<value>getSearchPeople:api</value>
 							</key>
 							<value>/WEB-INF/json/people-list.xml</value>
-						</entry>												
+						</entry>
 						<entry>
 							<key>
 								<value>getPeopleFull:people</value>
@@ -631,10 +631,14 @@
 	<bean id="getReplyReceived" class="q.web.weibo.GetReplyReceived">
 		<property name="favoriteDao" ref="favoriteDao" />
 		<property name="weiboDao" ref="weiboDao" />
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="getReplySended" class="q.web.weibo.GetReplySended">
 		<property name="favoriteDao" ref="favoriteDao" />
 		<property name="weiboDao" ref="weiboDao" />
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="getAtIndex" class="q.web.weibo.getAtIndex">
 		<property name="weiboDao" ref="weiboDao" />
@@ -675,12 +679,12 @@
 	<bean id="addMessage" class="q.web.message.AddMessage">
 		<property name="messageDao" ref="messageDao" />
 		<property name="peopleDao" ref="peopleDao" />
-		<property name="notifyService" ref="notifyService"/>
+		<property name="notifyService" ref="notifyService" />
 	</bean>
 	<bean id="addMessageReply" class="q.web.message.AddMessageReply">
 		<property name="messageDao" ref="messageDao" />
 		<property name="peopleDao" ref="peopleDao" />
-		<property name="notifyService" ref="notifyService"/>
+		<property name="notifyService" ref="notifyService" />
 	</bean>
 	<bean id="getMessageReply" class="q.web.message.GetMessageReply">
 		<property name="messageDao" ref="messageDao" />
