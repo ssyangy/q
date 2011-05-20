@@ -30,7 +30,7 @@
                	if (!ajlock) return;
                	//alert("b"+w.weibos.oldlast().get('id'));
                 ajaxweibo(1,w.weibos.oldlast().get('id'));
-}
+			}
             var throttled = _.throttle(updateweibo, 300);
             window.body.scroll(updateweibo);
         });

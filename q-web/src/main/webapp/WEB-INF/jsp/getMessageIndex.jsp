@@ -15,7 +15,6 @@
 .msgrepbox .mttextar{width:99%;height:40px;}
 .repactbox{text-align:right;}
 </style>
-</style>
 <link href='${staticUrlPrefix}/content-q/slider.css' rel='stylesheet' type='text/css' />
 <script type="text/javascript">
     seajs.use('qcomcn.js', function (q) {
@@ -90,7 +89,7 @@
 				});
 				$('a.mrnext',sld2).live('click',function(){
 					$.ajax({ url: "${urlPrefix}/message/"+window.msgid+"/reply",
-					    data: {size:10, startid: parseInt($('li',sld2ul).fast().data('reply_id'))},
+					    data: {size:10, startid: parseInt($('li',sld2ul).first().data('reply_id'))},
 					   	success: msgli_ajsucc
 					});
 				});
