@@ -135,7 +135,7 @@
 	                    </li>
 				</script>
 				<div id="sldroot" class="sldlist">
-					<ul class="sldlist"></ul>
+					<ul class="sldlist fixurl"></ul>
 					<div class="pagger">
 					<a class="lk mr10 prev hide">上一页</a>
 					<a class="lk next hide">下一页</a>
@@ -163,7 +163,7 @@
 						<input type="hidden" id="replaysource"/>
 						<div class='repactbox'><a id="btnrep" class="btn">回复</a></div>
 					</div>
-					<ul class="sldlist"></ul>
+					<ul class="sldlist fixurl"></ul>
 					<div class="pagger">
 					<a class="lk mr10 mrprev hide">上一页</a>
 					<a class="lk mrnext hide">下一页</a>
