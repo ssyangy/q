@@ -395,7 +395,7 @@ public class StringKit {
 					sb.append("\\\\");
 					break;
 				case '/':
-					sb.append("\\/");
+					//sb.append("\\/");
 				default:
 					sb.append(c);
 				}

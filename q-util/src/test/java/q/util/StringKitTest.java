@@ -47,7 +47,12 @@ public class StringKitTest {
 
 	@Test
 	public void testEscapeJson() {
-		Assert.assertEquals("\\\"", StringKit.escapeJson("\r\n\""));
+		Assert.assertEquals("\\r\\n\\\"", StringKit.escapeJson("\r\n\""));
+	}
+
+	public void testEscapeJson2() {
+		String src = "http://qimg.net/w/sx/3antepmkc9t.jpg";
+		Assert.assertEquals("http://qimg.net/w/sx/3antepmkc9t.jpg",StringKit.escapeJson(src));
 	}
 
 	@Test
@@ -63,8 +68,8 @@ public class StringKitTest {
 	}
 
 	public static void main(String[] args) {
-		//new StringKitTest().testCapitalizeSpeed();
-		System.out.println((int)'\r');
-		System.out.println((int)'\n');
+		// new StringKitTest().testCapitalizeSpeed();
+		System.out.println((int) '\r');
+		System.out.println((int) '\n');
 	}
 }
