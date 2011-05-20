@@ -8,8 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 import q.biz.SearchService;
+import q.dao.DaoHelper;
+import q.dao.FavoriteDao;
+import q.dao.GroupDao;
+import q.dao.PeopleDao;
 import q.dao.WeiboDao;
-import q.dao.page.FavoritePage;
 import q.domain.Weibo;
 import q.util.CollectionKit;
 import q.util.IdCreator;
@@ -23,10 +26,28 @@ import q.web.exception.RequestParameterInvalidException;
  * 
  */
 public class getAtIndex extends Resource {
+	private GroupDao groupDao;
+
+	public void setGroupDao(GroupDao groupDao) {
+		this.groupDao = groupDao;
+	}
+
 	private WeiboDao weiboDao;
 
 	public void setWeiboDao(WeiboDao weiboDao) {
 		this.weiboDao = weiboDao;
+	}
+
+	private PeopleDao peopleDao;
+
+	public void setPeopleDao(PeopleDao peopleDao) {
+		this.peopleDao = peopleDao;
+	}
+
+	private FavoriteDao favoriteDao;
+
+	public void setFavoriteDao(FavoriteDao favoriteDao) {
+		this.favoriteDao = favoriteDao;
 	}
 
 	private SearchService searchService;
@@ -42,6 +63,7 @@ public class getAtIndex extends Resource {
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
+		long loginPeopleId = context.getCookiePeopleId();
 		if (context.isApiRequest()) {
 			String username = context.getLoginCookie().getUsername();
 			List<Long> bs = searchService.searchWeibo("@" + username);
@@ -53,7 +75,15 @@ public class getAtIndex extends Resource {
 			Map<String, Object> api = new HashMap<String, Object>();
 			if (CollectionKit.isNotEmpty(bs)) {
 				List<Weibo> weibos = weiboDao.getWeibosByIds(bs, true);
-				api.put("weibos", weibos);
+				if (CollectionKit.isNotEmpty(weibos)) {
+					DaoHelper.injectWeiboModelsWithQuote(weiboDao, weibos);
+					DaoHelper.injectWeiboModelsWithPeople(peopleDao, weibos);
+					DaoHelper.injectWeiboModelsWithFrom(groupDao, weibos);
+					if (loginPeopleId > 0) {
+						DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
+					}
+					api.put("weibos", weibos);
+				}
 			}
 			api.put("hasPrev", hasPrev);
 			api.put("hasNext", hasNext);

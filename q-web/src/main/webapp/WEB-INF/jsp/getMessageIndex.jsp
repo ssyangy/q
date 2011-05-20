@@ -73,7 +73,7 @@
 					   		partners.empty();	
 					   		mems.empty();
 					   		$(window.msgmem).each(function(){
-					   			partners.append("<a class='lk' href='${urlPrefix}/people/"+this.id+"'>"+this.screenName+"</a>");
+					   			partners.append("<a class='lk' href='${urlPrefix}/people/"+this.id+"'>"+this.screenName+"</a> ");
 					   			mems.append("<img src='"+this.avatarPath+"-24' alt='ato' />");
 					   		});
 					   		if(j.replies) msgli_ajsucc(j);
@@ -144,7 +144,7 @@
                 <script type="text/html" id="msgitem">
                     <li reply_id='{{id}}'>
 						{{#sender}}
-                        <img src="{{avatarPath-48}}" alt="avatar" class="sldimg" />
+                        <img src="{{avatarPath}}-48" alt="avatar" class="sldimg" />
                         <p class='rel'><a class="lk scn">{{screenName}}</a>
 						{{/sender}}
 							<span class="time">{{screenTime}}</span>
@@ -154,7 +154,7 @@
                 </script>
                 <div id='sld2'>
                 	<div class="msgmem">
-						<p>参与者：我，<span class='partner'></span></p>
+						<p>参与者：<span class='partner'></span></p>
 						<p class="mems"></p>
 						<a class="memdel btn">删除</a>
 					</div>
@@ -165,15 +165,9 @@
 					</div>
 					<ul class="sldlist"></ul>
 					<div class="pagger">
-<<<<<<< HEAD
-					{{#hasPrev}}<a class="lk mr10 mrprev">上一页</a>{{/hasPrev}}
-					{{#hasNext}}<a class="lk mrnext">下一页</a>{{/hasNext}}
-					</div>
-=======
 					<a class="lk mr10 mrprev hide">上一页</a>
 					<a class="lk mrnext hide">下一页</a>
 					</div>	
->>>>>>> cfa822d0126f523926da258d1b1a86782dc063fe
                 </div>
             </div>
         </div>

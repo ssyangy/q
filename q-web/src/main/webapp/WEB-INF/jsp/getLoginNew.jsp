@@ -14,7 +14,7 @@
 			</tr>
 			<tr>
 				<td align="right">密码：</td>
-				<td><input name="password" type='password' class='mttext' size='23'><a href="#" class='lk ml10'>忘记密码</a></td>
+				<td><input name="password" type='password' class='mttext' size='23'><a href="${urlPrefix}/password/forget" class='lk ml10'>忘记密码</a></td>
 			</tr>
 			<tr>
 				<td></td>

@@ -66,7 +66,7 @@
 	</li>
 	<li>
 	<c:choose>
-		<c:when test="${servletPath=='/WEB-INF/jsp/getSettingBasic.jsp'}">私信</c:when>
+		<c:when test="${servletPath=='/WEB-INF/jsp/getSettingBasic.jsp'}">设置</c:when>
 		<c:otherwise><a class="lk" href='${urlPrefix}/setting/basic'>设置</a></c:otherwise>
 	</c:choose>
 	</li>

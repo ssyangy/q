@@ -642,6 +642,9 @@
 	</bean>
 	<bean id="getAtIndex" class="q.web.weibo.getAtIndex">
 		<property name="weiboDao" ref="weiboDao" />
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="groupDao" ref="groupDao" />
+		<property name="favoriteDao" ref="favoriteDao" />
 		<property name="searchService" ref="searchService"></property>
 	</bean>
 
