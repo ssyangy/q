@@ -2,8 +2,8 @@
     var $ = exports.jq = require('jquery.js');
     var _ = require('underscore.js');
     require('config.js');
+    var xx = require('jq.repurl.js');
     var uihelp = require('jq.ui.help.js');
-    require('jq.repurl.js');
     var ie6 = ($.browser.msie && $.browser.version < 7.0);
     if (ie6) {
         require('jq.pngFix.js');

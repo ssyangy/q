@@ -1,9 +1,9 @@
 ﻿define(function (require, exports, module) {
     var $ = exports.jq = require('jquery');
-    require('config.js')($);
-    require('jqplus/jq.repurl.js')($);
-    require('jqplus/jq.mttext.js')($);
-    var uihelp = require('ui/jq.ui.help.js');
+    require('config')($);
+    require('jqplus/jq.repurl')($);
+    require('jqplus/jq.mttext')($);
+    var uihelp = require('ui/jq.ui.help');
 
     $(function () {
         uihelp.init($);
@@ -48,7 +48,7 @@
 
         $('.tw_txt', box).repurl();
         if ($.support.opacity) {
-            require('jqplus/jq.pngFix.js')($);
+            require('jqplus/jq.pngFix')($);
             $(".png", box).pngFix();
             //require('jqplus/jq.limitimg.js');
             //$('img', box).imgLimit({ size: [120, 160, 320] });
