@@ -114,7 +114,7 @@
     <p class='rel'>
 		<span class="stat gray">{{screenTime}}</span>
 		<span class='actions'>
-        <a href="${urlprefix}/weibo/{{id}}" class='replay'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
+        <a href="javascript:void(0);" class='replay'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
         <a href="javascript:void(0);" class='resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
         <a href="javascript:void(0);" class='unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
         <a href="javascript:void(0);" class='fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>

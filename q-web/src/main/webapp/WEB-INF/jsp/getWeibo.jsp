@@ -3,69 +3,43 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="微博" />
 </jsp:include>
-<script type="text/html" id="stream_ext">
-	{{#people}}
-	<a href="${urlPrefix}/people/{{id}}"><img class="wh24 sldimg" src="{{avatarPath}}-24" alt="head" /></a>
-	<p>
-	<a class='lk' href='${urlPrefix}/people/{{id}}'>{{screenName}}</a>
-	{{/people}}
-	{{text}}
-	</p>
-    <p class='rel'>
-		<span class="stat gray">{{screenTime}}</span>
-		<span class='actions'>
-        <a href="${urlprefix}/weibo/{{id}}" class='replay'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
-        <a href="javascript:void(0);" class='resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
-        <a href="javascript:void(0);" class='unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
-        <a href="javascript:void(0);" class='fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
-		{{#isown}}<a href="javascript:void(0);" class='lk del'>删除</a>{{/isown}}
-		</span>
-	</p>
-</script>
 <script type="text/javascript">
-    seajs.use('qcomcn.js', function (q) {
-    	var $ = q.jq;
-        seajs.use('app/weibo-rep.js', function (w) {
-            $(function () {
-                $.ajax({
-                    url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply",
-                    data: { size: 10, startid: '999999999999999999' },
-                    success: this.suc_repajax
+seajs.use(['qcomcn.js','app/weibo-rep.js'], function (q,rep) {
+		var $ = q.jq;
+        $(function () {
+        	var ul = $('ul.msglist');
+            var suc_repajax = function(j){          	
+            	window.body.animate({scrollTop:0},700,"swing");
+            	var pv = $('a.rrprev'); pv.hide(); if (j.hasPrev) pv.show();
+            	var nt = $('a.rrnext'); nt.hide(); if (j.hasNext) nt.show();
+                ul.empty();
+                $(j.replies).each(function () {
+                	this.parent = window.body;
+                    var rr = new rep.WeiboRepModel(this);
+                    var view = new rep.WeiboRepView({ model: rr });
+                    ul.append(view.render().el);
                 });
-                var defajaxurl: { size: 10, type: 0 },
-                $('a.rrprev').live('click',function(){
-                    var lis = $('li.repbox', this.el);
-                    var urlp = { startid: parseInt(lis.last().data('replyid')), type:1 };
-                    _.extend(urlp, this.defajaxurl);
-                    $.ajax({
-                        url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
-                        success: this.suc_repajax
-                    });
-                });
-                $('a.rrnext').live('click',function(){
-                    var lis = $('li.repbox', this.el);
-                    var urlp = { startid: parseInt(lis.last().data('replyid')) };
-                    _.extend(urlp, this.defajaxurl);
-                    $.ajax({
-                        url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply?" + $.param(urlp),
-                        success: this.suc_repajax
-                    });
-                });
-                var ul = $('ul.msglist');
-                var suc_reqajax = function(json){
-                    if (json.hasPrev) { $('.rrprev', this.el).show() } else { $('.rrprev', this.el).hide() };
-                    if (json.hasNext) { $('.rrnext', this.el).show() } else { $('.rrnext', this.el).hide() };
-                    ul.empty();
-                    $(json.replies).each(function () {
-                        var rr = new rep.WeiboRepModel(this);
-                        var view = new rep.WeiboRepView({ model: rr });
-                        ul.append(view.render().el);
-                    });
-                    q.fixui(ul);
-                }
+            }        	
+            $.ajax({
+                url: "${urlPrefix}/weibo/${weibo.id}/reply",
+                data: { size: 10, startid: '999999999999999999' },
+                success: suc_repajax
             });
+            $('a.rrprev').live('click',function(){
+                var urlp = { startid: $('li.repbox', ul).first().data('replyid'), type:1 ,size:10};
+                $.ajax({ url: "${urlPrefix}/weibo/${weibo.id}/reply?" + $.param(urlp),
+                    success: suc_repajax
+                });
+            });
+            $('a.rrnext').live('click',function(){
+                var urlp = { startid: $('li.repbox', ul).last().data('replyid'), size:10 };
+                $.ajax({ url: "${urlPrefix}/weibo/${weibo.id}/reply?" + $.param(urlp),
+                    success: suc_repajax
+                });
+            });
+
         });
-    });
+});
 </script>
 <div class="layout grid-m0s7">
 <div class="col-main"><div class="main-wrap pr10">
@@ -78,11 +52,30 @@
     </div>
     <div class="tw-sub">
 	    <form action="${urlPrefix}/weibo/${weibo.id}/reply">
-	    <textarea id="repinp" class="mttextar_val">回复点什么 . . .</textarea>
-	    <a class='btn'>回复</a>
+		<input class='mttext_val reply_val' type='text' value='发表点评论。。。' />
+    	<a class='btn reply_btn'>提交</a>
 	    </form>
     </div>
     <div class="tw-reps">
+<script type="text/html" id="stream_ext">
+	{{#people}}
+	<a href="${urlPrefix}/people/{{id}}"><img class="wh24 sldimg" src="{{avatarPath}}-24" alt="head" /></a>
+	<p>
+	<a class='lk' href='${urlPrefix}/people/{{id}}'>{{screenName}}</a>
+	{{/people}}
+	<span class='reptext' repid="{{id}}">{{text}}</span>
+	</p>
+    <p class='rel'>
+		<span class="stat gray">{{screenTime}}</span>
+		<span class='actions'>
+        <a href="javascript:void(0);" class='replay'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
+        <a href="javascript:void(0);" class='resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
+        <a href="javascript:void(0);" class='unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
+        <a href="javascript:void(0);" class='fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
+		{{#isown}}<a href="javascript:void(0);" class='lk del'>删除</a>{{/isown}}
+		</span>
+	</p>
+</script>    
     <ul class="msglist mb5"></ul>
     <a class='lk mr10 rrprev hide'>上一页</a>
     <a class='lk rrnext hide'>下一页</a>
@@ -91,7 +84,7 @@
 <div class="col-sub">
     
 </div></div>
-	
+
 <div id="dia_ret" class="ui_dialog" title="转发">
 	<div class="wpeople mb10"></div>
 	<div class="wsor mb10"></div>
