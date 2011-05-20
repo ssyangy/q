@@ -3,9 +3,9 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="私信" />
 </jsp:include>
-<style>
-#slidbox{width:560px;}
+<link href="${staticUrlPrefix}/content-q/slider.css" rel="stylesheet" type="text/css" />   
 <style type="text/css">
+#slidbox{width:560px;}
 .main-wrap{padding-right:20px;}
 .msgbox{border:1px solid #ddd;}
 .msgmem{background-color:#FEF2E7;position:relative;padding:10px;}
@@ -15,7 +15,6 @@
 .msgrepbox .mttextar{width:99%;height:40px;}
 .repactbox{text-align:right;}
 </style>
-<link href='${staticUrlPrefix}/content-q/slider.css' rel='stylesheet' type='text/css' />
 <script type="text/javascript">
     seajs.use('qcomcn.js', function (q) {
         var $ = q.jq;
@@ -166,9 +165,15 @@
 					</div>
 					<ul class="sldlist"></ul>
 					<div class="pagger">
+<<<<<<< HEAD
+					{{#hasPrev}}<a class="lk mr10 mrprev">上一页</a>{{/hasPrev}}
+					{{#hasNext}}<a class="lk mrnext">下一页</a>{{/hasNext}}
+					</div>
+=======
 					<a class="lk mr10 mrprev hide">上一页</a>
 					<a class="lk mrnext hide">下一页</a>
 					</div>	
+>>>>>>> cfa822d0126f523926da258d1b1a86782dc063fe
                 </div>
             </div>
         </div>
