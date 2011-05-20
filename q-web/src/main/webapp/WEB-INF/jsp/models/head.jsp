@@ -79,8 +79,8 @@
 </ul>
 </div>
 <div class="search">
-<form action="${urlPrefix}/search/weibo">
-	<input class="search_inp mttext_val"type="text" name="name" value="搜索圈子、信息" /> 
+<form action="${urlPrefix}/search/weibo" method="GET">
+	<input class="search_inp mttext_val" type="text" name="search" value="搜索圈子、信息" /> 
 	<input type="submit" class="search_btn" title="搜索" value="" /></div>
 </form>
 </div>

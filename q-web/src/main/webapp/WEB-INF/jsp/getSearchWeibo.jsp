@@ -7,7 +7,7 @@
 <div class="col-main"><div class="main-wrap pr10">
 <h2 class='mt20'>搜索</h2>
 <div id='searchpage' class="search">
-	<form action="${urlPrefix}/search/group" method="GET">
+	<form action="${urlPrefix}/search/weibo" method="GET">
     <input class="search_inp mttext_val" type="text" name="search" value="${param['search']}" />
     <input type="submit" class="search_btn" value="搜索" />
 	</form>    
