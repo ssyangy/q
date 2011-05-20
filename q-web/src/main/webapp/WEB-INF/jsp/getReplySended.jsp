@@ -7,8 +7,6 @@
 .replist li{border:1px solid #ddd;border-bottom:none 0;padding:10px 10px;*zoom:1;}
 .replist .time{position:absolute;top:0;right:100px;color:#B2B7B5}
 .replist .del{position:absolute;top:0;right:50px;}
-.replist .repsou{border:1px solid #efefef;padding:10px 10px 10px 68px;position:relative;background-color:#fefefe;margin-top:10px;color:#666;*zoom:1;
-                 min-height:48px;height:auto !important; height:48px; overflow:visible;}
 .replist .sldimg{position:absolute;top:10px;left:10px;}
 </style>
 	<script type="text/javascript">
@@ -17,8 +15,9 @@
 		$(function(){
 			var wbs = $('ul.replist');
 			var wbs_ajsucc = function(j){
+				window.body.animate({scrollTop:0},700,"swing");
             	var pv = $('a.prev'); pv.hide(); if (j.hasPrev) pv.show();
-            	var nt = $('a.next'); nt.hide(); if (j.hasNext) nt.show();	            
+            	var nt = $('a.next'); nt.hide(); if (j.hasNext) nt.show();
             	wbs.empty();
                 $(j.replies).each(function(){
                 	wbs.append(ich.replys(this));
@@ -27,12 +26,12 @@
 			$.ajax({ url:"${urlPrefix}/reply/sended",
 				data:{startId:"999999999999999999",size:10},
 				success:wbs_ajsucc });
-			$('a.mbprev').click(function(){
+			$('a.prev').click(function(){
 				$.ajax({ url:"${urlPrefix}/reply/sended",
 					data:{startId:$("li",wbs).first().attr('stream_id'),size:10, type:1},
 					success:wbs_ajsucc });
 			});
-			$('a.mbnext').click(function(){
+			$('a.next').click(function(){
 				$.ajax({ url:"${urlPrefix}/reply/sended",
 					data:{startId:$("li",wbs).last().attr('stream_id') ,size:10},
 					success:wbs_ajsucc });
@@ -55,30 +54,20 @@
         <script type="text/html" id="replys">
             <li stream_id="{{id}}">
                 <p class="rel">{{text}} <span class='time'>{{screenTime}}</span><a class='lk del'>删除</a></p>
-                <div class='repsou'>
+
 {{#quote}}
    <div class='quote'>
 		<div class='text'>
 		{{#people}}
 		<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>：
 		{{/people}}
-		{{text}}
+		<a href="${urlPrefix}/weibo/{{id}}" class='lk'>{{text}}</a>
 		</div>
 		{{#picturePath}}
 		<img src="{{picturePath}}-160" class="img160 weiboImg"/>
-		<div class='imgPre hide'>
-			<div class='imgrote middle'>
-			<img src="{{picturePath}}-320" class="img320 preImg"/>
-			</div>
-		</div>
 		{{/picturePath}}
-		<span class="">
-			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文转发</a>
-			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文回复</a>
-		</span>
 	</div>
 {{/quote}}
-                </div>
             </li>
         </script>
         <ul class='replist mt20'></ul>
