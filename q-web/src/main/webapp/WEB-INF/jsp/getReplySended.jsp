@@ -56,8 +56,28 @@
             <li stream_id="{{id}}">
                 <p class="rel">{{text}} <span class='time'>{{screenTime}}</span><a class='lk del'>删除</a></p>
                 <div class='repsou'>
-                    <img src="/usersimg/avatar5.jpeg" alt="avtor" class="sldimg" />
-                    {{quoteWeiboId}}
+{{#quote}}
+   <div class='quote'>
+		<div class='text'>
+		{{#people}}
+		<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>：
+		{{/people}}
+		{{text}}
+		</div>
+		{{#picturePath}}
+		<img src="{{picturePath}}-160" class="img160 weiboImg"/>
+		<div class='imgPre hide'>
+			<div class='imgrote middle'>
+			<img src="{{picturePath}}-320" class="img320 preImg"/>
+			</div>
+		</div>
+		{{/picturePath}}
+		<span class="">
+			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文转发</a>
+			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文回复</a>
+		</span>
+	</div>
+{{/quote}}
                 </div>
             </li>
         </script>
