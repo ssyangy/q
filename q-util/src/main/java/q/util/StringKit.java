@@ -352,8 +352,8 @@ public class StringKit {
 				case '\\':
 					sb.append("\\\\");
 					break;
-				case '/':
-					sb.append("\\/");
+				//case '/':
+					//sb.append("\\/");
 				default:
 					sb.append(c);
 				}
@@ -394,7 +394,7 @@ public class StringKit {
 				case '\\':
 					sb.append("\\\\");
 					break;
-				case '/':
+				//case '/':
 					//sb.append("\\/");
 				default:
 					sb.append(c);
