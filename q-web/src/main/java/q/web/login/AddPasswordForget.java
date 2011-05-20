@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.web.login;
 
@@ -17,7 +17,7 @@ import q.web.exception.RequestParameterInvalidException;
 /**
  * @author seanlinwang at gmail dot com
  * @date May 6, 2011
- * 
+ *
  */
 public class AddPasswordForget extends Resource {
 
@@ -41,7 +41,7 @@ public class AddPasswordForget extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -58,7 +58,7 @@ public class AddPasswordForget extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
@@ -75,8 +75,8 @@ public class AddPasswordForget extends Resource {
 	 */
 	private String createPasswordResetUrl(String urlPrefix, long peopleId, long timestamp) {
 		String token = UUID.randomUUID().toString();
-		this.cacheService.putPasswordResetToken(token, peopleId, timestamp);
-		return urlPrefix + "/password/" + token + "/reset";
+		this.cacheService.putPasswordResetToken(token, peopleId, timestamp);System.out.println(urlPrefix + "/password/reset?token=" + token);
+		return urlPrefix + "/password/reset?token=" + token;
 	}
 
 }

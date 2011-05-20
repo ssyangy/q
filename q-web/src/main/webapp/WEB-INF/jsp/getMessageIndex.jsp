@@ -3,15 +3,10 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="私信" />
 </jsp:include>
-<<<<<<< HEAD
 <link href="${staticUrlPrefix}/content-q/slider.css" rel="stylesheet" type="text/css" />   
 <style type="text/css">
-=======
-<style>
 #slidbox{width:560px;}
-<style type="text/css">
 .main-wrap{padding-right:20px;}
->>>>>>> cfa822d0126f523926da258d1b1a86782dc063fe
 .msgbox{border:1px solid #ddd;}
 .msgmem{background-color:#FEF2E7;position:relative;padding:10px;}
 .msgmem p{line-height:24px;}
@@ -20,11 +15,6 @@
 .msgrepbox .mttextar{width:99%;height:40px;}
 .repactbox{text-align:right;}
 </style>
-<<<<<<< HEAD
-=======
-</style>
-<link href='${staticUrlPrefix}/content-q/slider.css' rel='stylesheet' type='text/css' />
->>>>>>> cfa822d0126f523926da258d1b1a86782dc063fe
 <script type="text/javascript">
     seajs.use('qcomcn.js', function (q) {
         var $ = q.jq;
@@ -98,7 +88,7 @@
 				});
 				$('a.mrnext',sld2).live('click',function(){
 					$.ajax({ url: "${urlPrefix}/message/"+window.msgid+"/reply",
-					    data: {size:10, startid: parseInt($('li',sld2ul).fast().data('reply_id'))},
+					    data: {size:10, startid: parseInt($('li',sld2ul).first().data('reply_id'))},
 					   	success: msgli_ajsucc
 					});
 				});

@@ -31,13 +31,12 @@ seajs.use('qcomcn.js', function (q) {
          
 		seajs.use('ICanHaz.js', function (ich) {
 			lis.click(function () {
-				window.gpid = parseInt($(this).attr('gpcid'));
+				window.gpid = $(this).attr('gpcid');
 				$('span.tit',roll).text($('p.name',this).text()).show();
-				$.ajax({
-				    url: "${urlPrefix}/group",
+				$.ajax({ url: "${urlPrefix}/group",
 				    data: {size:6, catId: window.gpid, startid:'999999999999999999'},
-				   	success: function(json){
-				   		$("#sld2").html(ich.group(json));
+				   	success: function(j){
+						$("#sld2").html(ich.group(j));
 						slider.animate({left: -560}, { duration: 500, easing: "swing" });
 						root.data("clicked", true);
 				    }

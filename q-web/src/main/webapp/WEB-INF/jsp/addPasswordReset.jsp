@@ -11,10 +11,7 @@
 		<div class="content">
 			<table class='qform'>
 				<tr>
-					<td align="right">忘记密码</td>
-				</tr>
-				<tr>
-					<td>请到<%=request.getParameter("email")%>查阅来自Q.com.cn的邮件，点击邮件中的链接重设你的密码。</td>
+					<td align="right">密码重置成功，您可以正常登录了！</td>
 				</tr>
 			</table>
 		</div>

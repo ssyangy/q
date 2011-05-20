@@ -324,16 +324,39 @@ public class StringKit {
 		char[] chars = source.toCharArray();
 		for (int i = 0; i < chars.length; i++) {
 			char c = chars[i];
-			switch (c) {
-			case '"':
-				sb.append(BACK_SLASH);
-				break;
-			case '\r':
-				break;
-			case '\n':
-				break;
-			default:
-				sb.append(c);
+			if (0 <= c && c <= 31) {
+				switch (c) {
+				case '\r':
+					sb.append("\\r");
+					break;
+				case '\n':
+					sb.append("\\n");
+					break;
+				case '\t':
+					sb.append("\\t");
+					break;
+				case '\f':
+					sb.append("\\f");
+					break;
+				case '\b':
+					sb.append("\\b");
+					break;
+				default:
+					;
+				}
+			} else {
+				switch (c) {
+				case '"':
+					sb.append("\\\"");
+					break;
+				case '\\':
+					sb.append("\\\\");
+					break;
+				//case '/':
+					//sb.append("\\/");
+				default:
+					sb.append(c);
+				}
 			}
 		}
 	}
@@ -343,16 +366,39 @@ public class StringKit {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < chars.length; i++) {
 			char c = chars[i];
-			switch (c) {
-			case '"':
-				sb.append(BACK_SLASH);
-				break;
-			case '\r':
-				break;
-			case '\n':
-				break;
-			default:
-				sb.append(c);
+			if (0 <= c && c <= 31) {
+				switch (c) {
+				case '\r':
+					sb.append("\\r");
+					break;
+				case '\n':
+					sb.append("\\n");
+					break;
+				case '\t':
+					sb.append("\\t");
+					break;
+				case '\f':
+					sb.append("\\f");
+					break;
+				case '\b':
+					sb.append("\\b");
+					break;
+				default:
+					;
+				}
+			} else {
+				switch (c) {
+				case '"':
+					sb.append("\\\"");
+					break;
+				case '\\':
+					sb.append("\\\\");
+					break;
+				//case '/':
+					//sb.append("\\/");
+				default:
+					sb.append(c);
+				}
 			}
 		}
 		return sb.toString();

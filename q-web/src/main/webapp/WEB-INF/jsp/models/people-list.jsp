@@ -29,7 +29,7 @@
 
 			$("a.unwat").live('click', function () {
 	          	  var stream = $(this).closest('li');
-	          	  $.ajax({ url: '${urlPrefix}/people/'+stream.attr('stream_id') +"/following", msg:$(this), type: 'POST',
+	          	  $.ajax({ url: '${urlPrefix}/people/'+stream.attr('people_id') +"/following", msg:$(this), type: 'POST',
 	          			data:{_method:'delete'},
 					   	success: function(m){
 					   		if (m != null && !m.id) return;
@@ -40,7 +40,7 @@
 			});
 			$("a.wat").live('click', function () {
 	          	  var stream = $(this).closest('li');
-	          	  $.ajax({ url: '${urlPrefix}/people/'+stream.attr('stream_id') +"/following", msg:$(this), type: 'POST',
+	          	  $.ajax({ url: '${urlPrefix}/people/'+stream.attr('people_id') +"/following", msg:$(this), type: 'POST',
 					   	success: function(m){
 					   		if (m != null && !m.id) return;
 					   		this.msg.addClass('hide_im');
@@ -71,7 +71,7 @@
 				var stream = $(this).closest('li');
 				$('div.wpeople',dia_letter).empty().html('发私信给：'+ $('a.dispname',stream).text().trim());
 				$("textarea[name='content']",dia_letter).val('');
-				$("#letter_url",dia_letter).val('${urlPrefix}/message?receiverId='+stream.attr('stream_id'));
+				$("#letter_url",dia_letter).val('${urlPrefix}/message?receiverId='+stream.attr('people_id'));
 				dia_letter.dialog("open");
 			});
 	        $('input.donet', dia_letter).live("click",function () {
@@ -89,7 +89,7 @@
 	}); 
 	</script>
 <script type="text/html" id="members">
-    {{# ${param['orderId']} }}<li stream_id='{{ id }}'>{{/ ${param['orderId']} }}
+    <li stream_id='{{# ${param['orderId']} }}{{ id }}{{/ ${param['orderId']} }}' people_id="{{id}}">
         <a href="${urlPrefix}/people/{{id}}"><img src="{{avatarPath}}-48" alt="{{screenName}}" class="sldimg" /></a>
         <p><a class="lk dispname" href="${urlPrefix}/people/{{id}}">{{screenName}}</a></p>
         <p>{{area.province}&nbsp;{{area.city}}</p>

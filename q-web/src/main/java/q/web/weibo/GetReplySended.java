@@ -12,6 +12,8 @@ import org.apache.commons.collections.CollectionUtils;
 
 import q.dao.DaoHelper;
 import q.dao.FavoriteDao;
+import q.dao.GroupDao;
+import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.dao.page.WeiboReplyPage;
 import q.domain.WeiboReply;
@@ -36,6 +38,18 @@ public class GetReplySended extends Resource {
 
 	public void setFavoriteDao(FavoriteDao favoriteDao) {
 		this.favoriteDao = favoriteDao;
+	}
+
+	private PeopleDao peopleDao;
+
+	public void setPeopleDao(PeopleDao peopleDao) {
+		this.peopleDao = peopleDao;
+	}
+
+	private GroupDao groupDao;
+
+	public void setGroupDao(GroupDao groupDao) {
+		this.groupDao = groupDao;
 	}
 
 	/*
@@ -85,6 +99,9 @@ public class GetReplySended extends Resource {
 				CollectionUtils.reverseArray(array);
 				replies = Arrays.asList(array);
 			}
+			DaoHelper.injectWeiboModelsWithQuote(weiboDao, replies);
+			DaoHelper.injectWeiboModelsWithPeople(peopleDao, replies);
+			DaoHelper.injectWeiboModelsWithFrom(groupDao, replies);
 			DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, replies, loginPeopleId);
 			api.put("replies", replies);
 		}
