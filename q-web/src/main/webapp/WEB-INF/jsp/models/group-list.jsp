@@ -2,9 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link href='${staticUrlPrefix}/content-q/slider.css' rel='stylesheet' type='text/css' />
 	<script type="text/javascript">
-	seajs.use(['qcomcn.js','ICanHaz.js'], function (q, ich) {
+	seajs.use('qcomcn.js', function (q) {
 		var $ = q.jq;
 		$(function(){
+			seajs.use('ICanHaz.js',function(ich){
 			var gbs = $('#groups');
 			var gbul = $("ul.msglist",gbs);
 			var gbs_ajsucc = function(j){
@@ -16,7 +17,7 @@
                 });
 			}
 			$.ajax({ url:"${param['feedUrl']}",
-				data:{startId:"999999999999999999",size:10, search:"${param['search']}"},
+				data:{size:10, search:"${param['search']}"},
 				success: gbs_ajsucc });
 			$('a.gbprev', gbs).click(function(){
 				$.ajax({ url:"${param['feedUrl']}",
@@ -50,6 +51,7 @@
 					} });
 			});
 
+			});
 		});
 	}); 
 	</script>
