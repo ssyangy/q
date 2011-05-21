@@ -8,7 +8,7 @@ seajs.use(['qcomcn.js','app/weibo-rep.js'], function (q,rep) {
 		var $ = q.jq;
         $(function () {
         	var ul = $('ul.msglist');
-            var suc_repajax = function(j){          	
+            var suc_repajax = function(j){
             	window.body.animate({scrollTop:0},700,"swing");
             	var pv = $('a.rrprev'); pv.hide(); if (j.hasPrev) pv.show();
             	var nt = $('a.rrnext'); nt.hide(); if (j.hasNext) nt.show();
@@ -19,11 +19,24 @@ seajs.use(['qcomcn.js','app/weibo-rep.js'], function (q,rep) {
                     var view = new rep.WeiboRepView({ model: rr });
                     ul.append(view.render().el);
                 });
-            }        	
-            $.ajax({
-                url: "${urlPrefix}/weibo/${weibo.id}/reply",
-                data: { size: 10, startid: '999999999999999999' },
-                success: suc_repajax
+            }
+            var initreplist = function(){
+                $.ajax({
+                    url: "${urlPrefix}/weibo/${weibo.id}/reply",
+                    data: { size: 10, startid: '999999999999999999' },
+                    success: suc_repajax
+                });
+            }
+            initreplist();
+            $("a.reply_btn").click(function () {
+                $.ajax({ url: "${urlPrefix}/weibo/${weibo.id}/reply", type: 'POST',
+                    data: { content: $('input.reply_val').val() },
+                    success: function(m){
+                    	if (m && !m.id) return;
+                    	initreplist();
+                    	$('input.reply_val', this.el).val('');
+                    }
+                });
             });
             $('a.rrprev').live('click',function(){
                 var urlp = { startid: $('li.repbox', ul).first().data('replyid'), type:1 ,size:10};
