@@ -6,9 +6,9 @@ var upimgfix = 0;
 var realHeight;
 var realWidth;
 var imgPath;
-seajs.use('qcomcn.js', function (q) {
+seajs.use(['qcomcn.js','jqplus/jq.rotate.js'], function (q, rota) {
     var $ = q.jq;
-    seajs.use('jqplus/jq.rotate.js');
+    rota($);
     
     $(function () {
         $('#inputmain').focus(function () {
