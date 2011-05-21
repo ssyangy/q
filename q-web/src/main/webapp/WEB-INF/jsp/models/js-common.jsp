@@ -41,45 +41,7 @@ function unFollow(button,peopleId){
     }
   });
 }
-function joinGroup(button,groupId){
-  $.ajax({
-    url: '${urlPrefix}/group/' + groupId + '/join',
-    type: 'POST',
-    dataType: 'json',
-    timeout: 5000,
-    error: function(){
-    	console.log(json);
-    },
-   	success: function(json){
-       if(json == null){
-           	button.innerHTML = "退出";
-           	button.onclick = function(event){unJoinGroup(button,groupId);};
-        } else {
-        	console.log(json);
-     	}
-    }
-  });
-}
-function unJoinGroup(button,groupId){
-  $.ajax({
-    url: '${urlPrefix}/group/' + groupId + '/join',
-    type: 'POST',
-    dataType: 'json',
-    data:{_method:'delete'},    
-    timeout: 5000,
-    error: function(){
-    	console.log(json);
-    },
-   	success: function(json){
-       if(json == null){
-           	button.innerHTML = "加入";
-           	button.onclick = function(event){joinGroup(button,groupId);};
-        } else {
-        	console.log(json);
-     	}
-    }
-  });
-}
+
 function errorType(error){
   var exist=error.indexOf(':');
   if(exist>-1){
