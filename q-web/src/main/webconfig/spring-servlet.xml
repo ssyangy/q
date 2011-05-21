@@ -214,7 +214,7 @@
 						</entry>
 						<entry>
 							<key>
-								<value>getSearchGroup:groups</value>
+								<value>getSearchGroup:api</value>
 							</key>
 							<value>/WEB-INF/json/group-list.xml</value>
 						</entry>
