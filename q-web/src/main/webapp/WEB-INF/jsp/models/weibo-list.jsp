@@ -22,13 +22,12 @@
                     },
                     complete: function(){ ajlock = true; }
                 });
-            }            
+            }
             ajaxweibo(8,'999999999999999999');
 	        var o = window.body[0];
             var updateweibo = function(){
             	if (o.scrollTop + window.gWinHeight < o.scrollHeight) return;
                	if (!ajlock) return;
-               	//alert("b"+w.weibos.oldlast().get('id'));
                 ajaxweibo(1,w.weibos.oldlast().get('id'));
 			}
             var throttled = _.throttle(updateweibo, 300);
@@ -44,7 +43,7 @@
     <img class='img48' src='{{avatarPath}}-48' alt='{{ screenName }}'>
     </a>
 </div>
-<div class='bd fixurl'>
+<div class='bd'>
 	<div class='text'><a class='lk' href='${urlPrefix}/people/{{id}}' title='{{ screenName }}'>{{ screenName }}</a>
 	{{/people}}
 	{{ text }}
