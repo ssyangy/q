@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-    seajs.use(['qcomcn','app/weibo','underscore'], function (q, w, _) {
-    	var $ = q.jq;
+mods.push(function(q){
+	var $ = q.jq;
+    seajs.use(['app/weibo','underscore'], function (w, _) {
         $(function () {
             w.init(q);
             
@@ -34,6 +35,7 @@
             window.body.scroll(updateweibo);
         });
     });
+});
 </script>
 <ul id='streams'></ul>
 <script type="text/html" id="stream">

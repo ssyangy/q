@@ -10,9 +10,11 @@
 .replist .sldimg{position:absolute;top:10px;left:10px;}
 </style>
 	<script type="text/javascript">
-	seajs.use(['qcomcn','ICanHaz'], function (q, ich) {
+	mods.push(function (q) {
 		var $ = q.jq;
 		$(function(){
+	        var ich = {};
+	        seajs.use('ICanHaz', function (o) { ich = o });			
 			var wbs = $('ul.replist');
 			var wbs_ajsucc = function(j){
 				window.body.animate({scrollTop:0},700,"swing");

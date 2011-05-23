@@ -6,8 +6,8 @@
 </jsp:include>
 
 <script type="text/javascript">
-	seajs.use('qcomcn', function(qcomcn) {
-		var $ = qcomcn.jq;
+	mods.push(function(q) {
+		var $ = q.jq;
 		$(function() {
 
 			var pheight = 331.6;

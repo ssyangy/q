@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
 <script type="text/javascript">
-seajs.use('qcomcn', function (q) {
+mods.push(function (q) {
     var $ = q.jq;
     $(function () {
     	$("a.joing").live("click",function(){

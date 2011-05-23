@@ -10,11 +10,16 @@
 <link href="${staticUrlPrefix}/content-q/qcomcn.css" rel="stylesheet" type="text/css" />
 <script src="${staticUrlPrefix}/scripts-q/sea.js"></script>
 <script type="text/javascript">
-	seajs.use("qcomcn",function(q){
-		q.init();
-	});
 	window.loginCookie = '${loginCookie.peopleId}';
 	window.urlprefix = '${urlPrefix}';
+	var mods = [];
+	seajs.use("qcomcn",function(q){
+		q.init();
+		if(mods.length < 1) return;
+		for(var i = 0; i < mods.length; i++){
+			mods[i](q);
+		}
+	});
 </script>
 <jsp:include page="js-common.jsp" />
 </head>

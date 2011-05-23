@@ -5,9 +5,12 @@
 </jsp:include>
 <link href="${staticUrlPrefix}/content-q/token-input.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
-    seajs.use(['qcomcn','jqplus/jq_tokeninput'], function (q,toke) {
-        var $ = q.jq;
-        toke($);
+    mods.push(function (q) {
+    	var $ = q.jq;
+    	seajs.use('jqplus/jq_tokeninput',function(toke){
+    		toke($);
+    	});
+        
         var ffs = ${peoplesHintJson};
         var tips = "输入好友姓名 ... ";
         

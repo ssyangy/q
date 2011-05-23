@@ -6,7 +6,8 @@ var upimgfix = 0;
 var realHeight;
 var realWidth;
 var imgPath;
-seajs.use(['qcomcn','jqplus/jq_rotate','jqplus/jq_countable'], function (q, rota, cb) {
+mods.push(function(q){
+seajs.use(['jqplus/jq_rotate','jqplus/jq_countable'], function (rota, cb) {
     var $ = q.jq;
     rota($);
     cb($);
@@ -164,6 +165,7 @@ seajs.use(['qcomcn','jqplus/jq_rotate','jqplus/jq_countable'], function (q, rota
          }
           $("#img").attr("src",imgPath+"-160");
     	}
+});
 });
 </script>
 <form action="${urlPrefix}/weibo" method="post">

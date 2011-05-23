@@ -4,7 +4,7 @@
 	<jsp:param name="title" value="修改密码" />
 </jsp:include>
 <script type="text/javascript">
-seajs.use('qcomcn', function (q) {
+mods.push(function (q) {
 	$ = q.jq;
 });
 
