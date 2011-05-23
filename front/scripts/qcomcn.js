@@ -6,6 +6,10 @@
         require('config')($);
         require('jqplus/jq_repurl')($);
         require('jqplus/jq_mttext')($);
+        if ($.support.opacity) {
+            require('jqplus/jq_pngFix')($);
+            require('jqplus/jq_limitimg')($);
+        }
         uihelp.init($);
         $('input.search_inp').focus(function () {
             $(this).next('input.search_btn').addClass('typing');
@@ -26,10 +30,11 @@
             var _ = require('underscore');
             window.body = body;
             var win = $(window);
-            var calculateLayout = (function () {
+            var calculateLayout = function () {
                 window.gWinHeight = win.height();
                 body.height(window.gWinHeight);
-            })();
+            };
+            calculateLayout();
             var lazyLayout = _.debounce(calculateLayout, 300);
             win.resize(lazyLayout);
         }
@@ -48,10 +53,8 @@
 
         $('.fixurl', box).repurl();
         if ($.support.opacity) {
-            require('jqplus/jq_pngFix')($);
             $(".png", box).pngFix();
-            //require('jqplus/jq.limitimg.js');
-            //$('img', box).imgLimit({ size: [120, 160, 320] });
+            $('img', box).imgLimit({ size: [120, 160, 320, 600] });
         }
 
         $("input.mttext", box).mttext();
@@ -65,10 +68,8 @@
         );
 
         $('[tgtt]', box).bind('click', function () {
-            var o = $(this);
-            $('#' + o.attr('tgtt')).toggle();
-            if (o.hasClass('tgt')) { o.removeClass('tgt'); }
-            else { o.addClass('tgt'); }
+            $('#' + $(this).attr('tgtt')).toggle();
+            $(this).toggleClass('tgt');
         });
     }
 
