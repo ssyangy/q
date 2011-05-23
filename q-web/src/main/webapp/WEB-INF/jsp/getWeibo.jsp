@@ -4,65 +4,64 @@
 	<jsp:param name="title" value="微博" />
 </jsp:include>
 <script type="text/javascript">
-mods.push(function (q,rep) {
-		var rep = {};
-		seajs.use('app/weibo_rep',function(o){ rep = o; });
-		var $ = q.jq;
-        $(function () {
-        	var ul = $('ul.msglist');
-            var suc_repajax = function(j){
-            	window.body.animate({scrollTop:0},700,"swing");
-            	var pv = $('a.rrprev'); pv.hide(); if (j.hasPrev) pv.show();
-            	var nt = $('a.rrnext'); nt.hide(); if (j.hasNext) nt.show();
-                ul.empty();
-                $(j.replies).each(function () {
-                	this.parent = window.body;
-                    var rr = new rep.WeiboRepModel(this);
-                    var view = new rep.WeiboRepView({ model: rr });
-                    ul.append(view.render().el);
-                });
-            }
-            var initreplist = function(){
-                $.ajax({
-                    url: "${urlPrefix}/weibo/${weibo.id}/reply",
-                    data: { size: 10, startid: '999999999999999999' },
-                    success: suc_repajax
-                });
-            }
-            initreplist();
-            $("a.reply_btn").click(function () {
-                $.ajax({ url: "${urlPrefix}/weibo/${weibo.id}/reply", type: 'POST',
-                    data: { content: $('input.reply_val').val() },
-                    success: function(m){
-                    	if (m && !m.id) return;
-                    	initreplist();
-                    	$('input.reply_val', this.el).val('');
-                    }
-                });
+mods.push(function (q) {
+	var rep = {};
+	seajs.use('app/weibo_rep',function(o){ rep = o; });
+	var $ = q.jq;
+    $(function () {
+    	var ul = $('ul.msglist');
+        var suc_repajax = function(j){
+        	window.body.animate({scrollTop:0},700,"swing");
+        	var pv = $('a.rrprev'); pv.hide(); if (j.hasPrev) pv.show();
+        	var nt = $('a.rrnext'); nt.hide(); if (j.hasNext) nt.show();
+            ul.empty();
+            $(j.replies).each(function () {
+            	this.parent = window.body;
+                var rr = new rep.WeiboRepModel(this);
+                var view = new rep.WeiboRepView({ model: rr });
+                ul.append(view.render().el);
             });
-            $('a.rrprev').live('click',function(){
-                var urlp = { startid: $('li.repbox', ul).first().data('replyid'), type:1 ,size:10};
-                $.ajax({ url: "${urlPrefix}/weibo/${weibo.id}/reply?" + $.param(urlp),
-                    success: suc_repajax
-                });
+        }
+        var initreplist = function(){
+            $.ajax({
+                url: "${urlPrefix}/weibo/${weibo.id}/reply",
+                data: { size: 10, startid: '999999999999999999' },
+                success: suc_repajax
             });
-            $('a.rrnext').live('click',function(){
-                var urlp = { startid: $('li.repbox', ul).last().data('replyid'), size:10 };
-                $.ajax({ url: "${urlPrefix}/weibo/${weibo.id}/reply?" + $.param(urlp),
-                    success: suc_repajax
-                });
+        }
+        initreplist();
+        $("a.reply_btn").click(function () {
+            $.ajax({ url: "${urlPrefix}/weibo/${weibo.id}/reply", type: 'POST',
+                data: { content: $('input.reply_val').val() },
+                success: function(m){
+                	if (m && !m.id) return;
+                	initreplist();
+                	$('input.reply_val', this.el).val('');
+                }
             });
-
         });
+        $('a.rrprev').live('click',function(){
+            var urlp = { startid: $('li.repbox', ul).first().data('replyid'), type:1 ,size:10};
+            $.ajax({ url: "${urlPrefix}/weibo/${weibo.id}/reply?" + $.param(urlp),
+                success: suc_repajax
+            });
+        });
+        $('a.rrnext').live('click',function(){
+            var urlp = { startid: $('li.repbox', ul).last().data('replyid'), size:10 };
+            $.ajax({ url: "${urlPrefix}/weibo/${weibo.id}/reply?" + $.param(urlp),
+                success: suc_repajax
+            });
+        });
+    });
 });
 </script>
 <div class="layout grid-m0s7">
 <div class="col-main"><div class="main-wrap pr10">
     <div class='tweet'>
-	    <a href="#"><img src="/userimg/avatar5.jpeg" alt='avator' /></a>
-	    <p><a class="lk">${weibo.senderRealName}</a><span class='time ml10'></span></p>
+	    <a href="${urlPrefix}/people/${weibo.people.id}"><img src="${weibo.people.avatarPath}-24" alt='avator' /></a>
+	    <p><a class="lk">${weibo.people.realName}</a><span class='time ml10'>${weibo.time}</span></p>
 	    <p>
-	    
+	    ${weibo.content}
 	    </p>
     </div>
     <div class="tw-sub">

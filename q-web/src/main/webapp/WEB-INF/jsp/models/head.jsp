@@ -15,10 +15,7 @@
 	var mods = [];
 	seajs.use("qcomcn",function(q){
 		q.init();
-		if(mods.length < 1) return;
-		for(var i = 0; i < mods.length; i++){
-			mods[i](q);
-		}
+		for(var i in mods) mods[i](q); 
 	});
 </script>
 <jsp:include page="js-common.jsp" />
