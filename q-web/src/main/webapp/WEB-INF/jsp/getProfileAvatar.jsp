@@ -8,8 +8,8 @@
     .imgbox{float:left;width:300px;margin-right:10px;}
     .imgmain{float:left;width:600px;}
      </style>
-    <script type="text/javascript" src="${staticUrlPrefix}/scripts-q/src/jquery-1.6.1.js"></script>
-    <script type="text/javascript" src="${staticUrlPrefix}/scripts-q/src/jq.jcrop.js"></script>
+    <script type="text/javascript" src="${staticUrlPrefix}/scripts/src/jquery-1.6.1.js"></script>
+    <script type="text/javascript" src="${staticUrlPrefix}/scripts/src/jq.jcrop.js"></script>
 	<script type="text/javascript">
 	$(function () {
 
