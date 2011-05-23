@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
 
-<link href='${staticUrlPrefix}/content-q/navleft.css' rel='stylesheet' type='text/css' />
+<link href='${staticUrlPrefix}/content/navleft.css' rel='stylesheet' type='text/css' />
 <div class='unav_group'>
 	<c:choose>
 	<c:when test="${param['id']} == 0">

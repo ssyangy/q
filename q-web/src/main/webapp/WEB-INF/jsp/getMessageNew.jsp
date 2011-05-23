@@ -3,7 +3,7 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="发私信" />
 </jsp:include>
-<link href="${staticUrlPrefix}/content-q/token-input.css" rel="stylesheet" type="text/css" />
+<link href="${staticUrlPrefix}/content/token-input.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     mods.push(function (q) {
     	var $ = q.jq;
