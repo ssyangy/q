@@ -3,7 +3,7 @@
 	<jsp:param name="title" value="登陆注册" />
 </jsp:include>
     <script type="text/javascript">
-        seajs.use('qcomcn', function (q) {
+        mods.push(function (q) {
             var $ = q.jq;
             
             var newEmail = true;

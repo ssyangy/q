@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link href='${staticUrlPrefix}/content-q/slider.css' rel='stylesheet' type='text/css' />
 	<script type="text/javascript">
-	seajs.use('qcomcn', function (q) {
+	mods.push(function (q) {
 		var $ = q.jq;
 		$(function(){
 			seajs.use('ICanHaz',function(ich){

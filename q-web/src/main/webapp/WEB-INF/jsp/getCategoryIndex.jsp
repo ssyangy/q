@@ -13,7 +13,7 @@ background:url("${staticUrlPrefix}/content-q/images/arrow/sh_ex2.png") no-repeat
 span.tit{display:none;}
 </style>
 <script type="text/javascript">
-seajs.use('qcomcn', function (q) {
+mods.push(function (q) {
 	var $ = q.jq;
 	$(function () {
          

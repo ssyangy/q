@@ -6,7 +6,7 @@
 </jsp:include>
 	<script type="text/javascript">
 	areas=${rootArea.childsJson};
-	seajs.use('qcomcn', function (q) {
+	mods.push(function (q) {
 		var $ = q.jq;
 	checkLocation = function(){
 	    $("#locationcorrect").css("display","block");

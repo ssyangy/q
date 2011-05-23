@@ -16,104 +16,105 @@
 .repactbox{text-align:right;}
 </style>
 <script type="text/javascript">
-    seajs.use('qcomcn', function (q) {
-        var $ = q.jq;
-        $(function () {
-        	seajs.use('ICanHaz', function (ich) {
-	            var sldroot = $('#sldroot');
-	            var sldrootul = $('ul.sldlist',sldroot);
-	            var intmsglist = function(json){
-		            sldrootul.empty();
-	                $(json.messages).each(function(){
-	                	var li = ich.msglist(this);
-	                	li.data('members',this.receivers)
-	                	sldrootul.append(li);
-	                });
-	            	var pv = $('a.prev',sldroot); pv.hide(); if (json.hasPrev) pv.show();
-	            	var nt = $('a.next',sldroot); nt.hide(); if (json.hasNext) nt.show();	                
-	            	q.fixui(sldroot);
-	            }
-	            
-	            $.ajax({ url: "${urlPrefix}/message",
-	                data: {size:7, startId:"999999999999999999"},
-	                success: intmsglist
-	            });
-	            $('a.next',sldroot).live('click',function(){
-	                $.ajax({ url: "${urlPrefix}/message",
-	                    data: {size:7, startId:$('ul.sldlist>li',sldroot).last().attr('stream_id')},
-	                    success: intmsglist
-	                });
-	            });
-	            $('a.prev',sldroot).live('click',function(){
-	                $.ajax({ url: "${urlPrefix}/message",
-	                    data: {size:7, startId:$('ul.sldlist>li',sldroot).first().attr('stream_id'), type:1},
-	                    success: intmsglist
-	                });
-	            });
-	            
-	            var sld2 = $("#sld2");
-	            var sld2ul = $('ul.sldlist',sld2);
-	            var partners = $('span.partner',sld2);
-	            var mems = $('p.mems',sld2);
-	            var msgli_ajsucc = function(j){
-	            	sld2ul.empty();
-	                $(j.replies).each(function(){
-	                	sld2ul.append(ich.msgitem(this));
-	                });
-	            	var pv = $('a.mrprev',sld2); pv.hide(); if (j.hasPrev) pv.show();
-	            	var nt = $('a.mrnext',sld2); nt.hide(); if (j.hasNext) nt.show();	                
-	            }
-	            $('li.msgli',sldroot).live('click',function(){
-					window.msgid = $(this).attr('stream_id');
-					window.msgmem = $(this).data('members');					
-					$.ajax({ url: "${urlPrefix}/message/"+window.msgid+"/reply", msg:$(this),
-					    data: {size:10, startid:'999999999999999999'},
-					   	success: function(j){
-					   		$('#slider').animate({left: -560}, { duration: 500, easing: "swing" });
-					   		partners.empty();	
-					   		mems.empty();
-					   		$(window.msgmem).each(function(){
-					   			partners.append("<a class='lk' href='${urlPrefix}/people/"+this.id+"'>"+this.screenName+"</a> ");
-					   			mems.append("<img src='"+this.avatarPath+"-24' alt='ato' />");
-					   		});
-					   		if(j.replies) msgli_ajsucc(j);
-					    }
-					});
-				});
-				$('a.mrprev',sld2).live('click',function(){
-					$.ajax({ url: "${urlPrefix}/message/"+window.msgid+"/reply",
-					    data: {size:10, startid: parseInt($('li',sld2ul).last().attr('reply_id')), type: 1},
-					   	success: msgli_ajsucc
-					});
-				});
-				$('a.mrnext',sld2).live('click',function(){
-					$.ajax({ url: "${urlPrefix}/message/"+window.msgid+"/reply",
-					    data: {size:10, startid: parseInt($('li',sld2ul).first().attr('reply_id'))},
-					   	success: msgli_ajsucc
-					});
-				});
-				
-				$('#btnrep').click(function(){
-					$.ajax({ url: "${urlPrefix}/message/"+window.msgid+"/reply", type:"POST",
-					    data: {content: $("#tboxrep").val(),replymessageid:$('#replaysource').val() },
-					   	success: function(m){
-					   		if (m != null && !m.id) return;
-							$.ajax({ url: "${urlPrefix}/message/"+window.msgid+"/reply",
-							    data: {size:10, startid:'999999999999999999'},
-							   	success: msgli_ajsucc
-							});
-							$("#tboxrep").val("");
-					   	}
-					});
-				});
-				$('a.mrrep').live("click",function(){
-					var stream = $(this).closest('li');
-					$('#replaysource').val(stream.attr("reply_id"));
-					$("#tboxrep").val("回复："+$('a.scn',stream).text()+" ").focus();
-				});
-        	});
+mods.push(function (q) {
+    var $ = q.jq;
+    $(function () {
+        var ich = {};
+        seajs.use('ICanHaz', function (o) { ich = o });
+
+        var sldroot = $('#sldroot');
+        var sldrootul = $('ul.sldlist', sldroot);
+        var intmsglist = function (json) {
+            sldrootul.empty();
+            $(json.messages).each(function () {
+                var li = ich.msglist(this);
+                li.data('members', this.receivers)
+                sldrootul.append(li);
+            });
+            var pv = $('a.prev', sldroot); pv.hide(); if (json.hasPrev) pv.show();
+            var nt = $('a.next', sldroot); nt.hide(); if (json.hasNext) nt.show();
+            q.fixui(sldroot);
+        }
+
+        $.ajax({ url: "${urlPrefix}/message",
+            data: { size: 7, startId: "999999999999999999" },
+            success: intmsglist
+        });
+        $('a.next', sldroot).live('click', function () {
+            $.ajax({ url: "${urlPrefix}/message",
+                data: { size: 7, startId: $('ul.sldlist>li', sldroot).last().attr('stream_id') },
+                success: intmsglist
+            });
+        });
+        $('a.prev', sldroot).live('click', function () {
+            $.ajax({ url: "${urlPrefix}/message",
+                data: { size: 7, startId: $('ul.sldlist>li', sldroot).first().attr('stream_id'), type: 1 },
+                success: intmsglist
+            });
+        });
+
+        var sld2 = $("#sld2");
+        var sld2ul = $('ul.sldlist', sld2);
+        var partners = $('span.partner', sld2);
+        var mems = $('p.mems', sld2);
+        var msgli_ajsucc = function (j) {
+            sld2ul.empty();
+            $(j.replies).each(function () {
+                sld2ul.append(ich.msgitem(this));
+            });
+            var pv = $('a.mrprev', sld2); pv.hide(); if (j.hasPrev) pv.show();
+            var nt = $('a.mrnext', sld2); nt.hide(); if (j.hasNext) nt.show();
+        }
+        $('li.msgli', sldroot).live('click', function () {
+            window.msgid = $(this).attr('stream_id');
+            window.msgmem = $(this).data('members');
+            $.ajax({ url: "${urlPrefix}/message/" + window.msgid + "/reply", msg: $(this),
+                data: { size: 10, startid: '999999999999999999' },
+                success: function (j) {
+                    $('#slider').animate({ left: -560 }, { duration: 500, easing: "swing" });
+                    partners.empty();
+                    mems.empty();
+                    $(window.msgmem).each(function () {
+                        partners.append("<a class='lk' href='${urlPrefix}/people/" + this.id + "'>" + this.screenName + "</a> ");
+                        mems.append("<img src='" + this.avatarPath + "-24' alt='ato' />");
+                    });
+                    if (j.replies) msgli_ajsucc(j);
+                }
+            });
+        });
+        $('a.mrprev', sld2).live('click', function () {
+            $.ajax({ url: "${urlPrefix}/message/" + window.msgid + "/reply",
+                data: { size: 10, startid: parseInt($('li', sld2ul).last().attr('reply_id')), type: 1 },
+                success: msgli_ajsucc
+            });
+        });
+        $('a.mrnext', sld2).live('click', function () {
+            $.ajax({ url: "${urlPrefix}/message/" + window.msgid + "/reply",
+                data: { size: 10, startid: parseInt($('li', sld2ul).first().attr('reply_id')) },
+                success: msgli_ajsucc
+            });
+        });
+
+        $('#btnrep').click(function () {
+            $.ajax({ url: "${urlPrefix}/message/" + window.msgid + "/reply", type: "POST",
+                data: { content: $("#tboxrep").val(), replymessageid: $('#replaysource').val() },
+                success: function (m) {
+                    if (m != null && !m.id) return;
+                    $.ajax({ url: "${urlPrefix}/message/" + window.msgid + "/reply",
+                        data: { size: 10, startid: '999999999999999999' },
+                        success: msgli_ajsucc
+                    });
+                    $("#tboxrep").val("");
+                }
+            });
+        });
+        $('a.mrrep').live("click", function () {
+            var stream = $(this).closest('li');
+            $('#replaysource').val(stream.attr("reply_id"));
+            $("#tboxrep").val("回复：" + $('a.scn', stream).text() + " ").focus();
         });
     });
+});
 </script>
 <h2 class='mb10'>私信</h2>
 <div class="layout grid-m0s7">
