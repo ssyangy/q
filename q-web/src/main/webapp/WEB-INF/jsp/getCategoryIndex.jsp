@@ -3,13 +3,13 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="找圈子" />
 </jsp:include>
-<link href='${staticUrlPrefix}/content-q/slider.css' rel='stylesheet' type='text/css' />
+<link href='${staticUrlPrefix}/content/slider.css' rel='stylesheet' type='text/css' />
 <style>
 #passroll a,#passroll span{font-size:18px;}
 #root{color:#FF0065;cursor:pointer;}
 #root:hover{text-decoration:underline;}
 span.pass {display:inline-block;zoom:1;*display:inline;position:relative;width:14px;height:14px;
-background:url("${staticUrlPrefix}/content-q/images/arrow/sh_ex2.png") no-repeat scroll 0 0 transparent;}
+background:url("${staticUrlPrefix}/content/images/arrow/sh_ex2.png") no-repeat scroll 0 0 transparent;}
 span.tit{display:none;}
 </style>
 <script type="text/javascript">

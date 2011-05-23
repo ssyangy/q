@@ -5,7 +5,7 @@
 <html>
 <head>
 <title>找回密码</title>
-<link href="${staticUrlPrefix}/content-q/qcomcn.css" rel="stylesheet"
+<link href="${staticUrlPrefix}/content/qcomcn.css" rel="stylesheet"
 	type="text/css" />
 <style type="text/css">
 .wapper {

@@ -3,7 +3,7 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="修改头像" />
 </jsp:include>
-    <link rel="stylesheet" type="text/css" href="${staticUrlPrefix}/content-q/jcrop/jquery-jcrop-0.9.8.css"  />
+    <link rel="stylesheet" type="text/css" href="${staticUrlPrefix}/content/jcrop/jquery-jcrop-0.9.8.css"  />
      <style type="text/css">
     .imgbox{float:left;width:300px;margin-right:10px;}
     .imgmain{float:left;width:600px;}

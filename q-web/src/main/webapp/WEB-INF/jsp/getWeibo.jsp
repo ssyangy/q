@@ -105,7 +105,7 @@ mods.push(function (q) {
 	<div class="wcontent mb10"></div>
 	<input class='ret_url' type='hidden' ></input>
 	<textarea name="content" class="mttextar_val" style="width:100%"></textarea>
-    <img src="${staticUrlPrefix}/content-q/images/ajax/ajaxload.gif" class="ajaxload hide" alt="ajaxload" />
+    <img src="${staticUrlPrefix}/content/images/ajax/ajaxload.gif" class="ajaxload hide" alt="ajaxload" />
     <input type='hidden' class='donet' />
 </div>	
 </div><jsp:include page="models/foot.jsp" />

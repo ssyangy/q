@@ -3,7 +3,7 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="私信" />
 </jsp:include>
-<link href="${staticUrlPrefix}/content-q/slider.css" rel="stylesheet" type="text/css" />   
+<link href="${staticUrlPrefix}/content/slider.css" rel="stylesheet" type="text/css" />   
 <style type="text/css">
 #slidbox{width:560px;}
 .main-wrap{padding-right:20px;}
