@@ -1,5 +1,11 @@
 package q.biz.impl;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -98,7 +104,6 @@ public class DefaultPictureService implements PictureService {
 		return true;
 	}
 
-
 	public static boolean postPictures(URL url, long peopleId, BufferedImage[] images) throws IOException {
 		long dir = peopleId % 10000;
 		for (int i = 0; i < images.length; i++) {
@@ -191,15 +196,17 @@ public class DefaultPictureService implements PictureService {
 		}
 		return sb;
 	}
-	
+
 	@Override
-	public String uploadWeiboPictures(InputStream picture) throws Exception {
+	public String uploadWeiboPictures(InputStream picture,String type) throws Exception {
 		long picId = IdCreator.getLongId();
 		String dir = "w/" + Long.toString(picId % 10000, Character.MAX_RADIX) + "/";
-		String name = Long.toString(picId, Character.MAX_RADIX) + ".jpg";
+		String kind=type.substring(type.indexOf("/")+1, type.length());
+		String name = Long.toString(picId, Character.MAX_RADIX)+"."+kind;
 		BufferedImage image = ImageKit.load(picture);
 		int originWidth = image.getWidth();
 		int originHeight = image.getHeight();
+
 		BufferedImage image160 = null;
 		BufferedImage image320 = null;
 		int longer;
@@ -218,10 +225,18 @@ public class DefaultPictureService implements PictureService {
 			image160 = ImageKit.zoomTo(image, 160);
 			image320 = ImageKit.zoomTo(image, 320);
 		}
+		BufferedImage tagImage=image;
+		if(kind.equals("png")){
+			tagImage = new BufferedImage(originWidth, originHeight, BufferedImage.TYPE_INT_RGB);
+			Image temp = image.getScaledInstance(originWidth, originHeight, Image.SCALE_SMOOTH);
+			Graphics g = tagImage.getGraphics();
+			g.drawImage(temp, 0, 0, null);
+			g.dispose();
+		}
 		BufferedImage[] images = new BufferedImage[3];
 		images[0] = image160;
 		images[1] = image320;
-		images[2] = image;
+		images[2] = tagImage;
 		URL temp = new URL(this.imageUploadUrl);
 		String sb;
 		sb = postPictures(temp, dir, name, images);
@@ -292,8 +307,5 @@ public class DefaultPictureService implements PictureService {
 	public String getDefaultCategoryAvatarPath() {
 		return this.imageUrl + "/default/cat-def";
 	}
-	
-	
-	
 
 }

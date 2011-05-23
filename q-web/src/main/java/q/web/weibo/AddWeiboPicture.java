@@ -22,7 +22,7 @@ public class AddWeiboPicture extends Resource{
 	public void setPictureService(PictureService pictureService) {
 		this.pictureService = pictureService;
 	}
-	
+
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		// TODO Auto-generated method stub
@@ -59,7 +59,7 @@ public class AddWeiboPicture extends Resource{
 					context.setModel("isImg", false);
 				}
 				if (ImageKit.isImage(fileItem.getInputStream())) {
-					String result=pictureService.uploadWeiboPictures(fileItem.getInputStream());
+					String result=pictureService.uploadWeiboPictures(fileItem.getInputStream(),type);
                     if(result.equals("false")){
                     	context.setModel("value", "服务器忙");
                     }
