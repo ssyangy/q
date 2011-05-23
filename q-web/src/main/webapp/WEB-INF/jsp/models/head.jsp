@@ -7,8 +7,8 @@
 <head>
 <title>${param['title']}</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="${staticUrlPrefix}/content-q/qcomcn.css" rel="stylesheet" type="text/css" />
-<script src="${staticUrlPrefix}/scripts-q/sea.js"></script>
+<link href="${staticUrlPrefix}/content/qcomcn.css" rel="stylesheet" type="text/css" />
+<script src="${staticUrlPrefix}/scripts/sea.js"></script>
 <script type="text/javascript">
 	window.loginCookie = '${loginCookie.peopleId}';
 	window.urlprefix = '${urlPrefix}';
