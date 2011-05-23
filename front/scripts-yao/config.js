@@ -9,7 +9,7 @@ define(function (require, exports) {
         seajs.config({
             charset: 'utf-8',
             timeout: 20000,
-            debug: false
+            debug: true
         });
     }
 });

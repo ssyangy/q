@@ -1,7 +1,7 @@
 /*
-Copyright 2011, SeaJS v1.0.0-dev
+Copyright 2011, SeaJS v0.9.1
 MIT Licensed
-build time: ${build.time}
+build time: May 22 23:10
 */
 
 
@@ -102,6 +102,11 @@ seajs._fn = {};
         return -1;
       };
 
+
+  util.now = Date.now ? Date.now : function() {
+    return new Date().getTime();
+  };
+
 })(seajs._util);
 
 /**
@@ -173,8 +178,9 @@ seajs._fn = {};
    * realpath('./a//b/../c') ==> 'a/c'
    */
   function realpath(path) {
-    // 'a//b/c' ==> 'a/b/c'
-    path = path.replace(/([^:]\/)\/+/g, '$1');
+    // 'file:///a//b/c' ==> 'file:///a/b/c'
+    // 'http://a//b/c' ==> 'http://a/b/c'
+    path = path.replace(/([^:\/])\/+/g, '$1\/');
 
     // 'a/b/c', just return.
     if (path.indexOf('.') === -1) {
@@ -210,8 +216,11 @@ seajs._fn = {};
   function normalize(url) {
     url = stripUrlArgs(realpath(url));
 
-    // Adds the default '.js' ext.
-    if (url.lastIndexOf('.') <= url.lastIndexOf('/')) {
+    // Adds the default '.js' extension except that the url ends with #.
+    if (/#$/.test(url)) {
+      url = url.slice(0, -1);
+    }
+    else if (!(/\.(?:css|js)$/.test(url))) {
       url += '.js';
     }
 
@@ -280,6 +289,7 @@ seajs._fn = {};
 
   var loc = global['location'];
   var pageUrl = loc.protocol + '//' + loc.host + loc.pathname;
+  var id2UriCache = {};
 
   /**
    * Converts id to uri.
@@ -287,6 +297,11 @@ seajs._fn = {};
    * @param {string=} refUrl The referenced uri for relative id.
    */
   function id2Uri(id, refUrl) {
+    // only run once.
+    if (id2UriCache[id]) {
+      return id;
+    }
+
     id = parseAlias(id);
     refUrl = refUrl || pageUrl;
 
@@ -311,7 +326,10 @@ seajs._fn = {};
       ret = config.base + '/' + id;
     }
 
-    return normalize(ret);
+    ret = normalize(ret);
+    id2UriCache[ret] = true;
+
+    return ret;
   }
 
 
@@ -390,7 +408,6 @@ seajs._fn = {};
 
   util.dirname = dirname;
   util.restoreUrlArgs = restoreUrlArgs;
-  util.getHost = getHost;
   util.pageUrl = pageUrl;
 
   util.id2Uri = id2Uri;
@@ -420,16 +437,19 @@ seajs._fn = {};
       if (callback) callback.call(node);
       if (isCSS) return;
 
-      // Reduces memory leak.
-      try {
-        if (node.clearAttributes) {
-          node.clearAttributes();
-        } else {
-          for (var p in node) delete node[p];
+      // Don't remove inserted node when debug is on.
+      if (!data.config.debug) {
+        try {
+          // Reduces memory leak.
+          if (node.clearAttributes) {
+            node.clearAttributes();
+          } else {
+            for (var p in node) delete node[p];
+          }
+        } catch (x) {
         }
-      } catch (x) {
+        head.removeChild(node);
       }
-      head.removeChild(node);
     });
 
     if (isCSS) {
@@ -692,7 +712,7 @@ seajs._fn = {};
       data.pendingModIE = uri;
 
       fetchingMods[uri] = util.getAsset(
-          util.restoreUrlArgs(uri),
+          getUrl(uri),
           cb,
           data.config.charset
           );
@@ -729,6 +749,23 @@ seajs._fn = {};
         callback();
       }
     }
+  }
+
+
+  var timestamp = util.now();
+
+  function getUrl(uri) {
+    var url = util.restoreUrlArgs(uri);
+
+    // When debug is 2, a unique timestamp will be added to each URL.
+    // This can be useful during testing to prevent the browser from
+    // using a cached version of the file.
+    if (data.config.debug == 2) {
+      url += (url.indexOf('?') === -1 ? '?' : '') +
+          'seajs-timestamp=' + timestamp;
+    }
+
+    return url;
   }
 
 })(seajs._util, seajs._data, seajs._fn, this);
@@ -989,22 +1026,14 @@ seajs._fn = {};
         config[k] = o[k];
       }
     }
+
+    // Make sure config.base is absolute path.
+    var base = config.base;
+    if (base.indexOf('://') === -1) {
+      config.base = util.id2Uri(base + '#');
+    }
+
     return this;
-  };
-
-
-  /**
-   * The shortcut to set alias.
-   *
-   * @param {string} name The alias.
-   * @param {string} value The actual value.
-   */
-  fn.alias = function(name, value) {
-    var o = {};
-    o[name] = value;
-    return fn.config({
-      alias: o
-    });
   };
 
 
@@ -1037,9 +1066,8 @@ seajs._fn = {};
     if (args) {
       var hash = {
         0: 'config',
-        1: 'alias',
-        2: 'use',
-        3: 'define'
+        1: 'use',
+        2: 'define'
       };
       for (var i = 0; i < args.length; i += 2) {
         fn[hash[args[i]]].apply(host, args[i + 1]);
@@ -1064,11 +1092,21 @@ seajs._fn = {};
 
   // SeaJS Loader API:
   host.config = fn.config;
-  host.alias = fn.alias;
   host.use = fn.use;
 
   // Module Authoring API:
+  var previousDefine = global.define;
   global.define = fn.define;
+
+  // For custom loader name.
+  host.noConflict = function(all) {
+    global.seajs = host._seajs;
+    if (all) {
+      global.define = previousDefine;
+      host.define = fn.define;
+    }
+    return host;
+  };
 
   // Keeps clean!
   if (!data.config.debug) {

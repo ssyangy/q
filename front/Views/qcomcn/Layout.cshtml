@@ -3,7 +3,10 @@
 <head>
     <title>@ViewBag.Title</title>
     <link href="@Url.Content("~/content-yao/qcomcn.css")" rel="stylesheet" type="text/css" />
-    <script src="@Html.Script("/scripts-yao/sea.js")" data-main="qcomcn"></script>
+    <script src="@Url.Content("~/scripts-yao/sea.js")"></script>
+    <script type="text/javascript">
+        seajs.use('qcomcn');
+    </script>
 </head>
 <body>
 <div id="body">
