@@ -14,8 +14,11 @@
 	window.urlprefix = '${urlPrefix}';
 	var mods = [];
 	seajs.use("qcomcn",function(q){
-		q.init();
-		for(var i in mods) mods[i](q); 
+		var $ = q.jq;
+		$(function(){
+			q.init();
+			for(var i in mods) mods[i](q); 
+		});
 	});
 </script>
 <jsp:include page="js-common.jsp" />
