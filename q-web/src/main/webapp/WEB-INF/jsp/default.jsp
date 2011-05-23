@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>Q.com.cn</title>
-    <link href="${staticUrlPrefix}/content/jquery.ui.css")" rel="stylesheet" type="text/css" />
+    <link href="${staticUrlPrefix}/content/main/jquery.ui.css")" rel="stylesheet" type="text/css" />
     <link href="${staticUrlPrefix}/content/qcomcn.css")" rel="stylesheet" type="text/css" />
     <style type="text/css">
 	    .wapper{position:relative;height:600px;width:800px;}
@@ -33,7 +33,7 @@
 	    #index .footer ul{list-style: none outside none;}
 	    #index .footer li{display:inline;margin-top:40px;margin-right:10px;}
     </style>
-    <script src="${staticUrlPrefix}/scripts-q/sea.js")" type="text/javascript"></script>
+    <script src="${staticUrlPrefix}/scripts/sea.js")" type="text/javascript"></script>
     <script type="text/javascript">
         seajs.use('qcomcn', function (q) {
             var $ = q.jq;
