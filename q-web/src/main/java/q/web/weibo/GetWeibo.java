@@ -74,67 +74,7 @@ public class GetWeibo extends Resource {
 		if (loginPeopleId > 0) {
 			DaoHelper.injectWeiboWithFavorite(favoriteDao, weibo, loginPeopleId);
 		}
-
-		WeiboReplyPage page = new WeiboReplyPage();
-		page.setQuoteWeiboId(weiboId);
-		int size = context.getInt("size", 10);
-		long startId = context.getIdLong("startId", IdCreator.MAX_ID);
-		int type = context.getInt("type", 0);
-		int asc = 1;
-		if (type == asc) { // 1 indicate asc
-			page.setDesc(false);
-		} else {
-			page.setDesc(true);
-		}
-		boolean hasPrev = false;
-		boolean hasNext = false;
-		int fetchSize = size + 1;
-		page.setSize(fetchSize);
-		page.setStartIndex(0);
-		if (startId > 0) {
-			page.setStartId(startId);
-		}
-		List<WeiboReply> replies = weiboDao.getWeiboRepliesByPage(page);
-		if (CollectionKit.isNotEmpty(replies)) {
-			if (replies.size() == fetchSize) {
-				if (type == asc) { // more than one previous page
-					hasPrev = true;
-				} else { // more than one next page
-					hasNext = true;
-				}
-				replies.remove(replies.size() - 1);//remove last one
-			}
-			if (type == asc) { // this action from next page
-				hasNext = true;
-			} else if(startId != IdCreator.MAX_ID){// this action from previous page
-				hasPrev = true;
-			}
-			if (type == asc) { // reverse asc to desc
-				WeiboReply[] array = replies.toArray(new WeiboReply[replies.size()]);
-				CollectionUtils.reverseArray(array);
-				replies = Arrays.asList(array);
-			}
-			DaoHelper.injectWeiboModelsWithPeople(peopleDao, replies);
-			DaoHelper.injectWeiboModelsWithFrom(groupDao, replies);
-			if (loginPeopleId > 0) {
-				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, replies, loginPeopleId);
-			}
-		}
-		
-		
-		if(context.isApiRequest()) {
-			Map<String, Object> api = new HashMap<String, Object>();
-			api.put("weibo", weibo);
-			if (CollectionKit.isNotEmpty(replies)) {
-				api.put("replies", replies);
-			}
-			
-			api.put("hasPrev", hasPrev);
-			api.put("hasNext", hasNext);
-			context.setModel("api", api);
-		} else {
-			context.setModel("weibo", weibo);
-		}
+		context.setModel("weibo", weibo);
 	}
 
 	/*

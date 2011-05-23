@@ -57,10 +57,10 @@ seajs.use(['qcomcn.js','app/weibo-rep.js'], function (q,rep) {
 <div class="layout grid-m0s7">
 <div class="col-main"><div class="main-wrap pr10">
     <div class='tweet'>
-	    <a href="#"><img src="/userimg/avatar5.jpeg" alt='avator' /></a>
-	    <p><a class="lk">${weibo.senderRealName}</a><span class='time ml10'></span></p>
+	    <a href="${urlPrefix}/people/${weibo.people.id}"><img src="${weibo.people.avatarPath}-24" alt='avator' /></a>
+	    <p><a class="lk">${weibo.people.realName}</a><span class='time ml10'>${weibo.time}</span></p>
 	    <p>
-	    
+	    ${weibo.content}
 	    </p>
     </div>
     <div class="tw-sub">
