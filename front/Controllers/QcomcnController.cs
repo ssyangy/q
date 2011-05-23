@@ -13,6 +13,11 @@ namespace front.Controllers
             ViewBag.Message = "Welcome to Qcomcn!";
             return View("~/views/qcomcn/Index.cshtml");
         }
+        public ActionResult Index2()
+        {
+            ViewBag.Message = "Welcome to Qcomcn!";
+            return View("~/views/qcomcn/Index2.cshtml");
+        }
         public ActionResult Profile()
         {
             ViewBag.Message = "Welcome to Qcomcn!";

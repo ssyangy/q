@@ -1,10 +1,41 @@
 ﻿define(function (require, exports, module) {
-    var $ = require('jquery');
-    require('config')($);
-    require('jqplus/jq_repurl')($);
-    require('jqplus/jq_mttext')($);
+    var $ = exports.jq = require('jquery');
     var uihelp = require('ui/jq_ui_help');
-    exports.jq = $;
+
+    exports.init = function () {
+        $(function () {
+            require('config')($);
+            require('jqplus/jq_repurl')($);
+            require('jqplus/jq_mttext')($);
+            uihelp.init($);
+            $('input.search_inp').focus(function () {
+                $(this).next('input.search_btn').addClass('typing');
+            }).blur(function () {
+                $(this).next('input.search_btn').removeClass('typing');
+            });
+
+            var bbody = $("body");
+            bbody.click(function (e) {
+                if (!$(e.target).attr('tgtt')) {
+                    $('.tgtbox').hide();
+                }
+            });
+            exports.fixui(bbody);
+
+            var body = $("#body");
+            if (body) {
+                var _ = require('underscore');
+                window.body = body;
+                var win = $(window);
+                var calculateLayout = (function () {
+                    window.gWinHeight = win.height();
+                    body.height(window.gWinHeight);
+                })();
+                var lazyLayout = _.debounce(calculateLayout, 300);
+                win.resize(lazyLayout);
+            }
+        });
+    }
 
     exports.fixui = function (box) {
         uihelp.fix($, box);
@@ -42,37 +73,5 @@
             else { o.addClass('tgt'); }
         });
     }
-
-    $(function () {
-        uihelp.init($);
-        $('input.search_inp').focus(function () {
-            $(this).next('input.search_btn').addClass('typing');
-        }).blur(function () {
-            $(this).next('input.search_btn').removeClass('typing');
-        });
-
-        var bbody = $("body");
-        bbody.click(function (e) {
-            if (!$(e.target).attr('tgtt')) {
-                $('.tgtbox').hide();
-            }
-        });
-        exports.fixui(bbody);
-
-        var body = $("#body");
-        if (body) {
-            var _ = require('underscore');
-            window.body = body;
-            var win = $(window);
-            var calculateLayout = (function () {
-                window.gWinHeight = win.height();
-                body.height(window.gWinHeight);
-            })();
-            var lazyLayout = _.debounce(calculateLayout, 300);
-            win.resize(lazyLayout);
-        }
-    });
-
-
 
 });
