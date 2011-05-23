@@ -250,7 +250,7 @@
 						</entry>
 						<entry>
 							<key>
-								<value>getPeopleFull:people</value>
+								<value>getPeople:people</value>
 							</key>
 							<value>/WEB-INF/json/people.xml</value>
 						</entry>

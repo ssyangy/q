@@ -119,7 +119,7 @@
 	<div class="wpeople mb10"></div>
 	<input id='letter_url' type='hidden'></input>
 	<textarea name="content" style="width:100%;height:100px;"></textarea>
-	<img src="${staticUrlPrefix}/content-q/images/ajaxload.gif" class="ajaxload" alt="ajaxload" />
+	<img src="${staticUrlPrefix}/content-q/images/ajax/ajaxload.gif" class="ajaxload" alt="ajaxload" />
 	<input type='hidden' class='donet' />
 	<input type='hidden' class='undonet' />		
 </div>

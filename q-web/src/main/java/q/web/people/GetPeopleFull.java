@@ -16,19 +16,21 @@ public class GetPeopleFull extends Resource {
 	}
 
 	private GroupDao groupDao;
-	
+
 	public void setGroupDao(GroupDao groupDao) {
 		this.groupDao = groupDao;
 	}
 
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		context.setModel("rootArea", Area.getRootArea());
-		context.setModel("degrees", Degree.getAll());
-		context.setModel("groups", groupDao.getHotGroups(10));
-		long loginPeopleId = context.getResourceIdLong();
-		People people = peopleDao.getPeopleById(loginPeopleId);
-		context.setModel("people", people);
+		if (!context.isApiRequest()) {
+			context.setModel("rootArea", Area.getRootArea());
+			context.setModel("degrees", Degree.getAll());
+			context.setModel("groups", groupDao.getHotGroups(10));
+			long loginPeopleId = context.getResourceIdLong();
+			People people = peopleDao.getPeopleById(loginPeopleId);
+			context.setModel("people", people);
+		}
 	}
 
 	@Override

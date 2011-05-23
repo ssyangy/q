@@ -420,6 +420,19 @@ public class DaoHelper {
 		}
 	}
 
+	public static void injectPeopleWithVisitorRelation(PeopleDao peopleDao, People people, Long fromPeopleId) throws SQLException {
+		if (null == people) {
+			return;
+		}
+		PeopleRelation relation = peopleDao.getPeopleRelationByFromIdToId(fromPeopleId, people.getId());
+		if (null == relation) {
+			return;
+		}
+		if (relation.isFollowing()) {
+			people.setFollowing();
+		}
+	}
+
 	/**
 	 * @param peopleDao
 	 * @param relations

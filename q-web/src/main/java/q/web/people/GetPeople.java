@@ -1,8 +1,10 @@
 package q.web.people;
 
+import q.dao.DaoHelper;
 import q.dao.EventDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
+import q.domain.People;
 import q.web.Resource;
 import q.web.ResourceContext;
 
@@ -33,7 +35,6 @@ public class GetPeople extends Resource {
 
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-
 		if (!context.isApiRequest()) {
 			GetPeopleFrame frame = new GetPeopleFrame();
 			frame.setEventDao(eventDao);
@@ -41,9 +42,15 @@ public class GetPeople extends Resource {
 			frame.setPeopleDao(peopleDao);
 			frame.validate(context);
 			frame.execute(context);
+		} else {
+			long loginPeopleId = context.getResourceIdLong();
+			People people = peopleDao.getPeopleById(loginPeopleId);
+			if (loginPeopleId > 0) {
+				DaoHelper.injectPeopleWithVisitorRelation(peopleDao, people, loginPeopleId);
+			}
+			context.setModel("people", people);
 		}
 
-		
 	}
 
 	/*
