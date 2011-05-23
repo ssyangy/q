@@ -2,8 +2,18 @@
 <html>
 <head>
     <title>@ViewBag.Title</title>
-    <link href="@Url.Content("~/content-q/qcomcn.css")" rel="stylesheet" type="text/css" />
-    <script src="@Url.Content("~/scripts-q/sea.js")" data-main="qcomcn"></script>
+    <link href="@Url.Content("~/content/qcomcn.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/scripts/sea.js")"></script>
+    <script type="text/javascript">
+        var mods = [];
+        seajs.use("qcomcn", function (q) {
+            var $ = q.jq;
+            $(function () {
+                q.init();
+                for (var i in mods) mods[i](q);
+            });
+        });
+    </script>
 </head>
 <body>
 <div id="body">
@@ -22,14 +32,14 @@
 		        <div id="minelist" class='tgtbox'>
 		            <ul class="dlist">
 		                <li><a class='lk' href='/people/${loginCookie.peopleId}'>我的主页</a></li>
-		                <li><a class="lk" href='/at'>&#64提到我的</a></li>
-		                <li><a class="lk" href='/reply'>我的回复</a></li>
-		                <li class="end"><a class="lk" href='/favorite'>我的收藏</a></li>
+		                <li><a class="lk" href='/qcomcn/AtMe'>&#64提到我的</a></li>
+		                <li><a class="lk" href='/qcomcn/Replies'>我的回复</a></li>
+		                <li class="end"><a class="lk" href='/'>我的收藏</a></li>
 		            </ul>
 		        </div>
                 </li>
                 <li><a class="lk" href='/qcomcn/MsgInbox'>私信</a></li>
-                <li><a class="lk" href='/setting/basic'>设置</a></li>
+                <li><a class="lk" href='/qcomcn/Setting'>设置</a></li>
                 <li class="end"><a class="lk" href='/login/delete'>退出</a></li>
             </ul>
         </div>

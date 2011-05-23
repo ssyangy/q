@@ -1,10 +1,16 @@
 define(function (require, exports) {
-    var $ = require('jquery.js');
+    return function ($) {
+        $.ajaxSetup({
+            type: "GET",
+            dataType: "json",
+            timeout: 5000
+        });
 
-    $.ajaxSetup({
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json"
-    });
-
+        seajs.config({
+            charset: 'utf-8',
+            timeout: 5000,
+            debug: false
+        });
+    }
 });
+

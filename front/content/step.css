@@ -1,7 +1,7 @@
-﻿ul.pssmap {margin:0 0 12px;height:30px;border-bottom:1px solid #CCCCCC;border-top:1px solid #CCCCCC;}
+﻿ul.pssmap {margin:0 0 12px;height:30px;border-bottom:1px solid #CCCCCC;border-top:1px solid #CCCCCC;padding-left:30px;}
 ul.pssmap li, 
 ul.pssmap .label, 
-ul.pssmap .checked{background-image:url(/content/images/index.png);background-position:-1000px 0;background-repeat:no-repeat;}
+ul.pssmap .checked{background-image:url(images/index.png);background-position:-1000px 0;background-repeat:no-repeat;}
 ul.pssmap li{display:inline-block;zoom:1;*display:inline;position:relative;
              background-position:100% -58px;}
 ul.pssmap .label {display:inline-block;zoom:1;*display:inline;position:relative;

@@ -1,58 +1,75 @@
 ﻿define(function (require, exports, module) {
-    var $ = exports.jq = require('jquery.js');
-    var _ = require('underscore.js');
-    require('config.js');
-    var xx = require('jq.repurl.js');
-    var uihelp = require('jq.ui.help.js');
-    var ie6 = ($.browser.msie && $.browser.version < 7.0);
-    if (ie6) {
-        require('jq.pngFix.js');
-        require('jq.limitimg.js');
-    }
-    require('jq.mttext.js');
+    var $ = exports.jq = require('jquery');
+    var uihelp = require('ui/jq_ui_help');
 
-    exports.Init = function () {
-        exports.fixui();
-
-        $("input[accesskey]").bind("keydown", function (e) {
-            var code = (e.keyCode ? e.keyCode : e.which);
-            if (code == 13) {
-                var btnid = $(this).attr('accesskey');
-                $(".access_" + btnid).click();
-            }
-        });
+    exports.init = function () {
+        require('config')($);
+        require('jqplus/jq_repurl')($);
+        require('jqplus/jq_mttext')($);
+        uihelp.init($);
         $('input.search_inp').focus(function () {
             $(this).next('input.search_btn').addClass('typing');
         }).blur(function () {
             $(this).next('input.search_btn').removeClass('typing');
         });
 
-        $('#btnnote').click(function () {
-            $('#note').toggle();
+        var bbody = $("body");
+        bbody.click(function (e) {
+            if (!$(e.target).attr('tgtt')) {
+                $('.tgtbox').hide();
+            }
+        });
+        exports.fixui(bbody);
+
+        var body = $("#body");
+        if (body) {
+            var _ = require('underscore');
+            window.body = body;
+            var win = $(window);
+            var calculateLayout = (function () {
+                window.gWinHeight = win.height();
+                body.height(window.gWinHeight);
+            })();
+            var lazyLayout = _.debounce(calculateLayout, 300);
+            win.resize(lazyLayout);
+        }
+    }
+
+    exports.fixui = function (box) {
+        uihelp.fix($, box);
+
+        $("input[accesskey]", box).bind("keydown", function (e) {
+            var code = (e.keyCode ? e.keyCode : e.which);
+            if (code == 13) {
+                var btnid = $(this).attr('accesskey');
+                $(".access_" + btnid).click();
+            }
         });
 
-        var lazyLayout = _.debounce(calculateLayout, 100);
-        $(window).resize(lazyLayout);
-        calculateLayout();
-    };
-
-    var calculateLayout = function () {
-        gWinHeight = $(window).height();
-        $("#body").height(gWinHeight);
-    }
-
-    exports.fixui = function () {
-        uihelp.init();
-
-        $('.tw_txt').repurl();
-        if (ie6) {
-            $(".png").pngFix();
-            $('img').imgLimit({ size: [120, 160, 320] });
+        $('.fixurl', box).repurl();
+        if ($.support.opacity) {
+            require('jqplus/jq_pngFix')($);
+            $(".png", box).pngFix();
+            //require('jqplus/jq.limitimg.js');
+            //$('img', box).imgLimit({ size: [120, 160, 320] });
         }
 
-        $("input.mttext").mttext();
-        $("input.mttext_val").mttext({ wval: true });
-        $("textarea.mttextar").mttext({ isarea: true });
-        $("textarea.mttextar_val").mttext({ isarea: true, wval: true });
+        $("input.mttext", box).mttext();
+        $("input.mttext_val", box).mttext({ wval: true });
+        $("textarea.mttextar", box).mttext({ isarea: true });
+        $("textarea.mttextar_val", box).mttext({ isarea: true, wval: true });
+
+        $(".hov,.streambox", box).hover(
+            function () { $(this).addClass('hover'); },
+            function () { $(this).removeClass('hover'); }
+        );
+
+        $('[tgtt]', box).bind('click', function () {
+            var o = $(this);
+            $('#' + o.attr('tgtt')).toggle();
+            if (o.hasClass('tgt')) { o.removeClass('tgt'); }
+            else { o.addClass('tgt'); }
+        });
     }
+
 });
