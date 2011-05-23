@@ -214,6 +214,12 @@
 						</entry>
 						<entry>
 							<key>
+								<value>getCategoryGroup:api</value>
+							</key>
+							<value>/WEB-INF/json/group-list.xml</value>
+						</entry>
+						<entry>
+							<key>
 								<value>getSearchGroup:api</value>
 							</key>
 							<value>/WEB-INF/json/group-list.xml</value>
@@ -514,6 +520,9 @@
 		<property name="eventDao" ref="eventDao" />
 	</bean>
 	<bean id="getGroupIndex" class="q.web.group.GetGroupIndex">
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+	<bean id="getCategoryGroup" class="q.web.group.GetCategoryGroup">
 		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="getGroupFeed" class="q.web.group.GetGroupFeed">

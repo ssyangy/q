@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import q.dao.page.GroupJoinCategoryPage;
 import q.dao.page.GroupPage;
 import q.dao.page.GroupRecommendPage;
 import q.dao.page.PeopleJoinGroupPage;
@@ -194,23 +195,23 @@ public class GroupDaoImplTest {
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#unjoinPeopleJoinGroup(long, long)}.
+	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#updatePeopleJoinGroupStatusByPeopleIdAndGroupIdAndOldStatus(long, long, int, int)}.
 	 * 
 	 * @throws SQLException
 	 */
 	@Test
-	public void testUnjoinPeopleJoinGroup() throws SQLException {
-		groupDao.unjoinPeopleJoinGroup(1L, 2L);
+	public void testUpdatePeopleJoinGroupStatusByPeopleIdAndGroupIdAndOldStatus() throws SQLException {
+		groupDao.updatePeopleJoinGroupStatusByPeopleIdAndGroupIdAndOldStatus(1L, 2L, Status.COMMON, Status.DELETE);
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#rejoinPeopleJoinGroup(long, long)}.
+	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#updateGroupJoinCategoryStatusByIdAndOldStatus(long, int, int)}.
 	 * 
 	 * @throws SQLException
 	 */
 	@Test
-	public void testRejoinPeopleJoinGroup() throws SQLException {
-		groupDao.rejoinPeopleJoinGroup(1L, 2L);
+	public void testUpdateGroupJoinCategoryStatusByIdAndOldStatus() throws SQLException {
+		groupDao.updateGroupJoinCategoryStatusByIdAndOldStatus(1L, Status.COMMON, Status.DELETE);
 	}
 
 	/**
@@ -363,13 +364,37 @@ public class GroupDaoImplTest {
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#updateGroupJoinCategoryStatus(long, int, int)}.
+	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#updateGroupJoinCategoryStatusByIdAndOldStatus(long, int, int)}.
 	 * 
 	 * @throws SQLException
 	 */
 	@Test
-	public void testupdateGroupJoinCategoryStatus() throws SQLException {
-		groupDao.updateGroupJoinCategoryStatus(1L, Status.COMMON.getValue(), Status.DELETE.getValue());
+	public void testUpdateGroupJoinCategoryStatus() throws SQLException {
+		groupDao.updateGroupJoinCategoryStatusByIdAndOldStatus(1L, Status.COMMON, Status.DELETE);
+	}
+
+	/**
+	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getGroupIdsByGroupJoinCategoryPage(q.dao.page.GroupJoinCategoryPage)}.
+	 * 
+	 * @throws SQLException
+	 */
+	@Test
+	public void testGetGroupIdsByGroupJoinCategoryPage() throws SQLException {
+		GroupJoinCategoryPage page = new GroupJoinCategoryPage();
+		page.setCategoryId(0L);
+		page.setStartId(99L);
+		page.setSize(10);
+		groupDao.getGroupIdsByGroupJoinCategoryPage(page);
+	}
+	
+	@Test
+	public void getIncrGroupJoinNumByGroupId() throws SQLException {
+		groupDao.incrGroupJoinNumByGroupId(0L);
+	}
+	
+	@Test
+	public void getDecrGroupJoinNumByGroupId() throws SQLException {
+		groupDao.decrGroupJoinNumByGroupId(0L);
 	}
 
 }

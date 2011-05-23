@@ -36,7 +36,6 @@ public class GetCategoryIndex extends Resource {
 	public void execute(ResourceContext context) throws SQLException {
 		List<Category> categories = categoryDao.getAllCategorys();
 		DaoHelper.injectCategoriesWithPromotedGroups(groupDao, categories);
-		context.setModel("cats", categories);
 		if (!context.isApiRequest()) {
 			long loginId = context.getCookiePeopleId();
 			if (loginId > 0) {
@@ -50,6 +49,9 @@ public class GetCategoryIndex extends Resource {
 			}
 			recommendGroups = groupDao.getRecommendGroupsByPage(page);
 			context.setModel("recommendGroups", recommendGroups);
+			context.setModel("cats", categories);
+		} else {
+			context.setModel("cats", categories);
 		}
 	}
 

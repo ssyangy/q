@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import q.dao.page.GroupJoinCategoryPage;
 import q.dao.page.GroupRecommendPage;
 import q.dao.page.PeopleJoinGroupPage;
 import q.domain.Group;
@@ -31,10 +32,6 @@ public interface GroupDao {
 	void addPeopleJoinGroup(long peopleId, long groupId) throws SQLException;
 
 	PeopleJoinGroup getJoinPeopleByGroupIdPeopleId(long peopleId, long groupId) throws SQLException;
-
-	void unjoinPeopleJoinGroup(long peopleId, long groupId) throws SQLException;
-
-	void rejoinPeopleJoinGroup(long peopleId, long groupId) throws SQLException;
 
 	public List<Group> getGroupsByIds(List<Long> groupIds) throws SQLException;
 
@@ -117,7 +114,6 @@ public interface GroupDao {
 	 */
 	List<PeopleJoinGroup> selectPeopleJoinGroupsByPage(PeopleJoinGroupPage page) throws SQLException;
 
-
 	/**
 	 * @param peopleId
 	 * @return
@@ -159,13 +155,51 @@ public interface GroupDao {
 	/**
 	 * @param group
 	 */
-	int  updateGroup(Group group) throws SQLException;
+	int updateGroup(Group group) throws SQLException;
 
 	/**
 	 * @param joinId
 	 * @param newStatus
 	 * @param oldStatus
 	 */
-	int updateGroupJoinCategoryStatus(long joinId, int newStatus, int oldStatus) throws SQLException;
+	int updateGroupJoinCategoryStatusByIdAndOldStatus(long joinId, Status newStatus, Status oldStatus) throws SQLException;
+
+	/**
+	 * @param joinId
+	 * @param newStatus
+	 * @param oldStatus
+	 * @throws SQLException
+	 */
+	int updatePeopleJoinGroupStatusByIdAndOldStatus(long joinId, Status newStatus, Status oldStatus) throws SQLException;
+	
+	/**
+	 * @param peopleId
+	 * @param groupId
+	 * @param newStatus
+	 * @param oldStatus
+	 * @return
+	 * @throws SQLException
+	 */
+	int updatePeopleJoinGroupStatusByPeopleIdAndGroupIdAndOldStatus(long peopleId, long groupId, Status newStatus, Status oldStatus) throws SQLException;
+
+	/**
+	 * @param page
+	 * @return
+	 */
+	List<Long> getGroupIdsByGroupJoinCategoryPage(GroupJoinCategoryPage page) throws SQLException;
+
+	/**
+	 * @param groupId
+	 * @return
+	 * @throws SQLException
+	 */
+	int incrGroupJoinNumByGroupId(long groupId) throws SQLException;
+	
+	/**
+	 * @param groupId
+	 * @return
+	 * @throws SQLException
+	 */
+	int decrGroupJoinNumByGroupId(long groupId) throws SQLException;
 
 }
