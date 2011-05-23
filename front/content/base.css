@@ -90,21 +90,6 @@ h6{font-weight: 800;line-height: 1.3;}
 .pt10{padding-top:10px;}
 .pt20{padding-top:20px;}
 
-.white{color:#F2F3F8;}
-.black{color:#2B2A25;}
-.buff{color:#CEEAEC;}
-.blue{color:#009bee;}
-.violet{color:#FF0065;}
-.coofe{color:#513834;}
-.ashen{color:#F2AE30;}
-.yellow{color:#FFE300;}
-.red{color:#F23410;}
-.reddep{color:#B0250E}
-.green{color:#7ED547;}
-.greendep{color:#94B24D;}
-.gray{color:#B2B7B5}
-.grayd{color:#666}
-
 ul.list li{padding:0 10px;border-right:1px solid #ddd;float:left;}
 ul.list li.end{border-right:none 0;}
 /*#endregion Commen */
