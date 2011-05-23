@@ -85,7 +85,7 @@
 	{{#repmod}}<div class='repmod'><span class='gray'>回应了我：</span>{{repmod}}</div>{{/repmod}}
 </div>
 <div class='fd'>
-	<span class='stat'>{{screenTime}}
+	<span class='stat'><a href="${urlPrefix}/weibo/{{id}}">{{screenTime}}</a>
 		{{#source}}<a class='ml5 lk'>{{source}}</a>{{/source}}
 	</span>
 	<a href="javascript:void(0);" class='hod replay togreply'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
