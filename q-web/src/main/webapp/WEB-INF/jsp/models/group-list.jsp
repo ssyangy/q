@@ -2,10 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link href='${staticUrlPrefix}/content-q/slider.css' rel='stylesheet' type='text/css' />
 	<script type="text/javascript">
-	seajs.use('qcomcn.js', function (q) {
+	seajs.use('qcomcn', function (q) {
 		var $ = q.jq;
 		$(function(){
-			seajs.use('ICanHaz.js',function(ich){
+			seajs.use('ICanHaz',function(ich){
 			var gbs = $('#groups');
 			var gbul = $("ul.msglist",gbs);
 			var gbs_ajsucc = function(j){

@@ -6,11 +6,13 @@ var upimgfix = 0;
 var realHeight;
 var realWidth;
 var imgPath;
-seajs.use(['qcomcn.js','jqplus/jq.rotate.js'], function (q, rota) {
+seajs.use(['qcomcn','jqplus/jq_rotate','jqplus/jq_countable'], function (q, rota, cb) {
     var $ = q.jq;
     rota($);
+    cb($);
     
     $(function () {
+    	$('.countable').countable();
         $('#inputmain').focus(function () {
             $(this).css('height', '40');
             $('#inputbtm').removeClass('height0');
@@ -166,7 +168,7 @@ seajs.use(['qcomcn.js','jqplus/jq.rotate.js'], function (q, rota) {
 </script>
 <form action="${urlPrefix}/weibo" method="post">
 <div class="inputbx">
-    <textarea id="inputmain" name="content" class="mttextar_val">说点什么 . . .</textarea>
+    <textarea id="inputmain" name="content" class="mttextar_val countable">说点什么 . . .</textarea>
     <div id="inputbtm" class="rel mt5 mb10 height0">
 		插入：<a class="lk mr10">表情</a> <a id='trDialog_img' class="lk mr10">图片</a>
 		<c:choose>

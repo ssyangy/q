@@ -10,7 +10,7 @@
 .replist .sldimg{position:absolute;top:10px;left:10px;}
 </style>
 	<script type="text/javascript">
-	seajs.use(['qcomcn.js','ICanHaz.js'], function (q, ich) {
+	seajs.use(['qcomcn','ICanHaz'], function (q, ich) {
 		var $ = q.jq;
 		$(function(){
 			var wbs = $('ul.replist');

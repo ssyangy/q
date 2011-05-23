@@ -13,7 +13,7 @@ background:url("${staticUrlPrefix}/content-q/images/arrow/sh_ex2.png") no-repeat
 span.tit{display:none;}
 </style>
 <script type="text/javascript">
-seajs.use('qcomcn.js', function (q) {
+seajs.use('qcomcn', function (q) {
 	var $ = q.jq;
 	$(function () {
          
@@ -29,7 +29,7 @@ seajs.use('qcomcn.js', function (q) {
              } 
          });
          
-		seajs.use('ICanHaz.js', function (ich) {
+		seajs.use('ICanHaz', function (ich) {
 			lis.click(function () {
 				window.gpid = $(this).attr('gpcid');
 				$('span.tit',roll).text($('p.name',this).text()).show();

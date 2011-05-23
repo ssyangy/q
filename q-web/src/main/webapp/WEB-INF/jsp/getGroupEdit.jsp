@@ -6,7 +6,7 @@
 </jsp:include>
 
 <script type="text/javascript">
-	seajs.use('qcomcn.js', function(qcomcn) {
+	seajs.use('qcomcn', function(qcomcn) {
 		var $ = qcomcn.jq;
 		$(function() {
 

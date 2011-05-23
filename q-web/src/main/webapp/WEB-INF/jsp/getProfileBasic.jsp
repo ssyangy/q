@@ -5,7 +5,7 @@
 </jsp:include>
 	<script type="text/javascript">
 	areas=${rootArea.childsJson};
-	seajs.use('qcomcn.js', function (q) {
+	seajs.use('qcomcn', function (q) {
 		$ = q.jq;
 		
 		checkrealName = function (a){
@@ -104,7 +104,7 @@
 		});
 		}
 		
-		seajs.use('jq.area.js',function(area){
+		seajs.use('jq_area',function(area){
 			$(document).ready(function(){
 		         yeartemp='${people.year + 1900}';
 			     monthtemp='${people.month}';
