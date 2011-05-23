@@ -204,6 +204,7 @@ public class DefaultPictureService implements PictureService {
 		String kind=type.substring(type.indexOf("/")+1, type.length());
 		String name = Long.toString(picId, Character.MAX_RADIX)+"."+kind;
 		BufferedImage image = ImageKit.load(picture);
+
 		int originWidth = image.getWidth();
 		int originHeight = image.getHeight();
 
