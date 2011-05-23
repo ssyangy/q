@@ -16,10 +16,10 @@
 .repactbox{text-align:right;}
 </style>
 <script type="text/javascript">
-    seajs.use('qcomcn.js', function (q) {
+    seajs.use('qcomcn', function (q) {
         var $ = q.jq;
         $(function () {
-        	seajs.use('ICanHaz.js', function (ich) {
+        	seajs.use('ICanHaz', function (ich) {
 	            var sldroot = $('#sldroot');
 	            var sldrootul = $('ul.sldlist',sldroot);
 	            var intmsglist = function(json){

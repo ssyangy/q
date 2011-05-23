@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-    seajs.use(['qcomcn.js','app/weibo.js','underscore.js'], function (q, w, _) {
+    seajs.use(['qcomcn','app/weibo','underscore'], function (q, w, _) {
     	var $ = q.jq;
         $(function () {
             w.init(q);

@@ -4,7 +4,7 @@
 	<jsp:param name="title" value="微博" />
 </jsp:include>
 <script type="text/javascript">
-seajs.use(['qcomcn.js','app/weibo-rep.js'], function (q,rep) {
+seajs.use(['qcomcn','app/weibo_rep'], function (q,rep) {
 		var $ = q.jq;
         $(function () {
         	var ul = $('ul.msglist');

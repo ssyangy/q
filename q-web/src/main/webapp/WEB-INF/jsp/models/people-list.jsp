@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<script type="text/javascript">
-	seajs.use(['qcomcn.js','ICanHaz.js'], function (q, ich) {
+	seajs.use(['qcomcn','ICanHaz'], function (q, ich) {
 		var $ = q.jq;
 		$(function(){
 			var mems = $('#mems');

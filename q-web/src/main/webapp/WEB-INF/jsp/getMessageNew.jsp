@@ -5,7 +5,7 @@
 </jsp:include>
 <link href="${staticUrlPrefix}/content-q/token-input.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
-    seajs.use(['qcomcn.js','jqplus/jq.tokeninput.js'], function (q,toke) {
+    seajs.use(['qcomcn','jqplus/jq_tokeninput'], function (q,toke) {
         var $ = q.jq;
         toke($);
         var ffs = ${peoplesHintJson};

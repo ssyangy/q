@@ -13,7 +13,7 @@
     </style>
     <script src="${staticUrlPrefix}/scripts-q/sea.js" type="text/javascript"></script>
     <script type="text/javascript">
-        seajs.use('qcomcn.js', function (q) {
+        seajs.use('qcomcn', function (q) {
             var $ = q.jq;
             $(function () {
                 q.Init();
