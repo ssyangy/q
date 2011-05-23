@@ -3,8 +3,8 @@
 <html>
 <head>
     <title>${param['title']}</title>
-    <link href="${staticUrlPrefix}/content-q/qcomcn.css" rel="stylesheet" type="text/css" />
-    <link href="${staticUrlPrefix}/content-q/step.css" rel="stylesheet" type="text/css" />
+    <link href="${staticUrlPrefix}/content/qcomcn.css" rel="stylesheet" type="text/css" />
+    <link href="${staticUrlPrefix}/content/step.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
     .wapper{position:relative;height:600px;}
     #logo{top:200px;font-size:28px;}
