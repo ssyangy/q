@@ -13,7 +13,11 @@
     <file relUrl="Views/Web.config" publishTime="04/08/2011 11:07:54" />
     <file relUrl="Views/qcomcn/SignIn.cshtml" publishTime="05/05/2011 16:31:27" />
     <file relUrl="scripts-q/jqplus/jq_limitchar.js" publishTime="05/20/2011 10:36:43" />
+<<<<<<< HEAD
     <file relUrl="scripts-q/config.js" publishTime="05/23/2011 13:30:23" />
+=======
+    <file relUrl="scripts-q/config.js" publishTime="05/22/2011 14:17:42" />
+>>>>>>> 8b0aca13fbc4a0c8b13b451e6c945c3d38ec2cb0
     <file relUrl="demo/json2.js" publishTime="04/27/2011 19:48:16" />
     <file relUrl="demo/seajsdemo/seajsdemo.js" publishTime="05/21/2011 11:32:47" />
     <file relUrl="Assist/IKVM.NET/IKVM.Runtime.dll" publishTime="03/17/2011 06:31:36" />
@@ -89,7 +93,11 @@
     <file relUrl="Assist/IKVM.NET/IKVM.OpenJDK.XML.Transform.dll" publishTime="03/17/2011 06:31:08" />
     <file relUrl="scripts-q/back/chinaareaLocation.js" publishTime="05/18/2011 16:09:07" />
     <file relUrl="scripts-q/jqplus/jq_fancybox.js" publishTime="11/11/2010 23:31:54" />
+<<<<<<< HEAD
     <file relUrl="scripts-q/jquery.js" publishTime="05/22/2011 23:10:28" />
+=======
+    <file relUrl="scripts-q/jquery.js" publishTime="05/23/2011 11:48:42" />
+>>>>>>> 8b0aca13fbc4a0c8b13b451e6c945c3d38ec2cb0
     <file relUrl="scripts-q/sea.js" publishTime="05/22/2011 23:10:24" />
     <file relUrl="scripts-q/jqplus/jq_mttext.js" publishTime="05/20/2011 10:27:09" />
     <file relUrl="Views/qcomcn/AtMe.cshtml" publishTime="05/05/2011 09:26:43" />
@@ -101,13 +109,17 @@
     <file relUrl="scripts-q/app/weibo.js" publishTime="05/22/2011 14:12:32" />
     <file relUrl="resources/seajs-v0.9.0.zip" publishTime="05/10/2011 19:25:04" />
     <file relUrl="Assist/IKVM.NET/ICSharpCode.SharpZipLib.dll" publishTime="11/27/2006 18:20:18" />
+<<<<<<< HEAD
     <file relUrl="scripts-q/backbone.js" publishTime="05/22/2011 23:10:36" />
+=======
+    <file relUrl="scripts-q/backbone.js" publishTime="05/23/2011 11:48:58" />
+>>>>>>> 8b0aca13fbc4a0c8b13b451e6c945c3d38ec2cb0
     <file relUrl="demo/images/ui-icons_454545_256x240.png" publishTime="05/13/2011 13:56:17" />
     <file relUrl="Assist/closure-compiler/IKVM.OpenJDK.XML.WebServices.dll" publishTime="03/17/2011 06:31:08" />
     <file relUrl="Assist/qunit/qunit.js" publishTime="04/20/2011 08:40:12" />
     <file relUrl="scripts-q/back/chinaarea.js" publishTime="05/18/2011 16:09:07" />
     <file relUrl="Views/qcomcn/ForgetPwd.cshtml" publishTime="05/05/2011 15:38:32" />
-    <file relUrl="scripts-q/underscore.js" publishTime="05/22/2011 23:10:32" />
+    <file relUrl="scripts-q/underscore.js" publishTime="05/23/2011 11:48:51" />
     <file relUrl="Assist/closure-compiler/IKVM.OpenJDK.Tools.dll" publishTime="03/17/2011 06:31:50" />
     <file relUrl="Views/qcomcn/Weibo.cshtml" publishTime="05/17/2011 17:37:50" />
     <file relUrl="Views/qcomcn/group/GroupMember.cshtml" publishTime="05/05/2011 15:42:50" />
