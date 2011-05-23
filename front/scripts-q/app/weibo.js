@@ -1,7 +1,7 @@
 ﻿define(function (require, exports, module) {
     var _ = require('underscore');
     var Backbone = require('backbone');
-    var rep = require('app/weibo-rep.js');
+    var rep = require('app/weibo_rep');
 
     var ich = {};
     var seed = {};
@@ -10,7 +10,7 @@
     exports.init = function (qcomcn) {
         q = qcomcn;
         $ = qcomcn.jq;
-        require('jqplus/jq.rotate.js')($);
+        require('jqplus/jq_rotate')($);
         ich = require('ICanHaz');
 
         var rdia = $('#dia_ret');

@@ -3,10 +3,10 @@
 <head>
     <title>@ViewBag.Title</title>
     <link href="@Url.Content("~/content-q/qcomcn.css")" rel="stylesheet" type="text/css" />
-    <script src="@Html.Script("/scripts/sea.js")" type="text/javascript"></script>
+    <script src="@Html.Script("/scripts-q/sea.js")" data-main="qcomcn"></script>
 </head>
 <body>
-<div class="body">
+<div id="body">
     <div id="toper"><div class="wapper">
         <a id='logo'>Q.com.cn</a>
         <div class="search">
@@ -15,22 +15,22 @@
         </div>
         <div id="msg">
             <ul class="list">
-                <li><a href='${urlPrefix}/category'>首页</a></li>
-                <li><a href='${urlPrefix}/people/${loginCookie.peopleId}/following'>好友</a></li>
-                <li class='rel'><a class="lk" href='${urlPrefix}/people/${loginCookie.peopleId}'>${loginCookie.realName}</a>
+                <li><a href='/' class="lk">首页</a></li>
+                <li><a href='/qcomcn/friends' class="lk">好友</a></li>
+                <li class='rel'><a class="lk" href='/people/${loginCookie.peopleId}'>${loginCookie.realName}</a>
                 <span tgtt='minelist' class='in_bk tlistarr'></span>
 		        <div id="minelist" class='tgtbox'>
 		            <ul class="dlist">
-		                <li><a class='lk' href='${urlPrefix}/people/${loginCookie.peopleId}'>我的主页</a></li>
-		                <li><a class="lk" href='${urlPrefix}/at'>&#64提到我的</a></li>
-		                <li><a class="lk" href='${urlPrefix}/reply'>我的回复</a></li>
-		                <li class="end"><a class="lk" href='${urlPrefix}/favorite'>我的收藏</a></li>
+		                <li><a class='lk' href='/people/${loginCookie.peopleId}'>我的主页</a></li>
+		                <li><a class="lk" href='/at'>&#64提到我的</a></li>
+		                <li><a class="lk" href='/reply'>我的回复</a></li>
+		                <li class="end"><a class="lk" href='/favorite'>我的收藏</a></li>
 		            </ul>
 		        </div>
                 </li>
-                <li><a class="lk" href='${urlPrefix}/message'>私信</a></li>
-                <li><a class="lk" href='${urlPrefix}/setting/basic'>设置</a></li>
-                <li class="end"><a class="lk" href='${urlPrefix}/login/delete'>退出</a></li>
+                <li><a class="lk" href='/qcomcn/MsgInbox'>私信</a></li>
+                <li><a class="lk" href='/setting/basic'>设置</a></li>
+                <li class="end"><a class="lk" href='/login/delete'>退出</a></li>
             </ul>
         </div>
         <div id="note">

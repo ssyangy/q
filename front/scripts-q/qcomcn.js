@@ -1,9 +1,47 @@
 ﻿define(function (require, exports, module) {
-    var $ = exports.jq = require('jquery');
-    require('config.js')($);
-    require('jqplus/jq.repurl.js')($);
-    require('jqplus/jq.mttext.js')($);
-    var uihelp = require('ui/jq.ui.help.js');
+    var $ = require('jquery');
+    require('config')($);
+    require('jqplus/jq_repurl')($);
+    require('jqplus/jq_mttext')($);
+    var uihelp = require('ui/jq_ui_help');
+    exports.jq = $;
+
+    exports.fixui = function (box) {
+        uihelp.fix($, box);
+
+        $("input[accesskey]", box).bind("keydown", function (e) {
+            var code = (e.keyCode ? e.keyCode : e.which);
+            if (code == 13) {
+                var btnid = $(this).attr('accesskey');
+                $(".access_" + btnid).click();
+            }
+        });
+
+        $('.fixurl', box).repurl();
+        if ($.support.opacity) {
+            require('jqplus/jq_pngFix')($);
+            $(".png", box).pngFix();
+            //require('jqplus/jq.limitimg.js');
+            //$('img', box).imgLimit({ size: [120, 160, 320] });
+        }
+
+        $("input.mttext", box).mttext();
+        $("input.mttext_val", box).mttext({ wval: true });
+        $("textarea.mttextar", box).mttext({ isarea: true });
+        $("textarea.mttextar_val", box).mttext({ isarea: true, wval: true });
+
+        $(".hov,.streambox", box).hover(
+            function () { $(this).addClass('hover'); },
+            function () { $(this).removeClass('hover'); }
+        );
+
+        $('[tgtt]', box).bind('click', function () {
+            var o = $(this);
+            $('#' + o.attr('tgtt')).toggle();
+            if (o.hasClass('tgt')) { o.removeClass('tgt'); }
+            else { o.addClass('tgt'); }
+        });
+    }
 
     $(function () {
         uihelp.init($);
@@ -35,41 +73,6 @@
         }
     });
 
-    exports.fixui = function (box) {
-        uihelp.fix($, box);
 
-        $("input[accesskey]", box).bind("keydown", function (e) {
-            var code = (e.keyCode ? e.keyCode : e.which);
-            if (code == 13) {
-                var btnid = $(this).attr('accesskey');
-                $(".access_" + btnid).click();
-            }
-        });
-
-        $('.fixurl', box).repurl();
-        if ($.support.opacity) {
-            require('jqplus/jq.pngFix.js')($);
-            $(".png", box).pngFix();
-            //require('jqplus/jq.limitimg.js');
-            //$('img', box).imgLimit({ size: [120, 160, 320] });
-        }
-
-        $("input.mttext", box).mttext();
-        $("input.mttext_val", box).mttext({ wval: true });
-        $("textarea.mttextar", box).mttext({ isarea: true });
-        $("textarea.mttextar_val", box).mttext({ isarea: true, wval: true });
-
-        $(".hov,.streambox", box).hover(
-            function () { $(this).addClass('hover'); },
-            function () { $(this).removeClass('hover'); }
-        );
-
-        $('[tgtt]', box).bind('click', function () {
-            var o = $(this);
-            $('#' + o.attr('tgtt')).toggle();
-            if (o.hasClass('tgt')) { o.removeClass('tgt'); }
-            else { o.addClass('tgt'); }
-        });
-    }
 
 });

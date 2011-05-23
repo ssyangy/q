@@ -2,13 +2,12 @@
     ViewBag.Title = "私信";
     Layout = "~/Views/qcomcn/Layout.cshtml";
 }
-<link href="/content/slider.css" rel="stylesheet" type="text/css" />
+<link href="/content-q/slider.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
-    seajs.use('qcomcn.js', function (qcomcn) {
-        var $ = qcomcn.jq;
+    seajs.use('qcomcn', function (q) {
+        var $ = q.jq;
 
         $(function () {
-            qcomcn.Init();
             var lis = $("#sldroot>li");
             lis.hover(function () {
                 $(this).addClass('hover');

@@ -1,8 +1,5 @@
 define(function (require, exports, module) {
-    var jQuery = require('jquery.js');
-    var $ = jQuery;
-
-    (function ($) {
+    return function ($) { 
 
         var idIncrement = 0;
 
@@ -413,6 +410,6 @@ define(function (require, exports, module) {
 
         $.ui.menu.version = "@VERSION";
 
-    } (jQuery));
+    };
 
 });

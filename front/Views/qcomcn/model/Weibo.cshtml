@@ -1,8 +1,9 @@
 ﻿<script type="text/javascript">
-    seajs.use('jquery.js', function ($) {
+    seajs.use('qcomcn', function (q) {
+        var $ = q.jq;
         $(function () {
-            seajs.use('app/weibo.js', function (homeapp) {
-                
+            seajs.use('app/weibo', function (homeapp) {
+
             });
         });
     });

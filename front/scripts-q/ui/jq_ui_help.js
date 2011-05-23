@@ -1,10 +1,10 @@
 ﻿define(function (require, exports, module) {
 
     exports.init = function ($) {
-            require("ui/jq.ui.js")($);
-            require('ui/jquery.ui.tooltip.js')($);
+            require("ui/jq_ui")($);
+            require('ui/jq_ui_tooltip')($);
             //require('ui/jquery.ui.menu.js');
-            require('ui/jq.ui.selectmenu.js')($);
+            require('ui/jq_ui_selectmenu')($);
 
             var alert = function (txt) {
                 $("#txtAlert").text(txt);
