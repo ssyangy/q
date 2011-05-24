@@ -7,7 +7,7 @@
 <script type="text/javascript">
     mods.push(function (q) {
         var $ = q.jq;
-        $(function () {
+
 
             var pheight = 331.6;
             $('#cropbox').Jcrop({
@@ -23,7 +23,7 @@
                     s3: '钟楼区'
                 });
             });
-        });
+
     });
     function showPreview(coords) {
         if (parseInt(coords.w) > 0) {

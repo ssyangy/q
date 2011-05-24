@@ -12,9 +12,7 @@
 	<script type="text/javascript">
 	mods.push(function (q) {
 		var $ = q.jq;
-		$(function(){
-	        var ich = {};
-	        seajs.use('ICanHaz', function (o) { ich = o });			
+		seajs.use('ICanHaz', function (ich) {
 			var wbs = $('ul.replist');
 			var wbs_ajsucc = function(j){
 				window.body.animate({scrollTop:0},700,"swing");

@@ -5,47 +5,43 @@
 </jsp:include>
 <link href="${staticUrlPrefix}/content/token-input.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
-    mods.push(function (q) {
+mods.push(function (q) {
+seajs.use('jqplus/jq_tokeninput',function(toke){    	
     	var $ = q.jq;
-    	seajs.use('jqplus/jq_tokeninput',function(toke){
-    		toke($);
-    	});
-        
+    	toke($);
         var ffs = ${peoplesHintJson};
         var tips = "输入好友姓名 ... ";
         
-        $(function () {
-            $("#members").buttonset();
-            
-            var tokeAdd = function (item) {
-                var ck = $("input[type='checkbox'][value='" + item.id + "']");
-                if (!ck.is(':checked')) {
-                    $("label[for='" + ck.attr('id') + "']").click();
-                }
+        $("#members").buttonset();
+        
+        var tokeAdd = function (item) {
+            var ck = $("input[type='checkbox'][value='" + item.id + "']");
+            if (!ck.is(':checked')) {
+                $("label[for='" + ck.attr('id') + "']").click();
             }
-            var tokeDel = function (item) {
-                var ck = $("input[type='checkbox'][value='" + item.id + "']");
-                if (ck.is(':checked')) {
-                    $("label[for='" + ck.attr('id') + "']").click();
-                }
+        }
+        var tokeDel = function (item) {
+            var ck = $("input[type='checkbox'][value='" + item.id + "']");
+            if (ck.is(':checked')) {
+                $("label[for='" + ck.attr('id') + "']").click();
             }
-            
-            $("#autocom").tokenInput(ffs, { hintText: tips, onAdd: tokeAdd, onDelete: tokeDel });
-            $('#members').click(function (e) {
-                var tarname = $(e.target).get(0).tagName;
-                if (tarname == 'SPAN') {
-                    var pre = [];
-                    $("label.ui-state-active", this).each(function () {
-                        var ck = $(this).prev("input[type='checkbox']");
-                        pre.push({ id: ck.val(), name: ck.attr('name') });
-                    });
-                    $('ul.token-input-list').remove();
-                    $("#autocom").tokenInput(ffs, { hintText: tips, prePopulate: pre, onAdd: tokeAdd, onDelete: tokeDel });
-                }
-            });
-
+        }
+        
+        $("#autocom").tokenInput(ffs, { hintText: tips, onAdd: tokeAdd, onDelete: tokeDel });
+        $('#members').click(function (e) {
+            var tarname = $(e.target).get(0).tagName;
+            if (tarname == 'SPAN') {
+                var pre = [];
+                $("label.ui-state-active", this).each(function () {
+                    var ck = $(this).prev("input[type='checkbox']");
+                    pre.push({ id: ck.val(), name: ck.attr('name') });
+                });
+                $('ul.token-input-list').remove();
+                $("#autocom").tokenInput(ffs, { hintText: tips, prePopulate: pre, onAdd: tokeAdd, onDelete: tokeDel });
+            }
         });
-	});
+});
+});    
 </script>
 <h2 class='mb20'>发私信</h2>
 <div class="layout grid-m0s9">

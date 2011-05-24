@@ -4,7 +4,7 @@
 <script type="text/javascript">
 mods.push(function (q) {
     var $ = q.jq;
-    $(function () {
+
     	$("a.joing").live("click",function(){
 			$.ajax({
     			    url: '${urlPrefix}/group/${group.id}/join',
@@ -32,7 +32,7 @@ mods.push(function (q) {
     			   	}
     		});
     	});
-    });
+
 });
 </script>
 <p>由${group.creator.realName}创建于${group.time}</p><br />

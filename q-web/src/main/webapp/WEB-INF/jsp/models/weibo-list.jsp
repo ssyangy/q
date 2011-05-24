@@ -2,39 +2,34 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
 mods.push(function(q){
+seajs.use(['app/weibo','underscore'], function (w, _) {
 	var $ = q.jq;
-    seajs.use(['app/weibo','underscore'], function (w, _) {
-        $(function () {
-            w.init(q);
-            
-        	var ajlock = true;
-            var ajaxweibo = function(size,startid){
-                $.ajax({
-                    send: function(){ ajlock = false; },
-                    url: "${param['feedUrl']}?tab=${param['tab']}",
-                    data: {size:size, startId:startid, search:"${param['search']}"},
-                    success: function(json){
-                        $(json.weibos).each(function(){
-                            this.old = true;
-                            var t = new w.WeiboModel(this);
-                            w.weibos.add(t);
-                            //alert("e"+w.weibos.oldlast().get('id'));
-                        });
-                    },
-                    complete: function(){ ajlock = true; }
-                });
-            }
-            ajaxweibo(8,'999999999999999999');
-	        var o = window.body[0];
-            var updateweibo = function(){
-            	if (o.scrollTop + window.gWinHeight < o.scrollHeight) return;
-               	if (!ajlock) return;
-                ajaxweibo(1,w.weibos.oldlast().get('id'));
+	w.init(q);
+	var ajlock = true;
+	var ajaxweibo = function(size,startid){
+		$.ajax({ url: "${param['feedUrl']}?tab=${param['tab']}",
+			send: function(){ ajlock = false; },
+			complete: function(){ ajlock = true; },
+			data: {size:size, startId:startid, search:"${param['search']}"},
+			success: function(json){
+				$(json.weibos).each(function(){
+					this.old = true;
+					var t = new w.WeiboModel(this);
+					w.weibos.add(t);
+				});
 			}
-            var throttled = _.throttle(updateweibo, 300);
-            window.body.scroll(updateweibo);
-        });
-    });
+		});
+	}
+	ajaxweibo(8,'');
+	var o = window.body[0];
+	var updateweibo = function(){
+		if (o.scrollTop + window.gWinHeight < o.scrollHeight) return;
+		if (!ajlock) return;
+		ajaxweibo(1,w.weibos.oldlast().get('id'));
+	}
+	var throttled = _.throttle(updateweibo, 300);
+	window.body.scroll(updateweibo);
+});
 });
 </script>
 <ul id='streams'></ul>
@@ -129,6 +124,6 @@ mods.push(function(q){
 	<div class="wcontent mb10"></div>
 	<input class='ret_url' type='hidden' ></input>
 	<textarea name="content" class="mttextar_val" style="width:100%"></textarea>
-    <img src="${staticUrlPrefix}/content-q/images/ajax/ajaxload.gif" class="ajaxload hide" alt="ajaxload" />
+    <img src="${staticUrlPrefix}/content/images/ajax/ajaxload.gif" class="ajaxload hide" alt="ajaxload" />
     <input type='hidden' class='donet' />
 </div>

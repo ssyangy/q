@@ -15,7 +15,6 @@ span.tit{display:none;}
 <script type="text/javascript">
 mods.push(function (q) {
 	var $ = q.jq;
-	$(function () {
          
          var lis = $("#sldroot>li");
          var roll = $('#passroll');
@@ -91,8 +90,6 @@ mods.push(function (q) {
 				}
 			});
 		});
-		
-	});
 });
 </script>
 

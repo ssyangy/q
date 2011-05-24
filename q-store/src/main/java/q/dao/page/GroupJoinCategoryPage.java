@@ -15,6 +15,8 @@ public class GroupJoinCategoryPage extends Page {
 	private static final long serialVersionUID = 8186458581959280224L;
 
 	private List<Long> categoryIds;
+	
+	private Long categoryId;
 
 	private Integer newStatus;
 
@@ -112,6 +114,20 @@ public class GroupJoinCategoryPage extends Page {
 	 */
 	public Long getGroupId() {
 		return groupId;
+	}
+
+	/**
+	 * @param categoryId the categoryId to set
+	 */
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	/**
+	 * @return the categoryId
+	 */
+	public Long getCategoryId() {
+		return categoryId;
 	}
 
 }

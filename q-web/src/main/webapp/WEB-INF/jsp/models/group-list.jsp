@@ -2,10 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link href='${staticUrlPrefix}/content/slider.css' rel='stylesheet' type='text/css' />
 	<script type="text/javascript">
-	mods.push(function (q) {
-		var $ = q.jq;
-		$(function(){
-			seajs.use('ICanHaz',function(ich){
+mods.push(function (q) {
+	var $ = q.jq;
+	seajs.use('ICanHaz',function(ich){
 			var gbs = $('#groups');
 			var gbul = $("ul.msglist",gbs);
 			var gbs_ajsucc = function(j){
@@ -50,11 +49,9 @@
 						this.msg.addClass('hide_im');
 					} });
 			});
-
-			});
-		});
-	}); 
-	</script>
+	});
+}); 
+</script>
 <script type="text/html" id="groups">
                     <li stream_id={{id}}>
                         <img src="{{avatarPath}}" alt="avtor" class="sldimg" />

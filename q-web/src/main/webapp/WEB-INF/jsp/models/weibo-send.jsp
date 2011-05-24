@@ -12,7 +12,6 @@ seajs.use(['jqplus/jq_rotate','jqplus/jq_countable'], function (rota, cb) {
     rota($);
     cb($);
     
-    $(function () {
     	$('.countable').countable();
         $('#inputmain').focus(function () {
             $(this).css('height', '40');
@@ -119,7 +118,7 @@ seajs.use(['jqplus/jq_rotate','jqplus/jq_countable'], function (rota, cb) {
         $('#file').bind('change',check);
         $('#upimgsub').bind('click',check);
         $('#formImg').bind('submit',function () { return isImg; });
-    });
+
     
     up = function(){
     	return isImg;

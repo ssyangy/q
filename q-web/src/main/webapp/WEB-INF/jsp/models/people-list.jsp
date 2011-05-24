@@ -1,95 +1,92 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-	<script type="text/javascript">
-	mods.push(function (q) {
-		var $ = q.jq;
-		$(function(){
-	        var ich = {};
-	        seajs.use('ICanHaz', function (o) { ich = o });			
-			var mems = $('#mems');
-			var mem_ajsucc = function(json){
-            	var pv = $('a.mbprev'); pv.hide(); if (json.hasPrev) pv.show();
-            	var nt = $('a.mbnext'); nt.hide(); if (json.hasNext) nt.show();	            
-	            mems.empty();
-                $(json.peoples).each(function(){
-                	mems.append(ich.members(this));
-                });
-			}
+<script type="text/javascript">
+mods.push(function (q) {
+	var $ = q.jq;
+	seajs.use('ICanHaz',function(ich){
+		var mems = $('#mems');
+		var mem_ajsucc = function(json){
+           	var pv = $('a.mbprev'); pv.hide(); if (json.hasPrev) pv.show();
+           	var nt = $('a.mbnext'); nt.hide(); if (json.hasNext) nt.show();	            
+            mems.empty();
+               $(json.peoples).each(function(){
+               	mems.append(ich.members(this));
+               });
+		}
+		$.ajax({ url:"${param['feedUrl']}",
+			data:{startId:"999999999999999999",size:10, search:"${param['search']}"},
+			success:mem_ajsucc });
+		$('a.mbprev').click(function(){
 			$.ajax({ url:"${param['feedUrl']}",
-				data:{startId:"999999999999999999",size:10, search:"${param['search']}"},
+				data:{startId:$("li",mems).first().attr("stream_id"),size:10, search:"${param['search']}", type:1},
 				success:mem_ajsucc });
-			$('a.mbprev').click(function(){
-				$.ajax({ url:"${param['feedUrl']}",
-					data:{startId:$("li",mems).first().attr("stream_id"),size:10, search:"${param['search']}", type:1},
-					success:mem_ajsucc });
-			});
-			$('a.mbnext').click(function(){
-				$.ajax({ url:"${param['feedUrl']}",
-					data:{startId:$("li",mems).last().attr("stream_id"),size:10, search:"${param['search']}"},
-					success:mem_ajsucc });
-			});
-
-			$("a.unwat").live('click', function () {
-	          	  var stream = $(this).closest('li');
-	          	  $.ajax({ url: '${urlPrefix}/people/'+stream.attr('people_id') +"/following", msg:$(this), type: 'POST',
-	          			data:{_method:'delete'},
-					   	success: function(m){
-					   		if (m != null && !m.id) return;
-					   		this.msg.addClass('hide_im');
-							this.msg.siblings('a.wat').removeClass('hide_im');
-							this.msg.siblings('a.btnletter').hide();
-					    } });
-			});
-			$("a.wat").live('click', function () {
-	          	  var stream = $(this).closest('li');
-	          	  $.ajax({ url: '${urlPrefix}/people/'+stream.attr('people_id') +"/following", msg:$(this), type: 'POST',
-					   	success: function(m){
-					   		if (m != null && !m.id) return;
-					   		this.msg.addClass('hide_im');
-							this.msg.siblings('a.unwat').removeClass('hide_im');
-							this.msg.siblings('a.btnletter').show();
-					    } });
-			});
-			
-			var dia_ret = $("#dia_ret");
-			$("a.btnat").live('click', function () {
-				var stream = $(this).closest('li');
-				$("textarea[name='content']",dia_ret).val('').val('//@'+$('a.username',stream).text().trim());
-				dia_ret.dialog("open");
-			});
-	        $('input.donet', dia_ret).live("click",function () {
-				$('img.ajaxload', this).show();
-				var dia = $('#dia_fow');
-				$.ajax({ url: '${urlPrefix}/weibo', type: 'POST',
-					data: {content:$("textarea[name='content']",dia).val()},
-					success: function(m){
-						dia_ret.dialog("close");
-						$('img.ajaxload', dia_fow).hide();
-					} });
-	        });
-
-			var dia_letter = $("#dia_letter");
-			$("a.btnletter").live('click', function () {
-				var stream = $(this).closest('li');
-				$('div.wpeople',dia_letter).empty().html('发私信给：'+ $('a.username',stream).text().trim());
-				$("textarea[name='content']",dia_letter).val('');
-				$("#letter_url",dia_letter).val('${urlPrefix}/message?receiverId='+stream.attr('people_id'));
-				dia_letter.dialog("open");
-			});
-	        $('input.donet', dia_letter).live("click",function () {
-				$('img.ajaxload', this).show();
-				var dia = $('#dia_letter');
-				$.ajax({ url: $("#letter_url",dia).val(), type: 'POST',
-					data: {content:$("textarea[name='content']",dia).val()},
-					success: function(m){
-						dia.dialog("close");
-						$('img.ajaxload', dia).hide();
-					} });
-	        });	        
-
 		});
-	}); 
-	</script>
+		$('a.mbnext').click(function(){
+			$.ajax({ url:"${param['feedUrl']}",
+				data:{startId:$("li",mems).last().attr("stream_id"),size:10, search:"${param['search']}"},
+				success:mem_ajsucc });
+		});
+
+		$("a.unwat").live('click', function () {
+          	  var stream = $(this).closest('li');
+          	  $.ajax({ url: '${urlPrefix}/people/'+stream.attr('people_id') +"/following", msg:$(this), type: 'POST',
+          			data:{_method:'delete'},
+				   	success: function(m){
+				   		if (m != null && !m.id) return;
+				   		this.msg.addClass('hide_im');
+						this.msg.siblings('a.wat').removeClass('hide_im');
+						this.msg.siblings('a.btnletter').hide();
+				    } });
+		});
+		$("a.wat").live('click', function () {
+          	  var stream = $(this).closest('li');
+          	  $.ajax({ url: '${urlPrefix}/people/'+stream.attr('people_id') +"/following", msg:$(this), type: 'POST',
+				   	success: function(m){
+				   		if (m != null && !m.id) return;
+				   		this.msg.addClass('hide_im');
+						this.msg.siblings('a.unwat').removeClass('hide_im');
+						this.msg.siblings('a.btnletter').show();
+				    } });
+		});
+		
+		var dia_ret = $("#dia_ret");
+		$("a.btnat").live('click', function () {
+			var stream = $(this).closest('li');
+			$("textarea[name='content']",dia_ret).val('').val('//@'+$('a.username',stream).text().trim());
+			dia_ret.dialog("open");
+		});
+        $('input.donet', dia_ret).live("click",function () {
+			$('img.ajaxload', this).show();
+			var dia = $('#dia_fow');
+			$.ajax({ url: '${urlPrefix}/weibo', type: 'POST',
+				data: {content:$("textarea[name='content']",dia).val()},
+				success: function(m){
+					dia_ret.dialog("close");
+					$('img.ajaxload', dia_fow).hide();
+				} });
+        });
+
+		var dia_letter = $("#dia_letter");
+		$("a.btnletter").live('click', function () {
+			var stream = $(this).closest('li');
+			$('div.wpeople',dia_letter).empty().html('发私信给：'+ $('a.username',stream).text().trim());
+			$("textarea[name='content']",dia_letter).val('');
+			$("#letter_url",dia_letter).val('${urlPrefix}/message?receiverId='+stream.attr('people_id'));
+			dia_letter.dialog("open");
+		});
+        $('input.donet', dia_letter).live("click",function () {
+			$('img.ajaxload', this).show();
+			var dia = $('#dia_letter');
+			$.ajax({ url: $("#letter_url",dia).val(), type: 'POST',
+				data: {content:$("textarea[name='content']",dia).val()},
+				success: function(m){
+					dia.dialog("close");
+					$('img.ajaxload', dia).hide();
+				} });
+        });
+	});
+});	
+</script>
 <script type="text/html" id="members">
     <li stream_id='{{# ${param['orderId']} }}{{ id }}{{/ ${param['orderId']} }}' people_id="{{id}}">
         <a href="${urlPrefix}/people/{{id}}"><img src="{{avatarPath}}-48" alt="{{screenName}}" class="sldimg" /></a>
@@ -111,7 +108,7 @@
 
 <div id="dia_ret" class="ui_dialog hide" title="@">
 	<textarea name="content" style="width:100%;height:100px;"></textarea>
-	<img src="${staticUrlPrefix}/content-q/images/ajaxload.gif" class="ajaxload" alt="ajaxload" />
+	<img src="${staticUrlPrefix}/content/images/ajax/ajaxload.gif" class="ajaxload" alt="ajaxload" />
 	<input type='hidden' class='donet' />
 	<input type='hidden' class='undonet' />
 </div>
@@ -119,7 +116,7 @@
 	<div class="wpeople mb10"></div>
 	<input id='letter_url' type='hidden'></input>
 	<textarea name="content" style="width:100%;height:100px;"></textarea>
-	<img src="${staticUrlPrefix}/content-q/images/ajax/ajaxload.gif" class="ajaxload" alt="ajaxload" />
+	<img src="${staticUrlPrefix}/content/images/ajax/ajaxload.gif" class="ajaxload" alt="ajaxload" />
 	<input type='hidden' class='donet' />
 	<input type='hidden' class='undonet' />		
 </div>

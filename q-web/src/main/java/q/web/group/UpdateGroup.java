@@ -91,7 +91,7 @@ public class UpdateGroup extends Resource {
 		if (!hasCat) { // add new join
 			groupDao.addGroupJoinCategory(group.getId(), categoryId);
 		} else if (hasCatDeleted != null) { // reopen deleted and selected join
-			groupDao.updateGroupJoinCategoryStatus(hasCatDeleted.getId(), Status.COMMON.getValue(), Status.DELETE.getValue());
+			groupDao.updateGroupJoinCategoryStatusByIdAndOldStatus(hasCatDeleted.getId(), Status.COMMON, Status.DELETE);
 		}
 		groupDao.deleteGroupJoinCategoriesByjoinIdsAndGroupId(group.getId(), deleteJoinIds); // delete old joins
 

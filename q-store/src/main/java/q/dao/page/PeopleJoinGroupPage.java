@@ -57,5 +57,53 @@ public class PeopleJoinGroupPage extends Page implements Serializable {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+	
+	/**
+	 * @param newStatus the newStatus to set
+	 */
+	public void setNewStatus(Integer newStatus) {
+		this.newStatus = newStatus;
+	}
+
+	/**
+	 * @return the newStatus
+	 */
+	public Integer getNewStatus() {
+		return newStatus;
+	}
+
+	/**
+	 * @param oldStatus the oldStatus to set
+	 */
+	public void setOldStatus(Integer oldStatus) {
+		this.oldStatus = oldStatus;
+	}
+
+	/**
+	 * @return the oldStatus
+	 */
+	public Integer getOldStatus() {
+		return oldStatus;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	private Integer newStatus;
+
+	private Integer oldStatus;
+	
+	private Long id;
 
 }

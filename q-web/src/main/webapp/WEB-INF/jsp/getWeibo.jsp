@@ -5,10 +5,8 @@
 </jsp:include>
 <script type="text/javascript">
 mods.push(function (q) {
-	var rep = {};
-	seajs.use('app/weibo_rep',function(o){ rep = o; });
-	var $ = q.jq;
-    $(function () {
+seajs.use('app/weibo_rep',function(rep){
+		var $ = q.jq;
     	var ul = $('ul.msglist');
         var suc_repajax = function(j){
         	window.body.animate({scrollTop:0},700,"swing");
@@ -52,7 +50,7 @@ mods.push(function (q) {
                 success: suc_repajax
             });
         });
-    });
+});
 });
 </script>
 <div class="layout grid-m0s7">
