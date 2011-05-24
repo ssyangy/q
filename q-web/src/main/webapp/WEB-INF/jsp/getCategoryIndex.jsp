@@ -44,7 +44,7 @@ mods.push(function (q) {
 			$('#pagger>a.prev').live('click',function(){
 				$.ajax({
 				    url: "${urlPrefix}/category/"+ window.gpid +"/group",
-				    data: {size:3, startId: $("#sldroot>li").last().data('replyid'), type: 1},
+				    data: {size:3, startId: $("#sldtrunk>li").last().data('replyid'), type: 1},
 				   	success: function(json){
 				   		$("#sld2").html(ich.group(json));
 				    }
@@ -53,7 +53,7 @@ mods.push(function (q) {
 			$('#pagger>a.next').live('click',function(){
 				$.ajax({
 				    url: "${urlPrefix}/category/"+ window.gpid +"/group",
-				    data: {size:3, startId:$("#sldroot>li").first().data('replyid')},
+				    data: {size:3, startId:$("#sldtrunk>li").first().data('replyid')},
 				   	success: function(json){
 				   		$("#sld2").html(ich.group(json));
 				    }
