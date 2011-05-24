@@ -59,7 +59,7 @@
         },
         remove: function () {
             if (!confirm('确定要删除？')) return;
-            $.ajax({ url: window.urlprefix + '/reply/' + this.model.get('id'), type: 'POST', msg: this,
+            $.ajax({ url: window.urlprefix + '/weiboReply/' + this.model.get('id'), type: 'POST', msg: this,
                 data: { _method: 'delete' },
                 success: function (m) {
                     if (m) return;
@@ -78,7 +78,7 @@
             rdia.dialog("open");
         },
         replay: function () {
-            $("input.reply_val", this.model.get("parent")).val("回复"+this.model.get("people").screenName+":").focus();
+            $("input.reply_val", this.model.get("parent").el).val("回复"+this.model.get("people").screenName+":").focus();
         },
         fav: function () {
             $.ajax({ url: window.urlprefix + '/reply/' + this.model.get('id') + '/favorite', type: 'POST', msg: this,

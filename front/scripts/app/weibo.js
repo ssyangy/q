@@ -106,7 +106,7 @@
         suc_repajax: function (json) {
             var ul = $('.extend>ul.msglist', this.el);
             ul.empty();
-            var el = this.el;
+            var el = this;
             $(json.replies).each(function () {
                 this.parent = el;
                 var rr = new rep.WeiboRepModel(this);
@@ -119,7 +119,7 @@
         initrep: function (m) {
             if (m && !m.id) return;
             $.ajax({ url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply",
-                data: { size: 10, startid: '999999999999999999' },
+                data: { size: 10 },
                 success: this.suc_repajax
             });
         },
