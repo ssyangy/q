@@ -17,7 +17,6 @@ import q.web.ResourceContext;
 import q.web.exception.RequestParameterInvalidException;
 
 /**
- * @author Zhehao
  * @author seanlinwang
  * @date Feb 15, 2011
  * 
@@ -52,30 +51,24 @@ public class GetCategoryGroup extends Resource {
 		if (startId > 0) {
 			page.setStartId(startId);
 		}
-		List<Long> groupIds = this.groupDao.getGroupIdsByGroupJoinCategoryPageOrderByGroupId(page); // XXX order by group_id not join_id
-		List<Group> groups = this.groupDao.getGroupsByIds(groupIds);// not sorted groups
+		List<Long> groupIds = this.groupDao.getGroupIdsByGroupJoinCategoryPageOrderByGroupId(page); // XXX order by group.id not by group_join_category.id
+		if (groupIds.size() == fetchSize) {
+			groupIds.remove(groupIds.size() - 1); // remove extra one
+			if (type == asc) { // more than one previous page
+				hasPrev = true;
+			} else { // more than one next page
+				hasNext = true;
+			}
+		}
+		List<Group> groups = this.groupDao.getGroupsByIds(groupIds);// XXX get not sorted groups
 		Map<String, Object> api = new HashMap<String, Object>();
 		if (CollectionKit.isNotEmpty(groups)) {
-			Collections.sort(groups, idDescComparator);
-			if (groups.size() == fetchSize) {
-				if (type == asc) {
-					groups.remove(0);// remove last one
-				} else {
-					groups.remove(groups.size() - 1);// remove last one
-				}
-
-				if (type == asc) { // more than one previous page
-					hasPrev = true;
-				} else { // more than one next page
-					hasNext = true;
-				}
-			}
-			if (type == asc) { // this action from next page
+			Collections.sort(groups, idDescComparator); // sort groups order by id desc
+			if (type == asc) { // this action came from next page
 				hasNext = true;
-			} else if (startId != IdCreator.MAX_ID) {// this action from previous page
+			} else if (startId != IdCreator.MAX_ID) {// this action came from previous page
 				hasPrev = true;
 			}
-
 			api.put("groups", groups);
 		}
 		api.put("hasPrev", hasPrev);
