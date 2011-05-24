@@ -22,12 +22,12 @@ import q.util.IdCreator;
 /**
  * @author alin
  * @date Feb 10, 2011
- * 
+ *
  */
 public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.PeoplesDao#addPeople(q.domain.People)
 	 */
 	@Override
@@ -44,7 +44,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.PeoplesDao#getPeopleById(int)
 	 */
 	@Override
@@ -63,7 +63,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.PeopleDao#getPeopleByUsername(java.lang.String)
 	 */
 	@Override
@@ -140,12 +140,13 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	@Override
 	public PeopleRelation getPeopleRelationByFromIdToId(long fromPeopleId, long toPeopleId) throws SQLException {
-		return (PeopleRelation) this.getSqlMapClient().queryForObject("selectPeopleRelationByFromIdToId", new PeopleRelation(fromPeopleId, toPeopleId));
+		PeopleRelation relation = (PeopleRelation) this.getSqlMapClient().queryForObject("selectPeopleRelationByFromIdToId", new PeopleRelation(fromPeopleId, toPeopleId));
+		return relation;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.PeopleDao#updatePeopleRelationStatus(q.domain.PeopleRelation)
 	 */
 	@Override
@@ -159,8 +160,9 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see q.dao.PeopleDao#updatePeopleRelationStatusByFromIdAndToId(q.domain.PeopleRelationStatus, long, long)
+	 *
+	 * @see q.dao.PeopleDao#updatePeopleRelationStatusByFromIdAndToId(q.domain.
+	 * PeopleRelationStatus, long, long)
 	 */
 	@Override
 	public int updatePeopleRelationStatusByFromIdAndToId(PeopleRelationStatus newStatus, PeopleRelationStatus oldStatus, long fromPeopleId, long toPeopleId) throws SQLException {
@@ -199,7 +201,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.PeopleDao#incrPeopleFollowingNumberByPeopleId(long)
 	 */
 	@Override
@@ -209,7 +211,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.PeopleDao#incrPeopleFollowerNumberByPeopleId(long)
 	 */
 	@Override
@@ -219,7 +221,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.PeopleDao#decrPeopleFollowingNumberByPeopleId(long)
 	 */
 	@Override
@@ -229,7 +231,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.PeopleDao#decrPeopleFollowerNumberByPeopleId(long)
 	 */
 	@Override
@@ -239,7 +241,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.PeopleDao#updatePassword(java.lang.String)
 	 */
 	@Override

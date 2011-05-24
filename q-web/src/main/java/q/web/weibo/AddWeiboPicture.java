@@ -56,9 +56,11 @@ public class AddWeiboPicture extends Resource{
 				} else if (typeString.equals("gif")|| typeString.equals("GIF")) {
 					type = "image/gif";
 				} else {
+
 					context.setModel("isImg", false);
 				}
 				if (ImageKit.isImage(fileItem.getInputStream())) {
+
 					String result=pictureService.uploadWeiboPictures(fileItem.getInputStream(),type);
                     if(result.equals("false")){
                     	context.setModel("value", "服务器忙");

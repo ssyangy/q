@@ -5,14 +5,16 @@ import q.dao.EventDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.domain.People;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.RequestParameterInvalidException;
 
 /**
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Jan 18, 2011
- * 
+ *
  */
 public class GetPeople extends Resource {
 	private PeopleDao peopleDao;
@@ -43,9 +45,10 @@ public class GetPeople extends Resource {
 			frame.validate(context);
 			frame.execute(context);
 		} else {
-			long loginPeopleId = context.getResourceIdLong();
-			People people = peopleDao.getPeopleById(loginPeopleId);
-			if (loginPeopleId > 0) {
+			long loginPeopleId = context.getCookiePeopleId();
+			long peopleId = context.getResourceIdLong();
+			People people = peopleDao.getPeopleById(peopleId);
+			if (IdCreator.isValidIds(loginPeopleId) && loginPeopleId != peopleId) {
 				DaoHelper.injectPeopleWithVisitorRelation(peopleDao, people, loginPeopleId);
 			}
 			context.setModel("people", people);
@@ -55,11 +58,15 @@ public class GetPeople extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+		long peopleId = context.getResourceIdLong();
+		if (IdCreator.isNotValidId(peopleId)) {
+			throw new RequestParameterInvalidException("people:invalid");
+		}
 
 	}
 }

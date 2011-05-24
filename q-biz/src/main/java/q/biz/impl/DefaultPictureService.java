@@ -1,11 +1,7 @@
 package q.biz.impl;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -16,13 +12,13 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
-
 import q.biz.PictureService;
 import q.commons.http.JdkHttpClient;
 import q.commons.image.ImageKit;
 import q.util.IdCreator;
+
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 public class DefaultPictureService implements PictureService {
 	private String imageUrl;
@@ -108,7 +104,7 @@ public class DefaultPictureService implements PictureService {
 		long dir = peopleId % 10000;
 		for (int i = 0; i < images.length; i++) {
 			BufferedImage temp = images[i];
-			Map<String, CharSequence> payload = new HashMap();
+			Map<String, CharSequence> payload = new HashMap<String, CharSequence>();
 			payload.put("imgdir", "a/" + String.valueOf(dir) + "/");
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
 			JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
@@ -144,7 +140,7 @@ public class DefaultPictureService implements PictureService {
 		String toEnd = "false";
 		for (int i = 0; i < images.length; i++) {
 			BufferedImage temp = images[i];
-			Map<String, CharSequence> payload = new HashMap();
+			Map<String, CharSequence> payload = new HashMap<String, CharSequence>();
 			payload.put("imgdir", dir);
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
 			JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
@@ -227,12 +223,14 @@ public class DefaultPictureService implements PictureService {
 			image320 = ImageKit.zoomTo(image, 320);
 		}
 		BufferedImage tagImage=image;
+
 		if(kind.equals("png")){
 			tagImage = new BufferedImage(originWidth, originHeight, BufferedImage.TYPE_INT_RGB);
 			Image temp = image.getScaledInstance(originWidth, originHeight, Image.SCALE_SMOOTH);
 			Graphics g = tagImage.getGraphics();
 			g.drawImage(temp, 0, 0, null);
 			g.dispose();
+
 		}
 		BufferedImage[] images = new BufferedImage[3];
 		images[0] = image160;
