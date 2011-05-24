@@ -32,8 +32,8 @@ mods.push(function (q) {
 			lis.click(function () {
 				window.gpid = $(this).attr('gpcid');
 				$('span.tit',roll).text($('p.name',this).text()).show();
-				$.ajax({ url: "${urlPrefix}/group",
-				    data: {size:6, catId: window.gpid, startid:'999999999999999999'},
+				$.ajax({ url: "${urlPrefix}/category/"+ window.gpid +"/group",
+				    data: {size:3},
 				   	success: function(j){
 						$("#sld2").html(ich.group(j));
 						slider.animate({left: -560}, { duration: 500, easing: "swing" });
@@ -43,8 +43,8 @@ mods.push(function (q) {
 			});
 			$('#pagger>a.prev').live('click',function(){
 				$.ajax({
-				    url: "${urlPrefix}/group",
-				    data: {size:6, catId: window.gpid, startid: parseInt(lis.last().data('replyid')), type: 1},
+				    url: "${urlPrefix}/category/"+ window.gpid +"/group",
+				    data: {size:3, startId: lis.last().data('replyid'), type: 1},
 				   	success: function(json){
 				   		$("#sld2").html(ich.group(json));
 				    }
@@ -52,8 +52,8 @@ mods.push(function (q) {
 			});
 			$('#pagger>a.next').live('click',function(){
 				$.ajax({
-				    url: "${urlPrefix}/group",
-				    data: {size:6, catId: window.gpid, startid: parseInt(lis.fast().data('replyid'))},
+				    url: "${urlPrefix}/category/"+ window.gpid +"/group",
+				    data: {size:3, startId:lis.first().data('replyid')},
 				   	success: function(json){
 				   		$("#sld2").html(ich.group(json));
 				    }
