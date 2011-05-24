@@ -59,6 +59,7 @@ public class AddGroup extends Resource {
 		groupDao.addGroup(group); // create group
 		groupDao.addGroupJoinCategory(group.getId(), context.getIdLong("categoryId")); // set group category
 		groupDao.addPeopleJoinGroup(group.getCreatorId(), group.getId());
+		groupDao.incrGroupJoinNumByGroupId(group.getId());
 		searchService.updateGroup(group);
 
 		if(context.isApiRequest()){

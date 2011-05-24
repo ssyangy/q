@@ -2,6 +2,8 @@ package q.domain;
 
 import java.io.Serializable;
 
+import q.commons.domain.AbstractDomain;
+
 public class PeopleJoinGroup  extends AbstractDomain implements Serializable{
 	/**
 	 * 

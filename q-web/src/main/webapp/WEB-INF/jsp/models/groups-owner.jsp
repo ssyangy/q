@@ -37,13 +37,18 @@ mods.push(function (q) {
 </script>
 <p>由${group.creator.realName}创建于${group.time}</p><br />
 <c:choose>
-	<c:when test="${join == null}">
-			<a class="btn joing" href="#" >加入</a>
+	<c:when test="${loginCookie.peopleId == group.creator.id}">			
+		<a href="${urlPrefix}/group/${group.id}/edit" class='btna'>管理</a>
 	</c:when>
 	<c:otherwise>
-			<a class="btn btnw24 unjoing" href="#">已加入,退出</a>
+		<c:choose>
+			<c:when test="${join == null}">
+					<a class="btn joing" href="#" >加入</a>
+			</c:when>
+			<c:otherwise>
+					<a class="btn btnw24 unjoing" href="#">已加入,退出</a>
+			</c:otherwise>
+		</c:choose>
 	</c:otherwise>
 </c:choose>
-<c:if test="${loginCookie.peopleId == group.creator.id}">			
-	<a href="${urlPrefix}/group/${group.id}/edit" class='btna'>管理</a>
-</c:if>
+

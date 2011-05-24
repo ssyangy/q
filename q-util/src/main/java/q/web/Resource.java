@@ -1,9 +1,15 @@
 package q.web;
 
+import q.commons.domain.DomainIdAscComparator;
+import q.commons.domain.DomainIdDescComparator;
 import q.log.Logger;
 
 public abstract class Resource {
 	protected static final Logger log = Logger.getLogger();
+
+	protected static final DomainIdDescComparator idDescComparator = new DomainIdDescComparator();
+
+	protected static final DomainIdAscComparator idAscComparator = new DomainIdAscComparator();
 
 	private String name;
 

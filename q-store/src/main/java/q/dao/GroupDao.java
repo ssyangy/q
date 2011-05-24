@@ -186,7 +186,7 @@ public interface GroupDao {
 	 * @param page
 	 * @return
 	 */
-	List<Long> getGroupIdsByGroupJoinCategoryPage(GroupJoinCategoryPage page) throws SQLException;
+	List<Long> getGroupIdsByGroupJoinCategoryPageOrderByGroupId(GroupJoinCategoryPage page) throws SQLException;
 
 	/**
 	 * @param groupId

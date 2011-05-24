@@ -2,6 +2,8 @@ package q.domain;
 
 import java.io.Serializable;
 
+import q.commons.domain.AbstractDomain;
+
 /**
  * @author Zhehao
  * @date Feb 15, 2011

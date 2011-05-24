@@ -374,7 +374,7 @@ public class GroupDaoImplTest {
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getGroupIdsByGroupJoinCategoryPage(q.dao.page.GroupJoinCategoryPage)}.
+	 * Test method for {@link q.dao.ibatis.GroupDaoImpl#getGroupIdsByGroupJoinCategoryPageOrderByGroupId(q.dao.page.GroupJoinCategoryPage)}.
 	 * 
 	 * @throws SQLException
 	 */
@@ -384,7 +384,8 @@ public class GroupDaoImplTest {
 		page.setCategoryId(0L);
 		page.setStartId(99L);
 		page.setSize(10);
-		groupDao.getGroupIdsByGroupJoinCategoryPage(page);
+		page.setStatus(Status.COMMON.getValue());
+		groupDao.getGroupIdsByGroupJoinCategoryPageOrderByGroupId(page);
 	}
 	
 	@Test

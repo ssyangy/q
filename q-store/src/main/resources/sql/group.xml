@@ -118,7 +118,6 @@
 		<iterate open="(" close=")" conjunction=",">
 			#[]#
         </iterate>
-		order by id desc
 	</select>
 	<select id="selectGroupsByLocation" resultMap="groupResult">
 		select
@@ -188,26 +187,26 @@
 		</dynamic>
 	</select>
 
-	<select id="getGroupIdsByGroupJoinCategoryPage" resultClass="long">
+	<select id="getGroupIdsByGroupJoinCategoryPageOrderByGroupId" resultClass="long">
 		select group_id
 		from group_join_category
 		<dynamic prepend="where ">
 			<isNotNull prepend="and " property="status">
 				status = #status#
 			</isNotNull>
-			<isNotNull prepend="and " property="groupId">
+			<isNotNull prepend="and " property="categoryId">
 				category_id = #categoryId#
 			</isNotNull>
 			<isNotNull prepend="and " property="startId">
 				<isEqual property="desc" compareValue="true">
-					id &lt; #startId#
+					group_id &lt; #startId#
 				</isEqual>
 				<isEqual property="desc" compareValue="false">
-					id &gt; #startId#
+					group_id &gt; #startId#
 				</isEqual>
 			</isNotNull>
 		</dynamic>
-		order by id
+		order by group_id
 		<isNotNull property="desc" prepend=" ">
 			<isEqual property="desc" compareValue="true">
 				desc

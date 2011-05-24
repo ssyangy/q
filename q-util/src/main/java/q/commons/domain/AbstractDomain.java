@@ -1,7 +1,7 @@
 /**
  * 
  */
-package q.domain;
+package q.commons.domain;
 
 import java.util.Date;
 

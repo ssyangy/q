@@ -5,6 +5,8 @@ package q.domain;
 
 import java.io.Serializable;
 
+import q.commons.domain.AbstractDomain;
+
 /**
  * @author seanlinwang
  * @email xalinx at gmail dot com

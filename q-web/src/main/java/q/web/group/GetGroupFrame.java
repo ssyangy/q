@@ -44,20 +44,20 @@ public class GetGroupFrame extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long groupId = context.getResourceIdLong();
 		Group group = groupDao.getGroupById(groupId);
-		if(group == null) {
+		if (group == null) {
 			throw new RequestParameterInvalidException("group:invalid");
 		}
 		DaoHelper.injectGroupWithCreator(peopleDao, group);
 		context.setModel("group", group);
 
 		long loginPeopleId = context.getCookiePeopleId();
-		if (loginPeopleId > 0) {
+		if (loginPeopleId > 0 && group.getCreatorId() != loginPeopleId) {
 			PeopleJoinGroup join = groupDao.getJoinPeopleByGroupIdPeopleId(loginPeopleId, groupId);
 			if (join != null && join.getStatus() == Status.COMMON.getValue()) {
 				context.setModel("join", join);
 			}
 		}
-		
+
 		long loginId = context.getCookiePeopleId();
 		if (loginId > 0) {
 			List<Group> groups = groupDao.getGroupsByJoinPeopleId(loginId);

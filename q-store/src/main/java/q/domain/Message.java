@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import q.commons.domain.AbstractDomain;
+
 /**
  * @author seanlinwang
  * @email xalinx at gmail dot com

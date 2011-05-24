@@ -6,6 +6,7 @@ package q.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import q.commons.domain.AbstractDomain;
 import q.util.DateKit;
 
 /**

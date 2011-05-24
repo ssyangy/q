@@ -2,6 +2,8 @@ package q.domain;
 
 import java.io.Serializable;
 
+import q.commons.domain.AbstractDomain;
+
 public class People extends AbstractDomain implements Serializable {
 	private static final long serialVersionUID = -5592959607374663712L;
 
