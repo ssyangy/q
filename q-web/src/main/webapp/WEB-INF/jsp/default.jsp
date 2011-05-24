@@ -33,7 +33,7 @@
 	    #index .footer ul{list-style: none outside none;}
 	    #index .footer li{display:inline;margin-top:40px;margin-right:10px;}
     </style>
-    <script src="${staticUrlPrefix}/scripts-q/sea.js")" type="text/javascript"></script>
+    <script src="${staticUrlPrefix}/scripts/sea.js")" type="text/javascript"></script>
     <script type="text/javascript">
         seajs.use('qcomcn', function (q) {
             var $ = q.jq;

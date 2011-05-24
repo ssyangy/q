@@ -11,7 +11,7 @@
     .content{position:absolute;top:260px;left:60px;}
     p{line-height:26px;}
     </style>
-    <script src="${staticUrlPrefix}/scripts-q/sea.js" type="text/javascript"></script>
+    <script src="${staticUrlPrefix}/scripts/sea.js" type="text/javascript"></script>
     <script type="text/javascript">
         seajs.use('qcomcn', function (q) {
             var $ = q.jq;
