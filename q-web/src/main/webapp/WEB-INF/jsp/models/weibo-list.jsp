@@ -2,11 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
 mods.push(function(q){
-	var $ = q.jq;
-    seajs.use(['app/weibo','underscore'], function (w, _) {
+	seajs.use(['app/weibo','underscore'], function (w, _) {
+		var $ = q.jq;
         $(function () {
             w.init(q);
-            
         	var ajlock = true;
             var ajaxweibo = function(size,startid){
                 $.ajax({
@@ -24,7 +23,7 @@ mods.push(function(q){
                     complete: function(){ ajlock = true; }
                 });
             }
-            ajaxweibo(8,'999999999999999999');
+            ajaxweibo(8,'');
 	        var o = window.body[0];
             var updateweibo = function(){
             	if (o.scrollTop + window.gWinHeight < o.scrollHeight) return;
@@ -129,6 +128,6 @@ mods.push(function(q){
 	<div class="wcontent mb10"></div>
 	<input class='ret_url' type='hidden' ></input>
 	<textarea name="content" class="mttextar_val" style="width:100%"></textarea>
-    <img src="${staticUrlPrefix}/content-q/images/ajax/ajaxload.gif" class="ajaxload hide" alt="ajaxload" />
+    <img src="${staticUrlPrefix}/content/images/ajax/ajaxload.gif" class="ajaxload hide" alt="ajaxload" />
     <input type='hidden' class='donet' />
 </div>

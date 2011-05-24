@@ -36,19 +36,24 @@ public class AddGroupJoin extends Resource {
 		long peopleId = context.getCookiePeopleId();
 		long groupId = context.getResourceIdLong();
 		addPeopleJoinGroup(peopleId, groupId);
-		//context.redirectReffer();
 	}
 
 	public void addPeopleJoinGroup(long peopleId, long groupId) throws SQLException {
-		PeopleJoinGroup join = groupDao.getJoinPeopleByGroupIdPeopleId(peopleId, groupId);
-		if (join == null) {
+		PeopleJoinGroup oldRelation = groupDao.getJoinPeopleByGroupIdPeopleId(peopleId, groupId);
+		if (oldRelation == null) {
 			groupDao.addPeopleJoinGroup(peopleId, groupId);
-		} else if (join.getStatus() == Status.DELETE.getValue()) {
-			groupDao.rejoinPeopleJoinGroup(peopleId, groupId);
+			groupDao.incrGroupJoinNumByGroupId(groupId);
+		} else if (oldRelation.getStatus() == Status.DELETE.getValue()) {
+			int rowEffected = groupDao.updatePeopleJoinGroupStatusByIdAndOldStatus(oldRelation.getId(), Status.COMMON, Status.DELETE);
+			if (rowEffected > 0) {
+				groupDao.incrGroupJoinNumByGroupId(groupId);
+			}
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override

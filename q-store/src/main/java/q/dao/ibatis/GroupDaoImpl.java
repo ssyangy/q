@@ -140,24 +140,6 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 	}
 
 	@Override
-	public void unjoinPeopleJoinGroup(long peopleId, long groupId) throws SQLException {
-		PeopleJoinGroup join = new PeopleJoinGroup();
-		join.setPeopleId(peopleId);
-		join.setGroupId(groupId);
-		join.setStatus(Status.DELETE.getValue());
-		this.sqlMapClient.update("updatePeopleJoinGroupStatusByPeopleIdAndGroupId", join);
-	}
-
-	@Override
-	public void rejoinPeopleJoinGroup(long peopleId, long groupId) throws SQLException {
-		PeopleJoinGroup join = new PeopleJoinGroup();
-		join.setPeopleId(peopleId);
-		join.setGroupId(groupId);
-		join.setStatus(Status.COMMON.getValue());
-		this.sqlMapClient.update("updatePeopleJoinGroupStatusByPeopleIdAndGroupId", join);
-	}
-
-	@Override
 	public List<Group> getAllGroupsByCatId(long catId) throws SQLException {
 		@SuppressWarnings("unchecked")
 		List<Long> groupIds = this.sqlMapClient.queryForList("selectGroupIdsByCatId", catId);
@@ -279,6 +261,13 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 	}
 
 	@Override
+	public List<Long> getGroupIdsByGroupJoinCategoryPage(GroupJoinCategoryPage page) throws SQLException {
+		@SuppressWarnings("unchecked")
+		List<Long> groupIds = this.sqlMapClient.queryForList("getGroupIdsByGroupJoinCategoryPage", page);
+		return groupIds;
+	}
+
+	@Override
 	public int deleteGroupJoinCategoriesByjoinIdsAndGroupId(final long groupId, final List<Long> ids) throws SQLException {
 		Object temp = new Object() {
 			@SuppressWarnings("unused")
@@ -300,12 +289,41 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 	}
 
 	@Override
-	public int updateGroupJoinCategoryStatus(long joinId, int newStatus, int oldStatus) throws SQLException {
+	public int updateGroupJoinCategoryStatusByIdAndOldStatus(long joinId, Status newStatus, Status oldStatus) throws SQLException {
 		GroupJoinCategoryPage page = new GroupJoinCategoryPage();
 		page.setId(joinId);
-		page.setNewStatus(newStatus);
-		page.setOldStatus(oldStatus);
+		page.setNewStatus(newStatus.getValue());
+		page.setOldStatus(oldStatus.getValue());
 		return this.sqlMapClient.update("updateGroupJoinCategoryStatusByPage", page);
+	}
+
+	@Override
+	public int updatePeopleJoinGroupStatusByIdAndOldStatus(long joinId, Status newStatus, Status oldStatus) throws SQLException {
+		PeopleJoinGroupPage page = new PeopleJoinGroupPage();
+		page.setId(joinId);
+		page.setNewStatus(newStatus.getValue());
+		page.setOldStatus(oldStatus.getValue());
+		return this.sqlMapClient.update("updatePeopleJoinGroupStatusByIdAndOldStatus", page);
+	}
+
+	@Override
+	public int updatePeopleJoinGroupStatusByPeopleIdAndGroupIdAndOldStatus(long peopleId, long groupId, Status newStatus, Status oldStatus) throws SQLException {
+		PeopleJoinGroupPage page = new PeopleJoinGroupPage();
+		page.setPeopleId(peopleId);
+		page.setGroupId(groupId);
+		page.setNewStatus(newStatus.getValue());
+		page.setOldStatus(oldStatus.getValue());
+		return this.sqlMapClient.update("updatePeopleJoinGroupStatusByPeopleIdAndGroupIdAndOldStatus", page);
+	}
+
+	@Override
+	public int incrGroupJoinNumByGroupId(long groupId) throws SQLException {
+		return this.sqlMapClient.update("incrGroupJoinNumByGroupId", groupId);
+	}
+
+	@Override
+	public int decrGroupJoinNumByGroupId(long groupId) throws SQLException {
+		return this.sqlMapClient.update("decrGroupJoinNumByGroupId", groupId);
 	}
 
 }

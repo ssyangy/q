@@ -5,12 +5,10 @@
 </jsp:include>
 <link href="${staticUrlPrefix}/content/token-input.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
-    mods.push(function (q) {
+mods.push(function (q) {
+seajs.use('jqplus/jq_tokeninput',function(toke){    	
     	var $ = q.jq;
-    	seajs.use('jqplus/jq_tokeninput',function(toke){
-    		toke($);
-    	});
-        
+    	toke($);
         var ffs = ${peoplesHintJson};
         var tips = "输入好友姓名 ... ";
         
@@ -45,7 +43,8 @@
             });
 
         });
-	});
+});
+});    
 </script>
 <h2 class='mb20'>发私信</h2>
 <div class="layout grid-m0s9">

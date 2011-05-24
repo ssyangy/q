@@ -96,14 +96,14 @@
 		from `group`
 		where id=#value#
 	</select>
-	
+
 	<update id="updateGroupById">
 		update `group`
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="intro">
 				intro=#intro#
 			</isNotNull>
-		    <isNotNull prepend="," property="name">
+			<isNotNull prepend="," property="name">
 				name=#name#
 			</isNotNull>
 		</dynamic>
@@ -156,15 +156,23 @@
 		where status = 0
 		and category_id = #value#
 	</select>
-	
+
+	<update id="decrGroupJoinNumByGroupId">
+		update `group` set join_num = greatest(0, join_num - 1) where id = #value#
+	</update>
+
+	<update id="incrGroupJoinNumByGroupId">
+		update `group` set join_num = join_num + 1 where id = #value#
+	</update>
+
 	<update id="deleteGroupJoinCategoriesByjoinIdsAndGroupId">
 		update group_join_category set status = 1 where group_id = #groupId#
 		and id in
 		<iterate property="ids" open="(" close=")" conjunction=",">
-				#ids[]#
+			#ids[]#
         </iterate>
 	</update>
-	
+
 	<select id="getGroupJoinCategoriesByPage" resultMap="gjcResult">
 		select
 		<include refid="gjc.columns" />
@@ -178,6 +186,39 @@
 				group_id = #groupId#
 			</isNotNull>
 		</dynamic>
+	</select>
+
+	<select id="getGroupIdsByGroupJoinCategoryPage" resultClass="long">
+		select group_id
+		from group_join_category
+		<dynamic prepend="where ">
+			<isNotNull prepend="and " property="status">
+				status = #status#
+			</isNotNull>
+			<isNotNull prepend="and " property="groupId">
+				category_id = #categoryId#
+			</isNotNull>
+			<isNotNull prepend="and " property="startId">
+				<isEqual property="desc" compareValue="true">
+					id &lt; #startId#
+				</isEqual>
+				<isEqual property="desc" compareValue="false">
+					id &gt; #startId#
+				</isEqual>
+			</isNotNull>
+		</dynamic>
+		order by id
+		<isNotNull property="desc" prepend=" ">
+			<isEqual property="desc" compareValue="true">
+				desc
+			</isEqual>
+			<isEqual property="desc" compareValue="false">
+				asc
+			</isEqual>
+		</isNotNull>
+		<isNotNull property="size">
+			limit #startIndex#, #size#
+		</isNotNull>
 	</select>
 
 	<select id="getPromotedGroupJoinCategoriesByCatIds" resultMap="gjcResult">
@@ -243,14 +284,21 @@
 		)
 	</insert>
 
-	<update id="updatePeopleJoinGroupStatusByPeopleIdAndGroupId">
+	<update id="updatePeopleJoinGroupStatusByIdAndOldStatus">
 		update people_join_group set
-		status = #status#,
-		modified = null
+		status = #newStatus#
+		where
+		id = #id#
+		and status = #oldStatus#
+	</update>
+	
+	<update id="updatePeopleJoinGroupStatusByPeopleIdAndGroupIdAndOldStatus">
+		update people_join_group set
+		status = #newStatus#
 		where
 		people_id = #peopleId#
-		and
-		group_id = #groupId#
+		and group_id = #groupId#
+		and status = #oldStatus#
 	</update>
 
 	<select id="selectPeopleJoinGroupByPage" resultMap="pjgResult">
@@ -281,11 +329,11 @@
 			<isNotNull prepend="and " property="groupId">
 				group_id = #groupId#
 			</isNotNull>
-			<isNotNull prepend = "and " property="startId">
-				<isEqual property="desc" compareValue="true" >
+			<isNotNull prepend="and " property="startId">
+				<isEqual property="desc" compareValue="true">
 					id &lt;= #startId#
 				</isEqual>
-				<isEqual property="desc" compareValue="false" >
+				<isEqual property="desc" compareValue="false">
 					id &gt;= #startId#
 				</isEqual>
 			</isNotNull>
@@ -294,8 +342,8 @@
 			group by people_id
 	    </isNotNull>
 		order by id
-		<isNotNull property="desc"  prepend=" ">
-			<isEqual property="desc" compareValue="true" >
+		<isNotNull property="desc" prepend=" ">
+			<isEqual property="desc" compareValue="true">
 				desc
 			</isEqual>
 			<isEqual property="desc" compareValue="false">
@@ -335,7 +383,7 @@
 			limit #startIndex#, #size#
 		</isNotNull>
 	</select>
-	
+
 	<update id="updateGroupJoinCategoryStatusByPage">
 		update group_join_category
 		set status = #newStatus#

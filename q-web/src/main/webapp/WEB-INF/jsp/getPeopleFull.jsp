@@ -5,68 +5,67 @@
 	<jsp:param name="title" value="补充个人资料" />
 </jsp:include>
 	<script type="text/javascript">
-	areas=${rootArea.childsJson};
-	mods.push(function (q) {
+areas=${rootArea.childsJson};
+mods.push(function (q) {
+seajs.use('jq_area',function(area){	
 		var $ = q.jq;
-	checkLocation = function(){
-	    $("#locationcorrect").css("display","block");
-	    $("#locationwrong").css("display","none");
-	}
-	 checkGender = function(){
-	    var radios=$(":radio");
-	    if(radios[0].checked == true||radios[1].checked == true){
-	    $("#sexcorrect").css("display","block");
-	    $("#sexwrong").css("display","none");
-	    return true;
-	    }
-	    $("#sexcorrect").css("display","none");
-	    $("#sexwrong").css("display","block");
-	    $("#sexwrong").html("性别还没有选择。");
-	    return false;
-	}
-	checkMobile = function(a){
-	   if(a==""){
-	     $("#mobilewrong").css("display","none");
-         $("#mobilecorrect").css("display","none");
-         return true;
-	   }
-	   var patrn=/^[0-9]{11}$/;
-	   if(patrn.test(a)){
-         $("#mobilewrong").css("display","none");
-         $("#mobilecorrect").css("display","block");
-         return true;
-      }
-
-         $("#mobilewrong").css("display","block");
-         $("#mobilecorrect").css("display","none");
-         $("#mobilewrong").html("手机号码的格式有误。");
-
-      return false;
-	}
-	checkGroup = function(){
-      var boxes=$(":checkbox");
-         for (var i = 0; i < boxes.length; i++) {
-             if (boxes[i].checked == true) {
-                 $("#groupwrong").css("display","none");
-                 $("#groupcorrect").css("display","block");
-                return true;
-               }
-          }
-         $("#groupwrong").css("display","block");
-         $("#groupcorrect").css("display","none");
-         $("#groupwrong").html("请至少选择一个您感兴趣的圈子。");
-       return false;
-	}
-	check = function(){
-         var cm=checkMobile($("#mobile").val());
-         var cg=checkGroup();
-         var csex=checkGender();
-          if(!cm||!csex||!cg)
-  	       return false;
-	     return true;
-	}
-
-seajs.use('jq_area',function(area){
+		checkLocation = function(){
+		    $("#locationcorrect").css("display","block");
+		    $("#locationwrong").css("display","none");
+		}
+		 checkGender = function(){
+		    var radios=$(":radio");
+		    if(radios[0].checked == true||radios[1].checked == true){
+		    $("#sexcorrect").css("display","block");
+		    $("#sexwrong").css("display","none");
+		    return true;
+		    }
+		    $("#sexcorrect").css("display","none");
+		    $("#sexwrong").css("display","block");
+		    $("#sexwrong").html("性别还没有选择。");
+		    return false;
+		}
+		checkMobile = function(a){
+		   if(a==""){
+		     $("#mobilewrong").css("display","none");
+	         $("#mobilecorrect").css("display","none");
+	         return true;
+		   }
+		   var patrn=/^[0-9]{11}$/;
+		   if(patrn.test(a)){
+	         $("#mobilewrong").css("display","none");
+	         $("#mobilecorrect").css("display","block");
+	         return true;
+	      }
+	
+	         $("#mobilewrong").css("display","block");
+	         $("#mobilecorrect").css("display","none");
+	         $("#mobilewrong").html("手机号码的格式有误。");
+	
+	      return false;
+		}
+		checkGroup = function(){
+	      var boxes=$(":checkbox");
+	         for (var i = 0; i < boxes.length; i++) {
+	             if (boxes[i].checked == true) {
+	                 $("#groupwrong").css("display","none");
+	                 $("#groupcorrect").css("display","block");
+	                return true;
+	               }
+	          }
+	         $("#groupwrong").css("display","block");
+	         $("#groupcorrect").css("display","none");
+	         $("#groupwrong").html("请至少选择一个您感兴趣的圈子。");
+	       return false;
+		}
+		check = function(){
+	         var cm=checkMobile($("#mobile").val());
+	         var cg=checkGroup();
+	         var csex=checkGender();
+	          if(!cm||!csex||!cg)
+	  	       return false;
+		     return true;
+		}
 	$(document).ready(function(){
 	     yeartemp='${people.year + 1900}';
 	     monthtemp='${people.month}';

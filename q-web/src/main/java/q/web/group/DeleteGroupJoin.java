@@ -4,6 +4,7 @@
 package q.web.group;
 
 import q.dao.GroupDao;
+import q.domain.Status;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.exception.PeopleNotPermitException;
@@ -31,11 +32,15 @@ public class DeleteGroupJoin extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long loginId = context.getCookiePeopleId();
 		long groupId = context.getResourceIdLong();
-		groupDao.unjoinPeopleJoinGroup(loginId, groupId);
-		//context.redirectReffer();
+		int rowEffected = groupDao.updatePeopleJoinGroupStatusByPeopleIdAndGroupIdAndOldStatus(loginId, groupId, Status.DELETE, Status.COMMON);
+		if (rowEffected > 0) {
+			groupDao.decrGroupJoinNumByGroupId(groupId);
+		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override

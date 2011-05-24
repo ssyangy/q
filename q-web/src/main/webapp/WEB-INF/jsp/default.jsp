@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>Q.com.cn</title>
-    <link href="${staticUrlPrefix}/content/jquery.ui.css")" rel="stylesheet" type="text/css" />
+    <link href="${staticUrlPrefix}/content/main/jquery.ui.css")" rel="stylesheet" type="text/css" />
     <link href="${staticUrlPrefix}/content/qcomcn.css")" rel="stylesheet" type="text/css" />
     <style type="text/css">
 	    .wapper{position:relative;height:600px;width:800px;}

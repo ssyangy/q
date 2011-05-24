@@ -5,8 +5,7 @@
 </jsp:include>
 <script type="text/javascript">
 mods.push(function (q) {
-	var rep = {};
-	seajs.use('app/weibo_rep',function(o){ rep = o; });
+seajs.use('app/weibo_rep',function(rep){
 	var $ = q.jq;
     $(function () {
     	var ul = $('ul.msglist');
@@ -53,6 +52,7 @@ mods.push(function (q) {
             });
         });
     });
+});
 });
 </script>
 <div class="layout grid-m0s7">

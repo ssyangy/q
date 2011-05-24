@@ -4,10 +4,10 @@
 	<jsp:param name="title" value="设置" />
 </jsp:include>
 	<script type="text/javascript">
-	areas=${rootArea.childsJson};
-	mods.push(function (q) {
-		$ = q.jq;
-		
+areas=${rootArea.childsJson};
+mods.push(function (q) {
+seajs.use('jq_area',function(area){	
+		var $ = q.jq;
 		checkrealName = function (a){
 		       if(a.length<1||a.length>12){
 		       $("#realNamecorrect").css("display","none");
@@ -104,7 +104,7 @@
 		});
 		}
 		
-		seajs.use('jq_area',function(area){
+		
 			$(document).ready(function(){
 		         yeartemp='${people.year + 1900}';
 			     monthtemp='${people.month}';
@@ -143,7 +143,6 @@
 		});
 	
 	});
-
 	</script>
 
 <h2>个人资料设定</h2>

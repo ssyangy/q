@@ -21,6 +21,7 @@ import q.util.CollectionKit;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.RequestParameterInvalidException;
 
 /**
  * @author seanlinwang
@@ -123,7 +124,10 @@ public class GetGroupWeibo extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-
+		long groupId = context.getResourceIdLong();
+		if (IdCreator.isNotValidId(groupId)) {
+			throw new RequestParameterInvalidException("group:invalid");
+		}
 	}
 
 }
