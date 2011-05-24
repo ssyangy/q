@@ -1,5 +1,5 @@
 define(function (require, exports, module) {
-    return function () {
+    return function ($) {
         $.fn.imgLimit = function (options) {
             var opts = $.extend({
                 size: [48]

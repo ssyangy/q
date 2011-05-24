@@ -249,6 +249,7 @@
     <Content Include="content\main\images\ui-icons_ff0084_256x240.png" />
     <Content Include="content\main\images\ui-icons_ffffff_256x240.png" />
     <Content Include="content\main\jquery.ui.css" />
+    <Content Include="content\tooltip.css" />
     <Content Include="content\navleft.css" />
     <Content Include="content\qcomcn.css" />
     <Content Include="content\slider.css" />
@@ -268,6 +269,7 @@
     <Content Include="content\smoothness\jquery-ui-1.8.10.custom.css" />
     <Content Include="content\step.css" />
     <Content Include="content\token-input.css" />
+    <Content Include="content\menu.css" />
     <Content Include="demo\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="demo\images\ui-bg_flat_0_eeeeee_40x100.png" />
     <Content Include="demo\images\ui-bg_flat_55_ffffff_40x100.png" />
