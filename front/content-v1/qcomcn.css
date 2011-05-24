@@ -30,7 +30,7 @@ ul.dlist li{border-bottom:1px solid #ddd;border-right:none 0;float:none;padding:
 #inputbtn{position:absolute;top:1px;right:1px;}
 #btnSubTweet{position:absolute;top:0;right:0;}
 
-li.streambox{border-bottom: 1px solid #EFF1F2;padding:10px;position: relative;min-height: 50px;cursor:pointer;_zoom:1;overflow:hidden;}
+li.streambox{border-bottom: 1px solid #EFF1F2;padding:10px;position: relative;cursor:pointer;_zoom:1;overflow:hidden;}
 li.streambox.hover{background-color:#fafafa;border-color:#e0e3e6;}
 li.streambox.open{background-color:#E9F0F8;border-color:#D4E1F1;}
 li.streambox .hd{float:left;height:48px;width:48px;}
