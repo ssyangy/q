@@ -42,18 +42,16 @@ mods.push(function (q) {
 				});
 			});
 			$('#pagger>a.prev').live('click',function(){
-				$.ajax({
-				    url: "${urlPrefix}/category/"+ window.gpid +"/group",
-				    data: {size:3, startId: $("#sldroot>li").last().data('replyid'), type: 1},
+				$.ajax({ url: "${urlPrefix}/category/"+ window.gpid +"/group",
+				    data: {size:3, startId: $("#sldtrunk>li").last().attr('gid'), type: 1},
 				   	success: function(json){
 				   		$("#sld2").html(ich.group(json));
 				    }
 				});
 			});
 			$('#pagger>a.next').live('click',function(){
-				$.ajax({
-				    url: "${urlPrefix}/category/"+ window.gpid +"/group",
-				    data: {size:3, startId:$("#sldroot>li").first().data('replyid')},
+				$.ajax({ url: "${urlPrefix}/category/"+ window.gpid +"/group",
+				    data: {size:3, startId:$("#sldtrunk>li").first().attr('gid')},
 				   	success: function(json){
 				   		$("#sld2").html(ich.group(json));
 				    }
@@ -63,30 +61,22 @@ mods.push(function (q) {
 		
 		$('#sld2 a.act').live('click',function(){
 			var li = $(this).parent('li');
-			$.ajax({
-				url: '${urlPrefix}/group/' + li.attr('gid') + '/join',
-				type: 'POST',
-				msg:this,
-				success: function(json){
-					if(json == null){
-						$(this.msg).siblings('a.actun').removeClass('hide_im');
-						$(this.msg).addClass('hide_im');
-					}
+			$.ajax({ url: '${urlPrefix}/group/' + li.attr('gid') + '/join', type: 'POST', msg:this,
+				success: function(m){
+					if(m != null) return;
+					$(this.msg).siblings('a.actun').removeClass('hide_im');
+					$(this.msg).addClass('hide_im');
 				}
 			});
 		});
 		$('#sld2 a.actun').live('click',function(){
 			var li = $(this).parent('li');
-			$.ajax({
-				url: '${urlPrefix}/group/' + li.attr('gid') + '/join',
-				type: 'POST',
+			$.ajax({ url: '${urlPrefix}/group/' + li.attr('gid') + '/join', type: 'POST', msg:this,
 				data:{_method:'delete'},
-				msg:this,
 				success: function(json){
-					if(json == null){
-						$(this.msg).siblings('a.act').removeClass('hide_im');
-						$(this.msg).addClass('hide_im');
-					}
+					if(m != null) return;
+					$(this.msg).siblings('a.act').removeClass('hide_im');
+					$(this.msg).addClass('hide_im');
 				}
 			});
 		});
