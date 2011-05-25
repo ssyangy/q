@@ -9,8 +9,11 @@ import q.domain.Weibo;
 import q.domain.WeiboFromType;
 import q.domain.WeiboJoinGroup;
 import q.domain.WeiboReply;
+import q.util.IdCreator;
+import q.util.StringKit;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.RequestParameterInvalidException;
 
 /**
  * @author seanlinwang
@@ -44,7 +47,7 @@ public class AddReplyRetweet extends Resource {
 
 		WeiboReply father = weiboDao.getWeiboReplyById(context.getResourceIdLong());
 		if (father == null) {
-			throw new IllegalStateException();
+			throw new RequestParameterInvalidException("reply:invalid");
 		}
 
 		Weibo retweet = new Weibo();
@@ -60,11 +63,23 @@ public class AddReplyRetweet extends Resource {
 			retweet.setFromId(join.getGroupId());
 		}
 
-		this.weiboService.addReplyRetweet(retweet, -1);
+		this.weiboService.addReplyRetweet(retweet);
 	}
 
 	@Override
-	public void validate(ResourceContext context) {
+	public void validate(ResourceContext context) throws RequestParameterInvalidException {
+		long senderId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(senderId)) {
+			throw new RequestParameterInvalidException("login:invalid");
+		}
+		long replyId = context.getResourceIdLong();
+		if (IdCreator.isNotValidId(replyId)) {
+			throw new RequestParameterInvalidException("reply:invalid");
+		}
+		String content = context.getString("content");
+		if (StringKit.isBlank(content)) {
+			throw new RequestParameterInvalidException("content:invalid");
+		}
 	}
 
 }

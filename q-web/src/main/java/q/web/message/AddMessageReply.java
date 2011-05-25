@@ -16,6 +16,7 @@ import q.domain.MessageReply;
 import q.domain.MessageReplyJoinPeople;
 import q.domain.Status;
 import q.util.IdCreator;
+import q.util.StringKit;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.exception.RequestParameterInvalidException;
@@ -24,7 +25,7 @@ import q.web.exception.RequestParameterInvalidException;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 21, 2011
- *
+ * 
  */
 public class AddMessageReply extends Resource {
 	protected MessageDao messageDao;
@@ -38,11 +39,13 @@ public class AddMessageReply extends Resource {
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
 	}
+
 	private ShortUrlService shortUrlService;
 
 	public void setShortUrlService(ShortUrlService shortUrlService) {
 		this.shortUrlService = shortUrlService;
 	}
+
 	/**
 	 * @param notifyService
 	 *            the notifyService to set
@@ -55,7 +58,7 @@ public class AddMessageReply extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -132,6 +135,10 @@ public class AddMessageReply extends Resource {
 			if (IdCreator.isNotValidId(replyMessageId)) {
 				throw new RequestParameterInvalidException("reply:invalid");
 			}
+		}
+		String content = context.getString("content");
+		if (StringKit.isBlank(content)) {
+			throw new RequestParameterInvalidException("content:invalid");
 		}
 	}
 

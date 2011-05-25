@@ -31,13 +31,13 @@ public interface WeiboService {
 	 * @param groupId
 	 * @throws Exception
 	 */
-	void addWeiboRetweet(Weibo retweet, long groupId) throws Exception;
+	void addWeiboRetweet(Weibo retweet) throws Exception;
 
 	/**
 	 * @param retweet
 	 * @param groupId
 	 * @throws Exception
 	 */
-	void addReplyRetweet(Weibo retweet, long groupId) throws Exception;
+	void addReplyRetweet(Weibo retweet) throws Exception;
 
 }

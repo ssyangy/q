@@ -80,19 +80,19 @@ public class DefaultWeiboService implements WeiboService {
 	 * @see q.biz.WeiboService#addWeiboRetweet(q.domain.Weibo)
 	 */
 	@Override
-	public void addWeiboRetweet(Weibo retweet, long groupId) throws Exception {
-		this.addWeiboCommon(retweet, groupId);
+	public void addWeiboRetweet(Weibo retweet) throws Exception {
+		this.addWeiboCommon(retweet, -1);
 		this.weiboDao.incrWeiboRetweetNumByWeiboId(retweet.getQuoteWeiboId());
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see q.biz.WeiboService#addReplyRetweet(q.domain.Weibo, long)
+	 * @see q.biz.WeiboService#addReplyRetweet(q.domain.Weibo)
 	 */
 	@Override
-	public void addReplyRetweet(Weibo retweet, long groupId) throws Exception {
-		this.addWeiboCommon(retweet, groupId);
+	public void addReplyRetweet(Weibo retweet) throws Exception {
+		this.addWeiboCommon(retweet, -1);
 	}
 
 	private void addWeiboCommon(Weibo weibo, long groupId) throws Exception {

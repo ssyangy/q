@@ -9,6 +9,7 @@ import q.domain.Weibo;
 import q.domain.WeiboFromType;
 import q.domain.WeiboJoinGroup;
 import q.util.IdCreator;
+import q.util.StringKit;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.exception.RequestParameterInvalidException;
@@ -60,15 +61,23 @@ public class AddWeiboRetweet extends Resource {
 			retweet.setFromId(join.getGroupId());
 		}
 
-		this.weiboService.addWeiboRetweet(retweet, -1);
+		this.weiboService.addWeiboRetweet(retweet);
 
 	}
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+		long senderId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(senderId)) {
+			throw new RequestParameterInvalidException("login:invalid");
+		}
 		long quoteId = context.getResourceIdLong();
 		if (IdCreator.isNotValidId(quoteId)) {
 			throw new RequestParameterInvalidException("weibo:invalid");
+		}
+		String content = context.getString("content");
+		if (StringKit.isBlank(content)) {
+			throw new RequestParameterInvalidException("content:invalid");
 		}
 	}
 

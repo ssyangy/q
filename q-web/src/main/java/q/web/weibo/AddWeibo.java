@@ -84,7 +84,7 @@ public class AddWeibo extends Resource {
 			throw new RequestParameterInvalidException("login:invalid");
 		}
 		String content = context.getString("content");
-		if (null == content) {
+		if (StringKit.isBlank(content)) {
 			throw new RequestParameterInvalidException("content:invalid");
 		}
 

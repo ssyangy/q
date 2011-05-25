@@ -10,6 +10,7 @@ import q.domain.WeiboFromType;
 import q.domain.WeiboJoinGroup;
 import q.domain.WeiboReply;
 import q.util.IdCreator;
+import q.util.StringKit;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.exception.RequestParameterInvalidException;
@@ -18,7 +19,7 @@ import q.web.exception.RequestParameterInvalidException;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 21, 2011
- *
+ * 
  */
 public class AddWeiboReply extends Resource {
 	private WeiboDao weiboDao;
@@ -28,14 +29,14 @@ public class AddWeiboReply extends Resource {
 	}
 
 	private WeiboService weiboService;
-	
+
 	public void setWeiboService(WeiboService weiboService) {
 		this.weiboService = weiboService;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -73,18 +74,18 @@ public class AddWeiboReply extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		long quoteId = context.getResourceIdLong();
-		if(IdCreator.isNotValidId(quoteId)) {
+		if (IdCreator.isNotValidId(quoteId)) {
 			throw new RequestParameterInvalidException("weibo:invalid");
 		}
-		
+
 		String content = context.getString("content");
-		if(null == content) {
+		if (StringKit.isBlank(content)) {
 			throw new RequestParameterInvalidException("content:invalid");
 		}
 
