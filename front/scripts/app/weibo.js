@@ -16,11 +16,8 @@
         var rdia = $('#dia_ret');
         $('input.donet', rdia).click(function () {
             $('img.ajaxload', rdia).show();
-            $.ajax({
-                url: $(".ret_url", rdia).val(),
-                type: 'POST',
-                data: { content: $(".mttextar_val", rdia).val() },
-                msg: rdia,
+            $.ajax({ url: $(".ret_url", rdia).val(), type: 'POST', msg: rdia,
+                data: { content: $(".mttextar", rdia).val() },
                 success: function (m) {
                     this.msg.dialog("close");
                     $('img.ajaxload', this.msg).hide();
