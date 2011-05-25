@@ -18,11 +18,7 @@
         });
 
         var bbody = $("body");
-        bbody.click(function (e) {
-            if (!$(e.target).attr('tgtt')) {
-                $('.tgtbox').hide();
-            }
-        });
+        require('jqplus/jq_target')($, bbody, "#toper, #main, #footer");
         exports.fixui(bbody);
 
         var body = $("#body");
@@ -67,10 +63,7 @@
             function () { $(this).removeClass('hover'); }
         );
 
-        $('[tgtt]', box).bind('click', function () {
-            $('#' + $(this).attr('tgtt')).toggle();
-            $(this).toggleClass('tgt');
-        });
+        $('[tgtt]', box).fixtarget();
     }
 
 });

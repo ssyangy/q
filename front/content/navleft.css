@@ -1,10 +1,10 @@
-﻿.unav_group{border:1px solid #C4CCC9;width:170px;border-radius:5px;box-shadow:2px 2px 3px #E9E9E9;}
+﻿.navleft{border:1px solid #dcdcdc;width:150px;border-radius:5px;background-color:#f6f6f6;overflow:hidden;}
+.navleft .avator{padding:10px;text-align:center;}
+.navleft .avator p{line-height:22px;}
+.navleft .creat{text-align:center;line-height:24px;border-top:1px solid #dcdcdc;border-bottom:1px solid #dcdcdc;}
 
-.unav_group .unav_tit{height:30px;line-height:30px;padding-left:30px;background:#D0E5F2 url(images/bar_bk_nav.png) repeat-x scroll left bottom;
-    border-bottom:1px solid #D4D4D4;position:relative;cursor:pointer;font-weight:700;}
-.unav_group .unav_tit .ico{position:absolute;left:9px;top:8px;height:14px;width:14px;background:#D0E5F2 url(images/tips/plus32.png) repeat-x scroll 0 0;}
-.unav_group .unav_tit .ico_shrink{background:#D0E5F2 url(images/tips/minus32.png) repeat-x scroll 0 0!important;}
-
-a.unav_item{height:30px;line-height:30px;padding-left:30px;width:140px;cursor:pointer;}
-a.unav_item:hover{background:#F2F3F8 url(images/tips/h-navigate-exit.png) no-repeat scroll 8px center;}
-a.unav_action{background:#F2F3F8 url(images/tips/h-navigate.png) no-repeat scroll 8px center;font-weight:700;color:#88A825;}
+.unav_group{width:155px;}
+a.unav_item{height:24px;line-height:24px;padding-left:10px;width:140px;cursor:pointer;margin-top:5px;}
+a.unav_item:hover{background-color:#E6E6E6;}
+a.unav_action{background:url(images/r_c.png) no-repeat scroll 8px center;color:#FFF;padding-left:30px;width:160px;}
+a.unav_action:hover{background-color:#fff;}

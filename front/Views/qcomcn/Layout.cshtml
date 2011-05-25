@@ -15,16 +15,16 @@
 <body>
 <div id="body">
     <div id="toper"><div class="wapper">
-        <a id='logo'>Q.com.cn</a>
-        <div class="search">
-            <input class="search_inp mttext_val" type="text" name="name" value="搜索圈子、信息" />
-            <input type="submit" class="search_btn" title="搜索" value="" />
-        </div>
+        <a id='logo'></a>
+        <div id="searchTab" class="hm1"><div class="hm2"><div class="hm3">
+            <input class="input_yao" type="text" name="name" value="" />
+            <a class="btnb2">搜索</a>
+        </div></div></div>
         <div id="msg">
             <ul class="list">
                 <li><a href='/' class="lk">首页</a></li>
                 <li><a href='/qcomcn/friends' class="lk">好友</a></li>
-                <li class='rel'><a class="lk" href='/people/${loginCookie.peopleId}'>${loginCookie.realName}</a>
+                <li class='rel pr20_im'><a class="lk" href='/people/${loginCookie.peopleId}'>${loginCookie.realName}</a>
                 <span tgtt='minelist' class='in_bk tlistarr'></span>
 		        <div id="minelist" class='tgtbox'>
 		            <ul class="dlist">
@@ -51,8 +51,8 @@
         @RenderBody()
     </div></div>
 
-    <div id="footer">
-    </div>
+    <div id="footer"><div class="wapper">
+    </div></div>
 </div>
 
 <div id="dialog_target"></div>
