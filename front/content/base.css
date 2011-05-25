@@ -4,7 +4,7 @@ a:hover{text-decoration: none;}
 ul, ol { list-style: none; }
 legend { color: #000; }
 fieldset, img { border: 0; }
-body{font-family:Arial,sans-serif;font-size:13px;}
+body{font-family:Arial,sans-serif;font-size:13px;color:#333;}
 html {color: #2B2A25;background: #FFF;}
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{padding: 0;margin: 0;}
 table {border-collapse: collapse;border-spacing: 0;}
@@ -30,9 +30,11 @@ small { font-size: 12px; }
 .bodtop{border-top:1px solid #ddd;}
 .cut{text-overflow:ellipsis;white-space:nowrap;overflow:hidden;display:block;}
 .in_bk{display:inline-block;zoom:1;*display:inline;position:relative;}
+.cur{cursor:pointer;}
 .alignbox{overflow:hidden;display:inline-block;}
 .alignbox{display:block;}
 .inl6{_display:inline;}
+.hod{visibility:hidden;}
 .hide{display:none}
 .height0,.height0 *{height:0;visibility:hidden;margin:0;padding:0;}
 .show{display:block;}
@@ -150,6 +152,9 @@ a.lk:hover{background-color:#00649b;color:#fff;}
 a.lk:active{background-color:#E2F3F8;}
 a.lk2{cursor:pointer;color:#7AB8CE;}
 a.lk2:hover{background-color:#7AB8CE;color:#fff;}
+a.lk3{cursor:pointer;color:#00649b;}
+a.lk3:hover{text-decoration:underline;}
+a.lkrb{padding-right:10px;border-right:1px solid #dcdcdc;}
 a.more{border:1px solid #ddd;border-left-width:3px;background:#fff url(images/botharrow.gif) no-repeat scroll right -20px;padding:1px 13px 1px 3px;cursor:pointer;}
 a.more:hover{border-color:#88A825}
 .newin{background:url(images/tips/new_window.gif) no-repeat right center;padding-right:12px;color:#88A825}
@@ -159,6 +164,9 @@ a.ul:hover {background-image: url(images/underlineh.gif);}
 .qq{background:transparent url(images/tips/Question4.png) no-repeat scroll right center;padding-right:15px!important;height:12px;line-height:12px;cursor:pointer;}
 .emot{padding-left:20px;background:transparent url(images/emot.png) no-repeat scroll left center;}
 .pict{padding-left:20px;background:transparent url(images/pict.png) no-repeat scroll left center;}
+.rollbtn{padding-left:20px;background:transparent url(images/rollbtn.png) no-repeat scroll left center;}
+.rollbtn2{padding-left:20px;background:transparent url(images/rollbtn2.png) no-repeat scroll left center;}
+.rollbtn3{padding-right:20px;background:transparent url(images/rollbtn2.png) no-repeat scroll right center;}
 /*#endregion Link */
 
 /*#region Button */
