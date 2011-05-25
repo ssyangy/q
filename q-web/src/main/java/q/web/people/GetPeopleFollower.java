@@ -29,7 +29,7 @@ import q.web.exception.RequestParameterInvalidException;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 23, 2011
- * 
+ *
  */
 public class GetPeopleFollower extends Resource {
 	private PeopleDao peopleDao;
@@ -52,7 +52,7 @@ public class GetPeopleFollower extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -130,12 +130,13 @@ public class GetPeopleFollower extends Resource {
 			api.put("hasPrev", hasPrev);
 			api.put("hasNext", hasNext);
 			context.setModel("api", api);
+
 		}
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override

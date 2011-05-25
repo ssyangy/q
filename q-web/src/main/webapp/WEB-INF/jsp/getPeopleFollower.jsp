@@ -8,18 +8,20 @@
 <div class="layout grid-m0s7 mt10">
     <div class="col-main"><div class="main-wrap pr10">
         <p class='simptab'>
-	        <a class="lk" href="${urlPrefix}/people/${people.id}/following">我的关注（${people.followingNum}）</a>
+	        <a class="lk" href="${urlPrefix}/people/${people.id}/following">
+	        	<c:choose><c:when test="${loginCookie.peopleId==people.id}">我</c:when><c:otherwise>${people.realName}</c:otherwise></c:choose>的关注（${people.followingNum}）
+	        </a>
 	        <span class='split'>|</span>
-	        <span>我的粉丝（${people.followerNum}）</span>
+	        <span><c:choose><c:when test="${loginCookie.peopleId==people.id}">我</c:when><c:otherwise>${people.realName}</c:otherwise></c:choose>的粉丝（${people.followerNum}）</span>
         </p>
         <jsp:include page="models/people-list.jsp">
 			<jsp:param name="feedUrl" value="${urlPrefix}/people/${people.id}/follower" />
-			<jsp:param name="orderId" value="relation" />			
+			<jsp:param name="orderId" value="relation" />
 		</jsp:include>
     </div></div>
     <div class="col-sub">
         <h3>可能感兴趣的</h3>
-        	
+
     </div>
 </div>
 <jsp:include page="models/foot.jsp" />
