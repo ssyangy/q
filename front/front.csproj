@@ -307,6 +307,8 @@
     <Content Include="demo\MovieApp.js" />
     <Content Include="demo\MvcApp.htm" />
     <Content Include="demo\Todos.htm" />
+    <Content Include="scripts\app\app_home.js" />
+    <Content Include="scripts\app\text.js" />
     <Content Include="scripts\app\weibo.js" />
     <Content Include="scripts\app\weibo_rep.js" />
     <Content Include="scripts\backbone.js" />
@@ -331,7 +333,7 @@
     <Content Include="scripts\jqplus\jq_selection.js" />
     <Content Include="scripts\jqplus\jq_tokeninput.js" />
     <Content Include="scripts\jqplus\jq_validation.js" />
-    <Content Include="scripts\jqplus\jq_limitimg.js" />
+    <Content Include="scripts\jqplus\jq_maxlimit.js" />
     <Content Include="scripts\jqplus\jq_target.js" />
     <Content Include="scripts\jquery.js" />
     <Content Include="scripts\jq_area.js" />
@@ -574,7 +576,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>8475</DevelopmentServerPort>
+          <DevelopmentServerPort>8745</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

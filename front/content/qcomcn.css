@@ -44,8 +44,10 @@ input.input_yao{border:1px solid #dcdcdc;line-height:20px;height:21px;}
 .proline{line-height:22px;font-size:13px;}
 
 .ui-tabs{padding:0;z-index:10;}
+.ui-tabs li.ui-state-default a{color:#1889b6;}
+.ui-tabs li.ui-state-active a{color:#333;}
 .tabscont{border:1px solid #ddd;position:relative;top:-1px;}
-.inputbx{padding:5px;margin-bottom:5px;}
+.inputbx{padding:5px;background-color:#f6f6f6;}
 #inputmain{width:99%;height:20px;}
 .inputbtm{padding:1px;position:relative;}
 #inputbtn{position:absolute;top:1px;right:1px;}

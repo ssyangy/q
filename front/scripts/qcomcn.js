@@ -1,14 +1,15 @@
 ﻿define(function (require, exports, module) {
     var $ = exports.jq = require('jquery');
     var uihelp = require('ui/jq_ui_help');
+    var ie6 = ($.browser.msie && ($.browser.version < "7.0") && !$.support.style);
 
     exports.init = function () {
         require('config')($);
         require('jqplus/jq_repurl')($);
         require('jqplus/jq_mttext')($);
-        if ($.support.opacity) {
+        if (ie6) {
             require('jqplus/jq_pngFix')($);
-            require('jqplus/jq_limitimg')($);
+            require('jqplus/jq_maxlimit')($);
         }
         uihelp.init($);
         $('input.search_inp').focus(function () {
@@ -48,9 +49,9 @@
         });
 
         $('.fixurl', box).repurl();
-        if ($.support.opacity) {
+        if (ie6) {
             $(".png", box).pngFix();
-            $('img', box).imgLimit({ size: [120, 160, 320, 600] });
+            $("[class*='max-']", box).maxLimit({ size: [120, 160, 320, 600] });
         }
 
         $("input.mttext", box).mttext();

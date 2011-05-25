@@ -21,7 +21,7 @@
                 var txts = new homeapp.text.TextList();
                 txts.add(txt1);
                 window.app = new homeapp.app({
-                    el: $('body'),
+                    el: window.body,
                     txtSeed: "#streams",
                     txtModel: txts
                 });
@@ -58,10 +58,10 @@
                 <div class='text'><a class='lk' href='/#!/{{ username }}' title='{{ realname }}'>{{ realname }}</a>
                 {{ text }}
 				{{#picture}}
-				<img src="/usersimg/{{ picture }}-160.jpg" class="img160 weiboImg"/>
+				<img src="/usersimg/{{ picture }}-160.jpg" class="max-w160 weiboImg"/>
 				<div class='imgPre hide'>
 					<div class='imgrote middle'>
-						<img src="/usersimg/{{ picture }}-320.jpg" class="img320 preImg"/>
+						<img src="/usersimg/{{ picture }}-320.jpg" class="max-320 preImg"/>
 				    </div>
 				    <a class='weiboImgRotateL link mr10'>左转</a>
 					<a class='weiboImgRotateR link mr10'>右转</a>
@@ -71,7 +71,7 @@
                 </div>
                 {{#attach}}
                 <div class='quote'>
-                    {{#img}}<a><img src='/usersimg/{{img}}' class='attimg img-w160' alt=''></a>{{/img}}
+                    {{#img}}<a><img src='/usersimg/{{img}}' class='attimg max-w160' alt=''></a>{{/img}}
                     {{#title}}
                         <h6><a href='{{src}}' title='{{title}}' target='_blank'>{{title}}</a></h6>
                     {{/title}}

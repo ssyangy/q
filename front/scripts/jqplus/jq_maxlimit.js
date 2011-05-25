@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
     return function ($) {
-        $.fn.imgLimit = function (options) {
+        $.fn.maxLimit = function (options) {
             var opts = $.extend({
                 size: [160]
             }, options);
@@ -8,8 +8,8 @@ define(function (require, exports, module) {
             this.each(function () {
                 var o = $(this);
 
-                $(opts.size).each(function(){
-                    if (o.hasClass("img-" + this)) {
+                $(opts.size).each(function () {
+                    if (o.hasClass("max-" + this)) {
                         if (o.width() >= o.height() && o.width() > this) {
                             o.width(this);
                         } else if (o.width() < o.height() && o.height() > this) {
@@ -17,7 +17,7 @@ define(function (require, exports, module) {
                         }
                         return;
                     }
-                    if (o.hasClass("img-w" + this)) {
+                    if (o.hasClass("max-w" + this)) {
                         if (o.width() > this) {
                             o.width(this);
                         }
