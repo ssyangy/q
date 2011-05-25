@@ -7,7 +7,7 @@
 <head>
 <title>${param['title']}</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="${staticUrlPrefix}/content-v1/qcomcn.css" rel="stylesheet" type="text/css" />
+<link href="${staticUrlPrefix}/content/qcomcn.css" rel="stylesheet" type="text/css" />
 <script src="${staticUrlPrefix}/scripts/sea.js"></script>
 <script type="text/javascript">
 	var mods = [];
@@ -19,14 +19,39 @@
 	});
 	window.loginCookie = '${loginCookie.peopleId}';
 	window.urlprefix = '${urlPrefix}';
+	function errorType(error){
+		  var exist=error.indexOf(':');
+		  if(exist>-1){
+		    var errorkind=error.substring(0, exist);
+		    return errorkind;
+		  } else{
+			return null;
+		  }
+		}
+	function errorContext(error){
+	 var exist=error.indexOf(':');
+	  if(exist>-1){
+	    var errorcontext=error.substring(exist+1, error.length);
+	    return errorcontext;
+	  } else{
+		return null;
+	  }
+	}
 </script>
-<jsp:include page="js-common.jsp" />
 </head>
 <body>
 <c:set var="servletPath" value="${pageContext.request.servletPath}" />
 <div id="body">
 <div id="toper">
-<div class="wapper"><a id='logo'>Q.com.cn</a>
+<div class="wapper">
+<a id='logo'></a>
+<div id="searchTab" class="hm1"><div class="hm2"><div class="hm3">
+<form action="${urlPrefix}/search/weibo" method="GET">
+    <input class="input_yao" type="text" name="search" value="" />
+    <input type="submit" class="btnb2" value="搜索" />
+</form>
+</div></div></div>
+
 <div id="msg">
 <ul class="list">
 	<li>
@@ -49,7 +74,7 @@
 	</c:when>
 	</c:choose>
 	</li>
-                <li class='rel'>
+                <li class='rel pr20_im'>
                 	<c:choose>
 	  <c:when test="${loginCookie.peopleId>0}">
                  <c:choose>
@@ -103,11 +128,7 @@
 	</li>
 </ul>
 </div>
-<div class="search">
-<form action="${urlPrefix}/search/weibo" method="GET">
-	<input class="search_inp mttext_val" type="text" name="search" value="搜索圈子、信息" />
-	<input type="submit" class="search_btn" title="搜索" value="" /></div>
-</form>
+
 <div id="note">
 	 <p>1条新的私信<a class="lk" href="${urlPrefix}/message">查看私信</a></p>
      <p>1条新的回复<a class="lk" href="${urlPrefix}/reply/received">查看回复</a></p>

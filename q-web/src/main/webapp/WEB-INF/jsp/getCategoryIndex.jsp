@@ -6,8 +6,6 @@
 <link href='${staticUrlPrefix}/content/slider.css' rel='stylesheet' type='text/css' />
 <style>
 #passroll a,#passroll span{font-size:18px;}
-#root{color:#FF0065;cursor:pointer;}
-#root:hover{text-decoration:underline;}
 span.pass {display:inline-block;zoom:1;*display:inline;position:relative;width:14px;height:14px;
 background:url("${staticUrlPrefix}/content/images/arrow/sh_ex2.png") no-repeat scroll 0 0 transparent;}
 span.tit{display:none;}
@@ -24,7 +22,7 @@ mods.push(function (q) {
              if (root.data("clicked")) {
                 slider.animate({ left: 0 }, { duration: 500, easing: "swing" });
                 $('span.tit', roll).text('');
-                root.data("clicked", false);
+                root.data("clicked", false).removeClass("lk3 rollbtn2");;
              } 
          });
          
@@ -36,8 +34,8 @@ mods.push(function (q) {
 				    data: {size:5},
 				   	success: function(j){
 						$("#sld2").html(ich.group(j));
-						slider.animate({left: -560}, { duration: 500, easing: "swing" });
-						root.data("clicked", true);
+						slider.animate({left: -580}, { duration: 500, easing: "swing" });
+						root.data("clicked", true).addClass("lk3 rollbtn2");
 				    }
 				});
 			});
@@ -83,11 +81,14 @@ mods.push(function (q) {
 });
 </script>
 
-<div class="layout grid-s5m0e6">
-    <div class="col-main"><div class="main-wrap pr10">
+<div class="layout grid-s4m0e6">
+    <div class="col-main"><div class="main-wrap pl20">
         <div class="rel mb10">
-            <p id="passroll"><a id="root">圈子分类</a><span class='pass'></span><span class='tit'></span></p>
-            <a href="${urlPrefix}/group/new" class='btna btnw24' style="position:absolute;top:5px;right:5px;"><span class='btnadd'></span>新建圈子</a>
+            <p id="passroll">
+            <a id="root">圈子分类</a>
+            <span class='pass'></span>
+            <span class='tit'></span>
+            </p>
         </div>
         <div id="slidbox">
             <div id="slider">
@@ -110,8 +111,8 @@ mods.push(function (q) {
 					{{#groups}}
                     <li gid={{id}}>
                         <img src="{{avatarPath}}" alt="avtor" class="sldimg" />
-                        <a class='btn act {{#joined}}hide_im{{/joined}}'>关注</a>
-                        <a class='btn actun	 {{^joined}}hide_im{{/joined}}'>取消关注</a>
+                        <a class='btnb act {{#joined}}hide_im{{/joined}}'>关注</a>
+                        <a class='btnb actun {{^joined}}hide_im{{/joined}}'>取消关注</a>
                        <p><a href='${urlPrefix}/group/{{id}}' class='lk'>{{name}}</a></p>
                         <p>成员：{{joinNum}}人&nbsp;&nbsp;创建于：{{screenTime}}</p>
                         <p>{{intro}}</p>

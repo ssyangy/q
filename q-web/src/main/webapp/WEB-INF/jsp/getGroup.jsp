@@ -4,10 +4,13 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="圈子:${group.name}" />
 </jsp:include>
-<div class="layout grid-s5m0e6">
+<div class="layout grid-s4m0e6">
     <div class="col-main">
-    	<div class="main-wrap pr10">
+    	<div class="main-wrap pl20">
 		<jsp:include page="models/group-profile.jsp"></jsp:include>
+		<jsp:include page="models/weibo-send.jsp" >
+			<jsp:param name="from" value="${urlPrefix}/group/${group.id}"/>
+		</jsp:include>		
         <div class="ui-tabs mt10">
             <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
                 <li class="ui-state-default crt2 ui-state-active"><a href="${urlPrefix}/group/${group.id}">讨论区</a></li>
@@ -15,9 +18,6 @@
             </ul>
         </div>
 		<div class='tabscont'>
-		<jsp:include page="models/weibo-send.jsp" >
-			<jsp:param name="from" value="${urlPrefix}/group/${group.id}"/>
-		</jsp:include>
 		<jsp:include page="models/weibo-list.jsp">
 			<jsp:param name="feedUrl" value="${urlPrefix}/group/${group.id}/weibo" />
 		</jsp:include>
@@ -30,9 +30,7 @@
 		</jsp:include>
 	</div>
 	<div class="col-extra">
-		<div style="height:110px;">
-			<jsp:include page="models/groups-owner.jsp" />
-		</div>
+		<jsp:include page="models/groups-owner.jsp" />
 		<div class="component">
 			<h3>新成员</h3>
 			<jsp:include page="models/groups-newmembers.jsp" />

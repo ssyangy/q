@@ -3,9 +3,9 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="${group.name}-成员" />
 </jsp:include>
-<div class="layout grid-s5m0e6">
+<div class="layout grid-s4m0e6">
     <div class="col-main">
-    	<div class="main-wrap pr10">
+    	<div class="main-wrap pl20">
 		<jsp:include page="models/group-profile.jsp"></jsp:include>
 		<div class="ui-tabs mt10">
 	        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">

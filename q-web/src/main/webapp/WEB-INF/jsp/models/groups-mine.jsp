@@ -3,16 +3,22 @@
 <%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
 
 <link href='${staticUrlPrefix}/content/navleft.css' rel='stylesheet' type='text/css' />
-<div class='unav_group'>
-	<c:choose>
-	<c:when test="${param['id']} == 0">
-		<a href='${urlPrefix}/category' class='in_bk unav_item unav_action'>找圈子</a>
-	</c:when>
-	<c:otherwise>
-		<a href='${urlPrefix}/category' class='in_bk unav_item'>找圈子</a>
-	</c:otherwise>
-	</c:choose>	
+<div class="navleft">
 
+<c:if test="${people != null}">
+<div class="avator">
+    <a href="${urlPrefix}/people/${people.id}">
+    <img src="${people.avatarPath}-120" class="max-w120" alt="portraitt" /></a>
+    <p><a href="${urlPrefix}/people/${people.id}" class="lk">${people.realName}</a></p>
+    <p><a href="${urlPrefix}/people/${people.id}" class="lk">@${people.username}</a></p>
+</div>
+</c:if>
+
+<div class="creat">
+<a class="lk mr20" href="${urlPrefix}/category">找圈子</a><a class="lk" href="#">建圈子</a>
+</div>
+
+<div class='unav_group'>
 	<c:forEach items="${groups}" var="group" varStatus="status">
 		<c:choose>
 		<c:when test="${param['id'] == group.id}">
@@ -23,4 +29,6 @@
 		</c:otherwise>
 		</c:choose>	
 	</c:forEach>
+</div>
+
 </div>

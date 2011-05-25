@@ -170,8 +170,8 @@ seajs.use(['jqplus/jq_rotate','jqplus/jq_countable'], function (rota, cb) {
 <form action="${urlPrefix}/weibo" method="post">
 <div class="inputbx">
     <textarea id="inputmain" name="content" class="mttextar_val countable">说点什么 . . .</textarea>
-    <div id="inputbtm" class="rel mt5 mb10 height0">
-		插入：<a class="lk mr10">表情</a> <a id='trDialog_img' class="lk mr10">图片</a>
+    <div id="inputbtm" class="rel clear height0">
+		插入：<a class="lk mr10 emot">表情</a> <a id='trDialog_img' class="lk mr10 pict">图片</a>
 		<c:choose>
 			<c:when test="${param['selectGroup'] != null}">
 				<select name="groupId">
@@ -185,7 +185,7 @@ seajs.use(['jqplus/jq_rotate','jqplus/jq_countable'], function (rota, cb) {
 				<input type="hidden" name="groupId" value="${group.id}" />
 			</c:otherwise>
 		</c:choose>
-		<input id="btnSubTweet" type="submit" name="name" value="发表" class="btn btninp" />
+		<input id="btnSubTweet" type="submit" name="name" value="发表" class="btnr btninp" />
 		<input type="hidden" name="from" value="${param['from']}"/>
 		<input type="hidden" name="picPath" id="picPath" />
 		<input type="hidden" name="upimgfix" id="upimgfix"  />
