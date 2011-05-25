@@ -37,11 +37,11 @@
         tagName: 'li',
         className: 'repbox',
         events: {
-            "click .del": "remove",
-            "click .resub": "resub",
-            "click .fav": "fav",
-            "click .unfav": "unfav",
-            "click .replay": "replay"
+            "click .r_del": "remove",
+            "click .r_resub": "resub",
+            "click .r_fav": "fav",
+            "click .r_unfav": "unfav",
+            "click .r_replay": "replay"
         },
         initialize: function () {
             _.bindAll(this, 'render', 'change', 'remove');
@@ -70,7 +70,7 @@
         resub: function () {
             var rdia = $('#dia_ret');
             $('.wcontent', rdia).html(this.model.get('text'));
-            $('.wpeople', rdia).html(this.model.get('people').screenName);
+            $('.wpeople', rdia).html(this.model.get('people').username);
             var src = this.model.get('source');
             if (src) $('.wsrc', rdia).html(src);
             $('.mttextar', rdia).val('//@' + this.model.get('people').username + ' ');
