@@ -23,10 +23,10 @@ import q.web.exception.PeopleNotLoginException;
 
 /**
  * RESTFUL resource entry
- * 
+ *
  * @author seanlinwang
  * @date Jan 16, 2011
- * 
+ *
  */
 public class ResourceRouter implements Controller, ApplicationContextAware {
 
@@ -52,7 +52,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 
 	/**
 	 * set default resource to router
-	 * 
+	 *
 	 * @param defaultResource
 	 */
 	public void setDefaultResource(Resource defaultResource) {
@@ -87,6 +87,12 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 
 	public void setStaticUrlPrefix(String staticUrlPrefix) {
 		this.staticUrlPrefix = staticUrlPrefix;
+	}
+
+	private String pushUrlPrefix;
+
+	public void setPushUrlPrefix(String pushUrlPrefix) {
+		this.pushUrlPrefix = pushUrlPrefix;
 	}
 
 	private String imageUrl;
@@ -174,6 +180,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 		context.setModel("urlPrefix", this.urlPrefix);
 		context.setModel("contextPath", this.contextPath);
 		context.setModel("staticUrlPrefix", this.staticUrlPrefix);
+		context.setModel("pushUrlPrefix", this.pushUrlPrefix);
 		context.setModel("imageUrl", this.imageUrl);
 		if (this.imageUrl != null) {
 			context.setModel("avatarUrlPrefix", this.imageUrl + "/a");
