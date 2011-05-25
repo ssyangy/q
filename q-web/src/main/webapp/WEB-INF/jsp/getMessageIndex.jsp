@@ -16,7 +16,7 @@
 .repactbox{text-align:right;}
 </style>
 <script type="text/javascript">
-mods.push(function (q) {
+z
     var $ = q.jq;
 	seajs.use('ICanHaz',function(ich){
 

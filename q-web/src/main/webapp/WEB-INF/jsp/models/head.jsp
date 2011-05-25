@@ -18,7 +18,7 @@
 		});
 	});
 	window.loginCookie = '${loginCookie.peopleId}';
-	window.urlprefix = '${urlPrefix}';		
+	window.urlprefix = '${urlPrefix}';
 </script>
 <jsp:include page="js-common.jsp" />
 </head>
@@ -38,13 +38,20 @@
 	</c:choose></li>
 	<li>
 	<c:choose>
+	  <c:when test="${loginCookie.peopleId>0}">
+
+	<c:choose>
 		<c:when test="${servletPath=='/WEB-INF/jsp/getPeopleFollowing.jsp'}">好友</c:when>
 		<c:otherwise>
 			<a class="lk" href='${urlPrefix}/people/${loginCookie.peopleId}/following'>好友</a>
 		</c:otherwise>
 	</c:choose>
+	</c:when>
+	</c:choose>
 	</li>
                 <li class='rel'>
+                	<c:choose>
+	  <c:when test="${loginCookie.peopleId>0}">
                  <c:choose>
                        <c:when test="${servletPath=='/WEB-INF/jsp/getPeople.jsp'}">
                                ${loginCookie.realName}
@@ -62,31 +69,43 @@
                                <li class="end"><a class="lk" href='${urlPrefix}/favorite'>我的收藏</a></li>
                            </ul>
                        </div>
+                       </c:when>
+	</c:choose>
                 </li>
 
 	<li>
+		<c:choose>
+	  <c:when test="${loginCookie.peopleId>0}">
 	<c:choose>
 		<c:when test="${servletPath=='/WEB-INF/jsp/getMessageIndex.jsp'}">私信</c:when>
 		<c:otherwise><a class="lk" href='${urlPrefix}/message'>私信</a></c:otherwise>
 	</c:choose>
+		</c:when>
+	</c:choose>
 	</li>
 	<li>
+	<c:choose>
+	  <c:when test="${loginCookie.peopleId>0}">
 	<c:choose>
 		<c:when test="${servletPath=='/WEB-INF/jsp/getSettingBasic.jsp'}">设置</c:when>
 		<c:otherwise><a class="lk" href='${urlPrefix}/setting/basic'>设置</a></c:otherwise>
 	</c:choose>
+	</c:when>
+	</c:choose>
 	</li>
 	<li class="end">
 	<c:choose>
+	  <c:when test="${loginCookie.peopleId>0}">	<c:choose>
 		<c:when test="${servletPath=='/WEB-INF/jsp/deleteLogin.jsp'}">退出</c:when>
 		<c:otherwise><a class="lk" href='${urlPrefix}/login/delete'>退出</a></c:otherwise>
+	</c:choose></c:when>
 	</c:choose>
 	</li>
 </ul>
 </div>
 <div class="search">
 <form action="${urlPrefix}/search/weibo" method="GET">
-	<input class="search_inp mttext_val" type="text" name="search" value="搜索圈子、信息" /> 
+	<input class="search_inp mttext_val" type="text" name="search" value="搜索圈子、信息" />
 	<input type="submit" class="search_btn" title="搜索" value="" /></div>
 </form>
 <div id="note">
