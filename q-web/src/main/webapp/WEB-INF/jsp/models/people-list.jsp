@@ -52,7 +52,7 @@ mods.push(function (q) {
 		var dia_ret = $("#dia_ret");
 		$("a.btnat").live('click', function () {
 			var stream = $(this).closest('li');
-			$("textarea[name='content']",dia_ret).val('').val('//@'+$('a.username',stream).text().trim());
+			$("textarea[name='content']",dia_ret).val('').val('//@'+$('span.username',stream).text().trim());
 			dia_ret.dialog("open");
 		});
         $('input.donet', dia_ret).live("click",function () {
@@ -69,7 +69,7 @@ mods.push(function (q) {
 		var dia_letter = $("#dia_letter");
 		$("a.btnletter").live('click', function () {
 			var stream = $(this).closest('li');
-			$('div.wpeople',dia_letter).empty().html('发私信给：'+ $('a.username',stream).text().trim());
+			$('div.wpeople',dia_letter).empty().html('发私信给：'+ $('span.username',stream).text().trim());
 			$("textarea[name='content']",dia_letter).val('');
 			$("#letter_url",dia_letter).val('${urlPrefix}/message?receiverId='+stream.attr('people_id'));
 			dia_letter.dialog("open");

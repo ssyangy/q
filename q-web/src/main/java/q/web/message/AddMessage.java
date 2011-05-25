@@ -28,7 +28,7 @@ import q.web.exception.RequestParameterInvalidException;
 /**
  * @author seanlinwang at gmail dot com
  * @date Feb 21, 2011
- *
+ * 
  */
 public class AddMessage extends Resource {
 	private MessageDao messageDao;
@@ -36,11 +36,13 @@ public class AddMessage extends Resource {
 	public void setMessageDao(MessageDao messageDao) {
 		this.messageDao = messageDao;
 	}
+
 	private ShortUrlService shortUrlService;
 
 	public void setShortUrlService(ShortUrlService shortUrlService) {
 		this.shortUrlService = shortUrlService;
 	}
+
 	private PeopleDao peopleDao;
 
 	public void setPeopleDao(PeopleDao peopleDao) {
@@ -48,7 +50,8 @@ public class AddMessage extends Resource {
 	}
 
 	/**
-	 * @param notifyService the notifyService to set
+	 * @param notifyService
+	 *            the notifyService to set
 	 */
 	public void setNotifyService(NotifyService notifyService) {
 		this.notifyService = notifyService;
@@ -63,7 +66,7 @@ public class AddMessage extends Resource {
 	 * <li>add firstmessage reply</li>
 	 * <li>add message join peoples</li>
 	 * </ul>
-	 *
+	 * 
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -117,18 +120,23 @@ public class AddMessage extends Resource {
 			replyJoins.add(join);
 		}
 		messageDao.addMessageReplyJoinPeoples(replyJoins);
-		notifyService.notifyMessageReply(messageReply, receiverIds);//notify new messages
+		notifyService.notifyMessageReply(messageReply, receiverIds);// notify new messages
 
 	}
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		long senderId = context.getCookiePeopleId();
-		if (senderId == 0)
+		if (senderId == 0) {
 			throw new RequestParameterInvalidException("login:invalid");
+		}
 		String[] receiverStringIds = StringKit.split(context.getString("receiverId"), ',');
 		if (ArrayKit.isEmpty(receiverStringIds)) {
 			throw new RequestParameterInvalidException("receiver:invalid");
+		}
+		String content = context.getString("content");
+		if (StringKit.isBlank(content)) {
+			throw new RequestParameterInvalidException("content:invalid");
 		}
 		Set<Long> receiverIds = null;
 		try {
