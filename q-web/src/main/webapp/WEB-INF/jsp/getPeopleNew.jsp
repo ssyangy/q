@@ -264,20 +264,9 @@
 <div class="wapper">
     <h1 id="logo">Q.com.cn</h1>
     <div class="content">
-
-        <ul class='pssmap'>
-            <li class="selected">
-                <div class="label">
-                    <span class="checked"></span>
-                    <span class="text">创建帐号</span>
-                </div>
-            </li>
-            <li class="">
-                <div class="label">
-                    <span class="checked"></span>
-                    <span class="text">填写资料</span>
-                </div>
-            </li>
+        <ul class='pssyao clear'>
+            <li class="selected">创建帐号</li>
+            <li class="end">填写资料</li>
         </ul>
 
         <table class='qform'>
@@ -343,7 +332,7 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><button class='ui_btn' type='submit' onclick='check()'>创建帐号</button></td>
+				<td><input class='btnr' type='submit' onclick='check()' value="下一步" /></td>
 			</tr>
 		</table>
 

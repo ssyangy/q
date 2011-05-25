@@ -9,7 +9,7 @@
 <div id='searchpage' class="search">
 	<form action="${urlPrefix}/search/weibo" method="GET">
     <input class="search_inp mttext_val" type="text" name="search" value="${param['search']}" />
-    <input type="submit" class="btna" value="搜索" />
+    <input type="submit" class="btnb" value="搜索" />
 	</form>    
 </div>
 <div class="ui-tabs mt10">
