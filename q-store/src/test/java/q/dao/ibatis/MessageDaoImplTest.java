@@ -1,9 +1,10 @@
 /**
- * 
+ *
  */
 package q.dao.ibatis;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -11,13 +12,18 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import q.dao.page.MessageJoinPeoplePage;
+import q.dao.page.MessageReplyJoinPeoplePage;
+import q.domain.MessageJoinPeople;
+import q.util.IdCreator;
+
 /**
  * @author seanlinwang at gmail dot com
  * @date May 19, 2011
  *
  */
 public class MessageDaoImplTest {
-	
+
 	private static MessageDaoImpl messageDao;
 
 	/**
@@ -25,7 +31,7 @@ public class MessageDaoImplTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		messageDao = (MessageDaoImpl)TestSupport.getBean("messageDao");
+		messageDao = (MessageDaoImpl) TestSupport.getBean("messageDao");
 	}
 
 	/**
@@ -50,27 +56,32 @@ public class MessageDaoImplTest {
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.MessageDaoImpl#addMessage(q.domain.Message)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.MessageDaoImpl#addMessage(q.domain.Message)}.
 	 */
 	@Test
 	public void testAddMessage() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.MessageDaoImpl#getMessagesByPage(q.dao.page.MessagePage)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.MessageDaoImpl#getMessagesByPage(q.dao.page.MessagePage)}
+	 * .
 	 */
 	@Test
 	public void testGetMessagesByPage() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.MessageDaoImpl#getMessageRepliesByPage(q.dao.page.MessageReplyPage)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.MessageDaoImpl#getMessageRepliesByPage(q.dao.page.MessageReplyPage)}
+	 * .
 	 */
 	@Test
 	public void testGetMessageRepliesByPage() {
-		
+
 	}
 
 	/**
@@ -78,76 +89,106 @@ public class MessageDaoImplTest {
 	 */
 	@Test
 	public void testGetMessageById() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.MessageDaoImpl#addMessageJoinPeoples(java.util.List)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.MessageDaoImpl#addMessageJoinPeoples(java.util.List)}
+	 * .
 	 */
 	@Test
 	public void testAddMessageJoinPeoples() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.MessageDaoImpl#addMessageReplyJoinPeoples(java.util.List)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.MessageDaoImpl#addMessageReplyJoinPeoples(java.util.List)}
+	 * .
 	 */
 	@Test
 	public void testAddMessageReplyJoinPeoples() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.MessageDaoImpl#getMessageReplyById(long)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.MessageDaoImpl#getMessageReplyById(long)}.
 	 */
 	@Test
 	public void testGetMessageReplyById() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.MessageDaoImpl#addMessageReply(q.domain.MessageReply)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.MessageDaoImpl#addMessageReply(q.domain.MessageReply)}
+	 * .
 	 */
 	@Test
 	public void testAddMessageReply() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.MessageDaoImpl#getMessageJoinPeoplesByPage(q.dao.page.MessageJoinPeoplePage)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.MessageDaoImpl#getMessageJoinPeoplesByPage(q.dao.page.MessageJoinPeoplePage)}
+	 * .
+	 *
+	 * @throws SQLException
 	 */
 	@Test
-	public void testGetMessageJoinPeoplesByPage() {
-		
+	public void testGetMessageJoinPeoplesByPage() throws SQLException {
+		MessageJoinPeoplePage joinPage = new MessageJoinPeoplePage();
+		joinPage.setMessageId(1L);
+		messageDao.getMessageJoinPeoplesByPage(joinPage);
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.MessageDaoImpl#getMessageIdsByJoinPage(q.dao.page.MessageJoinPeoplePage)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.MessageDaoImpl#getMessageIdsByJoinPage(q.dao.page.MessageJoinPeoplePage)}
+	 * .
 	 */
 	@Test
 	public void testGetMessageIdsByJoinPage() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.MessageDaoImpl#getMessageReplyIdsByJoinPage(q.dao.page.MessageReplyJoinPeoplePage)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.MessageDaoImpl#getMessageReplyIdsByJoinPage(q.dao.page.MessageReplyJoinPeoplePage)}
+	 * .
+	 * @throws SQLException
 	 */
 	@Test
-	public void testGetMessageReplyIdsByJoinPage() {
-		
+	public void testGetMessageReplyIdsByJoinPage() throws SQLException {
+		MessageReplyJoinPeoplePage joinPage = new MessageReplyJoinPeoplePage();
+		joinPage.setQuoteMessageId(1L);
+		joinPage.setReceiverId(1L);
+		joinPage.setDesc(true);
+		joinPage.setSize(10);
+		joinPage.setStartId(999L);
+		this.messageDao.getMessageReplyIdsByJoinPage(joinPage);
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.MessageDaoImpl#getMessageRepliesByIds(java.util.List)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.MessageDaoImpl#getMessageRepliesByIds(java.util.List)}
+	 * .
 	 */
 	@Test
 	public void testGetMessageRepliesByIds() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.MessageDaoImpl#getMessageJoinPeopleByMessageIdReceiverIdStatus(long, long, int)}.
-	 * @throws SQLException 
+	 * Test method for
+	 * {@link q.dao.ibatis.MessageDaoImpl#getMessageJoinPeopleByMessageIdReceiverIdStatus(long, long, int)}
+	 * .
+	 *
+	 * @throws SQLException
 	 */
 	@Test
 	public void testGetMessageJoinPeopleByMessageIdReceiverIdStatus() throws SQLException {
@@ -155,8 +196,11 @@ public class MessageDaoImplTest {
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.MessageDaoImpl#clearMessageJoinPeopleReplyNumberByMessageIdAndReceiverId(long, long)}.
-	 * @throws SQLException 
+	 * Test method for
+	 * {@link q.dao.ibatis.MessageDaoImpl#clearMessageJoinPeopleReplyNumberByMessageIdAndReceiverId(long, long)}
+	 * .
+	 *
+	 * @throws SQLException
 	 */
 	@Test
 	public void testClearMessageJoinPeopleReplyNumberByMessageIdAndReceiverId() throws SQLException {
@@ -164,8 +208,11 @@ public class MessageDaoImplTest {
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.MessageDaoImpl#deleteAllMessageReplyJoinPeopleByQuoteMessageIdAndReceiverId(long, long)}.
-	 * @throws SQLException 
+	 * Test method for
+	 * {@link q.dao.ibatis.MessageDaoImpl#deleteAllMessageReplyJoinPeopleByQuoteMessageIdAndReceiverId(long, long)}
+	 * .
+	 *
+	 * @throws SQLException
 	 */
 	@Test
 	public void testDeleteAllMessageReplyJoinPeopleByQuoteMessageIdAndReceiverId() throws SQLException {
@@ -173,8 +220,11 @@ public class MessageDaoImplTest {
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.MessageDaoImpl#deleteMessageReplyByIdAndReceiverId(long, long)}.
-	 * @throws SQLException 
+	 * Test method for
+	 * {@link q.dao.ibatis.MessageDaoImpl#deleteMessageReplyByIdAndReceiverId(long, long)}
+	 * .
+	 *
+	 * @throws SQLException
 	 */
 	@Test
 	public void testDeleteMessageReplyByIdAndReceiverId() throws SQLException {
@@ -182,8 +232,11 @@ public class MessageDaoImplTest {
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.MessageDaoImpl#decrMessageReplyNumberByMessageIdAndReceiverId(long, long)}.
-	 * @throws SQLException 
+	 * Test method for
+	 * {@link q.dao.ibatis.MessageDaoImpl#decrMessageReplyNumberByMessageIdAndReceiverId(long, long)}
+	 * .
+	 *
+	 * @throws SQLException
 	 */
 	@Test
 	public void testDecrMessageReplyNumberByMessageIdAndReceiverId() throws SQLException {
@@ -191,7 +244,9 @@ public class MessageDaoImplTest {
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.MessageDaoImpl#incrAllMessageReplyNumberByMessageId(long)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.MessageDaoImpl#incrAllMessageReplyNumberByMessageId(long)}
+	 * .
 	 */
 	@Test
 	public void testIncrAllMessageReplyNumberByMessageId() {
