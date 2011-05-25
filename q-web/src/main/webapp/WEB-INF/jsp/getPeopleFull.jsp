@@ -108,17 +108,11 @@ seajs.use('jq_area',function(area){
 	<div class="wapper">
 		<h1 id="logo">Q.com.cn</h1>
 		<div class="content">
-
-			<ul class='pssmap'>
-				<li class="done">
-					<div class="label">
-						<span class="checked"></span> <span class="text">创建帐号</span>
-					</div></li>
-				<li class="selected">
-					<div class="label">
-						<span class="checked"></span> <span class="text">填写资料</span>
-					</div></li>
-			</ul>
+			
+		<ul class='pssyao clear'>
+            <li class="done">创建帐号</li>
+            <li class="selected end">填写资料</li>
+        </ul>
 
 			<form method='post' action='${urlPrefix}/people/${people.id}/full'
 				onsubmit="return check()">
@@ -202,8 +196,9 @@ seajs.use('jq_area',function(area){
 					<tr>
 						<td></td>
 						<td>
-							<button class='ui_btn' type='submit'>完成</button> <input
-							type='hidden' name='from' value="/" /></td>
+							<input class='btnr' type='submit' value="完成" />
+							<input type='hidden' name='from' value="" />
+						</td>
 					</tr>
 				</table>
 			</form>

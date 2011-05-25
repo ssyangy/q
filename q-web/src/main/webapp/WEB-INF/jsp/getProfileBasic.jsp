@@ -238,7 +238,7 @@ seajs.use('jq_area',function(area){
 		</tr>
 		<tr>
 				<th></th>
-				<td colspan='2'><button class='btn' type="button" onclick="check()" >保存修改</button></td>
+				<td colspan='2'><input class='btnr' type="button" onclick="check()" value="提交" /></td>
 
                  </tr>
                  <tr>
