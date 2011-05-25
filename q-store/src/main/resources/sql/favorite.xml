@@ -81,21 +81,40 @@
 		select
 		<include refid="favorite.columns" />
 		from favorite
-		where status = 1
-		<isNotNull prepend="and " property="creatorId">
-			creator_id = #creatorId#
+		<dynamic prepend="where ">
+			<isNotNull prepend="and " property="status">
+				status = #status,handler=q.dao.ibatis.FavoriteStatusHandler#
+			</isNotNull>
+			<isNotNull prepend="and " property="creatorId">
+				creator_id = #creatorId#
+			</isNotNull>
+			<isNotNull prepend="and " property="senderIds">
+					sender_id in
+					<iterate property="senderIds" open="(" close=")" conjunction=",">
+						#senderIds[]#
+		        	</iterate>
+			</isNotNull>		
+			<isNotNull prepend="and " property="startId">
+				<isEqual property="desc" compareValue="true">
+					id &lt; #startId#
+				</isEqual>
+				<isEqual property="desc" compareValue="false">
+					id &gt; #startId#
+				</isEqual>
+			</isNotNull>
+		</dynamic>
+		order by id
+		<isNotNull property="desc" prepend=" ">
+			<isEqual property="desc" compareValue="true">
+				desc
+			</isEqual>
+			<isEqual property="desc" compareValue="false">
+				asc
+			</isEqual>
 		</isNotNull>
-		<isNotNull prepend="and " property="senderIds">
-				sender_id in
-				<iterate property="senderIds" open="(" close=")" conjunction=",">
-					#senderIds[]#
-	        	</iterate>
-		</isNotNull>		
-		<isNotNull prepend="and " property="startId">
-			id &lt; #startId#
+		<isNotNull property="size">
+			limit #startIndex#, #size#
 		</isNotNull>
-		order by id desc
-		limit #startIndex#, #size#
 	</select>
 	
 	<update id="updateFavoriteStatus">
