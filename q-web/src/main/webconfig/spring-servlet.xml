@@ -24,6 +24,7 @@
 		<property name="urlPrefix" value="${q.url.prefix}" />
 		<property name="contextPath" value="${q.context.path}" />
 		<property name="staticUrlPrefix" value="${q.static.url.prefix}" />
+		<property name="pushUrlPrefix" value="${q.push.url}" />
 		<property name="imageUrl" value="${q.image.url}" />
 		<property name="defaultViewResolver">
 			<bean class="q.web.DefaultViewResolver" />

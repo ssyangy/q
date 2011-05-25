@@ -3,7 +3,7 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="私信" />
 </jsp:include>
-<link href="${staticUrlPrefix}/content/slider.css" rel="stylesheet" type="text/css" />   
+<link href="${staticUrlPrefix}/content/slider.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 #slidbox{width:560px;}
 .main-wrap{padding-right:20px;}
@@ -16,7 +16,7 @@
 .repactbox{text-align:right;}
 </style>
 <script type="text/javascript">
-z
+mods.push(function(q){
     var $ = q.jq;
 	seajs.use('ICanHaz',function(ich){
 
@@ -125,7 +125,7 @@ z
 	                        <img src="{{avatarPath}}-48" alt="sender" class="sldimg" />
 	                        <p class='rel'>{{screenName}}
 							{{/sender}}
-							 -> 
+							 ->
 							{{#receivers}}
 							<a class="lk" href='${urlPrefix}/people/{{id}}'>{{screenName}}</a>
 							{{/receivers}}
@@ -138,7 +138,7 @@ z
 					<div class="pagger">
 					<a class="lk mr10 prev hide">上一页</a>
 					<a class="lk next hide">下一页</a>
-					</div>	
+					</div>
 				</div>
                 <script type="text/html" id="msgitem">
                     <li reply_id='{{id}}'>
@@ -166,7 +166,7 @@ z
 					<div class="pagger">
 					<a class="lk mr10 mrprev hide">上一页</a>
 					<a class="lk mrnext hide">下一页</a>
-					</div>	
+					</div>
                 </div>
             </div>
         </div>

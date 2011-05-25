@@ -94,6 +94,7 @@
         	    error: function(){
         	    },
         	   success: function(json){
+
         	        if(json.id!= null){
         	            document.location.href="${urlPrefix}/people/"+json.id+"/full" //跳转
         	         }

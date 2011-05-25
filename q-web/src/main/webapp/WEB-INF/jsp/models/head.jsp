@@ -15,10 +15,38 @@
 		q.jq(function(){
 			for(var i in mods) mods[i](q);
 			q.init();
+
+			var $ = q.jq;
+
+
+
+	        hasNewInformation = function (){
+	            var loginId='${loginCookie.peopleId}';
+        		$.ajax({
+        	    url: '${pushUrlPrefix}?peopleIds='+loginId+'&cmd=mine&aliveTime=500',
+        	    type: 'GET',
+        	    dataType: 'jsonp',
+        	    timeout: 5000,
+                jsonp: 'jsonpCallback',
+                success: function(result) {
+                       alert(result);
+                    alert(result.message);
+                  },
+               complete:function(XMLHttpRequest,textStatus){
+                            if(XMLHttpRequest.readyState=="4"){
+                                alert(XMLHttpRequest.responseText);
+                            }
+                            alert(textStatus);
+                    },
+        	});
+        	}
+
+        	//hasNewInformation();
 		});
 	});
 	window.loginCookie = '${loginCookie.peopleId}';
 	window.urlprefix = '${urlPrefix}';
+
 	function errorType(error){
 		  var exist=error.indexOf(':');
 		  if(exist>-1){
@@ -37,6 +65,7 @@
 		return null;
 	  }
 	}
+
 </script>
 </head>
 <body>
@@ -81,62 +110,81 @@
                        <c:when test="${servletPath=='/WEB-INF/jsp/getPeople.jsp'}">
                                ${loginCookie.realName}
                        </c:when>
-                       <c:otherwise>
-                               <a class="lk" href='${urlPrefix}/people/${loginCookie.peopleId}'>${loginCookie.realName}</a>
-                       </c:otherwise>
-               </c:choose>
-                <span tgtt='minelist' class='in_bk tlistarr'></span>
-                       <div id="minelist" class='tgtbox'>
-                           <ul class="dlist">
-                               <li><a class='lk' href='${urlPrefix}/people/${loginCookie.peopleId}'>我的主页</a></li>
-                               <li><a class="lk" href='${urlPrefix}/at'>&#64;提到我的</a></li>
-                               <li><a class="lk" href='${urlPrefix}/reply/received'>我的回复</a></li>
-                               <li class="end"><a class="lk" href='${urlPrefix}/favorite'>我的收藏</a></li>
-                           </ul>
-                       </div>
-                       </c:when>
-	</c:choose>
-                </li>
+										<c:otherwise>
+											<a class="lk"
+												href='${urlPrefix}/people/${loginCookie.peopleId}'>${loginCookie.realName}</a>
+										</c:otherwise>
+									</c:choose>
+									<span tgtt='minelist' class='in_bk tlistarr'></span>
+									<div id="minelist" class='tgtbox'>
+										<ul class="dlist">
+											<li><a class='lk'
+												href='${urlPrefix}/people/${loginCookie.peopleId}'>我的主页</a>
+											</li>
+											<li><a class="lk" href='${urlPrefix}/at'>&#64;提到我的</a>
+											</li>
+											<li><a class="lk" href='${urlPrefix}/reply/received'>我的回复</a>
+											</li>
+											<li class="end"><a class="lk"
+												href='${urlPrefix}/favorite'>我的收藏</a>
+											</li>
+										</ul>
+									</div>
+								</c:when>
+							</c:choose></li>
 
-	<li>
-		<c:choose>
-	  <c:when test="${loginCookie.peopleId>0}">
-	<c:choose>
-		<c:when test="${servletPath=='/WEB-INF/jsp/getMessageIndex.jsp'}">私信</c:when>
-		<c:otherwise><a class="lk" href='${urlPrefix}/message'>私信</a></c:otherwise>
-	</c:choose>
-		</c:when>
-	</c:choose>
-	</li>
-	<li>
-	<c:choose>
-	  <c:when test="${loginCookie.peopleId>0}">
-	<c:choose>
-		<c:when test="${servletPath=='/WEB-INF/jsp/getSettingBasic.jsp'}">设置</c:when>
-		<c:otherwise><a class="lk" href='${urlPrefix}/setting/basic'>设置</a></c:otherwise>
-	</c:choose>
-	</c:when>
-	</c:choose>
-	</li>
-	<li class="end">
-	<c:choose>
-	  <c:when test="${loginCookie.peopleId>0}">	<c:choose>
-		<c:when test="${servletPath=='/WEB-INF/jsp/deleteLogin.jsp'}">退出</c:when>
-		<c:otherwise><a class="lk" href='${urlPrefix}/login/delete'>退出</a></c:otherwise>
-	</c:choose></c:when>
-	</c:choose>
-	</li>
-</ul>
+						<li><c:choose>
+								<c:when test="${loginCookie.peopleId>0}">
+									<c:choose>
+										<c:when
+											test="${servletPath=='/WEB-INF/jsp/getMessageIndex.jsp'}">私信</c:when>
+										<c:otherwise>
+											<a class="lk" href='${urlPrefix}/message'>私信</a>
+										</c:otherwise>
+									</c:choose>
+								</c:when>
+							</c:choose></li>
+						<li><c:choose>
+								<c:when test="${loginCookie.peopleId>0}">
+									<c:choose>
+										<c:when
+											test="${servletPath=='/WEB-INF/jsp/getSettingBasic.jsp'}">设置</c:when>
+										<c:otherwise>
+											<a class="lk" href='${urlPrefix}/setting/basic'>设置</a>
+										</c:otherwise>
+									</c:choose>
+								</c:when>
+							</c:choose></li>
+						<li class="end"><c:choose>
+								<c:when test="${loginCookie.peopleId>0}">
+									<c:choose>
+										<c:when test="${servletPath=='/WEB-INF/jsp/deleteLogin.jsp'}">退出</c:when>
+										<c:otherwise>
+											<a class="lk" href='${urlPrefix}/login/delete'>退出</a>
+										</c:otherwise>
+									</c:choose>
+								</c:when>
+							</c:choose></li>
+	</ul>
 </div>
 
-<div id="note">
-	 <p>1条新的私信<a class="lk" href="${urlPrefix}/message">查看私信</a></p>
-     <p>1条新的回复<a class="lk" href="${urlPrefix}/reply/received">查看回复</a></p>
-     <p>3位新粉丝<a class="lk" href="${urlPrefix}/people/${people.id}/follower">查看我的粉丝</a></p>
-     <p>6条发言提到我<a class="lk" href="${urlPrefix}/at">查看@我</a></p>
-</div>
-</div>
-</div>
+				<div id="note" style="display: block">
+					<p>
+						1条新的私信<a class="lk" href="${urlPrefix}/message">查看私信</a>
+					</p>
+					<p>
+						1条新的回复<a class="lk" href="${urlPrefix}/reply/received">查看回复</a>
+					</p>
+					<p>
+						3位新粉丝<a class="lk"
+							href="${urlPrefix}/people/${people.id}/follower">查看我的粉丝</a>
+					</p>
+					<p>
+						6条发言提到我<a class="lk" href="${urlPrefix}/at">查看@我</a>
+					</p>
+				</div>
 
-<div id="main">
-<div class="wapper">
+			</div>
+		</div>
+		<div id="main">
+			<div class="wapper">

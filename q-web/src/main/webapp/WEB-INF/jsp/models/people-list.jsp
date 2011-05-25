@@ -7,7 +7,7 @@ mods.push(function (q) {
 		var mems = $('#mems');
 		var mem_ajsucc = function(json){
            	var pv = $('a.mbprev'); pv.hide(); if (json.hasPrev) pv.show();
-           	var nt = $('a.mbnext'); nt.hide(); if (json.hasNext) nt.show();	            
+           	var nt = $('a.mbnext'); nt.hide(); if (json.hasNext) nt.show();
             mems.empty();
                $(json.peoples).each(function(){
                	mems.append(ich.members(this));
@@ -17,13 +17,19 @@ mods.push(function (q) {
 			data:{startId:"999999999999999999",size:10, search:"${param['search']}"},
 			success:mem_ajsucc });
 		$('a.mbprev').click(function(){
+			var o = $("li",mems).first();
+			var idd = o.attr("stream_id");
+			if(!idd) idd = o.attr("people_id");
 			$.ajax({ url:"${param['feedUrl']}",
-				data:{startId:$("li",mems).first().attr("stream_id"),size:10, search:"${param['search']}", type:1},
+				data:{startId:idd,size:10, search:"${param['search']}", type:1},
 				success:mem_ajsucc });
 		});
 		$('a.mbnext').click(function(){
+			var o = $("li",mems).first();
+			var idd = o.attr("stream_id");
+			if(!idd) idd = o.attr("people_id");
 			$.ajax({ url:"${param['feedUrl']}",
-				data:{startId:$("li",mems).last().attr("stream_id"),size:10, search:"${param['search']}"},
+				data:{startId:idd,size:10, search:"${param['search']}"},
 				success:mem_ajsucc });
 		});
 
@@ -48,7 +54,7 @@ mods.push(function (q) {
 						this.msg.siblings('a.btnletter').show();
 				    } });
 		});
-		
+
 		var dia_ret = $("#dia_ret");
 		$("a.btnat").live('click', function () {
 			var stream = $(this).closest('li');
@@ -85,7 +91,7 @@ mods.push(function (q) {
 				} });
         });
 	});
-});	
+});
 </script>
 <script type="text/html" id="members">
     <li stream_id='{{# ${param['orderId']} }}{{ id }}{{/ ${param['orderId']} }}' people_id="{{id}}">
@@ -118,5 +124,5 @@ mods.push(function (q) {
 	<textarea name="content" style="width:100%;height:100px;"></textarea>
 	<img src="${staticUrlPrefix}/content/images/ajax/ajaxload.gif" class="ajaxload" alt="ajaxload" />
 	<input type='hidden' class='donet' />
-	<input type='hidden' class='undonet' />		
+	<input type='hidden' class='undonet' />
 </div>

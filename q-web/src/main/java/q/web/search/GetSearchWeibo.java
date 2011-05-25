@@ -17,6 +17,8 @@ import q.web.Resource;
 import q.web.ResourceContext;
 
 public class GetSearchWeibo extends Resource {
+	private static long maxId = IdCreator.MAX_ID;
+
 	private WeiboDao weiboDao;
 
 	public void setWeiboDao(WeiboDao weiboDao) {
@@ -48,35 +50,53 @@ public class GetSearchWeibo extends Resource {
 			List<? extends WeiboModel> weibos = null;
 			int size = context.getInt("size", 10);
 			long startId = context.getIdLong("startId");
-			int type = context.getInt("type", 0);
-			int asc = 1;
-			if (startId != 0) {
-				search = search + " " + "AND id:[* TO " + startId + "]";
-			}
-			boolean hasPrev = false;
-			boolean hasNext = false;
-			Map<String, Object> api = new HashMap<String, Object>();
-			if (StringKit.isNotEmpty(search)) {
-				List<Long> bs = searchService.searchWeibo(search, size);
-				if (bs != null) {
-					if (bs.size() > 0) {
-						if (type == asc) { // this action from next page
-							hasNext = true;
-						} else if (startId != IdCreator.MAX_ID) {// this action from previous page
-							hasPrev = true;
-						}
-						weibos = weiboDao.getWeibosByIds(bs, true);
-						if (CollectionKit.isNotEmpty(weibos)) {
-							DaoHelper.injectWeiboModelsWithPeople(peopleDao, weibos);
-							DaoHelper.injectWeiboModelsWithFrom(groupDao, weibos);
-							api.put("weibos", weibos);
+			if(startId < maxId) {
+				int type = context.getInt("type", 0);
+				int asc = 1;
+				if(startId == 0) {
+					startId = IdCreator.MAX_ID;
+				}
+				if (startId != 0) {
+					if(StringKit.isNotEmpty(search)) {
+						search = search + " " + "AND id:[* TO " + (startId - 1) + "]";
+					} else {
+						search = search + "*:* AND id:[* TO " + (startId - 1) + "]";
+					}
+				} else {
+					if(StringKit.isEmpty(search)) {
+						search = search + "*:* AND id:[* TO " + IdCreator.MAX_ID + "]";
+					} else if(StringKit.isEmpty(search) && startId != 0){
+						search = search + " " + "AND id:[* TO " + (startId - 1) + "]";
+					}
+				}
+				boolean hasPrev = false;
+				boolean hasNext = false;
+				Map<String, Object> api = new HashMap<String, Object>();
+				if (StringKit.isNotEmpty(search)) {
+					List<Long> bs = searchService.searchWeibo(search, size);
+					if(startId == IdCreator.MAX_ID && bs.size() > 0) {
+						maxId = bs.get(0);
+					}
+					if (bs != null) {
+						if (bs.size() > 0) {
+							if (type == asc) { // this action from next page
+								hasNext = true;
+							} else if (startId != IdCreator.MAX_ID) {// this action from previous page
+								hasPrev = true;
+							}
+							weibos = weiboDao.getWeibosByIds(bs, true);
+							if (CollectionKit.isNotEmpty(weibos)) {
+								DaoHelper.injectWeiboModelsWithPeople(peopleDao, weibos);
+								DaoHelper.injectWeiboModelsWithFrom(groupDao, weibos);
+								api.put("weibos", weibos);
+							}
 						}
 					}
 				}
+				api.put("hasPrev", hasPrev);
+				api.put("hasNext", hasNext);
+				context.setModel("api", api);
 			}
-			api.put("hasPrev", hasPrev);
-			api.put("hasNext", hasNext);
-			context.setModel("api", api);
 		}
 	}
 
