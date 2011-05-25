@@ -13,12 +13,13 @@
     </style>
     <script src="${staticUrlPrefix}/scripts/sea.js" type="text/javascript"></script>
     <script type="text/javascript">
-        seajs.use('qcomcn', function (q) {
-            var $ = q.jq;
-            $(function () {
-                q.Init();
-            });
-        });
-    </script>    
+	var mods = [];
+	seajs.use("qcomcn",function(q){
+		q.jq(function(){
+			for(var i in mods) mods[i](q);
+			q.init();
+		});
+	});
+    </script>
     <jsp:include page="js-common.jsp" />
 </head>

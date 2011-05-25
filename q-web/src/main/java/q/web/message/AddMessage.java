@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.web.message;
 
@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import q.biz.NotifyService;
+import q.biz.ShortUrlService;
 import q.dao.MessageDao;
 import q.dao.PeopleDao;
 import q.domain.Message;
@@ -27,7 +28,7 @@ import q.web.exception.RequestParameterInvalidException;
 /**
  * @author seanlinwang at gmail dot com
  * @date Feb 21, 2011
- * 
+ *
  */
 public class AddMessage extends Resource {
 	private MessageDao messageDao;
@@ -35,13 +36,17 @@ public class AddMessage extends Resource {
 	public void setMessageDao(MessageDao messageDao) {
 		this.messageDao = messageDao;
 	}
+	private ShortUrlService shortUrlService;
 
+	public void setShortUrlService(ShortUrlService shortUrlService) {
+		this.shortUrlService = shortUrlService;
+	}
 	private PeopleDao peopleDao;
 
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
 	}
-	
+
 	/**
 	 * @param notifyService the notifyService to set
 	 */
@@ -58,7 +63,7 @@ public class AddMessage extends Resource {
 	 * <li>add firstmessage reply</li>
 	 * <li>add message join peoples</li>
 	 * </ul>
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -73,7 +78,7 @@ public class AddMessage extends Resource {
 		// add first message reply
 		MessageReply messageReply = new MessageReply();
 		messageReply.setId(IdCreator.getLongId());
-		messageReply.setContent(context.getString("content"));
+		messageReply.setContent(this.shortUrlService.urlFilter(context.getString("content")));
 		messageReply.setSenderId(message.getSenderId());
 		messageReply.setQuoteMessageId(message.getId());
 		messageReply.setQuoteSenderId(message.getSenderId());

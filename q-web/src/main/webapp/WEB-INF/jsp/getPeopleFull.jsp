@@ -7,7 +7,7 @@
 	<script type="text/javascript">
 areas=${rootArea.childsJson};
 mods.push(function (q) {
-seajs.use('jq_area',function(area){	
+seajs.use('jq_area',function(area){
 		var $ = q.jq;
 		checkLocation = function(){
 		    $("#locationcorrect").css("display","block");
@@ -37,11 +37,11 @@ seajs.use('jq_area',function(area){
 	         $("#mobilecorrect").css("display","block");
 	         return true;
 	      }
-	
+
 	         $("#mobilewrong").css("display","block");
 	         $("#mobilecorrect").css("display","none");
 	         $("#mobilewrong").html("手机号码的格式有误。");
-	
+
 	      return false;
 		}
 		checkGroup = function(){
@@ -82,7 +82,7 @@ seajs.use('jq_area',function(area){
 		});
         if(monthtemp != '0') monthx.options[monthtemp-1].selected='selected';
         if(daytemp != '0') dayx.options[daytemp-1].selected='selected';
-		         
+
 	    provinceExist='${people.area.myProvince.id}';
         cityExist='${people.area.myCity.id}';
         countyExist='${people.area.myCounty.id}';
@@ -90,10 +90,10 @@ seajs.use('jq_area',function(area){
         hometownProvinceExist='${people.hometown.myProvince.id}';
         hometownCityExist='${people.hometown.myCity.id}';
         hometownCountyExist='${people.hometown.myCounty.id}';
-        
+
         area.changeProvince();
         area.changeHometownProvince();
-        
+
 		$("select[name='province']").bind('change',area.changeCity);
 		$("select[name='city']").bind('change',area.changeCounty);
 		$("select[name='hometownProvince']").bind('change',area.changeHometownCity);
@@ -104,114 +104,110 @@ seajs.use('jq_area',function(area){
 	});
 	</script>
   </head>
-  <body>
-  <div class="wapper">
-    <h1 id="logo">Q.com.cn</h1>
-    <div class="content">
+<body>
+	<div class="wapper">
+		<h1 id="logo">Q.com.cn</h1>
+		<div class="content">
 
-        <ul class='pssmap'>
-            <li class="done">
-                <div class="label">
-                    <span class="checked"></span>
-                    <span class="text">创建帐号</span>
-                </div>
-            </li>
-            <li class="selected">
-                <div class="label">
-                    <span class="checked"></span>
-                    <span class="text">填写资料</span>
-                </div>
-            </li>
-        </ul>
-        
-        <form method='post' action='${urlPrefix}/people/${people.id}/full'  onsubmit="return check()">
-        <table class='qform'>
-			<tr>
-				<td align="right">所在地：</td>
-				<td class='localArea'>
-					<select class='select' name="province" id="selProvince">
-					</select>
-					<select class='select' name="city" id="selCity">
-					</select>
-					<select class='select' name="county" id="selCounty">
-					</select>
-                </td>
-				<td class='col-help'>
-					<div class='label-box-good' style='display:none;' id="locationcorrect"></div>
-					<div class='label-box-error' style='display:none;' id="locationwrong"></div>
-				</td>                
-			</tr>
-			<tr>
-				<td align="right">家乡：</td>
-				<td>
-					<select class='select' name="hometownProvince" id="selHometownProvince">
-					</select>
-					<select class='select' name="hometownCity" id="selHometownCity">
-					</select>
-					<select class='select' name="hometownCounty" id="selHometownCounty">
-					</select>
-				</td>
-				<td class='col-help'>
-					<div class='label-box-good' style='display:none;' id="hometowncorrect"></div>
-					<div class='label-box-error' style='display:none;' id="hometownwrong"></div>
-				</td>
-			</tr>
-			<tr>
-				<td align="right">性别：</td>
-				<td>
-					<input type='radio'  name="gender" value="1" <c:choose><c:when test="${people.gender.value == 1}">checked="checked"</c:when></c:choose> onclick="checkGender()" />
-					<span class='value-label' >男</span>&nbsp;
-					<input type='radio'  name="gender" value="2" <c:choose><c:when test="${people.gender.value == 2}">checked="checked"</c:when></c:choose> onclick="checkGender()" />
-					<span class='value-label'>女</span>
-				</td>
-				<td class='col-help'>
-					<div class='label-box-good' style='display:none;' id="sexcorrect"></div>
-					<div class='label-box-error' style='display:none;' id="sexwrong"></div>
-				</td>
-			</tr>
-			<tr>
-				<td align="right">生日：</td>
-				<td class='col-field' colspan='2'>
-		             <jsp:include page="models/dateSelect.jsp"/>
-				</td>
-				<td class="col-help">
-	    	      <div class="label-box-good" style="display: none;" id="birthdaycorrect"></div>
-	              <div class="label-box-error" style="display: none;" id="birthdaywrong"></div>
-	           	</td>				
-			</tr>
-			<tr>
-				<td align="right">手机：</td>
-				<td><input name="mobile" id="mobile" type='text' class='mttext' size='20' onblur="checkMobile(this.value)" value="${people.mobile}"/></td>
-				<td class="col-help">
-                      <div class="label-box-good" style="display: none;"
-                           	id="mobilecorrect"></div>
-                      <div class="label-box-error"style="display:none;"
-                           	id="mobilewrong"></div>
-                </td>
-			</tr>
-			<tr>
-				<td align="right">感兴趣的圈子：</td>
-				<td align="right">
-					<c:forEach items="${groups}" var="group">
-						<input name="group" type='checkbox' value="${group.id}"/><span class='group-name'>${group.name}</span>
-					</c:forEach>
-				</td>
-				<td class="col-help">
-					<div class="label-box-good" style="display: none;" id="groupcorrect"></div>
-					<div class="label-box-error"style="display:none;" id="groupwrong"></div>
-				</td>
-			</tr>
+			<ul class='pssmap'>
+				<li class="done">
+					<div class="label">
+						<span class="checked"></span> <span class="text">创建帐号</span>
+					</div></li>
+				<li class="selected">
+					<div class="label">
+						<span class="checked"></span> <span class="text">填写资料</span>
+					</div></li>
+			</ul>
 
-			<tr>
-				<td></td>
-				<td>
-					<button class='ui_btn' type='submit'>完成</button>
-					<input type='hidden' name='from' value="/"/>
-				</td>
-			</tr>
-		</table>
-		</form>
-    </div>
-</div>
+			<form method='post' action='${urlPrefix}/people/${people.id}/full'
+				onsubmit="return check()">
+				<table class='qform'>
+					<tr>
+						<td align="right">所在地：</td>
+						<td class='localArea'><select class='select' name="province"
+							id="selProvince">
+						</select> <select class='select' name="city" id="selCity">
+						</select> <select class='select' name="county" id="selCounty">
+						</select></td>
+						<td class='col-help'>
+							<div class='label-box-good' style='display: none;'
+								id="locationcorrect"></div>
+							<div class='label-box-error' style='display: none;'
+								id="locationwrong"></div></td>
+					</tr>
+					<tr>
+						<td align="right">家乡：</td>
+						<td><select class='select' name="hometownProvince"
+							id="selHometownProvince">
+						</select> <select class='select' name="hometownCity" id="selHometownCity">
+						</select> <select class='select' name="hometownCounty"
+							id="selHometownCounty">
+						</select></td>
+						<td class='col-help'>
+							<div class='label-box-good' style='display: none;'
+								id="hometowncorrect"></div>
+							<div class='label-box-error' style='display: none;'
+								id="hometownwrong"></div></td>
+					</tr>
+					<tr>
+						<td align="right">性别：</td>
+						<td><input type='radio' name="gender" value="1"
+							<c:choose><c:when test="${people.gender.value == 1}">checked="checked"</c:when></c:choose>
+							onclick="checkGender()" /> <span class='value-label'>男</span>&nbsp;
+							<input type='radio' name="gender" value="2"
+							<c:choose><c:when test="${people.gender.value == 2}">checked="checked"</c:when></c:choose>
+							onclick="checkGender()" /> <span class='value-label'>女</span></td>
+						<td class='col-help'>
+							<div class='label-box-good' style='display: none;'
+								id="sexcorrect"></div>
+							<div class='label-box-error' style='display: none;' id="sexwrong"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right">生日：</td>
+						<td class='col-field' colspan='2'><jsp:include
+								page="models/dateSelect.jsp" /></td>
+						<td class="col-help">
+							<div class="label-box-good" style="display: none;"
+								id="birthdaycorrect"></div>
+							<div class="label-box-error" style="display: none;"
+								id="birthdaywrong"></div></td>
+					</tr>
+					<tr>
+						<td align="right">手机：</td>
+						<td><input name="mobile" id="mobile" type='text'
+							class='mttext' size='20' onblur="checkMobile(this.value)"
+							value="${people.mobile}" />
+						</td>
+						<td class="col-help">
+							<div class="label-box-good" style="display: none;"
+								id="mobilecorrect"></div>
+							<div class="label-box-error" style="display: none;"
+								id="mobilewrong"></div></td>
+					</tr>
+					<tr>
+						<td align="right">感兴趣的圈子：</td>
+						<td align="right"><c:forEach items="${groups}" var="group">
+								<input name="group" type='checkbox' value="${group.id}" />
+								<span class='group-name'>${group.name}</span>
+							</c:forEach></td>
+						<td class="col-help">
+							<div class="label-box-good" style="display: none;"
+								id="groupcorrect"></div>
+							<div class="label-box-error" style="display: none;"
+								id="groupwrong"></div></td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td>
+							<button class='ui_btn' type='submit'>完成</button> <input
+							type='hidden' name='from' value="/" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
 </body>
 </html>

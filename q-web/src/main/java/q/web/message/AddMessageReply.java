@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import q.biz.NotifyService;
+import q.biz.ShortUrlService;
 import q.dao.MessageDao;
 import q.dao.PeopleDao;
 import q.dao.page.MessageJoinPeoplePage;
@@ -23,7 +24,7 @@ import q.web.exception.RequestParameterInvalidException;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 21, 2011
- * 
+ *
  */
 public class AddMessageReply extends Resource {
 	protected MessageDao messageDao;
@@ -37,7 +38,11 @@ public class AddMessageReply extends Resource {
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
 	}
+	private ShortUrlService shortUrlService;
 
+	public void setShortUrlService(ShortUrlService shortUrlService) {
+		this.shortUrlService = shortUrlService;
+	}
 	/**
 	 * @param notifyService
 	 *            the notifyService to set
@@ -50,14 +55,14 @@ public class AddMessageReply extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		MessageReply messageReply = new MessageReply();
 		messageReply.setId(IdCreator.getLongId());
-		messageReply.setContent(context.getString("content"));
+		messageReply.setContent(this.shortUrlService.urlFilter(context.getString("content")));
 		long loginId = context.getCookiePeopleId();
 		messageReply.setSenderId(loginId);
 

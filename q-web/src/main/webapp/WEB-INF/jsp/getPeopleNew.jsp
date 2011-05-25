@@ -5,7 +5,7 @@
     <script type="text/javascript">
         mods.push(function (q) {
             var $ = q.jq;
-            
+
             var newEmail = true;
         	var newUsername=true;
         	checkEmail = function(a)
@@ -258,7 +258,7 @@
                 reloadVerify_img();
             });
         });
-    </script>
+	</script>
 <body>
 <div class="wapper">
     <h1 id="logo">Q.com.cn</h1>
@@ -278,7 +278,7 @@
                 </div>
             </li>
         </ul>
-	
+
         <table class='qform'>
 			<tr>
 				<td align="right">邮箱：</td>
@@ -322,7 +322,7 @@
 						<div class="label-box-good" style="display: none;"
 							id="repasswordcorrect"></div>
 						<div class="label-box-error" style="display: none;"
-							id="repasswordwrong"></div>					
+							id="repasswordwrong"></div>
 				</td>
 			</tr>
 			<tr>
@@ -338,14 +338,14 @@
 					id="authcodecorrect"></div>
 				    <div class="label-box-error" style="display: none;"
 					id="authcodewrong"></div>
-				</td>				
+				</td>
 			</tr>
 			<tr>
 				<td></td>
 				<td><button class='ui_btn' type='submit' onclick='check()'>创建帐号</button></td>
 			</tr>
 		</table>
-		
+
     </div>
 </div>
 </body>

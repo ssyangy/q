@@ -262,7 +262,7 @@
 						</entry>
 						<entry>
 							<key>
-								<value>AddMessageReply:MessageReply</value>
+								<value>addMessageReply:MessageReply</value>
 							</key>
 							<value>/WEB-INF/json/check.xml</value>
 						</entry>
@@ -692,11 +692,13 @@
 		<property name="messageDao" ref="messageDao" />
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="notifyService" ref="notifyService" />
+		<property name="shortUrlService" ref="shortUrlService" />
 	</bean>
 	<bean id="addMessageReply" class="q.web.message.AddMessageReply">
 		<property name="messageDao" ref="messageDao" />
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="notifyService" ref="notifyService" />
+		<property name="shortUrlService" ref="shortUrlService" />
 	</bean>
 	<bean id="getMessageReply" class="q.web.message.GetMessageReply">
 		<property name="messageDao" ref="messageDao" />
