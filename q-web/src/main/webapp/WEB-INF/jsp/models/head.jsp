@@ -109,9 +109,10 @@
 	<input type="submit" class="search_btn" title="搜索" value="" /></div>
 </form>
 <div id="note">
-     <p>1条新的回应<a class="lk">查看回应</a></p>
-     <p>3位新粉丝<a class="lk">查看我的粉丝</a></p>
-     <p>6条发言提到我<a class="lk">查看&#64我</a></p>
+	 <p>1条新的私信<a class="lk" href="${urlPrefix}/message">查看私信</a></p>
+     <p>1条新的回复<a class="lk" href="${urlPrefix}/reply/received">查看回复</a></p>
+     <p>3位新粉丝<a class="lk" href="${urlPrefix}/people/${people.id}/follower">查看我的粉丝</a></p>
+     <p>6条发言提到我<a class="lk" href="${urlPrefix}/at">查看@我</a></p>
 </div>
 </div>
 </div>
