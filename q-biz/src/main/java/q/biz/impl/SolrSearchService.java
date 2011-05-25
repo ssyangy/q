@@ -36,7 +36,6 @@ public class SolrSearchService implements SearchService {
 		String fq = URLEncoder.encode("id:[* TO ", "UTF-8");
 		String httpUrl;
 		httpUrl = searchUrl + "/solr/qweibo/select/?q=" + urlTemp + "&wt=json&sort=" + sort + "&rows=" + size;
-
 		URL temp = new URL(httpUrl);
 		HttpURLConnection con = null;
 		List<Long> bs = null;
@@ -57,11 +56,14 @@ public class SolrSearchService implements SearchService {
 		}
 		return bs;
 	}
-	
+
 	@Override
-	public List<Long> searchPeople(String query, int size) throws Exception {
+	public List<Long> searchPeople(String query, int type, int size) throws Exception {
 		String urlTemp = URLEncoder.encode(query, "UTF-8");
 		String sort = URLEncoder.encode("id desc", "UTF-8");
+		if(type == 1) {
+			sort = URLEncoder.encode("id asc", "UTF-8");
+		}
 		String httpUrl = searchUrl + "/solr/quser/select/?q=" + urlTemp + "&wt=json&sort=" + sort + "&rows=" + size;
 		URL temp = new URL(httpUrl);
 		HttpURLConnection con = null;
@@ -83,12 +85,15 @@ public class SolrSearchService implements SearchService {
 		}
 		return bs;
 	}
-	
+
 	@Override
-	public List<Long> searchGroup(String query, int size) throws Exception {
+	public List<Long> searchGroup(String query, int type, int size) throws Exception {
 		String urlTemp = URLEncoder.encode(query, "UTF-8");
 		String sort = URLEncoder.encode("id desc", "UTF-8");
-		String httpUrl = searchUrl + "/solr/qgroup/select/?q=" + urlTemp + "&wt=json&qt=all&sort=" + sort + "&rows=" + size;
+		if(type == 1) {
+			sort = URLEncoder.encode("id asc", "UTF-8");
+		}
+		String httpUrl = searchUrl + "/solr/qgroup/select/?q=" + urlTemp + "&wt=json&sort=" + sort + "&rows=" + size;
 		URL temp = new URL(httpUrl);
 		HttpURLConnection con = null;
 		List<Long> bs = null;
