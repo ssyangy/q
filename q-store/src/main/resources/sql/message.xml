@@ -89,6 +89,9 @@
 		<isNotNull prepend="and " property="receiverId">
 			receiver_id = #receiverId#
 		</isNotNull>
+		<isNotNull prepend="and " property="messageId">
+			message_id = #messageId#
+		</isNotNull>
 		<isNotNull prepend="and " property="messageIds">
 			message_id in
 			<iterate property="messageIds" open="(" close=")" conjunction=",">
@@ -149,7 +152,7 @@
 	<update id="decrMessageReplyNumByMessageIdAndReceiverId">
 		update message_join_people
 		set reply_num = reply_num + 1
-		where message_id = #messageId# and receiver_id = #receiverId# 
+		where message_id = #messageId# and receiver_id = #receiverId#
 	</update>
 	<update id="incrAllMessageReplyNumberByMessageId">
 		update message_join_people
@@ -291,7 +294,7 @@
 		update message_reply_join_people
 		set status = 1
 		where
-		quote_message_id = #quoteMessageId# and receiver_id = #receiverId# 
+		quote_message_id = #quoteMessageId# and receiver_id = #receiverId#
 	</update>
 	<update id="deleteMessageReplyByIdAndReceiverId">
 		update message_reply_join_people
@@ -307,10 +310,26 @@
 		<isNotNull prepend="and " property="quoteMessageId">
 			quote_message_id = #quoteMessageId#
 	    </isNotNull>
-		<isNotNull prepend="and" property="startId">
-			id &lt; #startId#
+		<isNotNull prepend="and " property="receiverId">
+			receiver_id = #receiverId#
+	    </isNotNull>
+		<isNotNull prepend="and " property="startId">
+			<isEqual property="desc" compareValue="true">
+				reply_id &lt; #startId#
+				</isEqual>
+			<isEqual property="desc" compareValue="false">
+				reply_id &gt; #startId#
+				</isEqual>
 		</isNotNull>
-		order by id desc
+		order by reply_id
+		<isNotNull property="desc" prepend=" ">
+			<isEqual property="desc" compareValue="true">
+				desc
+			</isEqual>
+			<isEqual property="desc" compareValue="false">
+				asc
+			</isEqual>
+		</isNotNull>
 		<isNotNull property="size">
 			limit #startIndex#, #size#
 		</isNotNull>

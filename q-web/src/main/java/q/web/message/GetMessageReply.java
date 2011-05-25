@@ -11,7 +11,10 @@ import q.dao.DaoHelper;
 import q.dao.MessageDao;
 import q.dao.PeopleDao;
 import q.dao.page.MessageReplyJoinPeoplePage;
+import q.domain.Message;
+import q.domain.MessageJoinPeople;
 import q.domain.MessageReply;
+import q.domain.Status;
 import q.util.CollectionKit;
 import q.util.IdCreator;
 import q.web.Resource;
@@ -22,7 +25,7 @@ import q.web.exception.RequestParameterInvalidException;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 21, 2011
- * 
+ *
  */
 public class GetMessageReply extends Resource {
 	private MessageDao messageDao;
@@ -39,14 +42,16 @@ public class GetMessageReply extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
+		long loginId = context.getCookiePeopleId();
 		long mid = context.getResourceIdLong();
 		MessageReplyJoinPeoplePage joinPage = new MessageReplyJoinPeoplePage();
 		joinPage.setQuoteMessageId(mid);
+		joinPage.setReceiverId(loginId);
 		int size = context.getInt("size", 10);
 		long startId = context.getIdLong("startId", IdCreator.MAX_ID);
 		int type = context.getInt("type", 0);
@@ -91,13 +96,21 @@ public class GetMessageReply extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+		long loginId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginId)) {
+			throw new RequestParameterInvalidException("login:invalid");
+		}
 		long mid = context.getResourceIdLong();
 		if (IdCreator.isNotValidId(mid)) {
+			throw new RequestParameterInvalidException("message:invalid");
+		}
+		MessageJoinPeople join = messageDao.getMessageJoinPeopleByMessageIdReceiverIdStatus(mid, loginId, Status.COMMON.getValue());
+		if (join == null) {
 			throw new RequestParameterInvalidException("message:invalid");
 		}
 	}
