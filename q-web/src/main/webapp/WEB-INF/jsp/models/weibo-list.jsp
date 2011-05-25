@@ -110,11 +110,11 @@ seajs.use(['app/weibo','underscore'], function (w, _) {
     <p class='rel'>
 		<span class="stat gray">{{screenTime}}</span>
 		<span class='actions'>
-        <a href="javascript:void(0);" class='replay'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
-        <a href="javascript:void(0);" class='resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
-        <a href="javascript:void(0);" class='unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
-        <a href="javascript:void(0);" class='fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
-		{{#isown}}<a href="javascript:void(0);" class='lk del'>删除</a>{{/isown}}
+        <a href="javascript:void(0);" class='r_replay'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
+        <a href="javascript:void(0);" class='r_resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
+        <a href="javascript:void(0);" class='r_unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
+        <a href="javascript:void(0);" class='r_fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
+		{{#isown}}<a href="javascript:void(0);" class='lk r_del'>删除</a>{{/isown}}
 		</span>
 	</p>
 </script>
