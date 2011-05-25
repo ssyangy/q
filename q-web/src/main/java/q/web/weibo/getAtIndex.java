@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.web.weibo;
 
@@ -16,6 +16,7 @@ import q.dao.WeiboDao;
 import q.domain.Weibo;
 import q.util.CollectionKit;
 import q.util.IdCreator;
+import q.util.StringKit;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.exception.RequestParameterInvalidException;
@@ -23,9 +24,11 @@ import q.web.exception.RequestParameterInvalidException;
 /**
  * @author seanlinwang at gmail dot com
  * @date May 14, 2011
- * 
+ *
  */
 public class getAtIndex extends Resource {
+	private static long maxId = IdCreator.MAX_ID;
+
 	private GroupDao groupDao;
 
 	public void setGroupDao(GroupDao groupDao) {
@@ -58,7 +61,7 @@ public class getAtIndex extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -67,33 +70,47 @@ public class getAtIndex extends Resource {
 		if (context.isApiRequest()) {
 			String username = context.getLoginCookie().getUsername();
 			int size = context.getInt("size", 10);
-			long startId = context.getIdLong("startId", IdCreator.MAX_ID);
-			int type = context.getInt("type", 0);
-			boolean hasPrev = false;
-			boolean hasNext = false;
-			Map<String, Object> api = new HashMap<String, Object>();
-			List<Long> bs = searchService.searchWeibo("@" + username, size);
-			if (CollectionKit.isNotEmpty(bs)) {
-				List<Weibo> weibos = weiboDao.getWeibosByIds(bs, true);
-				if (CollectionKit.isNotEmpty(weibos)) {
-					DaoHelper.injectWeiboModelsWithQuote(weiboDao, weibos);
-					DaoHelper.injectWeiboModelsWithPeople(peopleDao, weibos);
-					DaoHelper.injectWeiboModelsWithFrom(groupDao, weibos);
-					if (loginPeopleId > 0) {
-						DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
-					}
-					api.put("weibos", weibos);
+			long startId = context.getIdLong("startId");
+			if(startId < maxId) {
+				if(startId == 0) { //only first time to visit this page, startId is 0
+					startId = IdCreator.MAX_ID;
 				}
+				int type = context.getInt("type", 0);
+				boolean hasPrev = false;
+				boolean hasNext = false;
+				Map<String, Object> api = new HashMap<String, Object>();
+				String searchAft = "";
+				if (startId == IdCreator.MAX_ID) {
+					searchAft = " " + "AND id:[* TO " + (IdCreator.MAX_ID) + "]";
+				} else {
+					searchAft = " " + "AND id:[* TO " + (startId - 1) + "]";
+				}
+				List<Long> bs = searchService.searchWeibo("@" + username + searchAft, size);
+				if (CollectionKit.isNotEmpty(bs)) {
+					List<Weibo> weibos = weiboDao.getWeibosByIds(bs, true);
+					if(startId == IdCreator.MAX_ID && bs.size() > 0) {
+						maxId = bs.get(0);
+					}
+					if (CollectionKit.isNotEmpty(weibos)) {
+						DaoHelper.injectWeiboModelsWithQuote(weiboDao, weibos);
+						DaoHelper.injectWeiboModelsWithPeople(peopleDao, weibos);
+						DaoHelper.injectWeiboModelsWithFrom(groupDao, weibos);
+						if (loginPeopleId > 0) {
+							DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
+						}
+						api.put("weibos", weibos);
+					}
+				}
+				api.put("hasPrev", hasPrev);
+				api.put("hasNext", hasNext);
+				context.setModel("api", api);
 			}
-			api.put("hasPrev", hasPrev);
-			api.put("hasNext", hasNext);
-			context.setModel("api", api);
 		}
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
