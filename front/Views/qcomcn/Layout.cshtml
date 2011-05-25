@@ -7,8 +7,10 @@
     <script type="text/javascript">
         var mods = [];
         seajs.use("qcomcn", function (q) {
-            for (var i in mods) mods[i](q);
-            q.jq(function () { q.init(); });
+            q.jq(function () {
+                for (var i in mods) mods[i](q);
+                q.init(); 
+            });
         });
     </script>
 </head>

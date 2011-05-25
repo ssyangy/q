@@ -73,12 +73,12 @@
             $('.wpeople', rdia).html(this.model.get('people').screenName);
             var src = this.model.get('source');
             if (src) $('.wsrc', rdia).html(src);
-            $('.mttextar', rdia).val('//@' + this.model.get('people').screenName + ' ');
+            $('.mttextar', rdia).val('//@' + this.model.get('people').username + ' ');
             $(".ret_url", rdia).val(window.urlprefix + '/reply/' + this.model.get('id') + '/retweet');
             rdia.dialog("open");
         },
         replay: function () {
-            $("input.reply_val", this.model.get("parent").el).val("回复"+this.model.get("people").screenName+":").focus();
+            $("input.reply_val", this.model.get("parent").el).val("回复@"+this.model.get("people").username + ":").focus();
         },
         fav: function () {
             $.ajax({ url: window.urlprefix + '/reply/' + this.model.get('id') + '/favorite', type: 'POST', msg: this,

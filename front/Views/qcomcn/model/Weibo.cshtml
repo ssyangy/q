@@ -1,16 +1,53 @@
 ﻿<script type="text/javascript">
     mods.push(function (q) {
         var $ = q.jq;
-        $(function () {
-            seajs.use('app/weibo', function (homeapp) {
-
+            seajs.use('app/app_home.js', function (homeapp) {
+                var txt1 = new homeapp.text.TextModel({
+                    id: 1231423,
+                    username: 'hecaitou',
+                    realname: '木卫二',
+                    text: '在复旦校园拍Alicia时，引来不少路人围观侧目。有一个GG骑着自行车带着MM路过，居然在车上行注目礼，直至看不见Alicia为止。车后座的MM脸都变色了。。。',
+                    pushtime: '2011/4/19 10:34:20',
+                    time: '',
+                    attach: {
+                        src: '#',
+                        img: 'pdouban.jpg',
+                        title: '想告诉你我了解的山下智久（5.22 番外君2号）',
+                        soures: '山下智久',
+                        cate: '圈子',
+                        desc: '在这里，我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步...'
+                    }
+                });
+                var txts = new homeapp.text.TextList();
+                txts.add(txt1);
+                window.app = new homeapp.app({
+                    el: $('body'),
+                    txtSeed: "#streams",
+                    txtModel: txts
+                });
+                txt2 = new homeapp.text.TextModel({
+                    id: 1231423,
+                    username: 'hecaitou',
+                    realname: '木卫二',
+                    text: '在复旦校园拍Alicia时，引来不少路人围观侧目。有一个GG骑着自行车带着MM路过，居然在车上行注目礼，直至看不见Alicia为止。车后座的MM脸都变色了。。。',
+                    pushtime: '2011/4/19 10:34:20',
+                    time: '',
+                    attach: {
+                        src: '#',
+                        img: 'pdouban.jpg',
+                        title: '想告诉你我了解的山下智久（5.22 番外君2号）',
+                        soures: '山下智久',
+                        cate: '圈子',
+                        desc: '在这里，我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步在这里，我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步在这里，我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步在这里，我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步在这里，我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步在这里，我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步我想把我知道的山下智久尽可能完整的告诉你们他是如何一步一步...'
+                    }
+                }); ;
+                txts.add(txt2);
             });
-        });
     });
 </script>
-        <ul id='streams'>
+<ul id='streams'>
                 
-        </ul>
+</ul>
         <script type="text/html" id="stream">
             <div class='hd'>
                 <a href='/#!/{{ username }}' title='{{ realname }}'>
@@ -33,12 +70,8 @@
 				{{/picture}}
                 </div>
                 {{#attach}}
-                <div class='attach'>
-                    {{#img}}
-                        <div class='attimg'>
-                            <img src='/usersimg/{{img}}' class='img-w160' alt=''>
-                        </div>
-                    {{/img}}
+                <div class='quote'>
+                    {{#img}}<a><img src='/usersimg/{{img}}' class='attimg img-w160' alt=''></a>{{/img}}
                     {{#title}}
                         <h6><a href='{{src}}' title='{{title}}' target='_blank'>{{title}}</a></h6>
                     {{/title}}

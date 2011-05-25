@@ -60,6 +60,7 @@ li.streambox .bd .text{font-size:14px;color:#333;line-height:19px;word-wrap:brea
 .quote{color:#999;margin:10px 0;display:block;zoom:1;overflow:hidden;padding-left:10px;border-left: 2px solid #E0E3E9;}
 .quote p.prop {margin-bottom: 7px;color: #ccc;}
 .quote p {line-height: 1.2;margin: 2px 0;word-wrap: break-word;}
+.quote .attimg{float:left;margin: 0 10px 0 0;vertical-align:top;position:relative;}
 li.streambox .fd{position:relative;padding:0 120px 0 20px;height:13px;line-height:13px;color:#999;text-align:right;}
 li.streambox .fd span.stat{position:absolute;left:58px;bottom:0;}
 li.streambox .fd b.twarrow{position:absolute;left:0;bottom:0;width:13px;height:13px;background:url(images/arrow/tweetarrow.png) no-repeat;display:none;}

@@ -48,8 +48,7 @@ small { font-size: 12px; }
 .zmax{z-index:999;}
 .cr6{-moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px; }
 .crt2{-webkit-border-top-left-radius: 5px;-webkit-border-top-right-radius: 2px;-moz-border-radius-topleft: 2px;-moz-border-radius-topright: 2px;border-top-left-radius: 2px;border-top-right-radius: 2px;}
-/*
-Horizontal Center -----------------------------------------------
+/* Horizontal Center -----------------------------------------------
 <div class="vm1"><div class="vm2"><div class="vm3">
 <input type="text"><a>ads</a><img src="#" />
 </div></div></div>
@@ -59,6 +58,17 @@ vm1外部不能有line-height属性DOM
 .hm2 {vertical-align: middle;display: table-cell;*position: absolute;*top: 50%;} 
 .hm3 {*position: relative;*top: -50%;}/* (if vertical center) + width + text-align:center; */
 .hm3 *{vertical-align:middle;}
+
+/* Autocolumn -----------------------------------------------
+<div class="autocol clear">
+	<a class="att" href="#"><img src="#"></a>
+	<div class="cont">....</div>
+</div>
+*/
+.autocol .att{margin:0 10px 10px 0;float: left;}
+.autocol .att img{display: block;} /* + max-height and max-width */
+.autocol .cont{display: table-cell;vertical-align:top;*zoom:1;}
+.autocol .cont *{word-wrap: break-word;}
 
 /*#endregion Commen */
 
