@@ -123,7 +123,7 @@ seajs.use(['app/weibo','underscore'], function (w, _) {
 	<div class="wsor mb10"></div>
 	<div class="wcontent mb10"></div>
 	<input class='ret_url' type='hidden' ></input>
-	<textarea name="content" class="mttextar_val" style="width:100%"></textarea>
+	<textarea name="content" class="mttextar" style="width:100%"></textarea>
     <img src="${staticUrlPrefix}/content/images/ajax/ajaxload.gif" class="ajaxload hide" alt="ajaxload" />
     <input type='hidden' class='donet' />
 </div>
