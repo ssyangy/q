@@ -52,7 +52,7 @@ seajs.use('jqplus/jq_tokeninput',function(toke){
         <p class="mt20">你想说的：</p>
         <p><textarea class="mttextar" name="content" style="width:600px;height:200px;"></textarea></p>
         <p style="width:600px;margin-top:5px;">
-            <input id="submit" type="submit" name="submite" value="发送" class='btn FL' />
+            <input id="submit" type="submit" name="submite" value="发送" class='btnr FL' />
             <input name='from' value='${urlPrefix}/message' type='hidden' />
             <a class="lk f14 FR" href='${urlPrefix}/message'>取消</a>
         </p>

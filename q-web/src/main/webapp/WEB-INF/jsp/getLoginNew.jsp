@@ -23,7 +23,7 @@
 			<tr>
 				<td></td>
 				<td>
-				<button type="submit" class='ui_btn'>提 交</button>
+				<inut type="submit" class='btnr' value="登 录" />
 				</td>
 			</tr>
 		</table>
