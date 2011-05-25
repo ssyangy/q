@@ -7,7 +7,7 @@
 <head>
 <title>${param['title']}</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="${staticUrlPrefix}/content/qcomcn.css" rel="stylesheet" type="text/css" />
+<link href="${staticUrlPrefix}/content-v1/qcomcn.css" rel="stylesheet" type="text/css" />
 <script src="${staticUrlPrefix}/scripts/sea.js"></script>
 <script type="text/javascript">
 	var mods = [];
