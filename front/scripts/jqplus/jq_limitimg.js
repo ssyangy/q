@@ -2,27 +2,29 @@ define(function (require, exports, module) {
     return function ($) {
         $.fn.imgLimit = function (options) {
             var opts = $.extend({
-                size: [48]
+                size: [160]
             }, options);
 
             this.each(function () {
                 var o = $(this);
-                for (var i = 0; i < opts.size.length; i++) {
-                    if (o.hasClass("img-" + opts.size[i])) {
-                        if (o.width() >= o.height() && o.width() > opts.size[i]) {
-                            o.width(opts.size[i]);
-                        } else if (o.width() < o.height() && o.height() > opts.size[i]) {
-                            o.height(opts.size[i]);
+
+                $(opts.size).each(function(){
+                    if (o.hasClass("img-" + this)) {
+                        if (o.width() >= o.height() && o.width() > this) {
+                            o.width(this);
+                        } else if (o.width() < o.height() && o.height() > this) {
+                            o.height(this);
                         }
-                        break;
-                    } else if (o.hasClass("img-w" + opts.size[i])) {
-                        if (o.width() >= o.height() && o.width() > opts.size[i]) {
-                            o.width(opts.size[i]);
-                        }
-                        break;
+                        return;
                     }
-                }
+                    if (o.hasClass("img-w" + this)) {
+                        if (o.width() > this) {
+                            o.width(this);
+                        }
+                    }
+                });
             });
+
         }
     }
 });
