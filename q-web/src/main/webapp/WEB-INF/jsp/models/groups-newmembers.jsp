@@ -7,9 +7,8 @@
 	<c:when test="${!stat.last}"><li></c:when>
 	<c:otherwise><li class='end'></c:otherwise>
 </c:choose>
-
 	<a href="${urlPrefix}/people/${fo.id}">
-	<img src="${fo.avatarPath}-24"></a>
+	<img src="${fo.avatarPath}-48" class="wh48" alt="img"></a>
 	<div class="gray">
 		<a href="${urlPrefix}/people/${fo.id}">${fo.realName}</a>
 	</div>

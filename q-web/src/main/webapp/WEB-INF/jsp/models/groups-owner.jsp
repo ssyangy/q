@@ -6,49 +6,49 @@ mods.push(function (q) {
     var $ = q.jq;
 
     	$("a.joing").live("click",function(){
-			$.ajax({
-    			    url: '${urlPrefix}/group/${group.id}/join',
-    			    type: 'POST',
+			$.ajax({ url: '${urlPrefix}/group/${group.id}/join', type: 'POST',
     			    o:$(this),
-    			   	success: function(json){
-    			       if(json == null){
-    			    	   this.o.text("已加入,退出");
-    			    	   this.o.removeClass("joing").addClass("unjoing");
-    			       }
+    			   	success: function(m){
+						if(m&&m.id == null) return;
+    			    	this.o.replaceWith("<span class='xiaogou in_bk'>已加入 | <a href='#' class='lk unjoing'>退出</a></span>");
     			    }
     		});
     	});
     	$("a.unjoing").live("click",function(){
-    		  $.ajax({
-    			    url: '${urlPrefix}/group/${group.id}/join',
-    			    type: 'POST',
+    		  $.ajax({ url: '${urlPrefix}/group/${group.id}/join', type: 'POST',
     			    data:{_method:'delete'},   
     			    o:$(this),
-    			   	success: function(json){
-     			       if(json == null){
-    			    	   this.o.text("加入");
-    			    	   this.o.removeClass("unjoing").addClass("joing");
-    			       }
+    			   	success: function(m){
+						if(m&&m.id == null) return;
+						var sp = this.o.parent("span.xiaogous");
+						sp.replaceWith("<a class='lk joing' href='#' >加入</a>");
     			   	}
     		});
     	});
 
 });
 </script>
-<p>由${group.creator.realName}创建于${group.time}</p><br />
+<div class="groupinfo">
+	<p class="fgray3 tar">由${group.creator.realName}创建于${group.time}</p>
+	<p class="fgray3 tar">
+
 <c:choose>
-	<c:when test="${loginCookie.peopleId == group.creator.id}">			
-		<a href="${urlPrefix}/group/${group.id}/edit" class='btna'>管理</a>
+	<c:when test="${join == null}">
+		<a class="lk joing" href="#" >加入</a>
 	</c:when>
 	<c:otherwise>
-		<c:choose>
-			<c:when test="${join == null}">
-					<a class="btn joing" href="#" >加入</a>
-			</c:when>
-			<c:otherwise>
-					<a class="btn btnw24 unjoing" href="#">已加入,退出</a>
-			</c:otherwise>
-		</c:choose>
+		<span class="xiaogou in_bk">已加入 | <a href="#" class='lk unjoing'>退出</a></span>
 	</c:otherwise>
-</c:choose>
+</c:choose>	
+
+<c:choose>
+<c:when test="${loginCookie.peopleId != group.creator.id}">			
+	<a href="${urlPrefix}/group/${group.id}/edit" class='btnb'>管理</a>
+</c:when>
+</c:choose>	
+
+	</p>
+</div>
+
+
 

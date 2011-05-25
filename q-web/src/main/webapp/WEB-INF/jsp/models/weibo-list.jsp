@@ -85,15 +85,15 @@ seajs.use(['app/weibo','underscore'], function (w, _) {
 	<span class='stat'><a href="${urlPrefix}/weibo/{{id}}">{{screenTime}}</a>
 		{{#source}}<a class='ml5 lk'>{{source}}</a>{{/source}}
 	</span>
-	<a href="javascript:void(0);" class='hod replay togreply'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
-	<a href="javascript:void(0);" class='hod resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
-	<a href="javascript:void(0);" class='hod unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
-    <a href="javascript:void(0);" class='hod fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
+	<a href="javascript:void(0);" class='hod lk lkrb togreply'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
+	<a href="javascript:void(0);" class='hod lk lkrb resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
+	<a href="javascript:void(0);" class='hod lk lkrb unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
+    <a href="javascript:void(0);" class='hod lk fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
 	{{#isown}}<b class='cloarrow'></b>{{/isown}}
 </div>
 <div class='extend'>
     <input class='mttext_val reply_val' type='text' value='发表点评论。。。' />
-    <a class='btn reply_btn'>提交</a>
+    <a class='btnbs reply_btn'>提交</a>
     <ul class='msglist mb5'></ul>
     <a class='lk mr10 rrprev hide'>上一页</a>
     <a class='lk rrnext hide'>下一页</a>
@@ -110,10 +110,10 @@ seajs.use(['app/weibo','underscore'], function (w, _) {
     <p class='rel'>
 		<span class="stat gray">{{screenTime}}</span>
 		<span class='actions'>
-        <a href="javascript:void(0);" class='r_replay'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
-        <a href="javascript:void(0);" class='r_resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
-        <a href="javascript:void(0);" class='r_unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
-        <a href="javascript:void(0);" class='r_fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
+        <a href="javascript:void(0);" class='lk lkrb r_replay'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
+        <a href="javascript:void(0);" class='lk lkrb r_resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
+        <a href="javascript:void(0);" class='lk lkrb r_unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
+        <a href="javascript:void(0);" class='lk lkrb r_fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
 		{{#isown}}<a href="javascript:void(0);" class='lk r_del'>删除</a>{{/isown}}
 		</span>
 	</p>

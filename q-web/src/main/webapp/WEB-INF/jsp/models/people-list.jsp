@@ -101,10 +101,10 @@ mods.push(function (q) {
         <p>{{ntro}}&nbsp;</p>
         <span class="act">
 			<span class='username hide'>{{username}}</span>
-			<a class="btna btnletter" href='javascript:void(0);'>私信</a>
-			<a class="btn btnat">&#64</a>
-			<a class="btn unwat {{^following}}hide_im{{/following}}">解除关注</a>
-			<a class="btn wat {{#following}}hide_im{{/following}}">关注</a>
+			<a class="btnb btnletter" href='javascript:void(0);'>私信</a>
+			<a class="btnb btnat">&#64</a>
+			<a class="btnb unwat {{^following}}hide_im{{/following}}">解除关注</a>
+			<a class="btnb wat {{#following}}hide_im{{/following}}">关注</a>
 		</span>
     </li>
 </script>
