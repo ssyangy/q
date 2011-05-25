@@ -138,7 +138,7 @@
 							<key>
 								<value>getFavoriteIndex:api</value>
 							</key>
-							<value>/WEB-INF/json/weibo-list.xml</value>
+							<value>/WEB-INF/json/favorite-list.xml</value>
 						</entry>
 						<entry>
 							<key>

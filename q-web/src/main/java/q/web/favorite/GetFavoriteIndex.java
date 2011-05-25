@@ -19,6 +19,7 @@ import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.dao.page.FavoritePage;
 import q.domain.Favorite;
+import q.domain.FavoriteStatus;
 import q.domain.WeiboModel;
 import q.util.CollectionKit;
 import q.util.IdCreator;
@@ -94,12 +95,14 @@ public class GetFavoriteIndex extends Resource {
 			boolean hasPrev = false;
 			boolean hasNext = false;
 			int fetchSize = size + 1;
+			page.setStatus(FavoriteStatus.FAV);
 			page.setSize(fetchSize);
 			page.setCreatorId(loginPeopleId);
 			if (startId > 0) {
 				page.setStartId(startId);
 			}
 			List<Favorite> favorites = this.favoriteDao.getPageFavorites(page);
+			Map<String, Object> api = new HashMap<String, Object>();
 			if (CollectionKit.isNotEmpty(favorites)) {
 				if (favorites.size() == fetchSize) {
 					if (type == asc) { // more than one previous page
@@ -128,10 +131,7 @@ public class GetFavoriteIndex extends Resource {
 				DaoHelper.injectWeiboModelsWithFrom(groupDao, weiboModels);
 				DaoHelper.injectWeiboModelsWithQuote(weiboDao, weiboModels);
 				DaoHelper.injectWeiboModelsWithPeople(peopleDao, weiboModels);
-			}
-			Map<String, Object> api = new HashMap<String, Object>();
-			if (CollectionKit.isNotEmpty(favorites)) {
-				api.put("weibos", favorites);
+				api.put("favorites", favorites);
 			}
 			api.put("hasPrev", hasPrev);
 			api.put("hasNext", hasNext);
