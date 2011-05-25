@@ -5,7 +5,7 @@
 </jsp:include>
 <link href="${staticUrlPrefix}/content/slider.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
-#slidbox{width:560px;}
+#slidbox{width:580px;}
 .main-wrap{padding-right:20px;}
 .msgbox{border:1px solid #ddd;}
 .msgmem{background-color:#FEF2E7;position:relative;padding:10px;}
@@ -69,7 +69,7 @@ mods.push(function(q){
             $.ajax({ url: "${urlPrefix}/message/" + window.msgid + "/reply", msg: $(this),
                 data: { size: 10, startid: '999999999999999999' },
                 success: function (j) {
-                    $('#slider').animate({ left: -560 }, { duration: 500, easing: "swing" });
+                    $('#slider').animate({ left: -580 }, { duration: 500, easing: "swing" });
                     partners.empty();
                     mems.empty();
                     $(window.msgmem).each(function () {
@@ -77,8 +77,15 @@ mods.push(function(q){
                         mems.append("<img src='" + this.avatarPath + "-24' alt='ato' />");
                     });
                     if (j.replies) msgli_ajsucc(j);
+                    $('#root').data("click",true).children(".rollbtn3").show();
                 }
             });
+        });
+        $('#root').click(function(){
+        	if($(this).data("click")){
+        		$('#slider').animate({ left: 0 }, { duration: 500, easing: "swing" });
+        		$(this).data("click",false).children(".rollbtn3").hide();
+        	}
         });
         $('a.mrprev', sld2).live('click', function () {
             $.ajax({ url: "${urlPrefix}/message/" + window.msgid + "/reply",
@@ -114,7 +121,8 @@ mods.push(function(q){
     });
 });
 </script>
-<h2 class='mb10'>私信</h2>
+<h2 id="root" class='mb10 cur'>私信<a class="rollbtn3 in_bk hide"></a></h2>
+
 <div class="layout grid-m0s7">
     <div class="col-main"><div class="main-wrap">
         <div id="slidbox">
@@ -155,12 +163,12 @@ mods.push(function(q){
                 	<div class="msgmem">
 						<p>参与者：<span class='partner'></span></p>
 						<p class="mems"></p>
-						<a class="memdel btn">删除</a>
+						<a class="memdel btnb">删除</a>
 					</div>
 					<div class="msgrepbox">
 						<textarea id="tboxrep" class='mttextar' style=""></textarea>
 						<input type="hidden" id="replaysource"/>
-						<div class='repactbox'><a id="btnrep" class="btn">回复</a></div>
+						<div class='repactbox'><a id="btnrep" class="btnr">回复</a></div>
 					</div>
 					<ul class="sldlist"></ul>
 					<div class="pagger">
@@ -172,7 +180,7 @@ mods.push(function(q){
         </div>
     </div></div>
     <div class="col-sub">
-        <a href='${urlPrefix}/message/new'><button class="ui_btn_plusthick">新私信</button></a>
+        <a href='${urlPrefix}/message/new' class="btnb" style="width:100px">新私信</a>
     </div>
 </div>
 <jsp:include page="models/foot.jsp" />
