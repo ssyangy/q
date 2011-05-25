@@ -6,12 +6,7 @@
 <script type="text/javascript">
 mods.push(function (q) {
 seajs.use('app/weibo_rep',function(rep){
-<<<<<<< HEAD
 		var $ = q.jq;
-=======
-	var $ = q.jq;
-    $(function () {
->>>>>>> 2b11d711114fc1570523d589c3b91a6e095485a1
     	var ul = $('ul.msglist');
         var suc_repajax = function(j){
         	window.body.animate({scrollTop:0},700,"swing");
@@ -55,7 +50,6 @@ seajs.use('app/weibo_rep',function(rep){
                 success: suc_repajax
             });
         });
-});
 });
 });
 </script>

@@ -6,11 +6,14 @@ package q.web.group;
 import java.sql.SQLException;
 
 import q.dao.GroupDao;
+import q.domain.Group;
 import q.domain.PeopleJoinGroup;
 import q.domain.Status;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.exception.PeopleNotPermitException;
+import q.web.exception.RequestParameterInvalidException;
 
 /**
  * @author seanlinwang
@@ -58,8 +61,20 @@ public class AddGroupJoin extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		if (context.getCookiePeopleId() <= 0) {
+		long loginId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginId)) {
 			throw new PeopleNotPermitException("login:无操作权限");
+		}
+		long groupId = context.getResourceIdLong();
+		if (IdCreator.isNotValidId(groupId)) {
+			throw new RequestParameterInvalidException("group:invalid");
+		}
+		Group group = groupDao.getGroupById(groupId);
+		if (null == group) {
+			throw new RequestParameterInvalidException("group:invalid");
+		}
+		if (loginId == group.getCreatorId()) {
+			throw new RequestParameterInvalidException("join:不需要加入您自己创建的圈子");
 		}
 	}
 
