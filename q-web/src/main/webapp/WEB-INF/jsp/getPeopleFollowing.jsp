@@ -5,8 +5,8 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="我的关注" />
 </jsp:include>
-<div class="layout grid-m0s7 mt10">
-    <div class="col-main"><div class="main-wrap pr10">
+<div class="layout grid-m0s220 mingrid">
+    <div class="col-main"><div class="main-wrap">
         <p class='simptab'>
         	<span>
         	<c:choose><c:when test="${loginCookie.peopleId==people.id}">我</c:when><c:otherwise>${people.realName}</c:otherwise></c:choose>的关注（${people.followingNum}）</span>

@@ -3,8 +3,8 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="搜索" />
 </jsp:include>
-<div class="layout grid-m0s7">
-<div class="col-main"><div class="main-wrap pr10">
+<div class="layout grid-m0s220 mingrid">
+<div class="col-main"><div class="main-wrap">
 <h2 class='mt20'>搜索</h2>
 <div id='searchpage' class="search">
 	<form action="${urlPrefix}/search/group" method="GET">

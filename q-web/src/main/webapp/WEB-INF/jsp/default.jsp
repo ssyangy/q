@@ -7,32 +7,7 @@
     <title>Q.com.cn</title>
     <link href="${staticUrlPrefix}/content/main/jquery.ui.css")" rel="stylesheet" type="text/css" />
     <link href="${staticUrlPrefix}/content/qcomcn.css")" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-	    .wapper{position:relative;height:600px;width:800px;}
-	    #index{margin:20px auto;padding:20px 0px;width:800px;background-color:#fff;}
-	    #index .header .logo{font-size:36px;font-weight:bold;}
-	    #index .header .slogan{margin-top:15px;font-size:14px;line-height:1.5em;}
-	    .logo-area{width:490px;float:left;}
-	    .signin-area{float:left;padding-left:20px;border-left:1px solid #EBEBEB;}
-	    .signin-area th{font-size: 14px;font-weight: normal;text-align: right;color: #333;}
-	    .signin-area td{height:35px;}
-	    #index .content-inner{padding:0;}
-	    #index .main{float:left;width:490px}
-	    #index .main-inner{padding-right:20px;}
-	    #index .head-line .head-h3{float:left;margin-right:20px;}
-	    #index .head-line .location{float:left;margin-top:16px;}
-	    #index .photo-wall .one-photo{float:left;margin-right:5px;margin-bottom:5px;}
-	    #index .side{float:left;padding-left:20px;width:240px;border-left:1px solid #EBEBEB;}
-	    #index .content h3{margin:15px 0 10px 0;}
-	    #index .member-online{margin-top:20px;}
-	    #index .hot-events td{height:20px;}
-	    #index .footer{margin-top:20px;text-align:center;}
-	    #index .hot-tweets .avatar{float:left;margin-right:10px;}
-	    #index .hot-tweets .brief{float:left;width:180px;}
-	    #index .one-tweet{margin-bottom:10px;}
-	    #index .footer ul{list-style: none outside none;}
-	    #index .footer li{display:inline;margin-top:40px;margin-right:10px;}
-    </style>
+    <link href="${staticUrlPrefix}/content/default.css")" rel="stylesheet" type="text/css" />
     <script src="${staticUrlPrefix}/scripts/sea.js")" type="text/javascript"></script>
     <script type="text/javascript">
         seajs.use('qcomcn', function (q) {
@@ -88,96 +63,162 @@ function errorContext(error){
     </script>
 </head>
 <body>
-<div id="index" class="wapper">
-	<div class="header">
-		<div class="logo-area">
-			<div class="logo"><span class="logo-zh">圈子</span><span class="logo-en">Q.com.cn</span></div>
-			<div class="slogan">找到志趣相投的朋友，吃喝玩乐应有尽有，圈子就是好玩！有圈子才尽兴！<br />喂！...你哪个圈儿的？！</div>
-		</div>
-		<div class="signin-area input-form">
-			<div class="" style="display: none;color:red;" id="loginWrong"></div>
-			<table>
-				<tbody>
-					<tr>
-						<th>邮箱：</th>
-						<td><input id="email" name="email" type='text' class='mttext' size='23' accesskey='l'></td>
-					</tr>
-					<tr>
-						<th>密码：</th>
-						<td><input id="password" name="password" type='password' class='mttext' size='23' accesskey='l'></td>
-					</tr>
-					<tr>
-						<th></th>
-						<td><input type="checkbox">保持登录状态<a href="${urlPrefix}/password/forget" class="lk ml20">忘记密码</a></td>
-					</tr>
-					<tr>
-						<th></th>
-						<td><a href="#" class="btn access_l" onclick="check()">登 录</a><a href="${urlPrefix}/people/new" class="lk ml20">立即注册</a></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="clear"></div>
-	</div>
-	<div class="content">
-		<div class="content-inner">
-			<div class="main">
-				<div class="main-inner">
-					<div class="groups-cat">
-					<h3>圈子分类</h3>
-					<table class="groups-cat" width="100%">
-						<tbody>
-							<c:forEach items="${cats}" var="cat" varStatus="status">
-							<tr>
-								<th><img src="${cat.avatarPath}"></th>
-								<td>
-									<div class="desc">
-										<div class="action"><a href="${urlPrefix}/category">${cat.name}</a></div>
-									</div>
-									<div class="group">
-										<c:forEach items="${cat.groups}" var="group" varStatus="status">
-											<a href="${urlPrefix}/group/${group.id}">${group.name}</a>
-										</c:forEach>
-									</div>
-								</td>
-							</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
-				</div>
+<div id="index">
+<div class="header">
+	<div class="logo"></div>
+	<div class="titles"></div>
+	<table class="signin-area">
+			<tr>
+				<th align="right">邮箱：</th>
+				<td><input id="email" name="email" type='text' class='mttext' accesskey='l'></td>
+			</tr>
+			<tr>
+				<th align="right">密码：</th>
+				<td><input id="password" name="password" type='password' class='mttext' accesskey='l'>
+				<a href="${urlPrefix}/password/forget" class="lk ml10">忘记密码</a></td>
+			</tr>
+			<tr>
+				<th></th>
+				<td><input type="checkbox" checked="checked" /> 保持登录状态 
+				<a href="#" class="btnr ml10 access_l" onclick="check()">登 录</a>
+				<a href="signup.html" class="lk ml10" href="${urlPrefix}/people/new">立即注册</a></td>
+			</tr>		
+	</table>
+</div>
+
+<div class="mt20 clear">
+	<div class="FL" style="width:500px">
+	
+<h4>圈子分类</h4>
+<ul class="sldlist" id="sldroot">
+<li>
+	<img src="${staticUrlPrefix}/content/images/icons/icons-02.png" alt="ico" class="sldimg" />
+	<p>吃喝玩乐</p>
+	<p>
+	<a class="lk">吃好喝好</a>
+	<a class="lk">旅行</a>
+	<a class="lk">泡吧</a>
+	<a class="lk">扑克</a>
+	<a class="lk">桌游</a>
+	<a class="lk">三国杀</a>
+	<a class="lk">上海徐汇麻将</a>
+	</p>
+</li>
+<li>
+	<img src="${staticUrlPrefix}/content/images/icons/icons-03.png" alt="ico" class="sldimg" />
+	<p>八小时以外，吃喝玩乐，浮于世</p>
+	<p>
+	<a class="lk">吃好喝好</a>
+	<a class="lk">旅行</a>
+	<a class="lk">泡吧</a>
+	<a class="lk">扑克</a>
+	<a class="lk">桌游</a>
+	<a class="lk">三国杀</a>
+	<a class="lk">上海徐汇麻将</a>
+	</p>
+</li>
+<li>
+	<img src="${staticUrlPrefix}/content/images/icons/icons-04.png" alt="ico" class="sldimg" />
+	<p>八小时以外，吃喝玩乐，浮于世</p>
+	<p>
+	<a class="lk">吃好喝好</a>
+	<a class="lk">旅行</a>
+	<a class="lk">泡吧</a>
+	<a class="lk">扑克</a>
+	<a class="lk">桌游</a>
+	<a class="lk">三国杀</a>
+	<a class="lk">上海徐汇麻将</a>
+	<a class="lk">吃好喝好</a>
+	<a class="lk">旅行</a>
+	<a class="lk">泡吧</a>
+	<a class="lk">扑克</a>
+	<a class="lk">桌游</a>
+	<a class="lk">三国杀</a>
+	<a class="lk">上海徐汇麻将</a>
+	</p>
+</li>
+<li>
+	<img src="${staticUrlPrefix}/content/images/icons/icons-05.png" alt="ico" class="sldimg" />
+	<p>八小时以外，吃喝玩乐，浮于世</p>
+	<p>
+	<a class="lk">吃好喝好</a>
+	<a class="lk">旅行</a>
+	<a class="lk">泡吧</a>
+	<a class="lk">扑克</a>
+	<a class="lk">桌游</a>
+	<a class="lk">三国杀</a>
+	<a class="lk">上海徐汇麻将</a>
+	</p>
+</li>
+<li>
+	<img src="${staticUrlPrefix}/content/images/icons/icons-06.png" alt="ico" class="sldimg" />
+	<p>八小时以外，吃喝玩乐，浮于世</p>
+	<p>
+	<a class="lk">吃好喝好</a>
+	<a class="lk">旅行</a>
+	<a class="lk">泡吧</a>
+	<a class="lk">扑克</a>
+	<a class="lk">桌游</a>
+	<a class="lk">三国杀</a>
+	<a class="lk">上海徐汇麻将</a>
+	</p>
+</li>
+<li>
+	<img src="${staticUrlPrefix}/content/images/icons/icons-07.png" alt="ico" class="sldimg" />
+	<p>八小时以外，吃喝玩乐，浮于世</p>
+	<p>
+	<a class="lk">吃好喝好</a>
+	<a class="lk">旅行</a>
+	<a class="lk">泡吧</a>
+	<a class="lk">扑克</a>
+	<a class="lk">桌游</a>
+	<a class="lk">三国杀</a>
+	<a class="lk">上海徐汇麻将</a>
+	</p>
+</li>
+<li class="end">
+	<img src="${staticUrlPrefix}/content/images/icons/icons-08.png" alt="ico" class="sldimg" />
+	<p>八小时以外，吃喝玩乐，浮于世</p>
+	<p>
+	<a class="lk">吃好喝好</a>
+	<a class="lk">旅行</a>
+	<a class="lk">泡吧</a>
+	<a class="lk">扑克</a>
+	<a class="lk">桌游</a>
+	<a class="lk">三国杀</a>
+	<a class="lk">上海徐汇麻将</a>
+	</p>
+</li>
+</ul>
+</div>
+
+	<div class="FL pl20" style="width:300px;">
+	
+<h4>热议ING</h4>
+<ul class="msglist">
+
+
+<c:forEach items="${hotWeibos}" var="weibo">
+    <li>
+        <a href="${urlPrefix}/people/${weibo.people.id}">
+        <img src="${weibo.people.avatarPath}-48" alt="{{screenName}}" class="sldimg" />
+        </a>
+        <p><a href="${urlPrefix}/people/${weibo.people.id}" class="lk">${weibo.people.realName}</a></p>
+        <p><a href="${urlPrefix}/weibo/${weibo.id}">${weibo.content}</a></p>
+    </li>					
+</c:forEach>
+</ul>
+</div>
+
+</div>
+
+			<div class="footer">
+				<ul>
+					<li><a href="#" class="lk">关于我们</a></li>
+					<li>版权所有2011-END</li>
+					<li>沪TMD备2143545</li>
+				</ul>
 			</div>
-			<div class="side">
-				<div class="hot-tweets">
-					<h3>热议ING</h3>
-					<c:forEach items="${hotWeibos}" var="weibo">
-						<div class="one-tweet">
-							<div class="avatar">
-								<a href="${urlPrefix}/people/${weibo.people.id}">
-									<img src="${weibo.people.avatarPath}-24">
-								</a>
-							</div>
-							<div class="brief">
-								<a href="${urlPrefix}/people/${weibo.people.id}" class="author">${weibo.people.realName}</a>
-								<a href="${urlPrefix}/weibo/${weibo.id}">
-									<q:omit maxLength="40">${weibo.content}</q:omit>
-								</a>
-							</div>
-							<div class="clear"></div>
-						</div>
-					</c:forEach>
-				</div>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</div>
-		<div class="footer">
-			<ul>
-				<li><a href="">关于我们</a></li>
-				<li><a href="">版权所有2011-END</a></li>
-				<li><a href="">沪TMD备7654321</a></li>
-			</ul>
-		</div>
 </div>
 </body>
 </html>
