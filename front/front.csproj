@@ -336,6 +336,7 @@
     <Content Include="scripts\app\text.js" />
     <Content Include="scripts\app\weibo.js" />
     <Content Include="scripts\app\weibo_rep.js" />
+    <Content Include="scripts\app\weibo_repitem.js" />
     <Content Include="scripts\backbone.js" />
     <Content Include="scripts\back\chinaarea.js" />
     <Content Include="scripts\back\chinaareaLocation.js" />

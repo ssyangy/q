@@ -7,23 +7,28 @@
     var seed = {};
     var $ = {};
     var q = {};
+    exports.ich = {};
     exports.init = function (qcomcn) {
         q = qcomcn;
         $ = qcomcn.jq;
         require('jqplus/jq_rotate')($);
         ich = require('ICanHaz');
+        exports.ich = ich;
 
         var rdia = $('#dia_ret');
-        $('input.donet', rdia).click(function () {
-            $('img.ajaxload', rdia).show();
-            $.ajax({ url: $(".ret_url", rdia).val(), type: 'POST', msg: rdia,
-                data: { content: $(".mttextar", rdia).val() },
-                success: function (m) {
-                    this.msg.dialog("close");
-                    $('img.ajaxload', this.msg).hide();
-                }
+        if (rdia.data("init", true)) {
+            $('input.donet', rdia).click(function () {
+                $('img.ajaxload', rdia).show();
+                $.ajax({ url: $(".ret_url", rdia).val(), type: 'POST', msg: rdia,
+                    data: { content: $(".mttextar", rdia).val() },
+                    success: function (m) {
+                        this.msg.dialog("close");
+                        $('img.ajaxload', this.msg).hide();
+                    }
+                });
             });
-        });
+            rdia.data("init", true);
+        }
         seed = $('#streams');
     }
 
