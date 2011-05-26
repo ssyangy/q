@@ -50,7 +50,7 @@
 </script>
 <div class="layout grid-m0s7 mt10">
     <div class="col-main"><div class="main-wrap pr10">
-        <p class='simptab'><span>收到的回应（23）</span><span class='split'>|</span><a class="lk" href="${urlPrefix}/reply/sended">发出的回应</a></p>
+        <p class='simptab'><span>收到的回应</span><span class='split'>|</span><a class="lk" href="${urlPrefix}/reply/sended">发出的回应</a></p>
 		<script type="text/html" id="replys">
 <li stream_id="{{id}}">
 <p class="rel">{{text}} <span class='time'>{{screenTime}}</span><a class='lk del'>删除</a></p>
