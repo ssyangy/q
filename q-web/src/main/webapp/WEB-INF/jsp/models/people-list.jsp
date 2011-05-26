@@ -25,7 +25,7 @@ mods.push(function (q) {
 				success:mem_ajsucc });
 		});
 		$('a.mbnext').click(function(){
-			var o = $("li",mems).first();
+			var o = $("li",mems).last();
 			var idd = o.attr("stream_id");
 			if(!idd) idd = o.attr("people_id");
 			$.ajax({ url:"${param['feedUrl']}",
