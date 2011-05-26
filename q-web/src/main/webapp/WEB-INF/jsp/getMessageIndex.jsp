@@ -129,10 +129,11 @@ mods.push(function(q){
     });
 });
 </script>
-<h2 id="root" class='mb10 cur'>私信<a class="rollbtn3 in_bk hide"></a></h2>
 
-<div class="layout grid-m0s7">
+
+<div class="layout grid-m0s220 mingrid">
     <div class="col-main"><div class="main-wrap">
+    	<h2 id="root" class='mb10 cur'>私信<a class="rollbtn3 in_bk hide"></a></h2>
         <div id="slidbox">
             <div id="slider">
             	<script type="text/html" id="msglist">

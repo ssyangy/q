@@ -173,7 +173,7 @@ seajs.use(['jqplus/jq_rotate','jqplus/jq_countable'], function (rota, cb) {
 </script>
 <form action="${urlPrefix}/weibo" method="post">
 <div class="inputbx">
-    <textarea id="inputmain" name="content" class="mttextar_val countable">说点什么 . . .</textarea>
+    <textarea id="inputmain" name="content" class="mttextar_val">说点什么 . . .</textarea>
     <div id="inputbtm" class="rel clear pt5 pb5 height0">
 		插入：<a class="lk mr10 emot">表情</a> <a id='trDialog_img' class="lk mr10 pict">图片</a>
 		<c:choose>

@@ -6,7 +6,7 @@
 </jsp:include>
 <div class="layout grid-s4m0e6">
     <div class="col-main">
-    	<div class="main-wrap pl20">
+    	<div class="main-wrap">
 		<jsp:include page="models/group-profile.jsp"></jsp:include>
 		<jsp:include page="models/weibo-send.jsp" >
 			<jsp:param name="from" value="${urlPrefix}/group/${group.id}"/>

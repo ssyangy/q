@@ -82,7 +82,7 @@ mods.push(function (q) {
 </script>
 
 <div class="layout grid-s4m0e6">
-    <div class="col-main"><div class="main-wrap pl20">
+    <div class="col-main"><div class="main-wrap">
         <div class="rel mb10">
             <p id="passroll">
             <a id="root">圈子分类</a>
