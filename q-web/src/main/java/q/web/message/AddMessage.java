@@ -73,8 +73,8 @@ public class AddMessage extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		Message message = new Message();
 		message.setId(IdCreator.getLongId());
-		long senderId = context.getCookiePeopleId();
-		message.setSenderId(senderId);
+		long loginId = context.getCookiePeopleId();
+		message.setSenderId(loginId);
 		// add message thread
 		messageDao.addMessage(message);
 
@@ -92,12 +92,12 @@ public class AddMessage extends Resource {
 		String idsString = context.getString("receiverId");
 		String[] receiverStringIds = StringKit.split(idsString, ',');
 		Set<Long> receiverIds = IdCreator.convertIfValidIds(receiverStringIds);
-		receiverIds.add(senderId);// 发送者也需要接收该回复
+		receiverIds.add(loginId);// 发送者也需要接收该回复
 		List<MessageJoinPeople> joins = new ArrayList<MessageJoinPeople>(receiverIds.size());
 		for (Long receiverId : receiverIds) {
 			MessageJoinPeople join = new MessageJoinPeople();
 			join.setId(IdCreator.getLongId());
-			join.setSenderId(senderId);
+			join.setSenderId(loginId);
 			join.setMessageId(message.getId());
 			join.setReceiverId(receiverId);
 			join.setReplyNum(1);// message thread has first reply
@@ -113,14 +113,14 @@ public class AddMessage extends Resource {
 			MessageReplyJoinPeople join = new MessageReplyJoinPeople();
 			join.setId(IdCreator.getLongId());
 			join.setReplyId(messageReply.getId());
-			join.setSenderId(senderId);
+			join.setSenderId(loginId);
 			join.setQuoteMessageId(message.getId());
 			join.setQuoteSenderId(message.getSenderId());
 			join.setReceiverId(receiverId);
 			replyJoins.add(join);
 		}
 		messageDao.addMessageReplyJoinPeoples(replyJoins);
-		notifyService.notifyMessageReply(messageReply, receiverIds);// notify new messages
+		notifyService.notifyMessageReply(messageReply, receiverIds, loginId);// notify new messages
 
 	}
 

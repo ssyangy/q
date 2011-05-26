@@ -4,6 +4,7 @@
 package q.biz.impl;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.pool.impl.GenericObjectPool.Config;
@@ -111,7 +112,13 @@ public class DefaultNotifyService implements NotifyService {
 	}
 
 	@Override
-	public void notifyMessageReply(MessageReply reply, Collection<Long> receiverIds) {
+	public void notifyMessageReply(MessageReply reply, Collection<Long> receiverIds, long loginId) {
+		for (Iterator<Long> itt = receiverIds.iterator(); itt.hasNext();) {
+			Long item = itt.next();
+			if (item == loginId) {
+				itt.remove();
+			}
+		}
 		String receiversStr = StringUtils.join(receiverIds, ',');
 		this.notifyPeople(CHANNEL_MESSAGE, receiversStr + NOTIFY_SPLIT + reply.getId());
 	}

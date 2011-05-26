@@ -213,7 +213,7 @@
 		<span class='num'>0</span>条新的回复<a class="lk ml10" href="${urlPrefix}/reply/received">查看回复</a>
 	</p>
  	<p class="n_fo hide">
-		<span class='num'>0</span>位新粉丝<a class="lk ml10" href="${urlPrefix}/people/${people.id}/follower">查看我的粉丝</a>
+		<span class='num'>0</span>位新粉丝<a class="lk ml10" href="${urlPrefix}/people/${loginCookie.peopleId}/follower">查看我的粉丝</a>
 	</p>
 	<p class="n_at hide">
 		<span class='num'>0</span>条发言提到我<a class="lk ml10" href="${urlPrefix}/at">查看@我</a>

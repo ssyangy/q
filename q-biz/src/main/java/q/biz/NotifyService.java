@@ -35,8 +35,9 @@ public interface NotifyService {
 	/**
 	 * @param reply
 	 * @param receiverIds
+	 * @param loginId 
 	 */
-	void notifyMessageReply(MessageReply reply, Collection<Long> receiverIds);
+	void notifyMessageReply(MessageReply reply, Collection<Long> receiverIds, long loginId);
 
 	/**
 	 * @param relation

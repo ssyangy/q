@@ -117,7 +117,7 @@ public class AddMessageReply extends Resource {
 		messageDao.addMessageReplyJoinPeoples(replyJoins);
 		messageDao.incrAllMessageReplyNumberByMessageId(messageReply.getQuoteMessageId());
 		// notify new message
-		notifyService.notifyMessageReply(messageReply, receiverIds);
+		notifyService.notifyMessageReply(messageReply, receiverIds, loginId);
 
 		context.setModel("MessageReply", messageReply);
 	}
