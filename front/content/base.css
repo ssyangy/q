@@ -48,8 +48,8 @@ small { font-size: 12px; }
 .tal{text-align:left;}
 .tar{text-align:right;}
 .zmax{z-index:999;}
-.min-h100 {min-height:100px; height:auto !important; height:100px; overflow:visible;}
-.min-w100 {min-width:100px; width:auto !important; width:100px; overflow:visible;}
+.min-h100 {min-height:100px; _height:100px; overflow:visible;}
+.min-w100 {min-width:100px; _width:100px; overflow:visible;}
 .imga{padding:3px;border:1px solid #DDDDDD;cursor:pointer;background-color:#F2F3F8}
 .wh24{width:24px;height:24px}
 .wh48{width:48px;height:48px}
@@ -108,6 +108,7 @@ vm1外部不能有line-height属性DOM
 .ml10{margin-left:10px}
 .ml40{margin-left:40px}
 .mr10{margin-right:10px;}
+.mr15{margin-right:15px;}
 .mr20{margin-right:20px;}
 .mt5{margin-top:5px;}
 .mt10{margin-top:10px;}
@@ -202,6 +203,7 @@ body{text-align:center;}
 .col-sub, .col-extra {float: left;}
 .layout:after, .main-wrap:after, .col-sub:after, .col-extra:after {content: '\20';display: block;height: 0;clear: both;}
 .layout, .main-wrap, .col-sub, .col-extra {zoom: 1;}
+
 .grid-s5m0 .main-wrap { margin-left: 200px; }
 .grid-s5m0 .col-sub { width: 190px; margin-left: -100%; }
 .grid-s6m0 .main-wrap { margin-left: 240px; }
@@ -226,9 +228,17 @@ body{text-align:center;}
 .grid-m0e8s8 .col-extra { width: 393px; margin-left: -806px; }
 .grid-s12m0 .main-wrap { margin-left: 480px; }
 .grid-s12m0 .col-sub { width: 470px; margin-left: -100%; }
+
+.mingrid{width:820px;margin:0 auto;}
 .grid-s4m0e6 .main-wrap { margin: 0 240px 0 160px; }
 .grid-s4m0e6 .col-sub { width: 150px; margin-left: -100%; }
-.grid-s4m0e6 .col-extra { width: 220px; margin-left: -220px; }
+.grid-s4m0e6 .col-extra { width: 230px; margin-left: -230px; }
+.grid-s4m0e6 .main-wrap { padding-left:20px; } /* hack design */
+.grid-s4m0e6 .col-extra { width: 220px; margin-left: -220px; } /* hack design */
+
+.grid-m0s220 .main-wrap { margin-right: 230px; }
+.grid-m0s220 .col-sub { width: 220px; margin-left: -220px; }
+.grid-m0s220 .main-wrap { padding-right:20px; } /* hack design */
 /*#endregion Grids */
 
 /*#region HACK */

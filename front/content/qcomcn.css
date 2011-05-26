@@ -20,7 +20,7 @@ ul.dlist li.end{border-right:none 0;}
 #logo{position:absolute;top:0;left:30px;background:url(images/logo.png) no-repeat scroll 0 0;display:block;width:106px;height:35px;}
 #msg{position:absolute;top:0;right:300px;height:35px;line-height:35px;}
 #minelist{position:absolute;top:24px;left:10px;display:none;width:90px;}
-.tlistarr{cursor:pointer;width:14px;height:14px;background:url(images/arrow/w_tri.gif) no-repeat;position:absolute;top:10px;right:0;}
+.tlistarr{cursor:pointer;width:14px;height:14px;background:url(images/arrow/w_tri.gif) no-repeat;position:absolute;top:15px;right:0;}
 .tlistarr.tgt{background-image:url(images/arrow/w_tri.gif);}
 #note{position:absolute;top:30px;right:0;padding:10px;background-color:#FFE300;z-index:99;display:none;}
 #note p{line-height:22px;}
@@ -49,20 +49,19 @@ input.input_yao{border:1px solid #dcdcdc;line-height:20px;height:21px;}
 .inputbx{padding:5px;background-color:#f6f6f6;}
 #inputmain{width:99%;height:20px;}
 .inputbtm{padding:1px;position:relative;}
-#inputbtn{position:absolute;top:2px;top:4px\9;right:0;}
-#btnSubTweet{position:absolute;top:0;right:0;}
+#btnSubTweet{position:absolute;top:2px;top:4px\9;right:0;}
 
 li.streambox{border-bottom: 1px solid #EFF1F2;padding:10px;position: relative;cursor:pointer;_zoom:1;overflow:hidden;}
 li.streambox.hover{background-color:#fafafa;border-color:#e0e3e6;}
 li.streambox.open{background-color:#E9F0F8;border-color:#D4E1F1;}
 li.streambox .hd{float:left;height:48px;width:48px;}
-li.streambox .bd{margin-left: 58px;}
-li.streambox .bd .text{font-size:14px;color:#333;line-height:19px;word-wrap:break-word;min-height:60px;_height:60px;overflow:visible;}
+li.streambox .bd{margin-left: 58px;min-height:60px;_height:60px;overflow:visible;}
+li.streambox .bd .text{font-size:14px;color:#333;line-height:19px;word-wrap:break-word;}
 .quote{color:#999;margin:10px 0;display:block;zoom:1;overflow:hidden;padding-left:10px;border-left: 2px solid #E0E3E9;}
 .quote p.prop {margin-bottom: 7px;color: #ccc;}
 .quote p {line-height: 1.2;margin: 2px 0;word-wrap: break-word;}
 .quote .attimg{float:left;margin: 0 10px 0 0;vertical-align:top;position:relative;}
-li.streambox .fd{position:relative;padding:0 120px 0 20px;height:13px;line-height:13px;color:#999;text-align:right;}
+li.streambox .fd{position:relative;height:13px;line-height:13px;color:#999;text-align:right;}
 li.streambox .fd span.stat{position:absolute;left:58px;bottom:0;}
 li.streambox .fd b.twarrow{position:absolute;left:0;bottom:0;width:13px;height:13px;background:url(images/arrow/tweetarrow.png) no-repeat;display:none;}
 li.streambox.hover .fd b.twarrow{display:block;}

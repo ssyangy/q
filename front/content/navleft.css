@@ -6,5 +6,5 @@
 .unav_group{width:155px;}
 a.unav_item{height:24px;line-height:24px;padding-left:10px;width:140px;cursor:pointer;margin-top:5px;}
 a.unav_item:hover{background-color:#E6E6E6;}
-a.unav_action{background:url(images/r_c.png) no-repeat scroll left center;color:#FFF;padding-left:65px;width:160px;}
+a.unav_action{background:url(images/r_c.png) no-repeat scroll left center;color:#FFF;padding-left:23px;width:160px;}
 a.unav_action:hover{background-color:#fff;}
