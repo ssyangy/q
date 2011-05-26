@@ -38,7 +38,7 @@
         seajs.use('qcomcn', function (q) {
             var $ = q.jq;
             $(function () {
-                q.Init();
+                q.loader();
             });
             check = function(){
         		  var email=$("#email").val();

@@ -9,12 +9,12 @@ seajs.use('app/weibo_rep',function(rep){
 		var $ = q.jq;
     	var ul = $('ul.msglist');
         var suc_repajax = function(j){
-        	window.body.animate({scrollTop:0},700,"swing");
+        	$('body').animate({scrollTop:0},700,"swing");
         	var pv = $('a.rrprev'); pv.hide(); if (j.hasPrev) pv.show();
         	var nt = $('a.rrnext'); nt.hide(); if (j.hasNext) nt.show();
             ul.empty();
             $(j.replies).each(function () {
-            	this.parent = window.body;
+            	this.parent = $('body');
                 var rr = new rep.WeiboRepModel(this);
                 var view = new rep.WeiboRepView({ model: rr });
                 ul.append(view.render().el);
@@ -65,7 +65,7 @@ seajs.use('app/weibo_rep',function(rep){
     <div class="tw-sub">
 	    <form action="${urlPrefix}/weibo/${weibo.id}/reply">
 		<input class='mttext_val reply_val' type='text' value='发表点评论。。。' />
-    	<a class='btn reply_btn'>提交</a>
+    	<a class='btnb reply_btn'>提交</a>
 	    </form>
     </div>
     <div class="tw-reps">

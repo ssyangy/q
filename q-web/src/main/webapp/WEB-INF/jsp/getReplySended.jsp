@@ -15,7 +15,7 @@
 		seajs.use('ICanHaz', function (ich) {
 			var wbs = $('ul.replist');
 			var wbs_ajsucc = function(j){
-				window.body.animate({scrollTop:0},700,"swing");
+				$('body').animate({scrollTop:0},700,"swing");
             	var pv = $('a.prev'); pv.hide(); if (j.hasPrev) pv.show();
             	var nt = $('a.next'); nt.hide(); if (j.hasNext) nt.show();
             	wbs.empty();

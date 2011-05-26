@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
 <!DOCTYPE html>
@@ -14,7 +13,8 @@
 	seajs.use("qcomcn",function(q){
 		q.jq(function(){
 			for(var i in mods) mods[i](q);
-			q.init();
+			q.loader();
+			
 			var $ = q.jq;
 	        var hasNewInformation = function (){
         		$.ajax({
@@ -31,7 +31,7 @@
         	   });
         	}
 		    <c:if test="${loginCookie!=null}">
-        	hasNewInformation();
+        	//hasNewInformation();
         	</c:if>
 		});
 	});
@@ -61,7 +61,6 @@
 </head>
 <body>
 <c:set var="servletPath" value="${pageContext.request.servletPath}" />
-<div id="body">
 <div id="toper">
 <div class="wapper">
 <a id='logo'></a>

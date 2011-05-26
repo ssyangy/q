@@ -21,14 +21,15 @@ seajs.use(['app/weibo','underscore'], function (w, _) {
 		});
 	}
 	ajaxweibo(8,'');
-	var o = window.body[0];
+	
+	var o = $("html")[0];
 	var updateweibo = function(){
-		if (o.scrollTop + window.gWinHeight < o.scrollHeight) return;
+		if (o.scrollTop + window.winHeight < o.scrollHeight) return;
 		if (!ajlock) return;
 		ajaxweibo(1,w.weibos.oldlast().get('id'));
 	}
 	var throttled = _.throttle(updateweibo, 300);
-	window.body.scroll(updateweibo);
+	window.win.scroll(throttled);
 });
 });
 </script>
@@ -93,7 +94,7 @@ seajs.use(['app/weibo','underscore'], function (w, _) {
 </div>
 <div class='extend'>
     <input class='mttext_val reply_val' type='text' value='发表点评论。。。' />
-    <a class='btnbs reply_btn'>提交</a>
+    <a class='btnb reply_btn'>提交</a>
     <ul class='msglist mb5'></ul>
     <a class='lk mr10 rrprev hide'>上一页</a>
     <a class='lk rrnext hide'>下一页</a>
