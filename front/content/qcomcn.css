@@ -13,12 +13,12 @@ ul.dlist li.end{border-right:none 0;}
 
 #toper{position:relative;}
 #toper .wapper{height:35px;background-color:#DA0000;}
-#toper a.lk{color:#fff;}
-#toper a.lk:hover{color:#DA0000;background-color:#fff;}
 #toper ul.dlist a.lk{color:#00649b;}
 #toper ul.dlist a.lk:hover{color:#fff;background-color:#00649b;}
 #logo{position:absolute;top:0;left:30px;background:url(images/logo.png) no-repeat scroll 0 0;display:block;width:106px;height:35px;}
 #msg{position:absolute;top:0;right:300px;height:35px;line-height:35px;}
+#msg a.lk{color:#fff;}
+#msg a.lk:hover{color:#DA0000;background-color:#fff;}
 #minelist{position:absolute;top:24px;left:10px;display:none;width:90px;}
 .tlistarr{cursor:pointer;width:14px;height:14px;background:url(images/arrow/w_tri.gif) no-repeat;position:absolute;top:15px;right:0;}
 .tlistarr.tgt{background-image:url(images/arrow/w_tri.gif);}
