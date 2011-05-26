@@ -85,7 +85,10 @@
 		select
 		<include refid="messageJoin.columns" />
 		from message_join_people
-		where status = 0 and reply_num > 0
+		where status = 0
+		<isEqual prepend="and " property="ignoreReplyNum" compareValue="false">
+			reply_num > 0
+		</isEqual>
 		<isNotNull prepend="and " property="receiverId">
 			receiver_id = #receiverId#
 		</isNotNull>
@@ -101,9 +104,11 @@
 		<isNotNull prepend="and " property="startId">
 			last_reply_id &lt; #startId#
 		</isNotNull>
-		order by last_reply_id desc
 		<isNotNull property="size">
-			limit #startIndex#, #size#
+			order by last_reply_id desc
+			<isNotNull property="size">
+				limit #startIndex#, #size#
+			</isNotNull>
 		</isNotNull>
 	</select>
 	<select id="getMessageIdsByJoinPage" resultClass="long">
@@ -158,6 +163,12 @@
 		update message_join_people
 		set reply_num = reply_num + 1
 		where message_id = #value#
+	</update>
+	<update id="updateMessageLastReplyByMessageId">
+		update message_join_people
+		set last_reply_id = #lastReplyId#,
+		last_reply_sender_id = #lastReplySenderId#
+		where message_id = #messageId#
 	</update>
 
 	<typeAlias alias="messageReply" type="q.domain.MessageReply" />

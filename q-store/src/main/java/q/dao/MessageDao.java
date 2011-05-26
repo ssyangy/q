@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.dao;
 
@@ -19,7 +19,7 @@ import q.domain.MessageReplyJoinPeople;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 21, 2011
- * 
+ *
  */
 public interface MessageDao {
 
@@ -98,7 +98,7 @@ public interface MessageDao {
 
 	/**
 	 * 根据page查询message reply id列表
-	 * 
+	 *
 	 * @param replyJoinPage
 	 * @return
 	 */
@@ -134,4 +134,6 @@ public interface MessageDao {
 	 * @param messageId
 	 */
 	public int incrAllMessageReplyNumberByMessageId(long messageId) throws SQLException;
+
+	public void updateMessageLastReplyByMessageId(MessageJoinPeoplePage messageJoinPeople) throws SQLException;
 }

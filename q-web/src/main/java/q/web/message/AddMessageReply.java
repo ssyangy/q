@@ -25,7 +25,7 @@ import q.web.exception.RequestParameterInvalidException;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 21, 2011
- * 
+ *
  */
 public class AddMessageReply extends Resource {
 	protected MessageDao messageDao;
@@ -58,7 +58,7 @@ public class AddMessageReply extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -90,8 +90,11 @@ public class AddMessageReply extends Resource {
 		messageDao.addMessageReply(messageReply);
 
 		// update last message reply
-		messageJoinPeople.setLastReplyId(messageReply.getId());
-		messageJoinPeople.setLastReplySenderId(messageReply.getSenderId());
+		MessageJoinPeoplePage updateJoinPage = new MessageJoinPeoplePage();
+		updateJoinPage.setMessageId(quoteMessageId);
+		updateJoinPage.setLastReplyId(messageReply.getId());
+		updateJoinPage.setLastReplySenderId(messageReply.getSenderId());
+		messageDao.updateMessageLastReplyByMessageId(updateJoinPage);
 
 		// connect message reply with peoples
 		MessageJoinPeoplePage joinPage = new MessageJoinPeoplePage();

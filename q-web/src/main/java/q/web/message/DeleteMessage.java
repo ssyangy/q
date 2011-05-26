@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.web.message;
 
@@ -14,12 +14,12 @@ import q.web.exception.RequestParameterInvalidException;
 
 /**
  * url:\/message/xxxxxxx
- * 
+ *
  * POST _method=delete
- * 
+ *
  * @author seanlinwang at gmail dot com
  * @date May 10, 2011
- * 
+ *
  */
 public class DeleteMessage extends Resource {
 	private MessageDao messageDao;
@@ -30,7 +30,7 @@ public class DeleteMessage extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -38,15 +38,16 @@ public class DeleteMessage extends Resource {
 		long peopleId = context.getCookiePeopleId();
 		long messageId = context.getResourceIdLong();
 		MessageJoinPeople join = this.messageDao.getMessageJoinPeopleByMessageIdReceiverIdStatus(messageId, peopleId, Status.COMMON.getValue());
-		if (join != null) { // delete message replies if this receiver can read this message
+		if (join != null) { // delete message replies if this receiver can read  this message
 			this.messageDao.deleteAllMessageReplyJoinPeopleByQuoteMessageIdAndReceiverId(messageId, peopleId);
-			this.messageDao.clearMessageJoinPeopleReplyNumberByMessageIdAndReceiverId(messageId, peopleId); // reset reply num to zero
+			// reset reply num to zero
+			this.messageDao.clearMessageJoinPeopleReplyNumberByMessageIdAndReceiverId(messageId, peopleId);
 		}
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
@@ -60,8 +61,8 @@ public class DeleteMessage extends Resource {
 			throw new RequestParameterInvalidException("message:invalid");
 		}
 		Message message = this.messageDao.getMessageById(messageId);
-		if (message.getSenderId() != senderId) {
-			throw new RequestParameterInvalidException("privilege:invalid");
+		if (message == null) {
+			throw new RequestParameterInvalidException("message:invalid");
 		}
 	}
 

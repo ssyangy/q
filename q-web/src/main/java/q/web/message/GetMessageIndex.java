@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.web.message;
 
@@ -25,7 +25,7 @@ import q.web.ResourceContext;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 21, 2011
- * 
+ *
  */
 public class GetMessageIndex extends Resource {
 
@@ -43,7 +43,7 @@ public class GetMessageIndex extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -54,6 +54,7 @@ public class GetMessageIndex extends Resource {
 		int type = context.getInt("type", 0);
 
 		MessageJoinPeoplePage joinPage = new MessageJoinPeoplePage();
+		joinPage.setIgnoreReplyNum(false);
 		joinPage.setReceiverId(loginPeopleId);
 		int asc = 1;
 		if (type == asc) { // 1 indicate asc
@@ -117,7 +118,7 @@ public class GetMessageIndex extends Resource {
 
 	/**
 	 * 返回message id和参与者的映射
-	 * 
+	 *
 	 * @param messageIds
 	 * @return
 	 * @throws SQLException
@@ -142,7 +143,7 @@ public class GetMessageIndex extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
