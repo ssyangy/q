@@ -33,6 +33,8 @@ mods.push(function (q) {
 	<p class="fgray3 tar">
 
 <c:choose>
+<c:when test="${loginCookie.peopleId != group.creator.id}">	
+<c:choose>
 	<c:when test="${join == null}">
 		<a class="lk joing" href="#" >加入</a>
 	</c:when>
@@ -40,9 +42,11 @@ mods.push(function (q) {
 		<span class="xiaogou in_bk">已加入 | <a href="#" class='lk unjoing'>退出</a></span>
 	</c:otherwise>
 </c:choose>	
+</c:when>
+</c:choose>	
 
 <c:choose>
-<c:when test="${loginCookie.peopleId != group.creator.id}">			
+<c:when test="${loginCookie.peopleId == group.creator.id}">			
 	<a href="${urlPrefix}/group/${group.id}/edit" class='btnb'>管理</a>
 </c:when>
 </c:choose>	
