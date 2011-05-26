@@ -63,6 +63,7 @@ mods.push(function(q){
             var pv = $('a.mrprev', sld2); pv.hide(); if (j.hasPrev) pv.show();
             var nt = $('a.mrnext', sld2); nt.hide(); if (j.hasNext) nt.show();
         }
+        window.msgid = 0;
         $('li.msgli', sldroot).live('click', function () {
             window.msgid = $(this).attr('stream_id');
             window.msgmem = $(this).data('members');
@@ -97,6 +98,13 @@ mods.push(function(q){
             $.ajax({ url: "${urlPrefix}/message/" + window.msgid + "/reply",
                 data: { size: 10, startid: parseInt($('li', sld2ul).first().attr('reply_id')) },
                 success: msgli_ajsucc
+            });
+        });
+
+        $('a.memdel', sld2).live('click', function () {
+            $.ajax({ url: "${urlPrefix}/message/" + window.msgid, type: 'POST',
+				data:{_method:'delete'},
+				success: window.location.reload()
             });
         });
 
@@ -136,7 +144,7 @@ mods.push(function(q){
 							 ->
 							{{#receivers}}
 							<a class="lk" href='${urlPrefix}/people/{{id}}'>{{screenName}}</a>
-							{{/receivers}}
+							{{/receivers}} ({{replyNum}})
 	                        <span class="time">{{screenTime}}</span></p>
 	                        {{#lastReply}}<p>{{text}}</p>{{/lastReply}}
 	                    </li>

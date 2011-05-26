@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.dao.ibatis;
 
@@ -20,7 +20,7 @@ import q.domain.MessageReplyJoinPeople;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 21, 2011
- * 
+ *
  */
 public class MessageDaoImpl extends AbstractDaoImpl implements MessageDao {
 
@@ -52,7 +52,7 @@ public class MessageDaoImpl extends AbstractDaoImpl implements MessageDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.MessageDao#getMessageById(long)
 	 */
 	@Override
@@ -62,7 +62,7 @@ public class MessageDaoImpl extends AbstractDaoImpl implements MessageDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.MessageDao#addMessageJoinPeoples(java.util.List)
 	 */
 	@Override
@@ -87,7 +87,7 @@ public class MessageDaoImpl extends AbstractDaoImpl implements MessageDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.MessageDao#getMessageIdsByPage(q.dao.page.MessageJoinPeoplePage)
 	 */
 	@SuppressWarnings("unchecked")
@@ -117,7 +117,7 @@ public class MessageDaoImpl extends AbstractDaoImpl implements MessageDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.MessageDao#getMessageJoinPeopleByMessageIdAndPeopleId(long, long)
 	 */
 	@Override
@@ -131,7 +131,7 @@ public class MessageDaoImpl extends AbstractDaoImpl implements MessageDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.MessageDao#deleteMessageJoinPeopleByMessageIdAndPeopleId(long, long)
 	 */
 	@Override
@@ -145,7 +145,7 @@ public class MessageDaoImpl extends AbstractDaoImpl implements MessageDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.MessageDao#deleteAllMessageReplyJoinPeopleByQuoteMessageIdAndReceiverId(long, long)
 	 */
 	@Override
@@ -175,6 +175,11 @@ public class MessageDaoImpl extends AbstractDaoImpl implements MessageDao {
 	@Override
 	public int incrAllMessageReplyNumberByMessageId(long messageId) throws SQLException {
 		return this.sqlMapClient.update("incrAllMessageReplyNumberByMessageId", messageId);
+	}
+
+	@Override
+	public void updateMessageLastReplyByMessageId(MessageJoinPeoplePage messageJoinPeople) throws SQLException {
+		this.sqlMapClient.update("updateMessageLastReplyByMessageId", messageJoinPeople);
 	}
 
 }

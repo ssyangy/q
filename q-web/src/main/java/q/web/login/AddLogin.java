@@ -42,7 +42,7 @@ public class AddLogin extends Resource {
 			throw new PeopleLoginPasswordException("password:密码错误");
 		}
 		context.setModel("people", people);
-		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), people.getRealName(), people.getUsername())); // set login cookie
+		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), people.getRealName(), people.getUsername(), people.getAvatarPath())); // set login cookie
 
 		if (!context.isApiRequest()) {
 			if (context.getString("from") == null) {

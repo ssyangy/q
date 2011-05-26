@@ -4,7 +4,7 @@
 package q.dao.ibatis;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Arrays;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -15,7 +15,6 @@ import org.junit.Test;
 import q.dao.page.MessageJoinPeoplePage;
 import q.dao.page.MessageReplyJoinPeoplePage;
 import q.domain.MessageJoinPeople;
-import q.util.IdCreator;
 
 /**
  * @author seanlinwang at gmail dot com
@@ -139,11 +138,39 @@ public class MessageDaoImplTest {
 	 * @throws SQLException
 	 */
 	@Test
-	public void testGetMessageJoinPeoplesByPage() throws SQLException {
+	public void testGetMessageJoinPeoplesByPageWhenAddMessageReply() throws SQLException {
 		MessageJoinPeoplePage joinPage = new MessageJoinPeoplePage();
 		joinPage.setMessageId(1L);
 		messageDao.getMessageJoinPeoplesByPage(joinPage);
 
+	}
+
+	@Test
+	public void testGetMessageJoinPeoplesByPageWhenSelectPeopleMessageIndex() throws SQLException {
+		MessageJoinPeoplePage joinPage = new MessageJoinPeoplePage();
+		joinPage.setReceiverId(1L);
+		joinPage.setIgnoreReplyNum(false);
+		joinPage.setSize(10);
+		joinPage.setStartId(999L);
+		messageDao.getMessageJoinPeoplesByPage(joinPage);
+
+	}
+
+	@Test
+	public void testGetMessageJoinPeoplesByPageWhenSelectPeopleMessagesAllParticipation() throws SQLException {
+		MessageJoinPeoplePage joinPage = new MessageJoinPeoplePage();
+		joinPage.setMessageIds(Arrays.asList(1L, 2L));
+		messageDao.getMessageJoinPeoplesByPage(joinPage);
+
+	}
+
+	@Test
+	public void updateMessageLastReplyByMessageId() throws SQLException {
+		MessageJoinPeoplePage updateJoinPage = new MessageJoinPeoplePage();
+		updateJoinPage.setMessageId(1L);
+		updateJoinPage.setLastReplyId(1L);
+		updateJoinPage.setLastReplySenderId(1L);
+		messageDao.updateMessageLastReplyByMessageId(updateJoinPage);
 	}
 
 	/**
