@@ -6,12 +6,13 @@ var upimgfix = 0;
 var realHeight;
 var realWidth;
 var imgPath;
+var dia_img;
 mods.push(function(q){
 seajs.use(['jqplus/jq_rotate','jqplus/jq_countable'], function (rota, cb) {
     var $ = q.jq;
     rota($);
     cb($);
-    
+
     	$('.countable').countable();
         $('#inputmain').focus(function () {
             $(this).css('height', '40');
@@ -24,6 +25,7 @@ seajs.use(['jqplus/jq_rotate','jqplus/jq_countable'], function (rota, cb) {
                 $('#inputmain').focus();
             }
         });
+        
         $('#btnSubTweet').click(function () {
             $("#trDialog_img").bind('click', bindImgDia);
             if (!isImg) {
@@ -34,11 +36,13 @@ seajs.use(['jqplus/jq_rotate','jqplus/jq_countable'], function (rota, cb) {
             }
             isImg = false;
         });
+        
         dia_img = $("#dia_img");
         bindImgDia = function () {
             dia_img.dialog("open");
             upimgfix = 0;
         }
+        
         dia_img.data('hasPicture',false);
         $('input.donet', dia_img).click(function () {
             if (dia_img.data('hasPicture')) {
@@ -78,7 +82,7 @@ seajs.use(['jqplus/jq_rotate','jqplus/jq_countable'], function (rota, cb) {
             $("#picPath").attr("value", imgPath);
             $("#upimgfix").attr("value", upimgfix);
         });        
-
+		
         $("#trDialog_img").bind('click', bindImgDia);
         $('#upimgdel').click(function () {
             $("#file").attr("value", '');
@@ -169,8 +173,8 @@ seajs.use(['jqplus/jq_rotate','jqplus/jq_countable'], function (rota, cb) {
 </script>
 <form action="${urlPrefix}/weibo" method="post">
 <div class="inputbx">
-    <textarea id="inputmain" name="content" class="mttextar_val countable">说点什么 . . .</textarea>
-    <div id="inputbtm" class="rel clear height0">
+    <textarea id="inputmain" name="content" class="mttextar_val">说点什么 . . .</textarea>
+    <div id="inputbtm" class="rel clear pt5 pb5 height0">
 		插入：<a class="lk mr10 emot">表情</a> <a id='trDialog_img' class="lk mr10 pict">图片</a>
 		<c:choose>
 			<c:when test="${param['selectGroup'] != null}">

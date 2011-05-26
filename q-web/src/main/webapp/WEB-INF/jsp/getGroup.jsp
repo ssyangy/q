@@ -4,9 +4,28 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="圈子:${group.name}" />
 </jsp:include>
+<script type="text/javascript">
+var getweibo = {};
+mods.push(function(q){
+	var $ = q.jq;
+	getweibo = function(){
+		$.ajax({ url: '${pushUrlPrefix}?ids=${group.id}&cmd=group&aliveTime=10000',
+	    	dataType: 'jsonp',
+	   	    success:function(data,text,xhqr){
+		        $.each(data, function(i, item) {
+		            if(item.id){
+		            	$("a.newweibo").show();
+		            }
+		        });
+		    }
+   		});
+	}
+	var pushtime = setInterval("getweibo()",3000); 
+});
+</script>
 <div class="layout grid-s4m0e6">
     <div class="col-main">
-    	<div class="main-wrap pl20">
+    	<div class="main-wrap">
 		<jsp:include page="models/group-profile.jsp"></jsp:include>
 		<jsp:include page="models/weibo-send.jsp" >
 			<jsp:param name="from" value="${urlPrefix}/group/${group.id}"/>

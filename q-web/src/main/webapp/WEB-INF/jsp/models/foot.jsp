@@ -3,7 +3,6 @@
 
     <div id="footer">
     </div>
-</div>
 
 <div id="dialog_target"></div>
 </body>

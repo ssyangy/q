@@ -15,7 +15,7 @@
 </c:if>
 
 <div class="creat">
-<a class="lk mr20" href="${urlPrefix}/category">找圈子</a><a class="lk" href="#">建圈子</a>
+<a class="lk mr20" href="${urlPrefix}/category">找圈子</a><a class="lk" href="${urlPrefix}/group/new">建圈子</a>
 </div>
 
 <div class='unav_group'>
