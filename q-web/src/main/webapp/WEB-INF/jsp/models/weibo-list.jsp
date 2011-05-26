@@ -91,7 +91,7 @@ seajs.use(['app/weibo','underscore'], function (w, _) {
 	<a href="javascript:void(0);" class='hod lk lkrb resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
 	<a href="javascript:void(0);" class='hod lk lkrb unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
     <a href="javascript:void(0);" class='hod lk fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
-	{{#isown}}<b class='cloarrow'></b>{{/isown}}
+	{{#isown}}<a href="javascript:void(0);" class='lk del'>删除</a>{{/isown}}
 </div>
 <div class='extend'>
     <input class='mttext_val reply_val' type='text' value='发表点评论。。。' />
