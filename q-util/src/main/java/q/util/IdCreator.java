@@ -46,7 +46,7 @@ public class IdCreator {
 
 	private static int counter = 0;
 
-	private static int counterLimit = 100;
+	private static int counterLimit = 10;
 
 	public static void setCounterLimit(int limit) {
 		counterLimit = limit;
@@ -133,14 +133,25 @@ public class IdCreator {
 	 * @return
 	 */
 	private static long getLongId(long timestamp) {
-		counterStartTimestamp = timestamp; // reset start timestamp
+		// counterStartTimestamp = timestamp; // reset start timestamp
 		counterLock.lock();
 		try {
-			// if counter overflow, reset
-			if (counter >= counterLimit) {
-				counter = 0; // reset counter
+			// reset counter if new timestamp
+			if (timestamp != counterStartTimestamp) {
+				counter = 0;
+				counterStartTimestamp = timestamp;
 			}
-			long id = (((counterStartTimestamp - baseTimestamp) * counterLimit + counter++) * 1000 + nodeFlag) * 10 + version;
+			// if counter overflow
+			if (counter >= counterLimit) {
+				// reset if this timestamp equals counter start timestamp
+				while (counterStartTimestamp == timestamp) {
+					timestamp = newTimestamp();
+				}
+				counterStartTimestamp = timestamp;
+				// reset counter
+				counter = 0;
+			}
+			long id = (((timestamp - baseTimestamp) * counterLimit + counter++) * 10000 + nodeFlag) * 10 + version;
 			return id;
 		} finally {
 			counterLock.unlock();
