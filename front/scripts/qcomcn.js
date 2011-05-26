@@ -1,40 +1,38 @@
 ﻿define(function (require, exports, module) {
-    var $ = exports.jq = require('jquery');
+    var $ = require('jquery');
+    require('config')($);
     var uihelp = require('ui/jq_ui_help');
-    var ie6 = ($.browser.msie && ($.browser.version < "7.0") && !$.support.style);
+    uihelp.init($);
+    require('jqplus/jq_repurl')($);
+    require('jqplus/jq_mttext')($);
+    require('jqplus/jq_initbow')($);
 
-    exports.init = function () {
-        require('config')($);
-        require('jqplus/jq_repurl')($);
-        require('jqplus/jq_mttext')($);
-        if (ie6) {
-            require('jqplus/jq_pngFix')($);
-            require('jqplus/jq_maxlimit')($);
-        }
-        uihelp.init($);
+    if (window.bow == "ie6") {
+        require('jqplus/jq_pngFix')($);
+        require('jqplus/jq_maxlimit')($);
+    }
+    exports.jq = $;
+    var _ = require('underscore');
+
+    exports.loader = function () {
+        $("body").addClass(window.bow);
+        uihelp.loader($);
         $('input.search_inp').focus(function () {
             $(this).next('input.search_btn').addClass('typing');
         }).blur(function () {
             $(this).next('input.search_btn').removeClass('typing');
         });
+        require('jqplus/jq_target')($, "#toper, #main, #footer");
+        exports.fixui($("body"));
 
-        var bbody = $("body");
-        require('jqplus/jq_target')($, bbody, "#toper, #main, #footer");
-        exports.fixui(bbody);
-
-        var body = $("#body");
-        if (body) {
-            var _ = require('underscore');
-            window.body = body;
-            var win = $(window);
-            var calculateLayout = function () {
-                window.gWinHeight = win.height();
-                body.height(window.gWinHeight);
-            };
-            calculateLayout();
-            var lazyLayout = _.debounce(calculateLayout, 300);
-            win.resize(lazyLayout);
-        }
+        window.win = $(window);
+        var calculateLayout = function () {
+            window.winHeight = window.win.height();
+            window.winWidth = window.win.width();
+        };
+        calculateLayout();
+        var lazyLayout = _.debounce(calculateLayout, 300);
+        window.win.resize(lazyLayout);
     }
 
     exports.fixui = function (box) {
@@ -49,7 +47,7 @@
         });
 
         $('.fixurl', box).repurl();
-        if (ie6) {
+        if (window.bow == "ie6") {
             $(".png", box).pngFix();
             $("[class*='max-']", box).maxLimit({ size: [120, 160, 320, 600] });
         }
