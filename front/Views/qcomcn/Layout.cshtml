@@ -9,13 +9,13 @@
         seajs.use("qcomcn", function (q) {
             q.jq(function () {
                 for (var i in mods) mods[i](q);
-                q.init();
+                q.loader();
             });
         });
     </script>
 </head>
 <body>
-<div id="body">
+
     <div id="toper"><div class="wapper">
         <a id='logo'></a>
         <div id="searchTab" class="hm1"><div class="hm2"><div class="hm3">
@@ -55,8 +55,7 @@
 
     <div id="footer"><div class="wapper">
     </div></div>
-</div>
-
 <div id="dialog_target"></div>
+
 </body>
 </html>

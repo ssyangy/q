@@ -11,7 +11,6 @@ ul.dlist li{border-bottom:1px solid #ddd;border-right:none 0;float:none;padding:
 ul.dlist li.end{border-right:none 0;}
 /*#endregion Commen */
 
-#body{padding:0;overflow-y:auto; overflow-x:hidden;}
 #toper{position:relative;}
 #toper .wapper{height:35px;background-color:#DA0000;}
 #toper a.lk{color:#fff;}
@@ -36,7 +35,7 @@ background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoL
 input.input_yao{border:1px solid #dcdcdc;line-height:20px;height:21px;}
 
 #main{position:relative;}
-#main .wapper{padding:10px 0;}
+#main .wapper{padding:20px 0;}
 #footer{position:relative;}
 
 .groupinfo p{line-height:24px;}
@@ -50,7 +49,7 @@ input.input_yao{border:1px solid #dcdcdc;line-height:20px;height:21px;}
 .inputbx{padding:5px;background-color:#f6f6f6;}
 #inputmain{width:99%;height:20px;}
 .inputbtm{padding:1px;position:relative;}
-#inputbtn{position:absolute;top:1px;right:1px;}
+#inputbtn{position:absolute;top:2px;top:4px\9;right:0;}
 #btnSubTweet{position:absolute;top:0;right:0;}
 
 li.streambox{border-bottom: 1px solid #EFF1F2;padding:10px;position: relative;cursor:pointer;_zoom:1;overflow:hidden;}
@@ -78,7 +77,7 @@ li.streambox input.reply_val{width:200px;}
 li.streambox span.actions{position:absolute;right:0;top:0;}
 
 .component{margin:20px 0;}
-ul.slist{padding:0 12px;}
+ul.slist{padding:0 12px;text-align:center;}
 ul.slist li{display:inline-block;width:48px;margin:0 22px 10px 0;vertical-align:top;zoom:1;*display:inline;}
 ul.slist li.end{margin-right:0;}
 ul.complist li {display:inline;margin:0 3px;height:22px;line-height:22px;}

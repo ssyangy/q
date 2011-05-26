@@ -1,7 +1,7 @@
 define(function (require, exports) {
-    return function ($, bbody, moms) {
+    return function ($, moms) {
 
-        bbody.click(function (e) {
+        $("body").click(function (e) {
             if (!$(e.target).attr('tgtt')) {
                 $('.tgtbox').each(function () {
                     if ($(this).is(":visible")) {

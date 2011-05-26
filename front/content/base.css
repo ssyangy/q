@@ -36,7 +36,7 @@ small { font-size: 12px; }
 .inl6{_display:inline;}
 .hod{visibility:hidden;}
 .hide{display:none}
-.height0,.height0 *{height:0;visibility:hidden;margin:0;padding:0;}
+.height0,.height0 *{height:0!important;visibility:hidden;margin:0!important;padding:0!important;}
 .show{display:block;}
 .hide_im{display:none!important;}
 .show_im{display:block!important;}
@@ -126,6 +126,7 @@ vm1外部不能有line-height属性DOM
 .pr20{padding-right:20px;}
 .pr20_im{padding-right:20px!important;}
 .pb10{padding-bottom:10px;}
+.pb5{padding-bottom:5px;}
 .pt5{padding-top:5px;}
 .pt10{padding-top:10px;}
 .pt20{padding-top:20px;}

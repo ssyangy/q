@@ -360,6 +360,7 @@
     <Content Include="scripts\jqplus\jq_validation.js" />
     <Content Include="scripts\jqplus\jq_maxlimit.js" />
     <Content Include="scripts\jqplus\jq_target.js" />
+    <Content Include="scripts\jqplus\jq_initbow.js" />
     <Content Include="scripts\jquery.js" />
     <Content Include="scripts\jq_area.js" />
     <Content Include="scripts\klass.js" />
