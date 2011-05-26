@@ -25,6 +25,7 @@
 			var n_at = $("p.n_at");
 			$("a.clo", note).click(function(){
 				note.hide();
+				window.clearInterval(pushtime);
 			});
 	        Getpush = function (){
         		$.ajax({
@@ -72,7 +73,7 @@
         	
       		initget = function(){
 		    	Getpush();
-		    	var pushtime = setInterval("Getpush()",15000);
+		    	pushtime = setInterval("Getpush()",15000);
 		    }
 	        <c:if test="${loginCookie!=null}">
 	        var sss = setTimeout("initget()",2000);
