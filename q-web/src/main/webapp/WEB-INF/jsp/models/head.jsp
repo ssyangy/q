@@ -66,7 +66,7 @@
         	   });
         	}
 	        <c:if test="${loginCookie!=null}">
-        	//var pushtime = setInterval("Getpush()",10000); 
+        	var pushtime = setInterval("Getpush()",10000); 
         	</c:if>
 		});
 	});
