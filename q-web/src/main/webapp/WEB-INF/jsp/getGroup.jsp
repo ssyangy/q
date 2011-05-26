@@ -30,9 +30,6 @@ mods.push(function(q){
     <div class="col-main">
     	<div class="main-wrap">
 		<jsp:include page="models/group-profile.jsp"></jsp:include>
-		<jsp:include page="models/weibo-send.jsp" >
-			<jsp:param name="from" value="${urlPrefix}/group/${group.id}"/>
-		</jsp:include>		
         <div class="ui-tabs mt10">
             <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
                 <li class="ui-state-default crt2 ui-state-active"><a href="${urlPrefix}/group/${group.id}">讨论区</a></li>
@@ -40,6 +37,9 @@ mods.push(function(q){
             </ul>
         </div>
 		<div class='tabscont'>
+		<jsp:include page="models/weibo-send.jsp" >
+			<jsp:param name="from" value="${urlPrefix}/group/${group.id}"/>
+		</jsp:include>			
 		<a class="newweibo hide_im" href="${urlPrefix}/group/${group.id}">有新微薄，点击更新</a>
 		<jsp:include page="models/weibo-list.jsp">
 			<jsp:param name="feedUrl" value="${urlPrefix}/group/${group.id}/weibo" />

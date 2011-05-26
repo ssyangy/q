@@ -26,9 +26,7 @@
 		</jsp:include>
 	</div>
 	<div class="col-extra">
-		<div style="height:110px;">
-			<jsp:include page="models/groups-owner.jsp" />
-		</div>
+		<jsp:include page="models/groups-owner.jsp" />
 		<div class="component">
 			<h3>新成员</h3>
 			<jsp:include page="models/groups-newmembers.jsp" />

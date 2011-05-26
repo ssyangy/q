@@ -13,7 +13,6 @@ seajs.use(['jqplus/jq_rotate','jqplus/jq_countable'], function (rota, cb) {
     rota($);
     cb($);
 
-    	$('.countable').countable();
         $('#inputmain').focus(function () {
             $(this).css('height', '40');
             $('#inputbtm').removeClass('height0');
@@ -110,7 +109,8 @@ seajs.use(['jqplus/jq_rotate','jqplus/jq_countable'], function (rota, cb) {
             var filepath = document.getElementById("file").value;
             filepath = filepath.substring(filepath.lastIndexOf('.') + 1, filepath.length);
             if (filepath != 'jpg' && filepath != 'gif' && filepath != 'png' && filepath != 'jpeg' && filepath != 'JPEG' && filepath != 'JPG' && filepath != 'GIF') {
-                $("#imgwrong").css("display", "block");
+            	
+            	$("#imgwrong").css("display", "block");
                 $("#imgwrong").html("这不是一个图片文件!");
                 document.getElementById("file").value = "";
                 isImg = false;
