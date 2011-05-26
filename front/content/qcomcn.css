@@ -74,6 +74,8 @@ li.streambox .extend{display:none;padding:10px 0 5px 58px;}
 li.streambox ul.msglist li{padding-left:44px;}
 li.streambox input.reply_val{width:200px;}
 li.streambox span.actions{position:absolute;right:0;top:0;}
+a.newweibo{display:block;background-color:#E2F4F8;height:26px;line-height:26px;color:#00649b;margin:5px;cursor:pointer;text-align:center;
+           -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px;}
 
 .component{margin:20px 0;}
 ul.slist{padding:0 12px;text-align:center;}
@@ -101,3 +103,6 @@ table.qform td[align="right"]{vertical-align:top;padding-top:16px;}
 .tweet{padding:0 0 0 68px;position:relative;font-size:14px;}
 .tweet img.avator{position:absolute;top:0;left:0;}
 .tweet p{line-height:24px;}
+
+a.btnNM{display:block;width:220px;height:26px;background:url(images/btnNM.png) no-repeat scroll 0 0;}
+a.btnNM:hover{background-position:0 -26px;}
