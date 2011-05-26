@@ -23,7 +23,6 @@ mods.push(function(q){
    		});
 	}
 	getweibos();
-	//var pushtime = setInterval("getweibo()",3000); 
 });
 </script>
 <div class="layout grid-s4m0e6">
