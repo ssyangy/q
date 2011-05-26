@@ -140,7 +140,7 @@ mods.push(function(q){
 	                    <li class='msgli hov' stream_id='{{id}}'>
 							{{#sender}}
 	                        <img src="{{avatarPath}}-48" alt="sender" class="sldimg" />
-	                        <p class='rel'>{{screenName}}
+	                        <p class='rel pr100'>{{screenName}}
 							{{/sender}}
 							 ->
 							{{#receivers}}
@@ -170,7 +170,7 @@ mods.push(function(q){
                 </script>
                 <div id='sld2'>
                 	<div class="msgmem">
-						<p>参与者：<span class='partner'></span></p>
+						<p class="pr100">参与者：<span class='partner'></span></p>
 						<p class="mems"></p>
 						<a class="memdel btnb">删除</a>
 					</div>
@@ -188,7 +188,7 @@ mods.push(function(q){
             </div>
         </div>
     </div></div>
-    <div class="col-sub pt20">
+    <div class="col-sub">
         <a href='${urlPrefix}/message/new' class="btnNM"></a>
     </div>
 </div>

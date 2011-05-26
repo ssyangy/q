@@ -25,7 +25,7 @@ mods.push(function(q){
 <a class="lk mr20" href="${urlPrefix}/category">找圈子</a><a class="lk" href="${urlPrefix}/group/new">建圈子</a>
 </div>
 
-<div class='unav_group'>
+<div class='unav_group pb10 pt5'>
 	<c:forEach items="${groups}" var="group" varStatus="status">
 		<c:choose>
 		<c:when test="${param['id'] == group.id}">

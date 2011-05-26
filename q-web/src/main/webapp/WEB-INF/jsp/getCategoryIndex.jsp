@@ -132,7 +132,7 @@ mods.push(function (q) {
 			<jsp:param name="id" value="0" />
 		</jsp:include>
     </div>
-    <div class="col-extra pt20">
+    <div class="col-extra" style="padding-top:13px;">
 
         <div class="component">
         <h3>圈子推荐</h3>

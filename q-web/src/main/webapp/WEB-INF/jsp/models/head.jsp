@@ -23,6 +23,9 @@
 			var n_weiborep = $("p.n_weiborep");
 			var n_fo = $("p.n_fo");
 			var n_at = $("p.n_at");
+			$("a.clo", note).click(function(){
+				note.hide();
+			});
 	        Getpush = function (){
         		$.ajax({
         			global: false,
@@ -214,6 +217,7 @@
 	<p class="n_at hide">
 		<span class='num'>0</span>条发言提到我<a class="lk ml10" href="${urlPrefix}/at">查看@我</a>
 	</p>
+	<a class="clo lk">关闭</a>
 </div>
 
 			</div>
