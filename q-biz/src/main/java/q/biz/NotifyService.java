@@ -13,24 +13,13 @@ import q.domain.WeiboReply;
 /**
  * @author seanlinwang at gmail dot com
  * @date May 5, 2011
- *
+ * 
  */
 public interface NotifyService {
-
-	/**
-	 * @param reply
-	 */
-	void notifyWeiboReply(WeiboReply reply);
-
 	/**
 	 * @param weibo
 	 */
 	void notifyWeibo(Weibo weibo);
-	
-	/**
-	 * @param reply
-	 */
-	void notifyMessageReply(MessageReply reply, Collection<Long> receiverIds);
 
 	/**
 	 * @param groupId
@@ -39,8 +28,25 @@ public interface NotifyService {
 	void notifyGroupWeibo(long groupId, Weibo weibo);
 
 	/**
+	 * @param reply
+	 */
+	void notifyWeiboReply(WeiboReply reply);
+
+	/**
+	 * @param reply
+	 * @param receiverIds
+	 */
+	void notifyMessageReply(MessageReply reply, Collection<Long> receiverIds);
+
+	/**
 	 * @param relation
 	 */
 	void notifyPeopleFollowing(PeopleRelation relation);
+
+	/**
+	 * @param fromPeopleId
+	 * @param toPeopleId
+	 */
+	void notifyAt(long fromPeopleId, long toPeopleId);
 
 }

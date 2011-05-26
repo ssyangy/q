@@ -24,6 +24,11 @@ import redis.clients.jedis.exceptions.JedisConnectionException;
  * 
  */
 public class DefaultNotifyService implements NotifyService {
+	/**
+	 * 
+	 */
+	private static final String NOTIFY_SPLIT = " ";
+
 	private static final Logger log = Logger.getLogger();
 
 	private String pubHost;
@@ -50,6 +55,36 @@ public class DefaultNotifyService implements NotifyService {
 		pool = new JedisPool(new Config(), pubHost, pubPort, pubTimeout);
 	}
 
+	/**
+	 * 
+	 */
+	private static final String CHANNEL_WEIBO_REPLY = "weiboReply";
+
+	/**
+	 * 
+	 */
+	private static final String CHANNEL_MESSAGE = "message";
+
+	/**
+	 * 
+	 */
+	private static final String CHANNEL_AT = "at";
+
+	/**
+	 * 
+	 */
+	private static final String CHANNEL_FO = "fo";
+
+	/**
+	 * 
+	 */
+	private static final String CHANNEL_WEIBO = "weibo";
+
+	/**
+	 * 
+	 */
+	private static final String CHANNEL_GROUP = "group";
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -57,19 +92,7 @@ public class DefaultNotifyService implements NotifyService {
 	 */
 	@Override
 	public void notifyWeiboReply(WeiboReply reply) {
-		Jedis jedis = pool.getResource();
-		try {
-			jedis.publish("weiboReply", reply.getQuoteSenderId() + " " + reply.getId());
-		} catch (JedisConnectionException e) {
-			log.error("notifyWeiboReply", e);
-			if (jedis != null) {
-				jedis.disconnect();
-			}
-		} catch (Exception e) {
-			log.error("notifyWeiboReply", e);
-		} finally {
-			pool.returnResource(jedis);
-		}
+		this.notifyPeople(CHANNEL_WEIBO_REPLY, reply.getQuoteSenderId() + NOTIFY_SPLIT + reply.getId());
 	}
 
 	/*
@@ -79,54 +102,18 @@ public class DefaultNotifyService implements NotifyService {
 	 */
 	@Override
 	public void notifyWeibo(Weibo weibo) {
-		Jedis jedis = pool.getResource();
-		try {
-			jedis.publish("weibo", weibo.getSenderId() + " " + weibo.getId());
-		} catch (JedisConnectionException e) {
-			log.error("notifyWeibo", e);
-			if (jedis != null) {
-				jedis.disconnect();
-			}
-		} catch (Exception e) {
-			log.error("notifyWeibo", e);
-		} finally {
-			pool.returnResource(jedis);
-		}
+		this.notifyPeople(CHANNEL_WEIBO, weibo.getSenderId() + NOTIFY_SPLIT + weibo.getId());
 	}
 
 	@Override
 	public void notifyGroupWeibo(long groupId, Weibo weibo) {
-		Jedis jedis = pool.getResource();
-		try {
-			jedis.publish("group", groupId + " " + weibo.getId());
-		} catch (JedisConnectionException e) {
-			log.error("notifyGroupWeibo", e);
-			if (jedis != null) {
-				jedis.disconnect();
-			}
-		} catch (Exception e) {
-			log.error("notifyGroupWeibo", e);
-		} finally {
-			pool.returnResource(jedis);
-		}
+		this.notifyPeople(CHANNEL_GROUP, groupId + NOTIFY_SPLIT + weibo.getId());
 	}
 
 	@Override
 	public void notifyMessageReply(MessageReply reply, Collection<Long> receiverIds) {
-		Jedis jedis = pool.getResource();
 		String receiversStr = StringUtils.join(receiverIds, ',');
-		try {
-			jedis.publish("message", receiversStr + " " + reply.getId());
-		} catch (JedisConnectionException e) {
-			log.error("notifyMessageReply", e);
-			if (jedis != null) {
-				jedis.disconnect();
-			}
-		} catch (Exception e) {
-			log.error("notifyMessageReply", e);
-		} finally {
-			pool.returnResource(jedis);
-		}
+		this.notifyPeople(CHANNEL_MESSAGE, receiversStr + NOTIFY_SPLIT + reply.getId());
 	}
 
 	/*
@@ -136,19 +123,32 @@ public class DefaultNotifyService implements NotifyService {
 	 */
 	@Override
 	public void notifyPeopleFollowing(PeopleRelation relation) {
+		this.notifyPeople(CHANNEL_FO, relation.getToPeopleId() + NOTIFY_SPLIT + relation.getFromPeopleId());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see q.biz.NotifyService#notifyAt(long, long)
+	 */
+	@Override
+	public void notifyAt(long fromPeopleId, long toPeopleId) {
+		this.notifyPeople(CHANNEL_AT, toPeopleId + NOTIFY_SPLIT + fromPeopleId);
+	}
+
+	private void notifyPeople(String channel, String content) {
 		Jedis jedis = pool.getResource();
 		try {
-			jedis.publish("fo", relation.getToPeopleId() + " " + relation.getFromPeopleId());
+			jedis.publish(channel, content);
 		} catch (JedisConnectionException e) {
-			log.error("notifyPeopleFollowing", e);
+			log.error(channel, e);
 			if (jedis != null) {
 				jedis.disconnect();
 			}
 		} catch (Exception e) {
-			log.error("notifyPeopleFollowing", e);
+			log.error(channel, e);
 		} finally {
 			pool.returnResource(jedis);
 		}
 	}
-
 }

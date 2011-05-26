@@ -185,4 +185,17 @@ public class DefaultCacheService implements CacheService {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see q.biz.CacheService#clearAll(long)
+	 */
+	@Override
+	public void clearAll(long peopleId) {
+		this.clearAtNotify(peopleId);
+		this.clearFoNotify(peopleId);
+		this.clearMessageNotify(peopleId);
+		this.clearWeiboReplyNotify(peopleId);
+	}
+
 }

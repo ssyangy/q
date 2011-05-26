@@ -152,6 +152,9 @@ public class AddMessage extends Resource {
 		if (CollectionKit.isEmpty(receivers) || receivers.size() != idSet.size()) {
 			throw new RequestParameterInvalidException("receiver:invalid");
 		}
+		if (receivers.size() > 10) {
+			throw new RequestParameterInvalidException("receiver:最多允许10人会话");
+		}
 
 	}
 

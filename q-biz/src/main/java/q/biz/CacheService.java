@@ -27,6 +27,8 @@ public interface CacheService {
 	 * @param key
 	 */
 	void removePasswordResetToken(String key);
+	
+	//=======  clear cache ======
 
 	/**
 	 * 
@@ -47,5 +49,10 @@ public interface CacheService {
 	 * 
 	 */
 	void clearAtNotify(long peopleId);
+	
+	/**
+	 * @param peopleId
+	 */
+	void clearAll(long peopleId);
 
 }
