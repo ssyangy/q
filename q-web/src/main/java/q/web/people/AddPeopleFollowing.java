@@ -3,6 +3,7 @@
  */
 package q.web.people;
 
+import q.biz.NotifyService;
 import q.dao.PeopleDao;
 import q.domain.PeopleRelation;
 import q.domain.PeopleRelationStatus;
@@ -23,6 +24,16 @@ public class AddPeopleFollowing extends Resource {
 		this.peopleDao = peopleDao;
 	}
 
+	/**
+	 * @param notifyService
+	 *            the notifyService to set
+	 */
+	public void setNotifyService(NotifyService notifyService) {
+		this.notifyService = notifyService;
+	}
+
+	private NotifyService notifyService;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -33,18 +44,23 @@ public class AddPeopleFollowing extends Resource {
 		long fromPeopleId = context.getCookiePeopleId();
 		long toPeopleId = context.getResourceIdLong();
 
-		PeopleRelation oldRelation = this.peopleDao.getPeopleRelationByFromIdToId(fromPeopleId, toPeopleId);
-		if (oldRelation == null) {
-			PeopleRelation newRelation = new PeopleRelation(fromPeopleId, toPeopleId, PeopleRelationStatus.FOLLOWING);
-			this.peopleDao.addPeopleRelation(newRelation);
-			this.peopleDao.incrPeopleFollowingNumberByPeopleId(fromPeopleId);
-			this.peopleDao.incrPeopleFollowerNumberByPeopleId(toPeopleId);
-		} else if (oldRelation.isStranger()) {
-			int rowEffected = this.peopleDao.updatePeopleRelationStatusById(PeopleRelationStatus.FOLLOWING, PeopleRelationStatus.STRANGER, oldRelation.getId());
-			if (rowEffected > 0) {
+		PeopleRelation relation = this.peopleDao.getPeopleRelationByFromIdToId(fromPeopleId, toPeopleId);
+		if (relation == null || relation.isStranger()) {
+			if (relation == null) {
+				PeopleRelation newRelation = new PeopleRelation(fromPeopleId, toPeopleId, PeopleRelationStatus.FOLLOWING);
+				this.peopleDao.addPeopleRelation(newRelation);
 				this.peopleDao.incrPeopleFollowingNumberByPeopleId(fromPeopleId);
 				this.peopleDao.incrPeopleFollowerNumberByPeopleId(toPeopleId);
+				relation = newRelation;
+			} else if (relation.isStranger()) {
+				int rowEffected = this.peopleDao.updatePeopleRelationStatusById(PeopleRelationStatus.FOLLOWING, PeopleRelationStatus.STRANGER, relation.getId());
+				if (rowEffected > 0) {
+					this.peopleDao.incrPeopleFollowingNumberByPeopleId(fromPeopleId);
+					this.peopleDao.incrPeopleFollowerNumberByPeopleId(toPeopleId);
+				}
 			}
+			// notify new message
+			notifyService.notifyPeopleFollowing(relation);
 		}
 
 	}

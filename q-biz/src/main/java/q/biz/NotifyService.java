@@ -6,6 +6,7 @@ package q.biz;
 import java.util.Collection;
 
 import q.domain.MessageReply;
+import q.domain.PeopleRelation;
 import q.domain.Weibo;
 import q.domain.WeiboReply;
 
@@ -36,5 +37,10 @@ public interface NotifyService {
 	 * @param weibo
 	 */
 	void notifyGroupWeibo(long groupId, Weibo weibo);
+
+	/**
+	 * @param relation
+	 */
+	void notifyPeopleFollowing(PeopleRelation relation);
 
 }

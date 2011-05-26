@@ -133,15 +133,12 @@ public class IdCreator {
 	 * @return
 	 */
 	private static long getLongId(long timestamp) {
+		counterStartTimestamp = timestamp; // reset start timestamp
 		counterLock.lock();
 		try {
-			if (counter >= counterLimit) { // if counter overflow, wait next
-											// millisecond
-				while (timestamp <= counterStartTimestamp) {
-					timestamp = newTimestamp();
-				}
+			// if counter overflow, reset
+			if (counter >= counterLimit) {
 				counter = 0; // reset counter
-				counterStartTimestamp = timestamp; // reset start timestamp
 			}
 			long id = (((counterStartTimestamp - baseTimestamp) * counterLimit + counter++) * 1000 + nodeFlag) * 10 + version;
 			return id;

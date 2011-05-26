@@ -25,6 +25,7 @@
 			var n_at = $("p.n_at");
 	        Getpush = function (){
         		$.ajax({
+        			global: false,
         	    	url: '${pushUrlPrefix}?ids=${loginCookie.peopleId}&cmd=mine&aliveTime=1000',
         	    	dataType: 'jsonp',
        	    	    success:function(data,text,xhqr){
@@ -65,8 +66,13 @@
 				    }
         	   });
         	}
+        	
+      		initget = function(){
+		    	Getpush();
+		    	var pushtime = setInterval("Getpush()",15000);
+		    }
 	        <c:if test="${loginCookie!=null}">
-        	//var pushtime = setInterval("Getpush()",10000); 
+	        var sss = setTimeout("initget()",2000);
         	</c:if>
 		});
 	});

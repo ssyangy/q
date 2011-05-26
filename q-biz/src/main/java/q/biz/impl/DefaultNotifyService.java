@@ -10,6 +10,7 @@ import org.apache.commons.pool.impl.GenericObjectPool.Config;
 
 import q.biz.NotifyService;
 import q.domain.MessageReply;
+import q.domain.PeopleRelation;
 import q.domain.Weibo;
 import q.domain.WeiboReply;
 import q.log.Logger;
@@ -123,6 +124,28 @@ public class DefaultNotifyService implements NotifyService {
 			}
 		} catch (Exception e) {
 			log.error("notifyMessageReply", e);
+		} finally {
+			pool.returnResource(jedis);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see q.biz.NotifyService#notifyPeopleFollowing(q.domain.PeopleRelation)
+	 */
+	@Override
+	public void notifyPeopleFollowing(PeopleRelation relation) {
+		Jedis jedis = pool.getResource();
+		try {
+			jedis.publish("fo", relation.getToPeopleId() + " " + relation.getFromPeopleId());
+		} catch (JedisConnectionException e) {
+			log.error("notifyPeopleFollowing", e);
+			if (jedis != null) {
+				jedis.disconnect();
+			}
+		} catch (Exception e) {
+			log.error("notifyPeopleFollowing", e);
 		} finally {
 			pool.returnResource(jedis);
 		}

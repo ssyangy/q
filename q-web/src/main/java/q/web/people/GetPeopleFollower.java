@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import q.biz.CacheService;
 import q.dao.DaoHelper;
 import q.dao.EventDao;
 import q.dao.GroupDao;
@@ -29,7 +30,7 @@ import q.web.exception.RequestParameterInvalidException;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 23, 2011
- *
+ * 
  */
 public class GetPeopleFollower extends Resource {
 	private PeopleDao peopleDao;
@@ -50,14 +51,22 @@ public class GetPeopleFollower extends Resource {
 		this.groupDao = groupDao;
 	}
 
+	private CacheService cacheService;
+
+	public void setCacheService(CacheService cacheService) {
+		this.cacheService = cacheService;
+	}
+
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long toPeopleId = context.getResourceIdLong();
+		this.cacheService.clearFoNotify(toPeopleId);
+
 		long loginPeopleId = context.getCookiePeopleId();
 		if (!context.isApiRequest()) {
 			GetPeopleFrame frame = new GetPeopleFrame();
@@ -136,13 +145,13 @@ public class GetPeopleFollower extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		long toPeopleId = context.getResourceIdLong();
-		if(IdCreator.isNotValidId(toPeopleId) ){
+		if (IdCreator.isNotValidId(toPeopleId)) {
 			throw new RequestParameterInvalidException("toPeopleId:invalid");
 		}
 	}

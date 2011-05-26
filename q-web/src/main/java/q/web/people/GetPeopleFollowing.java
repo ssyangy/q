@@ -49,7 +49,7 @@ public class GetPeopleFollowing extends Resource {
 	public void setGroupDao(GroupDao groupDao) {
 		this.groupDao = groupDao;
 	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 *

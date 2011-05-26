@@ -371,9 +371,11 @@
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="eventDao" ref="eventDao" />
 		<property name="groupDao" ref="groupDao" />
+		<property name="cacheService" ref="cacheService" />
 	</bean>
 	<bean id="addPeopleFollowing" class="q.web.people.AddPeopleFollowing">
 		<property name="peopleDao" ref="peopleDao" />
+		<property name="notifyService" ref="notifyService" />
 	</bean>
 	<bean id="deletePeopleFollowing" class="q.web.people.DeletePeopleFollowing">
 		<property name="peopleDao" ref="peopleDao" />
@@ -643,6 +645,7 @@
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="groupDao" ref="groupDao" />
+		<property name="cacheService" ref="cacheService" />
 	</bean>
 	<bean id="getReplySended" class="q.web.weibo.GetReplySended">
 		<property name="favoriteDao" ref="favoriteDao" />
@@ -655,7 +658,8 @@
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="groupDao" ref="groupDao" />
 		<property name="favoriteDao" ref="favoriteDao" />
-		<property name="searchService" ref="searchService"></property>
+		<property name="searchService" ref="searchService" />
+		<property name="cacheService" ref="cacheService" />
 	</bean>
 
 	<!-- favorite web -->
@@ -685,6 +689,7 @@
 	<bean id="getMessageIndex" class="q.web.message.GetMessageIndex">
 		<property name="messageDao" ref="messageDao" />
 		<property name="peopleDao" ref="peopleDao" />
+		<property name="cacheService" ref="cacheService" />
 	</bean>
 	<bean id="getMessageNew" class="q.web.message.GetMessageNew">
 		<property name="peopleDao" ref="peopleDao" />
