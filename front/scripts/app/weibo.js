@@ -68,7 +68,7 @@
         tagName: "li",
         className: "streambox",
         events: {
-            "click .cloarrow": "remove",
+            "click .del": "remove",
             "click .resub": "resub",
             "click .fav": "fav",
             "click .unfav": "unfav",
