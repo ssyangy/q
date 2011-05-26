@@ -61,7 +61,7 @@ seajs.use('jqplus/jq_tokeninput',function(toke){
     </div></div>
     <div class="col-sub">
         <div style="padding:10px;border:1px solid #ddd;background-color:#fefefe;">
-        <h4>点击选择私信的对象，可多人：</h4>
+        <h3>点击选择私信的对象，可多人</h3>
         <div id="members">
 		<c:forEach items="${followings}" var="people" varStatus="status">
        		<input type="checkbox" id="check${status.index}" value="${people.id}" name="${people.realName}" /><label for="check${status.index}">${people.realName}</label>
