@@ -10,28 +10,63 @@
 <script src="${staticUrlPrefix}/scripts/sea.js"></script>
 <script type="text/javascript">
 	var mods = [];
+	var Getpush = {};
 	seajs.use("qcomcn",function(q){
 		q.jq(function(){
 			for(var i in mods) mods[i](q);
 			q.loader();
 			
 			var $ = q.jq;
-	        var hasNewInformation = function (){
+			
+			var note = $("#note");
+			var n_msg = $("p.n_msg");
+			var n_weiborep = $("p.n_weiborep");
+			var n_fo = $("p.n_fo");
+			var n_at = $("p.n_at");
+	        Getpush = function (){
         		$.ajax({
-        			//crossDomain:true,
-        			global: false,
         	    	url: '${pushUrlPrefix}?ids=${loginCookie.peopleId}&cmd=mine&aliveTime=1000',
-        	    	type: 'GET',
         	    	dataType: 'jsonp',
        	    	    success:function(data,text,xhqr){
 				        $.each(data, function(i, item) {
-				            console.log(item);
+				            switch (item.type) {
+			                case "message":
+			                	if(item.content > 0) {
+			                		n_msg.show();
+			                		note.show();
+			                	}
+			                    $("span.num", n_msg).text(item.content);
+			                    break;
+			                case "weiboReply":
+			                	if(item.content > 0) {
+			                		n_weiborep.show();
+			                		note.show();
+			                	}
+			                    $("span.num", n_weiborep).text(item.content);
+			                    break;
+			                case "fo":
+			                	if(item.content > 0) {
+			                		n_fo.show();
+			                		note.show();
+			                	}
+			                    $("span.num", n_fo).text(item.content);
+			                    break;
+			                case "at":
+			                	if(item.content > 0) {
+			                		n_at.show();
+			                		note.show();
+			                	}
+			                    $("span.num", n_at).text(item.content);
+			                    break;			                    
+			                default:
+			                	break;
+			            	}
 				        });
-				    }				    
+				    }
         	   });
         	}
-		    <c:if test="${loginCookie!=null}">
-        	//hasNewInformation();
+	        <c:if test="${loginCookie!=null}">
+        	//var pushtime = setInterval("Getpush()",10000); 
         	</c:if>
 		});
 	});
@@ -60,6 +95,8 @@
 </script>
 </head>
 <body>
+
+
 <c:set var="servletPath" value="${pageContext.request.servletPath}" />
 <div id="toper">
 <div class="wapper">
@@ -158,21 +195,20 @@
 	</ul>
 </div>
 
-				<div id="note" style="display: block">
-					<p>
-						1条新的私信<a class="lk" href="${urlPrefix}/message">查看私信</a>
-					</p>
-					<p>
-						1条新的回复<a class="lk" href="${urlPrefix}/reply/received">查看回复</a>
-					</p>
-					<p>
-						3位新粉丝<a class="lk"
-							href="${urlPrefix}/people/${people.id}/follower">查看我的粉丝</a>
-					</p>
-					<p>
-						6条发言提到我<a class="lk" href="${urlPrefix}/at">查看@我</a>
-					</p>
-				</div>
+<div id="note">
+	<p class="n_msg hide">
+		<span class='num'>0</span>条新的私信<a class="lk ml10" href="${urlPrefix}/message">查看私信</a>
+	</p>
+	<p class="n_weiborep hide">
+		<span class='num'>0</span>条新的回复<a class="lk ml10" href="${urlPrefix}/reply/received">查看回复</a>
+	</p>
+ 	<p class="n_fo hide">
+		<span class='num'>0</span>位新粉丝<a class="lk ml10" href="${urlPrefix}/people/${people.id}/follower">查看我的粉丝</a>
+	</p>
+	<p class="n_at hide">
+		<span class='num'>0</span>条发言提到我<a class="lk ml10" href="${urlPrefix}/at">查看@我</a>
+	</p>
+</div>
 
 			</div>
 		</div>

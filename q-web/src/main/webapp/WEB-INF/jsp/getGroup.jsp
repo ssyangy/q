@@ -5,19 +5,22 @@
 	<jsp:param name="title" value="圈子:${group.name}" />
 </jsp:include>
 <script type="text/javascript">
+var getweibo = {};
 mods.push(function(q){
 	var $ = q.jq;
-	$.ajax({
-		global: false,
-    	url: '${pushUrlPrefix}?ids=${group.id}&cmd=group&aliveTime=10000',
-    	type: 'GET',
-    	dataType: 'jsonp',
-    	    success:function(data,text,xhqr){
-	        $.each(data, function(i, item) {
-	            console.log(item);
-	        });
-	    }				    
-   });
+	getweibo = function(){
+		$.ajax({ url: '${pushUrlPrefix}?ids=${group.id}&cmd=group&aliveTime=10000',
+	    	dataType: 'jsonp',
+	   	    success:function(data,text,xhqr){
+		        $.each(data, function(i, item) {
+		            if(item.id){
+		            	$("a.newweibo").show();
+		            }
+		        });
+		    }
+   		});
+	}
+	var pushtime = setInterval("getweibo()",3000); 
 });
 </script>
 <div class="layout grid-s4m0e6">
