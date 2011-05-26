@@ -20,8 +20,8 @@ mods.push(function (q) {
     			    o:$(this),
     			   	success: function(m){
 						if(m&&m.id == null) return;
-						var sp = this.o.parent("span.xiaogous");
-						sp.replaceWith("<a class='lk joing' href='#' >加入</a>");
+						var sp = this.o.parent("span.xiaogou");
+						sp.replaceWith("<a class='btnb joing' href='#' >加入</a>");
     			   	}
     		});
     	});
@@ -36,7 +36,7 @@ mods.push(function (q) {
 <c:when test="${loginCookie.peopleId != group.creator.id}">	
 <c:choose>
 	<c:when test="${join == null}">
-		<a class="lk joing" href="#" >加入</a>
+		<a class="btnb joing" href="#" >加入</a>
 	</c:when>
 	<c:otherwise>
 		<span class="xiaogou in_bk">已加入 | <a href="#" class='lk unjoing'>退出</a></span>

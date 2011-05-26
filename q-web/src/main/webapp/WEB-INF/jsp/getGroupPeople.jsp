@@ -13,7 +13,7 @@
 	            <li class="ui-state-default crt2 ui-state-active"><a href="${urlPrefix}/group/${group.id}/people">成员</a></li>
 	        </ul>
 		</div>
-		<div class='tabscont'>
+		<div class='tabscont' style="border-top:none 0;">
 			<jsp:include page="models/people-list.jsp">
 			<jsp:param name="feedUrl" value="${urlPrefix}/group/${group.id}/people" />
 			<jsp:param name="orderId" value="joinGroup" />

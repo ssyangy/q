@@ -92,7 +92,7 @@ function check() {
 </script>
 <div class="mingrid">
 
-<h2 class="mb20">修改密码</h2>
+<h2>修改密码</h2>
 <div class="ui-tabs mt10">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
         <li class="ui-state-default crt2"><a href="${urlPrefix}/profile/avatar">头像</a></li>
