@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import q.biz.CacheService;
 import q.dao.DaoHelper;
 import q.dao.MessageDao;
 import q.dao.PeopleDao;
@@ -25,7 +26,7 @@ import q.web.ResourceContext;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 21, 2011
- *
+ * 
  */
 public class GetMessageIndex extends Resource {
 
@@ -41,14 +42,21 @@ public class GetMessageIndex extends Resource {
 		this.peopleDao = peopleDao;
 	}
 
+	private CacheService cacheService;
+
+	public void setCacheService(CacheService cacheService) {
+		this.cacheService = cacheService;
+	}
+
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
+		this.cacheService.clearMessageNotify(loginPeopleId);
 		int size = context.getInt("size", 10);
 		long startId = context.getIdLong("startId", IdCreator.MAX_ID);
 		int type = context.getInt("type", 0);
@@ -118,7 +126,7 @@ public class GetMessageIndex extends Resource {
 
 	/**
 	 * 返回message id和参与者的映射
-	 *
+	 * 
 	 * @param messageIds
 	 * @return
 	 * @throws SQLException
@@ -130,7 +138,8 @@ public class GetMessageIndex extends Resource {
 		Map<Long, List<Long>> messageIdReceiversMap = new HashMap<Long, List<Long>>();
 		MessageJoinPeoplePage receiversPage = new MessageJoinPeoplePage();
 		receiversPage.setMessageIds(messageIds);
-		for (MessageJoinPeople join : messageDao.getMessageJoinPeoplesByPage(receiversPage)) {
+		List<MessageJoinPeople> Joins = messageDao.getMessageJoinPeoplesByPage(receiversPage);
+		for (MessageJoinPeople join : Joins) {
 			List<Long> receivers = messageIdReceiversMap.get(join.getMessageId());
 			if (null == receivers) {
 				receivers = new ArrayList<Long>();
@@ -143,7 +152,7 @@ public class GetMessageIndex extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override

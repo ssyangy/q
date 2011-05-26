@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import q.biz.CacheService;
 import q.biz.SearchService;
 import q.dao.DaoHelper;
 import q.dao.FavoriteDao;
@@ -16,7 +17,6 @@ import q.dao.WeiboDao;
 import q.domain.Weibo;
 import q.util.CollectionKit;
 import q.util.IdCreator;
-import q.util.StringKit;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.exception.RequestParameterInvalidException;
@@ -59,6 +59,12 @@ public class getAtIndex extends Resource {
 		this.searchService = searchService;
 	}
 
+	private CacheService cacheService;
+
+	public void setCacheService(CacheService cacheService) {
+		this.cacheService = cacheService;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 *
@@ -67,6 +73,7 @@ public class getAtIndex extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
+		this.cacheService.clearAtNotify(loginPeopleId);
 		if (context.isApiRequest()) {
 			String username = context.getLoginCookie().getUsername();
 			int size = context.getInt("size", 10);

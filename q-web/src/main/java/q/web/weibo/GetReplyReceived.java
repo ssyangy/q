@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import q.biz.CacheService;
 import q.dao.DaoHelper;
 import q.dao.FavoriteDao;
 import q.dao.GroupDao;
@@ -52,6 +53,12 @@ public class GetReplyReceived extends Resource {
 		this.groupDao = groupDao;
 	}
 
+	private CacheService cacheService;
+
+	public void setCacheService(CacheService cacheService) {
+		this.cacheService = cacheService;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -60,6 +67,7 @@ public class GetReplyReceived extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
+		this.cacheService.clearWeiboReplyNotify(loginPeopleId);
 		int size = context.getInt("size", 10);
 		long startId = context.getIdLong("startId", IdCreator.MAX_ID);
 		int type = context.getInt("type", 0);
