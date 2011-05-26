@@ -46,7 +46,7 @@ input.input_yao{border:1px solid #dcdcdc;line-height:20px;height:21px;}
 .ui-tabs li.ui-state-default a{color:#1889b6;}
 .ui-tabs li.ui-state-active a{color:#333;}
 .tabscont{border:1px solid #ddd;position:relative;top:-1px;}
-.inputbx{padding:5px;background-color:#f6f6f6;}
+.inputbx{padding:5px;}
 #inputmain{width:99%;height:20px;}
 .inputbtm{padding:1px;position:relative;}
 #btnSubTweet{position:absolute;top:2px;top:4px\9;right:0;}
@@ -78,16 +78,16 @@ a.newweibo{display:block;background-color:#E2F4F8;height:26px;line-height:26px;c
            -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px;}
 
 .component{margin:20px 0;}
-ul.slist{padding:0 12px;text-align:center;}
-ul.slist li{display:inline-block;width:48px;margin:0 22px 10px 0;vertical-align:top;zoom:1;*display:inline;}
+ul.slist{padding:0 12px;}
+ul.slist li{display:inline-block;width:48px;margin:0 22px 10px 0;vertical-align:top;zoom:1;*display:inline;text-align:center;}
 ul.slist li.end{margin-right:0;}
 ul.complist li {display:inline;margin:0 3px;height:22px;line-height:22px;}
 ul.complist li.separator {font-weight: bold;margin: 0;color: #C5C5C5;padding-left:4px;}
 
 ul.msglist span.time{position:absolute;left:100px;top:0;color:#B2B7B5}
-ul.msglist span.act{position:absolute;right:0;top:10px;}
-ul.msglist li{cursor:pointer;border-bottom:1px solid #ddd;padding:10px 40px 10px 68px;position:relative;zoom:1;}
-ul.msglist li.end{border-bottom:none 0;}
+ul.msglist span.act{position:absolute;right:5px;top:10px;}
+ul.msglist li{cursor:pointer;border-top:1px solid #ddd;padding:10px 40px 10px 68px;position:relative;zoom:1;}
+ul.msglist li.end{border-bottom:1px solid #ddd;}
 ul.msglist img.sldimg{position:absolute;top:10px;left:10px;}
 ul.msglist p{line-height:24px;color:#333;}
 ul.msglist a.lk,ul.msglist a.btn,ul.msglist a.btna{margin-right:5px;}
