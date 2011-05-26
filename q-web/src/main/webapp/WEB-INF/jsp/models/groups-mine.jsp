@@ -5,12 +5,12 @@
 <link href='${staticUrlPrefix}/content/navleft.css' rel='stylesheet' type='text/css' />
 <div class="navleft">
 
-<c:if test="${people != null}">
+<c:if test="${loginCookie != null}">
 <div class="avator">
-    <a href="${urlPrefix}/people/${people.id}">
-    <img src="${people.avatarPath}-120" class="max-w120" alt="portraitt" /></a>
-    <p><a href="${urlPrefix}/people/${people.id}" class="lk">${people.realName}</a></p>
-    <p><a href="${urlPrefix}/people/${people.id}" class="lk">@${people.username}</a></p>
+    <a href="${urlPrefix}/people/${loginCookie.peopleId}">
+    <img src="${loginCookie.avatarPath}-128" class="max-w120" alt="portraitt" /></a>
+    <p><a href="${urlPrefix}/people/${loginCookie.peopleId}" class="lk">${loginCookie.realName}</a></p>
+    <p><a href="${urlPrefix}/people/${loginCookie.peopleId}" class="lk">@${loginCookie.username}</a></p>
 </div>
 </c:if>
 

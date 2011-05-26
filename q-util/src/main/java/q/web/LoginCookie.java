@@ -11,6 +11,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import q.util.IdCreator;
 import q.util.StringKit;
 
 /**
@@ -20,10 +21,27 @@ import q.util.StringKit;
  * 
  */
 public class LoginCookie {
+	/**
+	 * 
+	 */
+	private static final String LOGIN_COOKIE_KEY = "u";
+
+	/**
+	 * 
+	 */
+	private static final char LOGIN_COOKIE_SPLIT = ';';
+
+	private long peopleId;
 
 	private String realName;
-	private long peopleId;
+
 	private String username;
+
+	private String avatarPath;
+
+	public String getAvatarPath() {
+		return avatarPath;
+	}
 
 	public String getRealName() {
 		return realName;
@@ -44,8 +62,16 @@ public class LoginCookie {
 		return new LoginCookie();
 	}
 
+	public LoginCookie(long peopleId, String realName, String username, String avatarPath) {
+		this(peopleId, realName, username);
+		if (StringKit.isEmpty(avatarPath)) {
+			throw new IllegalStateException();
+		}
+		this.avatarPath = avatarPath;
+	}
+
 	public LoginCookie(long peopleId, String realName, String username) {
-		if (peopleId <= 0 || StringKit.isEmpty(realName) || StringKit.isEmpty(username)) {
+		if (IdCreator.isNotValidId(peopleId) || StringKit.isEmpty(realName) || StringKit.isEmpty(username)) {
 			throw new IllegalStateException();
 		}
 		this.peopleId = peopleId;
@@ -63,12 +89,14 @@ public class LoginCookie {
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; i++) {
 				Cookie cookie = cookies[i];
-				if ("u".equals(cookie.getName())) { // login user
+				if (LOGIN_COOKIE_KEY.equals(cookie.getName())) { // login user
 					if (StringKit.isNotEmpty(cookie.getValue())) {
 						String token = decodeLoginToken(cookie.getValue());
 						String[] segs = StringKit.split(token, ';');
-						if (segs.length == 3) {
+						if (segs.length == 3) { // no avatar, for old cookie , sean
 							loginCookie = new LoginCookie(Long.valueOf(segs[0]), segs[1], segs[2]);
+						} else if (segs.length == 4) {
+							loginCookie = new LoginCookie(Long.valueOf(segs[0]), segs[1], segs[2], segs[3]);
 						} else {
 							delete(response);
 						}
@@ -105,13 +133,15 @@ public class LoginCookie {
 	public void add(HttpServletResponse response) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(this.peopleId);
-		sb.append(';');
+		sb.append(LOGIN_COOKIE_SPLIT);
 		sb.append(this.realName);
-		sb.append(';');
+		sb.append(LOGIN_COOKIE_SPLIT);
 		sb.append(this.username);
+		sb.append(LOGIN_COOKIE_SPLIT);
+		sb.append(this.avatarPath);
 		String token = encodeLoginToken(sb.toString());
-		Cookie cookie = new Cookie("u", token);
-		cookie.setMaxAge(3600 * 24 * 7); // one week
+		Cookie cookie = new Cookie(LOGIN_COOKIE_KEY, token);
+		cookie.setMaxAge(3600 * 24 * 7); // cookie alive in one week
 		cookie.setPath("/");
 		response.addCookie(cookie);
 	}
@@ -120,7 +150,7 @@ public class LoginCookie {
 	 * @param response
 	 */
 	public static void delete(HttpServletResponse response) {
-		Cookie cookie = new Cookie("u", null);
+		Cookie cookie = new Cookie(LOGIN_COOKIE_KEY, null);
 		cookie.setMaxAge(0);// clear login token
 		cookie.setPath("/");
 		response.addCookie(cookie);
