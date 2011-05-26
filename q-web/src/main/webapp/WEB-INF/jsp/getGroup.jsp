@@ -8,19 +8,22 @@
 var getweibo = {};
 mods.push(function(q){
 	var $ = q.jq;
-	getweibo = function(){
-		$.ajax({ url: '${pushUrlPrefix}?ids=${group.id}&cmd=group&aliveTime=10000',
+	getweibos = function(){
+		$.ajax({ url: '${pushUrlPrefix}?ids=${group.id}&cmd=group&aliveTime=30000',
 	    	dataType: 'jsonp',
 	   	    success:function(data,text,xhqr){
 		        $.each(data, function(i, item) {
 		            if(item.id){
-		            	$("a.newweibo").show();
+		            	$("a.newweibo").removeClass("hide_im");
+		            	return;
 		            }
+		            getweibos();
 		        });
 		    }
    		});
 	}
-	var pushtime = setInterval("getweibo()",3000); 
+	getweibos();
+	//var pushtime = setInterval("getweibo()",3000); 
 });
 </script>
 <div class="layout grid-s4m0e6">
@@ -37,6 +40,7 @@ mods.push(function(q){
             </ul>
         </div>
 		<div class='tabscont'>
+		<a class="newweibo hide_im" href="${urlPrefix}/group/${group.id}">有新微薄，点击更新</a>
 		<jsp:include page="models/weibo-list.jsp">
 			<jsp:param name="feedUrl" value="${urlPrefix}/group/${group.id}/weibo" />
 		</jsp:include>
