@@ -90,6 +90,7 @@
         render: function () {
             $(this.el).html(ich.stream(this.model.toJSON()))
             .attr('stream-id', this.model.get('id'));
+            if (this.model.get("order_id")) $(this.el).attr('order_id', this.model.get('order_id'));
             return this;
         },
         change: function () {

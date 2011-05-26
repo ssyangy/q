@@ -189,6 +189,7 @@
     <Content Include="content\images\btn-w.gif" />
     <Content Include="content\images\btnb.png" />
     <Content Include="content\images\btnb2.png" />
+    <Content Include="content\images\btnNM.png" />
     <Content Include="content\images\btnr.png" />
     <Content Include="content\images\checkbox.png" />
     <Content Include="content\images\context_closed.gif" />
@@ -209,8 +210,17 @@
     <Content Include="content\images\fancy_closebox.png" />
     <Content Include="content\images\fancy_left.png" />
     <Content Include="content\images\gotop.gif" />
+    <Content Include="content\images\icons\icons-02.png" />
+    <Content Include="content\images\icons\icons-03.png" />
+    <Content Include="content\images\icons\icons-04.png" />
+    <Content Include="content\images\icons\icons-05.png" />
+    <Content Include="content\images\icons\icons-06.png" />
+    <Content Include="content\images\icons\icons-07.png" />
+    <Content Include="content\images\icons\icons-08.png" />
+    <Content Include="content\images\icons\icons-09.png" />
     <Content Include="content\images\index.png" />
     <Content Include="content\images\logo.png" />
+    <Content Include="content\images\logo2.png" />
     <Content Include="content\images\pass_d.png" />
     <Content Include="content\images\pass_h.png" />
     <Content Include="content\images\pass_hh.png" />
@@ -295,6 +305,7 @@
     <Content Include="content\step.css" />
     <Content Include="content\token-input.css" />
     <Content Include="content\menu.css" />
+    <Content Include="content\default.css" />
     <Content Include="demo\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="demo\images\ui-bg_flat_0_eeeeee_40x100.png" />
     <Content Include="demo\images\ui-bg_flat_55_ffffff_40x100.png" />
