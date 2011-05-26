@@ -26,7 +26,7 @@ ul.dlist li.end{border-right:none 0;}
 #note p{line-height:22px;}
 
 #searchTab{position:absolute;right:5px;top:0px;width:225px;height:35px;}
-#searchpage {top:30px;left:80px;}
+#searchpage {left:80px;position:relative;}
 .search .search_inp{width:150px;}
 #searchpage .search_inp{width:300px;}
 .search .search_btn {border:none;height:24px;width:24px;cursor: pointer;position:absolute;top:4px;right:2px;

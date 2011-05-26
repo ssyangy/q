@@ -143,7 +143,7 @@ vm1外部不能有line-height属性DOM
 /*#endregion MTtext */
 
 /*#region Htext */
-h2{color:#00649b;display:block;font-size:20px;position:relative;padding:0 0 6px;}
+h2{display:block;font-size:20px;position:relative;padding:0 0 6px;}
 h3{background-color:#e6e6e6;color:#666;height:26px;line-height:26px;display:block;position:relative;padding:0 10px;margin-bottom:10px;}
 h3 a.lk{position:absolute;right:6px;top:6px;line-height:14px;}
 h4{color:#00649b;font-size:16px;display:block;margin:0 0 10px 0;_zoom:1;border-left:5px solid #00649b;padding-left:10px;height:24px;line-height:24px;}
