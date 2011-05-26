@@ -144,7 +144,7 @@ seajs.use('jq_area',function(area){
 	
 	});
 	</script>
-
+<div class="mingrid">
 <h2>个人资料设定</h2>
 <div class="ui-tabs mt10">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
@@ -153,7 +153,7 @@ seajs.use('jq_area',function(area){
         <li class="ui-state-default crt2"><a href="${urlPrefix}/setting/basic">修改密码</a></li>
     </ul>
 </div>
-<div class='tabscont'>
+<div class='tabscont' style="padding:10px;">
 <table id="setting-form" class='qform'>
 		<tr>
 			<td align="right">昵称：</td>
@@ -249,5 +249,6 @@ seajs.use('jq_area',function(area){
                          </td>
                  </tr>
 </table>
+</div>
 </div>
 <jsp:include page="models/foot.jsp" />					

@@ -90,6 +90,8 @@ function check() {
 });
 }
 </script>
+<div class="mingrid">
+
 <h2 class="mb20">修改密码</h2>
 <div class="ui-tabs mt10">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
@@ -98,6 +100,7 @@ function check() {
         <li class="ui-state-default crt2 ui-state-active"><a href="${urlPrefix}/setting/basic">修改密码</a></li>
     </ul>
 </div>
+<div class='tabscont' style="padding:10px;">
 <table class='qform'>
 	<tr>
 			<th align="right">当前密码：</th>
@@ -141,6 +144,8 @@ function check() {
 		</td>
 	</tr>
 </table>
+</div>
+</div>
 <jsp:include page="models/foot.jsp" />
 
 

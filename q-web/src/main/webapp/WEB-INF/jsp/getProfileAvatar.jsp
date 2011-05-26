@@ -264,7 +264,7 @@ $("#hidden_frame").css("display","none");
 	}
 }
 	</script>
-
+<div class="mingrid">
 <h2>设置头像</h2>
 <div class="ui-tabs mt10">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
@@ -273,7 +273,7 @@ $("#hidden_frame").css("display","none");
         <li class="ui-state-default crt2"><a href="${urlPrefix}/setting/basic">修改密码</a></li>
     </ul>
 </div>
-<div class='tabscont'>
+<div class='tabscont clear' style="padding:10px;">
 
 <div class="imgbox"><div id="myImage"></div></div>
 <div class="imgmain">
@@ -303,6 +303,7 @@ $("#hidden_frame").css("display","none");
 </div>
 </div>
 
+</div>
 </div>
 
 

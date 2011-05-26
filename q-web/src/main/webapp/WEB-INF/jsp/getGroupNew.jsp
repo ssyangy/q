@@ -8,22 +8,12 @@
     mods.push(function (q) {
         var $ = q.jq;
 
-
-            var pheight = 331.6;
-            $('#cropbox').Jcrop({
-                onChange: showPreview,
-                onSelect: showPreview,
-                aspectRatio: 1
-            });
-
-            $(".localArea").each(function () {
-                $(this).jChinaArea({
-                    s1: '江苏省',
-                    s2: '常州市',
-                    s3: '钟楼区'
-                });
-            });
-
+        var pheight = 331.6;
+        $('#cropbox').Jcrop({
+            onChange: showPreview,
+            onSelect: showPreview,
+            aspectRatio: 1
+        });
     });
     function showPreview(coords) {
         if (parseInt(coords.w) > 0) {
@@ -43,13 +33,15 @@
         });
     }
 </script>
-<div class="layout grid-s7m0">
-    <div class="col-main"><div class="main-wrap pr10">
+<div class="layout grid-s4m0e6">
+    <div class="col-main"><div class="main-wrap">
         <h2>创建圈子</h2>
+        
+        <div style="background-color:#f6f6f6;">
 		<form action="<c:out value="${urlPrefix}/group" />" method="post">
 		<table class='qform'>
 		<tr>
-			<td align="right">圈子名称*：</td>
+			<td align="right">圈子名称<span class="fred">*</span>：</td>
 			<td><input name="name" type='text' class='mttext'>名称不能超过20个字母或10个汉字
 				<div class='label-box-error' style=''></div> 
 			</td>
@@ -68,7 +60,7 @@
             </td>
 		</tr> -->
 		<tr>
-			<td align="right">所在分类：</td>
+			<td align="right">所在分类<span class="fred">*</span>：</td>
 			<td>
 				<select name="categoryId" class='select'> 
 				<c:forEach items="${categorys}" var="current" varStatus="status">
@@ -87,16 +79,21 @@
 		<tr>
 			<td></td>
 			<td>
-				<button type='submit' class="ui_btn button">创建圈子</button>
+				<input type='submit' class="btnr" value="创建圈子" />
 			</td>
 		</tr>
 	</table>
 	</form>
+	</div>
+	
     </div></div>
     <div class="col-sub">
 		<jsp:include page="models/groups-mine.jsp">
 			<jsp:param name="id" value="" />
 		</jsp:include>
     </div>
+	<div class="col-extra">
+
+	</div>    
 </div>
 <jsp:include page="models/foot.jsp" />
