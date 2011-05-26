@@ -188,8 +188,8 @@ mods.push(function(q){
             </div>
         </div>
     </div></div>
-    <div class="col-sub">
-        <a href='${urlPrefix}/message/new' class="btnb" style="width:100px">新私信</a>
+    <div class="col-sub pt20">
+        <a href='${urlPrefix}/message/new' class="btnNM"></a>
     </div>
 </div>
 <jsp:include page="models/foot.jsp" />

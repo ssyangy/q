@@ -33,7 +33,7 @@ seajs.use(['app/weibo','underscore'], function (w, _) {
 });
 });
 </script>
-<a class="newweibo hide">有新微薄！！</a>
+
 <ul id='streams'></ul>
 <script type="text/html" id="stream">
 <div class='hd'>
