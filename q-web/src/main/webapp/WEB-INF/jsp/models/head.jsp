@@ -15,33 +15,24 @@
 		q.jq(function(){
 			for(var i in mods) mods[i](q);
 			q.init();
-
 			var $ = q.jq;
-
-
-
-	        hasNewInformation = function (){
-	            var loginId='${loginCookie.peopleId}';
+	        var hasNewInformation = function (){
         		$.ajax({
-        	    url: '${pushUrlPrefix}?peopleIds='+loginId+'&cmd=mine&aliveTime=500',
-        	    type: 'GET',
-        	    dataType: 'jsonp',
-        	    timeout: 5000,
-                jsonp: 'jsonpCallback',
-                success: function(result) {
-                       alert(result);
-                    alert(result.message);
-                  },
-               complete:function(XMLHttpRequest,textStatus){
-                            if(XMLHttpRequest.readyState=="4"){
-                                alert(XMLHttpRequest.responseText);
-                            }
-                            alert(textStatus);
-                    },
-        	});
+        			//crossDomain:true,
+        			global: false,
+        	    	url: '${pushUrlPrefix}?ids=${loginCookie.peopleId}&cmd=mine&aliveTime=1000',
+        	    	type: 'GET',
+        	    	dataType: 'jsonp',
+       	    	    success:function(data,text,xhqr){
+				        $.each(data, function(i, item) {
+				            console.log(item);
+				        });
+				    }				    
+        	   });
         	}
-
-        	//hasNewInformation();
+		    <c:if test="${loginCookie!=null}">
+        	hasNewInformation();
+        	</c:if>
 		});
 	});
 	window.loginCookie = '${loginCookie.peopleId}';
@@ -188,3 +179,4 @@
 		</div>
 		<div id="main">
 			<div class="wapper">
+
