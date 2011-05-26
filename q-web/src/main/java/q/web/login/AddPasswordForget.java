@@ -75,7 +75,7 @@ public class AddPasswordForget extends Resource {
 	 */
 	private String createPasswordResetUrl(String urlPrefix, long peopleId, long timestamp) {
 		String token = UUID.randomUUID().toString();
-		this.cacheService.putPasswordResetToken(token, peopleId, timestamp);System.out.println(urlPrefix + "/password/reset?token=" + token);
+		this.cacheService.putPasswordResetToken(token, peopleId, timestamp);
 		return urlPrefix + "/password/reset?token=" + token;
 	}
 
