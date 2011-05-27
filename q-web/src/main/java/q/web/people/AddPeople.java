@@ -58,7 +58,7 @@ public class AddPeople extends Resource {
 		people.setAvatarPath(this.pictureService.getDefaultMaleAvatarPath());
 		peopleDao.addPeople(people);
 		context.setModel("people", people);
-		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), people.getRealName(), people.getUsername())); // set login cookie
+		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), people.getRealName(), people.getUsername(), people.getAvatarPath())); // set login cookie
 		searchService.updatePeople(people);
 	}
 

@@ -7,11 +7,8 @@ import q.biz.CacheService;
 import q.biz.PasswordResetToken;
 import q.dao.PeopleDao;
 import q.domain.People;
-import q.web.DefaultResourceContext;
-import q.web.LoginCookie;
 import q.web.Resource;
 import q.web.ResourceContext;
-import q.web.exception.PeopleLoginPasswordException;
 import q.web.exception.RequestParameterInvalidException;
 
 /**
@@ -48,7 +45,7 @@ public class AddPasswordReset extends Resource {
 		People people = this.peopleDao.getPeopleById(token.getPeopleId());
 		this.peopleDao.updatePasswordByPeopleId(token.getPeopleId(), newPassword);
 		this.cacheService.removePasswordResetToken(key);// remove token after password reset
-		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), people.getRealName(), people.getUsername())); // set login cookie
+		//((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), people.getRealName(), people.getUsername())); // set login cookie
 
 	}
 

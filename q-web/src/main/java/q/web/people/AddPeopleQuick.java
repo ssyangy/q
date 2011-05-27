@@ -6,8 +6,6 @@ import q.dao.AuthcodeDao;
 import q.dao.PeopleDao;
 import q.domain.Gender;
 import q.domain.People;
-import q.web.DefaultResourceContext;
-import q.web.LoginCookie;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.exception.PeopleAlreadyExistException;
@@ -57,7 +55,7 @@ public class AddPeopleQuick extends Resource {
 		people.setAvatarPath(this.pictureService.getDefaultMaleAvatarPath());
 		peopleDao.addPeople(people);
 		context.setModel("people", people);
-		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), people.getRealName(), people.getUsername())); // set login cookie
+		//((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), people.getRealName(), people.getUsername())); // set login cookie
 		searchService.updatePeople(people);
 	}
 
