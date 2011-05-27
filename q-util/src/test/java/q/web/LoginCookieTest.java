@@ -47,19 +47,6 @@ public class LoginCookieTest {
 	}
 
 	/**
-	 * Test method for {@link q.web.LoginCookie#LoginCookie(long, java.lang.String, java.lang.String, java.lang.String)}.
-	 */
-	@Test
-	public void testLoginCookieLongStringStringString() {
-		LoginCookie loginCookie = new LoginCookie(1L, "alin", "sean");
-		Assert.assertEquals(loginCookie.getPeopleId(), 1L);
-		Assert.assertEquals(loginCookie.getRealName(), "alin");
-		Assert.assertEquals(loginCookie.getUsername(), "sean");
-		Assert.assertEquals(loginCookie.getAvatarPath(), null);
-
-	}
-
-	/**
 	 * Test method for {@link q.web.LoginCookie#LoginCookie(long, java.lang.String, java.lang.String)}.
 	 */
 	@Test

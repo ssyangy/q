@@ -12,6 +12,8 @@ import q.domain.Degree;
 import q.domain.Gender;
 import q.domain.People;
 import q.util.CollectionKit;
+import q.web.DefaultResourceContext;
+import q.web.LoginCookie;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.area.AreaValidator;
@@ -85,6 +87,8 @@ public class AddPeopleFull extends Resource {
 				action.addPeopleJoinGroup(peopleId, groupId);
 			}
 		}
+		People newPeople = this.peopleDao.getPeopleById(peopleId);
+		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(newPeople.getId(), newPeople.getRealName(), newPeople.getUsername(), newPeople.getAvatarPath())); // set login cookie
 	}
 
 	@Override
@@ -96,7 +100,7 @@ public class AddPeopleFull extends Resource {
 		if (this.peopleDao.getPeopleById(peopleId) == null) {
 			throw new PeopleNotExistException("people:用户不存在");
 		}
-		
+
 		int gender = context.getInt("gender", -1);
 		PeopleValidator.validateGender(gender);
 

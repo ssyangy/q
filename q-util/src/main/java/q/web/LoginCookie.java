@@ -64,13 +64,10 @@ public class LoginCookie {
 
 	public LoginCookie(long peopleId, String realName, String username, String avatarPath) {
 		this(peopleId, realName, username);
-		if (StringKit.isEmpty(avatarPath)) {
-			throw new IllegalStateException();
-		}
 		this.avatarPath = avatarPath;
 	}
 
-	public LoginCookie(long peopleId, String realName, String username) {
+	private LoginCookie(long peopleId, String realName, String username) {
 		if (IdCreator.isNotValidId(peopleId) || StringKit.isEmpty(realName) || StringKit.isEmpty(username)) {
 			throw new IllegalStateException();
 		}
