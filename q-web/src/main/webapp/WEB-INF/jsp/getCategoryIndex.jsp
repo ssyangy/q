@@ -96,7 +96,7 @@ mods.push(function (q) {
 				<c:forEach items="${cats}" var="cat" varStatus="status">
 				<li gpcid='${cat.id}' class='hov'>
 					<img src="${staticUrlPrefix}/content/images/icons/icons-0${status.index + 2}.png" alt="gpcate" class="sldimg" >
-					<ps><span class='name f14 fblue'>${cat.name}</span> - ${cat.intro}</p>
+					<p><span class='name f14 fblue'>${cat.name}</span></p>
 					<p>
 						<c:forEach items="${cat.groups}" var="group" varStatus="status">
 							<a class="lk" href="${urlPrefix}/group/${group.id}">${group.name}</a>
