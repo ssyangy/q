@@ -69,31 +69,31 @@ function errorContext(error){
 	<div class="titles"></div>
 	<table class="signin-area">
 			<tr>
-				<th align="right">邮箱：</th>
+				<td align="right">邮箱：</td>
 				<td><input id="email" name="email" type='text' class='mttext' accesskey='l'></td>
 			</tr>
 			<tr>
-				<th align="right">密码：</th>
-				<td><input id="password" name="password" type='password' class='mttext' accesskey='l'>
-				<a href="${urlPrefix}/password/forget" class="lk ml10">忘记密码</a></td>
+				<td align="right">密码：</td>
+				<td><input id="password" name="password" type='password' class='mttext' accesskey='l'></td>
+				<td><a href="${urlPrefix}/password/forget" class="lk ml10">忘记密码</a></td>
 			</tr>
 			<tr>
-				<th></th>
+				<td></td>
 				<td><input type="checkbox" checked="checked" /> 保持登录状态 
-				<a href="#" class="btnr ml10 access_l" onclick="check()">登 录</a>
-				<a href="signup.html" class="lk ml10" href="${urlPrefix}/people/new">立即注册</a></td>
+				<a href="#" class="btnr access_l" onclick="check()">登 录</a></td>
+				<td><a href="signup.html" class="lk ml10" href="${urlPrefix}/people/new">立即注册</a></td>
 			</tr>		
 	</table>
 </div>
 
 <div class="mt20 clear">
-	<div class="FL" style="width:500px">
+	<div class="FL" style="width:480px">
 	
 <h4>圈子分类</h4>
 <ul class="sldlist" id="sldroot">
 <li>
 	<img src="${staticUrlPrefix}/content/images/icons/icons-02.png" alt="ico" class="sldimg" />
-	<p>吃喝玩乐</p>
+	<p class='f14'>吃喝玩乐</p>
 	<p>
 	<a class="lk">吃好喝好</a>
 	<a class="lk">旅行</a>
@@ -106,7 +106,7 @@ function errorContext(error){
 </li>
 <li>
 	<img src="${staticUrlPrefix}/content/images/icons/icons-03.png" alt="ico" class="sldimg" />
-	<p>八小时以外，吃喝玩乐，浮于世</p>
+	<p class='f14'>八小时以外，吃喝玩乐，浮于世</p>
 	<p>
 	<a class="lk">吃好喝好</a>
 	<a class="lk">旅行</a>
@@ -119,7 +119,7 @@ function errorContext(error){
 </li>
 <li>
 	<img src="${staticUrlPrefix}/content/images/icons/icons-04.png" alt="ico" class="sldimg" />
-	<p>八小时以外，吃喝玩乐，浮于世</p>
+	<p class='f14'>八小时以外，吃喝玩乐，浮于世</p>
 	<p>
 	<a class="lk">吃好喝好</a>
 	<a class="lk">旅行</a>
@@ -139,7 +139,7 @@ function errorContext(error){
 </li>
 <li>
 	<img src="${staticUrlPrefix}/content/images/icons/icons-05.png" alt="ico" class="sldimg" />
-	<p>八小时以外，吃喝玩乐，浮于世</p>
+	<p class='f14'>八小时以外，吃喝玩乐，浮于世</p>
 	<p>
 	<a class="lk">吃好喝好</a>
 	<a class="lk">旅行</a>
@@ -152,7 +152,7 @@ function errorContext(error){
 </li>
 <li>
 	<img src="${staticUrlPrefix}/content/images/icons/icons-06.png" alt="ico" class="sldimg" />
-	<p>八小时以外，吃喝玩乐，浮于世</p>
+	<p class='f14'>八小时以外，吃喝玩乐，浮于世</p>
 	<p>
 	<a class="lk">吃好喝好</a>
 	<a class="lk">旅行</a>
@@ -165,7 +165,7 @@ function errorContext(error){
 </li>
 <li>
 	<img src="${staticUrlPrefix}/content/images/icons/icons-07.png" alt="ico" class="sldimg" />
-	<p>八小时以外，吃喝玩乐，浮于世</p>
+	<p class='f14'>八小时以外，吃喝玩乐，浮于世</p>
 	<p>
 	<a class="lk">吃好喝好</a>
 	<a class="lk">旅行</a>
@@ -178,7 +178,7 @@ function errorContext(error){
 </li>
 <li class="end">
 	<img src="${staticUrlPrefix}/content/images/icons/icons-08.png" alt="ico" class="sldimg" />
-	<p>八小时以外，吃喝玩乐，浮于世</p>
+	<p class='f14'>八小时以外，吃喝玩乐，浮于世</p>
 	<p>
 	<a class="lk">吃好喝好</a>
 	<a class="lk">旅行</a>
@@ -192,7 +192,7 @@ function errorContext(error){
 </ul>
 </div>
 
-	<div class="FL pl20" style="width:300px;">
+	<div class="FL" style="width:290px;padding-left:40px;">
 	
 <h4>热议ING</h4>
 <ul class="msglist">
@@ -214,9 +214,8 @@ function errorContext(error){
 
 			<div class="footer">
 				<ul>
-					<li><a href="#" class="lk">关于我们</a></li>
-					<li>版权所有2011-END</li>
-					<li>沪TMD备2143545</li>
+					<li>Copyright ©2011 Q.com.cn</li>
+					<li>版权所有 渝ICP备05015113号-1</li>
 				</ul>
 			</div>
 </div>

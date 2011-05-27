@@ -8,12 +8,14 @@
 #slidbox{width:580px;}
 .main-wrap{padding-right:20px;}
 .msgbox{border:1px solid #ddd;}
-.msgmem{background-color:#FEF2E7;position:relative;padding:10px;}
+.msgmem{background-color:#f6f6f6;position:relative;padding:10px;}
 .msgmem p{line-height:24px;}
 .memdel{position:absolute;top:10px;right:10px;_right:30px;}
 .msgrepbox{padding:10px;}
 .msgrepbox .mttextar{width:99%;height:40px;}
-.repactbox{text-align:right;}
+.repactbox{text-align:right;margin-top:10px;}
+#sld2{border:1px solid #ddd;width:578px;}
+.sldlist img.sldimg{left:10px!important;}
 </style>
 <script type="text/javascript">
 mods.push(function(q){
@@ -41,13 +43,13 @@ mods.push(function(q){
         });
         $('a.next', sldroot).live('click', function () {
             $.ajax({ url: "${urlPrefix}/message",
-                data: { size: 7, startId: $('ul.sldlist>li', sldroot).last().attr('stream_id') },
+                data: { size: 7, startId: $('ul.sldlist>li', sldroot).last().attr('order_id') },
                 success: intmsglist
             });
         });
         $('a.prev', sldroot).live('click', function () {
             $.ajax({ url: "${urlPrefix}/message",
-                data: { size: 7, startId: $('ul.sldlist>li', sldroot).first().attr('stream_id'), type: 1 },
+                data: { size: 7, startId: $('ul.sldlist>li', sldroot).first().attr('order_id'), type: 1 },
                 success: intmsglist
             });
         });
@@ -139,7 +141,7 @@ mods.push(function(q){
         <div id="slidbox">
             <div id="slider">
             	<script type="text/html" id="msglist">
-	                    <li class='msgli hov' stream_id='{{id}}'>
+	                    <li class='msgli hov' stream_id='{{id}}' order_id='{{#lastReply}}{{id}}{{/lastReply}}'>
 							{{#sender}}
 	                        <img src="{{avatarPath}}-48" alt="sender" class="sldimg" />
 	                        <p class='rel pr100'>{{screenName}}
@@ -148,7 +150,7 @@ mods.push(function(q){
 							{{#receivers}}
 							<a class="lk" href='${urlPrefix}/people/{{id}}'>{{screenName}}</a>
 							{{/receivers}} ({{replyNum}})
-	                        <span class="time">{{screenTime}}</span></p>
+	                        <span class="time">{{#lastReply}}{{screenTime}}{{/lastReply}}</span></p>
 	                        {{#lastReply}}<p>{{text}}</p>{{/lastReply}}
 	                    </li>
 				</script>
@@ -190,7 +192,7 @@ mods.push(function(q){
             </div>
         </div>
     </div></div>
-    <div class="col-sub">
+    <div class="col-sub" style="padding-top:42px;">
         <a href='${urlPrefix}/message/new' class="btnNM"></a>
     </div>
 </div>

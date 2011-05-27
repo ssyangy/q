@@ -42,7 +42,7 @@ seajs.use(['app/weibo','underscore'], function (w, _) {
     <img class='img48' src='{{avatarPath}}-48' alt='{{ screenName }}'>
     </a>
 </div>
-<div class='bd fixurl'>
+<div class='bd'>
 	<div class='text'><a class='lk' href='${urlPrefix}/people/{{id}}' title='{{ screenName }}'>{{ screenName }}</a>
 	{{/people}}
 	{{ text }}
@@ -76,15 +76,15 @@ seajs.use(['app/weibo','underscore'], function (w, _) {
 		</div>
 		{{/picturePath}}
 		<span class="">
-			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文转发</a>
-			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文回复</a>
+			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文转发{{retweetNum}}</a>
+			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文回复{{replyNum}}</a>
 		</span>
 	</div>
 	{{/quote}}
 	{{#repmod}}<div class='repmod'><span class='gray'>回应了我：</span>{{repmod}}</div>{{/repmod}}
 </div>
 <div class='fd'>
-	<span class='stat'><a href="${urlPrefix}/weibo/{{id}}">{{screenTime}}</a>
+	<span class='stat'>{{screenTime}}
 		{{#source}}<a class='ml5 lk'>{{source}}</a>{{/source}}
 	</span>
 	<a href="javascript:void(0);" class='hod lk lkrb togreply'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>

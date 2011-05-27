@@ -5,11 +5,14 @@ package q.web.message;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import q.biz.CacheService;
+import q.commons.domain.AbstractDomain;
 import q.dao.DaoHelper;
 import q.dao.MessageDao;
 import q.dao.PeopleDao;
@@ -93,7 +96,8 @@ public class GetMessageIndex extends Resource {
 			}
 			if (type == asc) { // this action from next page
 				hasNext = true;
-			} else if (startId < IdCreator.MAX_ID) {// this action from previous page
+			} else if (startId < IdCreator.MAX_ID) {// this action from previous
+													// page
 				hasPrev = true;
 			}
 			MessagePage messagePage = new MessagePage();
@@ -104,7 +108,9 @@ public class GetMessageIndex extends Resource {
 				Map<Long, List<Long>> messageId2ReceiverIdsMap = getMessageReceiversMap(messageIds);
 				messageId2ReceiverIdsMap.remove(loginPeopleId);
 				for (Message msg : messages) {
-					msg.setReceiverIds(messageId2ReceiverIdsMap.get(msg.getId())); // set message receiver
+					msg.setReceiverIds(messageId2ReceiverIdsMap.get(msg.getId())); // set
+																					// message
+																					// receiver
 					MessageJoinPeople join = messageId2MessageJoinPeopleMap.get(msg.getId());
 					if (join != null) {
 						msg.setReplyNum(join.getReplyNum());
@@ -114,12 +120,33 @@ public class GetMessageIndex extends Resource {
 						log.error("invalid join -> messageId:%s,peopleId:%s", msg.getId(), loginPeopleId);
 					}
 				}
-				DaoHelper.injectMessagesWithLastReply(messageDao, messages); // inject last reply using lastReplyId
-				DaoHelper.injectMessagesWithSenderAndReceiversAndLastReplySender(peopleDao, messages); // inject sender, receivers, lastReply.sender
+				DaoHelper.injectMessagesWithLastReply(messageDao, messages); // inject
+																				// last
+																				// reply
+																				// using
+																				// lastReplyId
+				DaoHelper.injectMessagesWithSenderAndReceiversAndLastReplySender(peopleDao, messages); // inject
+																										// sender,
+																										// receivers,
+																										// lastReply.sender
+				Collections.sort(messages, new Comparator<Message>() {
+
+					@Override
+					public int compare(Message o1, Message o2) {
+						long cha = o1.getLastReplyId() - o2.getLastReplyId();
+						if (cha > 0) {
+							return -1;
+						} else if (cha < 0) {
+							return 1;
+						} else { // cha == 0
+							return 0;
+						}
+					}
+				}); // sort order by id desc
 				api.put("messages", messages);
-				api.put("hasPrev", hasPrev);
-				api.put("hasNext", hasNext);
 			}
+			api.put("hasPrev", hasPrev);
+			api.put("hasNext", hasNext);
 			context.setModel("api", api);
 		}
 
@@ -141,7 +168,7 @@ public class GetMessageIndex extends Resource {
 		receiversPage.setMessageIds(messageIds);
 		List<MessageJoinPeople> Joins = messageDao.getMessageJoinPeoplesByPage(receiversPage);
 		for (MessageJoinPeople join : Joins) {
-			if(join.getSenderId() != join.getReceiverId()) {
+			if (join.getSenderId() != join.getReceiverId()) {
 				List<Long> receivers = messageIdReceiversMap.get(join.getMessageId());
 				if (null == receivers) {
 					receivers = new ArrayList<Long>();

@@ -8,7 +8,7 @@ import q.dao.FavoriteDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
-import q.dao.page.WeiboPage;
+import q.dao.page.WeiboJoinGroupPage;
 import q.domain.Weibo;
 import q.util.CollectionKit;
 import q.web.Resource;
@@ -55,7 +55,7 @@ public class GetGroupFeed extends Resource {
 			int size = context.getInt("size", 10);
 			long startId = context.getIdLong("startId");
 			String tab = context.getString("tab");
-			WeiboPage page = new WeiboPage();
+			WeiboJoinGroupPage page = new WeiboJoinGroupPage();
 			page.setStartIndex(0);
 			page.setSize(size);
 			page.setGroupIds(groupIds);
@@ -65,7 +65,7 @@ public class GetGroupFeed extends Resource {
 			if (startId > 0) {
 				page.setStartId(startId);
 			}
-			List<Long> ids = this.weiboDao.getWeiboIdsByJoinPage(page);
+			List<Long> ids = this.weiboDao.getWeiboIdsByJoinGroupPage(page);
 			List<Weibo> weibos = this.weiboDao.getWeibosByIds(ids, true);
 			DaoHelper.injectWeiboModelsWithFrom(groupDao, weibos);
 			DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);

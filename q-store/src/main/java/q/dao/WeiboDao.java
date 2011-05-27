@@ -6,6 +6,7 @@ package q.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import q.dao.page.WeiboJoinGroupPage;
 import q.dao.page.WeiboPage;
 import q.dao.page.WeiboReplyPage;
 import q.domain.Weibo;
@@ -32,13 +33,6 @@ public interface WeiboDao {
 	 * @throws SQLException
 	 */
 	void addWeiboJoinGroup(long weiboId, long senderId, long groupId) throws SQLException;
-
-	/**
-	 * @param page
-	 * @return
-	 * @throws SQLException
-	 */
-	List<Long> getWeiboIdsByJoinPage(WeiboPage page) throws SQLException;
 
 	/**
 	 * @param page
@@ -136,13 +130,6 @@ public interface WeiboDao {
 	List<Weibo> getHotGroupWeibosByGroupId(long groupId, int limit, int start) throws SQLException;
 
 	/**
-	 * @param senderId
-	 * @param weiboId
-	 * @return
-	 */
-	int deleteWeiboBySenderIdAndWeiboId(long senderId, long weiboId) throws SQLException;
-
-	/**
 	 * @param quoteWeiboId
 	 */
 	int incrWeiboRetweetNumByWeiboId(long quoteWeiboId) throws SQLException;
@@ -167,8 +154,26 @@ public interface WeiboDao {
 
 	/**
 	 * @param quoteWeiboId
-	 * @return 
+	 * @return
 	 */
 	int decrWeiboReplyNumByWeiboId(long quoteWeiboId) throws SQLException;
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	int deleteWeiboById(long id) throws SQLException;
+
+	/**
+	 * @param weiboId
+	 * @return
+	 */
+	int deleteWeiboJoinGroupsByWeiboId(long weiboId) throws SQLException;
+
+	/**
+	 * @param page
+	 * @return
+	 */
+	List<Long> getWeiboIdsByJoinGroupPage(WeiboJoinGroupPage page) throws SQLException;
 
 }

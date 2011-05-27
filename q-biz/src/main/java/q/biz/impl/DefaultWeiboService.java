@@ -5,6 +5,8 @@ package q.biz.impl;
 
 import java.sql.SQLException;
 
+import org.apache.commons.lang.StringUtils;
+
 import q.biz.NotifyService;
 import q.biz.SearchService;
 import q.biz.ShortUrlService;
@@ -58,6 +60,7 @@ public class DefaultWeiboService implements WeiboService {
 	 */
 	@Override
 	public void addWeiboReply(WeiboReply reply) throws SQLException {
+		reply.setContent(StringUtils.trim(reply.getContent()));
 		reply.setContent(this.shortUrlService.urlFilter(reply.getContent()));
 		this.weiboDao.addWeiboReply(reply);
 		this.weiboDao.incrWeiboReplyNumByReplyId(reply.getQuoteWeiboId());
@@ -96,6 +99,7 @@ public class DefaultWeiboService implements WeiboService {
 	}
 
 	private void addWeiboCommon(Weibo weibo, long groupId) throws Exception {
+		weibo.setContent(StringUtils.trim(weibo.getContent()));
 		weibo.setContent(this.shortUrlService.urlFilter(weibo.getContent()));
 		this.weiboDao.addWeibo(weibo);
 		this.peopleDao.incrPeopleWeiboNumberByPeopleId(weibo.getSenderId());
