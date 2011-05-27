@@ -37,8 +37,8 @@
 		<isNotNull prepend="and" property="startId">
 			id &lt; #startId#
 		</isNotNull>
-		order by id desc
 		<isNotNull property="size">
+			order by id desc
 			limit #startIndex#, #size#
 		</isNotNull>
 	</select>

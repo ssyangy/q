@@ -150,7 +150,7 @@ mods.push(function(q){
 							{{#receivers}}
 							<a class="lk" href='${urlPrefix}/people/{{id}}'>{{screenName}}</a>
 							{{/receivers}} ({{replyNum}})
-	                        <span class="time">{{screenTime}}</span></p>
+	                        <span class="time">{{#lastReply}}{{screenTime}}{{/lastReply}}</span></p>
 	                        {{#lastReply}}<p>{{text}}</p>{{/lastReply}}
 	                    </li>
 				</script>
