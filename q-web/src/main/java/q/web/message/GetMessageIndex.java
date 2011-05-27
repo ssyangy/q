@@ -117,9 +117,9 @@ public class GetMessageIndex extends Resource {
 				DaoHelper.injectMessagesWithLastReply(messageDao, messages); // inject last reply using lastReplyId
 				DaoHelper.injectMessagesWithSenderAndReceiversAndLastReplySender(peopleDao, messages); // inject sender, receivers, lastReply.sender
 				api.put("messages", messages);
-				api.put("hasPrev", hasPrev);
-				api.put("hasNext", hasNext);
 			}
+			api.put("hasPrev", hasPrev);
+			api.put("hasNext", hasNext);
 			context.setModel("api", api);
 		}
 

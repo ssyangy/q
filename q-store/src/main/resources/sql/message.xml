@@ -102,13 +102,24 @@
         	</iterate>
 		</isNotNull>
 		<isNotNull prepend="and " property="startId">
-			last_reply_id &lt; #startId#
+			<isEqual property="desc" compareValue="true">
+				last_reply_id &lt; #startId#
+			</isEqual>
+			<isEqual property="desc" compareValue="false">
+				last_reply_id &gt; #startId#
+			</isEqual>
 		</isNotNull>
 		<isNotNull property="size">
-			order by last_reply_id desc
-			<isNotNull property="size">
+			order by last_reply_id
+				<isNotNull property="desc" prepend=" ">
+					<isEqual property="desc" compareValue="true">
+						desc
+					</isEqual>
+					<isEqual property="desc" compareValue="false">
+						asc
+					</isEqual>
+				</isNotNull>
 				limit #startIndex#, #size#
-			</isNotNull>
 		</isNotNull>
 	</select>
 	<select id="getMessageIdsByJoinPage" resultClass="long">

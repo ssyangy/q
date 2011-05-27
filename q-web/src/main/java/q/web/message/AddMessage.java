@@ -28,7 +28,7 @@ import q.web.exception.RequestParameterInvalidException;
 /**
  * @author seanlinwang at gmail dot com
  * @date Feb 21, 2011
- * 
+ *
  */
 public class AddMessage extends Resource {
 	private MessageDao messageDao;
@@ -66,7 +66,7 @@ public class AddMessage extends Resource {
 	 * <li>add firstmessage reply</li>
 	 * <li>add message join peoples</li>
 	 * </ul>
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -148,12 +148,15 @@ public class AddMessage extends Resource {
 			throw new RequestParameterInvalidException("receiver:invalid");
 		}
 		HashSet<Long> idSet = new HashSet<Long>(receiverIds);
+		if(idSet.contains(senderId)) {
+			throw new RequestParameterInvalidException("receiver:不能自己发给自己");
+		}
 		List<People> receivers = peopleDao.getPeoplesByIds(new ArrayList<Long>(idSet));
 		if (CollectionKit.isEmpty(receivers) || receivers.size() != idSet.size()) {
 			throw new RequestParameterInvalidException("receiver:invalid");
 		}
 		if (receivers.size() > 10) {
-			throw new RequestParameterInvalidException("receiver:最多允许10人会话");
+			throw new RequestParameterInvalidException("receiver:最多允许10个接收者");
 		}
 
 	}

@@ -40,13 +40,13 @@ mods.push(function(q){
         });
         $('a.next', sldroot).live('click', function () {
             $.ajax({ url: "${urlPrefix}/message",
-                data: { size: 7, startId: $('ul.sldlist>li', sldroot).last().attr('stream_id') },
+                data: { size: 7, startId: $('ul.sldlist>li', sldroot).last().attr('order_id') },
                 success: intmsglist
             });
         });
         $('a.prev', sldroot).live('click', function () {
             $.ajax({ url: "${urlPrefix}/message",
-                data: { size: 7, startId: $('ul.sldlist>li', sldroot).first().attr('stream_id'), type: 1 },
+                data: { size: 7, startId: $('ul.sldlist>li', sldroot).first().attr('order_id'), type: 1 },
                 success: intmsglist
             });
         });
@@ -137,7 +137,7 @@ mods.push(function(q){
         <div id="slidbox">
             <div id="slider">
             	<script type="text/html" id="msglist">
-	                    <li class='msgli hov' stream_id='{{id}}'>
+	                    <li class='msgli hov' stream_id='{{id}}' order_id='{{#lastReply}}{{id}}{{/lastReply}}'>
 							{{#sender}}
 	                        <img src="{{avatarPath}}-48" alt="sender" class="sldimg" />
 	                        <p class='rel pr100'>{{screenName}}
