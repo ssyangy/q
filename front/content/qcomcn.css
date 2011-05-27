@@ -8,7 +8,7 @@ ul.list li{padding:0 10px;float:left;}
 ul.list li.end{border-right:none 0;}
 ul.dlist{border:1px solid #ddd;line-height:22px;background-color:#fff;border-bottom:2px solid #DA0000;}
 ul.dlist li{border-bottom:1px solid #ddd;border-right:none 0;float:none;padding:0 10px;}
-ul.dlist li:hover{background-color:#e6e6e6;}
+ul.dlist li:hover{background-color:#f6f6f6;}
 ul.dlist li.end{border-right:none 0;}
 /*#endregion Commen */
 
@@ -90,7 +90,7 @@ ul.msglist span.time{position:absolute;left:100px;top:0;color:#B2B7B5}
 ul.msglist span.act{position:absolute;right:5px;top:10px;}
 ul.msglist li{cursor:pointer;border-top:1px solid #ddd;padding:15px 40px 15px 68px;position:relative;zoom:1;
               min-height:48px; _height:48px; overflow:visible;}
-ul.msglist li.hover{background-color:#fefefe;}              
+ul.msglist li.hover{background-color:#f6f6f6;}              
 ul.msglist li.end{border-bottom:1px solid #ddd;}
 ul.msglist img.sldimg{position:absolute;top:10px;left:10px;}
 ul.msglist p{line-height:24px;color:#333;}

@@ -11,13 +11,13 @@
 .sldlist{width:480px;}
 .sldlist span.time{position:absolute;right:0;top:0;color:#B2B7B5}
 .sldlist span.actions{position:absolute;right:0;top:0;}
-.sldlist li{cursor:pointer;border-bottom:1px solid #ddd;padding:10px 40px 10px 58px;position:relative;zoom:1;}
-.sldlist li.end{border-bottom:none 0;}
+.sldlist li{cursor:pointer;padding:10px 10px 10px 58px;position:relative;zoom:1;}
 .sldlist li img.sldimg{position:absolute;top:10px;left:0;}
 .sldlist li p{line-height:24px;color:#333;}
 .sldlist li .lk{margin-right:5px;}
 .sldlist li .act{position:absolute;top:10px;right:0;}
 .sldlist li .actun{position:absolute;top:10px;right:0;}
+.msglist li{border-top:none 0!important;}
 
 #index .footer{text-align:center;height:30px;line-height:30px;}
 #index .footer ul{list-style: none outside none;}

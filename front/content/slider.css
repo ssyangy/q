@@ -6,7 +6,7 @@
 .sldlist li{cursor:pointer;border-top:1px solid #ddd;padding:15px 40px 15px 68px;position:relative;zoom:1;
             min-height:48px; _height:48px; overflow:visible;}
 #sldroot li{background:url("images/rollbtn.png") no-repeat scroll 550px center transparent;}
-#sldroot li.hover{background-image:url("images/rollbtn_h.png");background-color:#fefefe;}
+#sldroot li.hover{background-image:url("images/rollbtn_h.png");background-color:#f6f6f6;}
 .sldlist li.end{border-bottom:1px solid #ddd;}
 .sldlist li img.sldimg{position:absolute;top:10px;left:0;}
 .sldlist li p{line-height:20px;color:#333;}
