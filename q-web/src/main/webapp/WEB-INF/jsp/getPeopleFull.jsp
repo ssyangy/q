@@ -5,10 +5,10 @@
 <html>
 <head>
     <title>Q.com.cn</title>
-    <link href="${staticUrlPrefix}/content/main/jquery.ui.css")" rel="stylesheet" type="text/css" />
-    <link href="${staticUrlPrefix}/content/qcomcn.css")" rel="stylesheet" type="text/css" />
-    <link href="${staticUrlPrefix}/content/signup.css")" rel="stylesheet" type="text/css" />
-    <script src="${staticUrlPrefix}/scripts/sea.js")" type="text/javascript"></script>
+    <link href="${staticUrlPrefix}/content/main/jquery.ui.css" rel="stylesheet" type="text/css" />
+    <link href="${staticUrlPrefix}/content/qcomcn.css" rel="stylesheet" type="text/css" />
+    <link href="${staticUrlPrefix}/content/signup.css" rel="stylesheet" type="text/css" />
+    <script src="${staticUrlPrefix}/scripts/sea.js" type="text/javascript"></script>
 	<script type="text/javascript">
 areas=${rootArea.childsJson};
 seajs.use(['qcomcn','jq_area'],function(q, area){

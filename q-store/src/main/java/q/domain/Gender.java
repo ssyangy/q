@@ -50,6 +50,10 @@ public enum Gender {
 	public boolean isFemale() {
 		return value == FEMALE.value;
 	}
+	
+	public boolean isMale() {
+		return value == MALE.value;
+	}
 
 	/**
 	 * @param int1
