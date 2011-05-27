@@ -4,42 +4,26 @@
 <head>
     <title>SignUp</title>
     <link href="@Url.Content("~/content/qcomcn.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/content/step.css")" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-    .wapper{position:relative;height:600px;}
-    #logo{top:200px;font-size:28px;}
-    .content{position:absolute;top:260px;left:60px;}
-    p{line-height:26px;}
-    </style>
+    <link href="@Url.Content("~/content/signup.css")" rel="stylesheet" type="text/css" />
     <script src="@Html.Script("/scripts-q/sea.js")" type="text/javascript"></script>
     <script type="text/javascript">
         seajs.use('qcomcn.js', function (q) {
             var $ = q.jq;
-            seajs.use('back/chinaarea.js');
 
             $(function () {
-                q.Init();
-                $(".localArea").each(function(){
-                    $(this).jChinaArea({
-                        s1: '江苏省',
-                        s2: '常州市',
-                        s3: '钟楼区'
-                    });
-                });
+                q.loader();
             });
         });
     </script>
 </head>
 <body>
-<div class="wapper">
-    <h1 id="logo">Q.com.cn</h1>
+<div class="signup">
+    <h1 class="logo2"></h1>
     <div class="content">
 
         <ul class='pssyao clear'>
-            <li class="done2">创建帐号</li>
-            <li class="done2">填写资料</li>
-            <li class="done">关注好友</li>
-            <li class="end selected">关注好友</li>
+            <li class="done">创建帐号</li>
+            <li class="end">填写基本资料</li>
         </ul>
 
         <table class='qform'>
