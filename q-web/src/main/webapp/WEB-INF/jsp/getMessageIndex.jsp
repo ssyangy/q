@@ -8,12 +8,14 @@
 #slidbox{width:580px;}
 .main-wrap{padding-right:20px;}
 .msgbox{border:1px solid #ddd;}
-.msgmem{background-color:#FEF2E7;position:relative;padding:10px;}
+.msgmem{background-color:#f6f6f6;position:relative;padding:10px;}
 .msgmem p{line-height:24px;}
 .memdel{position:absolute;top:10px;right:10px;_right:30px;}
 .msgrepbox{padding:10px;}
 .msgrepbox .mttextar{width:99%;height:40px;}
-.repactbox{text-align:right;}
+.repactbox{text-align:right;margin-top:10px;}
+#sld2{border:1px solid #ddd;width:578px;}
+.sldlist img.sldimg{left:10px!important;}
 </style>
 <script type="text/javascript">
 mods.push(function(q){
@@ -190,7 +192,7 @@ mods.push(function(q){
             </div>
         </div>
     </div></div>
-    <div class="col-sub">
+    <div class="col-sub" style="padding-top:42px;">
         <a href='${urlPrefix}/message/new' class="btnNM"></a>
     </div>
 </div>

@@ -5,7 +5,7 @@
 <div class="profile mb20">
     <a href="${urlPrefix}/group/${group.id}"><img src="${group.avatarPath}" alt="portrait" class="FL mr15" /></a>
     <div class='proline'>
-        <p class="f14 fw">${group.name}</p>
+        <p class="f16 fw fblue">${group.name}</p>
         <p class="fgray2">${group.intro}</p>
     </div>
 </div>

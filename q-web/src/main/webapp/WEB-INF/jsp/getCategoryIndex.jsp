@@ -29,7 +29,7 @@ mods.push(function (q) {
 		seajs.use('ICanHaz', function (ich) {
 			lis.click(function () {
 				window.gpid = $(this).attr('gpcid');
-				$('span.tit',roll).text($('p.name',this).text()).show();
+				$('span.tit',roll).text($('.name',this).text()).show();
 				$.ajax({ url: "${urlPrefix}/category/"+ window.gpid +"/group",
 				    data: {size:5},
 				   	success: function(j){
@@ -85,9 +85,9 @@ mods.push(function (q) {
     <div class="col-main"><div class="main-wrap">
         <div class="rel mb10">
             <p id="passroll">
-            <a id="root">圈子分类</a>
+            <a id="root" class='fw'>圈子分类</a>
             <span class='pass'></span>
-            <span class='tit'></span>
+            <span class='tit fw'></span>
             </p>
         </div>
         <div id="slidbox">
@@ -96,7 +96,7 @@ mods.push(function (q) {
 				<c:forEach items="${cats}" var="cat" varStatus="status">
 				<li gpcid='${cat.id}' class='hov'>
 					<img src="${staticUrlPrefix}/content/images/icons/icons-0${status.index + 2}.png" alt="gpcate" class="sldimg" >
-					<p class='name'>${cat.name}</p>
+					<ps><span class='name f14 fblue'>${cat.name}</span> - ${cat.intro}</p>
 					<p>
 						<c:forEach items="${cat.groups}" var="group" varStatus="status">
 							<a class="lk" href="${urlPrefix}/group/${group.id}">${group.name}</a>
@@ -143,7 +143,7 @@ mods.push(function (q) {
                 	<img class="img48" src="${group.avatarPath}" alt="img" />
                 </a>
                 <div class="gray">
-                    <a href="${urlPrefix}/group/${group.id}">${group.name}</a>
+                    <a href="${urlPrefix}/group/${group.id}" class='lk'>${group.name}</a>
                 </div>
             </li>
 			</c:forEach>

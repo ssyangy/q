@@ -92,8 +92,8 @@ seajs.use(['app/weibo','app/weibo_repitem','underscore'], function (w,r, _) {
 		</div>
 		{{/picturePath}}
 		<span class="">
-			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文转发</a>
-			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文回复</a>
+			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文转发{{retweetNum}}</a>
+			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文回复{{replyNum}}</a>
 		</span>
 	</div>
 	{{/quote}}

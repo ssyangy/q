@@ -46,7 +46,7 @@ seajs.use('jqplus/jq_tokeninput',function(toke){
 
 <div class="layout grid-m0s220 mingrid">
     <div class="col-main"><div class="main-wrap">
-    	<h2 class='mb20'>发私信</h2>
+    	<h2 class='mb20 fw'>新私信</h2>
     	<form action="${urlPrefix}/message" method="post">
         <p>收信人：</p>
         <input type="text" id="autocom" name="receiverId" class='mttext' style="width:100%;" />
