@@ -4,7 +4,7 @@
 </jsp:include>
 <body>
 <div class="wapper">
-    <h1 id="logo">Q.com.cn</h1>
+    <h1 id="logo"></h1>
     <div class="content">
     	<form action="${urlPrefix}/login" method="post">
         <table class='qform'>
