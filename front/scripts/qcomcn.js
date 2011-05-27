@@ -6,11 +6,6 @@
     require('jqplus/jq_repurl')($);
     require('jqplus/jq_mttext')($);
     require('jqplus/jq_initbow')($);
-
-    if (window.bow == "ie6") {
-        require('jqplus/jq_pngFix')($);
-        require('jqplus/jq_maxlimit')($);
-    }
     exports.jq = $;
     var _ = require('underscore');
 
@@ -35,7 +30,7 @@
         window.win.resize(lazyLayout);
     }
 
-    exports.fixui = function (box) {
+    exports.fixui = function (box, includme) {
         uihelp.fix($, box);
 
         $("input[accesskey]", box).bind("keydown", function (e) {
@@ -48,8 +43,12 @@
 
         $('.fixurl', box).repurl();
         if (window.bow == "ie6") {
-            $(".png", box).pngFix();
-            $("[class*='max-']", box).maxLimit({ size: [120, 160, 320, 600] });
+            module.load('jqplus/jq_pngFix', function () {
+                $(".png", box).pngFix();
+            });
+            module.load('jqplus/jq_maxlimit', function () {
+                $("[class*='max-']", box).maxLimit({ size: [120, 160, 320, 600] });
+            });
         }
 
         $("input.mttext", box).mttext();
@@ -57,12 +56,20 @@
         $("textarea.mttextar", box).mttext({ isarea: true });
         $("textarea.mttextar_val", box).mttext({ isarea: true, wval: true });
 
-        $(".hov,.streambox", box).hover(
+        $(".hov", box).hover(
             function () { $(this).addClass('hover'); },
             function () { $(this).removeClass('hover'); }
         );
 
         $('[tgtt]', box).fixtarget();
+
+        if (includme) {
+            box.hover(
+                function () { $(this).addClass('hover'); },
+                function () { $(this).removeClass('hover'); }
+            );
+        }
+        
     }
 
 });

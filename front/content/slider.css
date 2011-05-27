@@ -3,7 +3,8 @@
 .sldlist{width:580px;}
 .sldlist span.time{position:absolute;right:0;top:0;color:#B2B7B5}
 .sldlist span.actions{position:absolute;right:0;top:0;}
-.sldlist li{cursor:pointer;border-top:1px solid #ddd;padding:10px 40px 10px 58px;position:relative;zoom:1;}
+.sldlist li{cursor:pointer;border-top:1px solid #ddd;padding:15px 40px 15px 68px;position:relative;zoom:1;
+            min-height:48px; _height:48px; overflow:visible;}
 #sldroot li{background:url("images/rollbtn.png") no-repeat scroll 550px center transparent;}
 #sldroot li.hover{background-image:url("images/rollbtn_h.png");background-color:#fefefe;}
 .sldlist li.end{border-bottom:1px solid #ddd;}

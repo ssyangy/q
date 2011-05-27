@@ -8,7 +8,7 @@
 .signin-area th{font-size: 14px;font-weight: normal;text-align: right;color: #333;}
 .signin-area td{height:35px;text-align:left;}
 
-.sldlist{width:500px;}
+.sldlist{width:480px;}
 .sldlist span.time{position:absolute;right:0;top:0;color:#B2B7B5}
 .sldlist span.actions{position:absolute;right:0;top:0;}
 .sldlist li{cursor:pointer;border-bottom:1px solid #ddd;padding:10px 40px 10px 58px;position:relative;zoom:1;}
@@ -19,18 +19,6 @@
 .sldlist li .act{position:absolute;top:10px;right:0;}
 .sldlist li .actun{position:absolute;top:10px;right:0;}
 
-#index .main{float:left;width:490px}
-#index .main-inner{padding-right:20px;}
-#index .head-line .head-h3{float:left;margin-right:20px;}
-#index .head-line .location{float:left;margin-top:16px;}
-#index .photo-wall .one-photo{float:left;margin-right:5px;margin-bottom:5px;}
-#index .side{float:left;padding-left:20px;width:240px;border-left:1px solid #EBEBEB;}
-#index .content h3{margin:15px 0 10px 0;}
-#index .member-online{margin-top:20px;}
-#index .hot-events td{height:20px;}
-#index .footer{margin-top:20px;text-align:center;}
-#index .hot-tweets .avatar{float:left;margin-right:10px;}
-#index .hot-tweets .brief{float:left;width:180px;}
-#index .one-tweet{margin-bottom:10px;}
+#index .footer{text-align:center;height:30px;line-height:30px;}
 #index .footer ul{list-style: none outside none;}
 #index .footer li{display:inline;margin-top:40px;margin-right:10px;}  

@@ -203,13 +203,13 @@
 
     exports.weibos = new exports.WeiboList();
     var weiboAdd = function (o) {
-        var view = new exports.WeiboView({ model: o });
+        var el = new exports.WeiboView({ model: o }).render().el;
         if (o.get('old')) {
-            seed.append(view.render().el);
+            seed.append(el);
         } else {
-            seed.prepend(view.render().el);
+            seed.prepend(el);
         }
-        q.fixui(seed);
+        q.fixui($(el), true);
     }
     exports.weibos.bind('add', weiboAdd);
 
