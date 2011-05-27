@@ -15,7 +15,7 @@ import q.dao.FavoriteDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
-import q.dao.page.WeiboPage;
+import q.dao.page.WeiboJoinGroupPage;
 import q.domain.Weibo;
 import q.util.CollectionKit;
 import q.util.IdCreator;
@@ -67,7 +67,7 @@ public class GetGroupWeibo extends Resource {
 		long startId = context.getIdLong("startId", IdCreator.MAX_ID);
 		int type = context.getInt("type", 0);
 		int asc = 1;
-		WeiboPage page = new WeiboPage();
+		WeiboJoinGroupPage page = new WeiboJoinGroupPage();
 		if (type == asc) { // 1 indicate asc
 			page.setDesc(false);
 		} else {
@@ -81,7 +81,7 @@ public class GetGroupWeibo extends Resource {
 		if (startId > 0) {
 			page.setStartId(startId);
 		}
-		List<Long> weiboIds = weiboDao.getWeiboIdsByJoinPage(page);
+		List<Long> weiboIds = weiboDao.getWeiboIdsByJoinGroupPage(page);
 		List<Weibo> weibos = weiboDao.getWeibosByIds(weiboIds, true);
 		Map<String, Object> api = new HashMap<String, Object>();
 		if (CollectionKit.isNotEmpty(weibos)) {

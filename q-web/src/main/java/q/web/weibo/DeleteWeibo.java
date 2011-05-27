@@ -42,7 +42,7 @@ public class DeleteWeibo extends Resource {
 
 		Weibo weibo = this.weiboDao.getWeiboById(weiboId);
 		if (weibo.getStatus() == Status.COMMON.getValue()) { // only delete weibo which has common status
-			int rowEffected = this.weiboDao.deleteWeiboById(weibo.getId());//TODO use deleteWeiboById 
+			int rowEffected = this.weiboDao.deleteWeiboById(weibo.getId());
 			if (rowEffected == 1) { // if delete weibo successful.
 				this.peopleDao.decrPeopleWeiboNumberByPeopleId(senderId);// decr weibo number
 				if (weibo.getQuoteWeiboId() > 0) {

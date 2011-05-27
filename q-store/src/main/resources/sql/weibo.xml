@@ -180,10 +180,13 @@
 		and status = 0;
 	</update>
 
-	<select id="selectWeiboIdsByPage" resultClass="long">
+	<select id="selectWeiboIdsByWeiboJoinGroupPage" resultClass="long">
 		select weibo_id
 		from weibo_join_group
 		<dynamic prepend="where ">
+			<isNotNull prepend="and " property="status">
+				status = #status#
+			</isNotNull>
 			<isNotNull prepend="and " property="groupIds">
 				group_id in
 				<iterate property="groupIds" open="(" close=")" conjunction=",">
