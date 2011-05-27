@@ -7,12 +7,12 @@
 </jsp:include>
 <div class="layout grid-m0s220 mingrid">
     <div class="col-main"><div class="main-wrap">
-        <p class='simptab'>
+        <p class='simptab mb10'>
 	        <a class="lk" href="${urlPrefix}/people/${people.id}/following">
 	        	<c:choose><c:when test="${loginCookie.peopleId==people.id}">我</c:when><c:otherwise>${people.realName}</c:otherwise></c:choose>的关注（${people.followingNum}）
 	        </a>
 	        <span class='split'>|</span>
-	        <span><c:choose><c:when test="${loginCookie.peopleId==people.id}">我</c:when><c:otherwise>${people.realName}</c:otherwise></c:choose>的粉丝（${people.followerNum}）</span>
+	        <span class='fw'><c:choose><c:when test="${loginCookie.peopleId==people.id}">我</c:when><c:otherwise>${people.realName}</c:otherwise></c:choose>的粉丝（${people.followerNum}）</span>
         </p>
         <jsp:include page="models/people-list.jsp">
 			<jsp:param name="feedUrl" value="${urlPrefix}/people/${people.id}/follower" />
