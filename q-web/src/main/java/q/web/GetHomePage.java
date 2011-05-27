@@ -14,6 +14,7 @@ import q.domain.Area;
 import q.domain.Category;
 import q.domain.Event;
 import q.domain.People;
+import q.util.CollectionKit;
 
 /**
  * @author seanlinwang
@@ -63,11 +64,13 @@ public class GetHomePage extends Resource {
 		context.setModel("province", area.getParent());
 		List<Category> categories = this.categoryDao.getAllCategorys();
 		context.setModel("cats", categories);
-		DaoHelper.injectCategoriesWithPromotedGroups(groupDao, categories);
-		List<Event> hotEvents = this.eventDao.getHotEvents(10);
-		context.setModel("hotEvents", hotEvents);
-		List<People> hotLocals = this.peopleDao.getHotPeoplesByArea(area, 5);
-		context.setModel("hotLocals", hotLocals);
+		if (CollectionKit.isNotEmpty(categories)) {
+			DaoHelper.injectCategoriesWithPromotedGroups(groupDao, categories);
+		}
+		// List<Event> hotEvents = this.eventDao.getHotEvents(10);
+		// context.setModel("hotEvents", hotEvents);
+		// List<People> hotLocals = this.peopleDao.getHotPeoplesByArea(area, 5);
+		// context.setModel("hotLocals", hotLocals);
 		List<q.domain.Weibo> hotWeibos = this.weiboDao.getHotWeibos(5);
 		DaoHelper.injectWeiboModelsWithPeople(peopleDao, hotWeibos);
 		context.setModel("hotWeibos", hotWeibos);

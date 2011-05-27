@@ -647,6 +647,9 @@ public class DaoHelper {
 	 * @throws SQLException
 	 */
 	public static void injectCategoriesWithPromotedGroups(GroupDao groupDao, List<Category> categorys) throws SQLException {
+		if(CollectionKit.isEmpty(categorys)) {
+			return;
+		}
 		List<Long> catIds = new ArrayList<Long>(categorys.size());
 		Map<Long, Category> catId2CatMap = new HashMap<Long, Category>(categorys.size());
 		for (Category cat : categorys) {

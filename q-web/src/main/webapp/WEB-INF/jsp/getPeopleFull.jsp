@@ -45,6 +45,7 @@ seajs.use('jq_area',function(area){
 	      return false;
 		}
 		checkGroup = function(){
+		  return true; //xxx sean
 	      var boxes=$(":checkbox");
 	         for (var i = 0; i < boxes.length; i++) {
 	             if (boxes[i].checked == true) {
