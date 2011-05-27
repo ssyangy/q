@@ -277,6 +277,7 @@ seajs.use('qcomcn',fnction(q){
 	});
 
 	</script>
+	</head>
 <body>
 <div class="signup">
     <h1 class="logo2"></h1>
