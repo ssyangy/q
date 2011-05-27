@@ -81,7 +81,7 @@ function errorContext(error){
 				<td></td>
 				<td><input type="checkbox" checked="checked" /> 保持登录状态 
 				<a href="#" class="btnr access_l" onclick="check()">登 录</a></td>
-				<td><a href="signup.html" class="lk ml10" href="${urlPrefix}/people/new">立即注册</a></td>
+				<td><a class="lk ml10" href="${urlPrefix}/people/new">立即注册</a></td>
 			</tr>		
 	</table>
 </div>
