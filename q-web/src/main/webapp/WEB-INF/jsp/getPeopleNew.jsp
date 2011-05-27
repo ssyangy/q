@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:include page="models/head-unsign.jsp">
-	<jsp:param name="title" value="登陆注册" />
-</jsp:include>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Q.com.cn</title>
+    <link href="${staticUrlPrefix}/content/main/jquery.ui.css")" rel="stylesheet" type="text/css" />
+    <link href="${staticUrlPrefix}/content/qcomcn.css")" rel="stylesheet" type="text/css" />
+    <link href="${staticUrlPrefix}/content/signup.css")" rel="stylesheet" type="text/css" />
+    <script src="${staticUrlPrefix}/scripts/sea.js")" type="text/javascript"></script>
     <script type="text/javascript">
     //xxx by sean
     mods.push(function(q){
@@ -276,9 +281,9 @@
         });
 	</script>
 <body>
-<div class="wapper">
-    <h1 id="logo"></h1>
-    <div class="content">
+<div class="signup">
+    <h1 class="logo2"></h1>
+
         <ul class='pssyao clear'>
             <li class="done">创建帐号</li>
             <li class="end">填写资料</li>
@@ -351,7 +356,6 @@
 			</tr>
 		</table>
 
-    </div>
 </div>
 </body>
 </html>

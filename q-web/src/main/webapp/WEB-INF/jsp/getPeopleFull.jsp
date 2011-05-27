@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
-<jsp:include page="models/head-unsign.jsp">
-	<jsp:param name="title" value="补充个人资料" />
-</jsp:include>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Q.com.cn</title>
+    <link href="${staticUrlPrefix}/content/main/jquery.ui.css")" rel="stylesheet" type="text/css" />
+    <link href="${staticUrlPrefix}/content/qcomcn.css")" rel="stylesheet" type="text/css" />
+    <link href="${staticUrlPrefix}/content/signup.css")" rel="stylesheet" type="text/css" />
+    <script src="${staticUrlPrefix}/scripts/sea.js")" type="text/javascript"></script>
 	<script type="text/javascript">
 areas=${rootArea.childsJson};
 mods.push(function (q) {
@@ -106,17 +111,15 @@ seajs.use('jq_area',function(area){
 	</script>
   </head>
 <body>
-	<div class="wapper">
-		<h1 id="logo"></h1>
-		<div class="content">
+	<div class="signup">
+		<h1 class="logo2"></h1>
 			
 		<ul class='pssyao clear'>
-            <li class="done">创建帐号</li>
+            <li class="done2">创建帐号</li>
             <li class="done end">填写资料</li>
         </ul>
 
-			<form method='post' action='${urlPrefix}/people/${people.id}/full'
-				onsubmit="return check()">
+			<form method='post' action='${urlPrefix}/people/${people.id}/full' onsubmit="return check()">
 				<table class='qform'>
 					<tr>
 						<td align="right">所在地：</td>
@@ -203,7 +206,7 @@ seajs.use('jq_area',function(area){
 					</tr>
 				</table>
 			</form>
-		</div>
+
 	</div>
 </body>
 </html>
