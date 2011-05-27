@@ -106,17 +106,15 @@ seajs.use('jq_area',function(area){
 	</script>
   </head>
 <body>
-	<div class="wapper">
-		<h1 id="logo"></h1>
-		<div class="content">
+	<div class="signup">
+		<h1 class="logo2"></h1>
 			
 		<ul class='pssyao clear'>
-            <li class="done">创建帐号</li>
+            <li class="done2">创建帐号</li>
             <li class="done end">填写资料</li>
         </ul>
 
-			<form method='post' action='${urlPrefix}/people/${people.id}/full'
-				onsubmit="return check()">
+			<form method='post' action='${urlPrefix}/people/${people.id}/full' onsubmit="return check()">
 				<table class='qform'>
 					<tr>
 						<td align="right">所在地：</td>
@@ -203,7 +201,7 @@ seajs.use('jq_area',function(area){
 					</tr>
 				</table>
 			</form>
-		</div>
+
 	</div>
 </body>
 </html>

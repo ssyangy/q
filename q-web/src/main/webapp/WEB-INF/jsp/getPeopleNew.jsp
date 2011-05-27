@@ -276,9 +276,9 @@
         });
 	</script>
 <body>
-<div class="wapper">
-    <h1 id="logo"></h1>
-    <div class="content">
+<div class="signup">
+    <h1 class="logo2"></h1>
+
         <ul class='pssyao clear'>
             <li class="done">创建帐号</li>
             <li class="end">填写资料</li>
@@ -351,7 +351,6 @@
 			</tr>
 		</table>
 
-    </div>
 </div>
 </body>
 </html>
