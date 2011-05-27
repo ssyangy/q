@@ -37,7 +37,7 @@
         		          var errorkind = errorType(json.error);
         		          var errormsg = errorContext(json.error);
         		          var loginWrong = $("#loginWrong");
-        		          loginWrong.css("display","block");
+        		          loginWrong.show();
         		          loginWrong.html(errormsg);
         		      }
         		    }
@@ -69,6 +69,7 @@ function errorContext(error){
 <div class="header">
 	<div class="logo"></div>
 	<div class="titles"></div>
+	<span id="loginWrong hide"></span>
 	<table class="signin-area">
 			<tr>
 				<td align="right">邮箱：</td>
