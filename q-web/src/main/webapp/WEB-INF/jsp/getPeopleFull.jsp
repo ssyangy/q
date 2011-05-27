@@ -107,12 +107,12 @@ seajs.use('jq_area',function(area){
   </head>
 <body>
 	<div class="wapper">
-		<h1 id="logo">Q.com.cn</h1>
+		<h1 id="logo"></h1>
 		<div class="content">
 			
 		<ul class='pssyao clear'>
             <li class="done">创建帐号</li>
-            <li class="selected end">填写资料</li>
+            <li class="done end">填写资料</li>
         </ul>
 
 			<form method='post' action='${urlPrefix}/people/${people.id}/full'

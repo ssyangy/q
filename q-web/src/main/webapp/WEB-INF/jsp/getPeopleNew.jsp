@@ -280,7 +280,7 @@
     <h1 id="logo"></h1>
     <div class="content">
         <ul class='pssyao clear'>
-            <li class="selected">创建帐号</li>
+            <li class="done">创建帐号</li>
             <li class="end">填写资料</li>
         </ul>
 
