@@ -33,7 +33,7 @@ import q.util.CollectionKit;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 22, 2011
- * 
+ *
  */
 public class DaoHelper {
 	public static List<Long> convertPeopleJoinGroupsToPeopleIds(List<PeopleJoinGroup> joins) {
@@ -271,7 +271,9 @@ public class DaoHelper {
 		HashSet<Long> peopleIds = new HashSet<Long>(messages.size() * 2);
 		for (Message message : messages) {
 			peopleIds.add(message.getSenderId());
-			peopleIds.addAll(message.getReceiverIds());
+			if (CollectionKit.isNotEmpty(message.getReceiverIds())) {
+				peopleIds.addAll(message.getReceiverIds());
+			}
 			MessageReply lastReply = message.getLastReply();
 			if (lastReply != null) {// TODO 测试数据比较混乱,先加上 sean
 				peopleIds.add(lastReply.getSenderId());
@@ -288,8 +290,10 @@ public class DaoHelper {
 		Map<Long, People> peopleMap = convertToMap(peoples);
 		for (Message message : messages) {
 			message.setSender(peopleMap.get(message.getSenderId()));
-			for (Long mid : message.getReceiverIds()) {
-				message.addReceiver(peopleMap.get(mid));
+			if (CollectionKit.isNotEmpty(message.getReceiverIds())) {
+				for (Long mid : message.getReceiverIds()) {
+					message.addReceiver(peopleMap.get(mid));
+				}
 			}
 			MessageReply lastReply = message.getLastReply();
 			if (lastReply != null) {
@@ -301,7 +305,10 @@ public class DaoHelper {
 
 	public static void injectMessageRepliesWithSenderAndReceivers(PeopleDao peopleDao, List<MessageReply> replies) throws SQLException {
 		if (!CollectionKit.isEmpty(replies)) {
-			ArrayList<Long> peopleIds = new ArrayList<Long>(); // people number is less than messages count + 1
+			ArrayList<Long> peopleIds = new ArrayList<Long>(); // people number
+																// is less than
+																// messages
+																// count + 1
 			for (MessageReply message : replies) {
 				peopleIds.add(message.getSenderId());
 			}
