@@ -155,6 +155,9 @@ public class AddMessage extends Resource {
 		if (receivers.size() > 10) {
 			throw new RequestParameterInvalidException("receiver:最多允许10人会话");
 		}
+		if (content.length() > 1400) {
+			throw new RequestParameterInvalidException("content:overflow");
+		}
 
 	}
 

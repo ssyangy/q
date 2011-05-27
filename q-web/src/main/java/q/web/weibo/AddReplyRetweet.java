@@ -80,6 +80,9 @@ public class AddReplyRetweet extends Resource {
 		if (StringKit.isBlank(content)) {
 			throw new RequestParameterInvalidException("content:invalid");
 		}
+		if (content.length() > 1400) {
+			throw new RequestParameterInvalidException("content:overflow");
+		}
 	}
 
 }

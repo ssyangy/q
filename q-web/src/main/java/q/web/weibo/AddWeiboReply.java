@@ -89,5 +89,9 @@ public class AddWeiboReply extends Resource {
 			throw new RequestParameterInvalidException("content:invalid");
 		}
 
+		if (content.length() > 1400) {
+			throw new RequestParameterInvalidException("content:overflow");
+		}
+
 	}
 }

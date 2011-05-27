@@ -93,7 +93,10 @@ public class DefaultNotifyService implements NotifyService {
 	 */
 	@Override
 	public void notifyWeiboReply(WeiboReply reply) {
-		this.notifyPeople(CHANNEL_WEIBO_REPLY, reply.getQuoteSenderId() + NOTIFY_SPLIT + reply.getId());
+		// notify quote sender if he isn't reply sender
+		if (reply.getSenderId() != reply.getQuoteSenderId()) {
+			this.notifyPeople(CHANNEL_WEIBO_REPLY, reply.getQuoteSenderId() + NOTIFY_SPLIT + reply.getId());
+		}
 	}
 
 	/*
