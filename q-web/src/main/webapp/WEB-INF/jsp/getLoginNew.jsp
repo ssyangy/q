@@ -23,7 +23,7 @@
 			<tr>
 				<td></td>
 				<td>
-				<inut type="submit" class='btnr' value="登 录" />
+				<input type="submit" class='btnr' value="登 录" />
 				</td>
 			</tr>
 		</table>
