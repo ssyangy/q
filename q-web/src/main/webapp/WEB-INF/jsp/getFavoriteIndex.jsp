@@ -10,6 +10,7 @@ seajs.use(['app/weibo','app/weibo_repitem','underscore'], function (w,r, _) {
 	w.init(q);
 	r.init(q,w.ich);
 	
+	var stream = $("#streams");
 	var pv = $('a.prev');
 	var nt = $('a.next');
 	var ajaxweibo = function(startid,typed){
@@ -35,13 +36,12 @@ seajs.use(['app/weibo','app/weibo_repitem','underscore'], function (w,r, _) {
 						stream.append(view.render().el);
 					}
 				});
-				q.fixui();
+				q.fixui(stream);
 			}
 		});
 	}
 	ajaxweibo("",0);
 	
-	var stream = $("#streams");
 	pv.click(function(){
 		ajaxweibo($("li.streambox", stream).first().attr("order_id"),1);
 	});
