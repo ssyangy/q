@@ -262,7 +262,7 @@
 	</script>
 <body>
 <div class="wapper">
-    <h1 id="logo">Q.com.cn</h1>
+    <h1 id="logo"></h1>
     <div class="content">
         <ul class='pssyao clear'>
             <li class="selected">创建帐号</li>
