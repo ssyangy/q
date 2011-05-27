@@ -11,8 +11,7 @@
     <script src="${staticUrlPrefix}/scripts/sea.js")" type="text/javascript"></script>
 	<script type="text/javascript">
 areas=${rootArea.childsJson};
-mods.push(function (q) {
-seajs.use('jq_area',function(area){
+seajs.use(['qcomcn','jq_area'],function(q, area){
 		var $ = q.jq;
 		checkLocation = function(){
 		    $("#locationcorrect").css("display","block");
@@ -107,7 +106,6 @@ seajs.use('jq_area',function(area){
 	});
 });
 
-	});
 	</script>
   </head>
 <body>

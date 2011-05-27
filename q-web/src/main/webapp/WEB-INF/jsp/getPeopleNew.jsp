@@ -9,7 +9,7 @@
     <script src="${staticUrlPrefix}/scripts/sea.js")" type="text/javascript"></script>
     <script type="text/javascript">
     //xxx by sean
-    mods.push(function(q){
+seajs.use('qcomcn',fnction(q){
   			var $ = q.jq;
         	randomInt = function (){
         	  var num= Math.floor(Math.random()*${authcodeNum}+1); 　
@@ -21,12 +21,8 @@
 	        	$("#authcodeId").attr("value",value);
         	}
     	  reloadVerify_img();
-	});
-	
-        mods.push(function (q) {
-            var $ = q.jq;
-
-            var newEmail = true;
+		  
+		  var newEmail = true;
         	var newUsername=true;
         	checkEmail = function(a)
         	{
@@ -278,7 +274,8 @@
             $(function () {
                 reloadVerify_img();
             });
-        });
+	});
+
 	</script>
 <body>
 <div class="signup">
