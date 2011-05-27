@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="propertyConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>file:${q.db.file}</value>
+		</property>
+	</bean>
+	<bean id="dataSourceMaster"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>${master.jdbc.driver}</value>
+		</property>
+		<property name="url">
+			<value>${master.jdbc.url}</value>
+		</property>
+		<property name="username">
+			<value>${master.jdbc.username}</value>
+		</property>
+		<property name="password">
+			<value>${master.jdbc.password}</value>
+		</property>
+	</bean>
+
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation">
+			<value>classpath:/sql/sql-map.xml</value>
+		</property>
+		<property name="dataSource">
+			<ref bean="dataSourceMaster" />
+		</property>
+	</bean>
+
+</beans>

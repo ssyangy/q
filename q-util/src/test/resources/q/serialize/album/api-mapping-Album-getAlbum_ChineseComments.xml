@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 中文注释 -->
+<method xmlns="http://apimapping.taobao.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://apimapping.taobao.com apimapping.xsd"
+	interfaceName="q.serialize.mapping.config.AlbumService"
+	interfaceVersion="1.0.0"><!-- 中文注释 -->
+	<methodCall name="getAlbum" apiName="taobao.album.get"><!-- 中文注释 -->
+		<params><!-- 中文注释 --><!-- ����ע��GBK -->
+			<param type="int" apiName="aid" /><!-- 中文注释 --><!-- ����ע��GBK -->
+			<param type="java.lang.Integer" apiName="version" /><!-- 中文注释 --><!-- ����ע��GBK -->
+		</params><!-- ����ע��GBK -->
+	</methodCall><!-- 中文注释 -->
+	<methodResponse><!-- 中文注释 -->
+		<param apiName="album"><!-- 中文注释 -->
+			<type><!-- 中文注释 -->
+				<struct><!-- 中文注释 -->
+					<member name="id" apiName="aid" apiType="string" /><!-- 中文注释 --><!-- ����ע��GBK -->
+					<member name="userId" apiName="user_id" apiType="string" /><!-- 中文注释 --><!-- ����ע��GBK -->
+					<member name="name" apiName="title" apiType="string" /><!-- 中文注释 --><!-- ����ע��GBK -->
+					<member name="picNum" apiName="pic_num" apiType="int" /><!-- 中文注释 --><!-- ����ע��GBK -->
+					<member name="valid" apiName="valid" apiType="boolean" /><!-- 中文注释 --><!-- ����ע��GBK -->
+				</struct>
+			</type>
+		</param>
+	</methodResponse>
+</method>

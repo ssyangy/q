@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<param xmlns="http://serialize.q.com.cn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://serialize.q.com.cn http://www.q.net/xsd/q-serialize.xsd">
+	<type>
+		<struct>
+			<member name="hasPrev" apiName="hasPrev" apiType="boolean" />
+			<member name="hasNext" apiName="hasNext" apiType="boolean" />
+			<member name="messages" apiName="messages">
+				<type>
+					<array>
+						<type>
+							<struct>
+								<member name="id" apiName="id" apiType="string" />
+								<member name="replyNum" apiName="replyNum" apiType="int" />
+								<member name="time" apiName="screenTime" apiType="string" />
+								<member name="createdTime" apiName="createdTime" apiType="string" />
+								<member name="lastReply" apiName="lastReply">
+									<type>
+										<struct>
+											<member name="id" apiName="id" apiType="string" />
+											<member name="time" apiName="screenTime" apiType="string" />
+											<member name="createdTime" apiName="createdTime" apiType="string" />
+											<member name="content" apiName="text" apiType="string" />
+											<member name="sender" apiName="sender">
+												<type>
+													<struct>
+														<member name="id" apiName="id" apiType="string" />
+														<member name="realName" apiName="screenName" apiType="string" />
+														<member name="avatarPath" apiName="avatarPath" apiType="string" />
+													</struct>
+												</type>
+											</member>
+										</struct>
+									</type>
+								</member>
+								<member name="sender" apiName="sender">
+									<type>
+										<struct>
+											<member name="id" apiName="id" apiType="string" />
+											<member name="realName" apiName="screenName" apiType="string" />
+											<member name="avatarPath" apiName="avatarPath" apiType="string" />
+										</struct>
+									</type>
+								</member>
+								<member name="receivers" apiName="receivers">
+									<type>
+										<array>
+											<type>
+												<struct>
+													<member name="id" apiName="id" apiType="string" />
+													<member name="realName" apiName="screenName" apiType="string" />
+													<member name="avatarPath" apiName="avatarPath" apiType="string" />
+												</struct>
+											</type>
+										</array>
+									</type>
+								</member>
+							</struct>
+						</type>
+					</array>
+				</type>
+			</member>
+		</struct>
+	</type>
+</param>

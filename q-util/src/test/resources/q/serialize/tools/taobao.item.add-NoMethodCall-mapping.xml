@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<method>
+	<methodResponse>
+		<param exceptionExpress="error=true,errorCode,errorMsg">
+			<type>
+				<struct>
+					<member name="firstResult" apiName="item">
+						<type>
+							<struct>
+								<member name="iid" apiName="iid" apiType="string" />
+								<member name="created" apiName="created" apiType="string" />
+							</struct>
+						</type>
+					</member>
+				</struct>
+			</type>
+		</param>
+	</methodResponse>
+</method>
