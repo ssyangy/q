@@ -11,10 +11,13 @@
     <script src="${staticUrlPrefix}/scripts/sea.js")" type="text/javascript"></script>
     <script type="text/javascript">
         seajs.use('qcomcn', function (q) {
-            var $ = q.jq;
+            $ = q.jq;
             $(function () {
                 q.loader();
             });
+			            
+        });
+		
             check = function(){
         		  var email=$("#email").val();
         		  var password=$("#password").val();
@@ -40,8 +43,7 @@
         		    }
 				});
 			}
-			            
-        });
+			
 function errorType(error){
   var exist=error.indexOf(':');
   if(exist>-1){
