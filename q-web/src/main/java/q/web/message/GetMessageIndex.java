@@ -26,7 +26,7 @@ import q.web.ResourceContext;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 21, 2011
- * 
+ *
  */
 public class GetMessageIndex extends Resource {
 
@@ -50,7 +50,7 @@ public class GetMessageIndex extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -102,6 +102,7 @@ public class GetMessageIndex extends Resource {
 			Map<String, Object> api = new HashMap<String, Object>();
 			if (CollectionKit.isNotEmpty(messages)) {
 				Map<Long, List<Long>> messageId2ReceiverIdsMap = getMessageReceiversMap(messageIds);
+				messageId2ReceiverIdsMap.remove(loginPeopleId);
 				for (Message msg : messages) {
 					msg.setReceiverIds(messageId2ReceiverIdsMap.get(msg.getId())); // set message receiver
 					MessageJoinPeople join = messageId2MessageJoinPeopleMap.get(msg.getId());
@@ -126,7 +127,7 @@ public class GetMessageIndex extends Resource {
 
 	/**
 	 * 返回message id和参与者的映射
-	 * 
+	 *
 	 * @param messageIds
 	 * @return
 	 * @throws SQLException
@@ -140,19 +141,21 @@ public class GetMessageIndex extends Resource {
 		receiversPage.setMessageIds(messageIds);
 		List<MessageJoinPeople> Joins = messageDao.getMessageJoinPeoplesByPage(receiversPage);
 		for (MessageJoinPeople join : Joins) {
-			List<Long> receivers = messageIdReceiversMap.get(join.getMessageId());
-			if (null == receivers) {
-				receivers = new ArrayList<Long>();
-				messageIdReceiversMap.put(join.getMessageId(), receivers);
+			if(join.getSenderId() != join.getReceiverId()) {
+				List<Long> receivers = messageIdReceiversMap.get(join.getMessageId());
+				if (null == receivers) {
+					receivers = new ArrayList<Long>();
+					messageIdReceiversMap.put(join.getMessageId(), receivers);
+				}
+				receivers.add(join.getReceiverId());
 			}
-			receivers.add(join.getReceiverId());
 		}
 		return messageIdReceiversMap;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
