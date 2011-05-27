@@ -15,7 +15,7 @@ mods.push(function(q){
 <c:if test="${loginCookie != null}">
 <div class="avator">
     <a href="${urlPrefix}/people/${loginCookie.peopleId}">
-    <img src="${loginCookie.avatarPath}-128" class="max-w120" alt="portraitt" /></a>
+    <img src="${loginCookie.avatarPath}-128" class="max-w128" alt="portraitt" /></a>
     <p><a href="${urlPrefix}/people/${loginCookie.peopleId}" class="lk">${loginCookie.realName}</a></p>
     <p><a href="${urlPrefix}/people/${loginCookie.peopleId}" class="lk">@${loginCookie.username}</a></p>
 </div>

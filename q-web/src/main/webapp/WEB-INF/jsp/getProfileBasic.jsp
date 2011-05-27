@@ -145,7 +145,7 @@ seajs.use('jq_area',function(area){
 	});
 	</script>
 <div class="mingrid">
-<h2>个人资料设定</h2>
+<h2>设置</h2>
 <div class="ui-tabs mt10">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
         <li class="ui-state-default crt2"><a href="${urlPrefix}/profile/avatar">头像</a></li>
@@ -154,6 +154,7 @@ seajs.use('jq_area',function(area){
     </ul>
 </div>
 <div class='tabscont' style="padding:10px;">
+<h2 class='f16 fw'>填写或修改个人资料</h2>
 <table id="setting-form" class='qform'>
 		<tr>
 			<td align="right">昵称：</td>

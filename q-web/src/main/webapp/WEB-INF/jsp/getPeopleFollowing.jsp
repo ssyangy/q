@@ -7,8 +7,8 @@
 </jsp:include>
 <div class="layout grid-m0s220 mingrid">
     <div class="col-main"><div class="main-wrap">
-        <p class='simptab'>
-        	<span>
+        <p class='simptab mb10'>
+        	<span class='fw'>
         	<c:choose><c:when test="${loginCookie.peopleId==people.id}">我</c:when><c:otherwise>${people.realName}</c:otherwise></c:choose>的关注（${people.followingNum}）</span>
         	<span class='split'>|</span>
         	<a class="lk" href="${urlPrefix}/people/${people.id}/follower">

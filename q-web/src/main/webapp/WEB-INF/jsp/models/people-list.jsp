@@ -9,9 +9,10 @@ mods.push(function (q) {
            	var pv = $('a.mbprev'); pv.hide(); if (json.hasPrev) pv.show();
            	var nt = $('a.mbnext'); nt.hide(); if (json.hasNext) nt.show();
             mems.empty();
-               $(json.peoples).each(function(){
-               	mems.append(ich.members(this));
-               });
+            $(json.peoples).each(function(){
+            	mems.append(ich.members(this));
+            });
+            q.fixui(mems);
 		}
 		$.ajax({ url:"${param['feedUrl']}",
 			data:{startId:"999999999999999999",size:10, search:"${param['search']}"},
@@ -94,7 +95,7 @@ mods.push(function (q) {
 });
 </script>
 <script type="text/html" id="members">
-    <li stream_id='{{# ${param['orderId']} }}{{ id }}{{/ ${param['orderId']} }}' people_id="{{id}}">
+    <li stream_id='{{# ${param['orderId']} }}{{ id }}{{/ ${param['orderId']} }}' people_id="{{id}}" class='hov'>
         <a href="${urlPrefix}/people/{{id}}"><img src="{{avatarPath}}-48" alt="{{screenName}}" class="sldimg" /></a>
         <p><a class="lk" href="${urlPrefix}/people/{{id}}">{{screenName}}</a></p>
         <p>{{area.province}&nbsp;{{area.city}}</p>

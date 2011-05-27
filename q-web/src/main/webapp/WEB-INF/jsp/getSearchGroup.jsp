@@ -5,7 +5,7 @@
 </jsp:include>
 <div class="layout grid-m0s220 mingrid">
 <div class="col-main"><div class="main-wrap">
-<h2 class='mt20'>搜索</h2>
+<h2>搜索</h2>
 <div id='searchpage' class="search">
 	<form action="${urlPrefix}/search/group" method="GET">
     <input class="search_inp mttext_val" type="text" name="search" value="${param['search']}" />
@@ -19,7 +19,7 @@
         <li class="ui-state-default crt2"><a href="${urlPrefix}/search/people">成员</a></li>
     </ul>
 </div>
-<div class='tabscont'>
+<div class='tabscont' style="border-top:none 0;">
 	<jsp:include page="models/group-list.jsp" >
 		<jsp:param name="search" value="${param['search']}"/>
 	</jsp:include>
