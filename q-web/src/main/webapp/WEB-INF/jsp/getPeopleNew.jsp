@@ -3,6 +3,21 @@
 	<jsp:param name="title" value="登陆注册" />
 </jsp:include>
     <script type="text/javascript">
+    //xxx by sean
+    mods.push(function(q){
+  			var $ = q.jq;
+        	randomInt = function (){
+        	  var num= Math.floor(Math.random()*${authcodeNum}+1); 　
+        	  return num;
+        	}    
+    		reloadVerify_img = function (){
+	        	var value=randomInt();
+	        	$("#authimg").attr("src","${urlPrefix}/authcode/new?authcodeId="+value);
+	        	$("#authcodeId").attr("value",value);
+        	}
+    	  reloadVerify_img();
+	});
+	
         mods.push(function (q) {
             var $ = q.jq;
 

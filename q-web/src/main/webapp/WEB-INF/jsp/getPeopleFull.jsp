@@ -173,7 +173,7 @@ seajs.use('jq_area',function(area){
 						<td align="right">手机：</td>
 						<td><input name="mobile" id="mobile" type='text'
 							class='mttext' size='20' onblur="checkMobile(this.value)"
-							value="${people.mobile}" />
+							value="<c:if test="${people.mobile>0}">${people.mobile}</c:if>" />
 						</td>
 						<td class="col-help">
 							<div class="label-box-good" style="display: none;"
