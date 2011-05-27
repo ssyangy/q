@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<param xmlns="http://serialize.q.com.cn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://serialize.q.com.cn http://www.q.net/xsd/q-serialize.xsd">
+	<type>
+		<struct>
+			<member name="hasPrev" apiName="hasPrev" apiType="boolean" />
+			<member name="hasNext" apiName="hasNext" apiType="boolean" />
+			<member name="peoples" apiName="peoples">
+				<type>
+					<array>
+						<type>
+							<struct>
+								<member name="id" apiName="id" apiType="string" />
+								<member name="realName" apiName="screenName" apiType="string" />
+								<member name="avatarPath" apiName="avatarPath" apiType="string" />
+								<member name="username" apiName="username" apiType="string" />
+								<member name="followerNum" apiName="followerNum" apiType="int" />
+								<member name="followingNum" apiName="followingNum" apiType="int" />
+								<member name="weiboNum" apiName="weiboNum" apiType="int" />
+								<member name="friendNum" apiName="friendNum" apiType="int" />
+								<member name="email" apiName="email" apiType="string" />
+								<member name="intro" apiName="intro" apiType="string" />
+								<member name="time" apiName="screenTime" apiType="string" />
+								<member name="createdTime" apiName="createdTime" apiType="string" />
+								<member name="gender.value" apiName="gender" apiType="int" />
+								<member name="following" apiName="following" apiType="boolean" />
+								<member name="area" apiName="area">
+									<type>
+										<struct>
+											<member name="id" apiName="id" apiType="string" />
+											<member name="myProvince.name" apiName="province" apiType="string" />
+											<member name="myCity.name" apiName="city" apiType="string" />
+											<member name="myCounty.name" apiName="county" apiType="string" />
+										</struct>
+									</type>
+								</member>
+								<member name="hometown" apiName="hometown">
+									<type>
+										<struct>
+											<member name="id" apiName="id" apiType="string" />
+											<member name="myProvince.name" apiName="province" apiType="string" />
+											<member name="myCity.name" apiName="city" apiType="string" />
+											<member name="myCounty.name" apiName="county" apiType="string" />
+										</struct>
+									</type>
+								</member>
+								<member name="relation" apiName="relation">
+									<type>
+										<struct>
+											<member name="id" apiName="id" apiType="string" />
+											<member name="time" apiName="screenTime" apiType="string" />
+											<member name="createdTime" apiName="createdTime" apiType="string" />
+										</struct>
+									</type>
+								</member>
+								<member name="joinGroup" apiName="joinGroup">
+									<type>
+										<struct>
+											<member name="id" apiName="id" apiType="string" />
+											<member name="time" apiName="screenTime" apiType="string" />
+											<member name="createdTime" apiName="createdTime" apiType="string" />
+										</struct>
+									</type>
+								</member>
+							</struct>
+						</type>
+					</array>
+				</type>
+			</member>
+		</struct>
+	</type>
+</param>

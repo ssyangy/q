@@ -3,13 +3,13 @@
 <html>
 <head>
     <title>Q.com.cn</title>
-    <link href="${staticUrlPrefix}/content/main/jquery.ui.css")" rel="stylesheet" type="text/css" />
-    <link href="${staticUrlPrefix}/content/qcomcn.css")" rel="stylesheet" type="text/css" />
-    <link href="${staticUrlPrefix}/content/signup.css")" rel="stylesheet" type="text/css" />
-    <script src="${staticUrlPrefix}/scripts/sea.js")" type="text/javascript"></script>
+    <link href="${staticUrlPrefix}/content/main/jquery.ui.css" rel="stylesheet" type="text/css" />
+    <link href="${staticUrlPrefix}/content/qcomcn.css" rel="stylesheet" type="text/css" />
+    <link href="${staticUrlPrefix}/content/signup.css" rel="stylesheet" type="text/css" />
+    <script src="${staticUrlPrefix}/scripts/sea.js" type="text/javascript"></script>
     <script type="text/javascript">
     //xxx by sean
-seajs.use('qcomcn',fnction(q){
+seajs.use('qcomcn',function(q){
   			var $ = q.jq;
         	randomInt = function (){
         	  var num= Math.floor(Math.random()*${authcodeNum}+1); 　

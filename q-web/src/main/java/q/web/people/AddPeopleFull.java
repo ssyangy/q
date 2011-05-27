@@ -12,6 +12,7 @@ import q.domain.Degree;
 import q.domain.Gender;
 import q.domain.People;
 import q.util.CollectionKit;
+import q.util.StringKit;
 import q.web.DefaultResourceContext;
 import q.web.LoginCookie;
 import q.web.Resource;
@@ -43,14 +44,15 @@ public class AddPeopleFull extends Resource {
 
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		People people = new People();
 		long peopleId = context.getResourceIdLong();
-		people.setId(peopleId);
+		People people = this.peopleDao.getPeopleById(peopleId);
 		Gender gender = Gender.convertValue(context.getInt("gender", -1));
-		if (gender.isFemale()) {
-			people.setAvatarPath(this.pictureService.getDefaultFemaleAvatarPath());
-		} else {
-			people.setAvatarPath(this.pictureService.getDefaultMaleAvatarPath());
+		if (StringKit.isEmpty(people.getAvatarPath())) {
+			if (gender.isFemale()) {
+				people.setAvatarPath(this.pictureService.getDefaultFemaleAvatarPath());
+			} else if (gender.isMale()) {
+				people.setAvatarPath(this.pictureService.getDefaultMaleAvatarPath());
+			}
 		}
 		people.setGender(gender);
 
@@ -87,8 +89,7 @@ public class AddPeopleFull extends Resource {
 				action.addPeopleJoinGroup(peopleId, groupId);
 			}
 		}
-		People newPeople = this.peopleDao.getPeopleById(peopleId);
-		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(newPeople.getId(), newPeople.getRealName(), newPeople.getUsername(), newPeople.getAvatarPath())); // set login cookie
+		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), people.getRealName(), people.getUsername(), people.getAvatarPath())); // set login cookie
 	}
 
 	@Override
