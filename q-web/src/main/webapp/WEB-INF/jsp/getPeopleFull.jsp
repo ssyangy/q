@@ -197,7 +197,7 @@ seajs.use('jq_area',function(area){
 						<td></td>
 						<td>
 							<input class='btnr' type='submit' value="完成" />
-							<input type='hidden' name='from' value="" />
+							<input type='hidden' name='from' value="${urlPrefix}" />
 						</td>
 					</tr>
 				</table>
