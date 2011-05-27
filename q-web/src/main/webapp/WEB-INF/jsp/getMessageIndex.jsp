@@ -26,7 +26,8 @@ mods.push(function(q){
             sldrootul.empty();
             $(json.messages).each(function () {
                 var li = ich.msglist(this);
-                li.data('members', this.receivers)
+                li.data('members', this.receivers);
+                li.data('sender', this.sender.screenName)
                 sldrootul.append(li);
             });
             var pv = $('a.prev', sldroot); pv.hide(); if (json.hasPrev) pv.show();
@@ -54,6 +55,7 @@ mods.push(function(q){
         var sld2 = $("#sld2");
         var sld2ul = $('ul.sldlist', sld2);
         var partners = $('span.partner', sld2);
+        var sender = $('span.sender', sld2);
         var mems = $('p.mems', sld2);
         var msgli_ajsucc = function (j) {
             sld2ul.empty();
@@ -66,16 +68,16 @@ mods.push(function(q){
         window.msgid = 0;
         $('li.msgli', sldroot).live('click', function () {
             window.msgid = $(this).attr('stream_id');
-            window.msgmem = $(this).data('members');
             $.ajax({ url: "${urlPrefix}/message/" + window.msgid + "/reply", msg: $(this),
                 data: { size: 10, startid: '999999999999999999' },
                 success: function (j) {
                     $('#slider').animate({ left: -580 }, { duration: 500, easing: "swing" });
+                    sender.html(this.msg.data('sender'));
                     partners.empty();
                     mems.empty();
-                    $(window.msgmem).each(function () {
+                    $.each(this.msg.data('members'), function () {
                         partners.append("<a class='lk' href='${urlPrefix}/people/" + this.id + "'>" + this.screenName + "</a> ");
-                        mems.append("<img src='" + this.avatarPath + "-24' alt='ato' />");
+                        mems.append("<img src='" + this.avatarPath + "-24' alt='ato' class='mr5' />");
                     });
                     if (j.replies) msgli_ajsucc(j);
                     $('#root').data("click",true).children(".rollbtn3").show();
@@ -170,7 +172,7 @@ mods.push(function(q){
                 </script>
                 <div id='sld2'>
                 	<div class="msgmem">
-						<p class="pr100">参与者：<span class='partner'></span></p>
+						<p class="pr100"><span class='sender'></span> --> <span class='partner'></span></p>
 						<p class="mems"></p>
 						<a class="memdel btnb">删除</a>
 					</div>
