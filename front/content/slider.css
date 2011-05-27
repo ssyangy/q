@@ -1,5 +1,5 @@
-﻿#slidbox{overflow:hidden;position:relative;}
-#slider{position:absolute;top:0;left:0;width:1160px;}
+﻿#slidbox{overflow:hidden;position:relative;height:1000px;}
+#slider{position:absolute;top:0;left:0;width:1160px;height:1000px;}
 .sldlist{width:580px;}
 .sldlist span.time{position:absolute;right:0;top:0;color:#B2B7B5}
 .sldlist span.actions{position:absolute;right:0;top:0;}
