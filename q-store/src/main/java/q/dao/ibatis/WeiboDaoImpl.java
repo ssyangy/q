@@ -9,8 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 import q.dao.WeiboDao;
+import q.dao.page.WeiboJoinGroupPage;
 import q.dao.page.WeiboPage;
 import q.dao.page.WeiboReplyPage;
+import q.domain.Status;
 import q.domain.Weibo;
 import q.domain.WeiboJoinGroup;
 import q.domain.WeiboReply;
@@ -186,19 +188,24 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 		return (WeiboJoinGroup) this.sqlMapClient.queryForObject("selectWeiboJoinGroupByWeiboId", weiboId);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see q.dao.WeiboDao#deleteWeiboBySenderIdAndWeiboId(long, long)
-	 */
 	@Override
-	public int deleteWeiboBySenderIdAndWeiboId(long senderId, long weiboId) throws SQLException {
-		Map<String, Long> map = new HashMap<String, Long>();
-		map.put("senderId", senderId);
-		map.put("weiboId", weiboId);
-		return this.sqlMapClient.update("deleteWeiboBySenderIdAndWeiboId", map);
+	public int deleteWeiboById(long id) throws SQLException {
+		WeiboPage page = new WeiboPage();
+		page.setId(id);
+		page.setNewStatus(Status.DELETE.getValue());
+		page.setOldStatus(Status.COMMON.getValue());
+		return this.sqlMapClient.update("deleteWeiboByPage", page);
 	}
-	
+
+	@Override
+	public int deleteWeiboJoinGroupsByWeiboId(long weiboId) throws SQLException {
+		WeiboJoinGroupPage page = new WeiboJoinGroupPage();
+		page.setWeiboId(weiboId);
+		page.setNewStatus(Status.DELETE.getValue());
+		page.setOldStatus(Status.COMMON.getValue());
+		return this.sqlMapClient.update("deleteWeiboJoinGroupsByPage", page);
+	}
+
 	@Override
 	public int deleteWeiboReplyBySenderIdAndReplyId(long senderId, long replyId) throws SQLException {
 		Map<String, Long> map = new HashMap<String, Long>();
@@ -222,10 +229,9 @@ public class WeiboDaoImpl extends AbstractDaoImpl implements WeiboDao {
 		return this.sqlMapClient.update("incrWeiboReplyNumByReplyId", quoteWeiboId);
 	}
 
-
 	@Override
 	public int decrWeiboReplyNumByWeiboId(long quoteWeiboId) throws SQLException {
 		return this.sqlMapClient.update("decrWeiboReplyNumByReplyId", quoteWeiboId);
 	}
-	
+
 }

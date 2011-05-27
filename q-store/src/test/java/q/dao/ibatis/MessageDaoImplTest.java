@@ -14,7 +14,6 @@ import org.junit.Test;
 
 import q.dao.page.MessageJoinPeoplePage;
 import q.dao.page.MessageReplyJoinPeoplePage;
-import q.domain.MessageJoinPeople;
 
 /**
  * @author seanlinwang at gmail dot com
@@ -197,7 +196,7 @@ public class MessageDaoImplTest {
 		joinPage.setDesc(true);
 		joinPage.setSize(10);
 		joinPage.setStartId(999L);
-		this.messageDao.getMessageReplyIdsByJoinPage(joinPage);
+		messageDao.getMessageReplyIdsByJoinPage(joinPage);
 	}
 
 	/**

@@ -136,13 +136,6 @@ public interface WeiboDao {
 	List<Weibo> getHotGroupWeibosByGroupId(long groupId, int limit, int start) throws SQLException;
 
 	/**
-	 * @param senderId
-	 * @param weiboId
-	 * @return
-	 */
-	int deleteWeiboBySenderIdAndWeiboId(long senderId, long weiboId) throws SQLException;
-
-	/**
 	 * @param quoteWeiboId
 	 */
 	int incrWeiboRetweetNumByWeiboId(long quoteWeiboId) throws SQLException;
@@ -167,8 +160,20 @@ public interface WeiboDao {
 
 	/**
 	 * @param quoteWeiboId
-	 * @return 
+	 * @return
 	 */
 	int decrWeiboReplyNumByWeiboId(long quoteWeiboId) throws SQLException;
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	int deleteWeiboById(long id) throws SQLException;
+
+	/**
+	 * @param weiboId
+	 * @return
+	 */
+	int deleteWeiboJoinGroupsByWeiboId(long weiboId) throws SQLException;
 
 }

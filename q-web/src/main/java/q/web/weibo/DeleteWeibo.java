@@ -42,17 +42,17 @@ public class DeleteWeibo extends Resource {
 
 		Weibo weibo = this.weiboDao.getWeiboById(weiboId);
 		if (weibo.getStatus() == Status.COMMON.getValue()) { // only delete weibo which has common status
-			int rowEffected = this.weiboDao.deleteWeiboBySenderIdAndWeiboId(senderId, weiboId);//TODO use deleteWeiboById 
-			if (rowEffected > 0) { // if delete weibo successful.
-				if (rowEffected > 1) {
-					log.error("delete weibo row error:", rowEffected);
-				}
+			int rowEffected = this.weiboDao.deleteWeiboById(weibo.getId());//TODO use deleteWeiboById 
+			if (rowEffected == 1) { // if delete weibo successful.
 				this.peopleDao.decrPeopleWeiboNumberByPeopleId(senderId);// decr weibo number
 				if (weibo.getQuoteWeiboId() > 0) {
 					this.weiboDao.decrWeiboRetweetNumberByWeiboId(weibo.getQuoteWeiboId());// decr weibo retweet number
 				}
 			}
 		}
+		// delete weibo groups
+		this.weiboDao.deleteWeiboJoinGroupsByWeiboId(weiboId);
+		context.setModel("weibo", weibo);
 
 	}
 
