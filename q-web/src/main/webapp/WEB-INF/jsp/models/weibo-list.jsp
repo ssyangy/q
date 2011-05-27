@@ -42,7 +42,7 @@ seajs.use(['app/weibo','underscore'], function (w, _) {
     <img class='img48' src='{{avatarPath}}-48' alt='{{ screenName }}'>
     </a>
 </div>
-<div class='bd'>
+<div class='bd fixurl'>
 	<div class='text'><a class='lk' href='${urlPrefix}/people/{{id}}' title='{{ screenName }}'>{{ screenName }}</a>
 	{{/people}}
 	{{ text }}
