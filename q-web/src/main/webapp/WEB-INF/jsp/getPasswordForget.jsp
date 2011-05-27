@@ -1,13 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<jsp:include page="models/head-unsign.jsp">
-	<jsp:param name="title" value="登陆" />
-</jsp:include>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Q.com.cn</title>
+    <link href="${staticUrlPrefix}/content/main/jquery.ui.css")" rel="stylesheet" type="text/css" />
+    <link href="${staticUrlPrefix}/content/qcomcn.css")" rel="stylesheet" type="text/css" />
+    <link href="${staticUrlPrefix}/content/signup.css")" rel="stylesheet" type="text/css" />
+    <script src="${staticUrlPrefix}/scripts/sea.js")" type="text/javascript"></script>
+</head>
+<style type="text/css">
+ul.pssyao li{width:370px;}
+</style>
 <body>
-<div class="wapper">
-    <h1 id="logo">Q.com.cn</h1>
-    <div class="content">
+<div class="signup">
+    <h1 class="logo2"></h1>
+	
+			<ul class='pssyao clear'>
+            <li class="done2">填写邮箱</li>
+            <li class="done">接收邮件</li>
+			<li class="end">重置密码</li>
+        </ul>
+	
     	<form action="${urlPrefix}/password/forget" method="post">
         <table class='qform'>
 			<tr>
@@ -19,12 +32,11 @@
 			<tr>
 				<td></td>
 				<td>
-				<button type="submit" class='ui_btn'>重置密码</button>
+				<button type="submit" class='btnb'>重置密码</button>
 				</td>
 			</tr>
 		</table>
 		</form>
-    </div>
 </div>
 </body>
 </html>
