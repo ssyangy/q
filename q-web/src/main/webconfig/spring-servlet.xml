@@ -15,6 +15,7 @@
 		<property name="exceptionMappings">
 			<props>
 				<prop key="q.web.exception.PeopleNotPermitException">error/403</prop>
+				<prop key="q.web.ResourceNotFoundException">error/404</prop>
 			</props>
 		</property>
 		<property name="statusCodes">

@@ -121,12 +121,13 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 		String servletPath = request.getRequestURI().substring(request.getContextPath().length()); // path without context and domain
 		String[] segs = StringKit.split(servletPath, PATH_SPLIT); // split path to path segments
 		Resource resource = getResource(request, method, servletPath, segs); // get request resource
+		ResourceContext context = toResourceContext(request, response, servletPath, segs); // construct resource context
+		complementModel(context); // complement model
 		if (resource == null) { // if resource not exists , return 404
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			log.debug("resource not found by method %s and path %s", method, servletPath);
-			return null;
+			throw new ResourceNotFoundException(servletPath);
 		} else {
-			ResourceContext context = toResourceContext(request, response, servletPath, segs); // construct resource context
 			boolean isJson = context.isApiRequest();
 			if (this.needLoginResources != null && this.needLoginResources.contains(resource.getName())) { // request resource need visitor login first
 				if (context.getCookiePeopleId() <= 0) { // visitor logoff
@@ -140,7 +141,6 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 			}
 
 			try {
-				complementModel(context); // complement model
 				resource.validate(context);
 				resource.execute(context); // execute resource if exists
 			} catch (ErrorCodeException e) {
