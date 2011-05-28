@@ -7,6 +7,7 @@ import q.domain.Degree;
 import q.domain.People;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotPermitException;
 
 public class GetPeopleFull extends Resource {
 	private PeopleDao peopleDao;
@@ -35,6 +36,10 @@ public class GetPeopleFull extends Resource {
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+		long peopleId = context.getResourceIdLong(); 
+		if (peopleId != context.getCookiePeopleId()) {
+			throw new PeopleNotPermitException("people:无操作权限");
+		}
 	}
 
 }

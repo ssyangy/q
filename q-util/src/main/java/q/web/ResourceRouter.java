@@ -20,13 +20,14 @@ import org.springframework.web.servlet.mvc.Controller;
 import q.log.Logger;
 import q.util.StringKit;
 import q.web.exception.PeopleNotLoginException;
+import q.web.exception.PeopleNotPermitException;
 
 /**
  * RESTFUL resource entry
- *
+ * 
  * @author seanlinwang
  * @date Jan 16, 2011
- *
+ * 
  */
 public class ResourceRouter implements Controller, ApplicationContextAware {
 
@@ -52,7 +53,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 
 	/**
 	 * set default resource to router
-	 *
+	 * 
 	 * @param defaultResource
 	 */
 	public void setDefaultResource(Resource defaultResource) {
@@ -139,21 +140,26 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 			}
 
 			try {
+				complementModel(context); // complement model
 				resource.validate(context);
 				resource.execute(context); // execute resource if exists
 			} catch (ErrorCodeException e) {
-				if (isJson) {
-					context.setErrorModel(e); // api请求错误常见,不记录错误日志
+				if (isJson) {// api请求错误特殊处理
+					context.setErrorModel(e);
 				} else {
-					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+					if (e instanceof PeopleNotPermitException) {// 用户禁止访问
+						response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+					} else {// 其他错误,直接500
+						response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+					}
 					throw e;
 				}
 			} catch (Exception e) {// resource internal error
 				log.error("resource  %s execute exeption", e, resource);
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				throw e;
 			}
 
-			complementModel(context); // complement model
 			ViewResolver viewResolver = null;
 			if (isJson) {
 				viewResolver = this.jsonViewResolver;
@@ -202,26 +208,22 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 			resource = this.defaultResource;
 			resource.setName("default");
 		} else {
-			if ("error".equals(segs[0])) {// XXX sean, e.g /error/notExist
-				resource = this.getGetResource(resourceName);
-			} else {
-				// get resource by resourceName and method
-				if (HTTP_METHOD_POST.equals(method)) {
-					String _method = request.getParameter(HTTP_INNER_METHOD);
-					if (null == _method) {
-						resource = this.getPostResource(resourceName);
-					} else {
-						_method = _method.toLowerCase();
-						if (HTTP_METHOD_UPDATE.equals(_method)) {
-							resource = this.getUpdateResource(resourceName);
-						}
-						if (HTTP_METHOD_DELETE.equals(_method)) {
-							resource = this.getDeleteResource(resourceName);
-						}
+			// get resource by resourceName and method
+			if (HTTP_METHOD_POST.equals(method)) {
+				String _method = request.getParameter(HTTP_INNER_METHOD);
+				if (null == _method) {
+					resource = this.getPostResource(resourceName);
+				} else {
+					_method = _method.toLowerCase();
+					if (HTTP_METHOD_UPDATE.equals(_method)) {
+						resource = this.getUpdateResource(resourceName);
 					}
-				} else if (HTTP_METHOD_GET.equals(method)) {
-					resource = this.getGetResource(resourceName);
+					if (HTTP_METHOD_DELETE.equals(_method)) {
+						resource = this.getDeleteResource(resourceName);
+					}
 				}
+			} else if (HTTP_METHOD_GET.equals(method)) {
+				resource = this.getGetResource(resourceName);
 			}
 		}
 		log.debug("get resource:%s by method:%s and path:%s, resourceName:%s", resource, method, path, resourceName);
