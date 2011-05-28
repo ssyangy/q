@@ -53,7 +53,7 @@
     <select id="selectCategorys" resultMap="categoryResult">
 		select
 		<include refid="category.columns" />
-		from category
+		from category where status = 0
 	</select>
 
 </sqlMap>
