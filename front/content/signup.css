@@ -1,4 +1,4 @@
-﻿.signup{margin:20px auto;width:820px;position:relative;text-align:left;border:1px solid #ddd;padding-top:100px;}
+﻿.signup{margin:20px auto;width:820px;position:relative;text-align:center;border:1px solid #ddd;padding-top:100px;}
 .logo2{position:absolute;top:1px;left:1px;display:block;width:192px;height:60px;background:url(images/logo3.jpg) no-repeat scroll 0 0;}
 
 ul.pssyao{width:100%;margin:0 0 12px;font-size:15px;}
@@ -7,5 +7,5 @@ ul.pssyao li{height:60px;line-height:60px;background:url(images/pass_d.png) no-r
 ul.pssyao li.done{background:url(images/pass_h.png) no-repeat scroll right center #E2F4F8; color:#00649b;}
 ul.pssyao li.done2{background:url(images/pass_hh.png) no-repeat scroll right center #E2F4F8; color:#00649b;}
 ul.pssyao li.end{background-image:none;}
-.qform{margin:20px;}
+.qform{margin:0 auto;text-align:left;}
 
