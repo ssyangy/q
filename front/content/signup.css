@@ -7,4 +7,5 @@ ul.pssyao li{height:60px;line-height:60px;background:url(images/pass_d.png) no-r
 ul.pssyao li.done{background:url(images/pass_h.png) no-repeat scroll right center #E2F4F8; color:#00649b;}
 ul.pssyao li.done2{background:url(images/pass_hh.png) no-repeat scroll right center #E2F4F8; color:#00649b;}
 ul.pssyao li.end{background-image:none;}
+.qform{margin:20px;}
 
