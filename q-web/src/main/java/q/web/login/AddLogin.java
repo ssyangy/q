@@ -46,7 +46,7 @@ public class AddLogin extends Resource {
 
 		if (!context.isApiRequest()) {
 			if (context.getString("from") == null) {
-				context.redirectServletPath("");
+				context.redirectServletPath("/");
 			}
 		}
 	}
