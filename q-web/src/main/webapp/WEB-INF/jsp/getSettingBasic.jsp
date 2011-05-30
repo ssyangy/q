@@ -112,7 +112,7 @@ function check() {
 	</tr>
 	<tr>
 			<th></th>
-			<td colspan='2' class='bottom'><span class='field-desc'><a class="lk" href="/password/fprget">密码忘记了？</a></span></td>
+			<td colspan='2' class='bottom'><span class='field-desc'><a class="lk" href="${urlPrefix}/password/forget">密码忘记了？</a></span></td>
 	</tr>
 	<tr>
 			<th align="right">新密码：</th>

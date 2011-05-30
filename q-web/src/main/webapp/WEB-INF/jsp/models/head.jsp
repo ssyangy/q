@@ -117,7 +117,7 @@
 <div class="hm3">
 <form action="${urlPrefix}/search/weibo" method="GET"><input
 	class="input_yao" type="text" name="search" value="" /> <input
-	type="submit" class="btnb2" value="搜索" /></form>
+	type="submit" class="btnb" value="搜索" /></form>
 </div>
 </div>
 </div>
