@@ -111,7 +111,7 @@ seajs.use(['qcomcn','jq_area'],function(q, area){
 <body>
 	<div class="signup">
 		<h1 class="logo2"></h1>
-			
+		<span class='info'>已有Q.com.cn帐号？<a class='lk ml5'>马上登录</a></span>
 		<ul class='pssyao clear'>
             <li class="done2">创建帐号</li>
             <li class="done end">填写资料</li>
@@ -184,10 +184,13 @@ seajs.use(['qcomcn','jq_area'],function(q, area){
 					</tr>
 					<tr>
 						<td align="right">感兴趣的圈子：</td>
-						<td align="right"><c:forEach items="${groups}" var="group">
-								<input name="group" type='checkbox' value="${group.id}" />
-								<span class='group-name'>${group.name}</span>
-							</c:forEach></td>
+						<td style="width:300px;">
+							<c:forEach items="${groups}" var="group">
+								<span class='mr10 favgroup'>
+								<input name="group" type='checkbox' value="${group.id}" />${group.name}
+								</span>
+							</c:forEach>
+						</td>
 						<td class="col-help">
 							<div class="label-box-good" style="display: none;"
 								id="groupcorrect"></div>
@@ -198,7 +201,7 @@ seajs.use(['qcomcn','jq_area'],function(q, area){
 					<tr>
 						<td></td>
 						<td>
-							<input class='btnr' type='submit' value="完成" />
+							<input class='btnr' type='submit' value="保存" />
 							<input type='hidden' name='from' value="${urlPrefix}" />
 						</td>
 					</tr>

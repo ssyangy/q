@@ -11,31 +11,30 @@
 <style type="text/css">
 ul.pssyao li{width:233px;}
 </style>
+<script type="text/javascript">
+	seajs.use('qcomcn', function(q) {
+		var $ = q.jq;
+		$(function() {
+			q.loader();
+		});
+	});
+</script>
 <body>
 <div class="signup">
     <h1 class="logo2"></h1>
-	
-			<ul class='pssyao clear'>
+		<span class='info'><a class='lk mr5' href="${urlPrefix}/people/new">注册</a><a class='lk' href="${urlPrefix}/login/new">登录</a></span>
+		<ul class='pssyao clear'>
             <li class="done2">填写邮箱</li>
             <li class="done">接收邮件</li>
 			<li class="end">重置密码</li>
         </ul>
 	
     	<form action="${urlPrefix}/password/forget" method="post">
-        <table class='qform'>
-			<tr>
-				<td align="right">忘记密码：</td>
-				<td><input name="email" type='text' class='mttext' size='23' onblur="if(this.value==''){this.value='填写注册邮箱或者用户名'};" onfocus="if(this.value=='填写注册邮箱或者用户名') this.value='';" value="填写注册邮箱或者用户名"/>
-				</td>
-			</tr>
-
-			<tr>
-				<td></td>
-				<td>
-				<button type="submit" class='btnb'>重置密码</button>
-				</td>
-			</tr>
-		</table>
+		<div class='qform' style="padding:20px 280px;text-align:left;">
+			<p>填写注册邮箱或者用户名：<p/>
+			<input name="email" type='text' class='mttext'/>
+			<input type="submit" class='btnb' value='提交' />
+		</div>
 		</form>
 </div>
 </body>
