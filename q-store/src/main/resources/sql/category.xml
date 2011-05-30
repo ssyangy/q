@@ -46,14 +46,34 @@
 		#joinNum#,
 		0,
 		now(),
-		null		
+		null
 		)
 	</insert>
- 
+
     <select id="selectCategorys" resultMap="categoryResult">
 		select
 		<include refid="category.columns" />
 		from category where status = 0
 	</select>
+
+	<update id="updateCategoryById">
+		update category
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="intro">
+				intro=#intro#
+			</isNotNull>
+			<isNotNull prepend="," property="name">
+				name=#name#
+			</isNotNull>
+			<isNotNull prepend="," property="avatarPath">
+				avatar_path=#avatarPath#
+			</isNotNull>
+		</dynamic>
+		where id=#id#
+	</update>
+
+	<update id="deleteCategoryById">
+		update category set status = 1 where id=#id#
+	</update>
 
 </sqlMap>

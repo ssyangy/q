@@ -7,6 +7,7 @@
 申请创建圈子分类
 <form action="${urlPrefix}/category" method="post" >
 圈子分类名称:<input   type=text   name= "name"  size="20"  maxlength="20" > <br/>
+圈子分类图片:<input   name="avatarPath" size="20"  maxlength="60"  ></input><br/>
 圈子分类介绍:<textarea   name="intro"     cols="50" rows="10"  ></textarea>
 <br/>
 <input type="submit"  value="提交" />

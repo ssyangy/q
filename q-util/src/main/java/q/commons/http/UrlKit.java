@@ -199,7 +199,7 @@ public class UrlKit {
 		if(content == null) return null;
 		StringBuffer sb = new StringBuffer();
 		Pattern p = Pattern
-				.compile("http://[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&:]*");
+				.compile("http[s]?://[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&:]*");
 		Matcher m = p.matcher(content);
 		while (m.find()) {
 			String lurl = content.substring(m.start(), m.end());

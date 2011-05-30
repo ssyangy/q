@@ -1,37 +1,26 @@
-/**
- *
- */
 package q.web.category;
-
-import java.sql.SQLException;
 
 import q.biz.PictureService;
 import q.dao.CategoryDao;
 import q.dao.PeopleDao;
 import q.domain.Category;
 import q.domain.People;
-import q.util.IdCreator;
 import q.util.StringKit;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.exception.PeopleNotPermitException;
 
-/**
- * @author Zhehao
- * @date Feb 15, 2011
- *
- */
-public class AddCategory extends Resource {
-	private PeopleDao peopleDao;
-
-	public void setPeopleDao(PeopleDao peopleDao) {
-		this.peopleDao = peopleDao;
-	}
-
+public class UpdateCategory  extends Resource {
 	private CategoryDao categoryDao;
 
 	public void setCategoryDao(CategoryDao categoryDao) {
 		this.categoryDao = categoryDao;
+	}
+
+	private PeopleDao peopleDao;
+
+	public void setPeopleDao(PeopleDao peopleDao) {
+		this.peopleDao = peopleDao;
 	}
 
 	private PictureService pictureService;
@@ -41,25 +30,21 @@ public class AddCategory extends Resource {
 	}
 
 	@Override
-	public void execute(ResourceContext context) throws SQLException {
+	public void execute(ResourceContext context) throws Exception {
+		long categoryId = context.getResourceIdLong();
 		Category category = new Category();
-		category.setId(IdCreator.getLongId());
+		category.setId(categoryId);
 		category.setName(context.getString("name"));
 		category.setIntro(context.getString("intro"));
 		String avatarPath = context.getString("avatarPath");
-		if(StringKit.isEmpty(avatarPath)) {
-			category.setAvatarPath(this.pictureService.getDefaultCategoryAvatarPath());
-		} else {
+		if(StringKit.isNotEmpty(avatarPath)) {
 			category.setAvatarPath(avatarPath);
+		} else {
+			category.setAvatarPath(this.pictureService.getDefaultCategoryAvatarPath());
 		}
-		categoryDao.addCategory(category);
+		categoryDao.updateCategory(category);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see q.web.Resource#validate(q.web.ResourceContext)
-	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
@@ -67,6 +52,6 @@ public class AddCategory extends Resource {
 		if(people.isNotAdmin()) {
 			throw new PeopleNotPermitException("people:无操作权限");
 		}
-
 	}
+
 }

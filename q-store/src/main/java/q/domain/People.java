@@ -66,9 +66,9 @@ public class People extends AbstractDomain implements Serializable {
 	private String url;
 
 	private boolean following = false;
-	
+
 	private PeopleRelation relation;
-	
+
 	private PeopleJoinGroup joinGroup;
 
 	// =========================================
@@ -369,6 +369,10 @@ public class People extends AbstractDomain implements Serializable {
 	 */
 	public PeopleJoinGroup getJoinGroup() {
 		return joinGroup;
+	}
+
+	public boolean isNotAdmin() {
+		return this.roleId != 9;
 	}
 
 }

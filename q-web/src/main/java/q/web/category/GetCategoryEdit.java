@@ -1,22 +1,31 @@
 package q.web.category;
 
+import q.dao.CategoryDao;
 import q.dao.PeopleDao;
+import q.domain.Category;
 import q.domain.People;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.exception.PeopleNotPermitException;
 
-public class GetCategoryNew extends Resource{
+public class GetCategoryEdit extends Resource{
 	private PeopleDao peopleDao;
 
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
 	}
 
+	private CategoryDao categoryDao;
+
+	public void setCategoryDao(CategoryDao categoryDao) {
+		this.categoryDao = categoryDao;
+	}
+
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-
+		Long cid = context.getResourceIdLong();
+		Category category = categoryDao.getCategoryById(cid);
+		context.setModel("category", category);
 	}
 
 	/* (non-Javadoc)
@@ -31,5 +40,4 @@ public class GetCategoryNew extends Resource{
 		}
 
 	}
-
 }
