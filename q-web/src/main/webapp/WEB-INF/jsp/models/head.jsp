@@ -78,7 +78,7 @@
 		    	pushtime = setInterval("Getpush()",15000);
 		    }
 	        <c:if test="${loginCookie!=null}">
-	        //var sss = setTimeout("initget()",2000);
+	        var sss = setTimeout("initget()",2000);
         	</c:if>
 		});
 	});
@@ -111,13 +111,13 @@
 
 <c:set var="servletPath" value="${pageContext.request.servletPath}" />
 <div id="toper">
-<div class="wapper"><a id='logo'></a>
+<div class="wapper"><a id='logo' href="${urlPrefix}"></a>
 <div id="searchTab" class="hm1">
 <div class="hm2">
 <div class="hm3">
 <form action="${urlPrefix}/search/weibo" method="GET"><input
 	class="input_yao" type="text" name="search" value="" /> <input
-	type="submit" class="btnb2" value="搜索" /></form>
+	type="submit" class="btnb" value="搜索" /></form>
 </div>
 </div>
 </div>

@@ -49,6 +49,9 @@ public class AddWeiboPicture extends Resource{
 				String fileName = fileItem.getName();
 				String typeString = fileName.substring(fileName.lastIndexOf(".") + 1);
 				String type = "";
+				if(fileItem.getSize()>2097152l){
+                       context.setModel("value", "上传图片的体积超过2M");
+				}else{
 				if (typeString.equals("jpg") || typeString.equals("jpeg")|| typeString.equals("JPEG")|| typeString.equals("JPG")) {
 					type = "image/jpeg";
 				} else if (typeString.equals("png")|| typeString.equals("PNG")) {
@@ -80,6 +83,6 @@ public class AddWeiboPicture extends Resource{
 
 			}
 			}
-
+		}
 	}
 }

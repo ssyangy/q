@@ -12,8 +12,7 @@
     <script type="text/javascript" src="${staticUrlPrefix}/scripts/src/jq.jcrop.js"></script>
 	<script type="text/javascript">
 	$(function () {
-
-		cutter = new jQuery.UtrialAvatarCutter(
+         		cutter = new jQuery.UtrialAvatarCutter(
 			{
 				//主图片所在容器ID
 				content : "myImage",
@@ -26,6 +25,7 @@
 			}
 
 		);
+
 		if("${avatarExists}"=="true"){
 		var img=new Image();
 		img.src="${avatarPath}";
@@ -51,21 +51,9 @@ var divide=1;
 function upload(){
 check();
 $("#hidden_frame").css("display","none");
-	if(isImg==true){
-		cutter = new jQuery.UtrialAvatarCutter(
-				{
-					//主图片所在容器ID
-					content : "myImage",
+	//if(isImg==true){
 
-					//缩略图配置,ID:所在容器ID;width,height:缩略图大小
-					purviews : [{id:"picture_24",width:24,height:24},{id:"picture_48",width:48,height:48},{id:"picture_128",width:128,height:128}],
-
-					//选择器默认大小
-					selector : {width:100,height:100}
-				}
-			);
-			 cutter.init();
-	}
+	//}
 	return isImg;
 	}
 	function save(){
@@ -109,6 +97,11 @@ $("#hidden_frame").css("display","none");
     }
 });
 	}
+	function showWrong(value){
+	isImg=false;
+	alert(value);
+
+	}
     function notAImg(){
     	isImg=false;
          $("#imgwrong").css("display","block");
@@ -116,7 +109,7 @@ $("#hidden_frame").css("display","none");
     }
     function reloadImg(x,y,z){
      $("#saveButton").css("display","block");
-    		  $("#cancelButton").css("display","block");
+    $("#cancelButton").css("display","block");
     realHeight=x;
 	realWidth=y;
 	var imgPath=z;

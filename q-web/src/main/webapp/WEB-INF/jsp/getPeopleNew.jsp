@@ -281,7 +281,9 @@ seajs.use('qcomcn',function(q){
 <body>
 <div class="signup">
     <h1 class="logo2"></h1>
-
+	
+	<span class='info'>已有Q.com.cn帐号？<a class='lk ml5'>马上登录</a></span>
+	
         <ul class='pssyao clear'>
             <li class="done">创建帐号</li>
             <li class="end">填写资料</li>

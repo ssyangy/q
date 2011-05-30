@@ -22,9 +22,9 @@ ul.pssyao li{width:233px;}
 <body>
 	<div class="signup">
 		<h1 class="logo2"></h1>
-		
+		<span class='info'><a class='lk mr5' href="${urlPrefix}/people/new">注册</a><a class='lk' href="${urlPrefix}/login/new">登录</a></span>
 		<ul class='pssyao clear'>
-            <li class="done2">填写邮箱</li>
+            <li class="done3">填写邮箱</li>
             <li class="done2">接收邮件</li>
 			<li class="done end">重置密码</li>
         </ul>
@@ -34,18 +34,16 @@ ul.pssyao li{width:233px;}
 				<input type="hidden" name="key" value="${key}"></input>
 					<tr>
 						<td align="right">新密码：</td>
-						<td><input type="password" name="newPassword" type='text' class='mttext'
-							size='23'></td>
+						<td><input type="password" name="newPassword" type='text' class='mttext' /></td>
 					</tr>
 					<tr>
 						<td align="right">重复新密码：</td>
-						<td><input type="password" name="newPassword_re" type='text' class='mttext'
-							size='23'></td>
+						<td><input type="password" name="newPassword_re" type='text' class='mttext' /></td>
 					</tr>
 					<tr>
 						<td></td>
 						<td>
-							<button type="submit" class='ui_btn'>提交</button></td>
+							<input type="submit" class='btnr' value="提交" /></td>
 					</tr>
 				</table>
 			</form>

@@ -54,8 +54,11 @@ public class AddGroup extends Resource {
 			group.setLatitude(Double.parseDouble(context.getString("latitude")));
 			group.setLongitude(Double.parseDouble(context.getString("longitude")));
 		}
+		if(context.getString("groupImage")!=""){
+			group.setAvatarPath(context.getString("groupImage"));
+		}else{
 		group.setAvatarPath(pictureService.getDefaultGroupAvatarPath());
-
+		}
 		groupDao.addGroup(group); // create group
 		groupDao.addGroupJoinCategory(group.getId(), context.getIdLong("categoryId")); // set group category
 		groupDao.addPeopleJoinGroup(group.getCreatorId(), group.getId());

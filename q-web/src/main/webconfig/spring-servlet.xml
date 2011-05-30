@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
-	<bean id="publicUrlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	<bean id="publicUrlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
 			<value>
 				/*=router
@@ -28,7 +29,8 @@
 		<property name="defaultErrorView" value="error/500" />
 		<property name="defaultStatusCode" value="500"></property>
 	</bean>
-	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
 			<value>/WEB-INF/jsp/</value>
 		</property>
@@ -287,6 +289,12 @@
 						<entry>
 							<key>
 								<value>addProfileBasic:people</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
+						<entry>
+							<key>
+								<value>deleteMessage:id</value>
 							</key>
 							<value>/WEB-INF/json/check.xml</value>
 						</entry>
@@ -582,6 +590,13 @@
 		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="getGroupJoin" class="q.web.group.GetGroupJoin">
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+	<bean id="addGroupPicture" class="q.web.group.AddGroupPicture">
+		<property name="pictureService" ref="pictureService"></property>
+	</bean>
+	<bean id="addGroupEdit" class="q.web.group.AddGroupEdit">
+		<property name="pictureService" ref="pictureService"></property>
 		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<!-- photo web -->

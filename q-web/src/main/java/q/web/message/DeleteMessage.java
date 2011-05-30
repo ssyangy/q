@@ -43,6 +43,7 @@ public class DeleteMessage extends Resource {
 			// reset reply num to zero
 			this.messageDao.clearMessageJoinPeopleReplyNumberByMessageIdAndReceiverId(messageId, peopleId);
 		}
+		context.setModel("id", messageId);
 	}
 
 	/*
