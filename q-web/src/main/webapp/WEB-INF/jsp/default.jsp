@@ -12,8 +12,11 @@
     <script type="text/javascript">
         seajs.use('qcomcn', function (q) {
             $ = q.jq;
-            $(function () {
-                q.loader();
+            
+			$(function () {
+				q.loader();
+				$("#signvali").validationEngine();
+			
             });
 			            
         });
@@ -69,24 +72,34 @@ function errorContext(error){
 <div class="header">
 	<div class="logo"></div>
 	<div class="titles"></div>
-	<span id="loginWrong hide"></span>
+
 	<table class="signin-area">
-			<tr>
-				<td align="right">邮箱：</td>
-				<td><input id="email" name="email" type='text' class='mttext' accesskey='l'></td>
-			</tr>
-			<tr>
-				<td align="right">密码：</td>
-				<td><input id="password" name="password" type='password' class='mttext' accesskey='l'></td>
-				<td><a href="${urlPrefix}/password/forget" class="lk ml10">忘记密码</a></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><input type="checkbox" checked="checked" /> 保持登录状态 
-				<a href="#" class="btnr access_l" onclick="check()">登 录</a></td>
-				<td><a class="lk ml10" href="${urlPrefix}/people/new">立即注册</a></td>
-			</tr>		
+		<tr>
+			<td align="right">邮箱：</td>
+			<td><input id="email" name="email" type='text' class='validate[required,custom[email],ajax[ajaxEmailExist]] mttext' accesskey='l'></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td align="right">密码：</td>
+			<td><input id="password" name="password" type='password' class='mttext validate[required]' accesskey='l'></td>
+			<td><a href="${urlPrefix}/password/forget" class="lk ml10">忘记密码</a></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<input type="checkbox" checked="checked" /> 保持登录状态
+				<input type="submit" class="btnr access_l submit" onclick="check()" value="登 录" />
+			</td>
+			<td><a class="lk ml10" href="${urlPrefix}/people/new">立即注册</a></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><span id='loginWrong' class='hide fred'></span>
+			</td>
+			<td></td>
+		</tr>		
 	</table>
+	
 </div>
 
 <div class="mt20 clear">
