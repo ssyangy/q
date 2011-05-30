@@ -56,13 +56,6 @@
     }
 
     exports.fix = function ($, box) {
-        $(".tgtsign", box).click(function () {
-            var o = $("#signovb");
-            o.dialog("open");
-            o.prev("div.ui-dialog-titlebar").remove();
-            o.parent("div.ui-dialog").removeClass("ui-corner-all ui-widget-content");
-            o.removeClass("ui-widget-content");
-        });
 
         $(".tips", box).tooltip({ position: { my: "center bottom", at: "center top", offset: "0 -5"} });
 

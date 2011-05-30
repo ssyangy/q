@@ -10,6 +10,7 @@
     exports.jq = $;
     var _ = require('underscore');
 
+
     exports.loader = function () {
         $("body").addClass(window.bow);
         uihelp.loader($);
@@ -18,7 +19,19 @@
         }).blur(function () {
             $(this).next('input.search_btn').removeClass('typing');
         });
-        
+
+        $("#signovb").ajaxSuccess(function (evt, resp, set) {
+            var m = exports.convertJson(resp.responseText);
+            if (!m && m.id) return;
+            if (m.error_code == "40002") {
+                var o = $(this);
+                o.dialog("open");
+                o.prev("div.ui-dialog-titlebar").remove();
+                o.parent("div.ui-dialog").removeClass("ui-corner-all ui-widget-content");
+                o.removeClass("ui-widget-content");
+            }
+        });
+
         require('jqplus/jq_target')($, "#toper, #main, #footer");
         exports.fixui($("body"));
 
@@ -72,5 +85,10 @@
             );
         }
 
+    }
+
+    exports.convertJson = function (m) {
+        var value = eval("(" + m + ")");
+        return value;
     }
 });
