@@ -290,6 +290,12 @@
 							</key>
 							<value>/WEB-INF/json/check.xml</value>
 						</entry>
+						<entry>
+							<key>
+								<value>deleteMessage:id</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
 					</map>
 				</property>
 			</bean>
@@ -609,6 +615,7 @@
 	<bean id="deleteWeibo" class="q.web.weibo.DeleteWeibo">
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
+		<property name="searchService" ref="searchService"></property>
 	</bean>
 	<bean id="addWeiboPicture" class="q.web.weibo.AddWeiboPicture">
 		<property name="pictureService" ref="pictureService"></property>
