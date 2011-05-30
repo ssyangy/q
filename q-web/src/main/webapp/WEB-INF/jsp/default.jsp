@@ -115,7 +115,7 @@ function errorContext(error){
 		        <img src="${weibo.people.avatarPath}-48" alt="{{screenName}}" class="sldimg" />
 		        </a>
 		        <p><a href="${urlPrefix}/people/${weibo.people.id}" class="lk">${weibo.people.realName}</a></p>
-		        <p><a href="${urlPrefix}/weibo/${weibo.id}">${weibo.content}</a></p>
+		        <p>${weibo.content}</p>
 		    </li>					
 			</c:forEach>
 		</ul>
