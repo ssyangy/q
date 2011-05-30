@@ -4,7 +4,7 @@
     <div id="footer">
     </div>
     
-<div id="signovb">
+<div id="signovb" class="hide">
 	<table class="qform mb20">
 			<tr>
 				<th align="right">邮箱：</th>
