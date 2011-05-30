@@ -110,7 +110,7 @@ mods.push(function (q) {
 					<ul id="sldtrunk" class="sldlist">
 					{{#groups}}
                     <li gid={{id}}>
-                        <img src="{{avatarPath}}" alt="avtor" class="sldimg" />
+                        <img src="{{avatarPath}}-48" alt="avtor" class="sldimg" />
                         <a class='btnb act {{#joined}}hide_im{{/joined}}'>关注</a>
                         <a class='btnb actun {{^joined}}hide_im{{/joined}}'>取消关注</a>
                        <p><a href='${urlPrefix}/group/{{id}}' class='lk'>{{name}}</a></p>
@@ -140,7 +140,7 @@ mods.push(function (q) {
             <c:forEach items="${recommendGroups}" var="group" varStatus="status">
             <li class="<c:if test="${status.count%3==0}">end</c:if>">
                 <a href="${urlPrefix}/group/${group.id}">
-                	<img class="img48" src="${group.avatarPath}" alt="img" />
+                	<img class="img48" src="${group.avatarPath}-48" alt="img" />
                 </a>
                 <div class="gray">
                     <a href="${urlPrefix}/group/${group.id}" class='lk'>${group.name}</a>

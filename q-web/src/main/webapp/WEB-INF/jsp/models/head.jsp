@@ -111,7 +111,7 @@
 
 <c:set var="servletPath" value="${pageContext.request.servletPath}" />
 <div id="toper">
-<div class="wapper"><a id='logo'></a>
+<div class="wapper"><a id='logo' href="${urlPrefix}"></a>
 <div id="searchTab" class="hm1">
 <div class="hm2">
 <div class="hm3">
