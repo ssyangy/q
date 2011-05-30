@@ -5,7 +5,8 @@
     </div>
     
 <div id="signovb" class="hide">
-	<table class="qform mb20">
+	<a class="clo dclo" style="position:absolute;top:10px;right:10px;"></a>
+	<table class="qform" style="margin-bottom:20px;">
 			<tr>
 				<th align="right">邮箱：</th>
 				<td><input type='text' class='mttext' /></td>
