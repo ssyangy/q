@@ -8,3 +8,8 @@ E:\Work\front\front\bin\front.pdb
 E:\Work\front\front\obj\Debug\ResolveAssemblyReference.cache
 E:\Work\front\front\obj\Debug\front.dll
 E:\Work\front\front\obj\Debug\front.pdb
+E:\Work\q-front\front\bin\front.dll
+E:\Work\q-front\front\bin\front.pdb
+E:\Work\q-front\front\obj\Debug\ResolveAssemblyReference.cache
+E:\Work\q-front\front\obj\Debug\front.dll
+E:\Work\q-front\front\obj\Debug\front.pdb

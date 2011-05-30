@@ -14,3 +14,11 @@ D:\work\q-front\front.Tests\bin\Debug\front.pdb
 D:\work\q-front\front.Tests\obj\Debug\ResolveAssemblyReference.cache
 D:\work\q-front\front.Tests\obj\Debug\front.Tests.dll
 D:\work\q-front\front.Tests\obj\Debug\front.Tests.pdb
+E:\Work\q-front\front.Tests\bin\Debug\front.Tests.dll.config
+E:\Work\q-front\front.Tests\bin\Debug\front.Tests.dll
+E:\Work\q-front\front.Tests\bin\Debug\front.Tests.pdb
+E:\Work\q-front\front.Tests\bin\Debug\front.dll
+E:\Work\q-front\front.Tests\bin\Debug\front.pdb
+E:\Work\q-front\front.Tests\obj\Debug\ResolveAssemblyReference.cache
+E:\Work\q-front\front.Tests\obj\Debug\front.Tests.dll
+E:\Work\q-front\front.Tests\obj\Debug\front.Tests.pdb
