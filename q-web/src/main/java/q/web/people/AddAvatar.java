@@ -38,6 +38,10 @@ public class AddAvatar extends Resource {
 			if (fileItem.isFormField()) {
 				// 当前是一个表单项
 			} else {
+				if(fileItem.getSize()>2097152l){
+                    context.setModel("value", "上传图片的体积超过2M");
+				}
+				else{
 				long peopleId = context.getCookiePeopleId();
 				long dir = peopleId % 10000;
 				// 当前是一个上传的文件
@@ -62,6 +66,7 @@ public class AddAvatar extends Resource {
 					context.setModel("imgHeight", ImageKit.load(fileItem.getInputStream()).getHeight());
 					context.setModel("imgWidth", ImageKit.load(fileItem.getInputStream()).getWidth());
 					context.setModel("imgPath", this.pictureService.getImageUrl() + place);
+					context.setModel("value", "上传成功");
 				} else {
 					context.setModel("isImg", false);
 				}
@@ -77,7 +82,7 @@ public class AddAvatar extends Resource {
 				// ImageKit.save(image128, "/home/zhao/下载/test/128.gif","jpg");
 				// ImageKit.save(image48, "/home/zhao/下载/test/48.jpg","jpg");
 				// ImageKit.save(image24, "/home/zhao/下载/test/24.jpg","jpg");
-
+				}
 			}
 
 		}
