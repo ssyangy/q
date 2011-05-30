@@ -12,6 +12,9 @@ ul.dlist li:hover{background-color:#f6f6f6;}
 ul.dlist li.end{border-right:none 0;}
 /*#endregion Commen */
 
+#signovb{border-top:5px solid #da0000;background-color:#fff;text-align:center;padding:30px;}
+#signovb .qform{text-align:left;margin:0 auto;}
+
 #toper{position:relative;}
 #toper .wapper{height:35px;background-color:#DA0000;}
 #toper ul.dlist a.lk{color:#00649b;}
@@ -92,8 +95,8 @@ ul.msglist li{cursor:pointer;border-top:1px solid #ddd;padding:15px 40px 15px 68
               min-height:48px; _height:48px; overflow:visible;}
 ul.msglist li.hover{background-color:#f6f6f6;}              
 ul.msglist li.end{border-bottom:1px solid #ddd;}
-ul.msglist img.sldimg{position:absolute;top:10px;left:10px;}
-ul.msglist p{line-height:24px;color:#333;}
+ul.msglist img.sldimg{position:absolute;top:15px;left:10px;}
+ul.msglist p{line-height:20px;color:#333;}
 ul.msglist a.lk,ul.msglist a.btn,ul.msglist a.btna{margin-right:5px;}
 .pagger{margin-top:5px;}
 

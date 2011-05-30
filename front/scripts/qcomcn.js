@@ -6,6 +6,7 @@
     require('jqplus/jq_repurl')($);
     require('jqplus/jq_mttext')($);
     require('jqplus/jq_initbow')($);
+    require('jqplus/jq_validation')($);
     exports.jq = $;
     var _ = require('underscore');
 
@@ -17,6 +18,7 @@
         }).blur(function () {
             $(this).next('input.search_btn').removeClass('typing');
         });
+        
         require('jqplus/jq_target')($, "#toper, #main, #footer");
         exports.fixui($("body"));
 
@@ -69,7 +71,6 @@
                 function () { $(this).removeClass('hover'); }
             );
         }
-        
-    }
 
+    }
 });

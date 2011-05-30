@@ -4,7 +4,7 @@ a:hover{text-decoration: none;}
 ul, ol { list-style: none; }
 legend { color: #000; }
 fieldset, img { border: 0; }
-body{font-family:Arial,sans-serif;font-size:13px;color:#333;}
+body{font-family:Arial,sans-serif;font-size:12px;color:#333;}
 html {color: #2B2A25;background: #FFF;}
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{padding: 0;margin: 0;}
 table {border-collapse: collapse;border-spacing: 0;}
@@ -96,7 +96,7 @@ vm1外部不能有line-height属性DOM
 .gblue{background-color:#e2f3f8;}
 .bgray{border-color:#dcdcdc;}
 .bgreen{border-color:#C4F7ED;}
-.bgray{border-color:#B8D0CE;}
+.bblue{border-color:#B8D0CE;}
 .fblue{color:#00649b;}
 .fblue2{color:#1889b6;}
 .fblue3{color:#7ab8ce;}

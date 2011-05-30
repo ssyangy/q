@@ -7,6 +7,7 @@
     }
 
     exports.loader = function ($) {
+
         var alert = function (txt) {
             $("#txtAlert").text(txt);
             $('#AlertDialog').dialog('open');
@@ -43,11 +44,26 @@
             }
         });
 
-        window.diatgt = $("#dialog_target");
         $.fx.speeds._default = 1000;
+        window.diatgt = $("#dialog_target");
+
+        $("#signovb").dialog({
+            resizable: false,
+            modal: true,
+            autoOpen: false,
+            width: 350
+        }).parent().appendTo(window.diatgt);
     }
 
     exports.fix = function ($, box) {
+        $(".tgtsign", box).click(function () {
+            var o = $("#signovb");
+            o.dialog("open");
+            o.prev("div.ui-dialog-titlebar").remove();
+            o.parent("div.ui-dialog").removeClass("ui-corner-all ui-widget-content");
+            o.removeClass("ui-widget-content");
+        });
+
         $(".tips", box).tooltip({ position: { my: "center bottom", at: "center top", offset: "0 -5"} });
 
         $('select.speedD', box).selectmenu({ style: 'dropdown' });
@@ -56,7 +72,6 @@
             resizable: false,
             modal: true,
             autoOpen: false,
-            hide: "drop",
             width: 350,
             buttons: {
                 "确定": function () {

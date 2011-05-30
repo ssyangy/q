@@ -2,7 +2,7 @@
     return function ($) {
 
         /*
-        * Inline Form Validation Engine 2.1, jQuery plugin
+        * Inline Form Validation Engine 2.2, jQuery plugin
         *
         * Copyright(c) 2010, Cedric Dugas
         * http://www.position-absolute.com
@@ -52,7 +52,8 @@
                         "alertText": "验证码格式不正确"
                     },
                     "email": {
-                        "regex": /^[a-zA-Z0-9_\.\-]+\@([a-zA-Z0-9\-]+\.)+[a-zA-Z0-9]{2,4}$|^$/,
+                        //http://projects.scottsplayground.com/email_address_validation/
+                        "regex": /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i,
                         "alertText": "Email格式不正确"
                     },
                     "date": {
@@ -92,38 +93,10 @@
                         "alertText": "银行卡格式不正确"
                     },
                     // --- CUSTOM RULES -- Those are specific to the demos, they can be removed or changed to your likings
-                    "ajaxUserCall": {
-                        "url": "ajaxValidateFieldUser",
-                        // you may want to pass extra data on the ajax call
-                        "extraData": "name=eric",
-                        "alertText": "* This user is already taken",
-                        "alertTextLoad": "* Validating, please wait"
-                    },
-                    "ajaxUserCallPhp": {
-                        "url": "phpajax/ajaxValidateFieldUser.php",
-                        // you may want to pass extra data on the ajax call
-                        "extraData": "name=eric",
-                        // if you provide an "alertTextOk", it will show as a green prompt when the field validates
-                        "alertTextOk": "* This username is available",
-                        "alertText": "* This user is already taken",
-                        "alertTextLoad": "* Validating, please wait"
-                    },
-                    "ajaxNameCall": {
-                        // remote json service location
-                        "url": "ajaxValidateFieldName",
-                        // error
-                        "alertText": "* This name is already taken",
-                        // if you provide an "alertTextOk", it will show as a green prompt when the field validates
-                        "alertTextOk": "* This name is available",
-                        // speaks by itself
-                        "alertTextLoad": "* Validating, please wait"
-                    },
-                    "ajaxNameCallPhp": {
-                        // remote json service location
-                        "url": "phpajax/ajaxValidateFieldName.php",
-                        // error
-                        "alertText": "* This name is already taken",
-                        // speaks by itself
+                    "ajaxEmailExist": {
+                        "url": window.urlprefix +"/people/check",
+                        "extraData": "email=eric",
+                        "alertText": "* This email is already taken",
                         "alertTextLoad": "* Validating, please wait"
                     },
                     "validate2fields": {
@@ -134,6 +107,7 @@
             }
         };
         $.validationEngineLanguage.newLang();
+
         var methods = {
 
             /**
@@ -169,8 +143,11 @@
                 else
                     options = form.data('jqv');
 
+                var validateAttribute = (form.find("[data-validation-engine*=validate]")) ? "data-validation-engine" : "class";
+
                 if (!options.binded) {
                     if (options.bindMethod == "bind") {
+
                         // bind fields
                         form.find("[class*=validate]:not([type=checkbox])").bind(options.validationEventTrigger, methods._onFieldEvent);
                         form.find("[class*=validate][type=checkbox]").bind("click", methods._onFieldEvent);
@@ -266,7 +243,7 @@
             * Closes all error prompts on the page
             */
             hidePrompt: function () {
-                var promptClass = "." + methods._getClassName($(this).attr("id")) + "formError"
+                var promptClass = "." + methods._getClassName($(this).attr("id")) + "formError";
                 $(promptClass).fadeTo("fast", 0.3, function () {
                     $(this).remove();
                 });
@@ -275,11 +252,11 @@
             * Closes form error prompts, CAN be invidual
             */
             hide: function () {
+                var closingtag;
                 if ($(this).is("form")) {
-                    var closingtag = "parentForm" + $(this).attr('id');
+                    closingtag = "parentForm" + $(this).attr('id');
                 } else {
-
-                    var closingtag = $(this).attr('id') + "formError"
+                    closingtag = $(this).attr('id') + "formError";
                 }
                 $('.' + closingtag).fadeTo("fast", 0.3, function () {
                     $(this).remove();
@@ -363,7 +340,7 @@
                 var errorFound = false;
 
                 // Trigger hook, start validation
-                form.trigger("jqv.form.validating")
+                form.trigger("jqv.form.validating");
                 // first, evaluate status of non ajax fields
                 form.find('[class*=validate]').not(':hidden').each(function () {
                     var field = $(this);
@@ -373,7 +350,7 @@
                 // errorFound |= !methods._checkAjaxStatus(options);
 
                 // thrird, check status and scroll the container accordingly
-                form.trigger("jqv.form.result", [errorFound])
+                form.trigger("jqv.form.result", [errorFound]);
 
                 if (errorFound) {
 
@@ -384,17 +361,21 @@
 
                         // look for the visually top prompt
                         var destination = Number.MAX_VALUE;
-
+                        var fixleft = 0;
                         var lst = $(".formError:not('.greenPopup')");
+
                         for (var i = 0; i < lst.length; i++) {
                             var d = $(lst[i]).offset().top;
-                            if (d < destination)
+                            if (d < destination) {
                                 destination = d;
+                                fixleft = $(lst[i]).offset().left;
+                            }
                         }
 
                         if (!options.isOverflown)
                             $("html:not(:animated),body:not(:animated)").animate({
-                                scrollTop: destination
+                                scrollTop: destination,
+                                scrollLeft: fixleft
                             }, 1100);
                         else {
                             var overflowDIV = $(options.overflownDIV);
@@ -406,6 +387,11 @@
 
                             scrollContainer.animate({
                                 scrollTop: destination
+                            }, 1100);
+
+                            $("html:not(:animated),body:not(:animated)").animate({
+                                scrollTop: overflowDIV.offset().top,
+                                scrollLeft: fixleft
                             }, 1100);
                         }
                     }
@@ -523,16 +509,12 @@
                 var required = false;
                 options.isError = false;
                 options.showArrow = true;
-                optional = false;
 
                 for (var i = 0; i < rules.length; i++) {
 
                     var errorMsg = undefined;
                     switch (rules[i]) {
 
-                        case "optional":
-                            optional = true;
-                            break;
                         case "required":
                             required = true;
                             errorMsg = methods._required(field, rules, i, options);
@@ -609,7 +591,7 @@
                 } else {
                     if (!isAjaxValidator) methods._closePrompt(field);
                 }
-                field.closest('form').trigger("jqv.field.error", [field, options.isError, promptText])
+                field.trigger("jqv.field.result", [field, options.isError, promptText]);
                 return options.isError;
             },
             /**
@@ -643,7 +625,7 @@
                                 return options.allrules[rules[i]].alertTextCheckboxMultiple;
                         }
                         break;
-                    // required for <select>     
+                    // required for <select> 
                     case "select-one":
                         // added by paul@kinetek.net for select boxes, Thank you
                         if (!field.val())
@@ -681,7 +663,7 @@
                 }
                 var pattern = new RegExp(ex);
 
-                if (!pattern.test(field.attr('value')))
+                if (!pattern.test(field.val()))
                     return options.allrules[customRule].alertText;
             },
             /**
@@ -714,7 +696,7 @@
             _equals: function (field, rules, i, options) {
                 var equalsField = rules[i + 1];
 
-                if (field.attr('value') != $("#" + equalsField).attr('value'))
+                if (field.val() != $("#" + equalsField).val())
                     return options.allrules.equals.alertText;
             },
             /**
@@ -729,7 +711,7 @@
             */
             _maxSize: function (field, rules, i, options) {
                 var max = rules[i + 1];
-                var len = field.attr('value').length;
+                var len = field.val().length;
 
                 if (len > max) {
                     var rule = options.allrules.maxSize;
@@ -748,7 +730,7 @@
             */
             _minSize: function (field, rules, i, options) {
                 var min = rules[i + 1];
-                var len = field.attr('value').length;
+                var len = field.val().length;
 
                 if (len < min) {
                     var rule = options.allrules.minSize;
@@ -767,7 +749,7 @@
             */
             _min: function (field, rules, i, options) {
                 var min = parseFloat(rules[i + 1]);
-                var len = parseFloat(field.attr('value'));
+                var len = parseFloat(field.val());
 
                 if (len < min) {
                     var rule = options.allrules.min;
@@ -787,7 +769,7 @@
             */
             _max: function (field, rules, i, options) {
                 var max = parseFloat(rules[i + 1]);
-                var len = parseFloat(field.attr('value'));
+                var len = parseFloat(field.val());
 
                 if (len > max) {
                     var rule = options.allrules.max;
@@ -810,7 +792,7 @@
 
                 var p = rules[i + 1];
                 var pdate = (p.toLowerCase() == "now") ? new Date() : methods._parseDate(p);
-                var vdate = methods._parseDate(field.attr('value'));
+                var vdate = methods._parseDate(field.val());
 
                 if (vdate < pdate) {
                     var rule = options.allrules.past;
@@ -832,7 +814,7 @@
 
                 var p = rules[i + 1];
                 var pdate = (p.toLowerCase() == "now") ? new Date() : methods._parseDate(p);
-                var vdate = methods._parseDate(field.attr('value'));
+                var vdate = methods._parseDate(field.val());
 
                 if (vdate > pdate) {
                     var rule = options.allrules.future;
@@ -909,7 +891,7 @@
                     for (var i = 0; i < domIds.length; i++) {
                         var id = domIds[i];
                         if ($(id).length) {
-                            var inputValue = field.closest("form").find(id).attr("value");
+                            var inputValue = field.closest("form").find(id).val();
                             var keyValue = id.replace('#', '') + '=' + escape(inputValue);
                             tmpData.push(keyValue);
                         }
@@ -925,7 +907,7 @@
                         url: rule.url,
                         cache: false,
                         dataType: "json",
-                        data: "fieldId=" + field.attr("id") + "&fieldValue=" + field.attr("value") + "&extraData=" + extraData + "&" + extraDataDynamic,
+                        data: "fieldId=" + field.attr("id") + "&fieldValue=" + field.val() + "&extraData=" + extraData + "&" + extraDataDynamic,
                         field: field,
                         rule: rule,
                         methods: methods,
@@ -1266,7 +1248,7 @@
                     scroll: true,
                     // Opening box position, possible locations are: topLeft,
                     // topRight, bottomLeft, centerRight, bottomRight
-                    promptPosition: "topRight",
+                    promptPosition: "centerRight",
                     bindMethod: "bind",
                     // internal, automatically set to true when it parse a _ajax rule
                     inlineAjax: false,

@@ -1,4 +1,4 @@
-﻿#index{margin:20px auto;padding:20px 0px;width:820px;background-color:#fff;position:relative;height:600px;text-align:left;}
+﻿#index{margin:0 auto;width:820px;background-color:#fff;position:relative;height:600px;text-align:left;}
     
 #index .header{border-top:3px solid #DA0000;background-color:#f6f6f6;position:relative;height:160px;}
 #index .header .logo{position:absolute;top:18px;left:15px;display:block;width:192px;height:60px;background:url(images/logo2.png) no-repeat scroll 0 0;}
@@ -19,6 +19,6 @@
 .sldlist li .actun{position:absolute;top:10px;right:0;}
 .msglist li{border-top:none 0!important;}
 
-#index .footer{text-align:center;height:30px;line-height:30px;}
+#index .footer{text-align:center;height:30px;line-height:30px;margin:30px 0;}
 #index .footer ul{list-style: none outside none;}
-#index .footer li{display:inline;margin-top:40px;margin-right:10px;}  
+#index .footer li{display:inline;margin-right:10px;}  
