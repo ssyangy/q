@@ -169,6 +169,8 @@ a.more:hover{border-color:#88A825}
 a.ul {color:#666;text-decoration: none;background: url(images/underline.gif) repeat-x left bottom;}
 a.ul:hover {background-image: url(images/underlineh.gif);}
 .qq{background:transparent url(images/tips/Question4.png) no-repeat scroll right center;padding-right:15px!important;height:12px;line-height:12px;cursor:pointer;}
+a.clo{background:transparent url(images/tips/stop.png) no-repeat scroll 0 0;display:block;height:13px;width:13px;cursor:pointer;}
+a.clo:hover{background-image:url(images/tips/stop_h.png);}
 .emot{padding-left:20px;background:transparent url(images/emot.png) no-repeat scroll left center;}
 .pict{padding-left:20px;background:transparent url(images/pict.png) no-repeat scroll left center;}
 .rollbtn{padding-left:20px;background:transparent url(images/rollbtn.png) no-repeat scroll left center;}

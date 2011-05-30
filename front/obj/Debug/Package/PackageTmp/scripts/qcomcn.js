@@ -21,7 +21,7 @@
         });
 
         $("#signovb").ajaxSuccess(function (evt, resp, set) {
-            var m = exports.convertJson(resp.responseText);
+            var m = eval("(" + resp.responseText + ")");
             if (!m && m.id) return;
             if (m.error_code == "40002") {
                 var o = $(this);
@@ -87,8 +87,4 @@
 
     }
 
-    exports.convertJson = function (m) {
-        var value = eval("(" + m + ")");
-        return value;
-    }
 });

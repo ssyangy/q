@@ -53,6 +53,9 @@
             autoOpen: false,
             width: 350
         }).parent().appendTo(window.diatgt);
+        $("#signovb .dclo").click(function () {
+            $("#signovb").dialog("close");
+        });
     }
 
     exports.fix = function ($, box) {
