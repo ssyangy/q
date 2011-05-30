@@ -78,7 +78,7 @@
 		    	pushtime = setInterval("Getpush()",15000);
 		    }
 	        <c:if test="${loginCookie!=null}">
-	        //var sss = setTimeout("initget()",2000);
+	        var sss = setTimeout("initget()",2000);
         	</c:if>
 		});
 	});
