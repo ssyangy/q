@@ -20,4 +20,6 @@ public interface SearchService {
 
 	public void updateGroup(Group data);
 
+	public void deleteWeiboById(Long id) throws Exception;
+
 }
