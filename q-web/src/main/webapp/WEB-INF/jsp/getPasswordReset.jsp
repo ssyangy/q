@@ -43,7 +43,7 @@ ul.pssyao li{width:233px;}
 					<tr>
 						<td></td>
 						<td>
-							<button type="submit" class='btnr'>提交</button></td>
+							<input type="submit" class='btnr' value="提交" /></td>
 					</tr>
 				</table>
 			</form>

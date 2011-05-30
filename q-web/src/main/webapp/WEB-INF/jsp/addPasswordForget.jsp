@@ -15,8 +15,8 @@ ul.pssyao li{width:233px;}
 		<h1 class="logo2"></h1>
 		<span class='info'><a class='lk mr5' href="${urlPrefix}/people/new">注册</a><a class='lk' href="${urlPrefix}/login/new">登录</a></span>
 		<ul class='pssyao clear'>
-            <li class="done">填写邮箱</li>
-            <li class="">接收邮件</li>
+            <li class="done2">填写邮箱</li>
+            <li class="done">接收邮件</li>
 			<li class="end">重置密码</li>
         </ul>
 		<div class='qform' style="padding:20px;text-align:center;">
