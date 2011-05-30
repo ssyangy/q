@@ -9,7 +9,7 @@
 	var imgPath;
 	var dia_img;
 	mods.push(function(q) {
-		seajs.use([ 'jqplus/jq_rotate', 'jqplus/jq_countable' ], function(rota,
+		seajs.use(['jqplus/jq_rotate', 'jqplus/jq_countable'], function(rota,
 				cb) {
 			var $ = q.jq;
 			rota($);

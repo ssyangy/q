@@ -5,6 +5,7 @@
 <script type='text/javascript'>
    var isImg='<%=request.getAttribute("isImg")%>' ;
    var value='<%=request.getAttribute("value")%>';
+
    if(value!="上传成功"){
 	   parent.showWrong(value);
    }
