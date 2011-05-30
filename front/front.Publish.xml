@@ -218,7 +218,11 @@
     <file relUrl="scripts/jqplus/jq_target.js" publishTime="05/30/2011 10:29:47" />
     <file relUrl="content/images/tips/minus.gif" publishTime="05/30/2011 10:29:46" />
     <file relUrl="content/images/underlineh.gif" publishTime="05/30/2011 10:29:46" />
+<<<<<<< HEAD
     <file relUrl="scripts/qcomcn.js" publishTime="05/30/2011 13:38:10" />
+=======
+    <file relUrl="scripts/qcomcn.js" publishTime="05/30/2011 10:29:47" />
+>>>>>>> 2657b3bfecc847f24ce95c6a1f2ed8edb0a5098b
     <file relUrl="scripts/app/app_home.js" publishTime="05/30/2011 10:29:47" />
     <file relUrl="content/images/arrow/prev.png" publishTime="05/30/2011 10:29:46" />
     <file relUrl="content/smoothness/images/ui-icons_222222_256x240.png" publishTime="05/30/2011 10:29:46" />
@@ -330,7 +334,11 @@
     <file relUrl="content-v1/jcrop/Jcrop.gif" publishTime="05/30/2011 10:29:46" />
     <file relUrl="content/images/arrow/sh2_exh.png" publishTime="05/30/2011 10:29:46" />
     <file relUrl="Views/qcomcn/Weibo.cshtml" publishTime="05/30/2011 10:29:46" />
+<<<<<<< HEAD
     <file relUrl="content/base.css" publishTime="05/30/2011 13:31:20" />
+=======
+    <file relUrl="content/base.css" publishTime="05/30/2011 11:06:13" />
+>>>>>>> 2657b3bfecc847f24ce95c6a1f2ed8edb0a5098b
     <file relUrl="demo/button.htm" publishTime="05/30/2011 10:29:46" />
     <file relUrl="content/images/btn-w.gif" publishTime="05/30/2011 10:29:46" />
     <file relUrl="demo/images/ui-icons_666666_256x240.png" publishTime="05/30/2011 10:29:46" />

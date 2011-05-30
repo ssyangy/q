@@ -1,0 +1,30 @@
+﻿<script type="text/javascript">
+    mods.push(function (q) {
+        var $ = q.jq;
+
+        $('#inputmain').focus(function () {
+            $(this).css('height', '40');
+            $('#inputbtm').removeClass('height0');
+        });
+        var selinp = $('#selinp>a.ui-selectmenu');
+        selinp.width(selinp.width() + 18).append('<span class="ui-icon ui-icon-signal-diag"></span>');
+        $("body").bind("keyup", function (e) {
+            var code = (e.keyCode ? e.keyCode : e.which);
+            var tarname = $(e.target).get(0).tagName;
+
+            if (tarname != 'INPUT' && tarname != 'TEXTAREA' && code == 65) {
+                $('#inputmain').focus();
+            }
+        });
+
+    });
+</script>
+<div class="inputbx">
+    <textarea id="inputmain" class="mttextar_val">说点什么 . . .</textarea>
+    <div id="inputbtm" class="rel clear pb5 pt5 height0">
+        <div class="tal">
+            插入：<a class="lk mr10">点名(&#64某人)</a> <a class="lk mr10 emot">表情</a> <a class="lk mr10 pict">图片</a>
+        </div>
+        <input id="btnSubTweet" type="button" name="name" value="发表" class="btnr" />
+    </div>
+</div>

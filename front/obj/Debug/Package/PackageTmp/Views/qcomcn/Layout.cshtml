@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/content/qcomcn.css")" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="@Url.Content("~/scripts/sea.js")"></script>
+    <script type="text/javascript">
+        var mods = [];
+        seajs.use("qcomcn", function (q) {
+            q.jq(function () {
+                for (var i in mods) mods[i](q);
+                q.loader();
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <div id="toper"><div class="wapper">
+        <a id='logo'></a>
+        <div id="searchTab" class="hm1"><div class="hm2"><div class="hm3">
+            <input class="input_yao" type="text" name="name" value="" />
+            <input type="button" class="btnb2" value="搜索" />
+        </div></div></div>
+        <div id="msg">
+            <ul class="list">
+                <li><a href='/' class="lk">首页</a></li>
+                <li><a href='/qcomcn/friends' class="lk">好友</a></li>
+                <li class='rel pr20_im'><a class="lk" href='/people/#'>loginCookie</a>
+                <span tgtt='minelist' class='in_bk tlistarr'></span>
+		        <div id="minelist" class='tgtbox'>
+		            <ul class="dlist">
+		                <li><a class='lk' href='/people/#'>我的主页</a></li>
+		                <li><a class="lk" href='/qcomcn/AtMe'>&#64提到我的</a></li>
+		                <li><a class="lk" href='/qcomcn/Replies'>我的回复</a></li>
+		                <li class="end"><a class="lk" href='/'>我的收藏</a></li>
+		            </ul>
+		        </div>
+                </li>
+                <li><a class="lk" href='/qcomcn/MsgInbox'>私信</a></li>
+                <li><a class="lk" href='/qcomcn/Setting'>设置</a></li>
+                <li class="end"><a class="lk" href='/login/delete'>退出</a></li>
+            </ul>
+        </div>
+        <div id="note">
+            <p>1条新的回应<a class="lk">查看回应</a></p>
+            <p>3位新粉丝<a class="lk">查看我的粉丝</a></p>
+            <p>6条发言提到我<a class="lk">查看&#64我</a></p>
+        </div>
+    </div></div>
+
+    <div id="main"><div class="wapper">
+        @RenderBody()
+    </div></div>
+
+    <div id="footer"><div class="wapper">
+    </div></div>
+<div id="dialog_target"></div>
+
+</body>
+</html>

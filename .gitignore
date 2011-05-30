@@ -1,5 +1,5 @@
 *.[oa]
 *~
-bin/
-obj/
+bin/*
+obj/*
 *.swp

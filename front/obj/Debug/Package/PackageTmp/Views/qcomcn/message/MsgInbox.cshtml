@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "私信";
+    Layout = "~/Views/qcomcn/Layout.cshtml";
+}
+<link href="/content-q/slider.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    seajs.use('jquery', function ($) {
+        //var $ = q.jq;
+
+        $(function () {
+            var lis = $("#sldroot>li");
+            lis.hover(function () {
+                $(this).addClass('hover');
+            }, function () {
+                $(this).removeClass('hover');
+            });
+
+        });
+    });
+</script>
+<h2 class='mb10'>私信</h2>
+<div class="layout grid-m0s7">
+    <div class="col-main"><div class="main-wrap">
+        <div id="slidbox">
+                <div id="slider">
+                <ul class="sldlist" id="sldroot">
+                    <li>
+                        <img src="/usersimg/avatar5.jpeg" alt="Alternate Text" class="sldimg" />
+                        <p class='rel'>Cheney -> <a class="lk">alin</a>, <a class="lk">老杨</a>, <a class="lk">iceball8</a>, <a class="lk">bububut</a>, <a class="lk">YAO</a>
+                        <span class="time">下午 7:58</span></p>
+                        <p>乒乓球拍买好了。淘宝上搞的。红双喜。嗲</p>
+                    </li>
+                    <li>
+                        <img src="/usersimg/avatar5.jpeg" alt="Alternate Text" class="sldimg" />
+                        <p class='rel'>Cheney -> <a class="lk">alin</a>, <a class="lk">老杨</a>, <a class="lk">iceball8</a>, <a class="lk">bububut</a>, <a class="lk">YAO</a><span class="time">下午 7:58</span></p>
+                        <p>乒乓球拍买好了。淘宝上搞的。红双喜。嗲</p>
+                    </li>
+                    <li>
+                        <img src="/usersimg/avatar5.jpeg" alt="Alternate Text" class="sldimg" />
+                        <p class='rel'>Cheney -> <a class="lk">alin</a>, <a class="lk">老杨</a>, <a class="lk">iceball8</a>, <a class="lk">bububut</a>, <a class="lk">YAO</a><span class="time">下午 7:58</span></p>
+                        <p>乒乓球拍买好了。淘宝上搞的。红双喜。嗲</p>
+                    </li>
+                    <li>
+                        <img src="/usersimg/avatar5.jpeg" alt="Alternate Text" class="sldimg" />
+                        <p class='rel'>Cheney -> <a class="lk">alin</a>, <a class="lk">老杨</a>, <a class="lk">iceball8</a>, <a class="lk">bububut</a>, <a class="lk">YAO</a><span class="time">下午 7:58</span></p>
+                        <p>乒乓球拍买好了。淘宝上搞的。红双喜。嗲</p>
+                    </li>
+                    <li>
+                        <img src="/usersimg/avatar5.jpeg" alt="Alternate Text" class="sldimg" />
+                        <p class='rel'>Cheney -> <a class="lk">alin</a>, <a class="lk">老杨</a>, <a class="lk">iceball8</a>, <a class="lk">bububut</a>, <a class="lk">YAO</a><span class="time">下午 7:58</span></p>
+                        <p>乒乓球拍买好了。淘宝上搞的。红双喜。嗲</p>
+                    </li>
+                </ul>
+                <script type="text/html" id="msgitem">
+                    <li>
+                        <img src="/usersimg/{{img}}" alt="Alternate Text" class="sldimg" />
+                        <p class='rel'>{{members}}<span class="time">{{time}}</span></p>
+                        <p>{{text}}</p>
+                    </li>
+                </script>
+                <ul class="sldlist" id="sldtrunk">
+                    
+                </ul>
+                <div id="pagger"><a class="lk mr10">上一页</a><a class="lk">下一页</a></div>
+                </div>
+            </div>
+    </div></div>
+    <div class="col-sub">
+        <button class="ui_btn_plusthick">新私信</button>
+    </div>
+</div>
