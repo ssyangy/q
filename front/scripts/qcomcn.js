@@ -51,9 +51,9 @@
             });
         }
 
-        $("input.mttext", box).mttext();
+        //$("input.mttext", box).mttext();
         $("input.mttext_val", box).mttext({ wval: true });
-        $("textarea.mttextar", box).mttext({ isarea: true });
+        //$("textarea.mttextar", box).mttext({ isarea: true });
         $("textarea.mttextar_val", box).mttext({ isarea: true, wval: true });
 
         $(".hov", box).hover(

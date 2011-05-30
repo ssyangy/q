@@ -143,6 +143,7 @@ vm1外部不能有line-height属性DOM
 .mttextar,.mttextar_val{overflow:auto;}
 .mttext_box{margin:0px!important;border:2px solid #5485BD!important;}
 .mttext_act{color:#2B2A25!important}
+.mttext{border:1px solid #dcdcdc;} /* YAO */
 /*#endregion MTtext */
 
 /*#region Htext */
@@ -187,10 +188,9 @@ input.btnr,input.btnb,input.btnb2{border:none 0;}
 .btnr{height:23px;line-height:23px;color:#fff;width:56px;background:url(images/btnr.png) no-repeat scroll 0 0 #fff;}
 .btnr:hover{background-position:0 -23px;}
 .btnr:active{background-position:0 -46px;color:#333;}
-.btnb,.btnb2{background:url(images/btnb.png) repeat-x scroll left top;height:18px;line-height:19px;color:#fff;border-radius:2px;border:1px solid #fff;padding:0 10px;}
+.btnb,.btnb2{background:url(images/btnb2.png) repeat-x scroll left top;height:20px;line-height:21px;color:#fff;border-radius:2px;border:1px solid #fff;padding:0 10px;}
 .btnb:hover,.btnb2:hover{color:#00649b;border-color:#00649b;}
 .btnb:active,.btnb2:active{color:#333;border-color:#333;line-height:20px;}
-.btnb2{background:url(images/btnb2.png) repeat-x scroll left top;height:20px;line-height:21px;}
 
 .btnw16{padding-left:16px;position:relative;}
 .btnw16 .settings {background:url(images/btn-set.gif) no-repeat scroll 0 0 transparent;position:absolute;top:6px;left:3px;width:10px;height:10px;}

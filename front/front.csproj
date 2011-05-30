@@ -359,9 +359,11 @@
     <Content Include="content\images\index.png" />
     <Content Include="content\images\logo.png" />
     <Content Include="content\images\logo2.png" />
+    <Content Include="content\images\logo3.jpg" />
     <Content Include="content\images\pass_d.png" />
     <Content Include="content\images\pass_h.png" />
     <Content Include="content\images\pass_hh.png" />
+    <Content Include="content\images\pass_hhh.png" />
     <Content Include="content\images\pict.png" />
     <Content Include="content\images\resize.png" />
     <Content Include="content\images\rollbtn.png" />
