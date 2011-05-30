@@ -3,6 +3,7 @@
  */
 package q.web.weibo;
 
+import q.biz.SearchService;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.domain.Status;
@@ -15,7 +16,7 @@ import q.web.exception.RequestParameterInvalidException;
 /**
  * @author seanlinwang at gmail dot com
  * @date Apr 20, 2011
- * 
+ *
  */
 public class DeleteWeibo extends Resource {
 	private WeiboDao weiboDao;
@@ -30,9 +31,16 @@ public class DeleteWeibo extends Resource {
 		this.peopleDao = peopleDao;
 	}
 
+	private SearchService searchService;
+
+	public void setSearchService(SearchService searchService) {
+		this.searchService = searchService;
+	}
+
+
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -52,13 +60,14 @@ public class DeleteWeibo extends Resource {
 		}
 		// delete weibo groups
 		this.weiboDao.deleteWeiboJoinGroupsByWeiboId(weiboId);
+		searchService.deleteWeiboById(weiboId);
 		context.setModel("weibo", weibo);
 
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override

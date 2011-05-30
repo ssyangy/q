@@ -170,6 +170,11 @@ public class SolrSearchService implements SearchService {
 		return String.format(format, temp1);
 	}
 
+	public String deleteXml(Long id) {
+		String format = "<delete><id>%s</id></delete>";
+		return String.format(format, id);
+	}
+
 	public String newXml(People people) {
 		String[] temp1 = new String[3];
 		temp1[0] = String.valueOf(people.getId());
@@ -266,5 +271,22 @@ public class SolrSearchService implements SearchService {
 			}
 		}
 		return bs;
+	}
+
+	@Override
+	public void deleteWeiboById(final Long id) throws Exception {
+		runThread(new Runnable() {
+			public void run() {
+				try {
+					String httpUrl = searchUrl + "/solr/qweibo/update?commit=true";
+					URL temp = new URL(httpUrl);
+					HttpURLConnection con = JdkHttpClient.getHttpConnection(temp, 100000, 100000);
+					String message = deleteXml(id);
+					JdkHttpClient.postString(con, message);
+				} catch (IOException e) {
+					log.error("Search Engine is out of use and the qweibo " + id);
+				}
+			}
+		});
 	}
 }
