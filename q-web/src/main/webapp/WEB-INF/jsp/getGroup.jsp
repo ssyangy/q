@@ -32,7 +32,7 @@ mods.push(function(q){
         <div class="ui-tabs mt10">
             <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
                 <li class="ui-state-default crt2 ui-state-active"><a href="${urlPrefix}/group/${group.id}">讨论区</a></li>
-                <li class="ui-state-default crt2"><a href="${urlPrefix}/group/${group.id}/people">成员</a></li>
+                <li class="ui-state-default crt2 ui-state-un"><a href="${urlPrefix}/group/${group.id}/people">成员</a></li>
             </ul>
         </div>
 		<div class='tabscont'>

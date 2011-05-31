@@ -10,7 +10,7 @@
 	<a href="${urlPrefix}/people/${fo.id}">
 	<img src="${fo.avatarPath}-48" class="wh48" alt="img"></a>
 	<div class="gray">
-		<a href="${urlPrefix}/people/${fo.id}">${fo.realName}</a>
+		<a href="${urlPrefix}/people/${fo.id}" class="lk" >${fo.realName}</a>
 	</div>
 	</li>
 </c:forEach>
