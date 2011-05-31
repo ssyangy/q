@@ -3,7 +3,6 @@
 <script type="text/javascript">
 seajs.use(['qcomcn','app/weibo','underscore'], function (q, w, _) {
 	var $ = q.jq;
-	var ich = {};
 	$(function(){
 		seajs.use('ICanHaz',function(ich){ 
 			w.Loader(q, ich);
@@ -38,6 +37,17 @@ seajs.use(['qcomcn','app/weibo','underscore'], function (q, w, _) {
 </script>
 
 <ul id='streams'></ul>
+<script id="picture" class="partial" type="text/html">
+		{{#picturePath}}
+		<img src="{{picturePath}}-160" class="img160 weiboImg"/>
+		<div class='imgPre hide'>
+			<p class='mt10 mb10'><img src="{{picturePath}}-320" class="img320 preImg"/></p>
+			<a class='imgRotateL lk mr10'>左转</a>
+	    	<a class='imgRotateR lk mr10'>右转</a>
+	    	<a href='{{picturePath}}' class='lk' target='_blank'>查看原图</a>
+		</div>
+		{{/picturePath}}
+</script>
 <script type="text/html" id="stream">
 <div class='hd'>
 	{{#people}}
@@ -50,16 +60,7 @@ seajs.use(['qcomcn','app/weibo','underscore'], function (q, w, _) {
 	{{/people}}
 	{{ text }}
 	</div>
-	{{#picturePath}}
-	<img src="{{picturePath}}-160" class="img160 weiboImg"/>
-	<div class='imgPre hide'>
-		<p class='mt10 mb10'><img src="{{picturePath}}-320" class="img320 preImg"/></p>
-		<a class='imgRotateL lk mr10'>左转</a>
-	    <a class='imgRotateR lk mr10'>右转</a>
-	    <a href='{{picturePath}}' class='lk' target='_blank'>查看原图</a>
-	</div>
-	{{/picturePath}}
-
+	{{>picture}}
 </div>
 <div class='fd'>
 	<span class='stat'>{{screenTime}}
@@ -78,6 +79,19 @@ seajs.use(['qcomcn','app/weibo','underscore'], function (q, w, _) {
     <a class='lk mr10 rrprev hide'>上一页</a>
     <a class='lk rrnext hide'>下一页</a>
  </div>
+</script>
+<script type="text/html" id="quote">
+		<div class='text'>
+		{{#people}}
+		<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>：
+		{{/people}}
+		{{text}}
+		</div>
+		{{>picture}}
+		<span class="">
+			<a href="javascript:void(0);" class='lk qresub'>原文转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
+			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
+		</span>
 </script>
 <script type="text/html" id="stream_ext">
 	{{#people}}
@@ -98,27 +112,7 @@ seajs.use(['qcomcn','app/weibo','underscore'], function (q, w, _) {
 		</span>
 	</p>
 </script>
-<script type="text/html" id="quote">
-		<div class='text'>
-		{{#people}}
-		<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>：
-		{{/people}}
-		{{text}}
-		</div>
-		{{#picturePath}}
-		<img src="{{picturePath}}-160" class="img160 weiboImg"/>
-		<div class='imgPre hide'>
-			<p class='mt10 mb10'><img src="{{picturePath}}-320" class="img320 preImg"/></p>
-			<a class='imgRotateL lk mr10'>左转</a>
-	    	<a class='imgRotateR lk mr10'>右转</a>
-	    	<a href='{{picturePath}}' class='lk' target='_blank'>查看原图</a>
-		</div>
-		{{/picturePath}}
-		<span class="">
-			<a href="javascript:void(0);" class='lk qresub'>原文转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
-			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
-		</span>
-</script>
+
 <div id="dia_ret" class="ui_dialog hide" title="转发">
 	<div class="wpeople mb10"></div>
 	<div class="wsor mb10"></div>

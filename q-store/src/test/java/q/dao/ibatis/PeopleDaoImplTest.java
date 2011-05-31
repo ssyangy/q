@@ -14,6 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import q.dao.PeopleDao;
+import q.dao.page.PeoplePage;
 import q.dao.page.PeopleRelationPage;
 import q.domain.Area;
 import q.domain.People;
@@ -22,7 +23,7 @@ import q.domain.PeopleRelationStatus;
 /**
  * @author seanlinwang at gmail dot com
  * @date May 18, 2011
- *
+ * 
  */
 public class PeopleDaoImplTest {
 
@@ -73,7 +74,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#getPeopleById(long)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -83,7 +84,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#getPeopleByEmail(java.lang.String)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -93,7 +94,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#getPeopleByUsername(java.lang.String)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -103,7 +104,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#getHotPeoplesByArea(q.domain.Area, int)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -113,7 +114,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#getPeoplesByIds(java.util.List)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -123,7 +124,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#getIdRealNameMapByIds(java.util.Set)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -140,7 +141,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#getPeopleRelationsByPage(q.dao.page.PeopleRelationPage)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -156,7 +157,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#getAllFollowingId(long)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -166,7 +167,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#getPeopleRelationByFromIdToId(long, long)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -176,7 +177,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#updatePeopleRelationStatusById(q.domain.PeopleRelationStatus, q.domain.PeopleRelationStatus, long)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -186,7 +187,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#updatePeopleRelationStatusByFromIdAndToId(q.domain.PeopleRelationStatus, q.domain.PeopleRelationStatus, long, long)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -196,7 +197,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#getInterestById(long)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -206,7 +207,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#updateInterestById(q.domain.People)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -219,7 +220,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#selectPasswordById(long)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -229,7 +230,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#decrPeopleWeiboNumberByPeopleId(long)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -239,7 +240,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#incrPeopleWeiboNumberByPeopleId(long)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -249,7 +250,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#incrPeopleFollowingNumberByPeopleId(long)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -259,7 +260,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#incrPeopleFollowerNumberByPeopleId(long)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -269,7 +270,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#decrPeopleFollowingNumberByPeopleId(long)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -279,7 +280,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#decrPeopleFollowerNumberByPeopleId(long)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -289,7 +290,7 @@ public class PeopleDaoImplTest {
 
 	/**
 	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#updatePasswordByPeopleId(long, java.lang.String)}.
-	 *
+	 * 
 	 * @throws SQLException
 	 */
 	@Test
@@ -297,6 +298,16 @@ public class PeopleDaoImplTest {
 		peopleDao.updatePasswordByPeopleId(1L, "xxx");
 	}
 
-
+	/**
+	 * Test method for {@link q.dao.ibatis.PeopleDaoImpl#getPeoplesByPage(PeoplePage)}.
+	 * 
+	 * @throws SQLException
+	 */
+	@Test
+	public void testSelectPeopleByPage() throws SQLException {
+		PeoplePage page = new PeoplePage();
+		page.setSize(4);
+		peopleDao.getPeoplesByPage(page);
+	}
 
 }

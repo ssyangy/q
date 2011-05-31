@@ -396,6 +396,19 @@ public class DefaultPictureService implements PictureService {
 		return fu;
 	}
 
+	@Override
+	public String getType(String typeString) {
+		String type="";
+		if (typeString.equals("jpg") || typeString.equals("jpeg") || typeString.equals("JPEG") || typeString.equals("JPG")) {
+			type = "image/jpeg";
+		} else if (typeString.equals("png") || typeString.equals("PNG")) {
+			type = "image/png";
+		} else if (typeString.equals("gif") || typeString.equals("GIF")) {
+			type = "image/gif";
+		}
+          return type;
+	}
+
 
 
 

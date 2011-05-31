@@ -95,8 +95,8 @@ mods.push(function (q) {
             <ul id="sldroot" class="sldlist">
 				<c:forEach items="${cats}" var="cat" varStatus="status">
 				<li gpcid='${cat.id}' class='hov'>
-					<img src="${cat.avatarPath }" class="sldimg" >
-					<p><span class='name f14 fblue'>${cat.name}</span></p>
+					<img src="${cat.avatarPath}" class="sldimg" >
+					<p><span class='name f14 fblue fw'>${cat.name}</span></p>
 					<p>
 						<c:forEach items="${cat.groups}" var="group" varStatus="status">
 							<a class="lk" href="${urlPrefix}/group/${group.id}">${group.name}</a>
@@ -113,8 +113,8 @@ mods.push(function (q) {
                         <img src="{{avatarPath}}-48" alt="avtor" class="sldimg" />
                         <a class='btnb act {{#joined}}hide_im{{/joined}}'>关注</a>
                         <a class='btnb actun {{^joined}}hide_im{{/joined}}'>取消关注</a>
-                       <p><a href='${urlPrefix}/group/{{id}}' class='lk'>{{name}}</a></p>
-                        <p>成员：{{joinNum}}人&nbsp;&nbsp;创建于：{{screenTime}}</p>
+                       <p><a href='${urlPrefix}/group/{{id}}' class='lk fw'>{{name}}</a></p>
+                        <p class='fgray2'>成员：{{joinNum}}人&nbsp;&nbsp;创建于：{{screenTime}}</p>
                         <p>{{intro}}</p>
                     </li>
 					{{/groups}}
@@ -132,7 +132,7 @@ mods.push(function (q) {
 			<jsp:param name="id" value="0" />
 		</jsp:include>
     </div>
-    <div class="col-extra" style="padding-top:13px;">
+    <div class="col-extra">
 
         <div class="component">
         <h3>圈子推荐</h3>

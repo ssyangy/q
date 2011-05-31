@@ -13,6 +13,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import q.biz.PictureService;
 import q.commons.image.ImageKit;
 import q.util.IdCreator;
+import q.util.StringKit;
 import q.web.DefaultResourceContext;
 import q.web.Resource;
 import q.web.ResourceContext;
@@ -27,38 +28,36 @@ public class AddGroupPicture extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		HttpServletRequest request = ((DefaultResourceContext) context).getRequest();
-		File tempfile = new File(System.getProperty("java.io.tmpdir"));// 采用系统临时文件目录
-		DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
-		diskFileItemFactory.setSizeThreshold(4096); // 设置缓冲区大小，这里是4kb
-		diskFileItemFactory.setRepository(tempfile); // 设置缓冲区目录
-		ServletFileUpload fu = new ServletFileUpload(diskFileItemFactory);
-		fu.setSizeMax(4194304);
-		List fileItems = fu.parseRequest(request);
+
+		List fileItems = pictureService.getUploadParameter().parseRequest(request);
 		Iterator iter = fileItems.iterator();
 		for (; iter.hasNext();) {
 			FileItem fileItem = (FileItem) iter.next();
 			if (fileItem.isFormField()) {
-				// 当前是一个表单项
+
+				String cs = fileItem.getString();
+
 			} else {
 				if (fileItem.getSize() > 2097152l) {
 					context.setModel("value", "上传图片的体积超过2M");
 				} else {
-					long Id = IdCreator.getLongId();
-					long dir = Id % 10000;
+
 					// 当前是一个上传的文件
 					String fileName = fileItem.getName();
 					String typeString = fileName.substring(fileName.lastIndexOf(".") + 1);
-					String type = "";
-					if (typeString.equals("jpg") || typeString.equals("jpeg") || typeString.equals("JPEG") || typeString.equals("JPG")) {
-						type = "image/jpeg";
-					} else if (typeString.equals("png") || typeString.equals("PNG")) {
-						type = "image/png";
-					} else if (typeString.equals("gif") || typeString.equals("GIF")) {
-						type = "image/gif";
-					} else {
+					String type = pictureService.getType(typeString);
+					 if(StringKit.isBlank(type)){
 						context.setModel("isImg", false);
 					}
 					if (ImageKit.isImage(fileItem.getInputStream())) {
+
+						long Id = context.getResourceIdLong();
+						if (Id == 0) {
+							Id = IdCreator.getLongId();
+						}
+
+						context.setModel("id", String.valueOf(Id));
+
 						context.setModel("isImg", true);
 						long size = fileItem.getSize();
 						String sb = pictureService.uploadGroupPicture(fileItem.getInputStream(), Id, size, type);

@@ -50,7 +50,7 @@
 </script>
 <div class="layout grid-m0s220 mingrid">
     <div class="col-main"><div class="main-wrap">
-        <p class='simptab'><a class="lk" href="${urlPrefix}/reply/received">收到的回应</a><span class='split'>|</span><span>发出的回应</span></p>
+        <p class='simptab mb15'><a class="lk" href="${urlPrefix}/reply/received">收到的回应</a><span class='split'></span><span class="fw">发出的回应</span></p>
         <script type="text/html" id="replys">
             <li stream_id="{{id}}">
                 <p class="rel">{{text}} <span class='time'>{{screenTime}}</span><a class='lk del'>删除</a></p>
@@ -70,7 +70,7 @@
 {{/quote}}
             </li>
         </script>
-        <ul class='replist mt20'></ul>
+        <ul class='replist'></ul>
 		<div class="pagger">
 			<a class="lk mr10 prev hide">上一页</a>
 			<a class="lk next hide">下一页</a>

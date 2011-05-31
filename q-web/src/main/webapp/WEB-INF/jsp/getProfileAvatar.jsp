@@ -5,8 +5,8 @@
 </jsp:include>
     <link rel="stylesheet" type="text/css" href="${staticUrlPrefix}/content/jcrop/jquery-jcrop-0.9.8.css"  />
      <style type="text/css">
-    .imgbox{float:left;width:300px;margin-right:10px;}
-    .imgmain{float:left;width:600px;}
+    .imgbox{float:left;width:200px;height:200px;margin-right:25px;background:url(http://i1.q.com.cn/default/male-def-128) no-repeat scroll 0 0;}
+    .imgmain{float:left;width:500px;line-height:25px;}
      </style>
     <script type="text/javascript" src="${staticUrlPrefix}/scripts/src/jquery-1.6.1.js"></script>
     <script type="text/javascript" src="${staticUrlPrefix}/scripts/src/jq.jcrop.js"></script>
@@ -258,24 +258,29 @@ $("#hidden_frame").css("display","none");
 }
 	</script>
 <div class="mingrid">
-<h2>设置头像</h2>
+<h2>设置</h2>
 <div class="ui-tabs mt10">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
         <li class="ui-state-default crt2 ui-state-active"><a href="${urlPrefix}/profile/avatar">头像</a></li>
-        <li class="ui-state-default crt2"><a href="${urlPrefix}/profile/basic">基本信息</a></li>
-        <li class="ui-state-default crt2"><a href="${urlPrefix}/setting/basic">修改密码</a></li>
+        <li class="ui-state-default crt2 ui-state-un"><a href="${urlPrefix}/profile/basic">基本信息</a></li>
+        <li class="ui-state-default crt2 ui-state-un"><a href="${urlPrefix}/setting/basic">修改密码</a></li>
     </ul>
 </div>
-<div class='tabscont clear' style="padding:10px;">
+<div class='tabscont'>
+
+<h2 class="f14" style="margin:30px 0 15px;">添加或修改你的头像</h2>
+
+<div style="padding:20px;" class="clear">
 
 <div class="imgbox"><div id="myImage"></div></div>
+
 <div class="imgmain">
 从电脑中选择你喜欢的照片：<br />
-<span class="gray">您可以上传JPG、JPEG、GIF或PNG文件。</span><br /><br />
+<span class="fgray2">您可以上传JPG、JPEG、GIF或PNG文件。</span>
 <form action="${urlPrefix}/Avatar"  id="form1" name="form1"  encType="multipart/form-data" method="post" target="hidden_frame" onsubmit="return upload()">
-<ul>
+<ul style="margin-top:7px">
 <li>1. <input type="file" name="file" id="file" accept="image/gif, image/jpeg" onchange="check()" style="width:450"></input></li>
-<li>2. <input type="submit" value="上传头像" ></input></li>
+<li>2. <input type="submit" class="btnb" value="上传头像" ></input></li>
 <li>3. 随意拖拽或缩放大图中的虚线方格，下方预览的小图即为保存后的头像图标。
 </li>
 </ul>
