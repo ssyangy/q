@@ -13,7 +13,6 @@ import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.exception.PeopleNotLoginException;
-import q.web.exception.PeopleNotPermitException;
 import q.web.exception.RequestParameterInvalidException;
 
 /**
@@ -62,12 +61,9 @@ public class AddGroupJoin extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		long loginId = context.getCookiePeopleId();
-		if( 0 == loginId) {
-			throw new PeopleNotLoginException("");
-		}
-		if (IdCreator.isNotValidId(loginId)) {
-			throw new PeopleNotPermitException("login:无操作权限");
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
 		}
 		long groupId = context.getResourceIdLong();
 		if (IdCreator.isNotValidId(groupId)) {
@@ -77,7 +73,7 @@ public class AddGroupJoin extends Resource {
 		if (null == group) {
 			throw new RequestParameterInvalidException("group:invalid");
 		}
-		if (loginId == group.getCreatorId()) {
+		if (loginPeopleId == group.getCreatorId()) {
 			throw new RequestParameterInvalidException("join:不需要加入您自己创建的圈子");
 		}
 	}

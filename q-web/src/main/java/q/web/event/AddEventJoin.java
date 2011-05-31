@@ -3,9 +3,10 @@ package q.web.event;
 import q.dao.EventDao;
 import q.domain.Event;
 import q.domain.PeopleJoinEvent;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
-import q.web.exception.PeopleNotPermitException;
+import q.web.exception.PeopleNotLoginException;
 import q.web.exception.RequestParameterInvalidException;
 
 public class AddEventJoin extends Resource {
@@ -21,8 +22,8 @@ public class AddEventJoin extends Resource {
 		long peopleId = context.getCookiePeopleId();
 		long eventId = context.getResourceIdLong();
 		Event event = this.eventDao.getEventById(eventId);
-		if(event == null) {
-			throw new RequestParameterInvalidException("eventId:"+eventId);
+		if (event == null) {
+			throw new RequestParameterInvalidException("eventId:" + eventId);
 		}
 		PeopleJoinEvent join = eventDao.getPeopleJoinEvent(peopleId, eventId);
 		if (join == null) {
@@ -31,19 +32,21 @@ public class AddEventJoin extends Resource {
 			eventDao.rejoinPeopleJoinEvent(peopleId, eventId);
 		}
 
-		//context.redirectReffer();
+		// context.redirectReffer();
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		if (context.getCookiePeopleId() <= 0) {
-			throw new PeopleNotPermitException("login:无操作权限");
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
 		}
-		
 	}
 
 }

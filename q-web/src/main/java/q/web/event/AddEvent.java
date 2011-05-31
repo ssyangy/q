@@ -5,9 +5,11 @@ import java.text.SimpleDateFormat;
 import q.dao.EventDao;
 import q.domain.Area;
 import q.domain.Event;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.area.AreaValidator;
+import q.web.exception.PeopleNotLoginException;
 
 public class AddEvent extends Resource {
 	private EventDao eventDao;
@@ -29,7 +31,7 @@ public class AddEvent extends Resource {
 		int cityId = context.getInt("city", -1);
 		int countyId = context.getInt("county", -1);
 		int areaId = AreaValidator.getAreaId(provinceId, cityId, countyId);
-		event.setArea(Area.getAreaById(areaId)); 
+		event.setArea(Area.getAreaById(areaId));
 		event.setNumber(context.getInt("number", 0));
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");
 		event.setStarted(df.parse(context.getString("startDate") + context.getString("endTime")));
@@ -38,11 +40,17 @@ public class AddEvent extends Resource {
 		context.redirectServletPath("/event/" + event.getId());
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
+		}
 		int provinceId = context.getInt("province", -1);
 		int cityId = context.getInt("city", -1);
 		int countyId = context.getInt("county", -1);

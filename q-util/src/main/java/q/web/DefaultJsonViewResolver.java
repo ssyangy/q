@@ -23,6 +23,7 @@ import q.serialize.mapping.MemberMapping;
 import q.serialize.mapping.MemberMappingFactory;
 import q.serialize.mapping.OperationCodeException;
 import q.util.StringKit;
+import q.web.exception.ErrorCodeException;
 
 /**
  * Json view resolver

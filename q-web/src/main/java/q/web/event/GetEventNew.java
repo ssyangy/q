@@ -7,8 +7,10 @@ import java.util.Date;
 
 import q.domain.Area;
 import q.util.DateKit;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
 
 /**
  * @author seanlinwang
@@ -27,7 +29,7 @@ public class GetEventNew extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		context.setModel("groupId", context.getString("groupId"));
 		context.setModel("rootArea", Area.getRootArea());
-		//SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		// SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String datetime = DateKit.date2Ymdhms(new Date());
 		String date = datetime.substring(0, 10);
 		String time = datetime.substring(10);
@@ -35,13 +37,17 @@ public class GetEventNew extends Resource {
 		context.setModel("time", time);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-		
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
+		}
 	}
 
 }

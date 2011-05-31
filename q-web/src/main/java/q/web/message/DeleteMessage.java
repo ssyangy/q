@@ -10,6 +10,7 @@ import q.domain.Status;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
 import q.web.exception.RequestParameterInvalidException;
 
 /**
@@ -53,9 +54,9 @@ public class DeleteMessage extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		long senderId = context.getCookiePeopleId();
-		if (IdCreator.isNotValidId(senderId)) {
-			throw new RequestParameterInvalidException("login:invalid");
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
 		}
 		long messageId = context.getResourceIdLong();
 		if (IdCreator.isNotValidId(messageId)) {

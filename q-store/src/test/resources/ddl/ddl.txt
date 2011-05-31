@@ -183,6 +183,7 @@ create table category(
 	avatar_path varchar(60),
 	join_num mediumint unsigned not null,
 	group_num mediumint unsigned not null,
+	sort_order int unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null)

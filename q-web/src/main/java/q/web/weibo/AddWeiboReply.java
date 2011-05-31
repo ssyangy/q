@@ -13,6 +13,7 @@ import q.util.IdCreator;
 import q.util.StringKit;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
 import q.web.exception.RequestParameterInvalidException;
 
 /**
@@ -79,6 +80,10 @@ public class AddWeiboReply extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
+		}
 		long quoteId = context.getResourceIdLong();
 		if (IdCreator.isNotValidId(quoteId)) {
 			throw new RequestParameterInvalidException("weibo:invalid");

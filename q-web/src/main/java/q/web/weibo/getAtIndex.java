@@ -20,7 +20,7 @@ import q.util.CollectionKit;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
-import q.web.exception.RequestParameterInvalidException;
+import q.web.exception.PeopleNotLoginException;
 
 /**
  * @author seanlinwang at gmail dot com
@@ -128,8 +128,9 @@ public class getAtIndex extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		if (context.getCookiePeopleId() < 0) {
-			throw new RequestParameterInvalidException("login:invalid");
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
 		}
 	}
 

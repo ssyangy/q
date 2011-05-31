@@ -14,6 +14,7 @@ import q.log.Logger;
 import q.util.ArrayKit;
 import q.util.IdCreator;
 import q.util.StringKit;
+import q.web.exception.ErrorCodeException;
 
 public class DefaultResourceContext implements ResourceContext {
 	private static final Logger log = Logger.getLogger();

@@ -19,14 +19,15 @@ import org.springframework.web.servlet.mvc.Controller;
 
 import q.log.Logger;
 import q.util.StringKit;
+import q.web.exception.ErrorCodeException;
 import q.web.exception.PeopleNotLoginException;
 
 /**
  * RESTFUL resource entry
- *
+ * 
  * @author seanlinwang
  * @date Jan 16, 2011
- *
+ * 
  */
 public class ResourceRouter implements Controller, ApplicationContextAware {
 
@@ -52,7 +53,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 
 	/**
 	 * set default resource to router
-	 *
+	 * 
 	 * @param defaultResource
 	 */
 	public void setDefaultResource(Resource defaultResource) {
@@ -145,10 +146,14 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 			} catch (ErrorCodeException e) {
 				if (isJson) {// api请求错误特殊处理
 					context.setErrorModel(e);
+				} else if (e instanceof PeopleNotLoginException) {
+					context.redirectServletPath(loginPath + "?from=" + URLEncoder.encode(servletPath, "utf-8"));
+					return null;
 				} else {
 					throw e;
 				}
 			} catch (Exception e) {
+				log.error("", e);
 				throw e;
 			}
 
