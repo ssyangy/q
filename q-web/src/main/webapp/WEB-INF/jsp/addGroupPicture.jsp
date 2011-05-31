@@ -14,7 +14,8 @@
 	   var imgHeight='<%=request.getAttribute("imgHeight")%>';
 	   var imgWidth='<%=request.getAttribute("imgWidth")%>';
 	   var imgPath='<%=request.getAttribute("imgPath")%>';
-	   parent.reloadImg(imgHeight,imgWidth,imgPath);
+	   var id='<%=request.getAttribute("id")%>';
+	   parent.reloadImg(imgHeight,imgWidth,imgPath,id);
    }
    else{
 

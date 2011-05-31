@@ -6,14 +6,11 @@ import java.util.List;
 
 import q.dao.CategoryDao;
 import q.dao.DaoHelper;
-import q.dao.EventDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.domain.Area;
 import q.domain.Category;
-import q.domain.Event;
-import q.domain.People;
 import q.util.CollectionKit;
 
 /**
@@ -44,12 +41,6 @@ public class GetHomePage extends Resource {
 
 	public void setWeiboDao(WeiboDao weiboDao) {
 		this.weiboDao = weiboDao;
-	}
-
-	private EventDao eventDao;
-
-	public void setEventDao(EventDao eventDao) {
-		this.eventDao = eventDao;
 	}
 
 	@Override

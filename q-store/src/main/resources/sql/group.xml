@@ -67,7 +67,7 @@
 		promote,
 		status,
 		created,
-		modified		
+		modified
 	</sql>
 
 	<select id="selectIdNamesByIds" resultMap="groupIdNameResult">
@@ -106,6 +106,9 @@
 			<isNotNull prepend="," property="name">
 				name=#name#
 			</isNotNull>
+			<isNotNull prepend="," property="avatarPath">
+				avatar_path=#avatarPath#
+			</isNotNull>
 		</dynamic>
 		where id=#id#
 	</update>
@@ -124,7 +127,8 @@
 		<include refid="group.columns" />
 		from `group`
 		where abs(longitude-#longitude#) &lt; 0.005
-		and abs(latitude-#latitude#) &lt; 0.005
+		and
+		abs(latitude-#latitude#) &lt; 0.005
 		order by join_num limit 100
 	</select>
 
@@ -157,11 +161,13 @@
 	</select>
 
 	<update id="decrGroupJoinNumByGroupId">
-		update `group` set join_num = greatest(0, join_num - 1) where id = #value#
+		update `group` set join_num = greatest(0, join_num -
+		1) where id = #value#
 	</update>
 
 	<update id="incrGroupJoinNumByGroupId">
-		update `group` set join_num = join_num + 1 where id = #value#
+		update `group` set join_num = join_num + 1 where id =
+		#value#
 	</update>
 
 	<update id="deleteGroupJoinCategoriesByjoinIdsAndGroupId">
@@ -187,7 +193,8 @@
 		</dynamic>
 	</select>
 
-	<select id="getGroupIdsByGroupJoinCategoryPageOrderByGroupId" resultClass="long">
+	<select id="getGroupIdsByGroupJoinCategoryPageOrderByGroupId"
+		resultClass="long">
 		select group_id
 		from group_join_category
 		<dynamic prepend="where ">
@@ -195,14 +202,17 @@
 				status = #status#
 			</isNotNull>
 			<isNotNull prepend="and " property="categoryId">
-				category_id = #categoryId#
+				category_id =
+				#categoryId#
 			</isNotNull>
 			<isNotNull prepend="and " property="startId">
 				<isEqual property="desc" compareValue="true">
-					group_id &lt; #startId#
+					group_id &lt;
+					#startId#
 				</isEqual>
 				<isEqual property="desc" compareValue="false">
-					group_id &gt; #startId#
+					group_id &gt;
+					#startId#
 				</isEqual>
 			</isNotNull>
 		</dynamic>
@@ -229,7 +239,8 @@
 		status = 0 and promote > 0
 		<isNotNull prepend="and " property="categoryIds">
 			category_id in
-			<iterate property="categoryIds" open="(" close=")" conjunction=",">
+			<iterate property="categoryIds" open="(" close=")"
+				conjunction=",">
 				#categoryIds[]#
         	</iterate>
 		</isNotNull>
@@ -291,14 +302,15 @@
 		id = #id#
 		and status = #oldStatus#
 	</update>
-	
+
 	<update id="updatePeopleJoinGroupStatusByPeopleIdAndGroupIdAndOldStatus">
 		update people_join_group set
 		status = #newStatus#
 		where
 		people_id = #peopleId#
 		and group_id = #groupId#
-		and status = #oldStatus#
+		and status =
+		#oldStatus#
 	</update>
 
 	<select id="selectPeopleJoinGroupByPage" resultMap="pjgResult">

@@ -108,7 +108,7 @@ function errorContext(error){
 		<ul class="sldlist" id="sldroot">
 			<c:forEach items="${cats}" var="cat" varStatus="status">
 			<li>
-				<img src="${staticUrlPrefix}/content/images/icons/icons-0${status.index + 2}.png" alt="ico" class="sldimg" />
+				<img src="${cat.avatarPath}" alt="ico" class="sldimg" />
 				<p class='f14'><a href="${urlPrefix}/category">${cat.name}</a></p>
 				<p>
 				<c:forEach items="${cat.groups}" var="group" varStatus="status">
