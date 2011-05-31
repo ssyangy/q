@@ -95,7 +95,7 @@ mods.push(function (q) {
             <ul id="sldroot" class="sldlist">
 				<c:forEach items="${cats}" var="cat" varStatus="status">
 				<li gpcid='${cat.id}' class='hov'>
-					<img src="${cat.avatarPath }" class="sldimg" >
+					<img src="${cat.avatarPath}" class="sldimg" >
 					<p><span class='name f14 fblue fw'>${cat.name}</span></p>
 					<p>
 						<c:forEach items="${cat.groups}" var="group" varStatus="status">
