@@ -39,4 +39,9 @@ public class CategoryDaoImpl extends AbstractDaoImpl implements CategoryDao {
 		this.sqlMapClient.delete("deleteCategoryById", category);
 	}
 
+	@Override
+	public void updateCategorySortOrder(Category category) throws SQLException {
+		this.sqlMapClient.update("updateCategoryById", category);
+	}
+
 }

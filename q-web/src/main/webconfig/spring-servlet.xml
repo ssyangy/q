@@ -516,6 +516,10 @@
 		<property name="categoryDao" ref="categoryDao" />
 		<property name="pictureService" ref="pictureService" />
 	</bean>
+	<bean id="updateCategoryOrder" class="q.web.category.UpdateCategoryOrder">
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="categoryDao" ref="categoryDao" />
+	</bean>
 	<bean id="deleteCategory" class="q.web.category.DeleteCategory">
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="categoryDao" ref="categoryDao" />

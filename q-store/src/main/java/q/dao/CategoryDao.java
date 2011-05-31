@@ -22,4 +22,6 @@ public interface CategoryDao {
 
 	void deleteCategory(Category category) throws SQLException;
 
+	void updateCategorySortOrder(Category category) throws SQLException;
+
 }
