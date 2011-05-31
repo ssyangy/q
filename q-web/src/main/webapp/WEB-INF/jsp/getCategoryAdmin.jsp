@@ -22,7 +22,7 @@ span.tit{display:none;}
             <div id="slider">
             <ul id="sldroot" class="sldlist">
 				<c:forEach items="${cats}" var="cat" varStatus="status">
-				<li gpcid='${cat.id}' class='hov'>
+				<li gpcid='${cat.id}'>
 					<img src="${cat.avatarPath }" class="sldimg" />
 					<p><span class='name f14 fblue'>${cat.name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
