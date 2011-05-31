@@ -40,28 +40,29 @@ seajs.use('qcomcn', function (q) {
 </script>
 <div id="signovb" class="hide">
 	<a class="clo dclo" style="position:absolute;top:10px;right:10px;"></a>
-	<table class="qform" style="margin-bottom:20px;">
+	<table class="qform" style="margin-bottom:10px;">
 		<tr>
 			<td align="right">邮箱：</td>
-			<td><input id="email" name="email" type='text' class='mttext' accesskey='l'></td>
+			<td><input id="email" name="email" type='text' class='mttext' style="width:120px;" accesskey='l'></td>
 			<td></td>
 		</tr>
 		<tr>
 			<td align="right">密码：</td>
-			<td><input id="password" name="password" type='password' class='mttext' accesskey='l'></td>
-			<td><a href="${urlPrefix}/password/forget" class="lk ml10">忘记密码</a></td>
+			<td><input id="password" name="password" type='password' class='mttext' style="width:120px;" accesskey='l'></td>
+			<td><a href="${urlPrefix}/password/forget" class="lk">忘记密码</a></td>
 		</tr>
 		<tr>
 			<td></td>
 			<td>
 				<input type="checkbox" checked="checked" /> 记住我
-				<input type="submit" class="btnr access_l submit" onclick="check()" value="登 录" />
 			</td>
 			<td></td>
 		</tr>
 		<tr>
 			<td></td>
-			<td><span id='loginWrong' class='hide fred'></span>
+			<td style="padding-top:4px">
+			<input type="submit" class="btnr access_l submit" onclick="check()" value="登 录" />
+			<span id='loginWrong' class='hide fred'></span>
 			</td>
 			<td></td>
 		</tr>		

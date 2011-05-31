@@ -28,6 +28,7 @@ public interface PictureService {
 
 	public String getImageUploadUrl();
 
+	public String getType(String type);
 	/**
 	 * @return
 	 */
