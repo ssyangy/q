@@ -9,7 +9,7 @@ import q.domain.Category;
 /**
  * @author Zhehao
  * @date Feb 15, 2011
- * 
+ *
  */
 public class CategoryDaoImpl extends AbstractDaoImpl implements CategoryDao {
 
@@ -27,6 +27,16 @@ public class CategoryDaoImpl extends AbstractDaoImpl implements CategoryDao {
 	@Override
 	public List<Category> getAllCategorys() throws SQLException {
 		return (List<Category>) this.sqlMapClient.queryForList("selectCategorys");
+	}
+
+	@Override
+	public void updateCategory(Category category) throws SQLException {
+		this.sqlMapClient.update("updateCategoryById", category);
+	}
+
+	@Override
+	public void deleteCategory(Category category) throws SQLException {
+		this.sqlMapClient.delete("deleteCategoryById", category);
 	}
 
 }

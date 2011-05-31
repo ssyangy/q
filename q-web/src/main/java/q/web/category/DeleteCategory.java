@@ -1,27 +1,34 @@
 package q.web.category;
 
+import q.dao.CategoryDao;
 import q.dao.PeopleDao;
+import q.domain.Category;
 import q.domain.People;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.exception.PeopleNotPermitException;
 
-public class GetCategoryNew extends Resource{
+public class DeleteCategory extends Resource  {
 	private PeopleDao peopleDao;
 
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
 	}
 
-	@Override
-	public void execute(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
+	private CategoryDao categoryDao;
 
+	public void setCategoryDao(CategoryDao categoryDao) {
+		this.categoryDao = categoryDao;
 	}
 
-	/* (non-Javadoc)
-	 * @see q.web.Resource#validate(q.web.ResourceContext)
-	 */
+	@Override
+	public void execute(ResourceContext context) throws Exception {
+		long categoryId = context.getResourceIdLong();
+		Category category = new Category();
+		category.setId(categoryId);
+		this.categoryDao.deleteCategory(category);
+	}
+
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
@@ -29,7 +36,6 @@ public class GetCategoryNew extends Resource{
 		if(people.isNotAdmin()) {
 			throw new PeopleNotPermitException("people:无操作权限");
 		}
-
 	}
 
 }

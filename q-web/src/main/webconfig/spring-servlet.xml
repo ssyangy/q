@@ -499,11 +499,31 @@
 		<property name="categoryDao" ref="categoryDao" />
 	</bean>
 	<bean id="addCategory" class="q.web.category.AddCategory">
+		<property name="peopleDao" ref="peopleDao" />
 		<property name="categoryDao" ref="categoryDao" />
 		<property name="redirectPath" value="/category" />
 		<property name="pictureService" ref="pictureService" />
 	</bean>
+	<bean id="getCategoryEdit" class="q.web.category.GetCategoryEdit">
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="categoryDao" ref="categoryDao" />
+	</bean>
 	<bean id="getCategoryNew" class="q.web.category.GetCategoryNew">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="updateCategory" class="q.web.category.UpdateCategory">
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="categoryDao" ref="categoryDao" />
+		<property name="pictureService" ref="pictureService" />
+	</bean>
+	<bean id="deleteCategory" class="q.web.category.DeleteCategory">
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="categoryDao" ref="categoryDao" />
+	</bean>
+	<bean id="getCategoryAdmin" class="q.web.category.GetCategoryAdmin">
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="groupDao" ref="groupDao" />
+		<property name="categoryDao" ref="categoryDao" />
 	</bean>
 
 	<!-- group web -->

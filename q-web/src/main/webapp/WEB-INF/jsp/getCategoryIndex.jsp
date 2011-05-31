@@ -13,7 +13,7 @@ span.tit{display:none;}
 <script type="text/javascript">
 mods.push(function (q) {
 	var $ = q.jq;
-         
+
          var lis = $("#sldroot>li");
          var roll = $('#passroll');
          var slider = $("#slider");
@@ -23,9 +23,9 @@ mods.push(function (q) {
                 slider.animate({ left: 0 }, { duration: 500, easing: "swing" });
                 $('span.tit', roll).text('');
                 root.data("clicked", false).removeClass("lk3 rollbtn2");;
-             } 
+             }
          });
-         
+
 		seajs.use('ICanHaz', function (ich) {
 			lis.click(function () {
 				window.gpid = $(this).attr('gpcid');
@@ -54,9 +54,9 @@ mods.push(function (q) {
 				   		$("#sld2").html(ich.group(json));
 				    }
 				});
-			});				
+			});
 		});
-		
+
 		$('#sld2 a.act').live('click',function(){
 			var li = $(this).parent('li');
 			$.ajax({ url: '${urlPrefix}/group/' + li.attr('gid') + '/join', type: 'POST', msg:this,
@@ -95,7 +95,7 @@ mods.push(function (q) {
             <ul id="sldroot" class="sldlist">
 				<c:forEach items="${cats}" var="cat" varStatus="status">
 				<li gpcid='${cat.id}' class='hov'>
-					<img src="${staticUrlPrefix}/content/images/icons/icons-0${status.index + 2}.png" alt="gpcate" class="sldimg" >
+					<img src="${cat.avatarPath }" class="sldimg" >
 					<p><span class='name f14 fblue'>${cat.name}</span></p>
 					<p>
 						<c:forEach items="${cat.groups}" var="group" varStatus="status">

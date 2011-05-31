@@ -20,14 +20,13 @@ import org.springframework.web.servlet.mvc.Controller;
 import q.log.Logger;
 import q.util.StringKit;
 import q.web.exception.PeopleNotLoginException;
-import q.web.exception.PeopleNotPermitException;
 
 /**
  * RESTFUL resource entry
- * 
+ *
  * @author seanlinwang
  * @date Jan 16, 2011
- * 
+ *
  */
 public class ResourceRouter implements Controller, ApplicationContextAware {
 
@@ -53,7 +52,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 
 	/**
 	 * set default resource to router
-	 * 
+	 *
 	 * @param defaultResource
 	 */
 	public void setDefaultResource(Resource defaultResource) {
@@ -147,16 +146,9 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 				if (isJson) {// api请求错误特殊处理
 					context.setErrorModel(e);
 				} else {
-					if (e instanceof PeopleNotPermitException) {// 用户禁止访问
-						response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-					} else {// 其他错误,直接500
-						response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-					}
 					throw e;
 				}
-			} catch (Exception e) {// resource internal error
-				log.error("resource  %s execute exeption", e, resource);
-				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			} catch (Exception e) {
 				throw e;
 			}
 

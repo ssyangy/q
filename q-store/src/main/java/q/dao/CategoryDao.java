@@ -8,7 +8,7 @@ import q.domain.Category;
 /**
  * @author Zhehao
  * @date Feb 15, 2011
- * 
+ *
  */
 public interface CategoryDao {
 
@@ -17,5 +17,9 @@ public interface CategoryDao {
 	void addCategory(Category p) throws SQLException;
 
 	Category getCategoryById(long cid) throws SQLException;
+
+	void updateCategory(Category category) throws SQLException;
+
+	void deleteCategory(Category category) throws SQLException;
 
 }
