@@ -11,6 +11,7 @@ import q.domain.Group;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
 import q.web.exception.PeopleNotPermitException;
 import q.web.exception.RequestParameterInvalidException;
 
@@ -56,9 +57,16 @@ public class GetGroupEdit extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+<<<<<<< HEAD
 
 		long groupId = context.getResourceIdLong();
+=======
+>>>>>>> d7adac119718d8d65c0500069feb790a4244cf83
 		long loginId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginId)) {
+			throw new PeopleNotLoginException();
+		}
+		long groupId = context.getResourceIdLong();
 		if (IdCreator.isNotValidId(groupId)) {
 			throw new RequestParameterInvalidException("group:invalid");
 		}
@@ -67,7 +75,7 @@ public class GetGroupEdit extends Resource {
 			throw new RequestParameterInvalidException("group:invalid");
 		}
 		if (group.getCreatorId() != loginId) {
-			throw new PeopleNotPermitException("login:invalid");
+			throw new PeopleNotPermitException();
 		}
 
 	}

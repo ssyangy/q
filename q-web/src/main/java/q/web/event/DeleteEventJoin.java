@@ -1,9 +1,10 @@
 package q.web.event;
 
 import q.dao.EventDao;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
-import q.web.exception.PeopleNotPermitException;
+import q.web.exception.PeopleNotLoginException;
 
 public class DeleteEventJoin extends Resource{
   
@@ -24,8 +25,9 @@ public class DeleteEventJoin extends Resource{
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		if (context.getCookiePeopleId() <= 0) {
-			throw new PeopleNotPermitException("login:无操作权限");
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
 		}
 	}
 

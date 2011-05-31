@@ -13,15 +13,16 @@ import q.domain.Group;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
 import q.web.exception.RequestParameterInvalidException;
 
 /**
  * AddGroup action
- *
+ * 
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 19, 2011
- *
+ * 
  */
 public class AddGroup extends Resource {
 	private GroupDao groupDao;
@@ -60,10 +61,10 @@ public class AddGroup extends Resource {
 			group.setLatitude(Double.parseDouble(context.getString("latitude")));
 			group.setLongitude(Double.parseDouble(context.getString("longitude")));
 		}
-		if(context.getString("groupImage")!=""){
+		if (context.getString("groupImage") != "") {
 			group.setAvatarPath(context.getString("groupImage"));
-		}else{
-		group.setAvatarPath(pictureService.getDefaultGroupAvatarPath());
+		} else {
+			group.setAvatarPath(pictureService.getDefaultGroupAvatarPath());
 		}
 		groupDao.addGroup(group); // create group
 		groupDao.addGroupJoinCategory(group.getId(), context.getIdLong("categoryId")); // set group category
@@ -71,7 +72,7 @@ public class AddGroup extends Resource {
 		groupDao.incrGroupJoinNumByGroupId(group.getId());
 		searchService.updateGroup(group);
 
-		if(context.isApiRequest()){
+		if (context.isApiRequest()) {
 			context.setModel("group", group);
 		} else {
 			context.redirectServletPath("/group/" + group.getId());
@@ -79,14 +80,23 @@ public class AddGroup extends Resource {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+<<<<<<< HEAD
 		GroupValidator.validateGroupName(context.getString("name"));
+=======
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
+		}
+>>>>>>> d7adac119718d8d65c0500069feb790a4244cf83
 		long categoryId = context.getIdLong("categoryId");
-		if(IdCreator.isNotValidId(categoryId)) {
+		if (IdCreator.isNotValidId(categoryId)) {
 			throw new RequestParameterInvalidException("category:invalid");
 		}
 

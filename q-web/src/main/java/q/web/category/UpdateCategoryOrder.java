@@ -1,6 +1,8 @@
 package q.web.category;
 
+import q.dao.CategoryDao;
 import q.dao.PeopleDao;
+import q.domain.Category;
 import q.domain.People;
 import q.util.IdCreator;
 import q.web.Resource;
@@ -8,7 +10,13 @@ import q.web.ResourceContext;
 import q.web.exception.PeopleNotLoginException;
 import q.web.exception.PeopleNotPermitException;
 
-public class GetCategoryNew extends Resource {
+public class UpdateCategoryOrder extends Resource {
+	private CategoryDao categoryDao;
+
+	public void setCategoryDao(CategoryDao categoryDao) {
+		this.categoryDao = categoryDao;
+	}
+
 	private PeopleDao peopleDao;
 
 	public void setPeopleDao(PeopleDao peopleDao) {
@@ -17,15 +25,14 @@ public class GetCategoryNew extends Resource {
 
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-
+		long categoryId = context.getLong("categoryId", 0);
+		int sortOrder = context.getInt("sortOrder", 0);
+		Category category = new Category();
+		category.setId(categoryId);
+		category.setSortOrder(sortOrder);
+		categoryDao.updateCategorySortOrder(category);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see q.web.Resource#validate(q.web.ResourceContext)
-	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
@@ -36,7 +43,6 @@ public class GetCategoryNew extends Resource {
 		if (people.isNotAdmin()) {
 			throw new PeopleNotPermitException();
 		}
-
 	}
 
 }

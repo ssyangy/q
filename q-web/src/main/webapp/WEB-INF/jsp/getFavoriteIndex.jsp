@@ -4,52 +4,64 @@
 	<jsp:param name="title" value="收藏" />
 </jsp:include>
 <script type="text/javascript">
-mods.push(function(q){
-seajs.use(['app/weibo','app/weibo_repitem','underscore'], function (w,r, _) {
-	var $ = q.jq;
-	w.init(q);
-	r.init(q,w.ich);
-	
-	var stream = $("#streams");
-	var pv = $('a.prev');
-	var nt = $('a.next');
-	var ajaxweibo = function(startid,typed){
-		$.ajax({ url: "${urlPrefix}/favorite",
-			data: {size:10, startId:startid, type:typed},
-			success: function(j){
-            	if (j.hasPrev) pv.show();
-            	else pv.hide();
-            	if (j.hasNext) nt.show();
-            	else nt.hide();
-            	
-            	stream.empty();
-				$(j.favorites).each(function(){
-					this.item.order_id = this.id;
-					if(this.itemType ==1) {
-						this.item.text = "回复：" + this.item.text;
-						var t = new r.WeiboRepItemModel(this.item);
-		                var view = new r.WeiboRepItemView({ model: t });							
-						stream.append(view.render().el);
-					} else {
-						var t = new w.WeiboModel(this.item);
-		                var view = new w.WeiboView({ model: t });	
-						stream.append(view.render().el);
-					}
-				});
-				q.fixui(stream);
-			}
+seajs.use(['qcomcn','app/weibo','app/weibo_repitem','underscore'], function (q, w, r, _) {
+var $ = q.jq;
+$(function(){
+	seajs.use('ICanHaz',function(ich){
+		w.Loader(q,ich);
+		r.Loader(q,ich);
+		var stream = $("#streams");
+		var pv = $('a.prev');
+		var nt = $('a.next');
+		var ajaxweibo = function(startid,typed){
+			$.ajax({ url: "${urlPrefix}/favorite",
+				data: {size:10, startId:startid, type:typed},
+				success: function(j){
+	            	if (j.hasPrev) pv.show();
+	            	else pv.hide();
+	            	if (j.hasNext) nt.show();
+	            	else nt.hide();
+	            	
+	            	stream.empty();
+					$(j.favorites).each(function(){
+						this.item.order_id = this.id;
+						if(this.itemType ==1) {
+							this.item.text = "回复：" + this.item.text;
+							var t = new r.WeiboRepItemModel(this.item);
+			                var view = new r.WeiboRepItemView({ model: t });							
+							stream.append(view.render().el);
+						} else {
+							var t = new w.WeiboModel(this.item);
+			                var view = new w.WeiboView({ model: t });	
+							stream.append(view.render().el);
+						}
+					});
+					q.fixui(stream);
+				}
+			});
+		}
+		ajaxweibo("",0);
+		
+		pv.click(function(){
+			ajaxweibo($("li.streambox", stream).first().attr("order_id"),1);
 		});
-	}
-	ajaxweibo("",0);
-	
-	pv.click(function(){
-		ajaxweibo($("li.streambox", stream).first().attr("order_id"),1);
+		nt.click(function(){
+			ajaxweibo($("li.streambox", stream).last().attr("order_id"),0);
+		});	
 	});
-	nt.click(function(){
-		ajaxweibo($("li.streambox", stream).last().attr("order_id"),0);
-	});	
 });
 });
+</script>
+<script id="picture" class="partial" type="text/html">
+{{#picturePath}}
+<img src="{{picturePath}}-160" class="img160 weiboImg"/>
+<div class='imgPre hide'>
+	<p class='mt10 mb10'><img src="{{picturePath}}-320" class="img320 preImg"/></p>
+	<a class='imgRotateL lk mr10'>左转</a>
+	<a class='imgRotateR lk mr10'>右转</a>
+	<a href='{{picturePath}}' class='lk' target='_blank'>查看原图</a>
+</div>
+{{/picturePath}}
 </script>
 <script type="text/html" id="stream">
 <div class='hd'>
@@ -63,51 +75,17 @@ seajs.use(['app/weibo','app/weibo_repitem','underscore'], function (w,r, _) {
 	{{/people}}
 	{{ text }}
 	</div>
-	{{#picturePath}}
-	<img src="{{picturePath}}-160" class="img160 weiboImg"/>
-	<div class='imgPre hide'>
-		<div class='imgrote middle'><img src="{{picturePath}}-320" class="img320 preImg"/></div>
-		<a class='weiboImgRotateL link mr10'>左转</a>
-	    <a class='weiboImgRotateR link mr10'>右转</a>
-	    <a href='{{picturePath}}' class='link' target='_blank'>查看原图</a>
-	</div>
-	{{/picturePath}}
-	{{#quote}}
-	<div class='quote'>
-		<div class='text'>
-		{{#people}}
-		<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>：
-		{{/people}}
-		{{text}}
-		</div>
-		{{#picturePath}}
-		<img src="{{picturePath}}-160" class="img160 weiboImg"/>
-		<div class='imgPre hide'>
-			<div class='imgrote middle'>
-			<img src="{{picturePath}}-320" class="img320 preImg"/>
-			</div>
-			<a class='weiboImgRotateL lk mr10'>左转</a>
-	    	<a class='weiboImgRotateR lk mr10'>右转</a>
-	    	<a href='{{picturePath}}' class='lk' target='_blank'>查看原图</a>
-		</div>
-		{{/picturePath}}
-		<span class="">
-			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文转发{{retweetNum}}</a>
-			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文回复{{replyNum}}</a>
-		</span>
-	</div>
-	{{/quote}}
-	{{#repmod}}<div class='repmod'><span class='gray'>回应了我：</span>{{repmod}}</div>{{/repmod}}
+	{{>picture}}
 </div>
 <div class='fd'>
-	<span class='stat'><a href="${urlPrefix}/weibo/{{id}}">{{screenTime}}</a>
+	<span class='stat'>{{screenTime}}
 		{{#source}}<a class='ml5 lk'>{{source}}</a>{{/source}}
 	</span>
 	<a href="javascript:void(0);" class='hod lk lkrb togreply'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
 	<a href="javascript:void(0);" class='hod lk lkrb resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
 	<a href="javascript:void(0);" class='hod lk lkrb unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
-    <a href="javascript:void(0);" class='hod lk fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
-	{{#isown}}<b class='cloarrow'></b>{{/isown}}
+    <a href="javascript:void(0);" class='hod lk lkrb fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
+	{{#isown}}<a href="javascript:void(0);" class='hod lk del'>删除</a>{{/isown}}
 </div>
 <div class='extend'>
     <input class='mttext_val reply_val' type='text' value='发表点评论。。。' />
@@ -117,54 +95,18 @@ seajs.use(['app/weibo','app/weibo_repitem','underscore'], function (w,r, _) {
     <a class='lk rrnext hide'>下一页</a>
  </div>
 </script>
-<script type="text/html" id="weibo_repitem">
-<div class='hd'>
-	{{#people}}
-    <a href='${urlPrefix}/people/{{id}}' title='{{ screenName }}'>
-    <img class='img48' src='{{avatarPath}}-48' alt='{{ screenName }}'>
-    </a>
-</div>
-<div class='bd'>
-	<div class='text'><a class='lk' href='${urlPrefix}/people/{{id}}' title='{{ screenName }}'>{{ screenName }}</a>
-	{{/people}}
-	{{ text }}
-	</div>
-	{{#quote}}
-	<div class='quote'>
+<script type="text/html" id="quote">
 		<div class='text'>
 		{{#people}}
 		<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>：
 		{{/people}}
 		{{text}}
 		</div>
-		{{#picturePath}}
-		<img src="{{picturePath}}-160" class="img160 weiboImg"/>
-		<div class='imgPre hide'>
-			<div class='imgrote middle'>
-			<img src="{{picturePath}}-320" class="img320 preImg"/>
-			</div>
-			<a class='weiboImgRotateL lk mr10'>左转</a>
-	    	<a class='weiboImgRotateR lk mr10'>右转</a>
-	    	<a href='{{picturePath}}' class='lk' target='_blank'>查看原图</a>
-		</div>
-		{{/picturePath}}
+		{{>picture}}
 		<span class="">
-			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文转发</a>
-			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文回复</a>
+			<a href="javascript:void(0);" class='lk qresub'>原文转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
+			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
 		</span>
-	</div>
-	{{/quote}}
-	{{#repmod}}<div class='repmod'><span class='gray'>回应了我：</span>{{repmod}}</div>{{/repmod}}
-</div>
-<div class='fd'>
-	<span class='stat'><a href="${urlPrefix}/weibo/{{id}}">{{screenTime}}</a>
-		{{#source}}<a class='ml5 lk'>{{source}}</a>{{/source}}
-	</span>
-	<a href="javascript:void(0);" class='hod lk lkrb r_resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
-	<a href="javascript:void(0);" class='hod lk lkrb r_unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
-    <a href="javascript:void(0);" class='hod lk r_fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
-	{{#isown}}<a href="javascript:void(0);" class='lk r_del'>删除</a>{{/isown}}
-</div>
 </script>
 <script type="text/html" id="stream_ext">
 	{{#people}}
@@ -184,6 +126,30 @@ seajs.use(['app/weibo','app/weibo_repitem','underscore'], function (w,r, _) {
 		{{#isown}}<a href="javascript:void(0);" class='lk r_del'>删除</a>{{/isown}}
 		</span>
 	</p>
+</script>
+
+<script type="text/html" id="weibo_repitem">
+<div class='hd'>
+	{{#people}}
+    <a href='${urlPrefix}/people/{{id}}' title='{{ screenName }}'>
+    <img class='img48' src='{{avatarPath}}-48' alt='{{ screenName }}'>
+    </a>
+</div>
+<div class='bd'>
+	<div class='text'><a class='lk' href='${urlPrefix}/people/{{id}}' title='{{ screenName }}'>{{ screenName }}</a>
+	{{/people}}
+	{{ text }}
+	</div>
+</div>
+<div class='fd'>
+	<span class='stat'><a href="${urlPrefix}/weibo/{{id}}">{{screenTime}}</a>
+		{{#source}}<a class='ml5 lk'>{{source}}</a>{{/source}}
+	</span>
+	<a href="javascript:void(0);" class='hod lk lkrb r_resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
+	<a href="javascript:void(0);" class='hod lk lkrb r_unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
+    <a href="javascript:void(0);" class='hod lk r_fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
+	{{#isown}}<a href="javascript:void(0);" class='lk r_del'>删除</a>{{/isown}}
+</div>
 </script>
 
 <div class="layout grid-m0s220 mingrid">

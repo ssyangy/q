@@ -4,8 +4,10 @@
 package q.web.favorite;
 
 import q.dao.FavoriteDao;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
 
 /**
  * @author seanlinwang
@@ -35,7 +37,10 @@ public class DeleteReplyFavorite extends Resource {
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
+		}
 	}
 
 }

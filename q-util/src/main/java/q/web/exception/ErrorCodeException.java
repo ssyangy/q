@@ -1,7 +1,7 @@
 /**
  * 
  */
-package q.web;
+package q.web.exception;
 
 /**
  * @author seanlinwang
@@ -36,6 +36,10 @@ public abstract class ErrorCodeException extends Exception {
 	protected ErrorCodeException(String errorCode, String error) {
 		this.errorCode = errorCode;
 		this.error = error;
+	}
+	
+	protected ErrorCodeException(String errorCode) {
+		this.errorCode = errorCode;
 	}
 
 	/**

@@ -22,12 +22,20 @@ span.tit{display:none;}
             <div id="slider">
             <ul id="sldroot" class="sldlist">
 				<c:forEach items="${cats}" var="cat" varStatus="status">
-				<li gpcid='${cat.id}' class='hov'>
+				<li gpcid='${cat.id}'>
 					<img src="${cat.avatarPath }" class="sldimg" />
-					<p><span class='name f14 fblue'>${cat.name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<p><span class='name f14 fblue'>${cat.name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<a href="${urlPrefix}/category/${cat.id }/edit">编辑</a>
 					&nbsp;&nbsp;<a href="${urlPrefix}/category/new">新建</a>
+					&nbsp;&nbsp;
+					<form action="${urlPrefix}/category/order" method="post" style="float:right;">
+						优先级&nbsp;<input type="text" name="sortOrder"  size="5" value="${cat.sortOrder }"  />
+						<input type="hidden" name="categoryId" value="${cat.id }"/>
+						<input type="hidden" name="_method" value="update"/>
+						<input type="hidden" name="from" value="${urlPrefix}/category/admin"/>
+						<input type="submit" value="确定" />
+					</form>
 					</span></p>
 					<p>
 						<c:forEach items="${cat.groups}" var="group" varStatus="status">

@@ -64,3 +64,6 @@ alter table message_join_people add last_reply_sender_id bigint unsigned not nul
 
 #5-15 sean
 alter table group_join_category add promote tinyint unsigned not null;
+
+#5-31 sean
+alter table category add sort_order int unsigned not null;

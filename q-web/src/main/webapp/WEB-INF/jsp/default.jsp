@@ -76,21 +76,21 @@ function errorContext(error){
 	<table class="signin-area">
 		<tr>
 			<td align="right">邮箱：</td>
-			<td><input id="email" name="email" type='text' class='validate[required,custom[email],ajax[ajaxEmailExist]] mttext' accesskey='l'></td>
+			<td><input id="email" name="email" type='text' class='validate[required,custom[email],ajax[ajaxEmailExist]] mttext' style="width:170px;" accesskey='l'></td>
 			<td></td>
 		</tr>
 		<tr>
-			<td align="right">密码：</td>
-			<td><input id="password" name="password" type='password' class='mttext validate[required]' accesskey='l'></td>
-			<td><a href="${urlPrefix}/password/forget" class="lk ml10">忘记密码</a></td>
+			<td style="padding-top:6px;" align="right">密码：</td>
+			<td style="padding-top:6px;"><input id="password" name="password" type='password' class='mttext validate[required]' style="width:170px;" accesskey='l'></td>
+			<td style="padding-top:6px;"><a href="${urlPrefix}/password/forget" class="lk ml10">忘记密码</a></td>
 		</tr>
 		<tr>
 			<td></td>
-			<td>
-				<input type="checkbox" checked="checked" /> 保持登录状态
-				<input type="submit" class="btnr access_l submit" onclick="check()" value="登 录" />
+			<td style="height:23px;line-height:23px;padding-top:4px;">
+				<input type="checkbox" checked="checked" style="vertical-align:middle;margin:0 8px 4px 2px;" />保持登录状态
+				<input type="submit" class="btnr access_l submit FR" style="margin-right:2px;" onclick="check()" value="登 录" />
 			</td>
-			<td><a class="lk ml10" href="${urlPrefix}/people/new">立即注册</a></td>
+			<td style="padding-top:4px;"><a class="lk ml10" href="${urlPrefix}/people/new">立即注册</a></td>
 		</tr>
 		<tr>
 			<td></td>
@@ -119,7 +119,7 @@ function errorContext(error){
 			</c:forEach>
 		</ul>
 	</div>
-	<div class="FL" style="width:290px;padding-left:40px;">
+	<div class="FL" style="width:300px;padding-left:40px;">
 		<h4>热议ING</h4>
 		<ul class="msglist">
 			<c:forEach items="${hotWeibos}" var="weibo">
