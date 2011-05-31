@@ -45,7 +45,13 @@ public class AddGroup extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		Group group = new Group();
+		long groupId=context.getLong("groupId", 0);
+		if(groupId!=0){
+		group.setId(groupId);
+		}
+		else{
 		group.setId(IdCreator.getLongId());
+		}
 		long loginId = context.getCookiePeopleId();
 		group.setCreatorId(loginId); // set group creator id from cookie
 		group.setName(context.getString("name"));
@@ -78,6 +84,7 @@ public class AddGroup extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+		GroupValidator.validateGroupName(context.getString("name"));
 		long categoryId = context.getIdLong("categoryId");
 		if(IdCreator.isNotValidId(categoryId)) {
 			throw new RequestParameterInvalidException("category:invalid");

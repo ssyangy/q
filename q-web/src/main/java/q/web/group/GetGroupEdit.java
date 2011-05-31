@@ -18,7 +18,7 @@ import q.web.exception.RequestParameterInvalidException;
  * @author Zhehao
  * @author seanlinwang
  * @date Feb 15, 2011
- * 
+ *
  */
 public class GetGroupEdit extends Resource {
 
@@ -51,11 +51,12 @@ public class GetGroupEdit extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+
 		long groupId = context.getResourceIdLong();
 		long loginId = context.getCookiePeopleId();
 		if (IdCreator.isNotValidId(groupId)) {

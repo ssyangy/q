@@ -599,6 +599,11 @@
 		<property name="pictureService" ref="pictureService"></property>
 		<property name="groupDao" ref="groupDao" />
 	</bean>
+	<bean id="getGroupAvatar" class="q.web.group.GetGroupAvatar">
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+
+
 	<!-- photo web -->
 	<bean id="getGroupPhoto" class="q.web.photo.GetGroupPhoto">
 	</bean>
