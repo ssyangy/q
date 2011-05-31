@@ -57,16 +57,14 @@ public class GetGroupEdit extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-<<<<<<< HEAD
 
 		long groupId = context.getResourceIdLong();
-=======
->>>>>>> d7adac119718d8d65c0500069feb790a4244cf83
+
 		long loginId = context.getCookiePeopleId();
 		if (IdCreator.isNotValidId(loginId)) {
 			throw new PeopleNotLoginException();
 		}
-		long groupId = context.getResourceIdLong();
+
 		if (IdCreator.isNotValidId(groupId)) {
 			throw new RequestParameterInvalidException("group:invalid");
 		}

@@ -18,11 +18,11 @@ import q.web.exception.RequestParameterInvalidException;
 
 /**
  * AddGroup action
- * 
+ *
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 19, 2011
- * 
+ *
  */
 public class AddGroup extends Resource {
 	private GroupDao groupDao;
@@ -82,19 +82,19 @@ public class AddGroup extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-<<<<<<< HEAD
+
 		GroupValidator.validateGroupName(context.getString("name"));
-=======
+
 		long loginPeopleId = context.getCookiePeopleId();
 		if (IdCreator.isNotValidId(loginPeopleId)) {
 			throw new PeopleNotLoginException();
 		}
->>>>>>> d7adac119718d8d65c0500069feb790a4244cf83
+
 		long categoryId = context.getIdLong("categoryId");
 		if (IdCreator.isNotValidId(categoryId)) {
 			throw new RequestParameterInvalidException("category:invalid");
