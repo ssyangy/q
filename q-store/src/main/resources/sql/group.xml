@@ -233,6 +233,7 @@
 				#categoryIds[]#
         	</iterate>
 		</isNotNull>
+		order by promote desc
 	</select>
 
 	<insert id="insertGroup">
