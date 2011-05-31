@@ -7,9 +7,10 @@ import q.domain.People;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
 import q.web.exception.PeopleNotPermitException;
 
-public class UpdateCategoryOrder extends Resource{
+public class UpdateCategoryOrder extends Resource {
 	private CategoryDao categoryDao;
 
 	public void setCategoryDao(CategoryDao categoryDao) {
@@ -35,12 +36,12 @@ public class UpdateCategoryOrder extends Resource{
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
-		if(IdCreator.isNotValidId(loginPeopleId)) {
-
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
 		}
 		People people = peopleDao.getPeopleById(loginPeopleId);
-		if(people.isNotAdmin()) {
-			throw new PeopleNotPermitException("people:无操作权限");
+		if (people.isNotAdmin()) {
+			throw new PeopleNotPermitException();
 		}
 	}
 
