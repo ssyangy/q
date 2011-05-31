@@ -95,8 +95,8 @@ function check() {
 <h2>修改密码</h2>
 <div class="ui-tabs mt10">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
-        <li class="ui-state-default crt2"><a href="${urlPrefix}/profile/avatar">头像</a></li>
-        <li class="ui-state-default crt2"><a href="${urlPrefix}/profile/basic">基本信息</a></li>
+        <li class="ui-state-default crt2 ui-state-un"><a href="${urlPrefix}/profile/avatar">头像</a></li>
+        <li class="ui-state-default crt2 ui-state-un"><a href="${urlPrefix}/profile/basic">基本信息</a></li>
         <li class="ui-state-default crt2 ui-state-active"><a href="${urlPrefix}/setting/basic">修改密码</a></li>
     </ul>
 </div>

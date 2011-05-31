@@ -120,7 +120,7 @@ seajs.use(['qcomcn','jq_area'],function(q, area){
 			<form method='post' action='${urlPrefix}/people/${people.id}/full' onsubmit="return check()">
 				<table class='qform'>
 					<tr>
-						<td align="right">所在地：</td>
+						<td align="right" class="f14">所在地：</td>
 						<td class='localArea'><select class='select' name="province"
 							id="selProvince">
 						</select> <select class='select' name="city" id="selCity">
@@ -133,7 +133,7 @@ seajs.use(['qcomcn','jq_area'],function(q, area){
 								id="locationwrong"></div></td>
 					</tr>
 					<tr>
-						<td align="right">家乡：</td>
+						<td align="right" class="f14">家乡：</td>
 						<td><select class='select' name="hometownProvince"
 							id="selHometownProvince">
 						</select> <select class='select' name="hometownCity" id="selHometownCity">
@@ -147,7 +147,7 @@ seajs.use(['qcomcn','jq_area'],function(q, area){
 								id="hometownwrong"></div></td>
 					</tr>
 					<tr>
-						<td align="right">性别：</td>
+						<td align="right" class="f14">性别：</td>
 						<td><input type='radio' name="gender" value="1"
 							<c:choose><c:when test="${people.gender.value == 1}">checked="checked"</c:when></c:choose>
 							onclick="checkGender()" /> <span class='value-label'>男</span>&nbsp;
@@ -161,7 +161,7 @@ seajs.use(['qcomcn','jq_area'],function(q, area){
 						</td>
 					</tr>
 					<tr>
-						<td align="right">生日：</td>
+						<td align="right" class="f14">生日：</td>
 						<td class='col-field' colspan='2'><jsp:include
 								page="models/dateSelect.jsp" /></td>
 						<td class="col-help">
@@ -171,7 +171,7 @@ seajs.use(['qcomcn','jq_area'],function(q, area){
 								id="birthdaywrong"></div></td>
 					</tr>
 					<tr>
-						<td align="right">手机：</td>
+						<td align="right" class="f14">手机：</td>
 						<td><input name="mobile" id="mobile" type='text'
 							class='mttext' size='20' onblur="checkMobile(this.value)"
 							value="<c:if test="${people.mobile>0}">${people.mobile}</c:if>" />
@@ -183,15 +183,15 @@ seajs.use(['qcomcn','jq_area'],function(q, area){
 								id="mobilewrong"></div></td>
 					</tr>
 					<tr>
-						<td align="right">感兴趣的圈子：</td>
-						<td style="width:300px;">
+						<td align="right" class="f14" style="line-height:22px;padding-top:4px;">可能感兴趣<br/>的圈子：</td>
+						<td style="width:300px;padding-top:4px;">
 							<c:forEach items="${groups}" var="group">
 								<span class='mr10 favgroup'>
-								<input name="group" type='checkbox' value="${group.id}" />${group.name}
+								<input name="group" type='checkbox' value="${group.id}" class="mr5"/>${group.name}
 								</span>
 							</c:forEach>
 						</td>
-						<td class="col-help">
+						<td>
 							<div class="label-box-good" style="display: none;"
 								id="groupcorrect"></div>
 							<div class="label-box-error" style="display: none;"

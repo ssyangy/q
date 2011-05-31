@@ -51,7 +51,7 @@ public class GetPeopleFollowing extends Resource {
 			People people = peopleDao.getPeopleById(fromPeopleId);
 			context.setModel("people", people);
 			PeoplePage page = new PeoplePage();
-			page.setSize(4);
+			page.setSize(6);
 			List<People> recommendPeoples = peopleDao.getPeoplesByPage(page);
 			context.setModel("recommendPeoples", recommendPeoples);
 		} else {
