@@ -3,6 +3,9 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="收藏" />
 </jsp:include>
+<style>
+li.streambox{padding:15px 20px;}
+</style>
 <script type="text/javascript">
 seajs.use(['qcomcn','app/weibo','app/weibo_repitem','underscore'], function (q, w, r, _) {
 var $ = q.jq;
@@ -36,7 +39,7 @@ $(function(){
 							stream.append(view.render().el);
 						}
 					});
-					q.fixui(stream);
+					q.fixui(stream, true);
 				}
 			});
 		}
@@ -154,8 +157,10 @@ $(function(){
 
 <div class="layout grid-m0s220 mingrid">
 <div class="col-main"><div class="main-wrap">
-	<h2 class="mb20">我的收藏</h2>
+	<h2 style="margin-bottom:13px;">我的收藏</h2>
+	<div style="border:1px solid #dcdcdc;">
 	<ul id='streams'></ul>
+	</div>
 	<div class="pager">
 	<a class="lk prev hide">上一页</a>
 	<a class="lk next hide">下一页</a>

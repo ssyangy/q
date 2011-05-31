@@ -8,14 +8,13 @@
 #slidbox{width:580px;}
 .main-wrap{padding-right:20px;}
 .msgbox{border:1px solid #ddd;}
-.msgmem{background-color:#f6f6f6;position:relative;padding:10px;}
-.msgmem p{line-height:24px;}
-.memdel{position:absolute;top:10px;right:10px;_right:30px;}
-.msgrepbox{padding:10px;}
+.msgmem{background-color:#f6f6f6;position:relative;padding:12px 20px 15px;}
+.msgmem p{line-height:24px;height:24px;}
+.memdel{position:absolute;top:15px;right:20px;_right:30px;}
+.msgrepbox{padding:15px 20px;}
 .msgrepbox .mttextar{width:99%;height:40px;}
-.repactbox{text-align:right;margin-top:10px;}
-#sld2{border:1px solid #ddd;width:578px;}
-.sldlist img.sldimg{left:10px!important;}
+.repactbox{text-align:right;margin-top:4px;}
+#sld2{border-top:1px solid #ddd;}
 </style>
 <script type="text/javascript">
 mods.push(function(q){
@@ -166,20 +165,19 @@ mods.push(function(q){
 						{{#sender}}
                         <img src="{{avatarPath}}-48" alt="avatar" class="sldimg" />
                         <p class='rel'><a class="lk scn">{{screenName}}</a>
-						{{/sender}}
-							<span class="time">{{screenTime}}</span>
-						</p>
-                        <p class="rel">{{text}}<span class="act"><a class="mrrep lk">回复</a></span></p>
+						{{/sender}}<span class="time ml10">{{screenTime}}</span></p>
+                        <p class="rel">{{text}}</p>
+						<span class="act"><a class="mrrep lk">回复</a></span>
                     </li>
                 </script>
                 <div id='sld2'>
                 	<div class="msgmem">
-						<p class="pr100"><span class='sender'></span> --> <span class='partner'></span></p>
+						<p class="pr100 mb10"><span class='sender'></span> --> <span class='partner'></span></p>
 						<p class="mems"></p>
 						<a class="memdel btnb">删除</a>
 					</div>
 					<div class="msgrepbox">
-						<textarea id="tboxrep" class='mttextar' style=""></textarea>
+						<textarea id="tboxrep" class='mttextar' style="height:64px;"></textarea>
 						<input type="hidden" id="replaysource"/>
 						<div class='repactbox'><a id="btnrep" class="btnr">回复</a></div>
 					</div>
@@ -192,7 +190,7 @@ mods.push(function(q){
             </div>
         </div>
     </div></div>
-    <div class="col-sub" style="padding-top:42px;">
+    <div class="col-sub" style="padding-top:36px;">
         <a href='${urlPrefix}/message/new' class="btnNM"></a>
     </div>
 </div>
