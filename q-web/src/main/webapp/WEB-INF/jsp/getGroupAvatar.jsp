@@ -1,47 +1,39 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="models/head.jsp">
-	<jsp:param name="title" value="创建圈子" />
+	<jsp:param name="title" value="修改头像" />
 </jsp:include>
- <link rel="stylesheet" type="text/css" href="${staticUrlPrefix}/content/jcrop/jquery-jcrop-0.9.8.css"  />
-    <script type="text/javascript" src="${staticUrlPrefix}/scripts/src/jquery-1.6.1.js"></script>
-    <script type="text/javascript" src="${staticUrlPrefix}/scripts/src/jq.jcrop.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="${staticUrlPrefix}/content/jcrop/jquery-jcrop-0.9.8.css" />
+<style type="text/css">
+.imgbox {
+	float: left;
+	width: 300px;
+	margin-right: 10px;
+}
+
+.imgmain {
+	float: left;
+	width: 600px;
+}
+</style>
+<script type="text/javascript"
+	src="${staticUrlPrefix}/scripts/src/jquery-1.6.1.js"></script>
+<script type="text/javascript"
+	src="${staticUrlPrefix}/scripts/src/jq.jcrop.js"></script>
 <script type="text/javascript">
-    mods.push(function (q) {
-        var $ = q.jq;
-
-        var pheight = 331.6;
-        $('#cropbox').Jcrop({
-            onChange: showPreview,
-            onSelect: showPreview,
-            aspectRatio: 1
-        });
-    });
-    function showPreview(coords) {
-        if (parseInt(coords.w) > 0) {
-            calculate(coords, 24, $('#Img1'));
-            calculate(coords, 48, $('#Img2'));
-            calculate(coords, 128, $('#Img3'));
-        }
-    }
-
-    var calculate = function (coords, radix, o) {
-        var rx = radix / coords.w;
-        var ry = radix / coords.h;
-        o.css({
-            width: Math.round(rx * 300) + 'px',
-            height: Math.round(ry * pheight) + 'px',
-            marginLeft: '-' + Math.round(rx * coords.x) + 'px',
-            marginTop: '-' + Math.round(ry * coords.y) + 'px'
-        });
-    }
-
-
-
-
-
-       $(function () {
-         		cutter = new jQuery.UtrialgroupCutter(
+var realWidth;
+var realHeight;
+var imageWidth;
+var imageHeight;
+var isImg=true;
+var cutter;
+var divide=1;
+var groupId;
+var groupPath;
+	$(function () {
+         		cutter = new jQuery.UtrialAvatarCutter(
 			{
 				//主图片所在容器ID
 				content : "myImage",
@@ -55,13 +47,16 @@
 
 		);
 
-		if("${groupExists}"=="true"){
+        groupId="${group.id}";
+        groupPath="${avatarPath}";
+		if("${avatarExists}"=="true"){
 		var img=new Image();
-		img.src="${groupPath}";
+		img.src="${avatarPath}";
+
 		var dick=setInterval(function(){
 			if(img.complete){
 				clearInterval(dick);
-				reloadImg(img.height,img.width,"${groupPath}");
+				reloadImg(img.height,img.width,"${avatarPath}");
 				cutter.init();
 			}
 		},100);
@@ -70,21 +65,10 @@
 		}
 	});
 
-var realWidth;
-var realHeight;
-var imageWidth;
-var imageHeight;
-var isImg=true;
-var cutter;
-var divide=1;
-var groupPath;
-var groupId;
+
 function upload(){
 check();
 $("#hidden_frame").css("display","none");
-	//if(isImg==true){
-
-	//}
 	return isImg;
 	}
 	function save(){
@@ -115,7 +99,7 @@ $("#hidden_frame").css("display","none");
           $("#savecorrect").css("display","block");
           $("#savewrong").css("display","none");
           $("#savecorrect").html("修改头像图片成功");
-          $("#groupImage").attr("value", groupPath);
+
       } else {
           $("#savecorrect").css("display","none");
           $("#savewrong").css("display","block");
@@ -135,10 +119,10 @@ $("#hidden_frame").css("display","none");
          $("#imgwrong").css("display","block");
          $("#imgwrong").html("这不是一个图片文件!");
     }
-   function reloadImg(x,y,z,id){
-   $("#groupId").attr("value", id);
-   groupPath=z;
-   groupId=id;
+    function reloadImg(x,y,z,id){
+        if(id!=null)
+    	groupId=id;
+
      $("#saveButton").css("display","block");
     $("#cancelButton").css("display","block");
     realHeight=x;
@@ -171,7 +155,7 @@ $("#hidden_frame").css("display","none");
     }
 
 
-    jQuery.UtrialgroupCutter = function(config){
+    jQuery.UtrialAvatarCutter = function(config){
 	var h,w,x,y;
 
 	var os,oh,ow;
@@ -287,103 +271,67 @@ $("#hidden_frame").css("display","none");
 		return {w:w,h:h,x:x,y:y,s:os};
 	}
 }
+	</script>
+<div class="layout grid-s7m0">
+	<div class="col-main">
+		<div class="main-wrap pr10">
+			<h2>圈子设置</h2>
+			<div class="ui-tabs mt10">
+				<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
+					<li class="ui-state-default crt2 "><a
+						href="${urlPrefix}/group/${group.id}/edit">基本信息</a></li>
+					<li class="ui-state-default crt2 ui-state-active"><a
+						href="${urlPrefix}/group/${group.id}/avatar">圈子头像</a></li>
 
+				</ul>
+			</div>
+			<div class='tabscont clear' style="padding: 10px;">
 
-</script>
-<div class="layout grid-s4m0e6">
-    <div class="col-main"><div class="main-wrap">
-        <h2>创建圈子</h2>
+				<div class="imgbox">
+					<div id="myImage"></div>
+				</div>
+				<div class="imgmain">
+					从电脑中选择你喜欢的照片：<br /> <span class="gray">您可以上传JPG、JPEG、GIF或PNG文件。</span><br />
+					<br />
+					<form action="${urlPrefix}/group/${group.id}/picture" id="form1"
+						name="form1" encType="multipart/form-data" method="post"
+						target="hidden_frame" onsubmit="return upload()">
+						<ul>
+							<li>1. <input type="file" name="file" id="file"
+								accept="image/gif, image/jpeg" onchange="check()"
+								style="width: 450"></input></li>
+							<li>2. <input type="submit" value="上传头像"></input></li>
+							<li>3. 随意拖拽或缩放大图中的虚线方格，下方预览的小图即为保存后的头像图标。</li>
 
-        <div style="background-color:#f6f6f6;">
-		<form action="<c:out value="${urlPrefix}/group" />" method="post">
-		<table class='qform'>
-		<tr>
-			<td align="right">圈子名称<span class="fred">*</span>：</td>
-			<td><input name="name" type='text' class='mttext'>名称不能超过20个字母或10个汉字
-				<div class='label-box-error' style=''></div>
-			</td>
-		</tr>
-		<!--
-		<tr>
-			<td align="right">所在地：</td>
-			<td class='localArea'>
-                <input type='radio' checked="checked"> 全国&nbsp;&nbsp;<input type='radio'> 省&nbsp;&nbsp;<input type='radio'> 市&nbsp;&nbsp;<input type='radio'> 县
-            </td>
-		</tr>
-		<tr>
-			<td align="right">圈子头像：</td>
-			<td>
+						</ul>
+						<div style='display: none;' id="imgwrong"></div>
+						<iframe name='hidden_frame' id="hidden_frame"
+							style='display: none'> </iframe>
 
-            </td>
-		</tr> -->
-		<tr>
-			<td align="right">所在分类<span class="fred">*</span>：</td>
-			<td>
-				<select name="categoryId" class='select'>
-				<c:forEach items="${categorys}" var="current" varStatus="status">
-					<option value=${current.id}>${current.name}</option>
-				</c:forEach>
-				</select>
-            </td>
-		</tr>
-		<tr>
-			<td align="right">简介：</td>
-			<td>
-				<textarea class="mttextar" style="width:200px;height:100px;" name="intro"></textarea>
-				<div class='label-box-error' style=''>你还可以输入140个字</div>
-			</td>
-		</tr>
-		<tr>
-			<td></td>
-			<td>
-				<input type='submit' class="btnr" value="创建圈子" /><input type="hidden" name="groupImage" id="groupImage" />
-				<input type="hidden" name="groupId" id="groupId" />
-			</td>
-		</tr>
+					</form>
 
-	</table>
-	</form>
-	<div class='tabscont clear' style="padding:10px;">
+					<div class='clearfix'>
+						<div id="picture_48" class="wh48"
+							style="overflow: hidden; float: left;"></div>
+						<div id="picture_64" class="wh64"
+							style="overflow: hidden; float: left;"></div>
+					</div>
+					<div>
+						<div style='display: none;' id="savewrong"></div>
+						<div style='display: none;' id="savecorrect"></div>
+						<input type="button" id="saveButton" style='display: none;'
+							value='保存' onclick="save()"></input> <input type="button"
+							id="cancelButton" style='display: none;' value='取消'></input>
+					</div>
+				</div>
 
-<div class="imgbox"><div id="myImage"></div></div>
-<div class="imgmain">
-从电脑中选择你喜欢的照片：<br />
-<span class="gray">您可以上传JPG、JPEG、GIF或PNG文件。</span><br /><br />
-<form action="${urlPrefix}/group/picture"  id="form1" name="form1"  encType="multipart/form-data" method="post" target="hidden_frame" onsubmit="return upload()">
-<ul>
-<li>1. <input type="file" name="file" id="file" accept="image/gif, image/jpeg" onchange="check()" style="width:450"></input></li>
-<li>2. <input type="submit" value="上传图片" ></input></li>
-<li>3. 随意拖拽或缩放大图中的虚线方格，下方预览的小图即为保存后的头像图标。
-</li>
-</ul>
-<div style='display:none;' id="imgwrong"></div>
-<iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>
-</form>
-
-<div class='clearfix'>
-<div id="picture_48"  style="overflow:hidden;float:left;"></div>
-<div id="picture_64" style="overflow:hidden;float:left;"></div>
-</div>
-<div>
-	<div style='display:none;' id="savewrong"></div>
-	<div style='display:none;' id="savecorrect"></div>
-	<input type="button" id="saveButton" style='display:none;' value='保存' onclick="save()"></input>
-	<input type="button" id="cancelButton" style='display:none;' value='取消' ></input>
-</div>
-</div>
-
-</div>
-
+			</div>
+		</div>
 	</div>
-
-    </div></div>
-    <div class="col-sub">
-		<jsp:include page="models/groups-mine.jsp">
-			<jsp:param name="id" value="" />
-		</jsp:include>
-    </div>
-	<div class="col-extra">
-
-	</div>
+	<div class="col-sub"><jsp:include page="models/groups-mine.jsp">
+			<jsp:param name="id" value="${group.id}" />
+		</jsp:include></div>
 </div>
+
+
 <jsp:include page="models/foot.jsp" />

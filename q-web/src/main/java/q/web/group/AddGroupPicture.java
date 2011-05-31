@@ -38,13 +38,16 @@ public class AddGroupPicture extends Resource {
 		for (; iter.hasNext();) {
 			FileItem fileItem = (FileItem) iter.next();
 			if (fileItem.isFormField()) {
-				// 当前是一个表单项
+
+				String cs=fileItem.getString();
+
+
 			} else {
 				if (fileItem.getSize() > 2097152l) {
 					context.setModel("value", "上传图片的体积超过2M");
 				} else {
-					long Id = IdCreator.getLongId();
-					long dir = Id % 10000;
+
+
 					// 当前是一个上传的文件
 					String fileName = fileItem.getName();
 					String typeString = fileName.substring(fileName.lastIndexOf(".") + 1);
@@ -59,6 +62,17 @@ public class AddGroupPicture extends Resource {
 						context.setModel("isImg", false);
 					}
 					if (ImageKit.isImage(fileItem.getInputStream())) {
+
+
+                        long Id=context.getResourceIdLong();
+                        if(Id==0){
+                        	Id = IdCreator.getLongId();
+                        }
+
+
+						context.setModel("id", String.valueOf(Id));
+
+
 						context.setModel("isImg", true);
 						long size = fileItem.getSize();
 						String sb = pictureService.uploadGroupPicture(fileItem.getInputStream(), Id, size, type);

@@ -47,7 +47,18 @@
 <div class="layout grid-s7m0">
 <div class="col-main">
 <div class="main-wrap pr10">
-<h2>管理圈子</h2>
+<h2>圈子设置</h2>
+	<div class="ui-tabs mt10">
+		<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
+			<li class="ui-state-default crt2 ui-state-active"><a
+				href="${urlPrefix}/group/${group.id}/edit">基本信息</a>
+			</li>
+			<li class="ui-state-default crt2"><a
+				href="${urlPrefix}/group/${group.id}/avatar">圈子头像</a>
+			</li>
+
+		</ul>
+	</div>
 <form action="<c:out value="${urlPrefix}/group/${group.id}" />" method="post">
 <input type="hidden" name="_method" value="update"/>
 <input type="hidden" name="from" value="${urlPrefix}/group/${group.id}"/>
@@ -59,7 +70,7 @@
 		<div class='label-box-error' style=''></div>
 		</td>
 	</tr>
-	<!-- 
+	<!--
 		<tr>
 			<td align="right">所在地：</td>
 			<td class='localArea'>
