@@ -96,8 +96,9 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 		return (People) this.sqlMapClient.queryForObject("selectPeoplesByPage", page);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
-	private List<People> getPeoplesByPage(PeoplePage page) throws SQLException {
+	public List<People> getPeoplesByPage(PeoplePage page) throws SQLException {
 		return (List<People>) this.sqlMapClient.queryForList("selectPeoplesByPage", page);
 	}
 

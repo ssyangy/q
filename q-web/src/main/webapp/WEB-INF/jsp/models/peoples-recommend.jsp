@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="q" uri="http://www.q.com.cn/jsp/tag"%>
 <ul class="slist">
-<c:forEach items="${newPeoples}" var="people" varStatus='stat'>
+<c:forEach items="${recommendPeoples}" var="people" varStatus='stat'>
 <c:choose>
 	<c:when test="${!stat.last}"><li></c:when>
 	<c:otherwise><li class='end'></c:otherwise>

@@ -2,8 +2,6 @@ package q.web.people;
 
 import java.util.List;
 
-import org.apache.commons.lang.ArrayUtils;
-
 import q.biz.PictureService;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
@@ -22,7 +20,6 @@ import q.web.area.AreaValidator;
 import q.web.exception.PeopleNotExistException;
 import q.web.exception.PeopleNotLoginException;
 import q.web.exception.PeopleNotPermitException;
-import q.web.exception.RequestParameterInvalidException;
 import q.web.group.AddGroupJoin;
 
 public class AddPeopleFull extends Resource {
@@ -131,11 +128,11 @@ public class AddPeopleFull extends Resource {
 		if (year > 0) {
 			PeopleValidator.validateBirthday(year, month, day);
 		}
-
-		String[] groupIds = context.getStringArray("group");
-		if (ArrayUtils.isEmpty(groupIds)) {
-			throw new RequestParameterInvalidException("group:圈子必选");
-		}
+ 
+		//String[] groupIds = context.getStringArray("group");
+		//if (ArrayUtils.isEmpty(groupIds)) {
+			//throw new RequestParameterInvalidException("group:圈子必选");
+		//}
 
 	}
 

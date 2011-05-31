@@ -21,7 +21,7 @@
     </div></div>
     <div class="col-sub">
         <h3>可能感兴趣的</h3>
-
+		<jsp:include page="models/peoples-recommend.jsp" />
     </div>
 </div>
 <jsp:include page="models/foot.jsp" />
