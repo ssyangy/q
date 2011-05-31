@@ -1,11 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="创建圈子" />
 </jsp:include>
- <link rel="stylesheet" type="text/css" href="${staticUrlPrefix}/content/jcrop/jquery-jcrop-0.9.8.css"  />
-    <script type="text/javascript" src="${staticUrlPrefix}/scripts/src/jquery-1.6.1.js"></script>
-    <script type="text/javascript" src="${staticUrlPrefix}/scripts/src/jq.jcrop.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="${staticUrlPrefix}/content/jcrop/jquery-jcrop-0.9.8.css" />
+<script type="text/javascript"
+	src="${staticUrlPrefix}/scripts/src/jquery-1.6.1.js"></script>
+<script type="text/javascript"
+	src="${staticUrlPrefix}/scripts/src/jq.jcrop.js"></script>
 <script type="text/javascript">
     mods.push(function (q) {
         var $ = q.jq;
@@ -129,6 +133,21 @@ $("#hidden_frame").css("display","none");
 	isImg=false;
 	alert(value);
 
+	}
+	function checkAll(){
+	var cgn=checkGroupName($("#name").val());
+	return cgn;
+	}
+	function checkGroupName(a){
+	if(a.length<1||a.length>20){
+        	       $("#groupnamecorrect").css("display","none");
+        	       $("#groupnamewrong").css("display","block");
+        	       $("#groupnamewrong").html("圈子名称长度要在1-20位之间。");
+        	        return false;
+        	      }
+        	       $("#groupnamecorrect").css("display","block");
+        	       $("#groupnamewrong").css("display","none");
+        	      return true;
 	}
     function notAImg(){
     	isImg=false;
@@ -291,19 +310,23 @@ $("#hidden_frame").css("display","none");
 
 </script>
 <div class="layout grid-s4m0e6">
-    <div class="col-main"><div class="main-wrap">
-        <h2>创建圈子</h2>
+	<div class="col-main">
+		<div class="main-wrap">
+			<h2>创建圈子</h2>
 
-        <div style="background-color:#f6f6f6;">
-		<form action="<c:out value="${urlPrefix}/group" />" method="post">
-		<table class='qform'>
-		<tr>
-			<td align="right">圈子名称<span class="fred">*</span>：</td>
-			<td><input name="name" type='text' class='mttext'>名称不能超过20个字母或10个汉字
-				<div class='label-box-error' style=''></div>
-			</td>
-		</tr>
-		<!--
+			<div style="background-color: #f6f6f6;">
+				<form action="<c:out value="${urlPrefix}/group" />" method="post" onsubmit="return checkAll()">
+					<table class='qform'>
+						<tr>
+							<td align="right">圈子名称<span class="fred">*</span>：</td>
+							<td><input name="name" id="name" type='text' class='mttext'
+							onblur="checkGroupName(this.value)">名称不能超过20个字母或10个汉字
+								<div class="label-box-good" style="display: none;"
+									id="groupnamecorrect"></div>
+								<div class="label-box-error" style="display: none;"
+									id="groupnamewrong"></div></td>
+						</tr>
+						<!--
 		<tr>
 			<td align="right">所在地：</td>
 			<td class='localArea'>
@@ -316,74 +339,79 @@ $("#hidden_frame").css("display","none");
 
             </td>
 		</tr> -->
-		<tr>
-			<td align="right">所在分类<span class="fred">*</span>：</td>
-			<td>
-				<select name="categoryId" class='select'>
-				<c:forEach items="${categorys}" var="current" varStatus="status">
-					<option value=${current.id}>${current.name}</option>
-				</c:forEach>
-				</select>
-            </td>
-		</tr>
-		<tr>
-			<td align="right">简介：</td>
-			<td>
-				<textarea class="mttextar" style="width:200px;height:100px;" name="intro"></textarea>
-				<div class='label-box-error' style=''>你还可以输入140个字</div>
-			</td>
-		</tr>
-		<tr>
-			<td></td>
-			<td>
-				<input type='submit' class="btnr" value="创建圈子" /><input type="hidden" name="groupImage" id="groupImage" />
-				<input type="hidden" name="groupId" id="groupId" />
-			</td>
-		</tr>
+						<tr>
+							<td align="right">所在分类<span class="fred">*</span>：</td>
+							<td><select name="categoryId" class='select'>
+									<c:forEach items="${categorys}" var="current"
+										varStatus="status">
+										<option value=${current.id}>${current.name}</option>
+									</c:forEach>
+							</select></td>
+						</tr>
+						<tr>
+							<td align="right">简介：</td>
+							<td><textarea class="mttextar"
+									style="width: 200px; height: 100px;" name="intro"></textarea>
+								<div class='label-box-error' style=''>你还可以输入140个字</div></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><input type='submit' class="btnr" value="创建圈子" /><input
+								type="hidden" name="groupImage" id="groupImage" /> <input
+								type="hidden" name="groupId" id="groupId" /></td>
+						</tr>
 
-	</table>
-	</form>
-	<div class='tabscont clear' style="padding:10px;">
+					</table>
+				</form>
+				<div class='tabscont clear' style="padding: 10px;">
 
-<div class="imgbox"><div id="myImage"></div></div>
-<div class="imgmain">
-从电脑中选择你喜欢的照片：<br />
-<span class="gray">您可以上传JPG、JPEG、GIF或PNG文件。</span><br /><br />
-<form action="${urlPrefix}/group/picture"  id="form1" name="form1"  encType="multipart/form-data" method="post" target="hidden_frame" onsubmit="return upload()">
-<ul>
-<li>1. <input type="file" name="file" id="file" accept="image/gif, image/jpeg" onchange="check()" style="width:450"></input></li>
-<li>2. <input type="submit" value="上传图片" ></input></li>
-<li>3. 随意拖拽或缩放大图中的虚线方格，下方预览的小图即为保存后的头像图标。
-</li>
-</ul>
-<div style='display:none;' id="imgwrong"></div>
-<iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>
-</form>
+					<div class="imgbox">
+						<div id="myImage"></div>
+					</div>
+					<div class="imgmain">
+						从电脑中选择你喜欢的照片：<br /> <span class="gray">您可以上传JPG、JPEG、GIF或PNG文件。</span><br />
+						<br />
+						<form action="${urlPrefix}/group/picture" id="form1" name="form1"
+							encType="multipart/form-data" method="post" target="hidden_frame"
+							onsubmit="return upload()">
+							<ul>
+								<li>1. <input type="file" name="file" id="file"
+									accept="image/gif, image/jpeg" onchange="check()"
+									style="width: 450"></input>
+								</li>
+								<li>2. <input type="submit" value="上传图片"></input>
+								</li>
+								<li>3. 随意拖拽或缩放大图中的虚线方格，下方预览的小图即为保存后的头像图标。</li>
+							</ul>
+							<div style='display: none;' id="imgwrong"></div>
+							<iframe name='hidden_frame' id="hidden_frame"
+								style='display: none'></iframe>
+						</form>
 
-<div class='clearfix'>
-<div id="picture_48"  style="overflow:hidden;float:left;"></div>
-<div id="picture_64" style="overflow:hidden;float:left;"></div>
-</div>
-<div>
-	<div style='display:none;' id="savewrong"></div>
-	<div style='display:none;' id="savecorrect"></div>
-	<input type="button" id="saveButton" style='display:none;' value='保存' onclick="save()"></input>
-	<input type="button" id="cancelButton" style='display:none;' value='取消' ></input>
-</div>
-</div>
+						<div class='clearfix'>
+							<div id="picture_48" style="overflow: hidden; float: left;"></div>
+							<div id="picture_64" style="overflow: hidden; float: left;"></div>
+						</div>
+						<div>
+							<div style='display: none;' id="savewrong"></div>
+							<div style='display: none;' id="savecorrect"></div>
+							<input type="button" id="saveButton" style='display: none;'
+								value='保存' onclick="save()"></input> <input type="button"
+								id="cancelButton" style='display: none;' value='取消'></input>
+						</div>
+					</div>
 
-</div>
+				</div>
 
+			</div>
+
+		</div>
 	</div>
-
-    </div></div>
-    <div class="col-sub">
+	<div class="col-sub">
 		<jsp:include page="models/groups-mine.jsp">
 			<jsp:param name="id" value="" />
 		</jsp:include>
-    </div>
-	<div class="col-extra">
-
 	</div>
+	<div class="col-extra"></div>
 </div>
 <jsp:include page="models/foot.jsp" />

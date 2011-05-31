@@ -7,6 +7,8 @@ import q.domain.Area;
 import q.domain.Gender;
 import q.domain.People;
 import q.util.StringKit;
+import q.web.DefaultResourceContext;
+import q.web.LoginCookie;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.area.AreaValidator;
@@ -84,6 +86,7 @@ public class AddProfileBasic extends Resource {
 			people.setUsername(databasePeople.getUsername());
 			searchService.updatePeople(people);
 		}
+		((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), people.getRealName(), context.getLoginCookie().getUsername(), context.getLoginCookie().getAvatarPath())); // set login cookie
 	}
 
 	@Override

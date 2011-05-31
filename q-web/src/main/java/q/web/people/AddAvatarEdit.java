@@ -3,6 +3,8 @@ package q.web.people;
 import q.biz.PictureService;
 import q.dao.PeopleDao;
 import q.domain.People;
+import q.web.DefaultResourceContext;
+import q.web.LoginCookie;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.exception.RequestParameterInvalidException;
@@ -43,9 +45,12 @@ public class AddAvatarEdit extends Resource {
 			people.setAvatarPath(avatarPath);
 			people.setId(peopleId);
 			peopleDao.updatePeopleById(people);
+
+			((DefaultResourceContext) context).addLoginCookie(new LoginCookie(people.getId(), context.getLoginCookie().getRealName(), context.getLoginCookie().getUsername(), people.getAvatarPath())); // set login cookie
 		}
 		if (sb == false) {
 			throw new RequestParameterInvalidException("value:服务器忙。");
 		}
+
 	}
 }
