@@ -24,12 +24,13 @@ import q.util.CollectionKit;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
 
 /**
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 21, 2011
- *
+ * 
  */
 public class GetMessageIndex extends Resource {
 
@@ -53,7 +54,7 @@ public class GetMessageIndex extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -154,7 +155,7 @@ public class GetMessageIndex extends Resource {
 
 	/**
 	 * 返回message id和参与者的映射
-	 *
+	 * 
 	 * @param messageIds
 	 * @return
 	 * @throws SQLException
@@ -182,12 +183,15 @@ public class GetMessageIndex extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
+		}
 	}
 
 }

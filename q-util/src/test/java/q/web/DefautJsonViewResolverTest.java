@@ -13,6 +13,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import q.web.exception.ErrorCodeException;
+
 /**
  * @author seanlinwang
  * @email xalinx at gmail dot com

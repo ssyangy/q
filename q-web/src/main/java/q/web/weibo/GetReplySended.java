@@ -21,6 +21,7 @@ import q.util.CollectionKit;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
 
 /**
  * @author seanlinwang at gmail dot com
@@ -117,6 +118,10 @@ public class GetReplySended extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
+		}
 	}
 
 }

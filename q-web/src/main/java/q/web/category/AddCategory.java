@@ -14,12 +14,13 @@ import q.util.IdCreator;
 import q.util.StringKit;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
 import q.web.exception.PeopleNotPermitException;
 
 /**
  * @author Zhehao
  * @date Feb 15, 2011
- *
+ * 
  */
 public class AddCategory extends Resource {
 	private PeopleDao peopleDao;
@@ -47,7 +48,7 @@ public class AddCategory extends Resource {
 		category.setName(context.getString("name"));
 		category.setIntro(context.getString("intro"));
 		String avatarPath = context.getString("avatarPath");
-		if(StringKit.isEmpty(avatarPath)) {
+		if (StringKit.isEmpty(avatarPath)) {
 			category.setAvatarPath(this.pictureService.getDefaultCategoryAvatarPath());
 		} else {
 			category.setAvatarPath(avatarPath);
@@ -57,15 +58,18 @@ public class AddCategory extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
+		}
 		People people = peopleDao.getPeopleById(loginPeopleId);
-		if(people.isNotAdmin()) {
-			throw new PeopleNotPermitException("people:无操作权限");
+		if (people.isNotAdmin()) {
+			throw new PeopleNotPermitException();
 		}
 
 	}

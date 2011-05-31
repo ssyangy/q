@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
-	<bean id="publicUrlMapping"
-		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	<bean id="publicUrlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
 			<value>
 				/*=router
@@ -29,8 +28,7 @@
 		<property name="defaultErrorView" value="error/500" />
 		<property name="defaultStatusCode" value="500"></property>
 	</bean>
-	<bean id="jspViewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
 			<value>/WEB-INF/jsp/</value>
 		</property>
@@ -303,61 +301,6 @@
 			</bean>
 		</property>
 		<property name="loginPath" value="/login/new" />
-		<property name="needLoginResources">
-			<set>
-				<value>getMineIndex</value>
-				<value>getSettingIndex</value>
-				<value>getPeopleFeed</value>
-				<value>getPeopleFull</value>
-				<value>addPeopleFull</value>
-				<value>updatePeople</value>
-				<value>addPeopleFollowing</value>
-				<value>deletePeopleFollowing</value>
-				<value>getGroupNew</value>
-				<value>getGroupEdit</value>
-				<value>addGroup</value>
-				<value>updateGroup</value>
-				<value>getGroupFeed</value>
-				<value>getGroupFeedEvent</value>
-				<value>addGroupJoin</value>
-				<value>deleteGroupJoin</value>
-				<value>getCategoryNew</value>
-				<value>addCategory</value>
-				<value>getEventNew</value>
-				<value>addEvent</value>
-				<value>addEventJoin</value>
-				<value>deleteEventJoin</value>
-				<value>getMessageIndex</value>
-				<value>getMessageNew</value>
-				<value>addMessage</value>
-				<value>getMessage</value>
-				<value>getMessageReply</value>
-				<value>addMessage</value>
-				<value>deleteMessage</value>
-				<value>deleteMessageReply</value>
-				<value>addMessageReply</value>
-				<value>addWeibo</value>
-				<value>deleteWeibo</value>
-				<value>addWeiboReply</value>
-				<value>deleteWeiboReply</value>
-				<value>getWeiboNew</value>
-				<value>getReplyNew</value>
-				<value>getWeiboRetweet</value>
-				<value>addWeiboRetweet</value>
-				<value>getReplyRetweet</value>
-				<value>addReplyRetweet</value>
-				<value>addWeiboFavorite</value>
-				<value>addReplyFavorite</value>
-				<value>deleteWeiboFavorite</value>
-				<value>deleteReplyFavorite</value>
-				<value>getProfileBasic</value>
-				<value>getProfileAvatar</value>
-				<value>getFavoriteIndex</value>
-				<value>getReplyReceived</value>
-				<value>getReplySended</value>
-				<value>getAtIndex</value>
-			</set>
-		</property>
 	</bean>
 
 	<!-- global web -->

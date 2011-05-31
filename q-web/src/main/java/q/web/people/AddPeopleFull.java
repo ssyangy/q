@@ -12,6 +12,7 @@ import q.domain.Degree;
 import q.domain.Gender;
 import q.domain.People;
 import q.util.CollectionKit;
+import q.util.IdCreator;
 import q.util.StringKit;
 import q.web.DefaultResourceContext;
 import q.web.LoginCookie;
@@ -19,6 +20,7 @@ import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.area.AreaValidator;
 import q.web.exception.PeopleNotExistException;
+import q.web.exception.PeopleNotLoginException;
 import q.web.exception.PeopleNotPermitException;
 import q.web.exception.RequestParameterInvalidException;
 import q.web.group.AddGroupJoin;
@@ -94,12 +96,16 @@ public class AddPeopleFull extends Resource {
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
+		}
 		long peopleId = context.getResourceIdLong();
-		if (peopleId != context.getCookiePeopleId()) {
-			throw new PeopleNotPermitException("people:无操作权限");
+		if (peopleId != loginPeopleId) {
+			throw new PeopleNotPermitException();
 		}
 		if (this.peopleDao.getPeopleById(peopleId) == null) {
-			throw new PeopleNotExistException("people:用户不存在");
+			throw new PeopleNotExistException();
 		}
 
 		int gender = context.getInt("gender", -1);

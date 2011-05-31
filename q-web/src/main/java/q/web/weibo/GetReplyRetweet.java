@@ -9,8 +9,10 @@ import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.domain.People;
 import q.domain.WeiboReply;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
 
 /**
  * @author seanlinwang
@@ -60,8 +62,10 @@ public class GetReplyRetweet extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-		
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
+		}
 	}
 
 }

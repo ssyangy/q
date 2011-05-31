@@ -5,8 +5,10 @@ package q.web.message;
 
 import q.dao.MessageDao;
 import q.domain.MessageReply;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
 import q.web.exception.RequestParameterInvalidException;
 
 /**
@@ -36,7 +38,7 @@ public class DeleteMessageReply extends Resource {
 		long replyId = context.getResourceIdLong();
 		long loginId = context.getCookiePeopleId();
 		MessageReply reply = this.messageDao.getMessageReplyById(replyId);
-		if(reply == null || reply.getSenderId() != loginId) {
+		if (reply == null || reply.getSenderId() != loginId) {
 			throw new RequestParameterInvalidException("privilege:invalid");
 		}
 		int rowEffected = this.messageDao.deleteMessageReplyByIdAndReceiverId(replyId, loginId);
@@ -56,6 +58,10 @@ public class DeleteMessageReply extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
+		}
 	}
 
 }

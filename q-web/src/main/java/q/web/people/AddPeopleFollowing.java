@@ -7,8 +7,10 @@ import q.biz.NotifyService;
 import q.dao.PeopleDao;
 import q.domain.PeopleRelation;
 import q.domain.PeopleRelationStatus;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
 import q.web.exception.RequestParameterInvalidException;
 
 /**
@@ -72,9 +74,12 @@ public class AddPeopleFollowing extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		long fromPeopleId = context.getCookiePeopleId();
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
+		}
 		long toPeopleId = context.getResourceIdLong();
-		if (fromPeopleId == toPeopleId) {
+		if (loginPeopleId == toPeopleId) {
 			throw new RequestParameterInvalidException("toPeople:不能关注自己");
 		}
 	}

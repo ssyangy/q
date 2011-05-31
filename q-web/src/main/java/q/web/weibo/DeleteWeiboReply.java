@@ -10,6 +10,7 @@ import q.domain.WeiboReply;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
 import q.web.exception.RequestParameterInvalidException;
 
 /**
@@ -61,9 +62,9 @@ public class DeleteWeiboReply extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		long loginId = context.getCookiePeopleId();
-		if (IdCreator.isNotValidId(loginId)) {
-			throw new RequestParameterInvalidException("login:invalid");
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
 		}
 		long replyWeiboId = context.getResourceIdLong();
 		if (IdCreator.isNotValidId(replyWeiboId)) {
