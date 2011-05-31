@@ -2,10 +2,10 @@
     var $ = {};
     var _ = require('underscore');
     var Backbone = require('backbone');
-    exports.ich = {};
-    exports.Loader = function (q, ich) {
+    var ich = {};
+    exports.Loader = function (q, ichp) {
         $ = q.jq;
-        exports.ich = ich;
+        ich = ichp;
     }
 
     exports.WeiboRepModel = Backbone.Model.extend({

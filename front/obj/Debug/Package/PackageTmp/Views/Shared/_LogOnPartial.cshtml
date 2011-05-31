@@ -1,8 +1,0 @@
-﻿@if(Request.IsAuthenticated) {
-    <text>Welcome <b>@Context.User.Identity.Name</b>!
-    <a class="link mr10" href="#">账户设置</a>|
-    @Html.ActionLink("注销", "LogOff", "Account", new { @class = "lk ml10" })</text>
-}
-else {
-    @Html.ActionLink("登录", "LogOn", "Account", new { @class = "lk" })
-}

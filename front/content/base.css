@@ -114,10 +114,12 @@ vm1外部不能有line-height属性DOM
 .mr20{margin-right:20px;}
 .mt5{margin-top:5px;}
 .mt10{margin-top:10px;}
+.mt15{margin-top:15px;}
 .mt20{margin-top:20px;}
 .mt40{margin-top:40px;}
 .mb5{margin-bottom:5px;}
 .mb10{margin-bottom:10px;}
+.mb15{margin-bottom:15px;}
 .mb20{margin-bottom:20px;}
 .mr5{margin-right:5px;}
 .ml5{margin-left:5px;}
@@ -139,6 +141,8 @@ vm1外部不能有line-height属性DOM
 /*#region MTtext */
 .mttext,.mttext_val,.mttextar,.mttextar_val{margin:1px;padding:3px 0 3px 3px;background-color:#FFF;border-color:#666 #CCC #CCC;
 		border-style:solid;border-width:1px;font-size:13px;height:20px;line-height:20px;}
+.mttext,.mttext_val,.mttextar,.mttextar_val{padding:0 0 0 3px;margin:0;}		 /* QCOMCN */
+.select{height:20px;line-height:20px;}/* QCOMCN */
 .mttext_val,.mttextar_val{color:#C4CCC9;}
 .mttextar,.mttextar_val{overflow:auto;}
 .mttext_box{margin:0px!important;border:2px solid #5485BD!important;}
@@ -147,7 +151,7 @@ vm1外部不能有line-height属性DOM
 /*#endregion MTtext */
 
 /*#region Htext */
-h2{display:block;font-size:20px;position:relative;padding:0 0 6px;}
+h2{display:block;font-size:16px;position:relative;padding:0;font-weight:700;}
 h3{background-color:#e6e6e6;color:#666;height:26px;line-height:26px;display:block;position:relative;padding:0 10px;margin-bottom:10px;}
 h3 a.lk{position:absolute;right:6px;top:6px;line-height:14px;}
 h4{color:#00649b;font-size:16px;display:block;margin:0 0 10px 0;_zoom:1;border-left:4px solid #00649b;padding-left:10px;height:16px;line-height:16px;}
