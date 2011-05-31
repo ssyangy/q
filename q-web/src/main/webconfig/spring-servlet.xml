@@ -546,6 +546,29 @@
 		<property name="pictureService" ref="pictureService"></property>
 		<property name="groupDao" ref="groupDao" />
 	</bean>
+	<bean id="getGroupAdmin" class="q.web.group.GetGroupAdmin">
+		<property name="peopleDao" ref="peopleDao"></property>
+		<property name="categoryDao" ref="categoryDao" />
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+	<bean id="getGroupAdminNew" class="q.web.group.GetGroupAdminNew">
+	</bean>
+	<bean id="addGroupAdmin" class="q.web.group.AddGroupAdmin">
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+	<bean id="getGroupAdminEdit" class="q.web.group.GetGroupAdminEdit">
+		<property name="peopleDao" ref="peopleDao"></property>
+		<property name="categoryDao" ref="categoryDao" />
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+	<bean id="updateGroupAdmin" class="q.web.group.UpdateGroupAdmin">
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+	<bean id="deleteGroupAdmin" class="q.web.group.DeleteGroupAdmin">
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+
+
 	<!-- photo web -->
 	<bean id="getGroupPhoto" class="q.web.photo.GetGroupPhoto">
 	</bean>

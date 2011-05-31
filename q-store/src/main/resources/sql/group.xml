@@ -67,7 +67,7 @@
 		promote,
 		status,
 		created,
-		modified		
+		modified
 	</sql>
 
 	<select id="selectIdNamesByIds" resultMap="groupIdNameResult">
@@ -154,6 +154,14 @@
 		from group_join_category
 		where status = 0
 		and category_id = #value#
+	</select>
+
+	<select id="selectGroupIdByCatIdAndGroupId" resultClass="gjc">
+		select <include refid="gjc.columns" />
+		from group_join_category
+		where status = 0
+		and category_id = #categoryId#
+		and group_id = #groupId#
 	</select>
 
 	<update id="decrGroupJoinNumByGroupId">
@@ -291,7 +299,7 @@
 		id = #id#
 		and status = #oldStatus#
 	</update>
-	
+
 	<update id="updatePeopleJoinGroupStatusByPeopleIdAndGroupIdAndOldStatus">
 		update people_join_group set
 		status = #newStatus#
@@ -299,6 +307,14 @@
 		people_id = #peopleId#
 		and group_id = #groupId#
 		and status = #oldStatus#
+	</update>
+
+	<update id="updateCategoryJoinGroupByGroupIdAndCategoryId">
+		update group_join_category set
+		promote = #promote#
+		where
+		group_id = #groupId#
+		and category_id = #categoryId#
 	</update>
 
 	<select id="selectPeopleJoinGroupByPage" resultMap="pjgResult">

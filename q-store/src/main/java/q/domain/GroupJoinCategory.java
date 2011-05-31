@@ -6,12 +6,12 @@ import java.util.Date;
 public class GroupJoinCategory implements Serializable{
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 6882792727642936124L;
-	
+
 	private long id;
-	
+
 	private long groupId;
 
 	private long categoryId;
@@ -21,8 +21,10 @@ public class GroupJoinCategory implements Serializable{
 	private Date created;
 
 	private Date modified;
-	
+
 	private int promote;
+
+	private Group group;
 
 	public long getId() {
 		return id;
@@ -89,6 +91,14 @@ public class GroupJoinCategory implements Serializable{
 	 */
 	public int getPromote() {
 		return promote;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
+	public Group getGroup() {
+		return group;
 	}
 
 }

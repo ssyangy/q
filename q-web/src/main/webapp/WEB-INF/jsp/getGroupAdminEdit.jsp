@@ -21,28 +21,27 @@ span.tit{display:none;}
         <div id="slidbox">
             <div id="slider">
             <ul id="sldroot" class="sldlist">
+            <li>
+					<a href="${urlPrefix}/group/admin/new?categoryId=<%=request.getParameter("categoryId") %>" title="新建推荐圈子">新建推荐圈子</a>
+            </li>
 				<c:forEach items="${cats}" var="cat" varStatus="status">
-				<li gpcid='${cat.id}'>
-					<img src="${cat.avatarPath }" class="sldimg" />
-					<p><span class='name f14 fblue'>${cat.name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<a href="${urlPrefix}/category/${cat.id }/edit">编辑</a>
-					&nbsp;&nbsp;<a href="${urlPrefix}/category/new">新建</a>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="${urlPrefix}/group/admin/edit?categoryId=${cat.id }" title="编辑已推荐的圈子">编辑已推荐的圈子</a>
-					<form action="${urlPrefix}/category/order" method="post" style="float:right;">
-						优先级&nbsp;<input type="text" name="sortOrder"  size="5" value="${cat.sortOrder }"  />
-						<input type="hidden" name="categoryId" value="${cat.id }"/>
-						<input type="hidden" name="_method" value="update"/>
-						<input type="hidden" name="from" value="${urlPrefix}/category/admin"/>
-						<input type="submit" value="确定" />
-					</form>
-					</span></p>
-					<p>
+					<li gpcid='${cat.id}'>
 						<c:forEach items="${cat.groups}" var="group" varStatus="status">
-							<a class="lk" href="${urlPrefix}/group/${group.id}">${group.name}</a>
+						<p>
+							<a class="lk" href="${urlPrefix}/group/${group.id}">${group.name}</a> &nbsp;
+							<input type="button" name="delBtn" value="删除"
+							onclick="if(window.confirm('您确定要删除此推荐圈子吗？')){document.getElementById('methodType').value='delete'; document.updateGroup_${group.id}.submit();}"/>
+							<form action="${urlPrefix}/group/admin" method="post" name="updateGroup_${group.id}">
+								排序：<input type="text" name="promote" value="${group.groupJoinCategory.promote}" />&nbsp;&nbsp;
+								<input type="hidden" name="from" value="${urlPrefix}/group/admin/edit?categoryId=${cat.id}" />
+								<input type="hidden" name="categoryId" value="${cat.id}" />
+								<input type="hidden" name="groupId" value="${group.id}" />
+								<input type="hidden" name="_method" value="update" id="methodType" />
+								<input type="submit" value="确定" />
+							</form>
+						</p>
 						</c:forEach>
-					</p>
-				</li>
+					</li>
 				</c:forEach>
             </ul>
         </div>

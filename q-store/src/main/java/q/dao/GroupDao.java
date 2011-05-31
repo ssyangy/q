@@ -19,7 +19,7 @@ import q.domain.Status;
 /**
  * @author Zhehao
  * @date Feb 15, 2011
- * 
+ *
  */
 public interface GroupDao {
 
@@ -27,7 +27,15 @@ public interface GroupDao {
 
 	Group getGroupById(long gid) throws SQLException;
 
+	GroupJoinCategory selectGroupIdByCatIdAndGroupId(long categoryId, long groupId) throws SQLException;
+
 	void addGroupJoinCategory(long groupId, long categoryId) throws SQLException;
+
+	void updateGroupJoinCategoryForAdmin(long groupId, long categoryId, int promote) throws SQLException;
+
+	void deleteGroupJoinCategoryForAdmin(long groupId, long categoryId) throws SQLException;
+
+	void addGroupJoinCategoryForAdmin(long groupId, long categoryId, int promote) throws SQLException;
 
 	void addPeopleJoinGroup(long peopleId, long groupId) throws SQLException;
 
@@ -171,7 +179,7 @@ public interface GroupDao {
 	 * @throws SQLException
 	 */
 	int updatePeopleJoinGroupStatusByIdAndOldStatus(long joinId, Status newStatus, Status oldStatus) throws SQLException;
-	
+
 	/**
 	 * @param peopleId
 	 * @param groupId
@@ -194,7 +202,7 @@ public interface GroupDao {
 	 * @throws SQLException
 	 */
 	int incrGroupJoinNumByGroupId(long groupId) throws SQLException;
-	
+
 	/**
 	 * @param groupId
 	 * @return
