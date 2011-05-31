@@ -13,9 +13,8 @@ import org.apache.commons.collections.CollectionUtils;
 
 import q.biz.CacheService;
 import q.dao.DaoHelper;
-import q.dao.EventDao;
-import q.dao.GroupDao;
 import q.dao.PeopleDao;
+import q.dao.page.PeoplePage;
 import q.dao.page.PeopleRelationPage;
 import q.domain.People;
 import q.domain.PeopleRelation;
@@ -39,18 +38,6 @@ public class GetPeopleFollower extends Resource {
 		this.peopleDao = peopleDao;
 	}
 
-	private EventDao eventDao;
-
-	public void setEventDao(EventDao eventDao) {
-		this.eventDao = eventDao;
-	}
-
-	private GroupDao groupDao;
-
-	public void setGroupDao(GroupDao groupDao) {
-		this.groupDao = groupDao;
-	}
-
 	private CacheService cacheService;
 
 	public void setCacheService(CacheService cacheService) {
@@ -69,12 +56,12 @@ public class GetPeopleFollower extends Resource {
 
 		long loginPeopleId = context.getCookiePeopleId();
 		if (!context.isApiRequest()) {
-			GetPeopleFrame frame = new GetPeopleFrame();
-			frame.setEventDao(eventDao);
-			frame.setGroupDao(groupDao);
-			frame.setPeopleDao(peopleDao);
-			frame.validate(context);
-			frame.execute(context);
+			People people = peopleDao.getPeopleById(toPeopleId);
+			context.setModel("people", people);
+			PeoplePage page = new PeoplePage();
+			page.setSize(4);
+			List<People> recommendPeoples = peopleDao.getPeoplesByPage(page);
+			context.setModel("recommendPeoples", recommendPeoples);
 		} else {
 			int size = context.getInt("size", 10);
 			long startId = context.getIdLong("startId", IdCreator.MAX_ID);
@@ -139,7 +126,6 @@ public class GetPeopleFollower extends Resource {
 			api.put("hasPrev", hasPrev);
 			api.put("hasNext", hasNext);
 			context.setModel("api", api);
-
 		}
 	}
 

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import q.dao.page.PeoplePage;
 import q.dao.page.PeopleRelationPage;
 import q.domain.Area;
 import q.domain.People;
@@ -169,9 +170,16 @@ public interface PeopleDao {
 	int decrPeopleFollowerNumberByPeopleId(long toPeopleId) throws SQLException;
 
 	/**
-	 * @param peopleId TODO
+	 * @param peopleId 
 	 * @param newPassword
 	 */
 	int updatePasswordByPeopleId(long peopleId, String newPassword) throws SQLException;
+
+	/**
+	 * @param page
+	 * @return
+	 * @throws SQLException
+	 */
+	List<People> getPeoplesByPage(PeoplePage page) throws SQLException;
 
 }
