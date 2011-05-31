@@ -150,7 +150,7 @@ vm1外部不能有line-height属性DOM
 h2{display:block;font-size:20px;position:relative;padding:0 0 6px;}
 h3{background-color:#e6e6e6;color:#666;height:26px;line-height:26px;display:block;position:relative;padding:0 10px;margin-bottom:10px;}
 h3 a.lk{position:absolute;right:6px;top:6px;line-height:14px;}
-h4{color:#00649b;font-size:16px;display:block;margin:0 0 10px 0;_zoom:1;border-left:5px solid #00649b;padding-left:10px;height:24px;line-height:24px;}
+h4{color:#00649b;font-size:16px;display:block;margin:0 0 10px 0;_zoom:1;border-left:4px solid #00649b;padding-left:10px;height:16px;line-height:16px;}
 /*#endregion Htext */
 
 /*#region Link */
@@ -190,7 +190,7 @@ input.btnr,input.btnb,input.btnb2{border:none 0;}
 .btnr{height:23px;line-height:23px;color:#fff;width:56px;background:url(images/btnr.png) no-repeat scroll 0 0 #fff;}
 .btnr:hover{background-position:0 -23px;}
 .btnr:active{background-position:0 -46px;color:#333;}
-.btnb,.btnb2{background:url(images/btnb2.png) repeat-x scroll left top;height:20px;line-height:21px;color:#fff;border-radius:2px;border:1px solid #fff;padding:0 10px;}
+.btnb,.btnb2{background:url(images/btnb2.png) repeat-x scroll left top;height:20px;line-height:20px;color:#fff;border-radius:2px;border:1px solid #fff;padding:0 10px;}
 .btnb:hover,.btnb2:hover{color:#00649b;border-color:#00649b;}
 .btnb:active,.btnb2:active{color:#333;border-color:#333;line-height:20px;}
 

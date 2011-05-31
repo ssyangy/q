@@ -21,6 +21,7 @@
         });
 
         $("#signovb").ajaxSuccess(function (evt, resp, set) {
+        //if(_.isString("moe");)
             var m = eval("(" + resp.responseText + ")");
             if (!m && m.id) return;
             if (m.error_code == "40002") {

@@ -2,19 +2,20 @@
     var $ = require('jquery');
     var _ = require('underscore');
     var Backbone = require('backbone');
-    var ich = require('ICanHaz');
+    var quote = require('app/weibo_quote');
+    var rotate = require('plus/rotate');
 
     var ich = {};
     var $ = {};
     var q = {};
-    exports.init = function (qcomcn, ichp) {
+    exports.Loader = function (qcomcn, ichp) {
         q = qcomcn;
         $ = qcomcn.jq;
-        require('jqplus/jq_rotate')($);
         ich = ichp;
+        quote.Loader(q, ich);
 
         var rdia = $('#dia_ret');
-        if (rdia.data("init", true)) {
+        if (!rdia.data("init")) {
             $('input.donet', rdia).click(function () {
                 $('img.ajaxload', rdia).show();
                 $.ajax({ url: $(".ret_url", rdia).val(), type: 'POST', msg: rdia,
@@ -77,6 +78,11 @@
             $(this.el).html(ich.weibo_repitem(this.model.toJSON()))
             .data('replyid', this.model.get('id'));
             if (this.model.get("order_id")) $(this.el).attr('order_id', this.model.get('order_id'));
+            if (this.model.get("quote")) {
+                var qq = new quote.WeiboQueModel(this.model.get("quote"));
+                var view = new quote.WeiboQueView({ model: qq });
+                $("div.bd", this.el).append(view.render().el);
+            }
             return this;
         },
         change: function () {
