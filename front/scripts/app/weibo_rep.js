@@ -1,8 +1,12 @@
 ﻿define(function (require, exports, module) {
-    var $ = require('jquery');
+    var $ = {};
     var _ = require('underscore');
     var Backbone = require('backbone');
-    var ich = require('ICanHaz');
+    exports.ich = {};
+    exports.Loader = function (q, ich) {
+        $ = q.jq;
+        exports.ich = ich;
+    }
 
     exports.WeiboRepModel = Backbone.Model.extend({
         initialize: function (spec) {
@@ -64,7 +68,7 @@
                 success: function (m) {
                     if (m) return;
                     $(this.msg.el).css({ "overflow": "hidden" }).slideUp("slow", function () { $(this).remove(); });
-                } 
+                }
             });
         },
         resub: function () {
@@ -78,7 +82,7 @@
             rdia.dialog("open");
         },
         replay: function () {
-            $("input.reply_val", this.model.get("parent").el).val("回复@"+this.model.get("people").username + ":").focus();
+            $("input.reply_val", this.model.get("parent").el).val("回复@" + this.model.get("people").username + ":").focus();
         },
         fav: function () {
             $.ajax({ url: window.urlprefix + '/reply/' + this.model.get('id') + '/favorite', type: 'POST', msg: this,

@@ -2,21 +2,23 @@
     var _ = require('underscore');
     var Backbone = require('backbone');
     var rep = require('app/weibo_rep');
+    var quote = require('app/weibo_quote');
+    var rotate = require('plus/rotate');
 
     var ich = {};
     var seed = {};
     var $ = {};
     var q = {};
-    exports.ich = {};
-    exports.init = function (qcomcn) {
+    exports.Loader = function (qcomcn, ichp) {
         q = qcomcn;
         $ = qcomcn.jq;
-        require('jqplus/jq_rotate')($);
-        ich = require('ICanHaz');
-        exports.ich = ich;
+        ich = ichp;
+        rep.Loader(q, ich);
+        quote.Loader(q, ich);
+        seed = $('#streams');
 
         var rdia = $('#dia_ret');
-        if (rdia.data("init", true)) {
+        if (!rdia.data("init")) {
             $('input.donet', rdia).click(function () {
                 $('img.ajaxload', rdia).show();
                 $.ajax({ url: $(".ret_url", rdia).val(), type: 'POST', msg: rdia,
@@ -29,7 +31,6 @@
             });
             rdia.data("init", true);
         }
-        seed = $('#streams');
     }
 
     exports.WeiboModel = Backbone.Model.extend({
@@ -68,18 +69,18 @@
         tagName: "li",
         className: "streambox",
         events: {
-            "click .del": "remove",
-            "click .resub": "resub",
-            "click .fav": "fav",
-            "click .unfav": "unfav",
-            "click .togreply": "togreply",
-            "click .reply_btn": "reply",
-            "click .rrprev": "rrprev",
-            "click .rrnext": "rrnext",
+            "click a.del": "remove",
+            "click a.resub": "resub",
+            "click a.fav": "fav",
+            "click a.unfav": "unfav",
+            "click a.togreply": "togreply",
+            "click a.reply_btn": "reply",
+            "click a.rrprev": "rrprev",
+            "click a.rrnext": "rrnext",
             "click img.weiboImg": "toggleimg",
             "click img.preImg": "toggleimg",
-            "click a.weiboImgRotateR": "imgrotater",
-            "click a.weiboImgRotateL": "imgrotatel"
+            "click a.imgRotateR": "imgrotater",
+            "click a.imgRotateL": "imgrotatel"
         },
         initialize: function () {
             _.bindAll(this, 'render', 'change', 'remove', 'suc_repajax', 'initrep');
@@ -91,6 +92,11 @@
             $(this.el).html(ich.stream(this.model.toJSON()))
             .attr('stream-id', this.model.get('id'));
             if (this.model.get("order_id")) $(this.el).attr('order_id', this.model.get('order_id'));
+            if (this.model.get("quote")) {
+                var qq = new quote.WeiboQueModel(this.model.get("quote"));
+                var view = new quote.WeiboQueView({ model: qq });
+                $("div.bd", this.el).append(view.render().el);
+            }
             return this;
         },
         change: function () {
@@ -186,18 +192,10 @@
             $('img.weiboImg', this.el).toggle();
         },
         imgrotater: function () {
-            var imgrote = $('div.imgrote', this.el);
-            var rote = imgrote.data('rote');
-            if (rote == undefined) rote = 0;
-            imgrote.children('img.preImg').rotate(rote + 90);
-            imgrote.data('rote', rote + 90);
+            rotate.run($('img.preImg', this.el)[0], 'right');
         },
         imgrotatel: function () {
-            var imgrote = $('div.imgrote', this.el);
-            var rote = imgrote.data('rote');
-            if (rote == undefined) rote = 0;
-            imgrote.children('img.preImg').rotate(rote - 90);
-            imgrote.data('rote', rote - 90);
+            rotate.run($('img.preImg', this.el)[0], 'left');
         }
     });
 

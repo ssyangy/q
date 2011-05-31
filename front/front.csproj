@@ -492,6 +492,7 @@
     <Content Include="scripts\app\weibo.js" />
     <Content Include="scripts\app\weibo_rep.js" />
     <Content Include="scripts\app\weibo_repitem.js" />
+    <Content Include="scripts\app\weibo_quote.js" />
     <Content Include="scripts\backbone.js" />
     <Content Include="scripts\back\chinaarea.js" />
     <Content Include="scripts\back\chinaareaLocation.js" />
@@ -520,6 +521,7 @@
     <Content Include="scripts\jquery.js" />
     <Content Include="scripts\jq_area.js" />
     <Content Include="scripts\klass.js" />
+    <Content Include="scripts\plus\rotate.js" />
     <Content Include="scripts\qcomcn.js" />
     <Content Include="scripts\sea.js" />
     <Content Include="scripts\src\jq.jcrop.js" />
