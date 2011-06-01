@@ -99,6 +99,10 @@ $(function(){
  </div>
 </script>
 <script type="text/html" id="quote">
+{{#delete}}
+该引用原文已被删除.
+{{/delete}}
+{{^delete}}
 		<div class='text'>
 		{{#people}}
 		<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>：
@@ -110,6 +114,7 @@ $(function(){
 			<a href="javascript:void(0);" class='lk qresub'>原文转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
 			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
 		</span>
+{{/delete}}
 </script>
 <script type="text/html" id="stream_ext">
 	{{#people}}

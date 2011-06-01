@@ -4,23 +4,19 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="创建圈子" />
 </jsp:include>
-<link rel="stylesheet" type="text/css"
-	href="${staticUrlPrefix}/content/jcrop/jquery-jcrop-0.9.8.css" />
-<script type="text/javascript"
-	src="${staticUrlPrefix}/scripts/src/jquery-1.6.1.js"></script>
-<script type="text/javascript"
-	src="${staticUrlPrefix}/scripts/src/jq.jcrop.js"></script>
+<link rel="stylesheet" type="text/css" href="${staticUrlPrefix}/content/jcrop/jquery-jcrop-0.9.8.css" />
+<script type="text/javascript" src="${staticUrlPrefix}/scripts/src/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="${staticUrlPrefix}/scripts/src/jq.jcrop.js"></script>
 <script type="text/javascript">
-    mods.push(function (q) {
-        var $ = q.jq;
-
+    $(function(){
         var pheight = 331.6;
         $('#cropbox').Jcrop({
             onChange: showPreview,
             onSelect: showPreview,
             aspectRatio: 1
-        });
+        });    
     });
+
     function showPreview(coords) {
         if (parseInt(coords.w) > 0) {
             calculate(coords, 24, $('#Img1'));
@@ -351,8 +347,7 @@ $("#hidden_frame").css("display","none");
 		<tr>
 			<td align="right" class="f14">简介：</td>
 			<td>
-				<textarea class="mttextar" style="width:400px;height:100px;" name="intro"></textarea>
-				<div class='label-box-error'><span class="FR fgray2">还可以输入140个字</span></div>
+				<textarea class="mttextar countable" maxLangth="140" style="width:400px;height:100px;" name="intro"></textarea>
 				<input type='submit' class="btnr" style="margin-top:12px;" value="提  交" />
 				<input type="hidden" name="groupImage" id="groupImage" />
 			</td>

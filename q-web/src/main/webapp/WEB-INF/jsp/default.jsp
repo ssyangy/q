@@ -68,6 +68,7 @@ function errorContext(error){
     </script>
 </head>
 <body>
+<textarea class="countable" maxlength="40">asdasdsad</textarea>
 <div id="index">
 <div class="header">
 	<div class="logo"></div>
