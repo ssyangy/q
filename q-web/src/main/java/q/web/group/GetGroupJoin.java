@@ -6,7 +6,6 @@ import q.domain.Status;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
-import q.web.exception.PeopleNotPermitException;
 import q.web.exception.RequestParameterInvalidException;
 
 public class GetGroupJoin extends Resource {

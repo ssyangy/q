@@ -36,7 +36,7 @@ seajs.use("qcomcn",function(q){
 		var dia_ret = $("#dia_ret");
 		$("a.btnat").live('click', function () {
 			var stream = $(this).closest('li');
-			$("textarea[name='content']",dia_ret).val('').val('//@${people.username}';
+			$("textarea[name='content']",dia_ret).val('').val('//@${people.username}');
 			dia_ret.dialog("open");
 		});
         $('input.donet', dia_ret).live("click",function () {

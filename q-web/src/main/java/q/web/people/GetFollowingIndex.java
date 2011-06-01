@@ -39,7 +39,7 @@ public class GetFollowingIndex extends Resource {
 			People people = peopleDao.getPeopleById(loginPeopleId);
 			context.setModel("people", people);
 			PeoplePage page = new PeoplePage();
-			page.setSize(6);
+			page.setSize(9);
 			List<People> recommendPeoples = peopleDao.getPeoplesByPage(page);
 			context.setModel("recommendPeoples", recommendPeoples);
 		} else {

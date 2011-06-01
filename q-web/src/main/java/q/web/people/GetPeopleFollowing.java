@@ -12,9 +12,11 @@ import java.util.Map;
 import org.apache.commons.collections.CollectionUtils;
 
 import q.dao.DaoHelper;
+import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.page.PeoplePage;
 import q.dao.page.PeopleRelationPage;
+import q.domain.Group;
 import q.domain.People;
 import q.domain.PeopleRelation;
 import q.domain.PeopleRelationStatus;
@@ -37,6 +39,12 @@ public class GetPeopleFollowing extends Resource {
 		this.peopleDao = peopleDao;
 	}
 
+	private GroupDao groupDao;
+
+	public void setGroupDao(GroupDao groupDao) {
+		this.groupDao = groupDao;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -54,6 +62,8 @@ public class GetPeopleFollowing extends Resource {
 			page.setSize(6);
 			List<People> recommendPeoples = peopleDao.getPeoplesByPage(page);
 			context.setModel("recommendPeoples", recommendPeoples);
+			List<Group> groups = groupDao.getGroupsByJoinPeopleId(fromPeopleId);
+			context.setModel("groups", groups);
 		} else {
 			int size = context.getInt("size", 10);
 			long startId = context.getIdLong("startId", IdCreator.MAX_ID);
