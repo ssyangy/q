@@ -33,7 +33,7 @@ import q.util.CollectionKit;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 22, 2011
- *
+ * 
  */
 public class DaoHelper {
 	public static List<Long> convertPeopleJoinGroupsToPeopleIds(List<PeopleJoinGroup> joins) {
@@ -592,6 +592,9 @@ public class DaoHelper {
 		for (WeiboModel model : weiboModels) {
 			if (model.getQuoteWeiboId() > 0) {
 				Weibo quote = quoteMap.get(model.getQuoteWeiboId());
+				if (quote.getStatus() == Status.DELETE.getValue()) {
+					quote.setContent(null);
+				}
 				model.setQuote(quote);
 			}
 		}
@@ -604,6 +607,9 @@ public class DaoHelper {
 	 */
 	public static void injectWeiboModelWithQuote(WeiboDao weiboDao, Weibo weibo) throws SQLException {
 		Weibo quote = weiboDao.getWeiboById(weibo.getQuoteWeiboId());
+		if (quote.getStatus() == Status.DELETE.getValue()) {
+			quote.setContent(null);
+		}
 		weibo.setQuote(quote);
 	}
 
@@ -647,7 +653,7 @@ public class DaoHelper {
 	 * @throws SQLException
 	 */
 	public static void injectCategoriesWithPromotedGroups(GroupDao groupDao, List<Category> categorys) throws SQLException {
-		if(CollectionKit.isEmpty(categorys)) {
+		if (CollectionKit.isEmpty(categorys)) {
 			return;
 		}
 		List<Long> catIds = new ArrayList<Long>(categorys.size());

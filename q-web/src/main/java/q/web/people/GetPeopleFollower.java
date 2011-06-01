@@ -52,9 +52,10 @@ public class GetPeopleFollower extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long toPeopleId = context.getResourceIdLong();
-		this.cacheService.clearFoNotify(toPeopleId);
-
 		long loginPeopleId = context.getCookiePeopleId();
+		if (loginPeopleId == toPeopleId) {
+			this.cacheService.clearFoNotify(toPeopleId);
+		}
 		if (!context.isApiRequest()) {
 			People people = peopleDao.getPeopleById(toPeopleId);
 			context.setModel("people", people);

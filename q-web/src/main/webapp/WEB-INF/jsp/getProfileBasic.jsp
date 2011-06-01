@@ -234,7 +234,7 @@ seajs.use('jq_area',function(area){
 		</tr>
 		<tr>
 			<td align="right">关于我：</td>
-			<td class='col-field'><textarea style='width:250px;height:100px;' id="intro" class='mttextar'>${people.intro}</textarea></td>
+			<td class='col-field'><textarea style='width:270px;height:100px;' id="intro" class='mttextar'>${people.intro}</textarea></td>
 			<td class='col-help'></td>
 		</tr>
 		<tr>
