@@ -14,7 +14,7 @@
             onChange: showPreview,
             onSelect: showPreview,
             aspectRatio: 1
-        });    
+        });
     });
 
     function showPreview(coords) {
@@ -307,33 +307,19 @@ $("#hidden_frame").css("display","none");
 </script>
 <div class="layout grid-s4m0e6">
 	<div class="col-main"><div class="main-wrap">
+	
 	<h2>创建圈子</h2>
 
-<div style="background-color: #f6f6f6;">
+<div style="background-color: #f6f6f6;margin-top:10px;">
 <form action="<c:out value="${urlPrefix}/group" />" method="post" onsubmit="return checkAll()">
-					<table class='qform'>
-						<tr>
-							<td align="right">圈子名称<span class="fred">*</span>：</td>
-							<td><input name="name" id="name" type='text' class='mttext'
-							onblur="checkGroupName(this.value)">名称不能超过20个字母或10个汉字
-								<div class="label-box-good" style="display: none;"
-									id="groupnamecorrect"></div>
-								<div class="label-box-error" style="display: none;"
-									id="groupnamewrong"></div></td>
-						</tr>
-						<!--
+	<table class='qform'>
 		<tr>
-			<td align="right">所在地：</td>
-			<td class='localArea'>
-                <input type='radio' checked="checked"> 全国&nbsp;&nbsp;<input type='radio'> 省&nbsp;&nbsp;<input type='radio'> 市&nbsp;&nbsp;<input type='radio'> 县
-            </td>
-		</tr>
-		<tr>
-			<td align="right">圈子头像：</td>
+			<td align="right">圈子名称<span class="fred">*</span>：</td>
 			<td>
-
-            </td>
-		</tr> -->
+				<input name="name" id="name" type='text' maxlength="20" class='mttext countable'>
+				<div class="cttarget"></div>
+			</td>
+		</tr>
 		<tr>
 			<td align="right" class="f14">所在分类<span class="fred">*</span>：</td>
 			<td>
@@ -345,16 +331,24 @@ $("#hidden_frame").css("display","none");
             </td>
 		</tr>
 		<tr>
+			<td align="right" class="f14">圈子头像：</td>
+			<td>
+
+            </td>
+		</tr>		
+		<tr>
 			<td align="right" class="f14">简介：</td>
 			<td>
-				<textarea class="mttextar countable" maxLangth="140" style="width:400px;height:100px;" name="intro"></textarea>
+				<textarea class="mttextar countable" maxlength="140" style="width:400px;height:100px;" name="intro"></textarea>
+				<div class="cttarget"></div>
 				<input type='submit' class="btnr" style="margin-top:12px;" value="提  交" />
 				<input type="hidden" name="groupImage" id="groupImage" />
 			</td>
 		</tr>
 	</table>
 	</form>
-<div class='tabscont clear' style="padding:10px;">
+
+<div class='clear' style="padding:10px;">
 <div class="imgbox"><div id="myImage"></div></div>
 <div class="imgmain">
 从电脑中选择你喜欢的照片：<br />
@@ -382,6 +376,7 @@ $("#hidden_frame").css("display","none");
 </div>
 </div>
 </div>
+
 </div>
 
 	</div></div>

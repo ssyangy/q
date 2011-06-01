@@ -82,7 +82,7 @@ seajs.use(['qcomcn','app/weibo','underscore'], function (q, w, _) {
 </script>
 <script type="text/html" id="quote">
 {{#delete}}
-该引用原文已被删除.
+<div class='text'>该引用原文已被删除.</div>
 {{/delete}}
 {{^delete}}
 		<div class='text'>

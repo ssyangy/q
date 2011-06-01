@@ -4,24 +4,13 @@
 <jsp:include page="models/head.jsp">
 	<jsp:param name="title" value="修改头像" />
 </jsp:include>
-<link rel="stylesheet" type="text/css"
-	href="${staticUrlPrefix}/content/jcrop/jquery-jcrop-0.9.8.css" />
+<link rel="stylesheet" type="text/css" href="${staticUrlPrefix}/content/jcrop/jquery-jcrop-0.9.8.css" />
 <style type="text/css">
-.imgbox {
-	float: left;
-	width: 300px;
-	margin-right: 10px;
-}
-
-.imgmain {
-	float: left;
-	width: 600px;
-}
+.imgbox{float:left;width:200px;height:200px;margin-right:25px;background:url(http://i1.q.com.cn/default/male-def-128) no-repeat scroll 0 0;}
+.imgmain{float:left;width:500px;line-height:25px;}
 </style>
-<script type="text/javascript"
-	src="${staticUrlPrefix}/scripts/src/jquery-1.6.1.js"></script>
-<script type="text/javascript"
-	src="${staticUrlPrefix}/scripts/src/jq.jcrop.js"></script>
+<script type="text/javascript" src="${staticUrlPrefix}/scripts/src/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="${staticUrlPrefix}/scripts/src/jq.jcrop.js"></script>
 <script type="text/javascript">
 var realWidth;
 var realHeight;
@@ -272,7 +261,7 @@ $("#hidden_frame").css("display","none");
 	}
 }
 	</script>
-<div class="layout grid-s7m0">
+<div class="layout grid-s4m0e6">
 	<div class="col-main">
 		<div class="main-wrap pr10">
 			<h2>圈子设置</h2>
@@ -291,46 +280,41 @@ $("#hidden_frame").css("display","none");
 					<div id="myImage"></div>
 				</div>
 				<div class="imgmain">
-					从电脑中选择你喜欢的照片：<br /> <span class="gray">您可以上传JPG、JPEG、GIF或PNG文件。</span><br />
+					从电脑中选择你喜欢的照片：<br /> <span class="gray">您可以上传JPG、JPEG、GIF或PNG文件。</span>
 					<br />
-					<form action="${urlPrefix}/group/${group.id}/picture" id="form1"
-						name="form1" encType="multipart/form-data" method="post"
-						target="hidden_frame" onsubmit="return upload()">
+					<form action="${urlPrefix}/group/${group.id}/picture" id="form1" name="form1" method="post"
+						encType="multipart/form-data"  target="hidden_frame" onsubmit="return upload()">
 						<ul>
-							<li>1. <input type="file" name="file" id="file"
-								accept="image/gif, image/jpeg" onchange="check()"
-								style="width: 450"></input></li>
+							<li>
+							1. <input type="file" name="file" id="file" accept="image/gif, image/jpeg" onchange="check()"></input>
+							</li>
 							<li>2. <input type="submit" value="上传头像"></input></li>
 							<li>3. 随意拖拽或缩放大图中的虚线方格，下方预览的小图即为保存后的头像图标。</li>
-
 						</ul>
 						<div style='display: none;' id="imgwrong"></div>
-						<iframe name='hidden_frame' id="hidden_frame"
-							style='display: none'> </iframe>
-
+						<iframe name='hidden_frame' id="hidden_frame" style='display: none'> </iframe>
 					</form>
 
-					<div class='clearfix'>
-						<div id="picture_48" class="wh48"
-							style="overflow: hidden; float: left;"></div>
-						<div id="picture_64" class="wh64"
-							style="overflow: hidden; float: left;"></div>
+					<div class='clear'>
+						<div id="picture_48" class="wh48" style="overflow: hidden; float: left;"></div>
+						<div id="picture_64" class="wh64" style="overflow: hidden; float: left;"></div>
 					</div>
 					<div>
-						<div style='display: none;' id="savewrong"></div>
-						<div style='display: none;' id="savecorrect"></div>
-						<input type="button" id="saveButton" style='display: none;'
-							value='保存' onclick="save()"></input> <input type="button"
-							id="cancelButton" style='display: none;' value='取消'></input>
+						<div class='hide' id="savewrong"></div>
+						<div class='hide' id="savecorrect"></div>
+						<input type="button" id="saveButton" class='btnr hide' value='保存' onclick="save()"></input> 
+						<input type="button" id="cancelButton" class='btnr hide' value='取消'></input>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
-	<div class="col-sub"><jsp:include page="models/groups-mine.jsp">
+	<div class="col-sub">
+		<jsp:include page="models/groups-mine.jsp">
 			<jsp:param name="id" value="${group.id}" />
-		</jsp:include></div>
+		</jsp:include>
+	</div>
+	<div class="col-extra"></div>
 </div>
 
 
