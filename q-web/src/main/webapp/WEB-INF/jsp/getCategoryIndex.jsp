@@ -27,7 +27,11 @@ mods.push(function (q) {
          });
 
 		seajs.use('ICanHaz', function (ich) {
-			lis.click(function () {
+			lis.click(function (e) {
+                var code = (e.keyCode ? e.keyCode : e.which);
+                var tarname = $(e.target).get(0).tagName;
+                if (tarname == 'A') return;
+                
 				window.gpid = $(this).attr('gpcid');
 				$('span.tit',roll).text($('.name',this).text()).show();
 				$.ajax({ url: "${urlPrefix}/category/"+ window.gpid +"/group",
