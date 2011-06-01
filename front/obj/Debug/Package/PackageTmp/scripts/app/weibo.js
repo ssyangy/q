@@ -38,6 +38,9 @@
             if (this.get('people') && (this.get('people').id == window.loginCookie)) {
                 this.set({ "isown": true });
             }
+            if (this.get("status") == 1) {
+                this.set({ "delete": "该微博已被删除。" });
+            }
         },
         validate: function (stream) {
             if (stream.id) {
@@ -151,6 +154,7 @@
             });
         },
         reply: function () {
+            if ($('input.reply_val', this.el).val() == "") return;
             $.ajax({ url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply", type: 'POST',
                 data: { content: $('input.reply_val', this.el).val() },
                 success: this.initrep

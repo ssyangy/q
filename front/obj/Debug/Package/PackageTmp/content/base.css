@@ -44,11 +44,12 @@ small { font-size: 12px; }
 .fw{font-weight:700;}
 .f14{font-size:14px;}
 .f16{font-size:16px;}
-.vaip{vertical-align:-3px}
+.vaip{vertical-align:-3px;}
 .FR{float:right!important}
 .FL{float:left!important;}
 .tal{text-align:left;}
 .tar{text-align:right;}
+.wb{word-break:break-all;}
 .zmax{z-index:999;}
 .min-h100 {min-height:100px; _height:100px; overflow:visible;}
 .min-w100 {min-width:100px; _width:100px; overflow:visible;}

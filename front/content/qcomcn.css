@@ -118,3 +118,7 @@ table.qform td[align="right"]{padding-top:11px;vertical-align:top;} /* QCOMCN */
 
 a.btnNM{display:block;width:220px;height:26px;background:url(images/btnNM.png) no-repeat scroll 0 0;}
 a.btnNM:hover{background-position:0 -26px;}
+
+.extend{padding-right:20px;position:relative;}
+.extend a.arrext{position:absolute;bottom:0;right:0;width:16px;height:16px;background:url(images/arrow/arrdown.png) no-repeat scroll 0 0;cursor:pointer;}
+.extend a.arrext.ee{background:url(images/arrow/arrup.png) no-repeat scroll 0 0;}

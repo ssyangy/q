@@ -60,6 +60,22 @@
             });
         });
 
+        $(".extend", box).each(function () {
+            var ext = $(this);
+            var txt = $("span.txt", ext);
+            ext.data("quote", txt.text());
+            ext.data("stext", txt.text().substring(0, ext.attr("minh")));
+            txt.text(ext.data("stext"));
+            $("a.arrext", ext).click(function () {
+                $(this).toggleClass("ee");
+                if ($(this).hasClass("ee")) {
+                    txt.text(ext.data("quote"));
+                } else {
+                    txt.text(ext.data("stext"));
+                }
+            });
+        });
+
         $("input[accesskey]", box).bind("keydown", function (e) {
             var code = (e.keyCode ? e.keyCode : e.which);
             if (code == 13) {

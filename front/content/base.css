@@ -49,6 +49,7 @@ small { font-size: 12px; }
 .FL{float:left!important;}
 .tal{text-align:left;}
 .tar{text-align:right;}
+.wb{word-break:break-all;}
 .zmax{z-index:999;}
 .min-h100 {min-height:100px; _height:100px; overflow:visible;}
 .min-w100 {min-width:100px; _width:100px; overflow:visible;}

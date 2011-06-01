@@ -296,6 +296,8 @@
     <Content Include="content\images\ajax\ajaxload2.gif" />
     <Content Include="content\images\ajax\loading.gif" />
     <Content Include="content\images\ajax\loadings.gif" />
+    <Content Include="content\images\arrow\arrdown.png" />
+    <Content Include="content\images\arrow\arrup.png" />
     <Content Include="content\images\arrow\botharrow.gif" />
     <Content Include="content\images\arrow\navlarr.png" />
     <Content Include="content\images\arrow\navlarrh.png" />
