@@ -16,6 +16,7 @@ import q.dao.GroupDao;
 import q.domain.Group;
 import q.domain.GroupJoinCategory;
 import q.domain.Status;
+import q.util.CollectionKit;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
@@ -86,7 +87,7 @@ public class UpdateGroup extends Resource {
 				if (join.getStatus() == Status.DELETE.getValue()) {
 					hasCatDeleted = join;
 				}
-			} else {
+			} else if (join.getStatus() == Status.COMMON.getValue()) {
 				deleteJoinIds.add(join.getId());
 			}
 		}
@@ -95,7 +96,9 @@ public class UpdateGroup extends Resource {
 		} else if (hasCatDeleted != null) { // reopen deleted and selected join
 			groupDao.updateGroupJoinCategoryStatusByIdAndOldStatus(hasCatDeleted.getId(), Status.COMMON, Status.DELETE);
 		}
-		groupDao.deleteGroupJoinCategoriesByjoinIdsAndGroupId(group.getId(), deleteJoinIds); // delete old joins
+		if (CollectionKit.isNotEmpty(deleteJoinIds)) {
+			groupDao.deleteGroupJoinCategoriesByjoinIdsAndGroupId(group.getId(), deleteJoinIds); // delete old joins
+		}
 
 		searchService.updateGroup(group); // update search
 
