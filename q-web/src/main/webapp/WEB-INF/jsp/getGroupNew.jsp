@@ -310,12 +310,11 @@ $("#hidden_frame").css("display","none");
 
 </script>
 <div class="layout grid-s4m0e6">
-	<div class="col-main">
-		<div class="main-wrap">
-			<h2>创建圈子</h2>
+	<div class="col-main"><div class="main-wrap">
+	<h2>创建圈子</h2>
 
-			<div style="background-color: #f6f6f6;">
-				<form action="<c:out value="${urlPrefix}/group" />" method="post" onsubmit="return checkAll()">
+<div style="background-color: #f6f6f6;">
+<form action="<c:out value="${urlPrefix}/group" />" method="post" onsubmit="return checkAll()">
 					<table class='qform'>
 						<tr>
 							<td align="right">圈子名称<span class="fred">*</span>：</td>
@@ -360,8 +359,7 @@ $("#hidden_frame").css("display","none");
 		</tr>
 	</table>
 	</form>
-	<div class='tabscont clear' style="padding:10px;">
-
+<div class='tabscont clear' style="padding:10px;">
 <div class="imgbox"><div id="myImage"></div></div>
 <div class="imgmain">
 从电脑中选择你喜欢的照片：<br />
@@ -388,9 +386,10 @@ $("#hidden_frame").css("display","none");
 	<input type="button" id="cancelButton" style='display:none;' value='取消' ></input>
 </div>
 </div>
-
 </div>
-	</div>
+</div>
+
+	</div></div>
 	<div class="col-sub">
 		<jsp:include page="models/groups-mine.jsp">
 			<jsp:param name="id" value="" />
