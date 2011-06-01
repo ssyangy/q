@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-mods.push(function (q) {
+seajs.use("qcomcn",function(q){
 	var $ = q.jq;
 	seajs.use('ICanHaz',function(ich){
 		var mems = $('#mems');
@@ -64,7 +64,7 @@ mods.push(function (q) {
 		});
         $('input.donet', dia_ret).live("click",function () {
 			$('img.ajaxload', this).show();
-			var dia = $('#dia_fow');
+			var dia = $('#dia_ret');
 			$.ajax({ url: '${urlPrefix}/weibo', type: 'POST',
 				data: {content:$("textarea[name='content']",dia).val()},
 				success: function(m){

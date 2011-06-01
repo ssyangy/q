@@ -4,29 +4,109 @@
 	<jsp:param name="title" value="个人主页" />
 </jsp:include>
 <style type="text/css">
-ul.ulist{border-bottom:1px solid #ddd;border-top:1px solid #ddd;padding:10px;margin:10px 0;}
-ul.ulist li{float:left;padding:0 10px;}
+.profileintro{min-height:64px; _height:64px; overflow:visible;}
+.mgroups{border:1px solid #ddd;background-color:#f6f6f6;padding:10px;margin:10px 0;line-height:20px;}
 </style>
+<script type="text/javascript">
+seajs.use("qcomcn",function(q){
+	var $ = q.jq;
+	$(function(){
+		$("a.unwat").live('click', function () {
+          	  var stream = $(this).closest('li');
+          	  $.ajax({ url: '${urlPrefix}/people/${people.id}/following', o:$(this), type: 'POST',
+          			data:{_method:'delete'},
+				   	success: function(m){
+				   		if (m && !m.id) return;
+				   		this.o.siblings('a.btnletter').hide();
+				   		this.o.after("<a class='btnb wat'>关注</a>");
+				   		this.o.remove();
+				    } });
+		});
+		$("a.wat").live('click', function () {
+          	  var stream = $(this).closest('li');
+          	  $.ajax({ url: '${urlPrefix}/people/${people.id}/following', o:$(this), type: 'POST',
+				   	success: function(m){
+				   		if (m && !m.id) return;
+				   		this.o.siblings('a.btnletter').show();
+				   		this.o.after("<a class='btnb unwat'>解除关注</a>");
+				   		this.o.remove();
+				    } });
+		});
+
+		var dia_ret = $("#dia_ret");
+		$("a.btnat").live('click', function () {
+			var stream = $(this).closest('li');
+			$("textarea[name='content']",dia_ret).val('').val('//@${people.username}';
+			dia_ret.dialog("open");
+		});
+        $('input.donet', dia_ret).live("click",function () {
+			var dia = $('#dia_ret');
+			$.ajax({ url: '${urlPrefix}/weibo', type: 'POST',
+				data: {content:$("textarea[name='content']",dia).val()},
+				success: function(m){
+					if (m && !m.id) return;
+					dia_ret.dialog("close");
+				} });
+        });
+
+		var dia_letter = $("#dia_letter");
+		$("a.btnletter").live('click', function () {
+			var stream = $(this).closest('li');
+			$('div.wpeople',dia_letter).empty().html('发私信给：${people.realName}');
+			$("textarea[name='content']",dia_letter).val('');
+			$("#letter_url",dia_letter).val('${urlPrefix}/message?receiverId=${people.id}');
+			dia_letter.dialog("open");
+		});
+        $('input.donet', dia_letter).live("click",function () {
+			var dia = $('#dia_letter');
+			$.ajax({ url: $("#letter_url",dia).val(), type: 'POST',
+				data: {content:$("textarea[name='content']",dia).val()},
+				success: function(m){
+					if (m && !m.id) return;
+					dia.dialog("close");
+				} });
+        });
+	});
+});
+</script>
 <div class="layout grid-m0s220 mingrid">
     <div class="col-main"><div class="main-wrap">
-    <h2>${people.realName}的个人主页</h2>
-	<div class="profile mb10">
-		<a href="${urlPrefix}/people/${people.id}">
-	    <img src="${people.avatarPath}-48" alt="portrait" class="FL mr10" /></a>
-	    <div class='proline'>
-	        <p><a href="${urlPrefix}/people/${people.id}" class="lk">${people.realName}</a></p>
-	        <p><span class="mr10">${people.area.myProvince.name}&nbsp;${people.area.myCity.name}&nbsp;${people.area.myCounty.name}</span>
-	        	<span>${people.time}加入</span></p>
-	        <p class="gray">${people.intro}</p>
-	    </div>
-	</div>    
-<ul class='ulist clear'>
+
+<div class="profile mb10">
+	<a href="${urlPrefix}/people/${people.id}">
+    <img src="${people.avatarPath}-128" alt="portrait" class="FL mr10" /></a>
+    <div class='proline'>
+        <p>
+        <span class="f16">${people.realName}</span>
+        <a href="${urlPrefix}/people/${people.id}" class="lk ml10">@${people.username}</a>
+        </p>
+        <p>
+        <span class="mr10">${people.area.myProvince.name}&nbsp;${people.area.myCity.name}&nbsp;${people.area.myCounty.name}</span>
+        </p>
+        <p class="profileintro">${people.intro}</p>
+        <p class="tar">
+        	<a class="btnb btnletter" href='javascript:void(0);'>私信</a>
+			<a class="btnb btnat">&#64</a>
+			<c:choose>
+			<c:when test="${people.following == true}">
+				<a class="btnb unwat">解除关注</a>
+			</c:when>
+			<c:otherwise>
+				<a class="btnb wat">关注</a>
+			</c:otherwise>
+			</c:choose>
+        </p>
+    </div>
+</div>    
+<div class='mgroups clear'>
+<p class="fgray2 mb5">他的圈子：</p>
 <c:forEach items="${groups}" var="group" varStatus="status">
-	<li>
-	<a href="${urlPrefix}/group/${group.id}" class='lk'>${group.name}</a>
-	</li>
+	<a href="${urlPrefix}/group/${group.id}" class='lk mr10'>${group.name}</a>
 </c:forEach>
-</ul>
+</div>
+
+
+
 <jsp:include page="models/weibo-list.jsp">
 	<jsp:param name="feedUrl" value="${urlPrefix}/people/${people.id}/weibo" />
 </jsp:include>
@@ -36,3 +116,16 @@ ul.ulist li{float:left;padding:0 10px;}
     </div>
 </div>
 <jsp:include page="models/foot.jsp" />
+
+<div id="dia_ret" class="ui_dialog hide" title="@">
+	<textarea name="content" style="width:100%;height:100px;"></textarea>
+	<input type='hidden' class='donet' />
+	<input type='hidden' class='undonet' />
+</div>
+<div id="dia_letter" class="ui_dialog hide" title="私信">
+	<div class="wpeople mb10"></div>
+	<input id='letter_url' type='hidden'></input>
+	<textarea name="content" style="width:100%;height:100px;"></textarea>
+	<input type='hidden' class='donet' />
+	<input type='hidden' class='undonet' />
+</div>
