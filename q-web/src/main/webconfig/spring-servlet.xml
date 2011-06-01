@@ -567,6 +567,7 @@
 		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="deleteGroupAdmin" class="q.web.group.DeleteGroupAdmin">
+		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="getGroupAvatar" class="q.web.group.GetGroupAvatar">
 		<property name="groupDao" ref="groupDao" />
