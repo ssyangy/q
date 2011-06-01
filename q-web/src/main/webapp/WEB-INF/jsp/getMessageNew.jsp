@@ -4,16 +4,19 @@
 	<jsp:param name="title" value="发私信" />
 </jsp:include>
 <link href="${staticUrlPrefix}/content/token-input.css" rel="stylesheet" type="text/css" />
+<style>
+ul.members{border:1px solid #e6e6e6;}
+ul.members li{padding:5px;cursor:pointer;}
+ul.members li.hover,ul.members li.sel{background-color:#f6f6f6;}
+</style>
 <script type="text/javascript">
-mods.push(function (q) {
-seajs.use('jqplus/jq_tokeninput',function(toke){    	
-    	var $ = q.jq;
-    	toke($);
-        var ffs = ${peoplesHintJson};
-        var tips = "输入好友姓名 ... ";
-        
-        $("#members").buttonset();
-        
+seajs.use(['qcomcn','jqplus/jq_tokeninput'],function(q, toke){    	
+var $ = q.jq;
+toke($);
+var ffs = ${peoplesHintJson};
+var tips = "输入好友姓名 ... ";
+
+	$(function(){
         var tokeAdd = function (item) {
             var ck = $("input[type='checkbox'][value='" + item.id + "']");
             if (!ck.is(':checked')) {
@@ -28,19 +31,18 @@ seajs.use('jqplus/jq_tokeninput',function(toke){
         }
         
         $("#autocom").tokenInput(ffs, { hintText: tips, onAdd: tokeAdd, onDelete: tokeDel });
-        $('#members').click(function (e) {
-            var tarname = $(e.target).get(0).tagName;
-            if (tarname == 'SPAN') {
-                var pre = [];
-                $("label.ui-state-active", this).each(function () {
-                    var ck = $(this).prev("input[type='checkbox']");
-                    pre.push({ id: ck.val(), name: ck.attr('name') });
-                });
-                $('ul.token-input-list').remove();
-                $("#autocom").tokenInput(ffs, { hintText: tips, prePopulate: pre, onAdd: tokeAdd, onDelete: tokeDel });
-            }
+        
+        var mlis = $('ul.members>li');
+        mlis.click(function () {
+        	$(this).toggleClass("sel");
+			var pre = [];
+			mlis.filter(".sel").each(function () {
+			    pre.push({ id: $(this).attr("pid"), name: $(this).text() });
+			});
+			$('ul.token-input-list').remove();
+			$("#autocom").tokenInput(ffs, { hintText: tips, prePopulate: pre, onAdd: tokeAdd, onDelete: tokeDel });
         });
-});
+	});
 });    
 </script>
 
@@ -60,14 +62,16 @@ seajs.use('jqplus/jq_tokeninput',function(toke){
         </form>
     </div></div>
     <div class="col-sub">
-        <div style="padding:10px;border:1px solid #ddd;background-color:#fefefe;">
-        <h3>点击选择私信的对象，可多人</h3>
-        <div id="members">
+
+        <h3 style="margin-bottom:0;">点击选择私信的对象，可多人</h3>
+        <ul class="members">
 		<c:forEach items="${followings}" var="people" varStatus="status">
-       		<input type="checkbox" id="check${status.index}" value="${people.id}" name="${people.realName}" /><label for="check${status.index}">${people.realName}</label>
+			<li pid="${people.id}" class="hov">${people.realName}</li>
+<%--        		<input type="checkbox" class="vaip" id="check${status.index}" value="${people.id}" name="${people.realName}" />
+       		<label for="check${status.index}">${people.realName}</label><br/> --%>
 		</c:forEach>
-        </div>
-        </div>    
+        </ul>
+
     </div>
 </div>
 
