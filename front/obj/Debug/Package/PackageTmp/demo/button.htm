@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Resize</title>
+        <style type="text/css">
+a { text-decoration: none;color:#111 }
+a:hover{text-decoration: none;}
+
+
+/* ------------------------------------------- */
+.btn{display:inline-block;zoom:1;*display:inline;position:relative;height:24px;line-height:24px;color:#333;cursor:pointer;text-align:center;
+           border-style:solid;border-width:1px;padding:0 10px;text-shadow:0 1px #F0F0F0;
+/* 圆角像素（仅支持chrome，fx，safari，ie9 */
+border-radius:3px;
+/* 边框颜色（上右下左） */
+border-color:#BBB #BBB #999 #BBB;
+/* 按钮渐变图片、背景色 */
+background:url(images/btn-w.gif) repeat-x scroll left top #D8D8D8;}
+
+/* 鼠标经过状态的属性 */
+.btn:hover {border-color:#666 #666 #444 #666;}
+/* 鼠标点击状态的属性 */
+.btn:active{background:url(images/btn-w.gif) repeat-x scroll left top #E0E0E0;
+            border-color:#999 #999 #999 #999;}
+/* 特殊按钮的图片 */
+.btnw24 .btnadd {background:url(images/plus32.png) no-repeat scroll 0 0 transparent;position:absolute;top:6px;left:4px;width:16px;height:16px;}
+/* ------------------------------------------- */
+
+
+input.btna,input.btn{*padding:0 2px;height:26px;}
+.btnw24{padding-left:24px;position:relative;}
+        </style>
+    </head>
+    <body>
+        <a href="#" class="btn">content</a>
+        <a href="#" class="btn btnw24"><span class="btnadd"></span>content</a>
+    </body>
+</html>
