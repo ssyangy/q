@@ -392,7 +392,7 @@ $("#hidden_frame").css("display","none");
 	</div></div>
 	<div class="col-sub">
 		<jsp:include page="models/groups-mine.jsp">
-			<jsp:param name="id" value="" />
+			<jsp:param name="id" value="${group.id}" />
 		</jsp:include>
 	</div>
 	<div class="col-extra"></div>

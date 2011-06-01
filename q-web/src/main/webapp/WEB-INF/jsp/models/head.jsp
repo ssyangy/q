@@ -17,9 +17,9 @@
 		q.jq(function(){
 			for(var i in mods) mods[i](q);
 			q.loader();
-			
+
 			var $ = q.jq;
-			
+
 			var note = $("#note");
 			var n_msg = $("p.n_msg");
 			var n_weiborep = $("p.n_weiborep");
@@ -64,7 +64,7 @@
 			                		note.show();
 			                	}
 			                    $("span.num", n_at).text(item.content);
-			                    break;			                    
+			                    break;
 			                default:
 			                	break;
 			            	}
@@ -72,7 +72,7 @@
 				    }
         	   });
         	}
-        	
+
       		initget = function(){
 		    	Getpush();
 		    	pushtime = setInterval("Getpush()",15000);
@@ -115,8 +115,8 @@
 <div id="searchTab" class="hm1">
 <div class="hm2">
 <div class="hm3">
-<form action="${urlPrefix}/search/weibo" method="GET">
-	<input class="input_yao" type="text" name="search" value="" /> 
+<form action="${urlPrefix}/search/weibo" onsubmit="if(this.search.value=='') return false;" method="GET">
+	<input class="input_yao" type="text" name="search" value="" />
 	<input type="submit" class="btnb" value="搜索" /></form>
 </div>
 </div>
@@ -135,7 +135,7 @@
 				<c:when test="${servletPath=='/WEB-INF/jsp/getPeopleFollowing.jsp'}">好友</c:when>
 				<c:otherwise>
 					<a class="lk"
-						href='${urlPrefix}/people/${loginCookie.peopleId}/following'>好友</a>
+						href='${urlPrefix}/following'>好友</a>
 				</c:otherwise>
 			</c:choose></li>
 			<li class='rel pr20_im'><c:choose>

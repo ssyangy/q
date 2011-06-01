@@ -30,13 +30,13 @@ span.tit{display:none;}
 						<p>
 							<a class="lk" href="${urlPrefix}/group/${group.id}">${group.name}</a> &nbsp;
 							<input type="button" name="delBtn" value="删除"
-							onclick="if(window.confirm('您确定要删除此推荐圈子吗？')){document.getElementById('methodType').value='delete'; document.updateGroup_${group.id}.submit();}"/>
+							onclick="if(window.confirm('您确定要删除此推荐圈子吗？')){document.getElementById('methodType_${group.id}').value='delete'; document.updateGroup_${group.id}.submit();}"/>
 							<form action="${urlPrefix}/group/admin" method="post" name="updateGroup_${group.id}">
 								排序：<input type="text" name="promote" value="${group.groupJoinCategory.promote}" />&nbsp;&nbsp;
 								<input type="hidden" name="from" value="${urlPrefix}/group/admin/edit?categoryId=${cat.id}" />
 								<input type="hidden" name="categoryId" value="${cat.id}" />
 								<input type="hidden" name="groupId" value="${group.id}" />
-								<input type="hidden" name="_method" value="update" id="methodType" />
+								<input type="hidden" name="_method" value="update" id="methodType_${group.id}" />
 								<input type="submit" value="确定" />
 							</form>
 						</p>

@@ -1,9 +1,12 @@
 package q.web.people;
 
+import java.util.List;
+
 import q.dao.DaoHelper;
 import q.dao.EventDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
+import q.domain.Group;
 import q.domain.People;
 import q.util.IdCreator;
 import q.web.Resource;
@@ -14,7 +17,7 @@ import q.web.exception.RequestParameterInvalidException;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Jan 18, 2011
- *
+ * 
  */
 public class GetPeople extends Resource {
 	private PeopleDao peopleDao;
@@ -37,28 +40,22 @@ public class GetPeople extends Resource {
 
 	@Override
 	public void execute(ResourceContext context) throws Exception {
-		if (!context.isApiRequest()) {
-			GetPeopleFrame frame = new GetPeopleFrame();
-			frame.setEventDao(eventDao);
-			frame.setGroupDao(groupDao);
-			frame.setPeopleDao(peopleDao);
-			frame.validate(context);
-			frame.execute(context);
-		} else {
-			long loginPeopleId = context.getCookiePeopleId();
-			long peopleId = context.getResourceIdLong();
-			People people = peopleDao.getPeopleById(peopleId);
-			if (IdCreator.isValidIds(loginPeopleId) && loginPeopleId != peopleId) {
-				DaoHelper.injectPeopleWithVisitorRelation(peopleDao, people, loginPeopleId);
-			}
-			context.setModel("people", people);
+		long loginPeopleId = context.getCookiePeopleId();
+		long peopleId = context.getResourceIdLong();
+		People people = peopleDao.getPeopleById(peopleId);
+		if (IdCreator.isValidIds(loginPeopleId) && loginPeopleId != peopleId) {
+			DaoHelper.injectPeopleWithVisitorRelation(peopleDao, people, loginPeopleId);
 		}
-
+		context.setModel("people", people);
+		if (!context.isApiRequest()) {
+			List<Group> groups = groupDao.getGroupsByJoinPeopleId(peopleId);
+			context.setModel("groups", groups);
+		}
 	}
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
