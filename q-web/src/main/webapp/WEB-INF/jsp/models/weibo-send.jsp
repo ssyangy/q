@@ -174,8 +174,18 @@
 			}
 		});
 	});
+
+	function checkWeibo() {
+		var content=document.weiboForm.content.value.trim();
+		if(content=='说点什么 . . .' || content=='' || content=='\n' || content=='\t' || content.length > 140) {
+			return false;
+		} else {
+			return true;
+		}
+
+	}
 </script>
-<form action="${urlPrefix}/weibo" method="post">
+<form action="${urlPrefix}/weibo" onsubmit="return checkWeibo();" method="post" name="weiboForm">
 	<div class="inputbx">
 		<textarea id="inputmain" name="content" class="mttextar_val">说点什么 . . .</textarea>
 		<div id="inputbtm" class="rel clear height0">

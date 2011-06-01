@@ -6,14 +6,14 @@
 <link href="${staticUrlPrefix}/content/token-input.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 mods.push(function (q) {
-seajs.use('jqplus/jq_tokeninput',function(toke){    	
+seajs.use('jqplus/jq_tokeninput',function(toke){
     	var $ = q.jq;
     	toke($);
         var ffs = ${peoplesHintJson};
         var tips = "输入好友姓名 ... ";
-        
+
         $("#members").buttonset();
-        
+
         var tokeAdd = function (item) {
             var ck = $("input[type='checkbox'][value='" + item.id + "']");
             if (!ck.is(':checked')) {
@@ -26,7 +26,7 @@ seajs.use('jqplus/jq_tokeninput',function(toke){
                 $("label[for='" + ck.attr('id') + "']").click();
             }
         }
-        
+
         $("#autocom").tokenInput(ffs, { hintText: tips, onAdd: tokeAdd, onDelete: tokeDel });
         $('#members').click(function (e) {
             var tarname = $(e.target).get(0).tagName;
@@ -41,13 +41,24 @@ seajs.use('jqplus/jq_tokeninput',function(toke){
             }
         });
 });
-});    
+});
+
+function checkMessage() {
+	var receiverId=document.messageForm.receiverId.value.trim();
+	var content=document.messageForm.content.value.trim();
+	if(content=='' || content=='\n' || content=='\t' || receiverId=='' || receiverId=='\n' || receiverId=='\t' ) {
+		return false;
+	} else {
+		return true;
+	}
+
+}
 </script>
 
 <div class="layout grid-m0s220 mingrid">
     <div class="col-main"><div class="main-wrap">
     	<h2 class='mb20 fw'>新私信</h2>
-    	<form action="${urlPrefix}/message" method="post">
+    	<form action="${urlPrefix}/message" onsubmit="return checkMessage();" method="post" name="messageForm">
         <p class="mb10">收信人：</p>
         <input type="text" id="autocom" name="receiverId" class='mttext' style="width:100%;" />
         <p class="mt20 mb10">你想说的：</p>
@@ -67,7 +78,7 @@ seajs.use('jqplus/jq_tokeninput',function(toke){
        		<input type="checkbox" id="check${status.index}" value="${people.id}" name="${people.realName}" /><label for="check${status.index}">${people.realName}</label>
 		</c:forEach>
         </div>
-        </div>    
+        </div>
     </div>
 </div>
 
