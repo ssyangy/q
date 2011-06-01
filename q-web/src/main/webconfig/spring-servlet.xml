@@ -573,11 +573,6 @@
 		<property name="groupDao" ref="groupDao" />
 	</bean>
 
-
-	<!-- photo web -->
-	<bean id="getGroupPhoto" class="q.web.photo.GetGroupPhoto">
-	</bean>
-
 	<!-- event web -->
 	<bean id="addEvent" class="q.web.event.AddEvent">
 		<property name="eventDao" ref="eventDao" />
