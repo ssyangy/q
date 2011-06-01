@@ -6,6 +6,7 @@
     require('jqplus/jq_repurl')($);
     require('jqplus/jq_mttext')($);
     require('jqplus/jq_initbow')($);
+    require('jqplus/jq_focusafter')($);
     require('jqplus/jq_countable')($);
     require('jqplus/jq_validation')($);
     exports.jq = $;
