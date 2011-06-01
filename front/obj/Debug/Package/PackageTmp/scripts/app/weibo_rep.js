@@ -14,9 +14,6 @@
             if (people && (people.id == window.loginCookie)) {
                 this.set({ "isown": true });
             }
-            if (this.get("delete")) {
-                this.set({ "text": "该评论已被删除." });
-            }
         },
         validate: function (stream) {
             if (stream.id) {

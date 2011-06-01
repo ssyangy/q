@@ -52,7 +52,7 @@
 
         $(".countable", box).each(function () {
             $(this).countable({
-                threshold:0.1,
+                threshold:0,
                 //startOpacity: 1,
                 positiveCopy: "剩余{n}个字符可输入",
                 negativeCopy: "超出{n}个字符！！",

@@ -38,9 +38,6 @@
             if (this.get('people') && (this.get('people').id == window.loginCookie)) {
                 this.set({ "isown": true });
             }
-            if (this.get("delete")) {
-                this.set({ "text": "该微博已被删除." });
-            }
         },
         validate: function (stream) {
             if (stream.id) {

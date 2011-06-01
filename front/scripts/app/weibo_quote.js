@@ -15,7 +15,7 @@
                 this.set({ "isown": true });
             }
             if (this.get("status") == 1) {
-                this.set({ "text": "该引用原文已被删除." });
+                this.set({ "delete": true });
             }
         },
         validate: function (stream) {
