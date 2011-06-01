@@ -7,10 +7,10 @@
 <div class="col-main"><div class="main-wrap">
 <h2>搜索</h2>
 <div id='searchpage' class="search mb15" style="margin-top:13px;">
-	<form action="${urlPrefix}/search/weibo" method="GET">
+	<form action="${urlPrefix}/search/weibo"  onsubmit="if(this.search.value=='') return false;" method="GET">
     <input class="search_inp mttext_val" type="text" name="search" value="${param['search']}" />
     <input type="submit" class="btnb ml5" value="搜索" />
-	</form>    
+	</form>
 </div>
 <div class="ui-tabs mt10">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
