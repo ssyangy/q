@@ -24,18 +24,18 @@ $(function(){
 	            	else pv.hide();
 	            	if (j.hasNext) nt.show();
 	            	else nt.hide();
-	            	
+
 	            	stream.empty();
 					$(j.favorites).each(function(){
 						this.item.order_id = this.id;
 						if(this.itemType ==1) {
 							this.item.text = "回复：" + this.item.text;
 							var t = new r.WeiboRepItemModel(this.item);
-			                var view = new r.WeiboRepItemView({ model: t });							
+			                var view = new r.WeiboRepItemView({ model: t });
 							stream.append(view.render().el);
 						} else {
 							var t = new w.WeiboModel(this.item);
-			                var view = new w.WeiboView({ model: t });	
+			                var view = new w.WeiboView({ model: t });
 							stream.append(view.render().el);
 						}
 					});
@@ -44,13 +44,13 @@ $(function(){
 			});
 		}
 		ajaxweibo("",0);
-		
+
 		pv.click(function(){
 			ajaxweibo($("li.streambox", stream).first().attr("order_id"),1);
 		});
 		nt.click(function(){
 			ajaxweibo($("li.streambox", stream).last().attr("order_id"),0);
-		});	
+		});
 	});
 });
 });
