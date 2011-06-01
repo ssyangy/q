@@ -53,9 +53,7 @@
         $(".countable", box).each(function () {
             $(this).countable({
                 threshold:0,
-                //startOpacity: 1,
                 positiveCopy: "剩余{n}个字符可输入",
-                negativeCopy: "超出{n}个字符！！",
                 defaultText: "输入" + $(this).attr("maxlength") + "以内的字符。"
             })
         });
