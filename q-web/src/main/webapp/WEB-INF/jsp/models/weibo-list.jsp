@@ -4,7 +4,7 @@
 seajs.use(['qcomcn','app/weibo','underscore'], function (q, w, _) {
 	var $ = q.jq;
 	$(function(){
-		seajs.use('ICanHaz',function(ich){ 
+		seajs.use('ICanHaz',function(ich){
 			w.Loader(q, ich);
 			var ajlock = true;
 			var ajaxweibo = function(size,startid){
@@ -18,11 +18,11 @@ seajs.use(['qcomcn','app/weibo','underscore'], function (q, w, _) {
 						});
 					},
 					send: function(){ ajlock = false; },
-					complete: function(){ ajlock = true; }			
+					complete: function(){ ajlock = true; }
 				});
 			}
 			ajaxweibo(8,'');
-			
+
 			var o = $("html")[0];
 			var updateweibo = function(){
 				if (o.scrollTop + window.winHeight < o.scrollHeight) return;
@@ -82,7 +82,7 @@ seajs.use(['qcomcn','app/weibo','underscore'], function (q, w, _) {
 </script>
 <script type="text/html" id="quote">
 {{#delete}}
-该引用原文已被删除.
+<div class='text'>该引用原文已被删除.</div>
 {{/delete}}
 {{^delete}}
 		<div class='text'>
