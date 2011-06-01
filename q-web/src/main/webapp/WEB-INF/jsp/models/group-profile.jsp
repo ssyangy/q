@@ -6,7 +6,9 @@
     <a href="${urlPrefix}/group/${group.id}"><img src="${group.avatarPath}-64" alt="portrait" class="FL mr15" /></a>
     <div class='proline'>
         <p class="f16 fw fblue">${group.name}</p>
-        <p class="fgray2">${group.intro}</p>
+        <p class="fgray2 extend wb" minh="100"><span class="txt">${group.intro}</span>
+        <a class="arrext"></a>
+        </p>
     </div>
 </div>
 </c:if>

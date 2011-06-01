@@ -99,9 +99,7 @@ $(function(){
  </div>
 </script>
 <script type="text/html" id="quote">
-{{#delete}}
-<div class='text'>该引用原文已被删除.</div>
-{{/delete}}
+{{#delete}}<p>{{delete}}</P>{{/delete}}
 {{^delete}}
 		<div class='text'>
 		{{#people}}
