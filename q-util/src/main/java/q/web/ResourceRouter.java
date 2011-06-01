@@ -124,7 +124,6 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 		ResourceContext context = toResourceContext(request, response, servletPath, segs); // construct resource context
 		complementModel(context); // complement model
 		if (resource == null) { // if resource not exists , return 404
-			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			log.debug("resource not found by method %s and path %s", method, servletPath);
 			throw new ResourceNotFoundException(servletPath);
 		} else {
@@ -200,28 +199,31 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 
 	protected Resource getResource(HttpServletRequest request, String method, String path, String[] segs) {
 		Resource resource = null;
-		String resourceName = toResourceName(method, segs);
-		if (StringKit.isEmpty(resourceName)) {
+		if (segs.length == 0) {
 			resource = this.defaultResource;
 			resource.setName("default");
-		} else {
-			// get resource by resourceName and method
-			if (HTTP_METHOD_POST.equals(method)) {
-				String _method = request.getParameter(HTTP_INNER_METHOD);
-				if (null == _method) {
-					resource = this.getPostResource(resourceName);
-				} else {
-					_method = _method.toLowerCase();
-					if (HTTP_METHOD_UPDATE.equals(_method)) {
-						resource = this.getUpdateResource(resourceName);
-					}
-					if (HTTP_METHOD_DELETE.equals(_method)) {
-						resource = this.getDeleteResource(resourceName);
-					}
+			return resource;
+		} else if (segs.length >= 4) {
+			return resource;
+		}
+
+		String resourceName = toResourceName(method, segs);
+		// get resource by resourceName and method
+		if (HTTP_METHOD_POST.equals(method)) {
+			String _method = request.getParameter(HTTP_INNER_METHOD);
+			if (null == _method) {
+				resource = this.getPostResource(resourceName);
+			} else {
+				_method = _method.toLowerCase();
+				if (HTTP_METHOD_UPDATE.equals(_method)) {
+					resource = this.getUpdateResource(resourceName);
 				}
-			} else if (HTTP_METHOD_GET.equals(method)) {
-				resource = this.getGetResource(resourceName);
+				if (HTTP_METHOD_DELETE.equals(_method)) {
+					resource = this.getDeleteResource(resourceName);
+				}
 			}
+		} else if (HTTP_METHOD_GET.equals(method)) {
+			resource = this.getGetResource(resourceName);
 		}
 		log.debug("get resource:%s by method:%s and path:%s, resourceName:%s", resource, method, path, resourceName);
 		return resource;
@@ -229,9 +231,6 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 
 	protected String toResourceName(String method, String[] segs) {
 		String resourceName = null;
-		if (segs.length == 0) {
-			return resourceName;
-		}
 		resourceName = segs[0];
 		if (segs.length == 1) {
 			if (HTTP_METHOD_GET.equals(method)) {

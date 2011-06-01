@@ -112,6 +112,22 @@ mods.push(function(q){
         });
 
         $('#btnrep').click(function () {
+			var repContent = $("#tboxrep").val().trim();
+			if(repContent=='' || repContent=='\n' || repContent=='\t' ) {
+				return false;
+			}
+			/*
+			var flag = true;
+			$("li" ,sld2).each(function(){
+				var rpc="回复：" + $('a.scn', this).text().trim();
+				if(repContent == rpc) {
+					flag = false;
+				}
+			});
+			if(flag == false) {
+				return false;
+			}
+			*/
             $.ajax({ url: "${urlPrefix}/message/" + window.msgid + "/reply", type: "POST",
                 data: { content: $("#tboxrep").val(), replymessageid: $('#replaysource').val() },
                 success: function (m) {

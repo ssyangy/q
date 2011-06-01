@@ -10,7 +10,7 @@ ul.members li{padding:5px;cursor:pointer;}
 ul.members li.hover,ul.members li.sel{background-color:#f6f6f6;}
 </style>
 <script type="text/javascript">
-seajs.use(['qcomcn','jqplus/jq_tokeninput'],function(q, toke){    	
+seajs.use(['qcomcn','jqplus/jq_tokeninput'],function(q, toke){
 var $ = q.jq;
 toke($);
 var ffs = ${peoplesHintJson};
@@ -29,9 +29,9 @@ var tips = "输入好友姓名 ... ";
                 $("label[for='" + ck.attr('id') + "']").click();
             }
         }
-        
+
         $("#autocom").tokenInput(ffs, { hintText: tips, onAdd: tokeAdd, onDelete: tokeDel });
-        
+
         var mlis = $('ul.members>li');
         mlis.click(function () {
         	$(this).toggleClass("sel");
@@ -42,14 +42,25 @@ var tips = "输入好友姓名 ... ";
 			$('ul.token-input-list').remove();
 			$("#autocom").tokenInput(ffs, { hintText: tips, prePopulate: pre, onAdd: tokeAdd, onDelete: tokeDel });
         });
-	});
-});    
+});
+});
+
+function checkMessage() {
+	var receiverId=document.messageForm.receiverId.value.trim();
+	var content=document.messageForm.content.value.trim();
+	if(content=='' || content=='\n' || content=='\t' || receiverId=='' || receiverId=='\n' || receiverId=='\t' ) {
+		return false;
+	} else {
+		return true;
+	}
+
+}
 </script>
 
 <div class="layout grid-m0s220 mingrid">
     <div class="col-main"><div class="main-wrap">
     	<h2 class='mb20 fw'>新私信</h2>
-    	<form action="${urlPrefix}/message" method="post">
+    	<form action="${urlPrefix}/message" onsubmit="return checkMessage();" method="post" name="messageForm">
         <p class="mb10">收信人：</p>
         <input type="text" id="autocom" name="receiverId" class='mttext' style="width:100%;" />
         <p class="mt20 mb10">你想说的：</p>
@@ -67,8 +78,6 @@ var tips = "输入好友姓名 ... ";
         <ul class="members">
 		<c:forEach items="${followings}" var="people" varStatus="status">
 			<li pid="${people.id}" class="hov">${people.realName}</li>
-<%--        		<input type="checkbox" class="vaip" id="check${status.index}" value="${people.id}" name="${people.realName}" />
-       		<label for="check${status.index}">${people.realName}</label><br/> --%>
 		</c:forEach>
         </ul>
 
