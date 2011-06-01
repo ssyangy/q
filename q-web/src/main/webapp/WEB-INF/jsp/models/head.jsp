@@ -135,7 +135,7 @@
 				<c:when test="${servletPath=='/WEB-INF/jsp/getPeopleFollowing.jsp'}">好友</c:when>
 				<c:otherwise>
 					<a class="lk"
-						href='${urlPrefix}/people/${loginCookie.peopleId}/following'>好友</a>
+						href='${urlPrefix}/following'>好友</a>
 				</c:otherwise>
 			</c:choose></li>
 			<li class='rel pr20_im'><c:choose>

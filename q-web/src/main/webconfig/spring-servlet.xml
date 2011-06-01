@@ -333,6 +333,13 @@
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="cacheService" ref="cacheService" />
 	</bean>
+	<bean id="getFollowingIndex" class="q.web.people.GetFollowingIndex">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="getFollowerIndex" class="q.web.people.GetFollowerIndex">
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="cacheService" ref="cacheService" />
+	</bean>	
 	<bean id="addPeopleFollowing" class="q.web.people.AddPeopleFollowing">
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="notifyService" ref="notifyService" />
