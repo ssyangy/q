@@ -52,10 +52,11 @@
 
         $(".countable", box).each(function () {
             $(this).countable({
-                threshold:0,
-                positiveCopy: "剩余{n}个字符可输入",
-                defaultText: "输入" + $(this).attr("maxlength") + "以内的字符。"
-            })
+                threshold: 0,
+                target: $(this).parent().find(".cttarget"),
+                appendMethod: "appendTo",
+                positiveCopy: "还可输入{n}个字符"
+            });
         });
 
         $("input[accesskey]", box).bind("keydown", function (e) {
