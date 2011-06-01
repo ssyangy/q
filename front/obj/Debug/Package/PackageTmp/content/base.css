@@ -43,7 +43,8 @@ small { font-size: 12px; }
 .rel{position:relative;}
 .fw{font-weight:700;}
 .f14{font-size:14px;}
-.f16{font-size:14px;}
+.f16{font-size:16px;}
+.vaip{vertical-align:-3px}
 .FR{float:right!important}
 .FL{float:left!important;}
 .tal{text-align:left;}

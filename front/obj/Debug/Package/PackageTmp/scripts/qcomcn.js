@@ -22,7 +22,8 @@
         });
 
         $("#signovb").ajaxSuccess(function (evt, resp, set) {
-            if (!_.isString(resp.responseText)) return;
+            if (!$.type(resp.responseText) === "string") return;
+            if (resp.responseText == "") return;
             var m = eval("(" + resp.responseText + ")");
             if (!m && m.id) return;
             if (m.error_code == "40002") {
