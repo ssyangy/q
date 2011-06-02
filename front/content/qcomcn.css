@@ -122,3 +122,7 @@ a.btnNM:hover{background-position:0 -26px;}
 .extend{padding-right:20px;position:relative;}
 .extend a.arrext{position:absolute;bottom:0;right:0;width:16px;height:16px;background:url(images/arrow/arrdown.png) no-repeat scroll 0 0;cursor:pointer;}
 .extend a.arrext.ee{background:url(images/arrow/arrup.png) no-repeat scroll 0 0;}
+
+.errorbg{width:576px;border:7px solid #dcdcdc;margin:65px auto;text-align:center;padding:90px 0;}
+.errorbg .hd{height:37px;line-height:37px;color:#333;font-size:16px;background:url(images/exclamation.png) no-repeat scroll left center;padding:10px 0 10px 50px;}
+.tipsp{margin-top:12px;color:#666;}

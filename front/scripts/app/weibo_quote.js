@@ -52,10 +52,8 @@
             var rdia = $('#dia_ret');
             $('.wcontent', rdia).html(this.model.get('text'));
             $('.wpeople', rdia).html(this.model.get('people').username);
-            var src = this.model.get('source');
-            if (src) $('.wsrc', rdia).html(src);
             $('.mttextar', rdia).val('//@' + this.model.get('people').username + ' ');
-            $(".ret_url", rdia).val(window.urlprefix + '/reply/' + this.model.get('id') + '/retweet');
+            $(".ret_url", rdia).val(window.urlprefix + '/weibo/' + this.model.get('id') + '/retweet');
             rdia.dialog("open");
         },
         toggleimg: function () {

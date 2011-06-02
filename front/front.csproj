@@ -341,6 +341,7 @@
     <Content Include="content\images\def\g-36.jpg" />
     <Content Include="content\images\emot.png" />
     <Content Include="content\images\emotion.png" />
+    <Content Include="content\images\exclamation.png" />
     <Content Include="content\images\face\1.gif" />
     <Content Include="content\images\face\10.gif" />
     <Content Include="content\images\face\11.gif" />
@@ -533,6 +534,7 @@
     <Content Include="content\menu.css" />
     <Content Include="content\default.css" />
     <Content Include="content\signup.css" />
+    <Content Include="content\wordwrap.xml" />
     <Content Include="demo\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="demo\images\ui-bg_flat_0_eeeeee_40x100.png" />
     <Content Include="demo\images\ui-bg_flat_55_ffffff_40x100.png" />

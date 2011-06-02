@@ -1,0 +1,27 @@
+<?xml version = "1.0"?>
+<bindings xmlns = "http://www.mozilla.org/xbl" xmlns:html = "http://www.w3.org/1999/xhtml">
+<binding id = "wordwrap" applyauthorstyles = "false">
+   <implementation>
+      <constructor>
+         //
+         var elem = this;           // maintain a reference to the bound element
+         elem.addEventListener('overflow',
+         function()
+         {
+            // matches any "mangled" HTML tag
+            var exp = /<&#8203;\/*[&#8203;_\s="'\w]+>/g;
+            var txt = elem.innerHTML;     // the bound element's innerHTML
+            var chars = txt.split('');
+            var newTxt = chars.join('&#8203;');
+            newTxt = newTxt.replace(exp, reconstructTag);
+            elem.innerHTML = newTxt;
+         },false);
+         function reconstructTag(_tag)
+         {
+            return _tag.replace(/&#8203;/g, '');
+         }
+         //
+      </constructor>
+   </implementation>
+</binding>
+</bindings>
