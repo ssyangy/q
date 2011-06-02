@@ -77,7 +77,7 @@
             rdia.dialog("open");
         },
         replay: function () {
-            $("input.reply_val", this.model.get("parent").el).val("回复@" + this.model.get("people").username + ":").focus();
+            $("input.reply_val", this.model.get("parent").el).val("回复@" + this.model.get("people").username + ":").focus().data("replyId", this.model.get("id"));
         },
         fav: function () {
             $.ajax({ url: window.urlprefix + '/reply/' + this.model.get('id') + '/favorite', type: 'POST', msg: this,
