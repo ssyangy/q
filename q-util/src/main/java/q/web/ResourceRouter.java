@@ -183,7 +183,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 		context.setModel("contextPath", this.contextPath);
 		context.setModel("staticUrlPrefix", this.staticUrlPrefix);
 		context.setModel("pushUrlPrefix", this.pushUrlPrefix);
-		context.setModel("imageUrl", this.imageUrl);
+		context.setModel("imageUrlPrefix", this.imageUrl);
 		if (this.imageUrl != null) {
 			context.setModel("avatarUrlPrefix", this.imageUrl + "/a");
 		}

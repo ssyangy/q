@@ -204,7 +204,7 @@ function checkWeibo() {
 			<a class="lk mr10 emot" tgtt='emots'>表情</a>
 	        <div id="emots" class='tgtbox'>
 				<c:forEach var="id" begin="1" end="81">  
-					<img src="${staticUrlPrefix}/content/images/face/${id}.gif" mid="${id}">
+					<img src="${imageUrlPrefix}/biaoqing/${id}.gif" mid="${id}">
 				</c:forEach>
 	        </div>
 			<a id='trDialog_img' class="lk mr10 pict">图片</a>

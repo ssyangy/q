@@ -73,6 +73,7 @@ public class GetPeopleWeibo extends Resource {
 		}
 		page.setSenderId(peopleId);
 		List<Weibo> weibos = weiboDao.getWeibosByPage(page);
+		Map<String, Object> api = new HashMap<String, Object>();
 		if (CollectionKit.isNotEmpty(weibos)) {
 			if (weibos.size() == fetchSize) {
 				if (type == asc) { // more than one previous page
@@ -98,12 +99,8 @@ public class GetPeopleWeibo extends Resource {
 			if (loginPeopleId > 0) {
 				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
 			}
-		}
-		Map<String, Object> api = new HashMap<String, Object>();
-		if (CollectionKit.isNotEmpty(weibos)) {
 			api.put("weibos", weibos);
 		}
-
 		api.put("hasPrev", hasPrev);
 		api.put("hasNext", hasNext);
 		context.setModel("api", api);
