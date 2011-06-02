@@ -21,8 +21,4 @@ public class PeopleNotExistException extends ErrorCodeException {
 		super(ErrorCode.EC_PEOPLE_NOT_EXIST, error);
 	}
 
-	public PeopleNotExistException(String message, Throwable cause) {
-		super(message, cause);
-	}
-
 }
