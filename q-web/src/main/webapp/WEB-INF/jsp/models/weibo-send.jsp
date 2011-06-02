@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
 #emots{position:absolute;top:22px;left:0;background:#f6f6f6;border:1px solid #dcdcdc;}
-#emots img{margin:2px;cursor:pointer}
+#emots img{margin:2px;cursor:pointer;}
+#emots img:hover{border:1px solid #dcdcdc;margin:1px;}
 </style>
 <script type="text/javascript">
 var isImg = false;
@@ -19,10 +20,10 @@ seajs.use(['qcomcn','jqplus/jq_rotate', 'jqplus/jq_countable','plus/emote'], fun
 	$(function(){
 		
 		$("#emots>img").click(function(){
-			var txt = emote.text[$(this).attr("mid")];
+			var txt = emote.text[$(this).attr("mid")-1];
 			var maintxt = $("#inputmain").val();
 			if(maintxt == "说点什么 . . .") maintxt = "";
-			$("#inputmain").val(maintxt+"["+txt+"]").focus();
+			$("#inputmain").val(maintxt+"["+txt+"]").focusaft();
 		});
 		
 		$('#inputmain').focus(function() {
