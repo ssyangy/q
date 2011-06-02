@@ -22,7 +22,7 @@ seajs.use(['qcomcn','jqplus/jq_rotate', 'jqplus/jq_countable','plus/emote'], fun
 			var txt = emote.text[$(this).attr("mid")];
 			var maintxt = $("#inputmain").val();
 			if(maintxt == "说点什么 . . .") maintxt = "";
-			$("#inputmain").val(maintxt+"["+txt+"]").focus();
+			$("#inputmain").val(maintxt+"["+txt+"]").focusaft();
 		});
 		
 		$('#inputmain').focus(function() {
