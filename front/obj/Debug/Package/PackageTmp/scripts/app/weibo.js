@@ -154,19 +154,18 @@
             });
         },
         reply: function () {
-            if ($('input.reply_val', this.el).val() == "") return;
+            var inp = $('input.reply_val', this.el);
+            if (inp.val() == "") return;
             $.ajax({ url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply", type: 'POST',
-                data: { content: $('input.reply_val', this.el).val() },
+                data: { content: inp.val(), replyId: inp.data("replyId") },
                 success: this.initrep
             });
-            $('input.reply_val', this.el).val('');
+            inp.val('');
         },
         resub: function () {
             var rdia = $('#dia_ret');
             $('.wcontent', rdia).html(this.model.get('text'));
             $('.wpeople', rdia).html(this.model.get('people').username);
-            var src = this.model.get('source');
-            if (src) $('.wsrc', rdia).html(src);
             $('.mttextar', rdia).val('//@' + this.model.get('people').username + ' ');
             $(".ret_url", rdia).val(window.urlprefix + '/weibo/' + this.model.get('id') + '/retweet');
             rdia.dialog("open");

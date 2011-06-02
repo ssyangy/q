@@ -72,14 +72,12 @@
             var rdia = $('#dia_ret');
             $('.wcontent', rdia).html(this.model.get('text'));
             $('.wpeople', rdia).html(this.model.get('people').username);
-            var src = this.model.get('source');
-            if (src) $('.wsrc', rdia).html(src);
             $('.mttextar', rdia).val('//@' + this.model.get('people').username + ' ');
             $(".ret_url", rdia).val(window.urlprefix + '/reply/' + this.model.get('id') + '/retweet');
             rdia.dialog("open");
         },
         replay: function () {
-            $("input.reply_val", this.model.get("parent").el).val("回复@" + this.model.get("people").username + ":").focus();
+            $("input.reply_val", this.model.get("parent").el).val("回复@" + this.model.get("people").username + ":").focus().data("replyId", this.model.get("id"));
         },
         fav: function () {
             $.ajax({ url: window.urlprefix + '/reply/' + this.model.get('id') + '/favorite', type: 'POST', msg: this,
