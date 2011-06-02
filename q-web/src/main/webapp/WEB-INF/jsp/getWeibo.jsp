@@ -4,9 +4,10 @@
 	<jsp:param name="title" value="微博" />
 </jsp:include>
 <script type="text/javascript">
-mods.push(function (q) {
-seajs.use('app/weibo_rep',function(rep){
-		var $ = q.jq;
+seajs.use(['qcomcn','app/weibo_rep','ICanHaz'],function(q, rep, ichp){
+	var $ = q.jq;
+	$(function(){
+		rep.Loader(q, ichp);
     	var ul = $('ul.msglist');
         var suc_repajax = function(j){
         	$('body').animate({scrollTop:0},700,"swing");
@@ -50,7 +51,7 @@ seajs.use('app/weibo_rep',function(rep){
                 success: suc_repajax
             });
         });
-});
+	});
 });
 </script>
 <div class="layout grid-m0s7">
@@ -75,19 +76,19 @@ seajs.use('app/weibo_rep',function(rep){
 	<p>
 	<a class='lk' href='${urlPrefix}/people/{{id}}'>{{screenName}}</a>
 	{{/people}}
-	<span class='reptext' repid="{{id}}">{{text}}</span>
+	{{text}}
 	</p>
     <p class='rel'>
 		<span class="stat gray">{{screenTime}}</span>
 		<span class='actions'>
-        <a href="javascript:void(0);" class='replay'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
-        <a href="javascript:void(0);" class='resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
-        <a href="javascript:void(0);" class='unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
-        <a href="javascript:void(0);" class='fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
-		{{#isown}}<a href="javascript:void(0);" class='lk del'>删除</a>{{/isown}}
+        <a href="javascript:void(0);" class='lk lkrb r_replay'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
+        <a href="javascript:void(0);" class='lk lkrb r_resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
+        <a href="javascript:void(0);" class='lk lkrb r_unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
+        <a href="javascript:void(0);" class='lk lkrb r_fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
+		{{#isown}}<a href="javascript:void(0);" class='lk r_del'>删除</a>{{/isown}}
 		</span>
 	</p>
-</script>    
+</script>  
     <ul class="msglist mb5"></ul>
     <a class='lk mr10 rrprev hide'>上一页</a>
     <a class='lk rrnext hide'>下一页</a>

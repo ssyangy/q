@@ -32,6 +32,7 @@
 													<struct>
 														<member name="id" apiName="id" apiType="string" />
 														<member name="realName" apiName="screenName" apiType="string" />
+														<member name="username" apiName="username" apiType="string" />
 														<member name="avatarPath" apiName="avatarPath" apiType="string" />
 													</struct>
 												</type>
@@ -55,6 +56,7 @@
 																<struct>
 																	<member name="id" apiName="id" apiType="string" />
 																	<member name="realName" apiName="screenName" apiType="string" />
+																	<member name="username" apiName="username" apiType="string" />
 																	<member name="avatarPath" apiName="avatarPath" apiType="string" />
 																</struct>
 															</type>
