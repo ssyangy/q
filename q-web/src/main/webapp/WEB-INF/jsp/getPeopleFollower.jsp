@@ -115,41 +115,6 @@ seajs.use("qcomcn",function(q){
 		</jsp:include>
 </div>
 </div></div>
-    <div class="col-sub">
-    
-    <h3>他关注的<a class="lk" href="${urlPrefix}/people/${people.id}/following">更多</a></h3>
-	<ul class="slist">
-	<c:forEach items="${}" var="people" varStatus='stat'>
-	<c:choose>
-		<c:when test="${!stat.last}"><li></c:when>
-		<c:otherwise><li class='end'></c:otherwise>
-	</c:choose>
-		<a href="${urlPrefix}/people/${people.id}">
-		<img src="${people.avatarPath}-48" class="wh48" alt="img"></a>
-		<div class="gray">
-			<a href="${urlPrefix}/people/${people.id}" class="lk" >${people.realName}</a>
-		</div>
-		</li>
-	</c:forEach>
-	</ul>
-	
-    <h3>关注他的<a class="lk" href="${urlPrefix}/people/${people.id}/follower">更多</a></h3>
-	<ul class="slist">
-	<c:forEach items="${}" var="people" varStatus='stat'>
-	<c:choose>
-		<c:when test="${!stat.last}"><li></c:when>
-		<c:otherwise><li class='end'></c:otherwise>
-	</c:choose>
-		<a href="${urlPrefix}/people/${people.id}">
-		<img src="${people.avatarPath}-48" class="wh48" alt="img"></a>
-		<div class="gray">
-			<a href="${urlPrefix}/people/${people.id}" class="lk" >${people.realName}</a>
-		</div>
-		</li>
-	</c:forEach>
-	</ul>
-	
-    </div>
 </div>
 <jsp:include page="models/foot.jsp" />
 
