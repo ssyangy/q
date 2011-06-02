@@ -22,6 +22,7 @@
 		<property name="notifyService" ref="notifyService" />
 		<property name="searchService" ref="searchService" />
 		<property name="shortUrlService" ref="shortUrlService" />
+		<property name="pictureService" ref="pictureService" />
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="groupDao" ref="groupDao" />

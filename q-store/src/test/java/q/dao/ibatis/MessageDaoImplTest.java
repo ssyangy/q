@@ -29,7 +29,7 @@ public class MessageDaoImplTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		messageDao = (MessageDaoImpl) TestSupport.getBean("messageDao");
+		messageDao = (MessageDaoImpl) StoreTestSupport.getBean("messageDao");
 	}
 
 	/**

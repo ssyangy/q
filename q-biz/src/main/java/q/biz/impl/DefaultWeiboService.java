@@ -13,6 +13,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 import q.biz.NotifyService;
+import q.biz.PictureService;
 import q.biz.SearchService;
 import q.biz.ShortUrlService;
 import q.biz.WeiboService;
@@ -28,6 +29,7 @@ import q.domain.Weibo;
 import q.domain.WeiboReply;
 import q.util.CollectionKit;
 import q.util.IdCreator;
+import q.util.StringKit;
 
 /**
  * @author seanlinwang at gmail dot com
@@ -51,6 +53,12 @@ public class DefaultWeiboService implements WeiboService {
 
 	public void setSearchService(SearchService searchService) {
 		this.searchService = searchService;
+	}
+
+	private PictureService pictureService;
+
+	public void setPictureService(PictureService pictureService) {
+		this.pictureService = pictureService;
 	}
 
 	private ShortUrlService shortUrlService;
@@ -182,6 +190,7 @@ public class DefaultWeiboService implements WeiboService {
 			if (loginPeopleId > 0) {
 				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
 			}
+			injectWeiboWithBiaoqingImage(weibos);
 			api.put("weibos", weibos);
 		}
 		api.put("hasPrev", hasPrev);
@@ -344,7 +353,7 @@ public class DefaultWeiboService implements WeiboService {
 		api.put("hasNext", hasNext);
 		return api;
 	}
-	
+
 	@Override
 	public Map<String, Object> getReplySendedPagination(long loginPeopleId, int size, long startId, int type) throws Exception {
 		int asc = 1;
@@ -394,41 +403,17 @@ public class DefaultWeiboService implements WeiboService {
 		return api;
 	}
 
-
-	private static final Map<String, Integer> biaoqingMap = new HashMap<String, Integer>();
-
-	private static final String[] biaoqings = new String[] { "微笑", "撇嘴", "色", "发呆", "得意", "流泪", "害羞", "闭嘴", "睡", "大哭", "尴尬", "生气", "调皮", "呲牙", "惊讶", "难过", "酷", "冷汗", "抓狂", "吐", "偷笑", "可爱", "白眼", "傲慢", "饿", "困", "惊恐", "汗", "大笑", "大兵", "奋斗", "咒骂", "疑问", "嘘...", "晕", "折磨", "哀", "骷髅", "再见", "擦汗", "抠鼻", "鼓掌", "糗大了", "坏笑", "吓", "左哼哼", "右哼哼", "哈欠", "鄙视", "委屈", "快哭了", "阴险", "亲亲", "可怜", "玫瑰", "凋谢", "示爱", "爱心", "心碎", "蛋糕", "闪电", "炸弹", "便便", "啤酒", "咖啡", "饭", "抱抱", "强", " 弱", "握手", "胜利", "佩服", "勾引", "拳头", "差劲", "爱你", "NO", "OK", "猪头", "月亮", "太阳" };
-
-	static {
-		for (int i = 0; i < biaoqings.length; i++) {
-			biaoqingMap.put(biaoqings[i], i + 1);
-		}
-	}
-
 	/**
 	 * @param weibos
 	 */
 	private void injectWeiboWithBiaoqingImage(List<Weibo> weibos) {
 		for (Weibo weibo : weibos) {
 			String content = weibo.getContent();
-			char[] charArray = content.toCharArray();
-			StringBuilder sb = new StringBuilder(content.length() * 2);
-			int start = 0;
-			int end = 0;
-			boolean startMatched = false;
-			for (int i = 0; i < charArray.length; i++) {
-				char cha = charArray[i];
-				if (cha == '[') {
-					start = i;
-					startMatched = true;
-				} else if (cha == ']') {
-					if (startMatched) {
-
-					}
-				}
-
+			if (StringKit.isNotEmpty(content)) {
+				weibo.setContent(pictureService.replaceBiaoqing(content));
 			}
 		}
 
 	}
+
 }

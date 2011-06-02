@@ -13,11 +13,11 @@ import q.domain.Category;
 
 public class CategoryDaoimplTest {
 
-	private static CategoryDao categoryDao = new CategoryDaoImpl();
+	private static CategoryDao categoryDao = null;
 
 	@BeforeClass
 	public static void setUpBeforeClass() {
-		categoryDao = (CategoryDao)TestSupport.getBean("categoryDao");
+		categoryDao = (CategoryDao)StoreTestSupport.getBean("categoryDao");
 	}
 
 	/**

@@ -45,4 +45,10 @@ public interface PictureService {
 	 * @return
 	 */
 	public String getDefaultCategoryAvatarPath();
+
+	/**
+	 * @param content
+	 * @return
+	 */
+	String replaceBiaoqing(String content);
 }

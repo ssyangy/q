@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="pictureService" class="q.biz.impl.DefaultPictureService">
+		<property name="imageUrl" value="http://qimg.net" />
+		<property name="imageUploadUrl" value="http://127.0.0.1" />
+	</bean>
+	<bean id="weiboService" class="q.biz.impl.DefaultWeiboService">
+		<property name="pictureService" ref="pictureService" />
+	</bean>
+</beans>

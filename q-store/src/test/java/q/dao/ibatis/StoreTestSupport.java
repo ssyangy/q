@@ -11,7 +11,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * @date May 18, 2011
  *
  */
-public class TestSupport {
+public class StoreTestSupport {
 	private static ApplicationContext ctx = new FileSystemXmlApplicationContext("/src/test/resources/ddl/spring-*-test.xml");
 	
 	public static Object getBean(String name) {

@@ -24,7 +24,7 @@ public class WeiboDaoImplTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		weiboDao = (WeiboDaoImpl) TestSupport.getBean("weiboDao");
+		weiboDao = (WeiboDaoImpl) StoreTestSupport.getBean("weiboDao");
 	}
 
 	/**

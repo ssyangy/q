@@ -33,7 +33,7 @@ public class GroupDaoImplTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		groupDao = (GroupDaoImpl) TestSupport.getBean("groupDao");
+		groupDao = (GroupDaoImpl) StoreTestSupport.getBean("groupDao");
 	}
 
 	/**
