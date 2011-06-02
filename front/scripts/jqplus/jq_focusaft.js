@@ -13,12 +13,14 @@ define(function (require, exports, module) {
                 else {
                     elem.setSelectionRange(caretPos, caretPos);
                     elem.focus();
-                    var evt = document.createEvent("KeyboardEvent");
-                    evt.initKeyEvent("keypress", true, true, null, false, false, false, false, 0, 32);
-                    elem.dispatchEvent(evt);
-                    evt = document.createEvent("KeyboardEvent");
-                    evt.initKeyEvent("keypress", true, true, null, false, false, false, false, 8, 0);
-                    elem.dispatchEvent(evt);
+                    if (window.bow != "webkit") {
+                        var evt = document.createEvent("KeyboardEvent");
+                        evt.initKeyEvent("keypress", true, true, null, false, false, false, false, 0, 32);
+                        elem.dispatchEvent(evt);
+                        evt = document.createEvent("KeyboardEvent");
+                        evt.initKeyEvent("keypress", true, true, null, false, false, false, false, 8, 0);
+                        elem.dispatchEvent(evt);
+                    }
                 }
             }
         }

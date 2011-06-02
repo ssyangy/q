@@ -363,6 +363,7 @@
     <Content Include="content\images\face\27.gif" />
     <Content Include="content\images\face\28.gif" />
     <Content Include="content\images\face\29.gif" />
+    <Content Include="content\images\face\3.gif" />
     <Content Include="content\images\face\30.gif" />
     <Content Include="content\images\face\31.gif" />
     <Content Include="content\images\face\32.gif" />
@@ -373,7 +374,6 @@
     <Content Include="content\images\face\37.gif" />
     <Content Include="content\images\face\38.gif" />
     <Content Include="content\images\face\39.gif" />
-    <Content Include="content\images\face\3s.gif" />
     <Content Include="content\images\face\4.gif" />
     <Content Include="content\images\face\40.gif" />
     <Content Include="content\images\face\41.gif" />

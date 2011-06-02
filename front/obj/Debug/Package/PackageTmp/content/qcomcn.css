@@ -3,7 +3,7 @@
 @import url("base.css");
 
 /*#region Commen */
-.tgtbox{z-index:9999;}
+.tgtbox{z-index:9999;display:none;}
 ul.list li{padding:0 12px;float:left;}
 ul.list li.end{border-right:none 0;}
 ul.dlist{border:1px solid #ddd;line-height:26px;background-color:#fff;border-bottom:2px solid #DA0000;}
@@ -23,7 +23,7 @@ ul.dlist li.end{border-right:none 0;}
 #msg{position:absolute;top:0;right:242px;height:35px;line-height:35px;color:#fff;}
 #msg a.lk{color:#fff;}
 #msg a.lk:hover{color:#DA0000;background-color:#fff;}
-#minelist{position:absolute;top:26px;left:10px;display:none;width:90px;}
+#minelist{position:absolute;top:26px;left:10px;width:90px;}
 .tlistarr{cursor:pointer;width:14px;height:14px;background:url(images/arrow/w_tri.gif) no-repeat;position:absolute;top:15px;right:0;}
 .tlistarr.tgt{background-image:url(images/arrow/w_tri.gif);}
 
