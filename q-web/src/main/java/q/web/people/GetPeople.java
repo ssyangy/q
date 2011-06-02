@@ -11,13 +11,14 @@ import q.domain.People;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotExistException;
 import q.web.exception.RequestParameterInvalidException;
 
 /**
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Jan 18, 2011
- * 
+ *
  */
 public class GetPeople extends Resource {
 	private PeopleDao peopleDao;
@@ -42,28 +43,37 @@ public class GetPeople extends Resource {
 	public void execute(ResourceContext context) throws Exception {
 		long loginPeopleId = context.getCookiePeopleId();
 		long peopleId = context.getResourceIdLong();
-		People people = peopleDao.getPeopleById(peopleId);
-		if (IdCreator.isValidIds(loginPeopleId) && loginPeopleId != peopleId) {
+		People people;
+		if(peopleId == 0) {
+			String username = context.getResourceId();
+			people = peopleDao.getPeopleByUsername(username);
+		} else {
+			people = peopleDao.getPeopleById(peopleId);
+		}
+		if(people == null) {
+			throw new PeopleNotExistException();
+		}
+		if (IdCreator.isValidIds(loginPeopleId) && loginPeopleId != people.getId()) {
 			DaoHelper.injectPeopleWithVisitorRelation(peopleDao, people, loginPeopleId);
 		}
 		context.setModel("people", people);
 		if (!context.isApiRequest()) {
-			List<Group> groups = groupDao.getGroupsByJoinPeopleId(peopleId);
+			List<Group> groups = groupDao.getGroupsByJoinPeopleId(people.getId());
 			context.setModel("groups", groups);
 		}
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		long peopleId = context.getResourceIdLong();
-		if (IdCreator.isNotValidId(peopleId)) {
-			throw new RequestParameterInvalidException("people:invalid");
-		}
+//		long peopleId = context.getResourceIdLong();
+//		if (IdCreator.isNotValidId(peopleId)) {
+//			throw new RequestParameterInvalidException("people:invalid");
+//		}
 
 	}
 }

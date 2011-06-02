@@ -74,7 +74,7 @@ seajs.use("qcomcn",function(q){
     <div class='proline'>
         <p>
         <span class="f16">${people.realName}</span>
-        <a href="${urlPrefix}/people/${people.id}" class="lk ml10">@${people.username}</a>
+        <a href="${urlPrefix}/people/${people.username}" class="lk ml10">@${people.username}</a>
         </p>
         <p>
         <span class="mr10">${people.area.myProvince.name}&nbsp;${people.area.myCity.name}&nbsp;${people.area.myCounty.name}</span>
@@ -93,7 +93,7 @@ seajs.use("qcomcn",function(q){
 			</c:choose>
         </p>
     </div>
-</div>    
+</div>
 <div class='mgroups clear'>
 <p class="fgray2 mb5">他的圈子：</p>
 <c:forEach items="${groups}" var="group" varStatus="status">
@@ -115,7 +115,7 @@ seajs.use("qcomcn",function(q){
 </div>
 </div></div>
     <div class="col-sub">
-    
+
     <h3>他关注的<a class="lk" href="${urlPrefix}/people/${people.id}/following">更多</a></h3>
 	<ul class="slist">
 	<%--
@@ -132,7 +132,7 @@ seajs.use("qcomcn",function(q){
 		</li>
 	</c:forEach>--%>
 	</ul>
-	
+
     <h3>关注他的<a class="lk" href="${urlPrefix}/people/${people.id}/follower">更多</a></h3>
 	<ul class="slist">
 	<%--
@@ -149,7 +149,7 @@ seajs.use("qcomcn",function(q){
 		</li>
 	</c:forEach>--%>
 	</ul>
-	
+
     </div>
 </div>
 <jsp:include page="models/foot.jsp" />
