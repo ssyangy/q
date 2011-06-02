@@ -3,6 +3,7 @@
     var _ = require('underscore');
     var Backbone = require('backbone');
     var quote = require('app/weibo_quote');
+    var resubapp = require('app/resub');
     var rotate = require('plus/rotate');
 
     var ich = {};
@@ -13,21 +14,7 @@
         $ = qcomcn.jq;
         ich = ichp;
         quote.Loader(q, ich);
-
-        var rdia = $('#dia_ret');
-        if (!rdia.data("init")) {
-            $('input.donet', rdia).click(function () {
-                $('img.ajaxload', rdia).show();
-                $.ajax({ url: $(".ret_url", rdia).val(), type: 'POST', msg: rdia,
-                    data: { content: $(".mttextar", rdia).val() },
-                    success: function (m) {
-                        this.msg.dialog("close");
-                        $('img.ajaxload', this.msg).hide();
-                    }
-                });
-            });
-            rdia.data("init", true);
-        }
+        resubapp.Loader(q);
     }
 
     exports.WeiboRepItemModel = Backbone.Model.extend({
@@ -96,12 +83,7 @@
             });
         },
         resub: function () {
-            var rdia = $('#dia_ret');
-            $('.wcontent', rdia).html(this.model.get('text'));
-            $('.wpeople', rdia).html(this.model.get('people').username);
-            $('.mttextar', rdia).val('//@' + this.model.get('people').username + ' ');
-            $(".ret_url", rdia).val(window.urlprefix + '/reply/' + this.model.get('id') + '/retweet');
-            rdia.dialog("open");
+            resubapp.Open(this.model.get('text'), this.model.get('people').username, '/reply/' + this.model.get('id') + '/retweet');
         },
         fav: function () {
             $.ajax({ url: window.urlprefix + '/reply/' + this.model.get('id') + '/favorite', type: 'POST', msg: this,

@@ -2,6 +2,8 @@
     var $ = {};
     var _ = require('underscore');
     var Backbone = require('backbone');
+    var resubapp = require('app/resub');
+
     var ich = {};
     exports.Loader = function (q, ichp) {
         $ = q.jq;
@@ -49,12 +51,7 @@
             return this;
         },
         resub: function () {
-            var rdia = $('#dia_ret');
-            $('.wcontent', rdia).html(this.model.get('text'));
-            $('.wpeople', rdia).html(this.model.get('people').username);
-            $('.mttextar', rdia).val('//@' + this.model.get('people').username + ' ');
-            $(".ret_url", rdia).val(window.urlprefix + '/weibo/' + this.model.get('id') + '/retweet');
-            rdia.dialog("open");
+            resubapp.Open(this.model.get('text'), this.model.get('people').username, '/weibo/' + this.model.get('id') + '/retweet');
         },
         toggleimg: function () {
             $('div.imgPre', this.el).toggle();

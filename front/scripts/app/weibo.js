@@ -3,6 +3,7 @@
     var Backbone = require('backbone');
     var rep = require('app/weibo_rep');
     var quote = require('app/weibo_quote');
+    var resubapp = require('app/resub');
     var rotate = require('plus/rotate');
 
     var ich = {};
@@ -15,22 +16,8 @@
         ich = ichp;
         rep.Loader(q, ich);
         quote.Loader(q, ich);
+        resubapp.Loader(q);
         seed = $('#streams');
-
-        var rdia = $('#dia_ret');
-        if (!rdia.data("init")) {
-            $('input.donet', rdia).click(function () {
-                $('img.ajaxload', rdia).show();
-                $.ajax({ url: $(".ret_url", rdia).val(), type: 'POST', msg: rdia,
-                    data: { content: $(".mttextar", rdia).val() },
-                    success: function (m) {
-                        this.msg.dialog("close");
-                        $('img.ajaxload', this.msg).hide();
-                    }
-                });
-            });
-            rdia.data("init", true);
-        }
     }
 
     exports.WeiboModel = Backbone.Model.extend({
@@ -133,11 +120,10 @@
             });
         },
         togreply: function () {
-            if (!this.isinitrep) {
-                this.initrep();
-                this.isinitrep = true;
-            }
             $('div.extend', this.el).toggle();
+            if ($('div.extend', this.el).is(":visible")) {
+                this.initrep();
+            }
         },
         rrprev: function () {
             var lis = $('li.repbox', this.el);
@@ -163,12 +149,7 @@
             inp.val('');
         },
         resub: function () {
-            var rdia = $('#dia_ret');
-            $('.wcontent', rdia).html(this.model.get('text'));
-            $('.wpeople', rdia).html(this.model.get('people').username);
-            $('.mttextar', rdia).val('//@' + this.model.get('people').username + ' ');
-            $(".ret_url", rdia).val(window.urlprefix + '/weibo/' + this.model.get('id') + '/retweet');
-            rdia.dialog("open");
+            resubapp.Open(this.model.get('text'), this.model.get('people').username, '/weibo/' + this.model.get('id') + '/retweet');
         },
         fav: function () {
             $.ajax({ url: window.urlprefix + '/weibo/' + this.model.get('id') + '/favorite', type: 'POST', msg: this,

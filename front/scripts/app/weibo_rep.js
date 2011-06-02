@@ -2,6 +2,8 @@
     var $ = {};
     var _ = require('underscore');
     var Backbone = require('backbone');
+    var resubapp = require('app/resub');
+
     var ich = {};
     exports.Loader = function (q, ichp) {
         $ = q.jq;
@@ -69,12 +71,7 @@
             });
         },
         resub: function () {
-            var rdia = $('#dia_ret');
-            $('.wcontent', rdia).html(this.model.get('text'));
-            $('.wpeople', rdia).html(this.model.get('people').username);
-            $('.mttextar', rdia).val('//@' + this.model.get('people').username + ' ');
-            $(".ret_url", rdia).val(window.urlprefix + '/reply/' + this.model.get('id') + '/retweet');
-            rdia.dialog("open");
+            resubapp.Open(this.model.get('text'), this.model.get('people').username, '/reply/' + this.model.get('id') + '/retweet');
         },
         replay: function () {
             $("input.reply_val", this.model.get("parent").el).val("回复@" + this.model.get("people").username + ":").focus().data("replyId", this.model.get("id"));

@@ -1,4 +1,4 @@
-﻿#slidbox{overflow:hidden;position:relative;height:1000px;}
+﻿#slidbox{overflow:hidden;position:relative;height:900px;}
 #slider{position:absolute;top:0;left:0;width:1160px;height:1000px;border-top:1px solid #dcdcdc;}
 .sldlist{width:580px;}
 .sldlist span.time{color:#B2B7B5}
@@ -14,4 +14,4 @@
 .sldlist li .act{position:absolute;top:15px;right:16px;}
 .sldlist li .actun{position:absolute;top:15px;right:20px;}
 #sld2{position:absolute;top:0;left:580px;}
-#pagger{margin-top:10px;}
+#pagger{margin:10px 0 0 20px;}
