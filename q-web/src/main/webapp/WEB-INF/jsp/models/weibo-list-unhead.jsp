@@ -42,17 +42,7 @@ seajs.use(['qcomcn','app/weibo','underscore'], function (q, w, _) {
 </script>
 
 <ul id='streams'></ul>
-<script id="picture" class="partial" type="text/html">
-		{{#picturePath}}
-		<img src="{{picturePath}}-160" class="img160 weiboImg"/>
-		<div class='imgPre hide'>
-			<p class='mt10 mb10'><img src="{{picturePath}}-320" class="img320 preImg"/></p>
-			<a class='imgRotateL lk mr10'>左转</a>
-	    	<a class='imgRotateR lk mr10'>右转</a>
-	    	<a href='{{picturePath}}' class='lk' target='_blank'>查看原图</a>
-		</div>
-		{{/picturePath}}
-</script>
+
 <script type="text/html" id="stream">
 <div class='bd'>
 	{{#people}}
@@ -80,48 +70,6 @@ seajs.use(['qcomcn','app/weibo','underscore'], function (q, w, _) {
     <a class='lk rrnext hide'>下一页</a>
  </div>
 </script>
-<script type="text/html" id="quote">
-{{#delete}}<p>{{delete}}</P>{{/delete}}
-{{^delete}}
-		<div class='text'>
-		{{#people}}
-		<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>：
-		{{/people}}
-		{{text}}
-		</div>
-		{{>picture}}
-		<span class="">
-			<a href="javascript:void(0);" class='lk qresub'>原文转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
-			<a href="${urlPrefix}/weibo/{{id}}" class='lk'>原文回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
-		</span>
-{{/delete}}
-</script>
-<script type="text/html" id="stream_ext">
-	{{#people}}
-	<a href="${urlPrefix}/people/{{id}}"><img class="wh24 sldimg" src="{{avatarPath}}-24" alt="head" /></a>
-	<p>
-	<a class='lk' href='${urlPrefix}/people/{{id}}'>{{screenName}}</a>
-	{{/people}}
-	{{text}}
-	</p>
-    <p class='rel'>
-		<span class="stat gray">{{screenTime}}</span>
-		<span class='actions'>
-        <a href="javascript:void(0);" class='lk lkrb r_replay'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
-        <a href="javascript:void(0);" class='lk lkrb r_resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
-        <a href="javascript:void(0);" class='lk lkrb r_unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
-        <a href="javascript:void(0);" class='lk lkrb r_fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
-		{{#isown}}<a href="javascript:void(0);" class='lk r_del'>删除</a>{{/isown}}
-		</span>
-	</p>
-</script>
-
-<div id="dia_ret" class="ui_dialog hide" title="转发">
-	<div class="wpeople mb10"></div>
-	<div class="wsor mb10"></div>
-	<div class="wcontent mb10"></div>
-	<input class='ret_url' type='hidden' ></input>
-	<textarea name="content" class="mttextar" style="width:100%"></textarea>
-    <img src="${staticUrlPrefix}/content/images/ajax/ajaxload.gif" class="ajaxload hide" alt="ajaxload" />
-    <input type='hidden' class='donet' />
-</div>
+<jsp:include page="../icanhaz/iPicture.jsp" />
+<jsp:include page="../icanhaz/iQuote.jsp" />
+<jsp:include page="../icanhaz/iStream_ext.jsp" />

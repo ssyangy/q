@@ -35,8 +35,8 @@ seajs.use("qcomcn",function(q){
 
 		var adia_ret = $("#adia_ret");
 		$("a.abtnat").click(function () {
-			$("textarea[name='content']",adia_ret).val('').val('//@${people.username}');
 			adia_ret.dialog("open");
+			$("textarea[name='content']",adia_ret).val('').val('//@${people.username}').focusaft();
 		});
         $('input.donet', adia_ret).live("click",function () {
 			$.ajax({ url: '${urlPrefix}/weibo', type: 'POST',
@@ -49,10 +49,10 @@ seajs.use("qcomcn",function(q){
 
 		var adia_letter = $("#adia_letter");
 		$("a.abtnletter").click(function () {
-			$('div.wpeople',adia_letter).empty().html('发私信给：${people.realName}');
-			$("textarea[name='content']",adia_letter).val('');
-			$("#letter_url",adia_letter).val('${urlPrefix}/message?receiverId=${people.id}');
 			adia_letter.dialog("open");
+			$('div.wpeople',adia_letter).empty().html('发私信给：${people.realName}');
+			$("textarea[name='content']",adia_letter).val('').focusaft();
+			$("#letter_url",adia_letter).val('${urlPrefix}/message?receiverId=${people.id}');
 		});
         $('input.donet', adia_letter).live("click",function () {
 			$.ajax({ url: $("#letter_url",adia_letter).val(), type: 'POST',
@@ -74,7 +74,7 @@ seajs.use("qcomcn",function(q){
     <div class='proline'>
         <p>
         <span class="f16">${people.realName}</span>
-        <a href="${urlPrefix}/people/${people.id}" class="lk ml10">@${people.username}</a>
+        <a href="${urlPrefix}/people/${people.username}" class="lk ml10">@${people.username}</a>
         </p>
         <p>
         <span class="mr10">${people.area.myProvince.name}&nbsp;${people.area.myCity.name}&nbsp;${people.area.myCounty.name}</span>
@@ -93,7 +93,7 @@ seajs.use("qcomcn",function(q){
 			</c:choose>
         </p>
     </div>
-</div>    
+</div>
 <div class='mgroups clear'>
 <p class="fgray2 mb5">他的圈子：</p>
 <c:forEach items="${groups}" var="group" varStatus="status">
@@ -115,7 +115,7 @@ seajs.use("qcomcn",function(q){
 </div>
 </div></div>
     <div class="col-sub">
-    
+
     <h3>他关注的<a class="lk" href="${urlPrefix}/people/${people.id}/following">更多</a></h3>
 	<ul class="slist">
 	<%--
@@ -132,7 +132,7 @@ seajs.use("qcomcn",function(q){
 		</li>
 	</c:forEach>--%>
 	</ul>
-	
+
     <h3>关注他的<a class="lk" href="${urlPrefix}/people/${people.id}/follower">更多</a></h3>
 	<ul class="slist">
 	<%--
@@ -149,7 +149,7 @@ seajs.use("qcomcn",function(q){
 		</li>
 	</c:forEach>--%>
 	</ul>
-	
+
     </div>
 </div>
 <jsp:include page="models/foot.jsp" />
