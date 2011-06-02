@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.web.weibo;
 
@@ -28,7 +28,7 @@ import q.web.exception.PeopleNotLoginException;
 /**
  * @author seanlinwang at gmail dot com
  * @date May 14, 2011
- * 
+ *
  */
 public class GetReplyReceived extends Resource {
 	private WeiboDao weiboDao;
@@ -63,7 +63,7 @@ public class GetReplyReceived extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -122,13 +122,13 @@ public class GetReplyReceived extends Resource {
 			context.setModel("api", api);
 		} else {
 			People people = this.peopleDao.getPeopleById(loginPeopleId);
-			context.setModel("people", people); 
+			context.setModel("people", people);
 		}
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
