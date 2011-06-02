@@ -109,7 +109,7 @@ seajs.use("qcomcn",function(q){
     </ul>
 </div>
 <div class='tabscont'>
-<jsp:include page="models/weibo-list.jsp">
+<jsp:include page="models/weibo-list-unhead.jsp">
 	<jsp:param name="feedUrl" value="${urlPrefix}/people/${people.id}/weibo" />
 </jsp:include>
 </div>
