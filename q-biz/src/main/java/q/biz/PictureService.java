@@ -1,11 +1,8 @@
 package q.biz;
 
-import java.awt.image.BufferedImage;
 import java.io.InputStream;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import q.web.ResourceContext;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 public interface PictureService {
 
 	public boolean rotate(String url, int rotate) throws Exception;

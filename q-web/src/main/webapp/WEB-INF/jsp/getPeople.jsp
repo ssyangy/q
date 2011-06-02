@@ -118,6 +118,7 @@ seajs.use("qcomcn",function(q){
     
     <h3>他关注的<a class="lk" href="${urlPrefix}/people/${people.id}/following">更多</a></h3>
 	<ul class="slist">
+	<%--
 	<c:forEach items="${}" var="people" varStatus='stat'>
 	<c:choose>
 		<c:when test="${!stat.last}"><li></c:when>
@@ -129,11 +130,12 @@ seajs.use("qcomcn",function(q){
 			<a href="${urlPrefix}/people/${people.id}" class="lk" >${people.realName}</a>
 		</div>
 		</li>
-	</c:forEach>
+	</c:forEach>--%>
 	</ul>
 	
     <h3>关注他的<a class="lk" href="${urlPrefix}/people/${people.id}/follower">更多</a></h3>
 	<ul class="slist">
+	<%--
 	<c:forEach items="${}" var="people" varStatus='stat'>
 	<c:choose>
 		<c:when test="${!stat.last}"><li></c:when>
@@ -145,7 +147,7 @@ seajs.use("qcomcn",function(q){
 			<a href="${urlPrefix}/people/${people.id}" class="lk" >${people.realName}</a>
 		</div>
 		</li>
-	</c:forEach>
+	</c:forEach>--%>
 	</ul>
 	
     </div>
