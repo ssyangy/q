@@ -11,61 +11,57 @@
 seajs.use("qcomcn",function(q){
 	var $ = q.jq;
 	$(function(){
-		$("a.unwat").live('click', function () {
-          	  var stream = $(this).closest('li');
-          	  $.ajax({ url: '${urlPrefix}/people/${people.id}/following', o:$(this), type: 'POST',
-          			data:{_method:'delete'},
+		$("a.aunwat").click(function () {
+        	  var stream = $(this).closest('li');
+        	  $.ajax({ url: '${urlPrefix}/people/${people.id}/following', o:$(this), type: 'POST',
+        			data:{_method:'delete'},
 				   	success: function(m){
 				   		if (m && !m.id) return;
-				   		this.o.siblings('a.btnletter').hide();
-				   		this.o.after("<a class='btnb wat'>关注</a>");
+				   		this.o.siblings('a.abtnletter').hide();
+				   		this.o.after("<a class='btnb awat'>关注</a>");
 				   		this.o.remove();
 				    } });
 		});
-		$("a.wat").live('click', function () {
-          	  var stream = $(this).closest('li');
-          	  $.ajax({ url: '${urlPrefix}/people/${people.id}/following', o:$(this), type: 'POST',
+		$("a.awat").click(function () {
+        	  var stream = $(this).closest('li');
+        	  $.ajax({ url: '${urlPrefix}/people/${people.id}/following', o:$(this), type: 'POST',
 				   	success: function(m){
 				   		if (m && !m.id) return;
-				   		this.o.siblings('a.btnletter').show();
-				   		this.o.after("<a class='btnb unwat'>解除关注</a>");
+				   		this.o.siblings('a.abtnletter').show();
+				   		this.o.after("<a class='btnb aunwat'>解除关注</a>");
 				   		this.o.remove();
 				    } });
 		});
 
-		var dia_ret = $("#dia_ret");
-		$("a.btnat").live('click', function () {
-			var stream = $(this).closest('li');
-			$("textarea[name='content']",dia_ret).val('').val('//@${people.username}';
-			dia_ret.dialog("open");
+		var adia_ret = $("#adia_ret");
+		$("a.abtnat").click(function () {
+			$("textarea[name='content']",adia_ret).val('').val('//@${people.username}');
+			adia_ret.dialog("open");
 		});
-        $('input.donet', dia_ret).live("click",function () {
-			var dia = $('#dia_ret');
+      $('input.donet', adia_ret).live("click",function () {
 			$.ajax({ url: '${urlPrefix}/weibo', type: 'POST',
-				data: {content:$("textarea[name='content']",dia).val()},
+				data: {content:$("textarea[name='content']",adia_ret).val()},
 				success: function(m){
 					if (m && !m.id) return;
-					dia_ret.dialog("close");
+					adia_ret.dialog("close");
 				} });
-        });
+      });
 
-		var dia_letter = $("#dia_letter");
-		$("a.btnletter").live('click', function () {
-			var stream = $(this).closest('li');
-			$('div.wpeople',dia_letter).empty().html('发私信给：${people.realName}');
-			$("textarea[name='content']",dia_letter).val('');
-			$("#letter_url",dia_letter).val('${urlPrefix}/message?receiverId=${people.id}');
-			dia_letter.dialog("open");
+		var adia_letter = $("#adia_letter");
+		$("a.abtnletter").click(function () {
+			$('div.wpeople',adia_letter).empty().html('发私信给：${people.realName}');
+			$("textarea[name='content']",adia_letter).val('');
+			$("#letter_url",adia_letter).val('${urlPrefix}/message?receiverId=${people.id}');
+			adia_letter.dialog("open");
 		});
-        $('input.donet', dia_letter).live("click",function () {
-			var dia = $('#dia_letter');
-			$.ajax({ url: $("#letter_url",dia).val(), type: 'POST',
-				data: {content:$("textarea[name='content']",dia).val()},
+      $('input.donet', adia_letter).live("click",function () {
+			$.ajax({ url: $("#letter_url",adia_letter).val(), type: 'POST',
+				data: {content:$("textarea[name='content']",adia_letter).val()},
 				success: function(m){
 					if (m && !m.id) return;
-					dia.dialog("close");
+					adia_letter.dialog("close");
 				} });
-        });
+      });
 	});
 });
 </script>
@@ -122,12 +118,12 @@ seajs.use("qcomcn",function(q){
 </div>
 <jsp:include page="models/foot.jsp" />
 
-<div id="dia_ret" class="ui_dialog hide" title="@">
+<div id="adia_ret" class="ui_dialog hide" title="@">
 	<textarea name="content" style="width:100%;height:100px;"></textarea>
 	<input type='hidden' class='donet' />
 	<input type='hidden' class='undonet' />
 </div>
-<div id="dia_letter" class="ui_dialog hide" title="私信">
+<div id="adia_letter" class="ui_dialog hide" title="私信">
 	<div class="wpeople mb10"></div>
 	<input id='letter_url' type='hidden'></input>
 	<textarea name="content" style="width:100%;height:100px;"></textarea>

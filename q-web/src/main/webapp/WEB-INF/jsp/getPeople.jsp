@@ -35,7 +35,7 @@ seajs.use("qcomcn",function(q){
 
 		var adia_ret = $("#adia_ret");
 		$("a.abtnat").click(function () {
-			$("textarea[name='content']",adia_ret).val('').val('//@${people.username}';
+			$("textarea[name='content']",adia_ret).val('').val('//@${people.username}');
 			adia_ret.dialog("open");
 		});
         $('input.donet', adia_ret).live("click",function () {
