@@ -7,6 +7,7 @@
     require('jqplus/jq_mttext')($);
     require('jqplus/jq_initbow')($);
     require('jqplus/jq_countable')($);
+    require('jqplus/jq_focusaft')($);
     require('jqplus/jq_validation')($);
     exports.jq = $;
     var _ = require('underscore');

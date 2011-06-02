@@ -419,8 +419,8 @@
     <Content Include="content\images\face\78.gif" />
     <Content Include="content\images\face\79.gif" />
     <Content Include="content\images\face\8.gif" />
+    <Content Include="content\images\face\80.gif" />
     <Content Include="content\images\face\81.gif" />
-    <Content Include="content\images\face\82.gif" />
     <Content Include="content\images\face\9.gif" />
     <Content Include="content\images\fancy_closebox.png" />
     <Content Include="content\images\fancy_left.png" />
@@ -601,7 +601,7 @@
     <Content Include="scripts\jqplus\jq_maxlimit.js" />
     <Content Include="scripts\jqplus\jq_target.js" />
     <Content Include="scripts\jqplus\jq_initbow.js" />
-    <Content Include="scripts\jqplus\jq_focusafter.js" />
+    <Content Include="scripts\jqplus\jq_focusaft.js" />
     <Content Include="scripts\jquery.js" />
     <Content Include="scripts\jq_area.js" />
     <Content Include="scripts\klass.js" />
