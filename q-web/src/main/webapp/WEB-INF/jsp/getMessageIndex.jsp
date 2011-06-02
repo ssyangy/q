@@ -5,20 +5,21 @@
 </jsp:include>
 <link href="${staticUrlPrefix}/content/slider.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
-#slidbox{width:580px;}
-.main-wrap{padding-right:20px;}
-.msgbox{border:1px solid #ddd;}
-.msgmem{background-color:#f6f6f6;position:relative;padding:12px 20px 15px;}
+.sldlist{width:570px;}
+#sld2{left:570px;}
+
+.msgmem{background-color:#f6f6f6;position:relative;padding:12px 20px 15px;
+border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;}
 .msgmem p{line-height:24px;height:24px;}
 .memdel{position:absolute;top:15px;right:20px;_right:30px;}
-.msgrepbox{padding:15px 20px;}
+.msgrepbox{padding:15px 20px;border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;}
 .msgrepbox .mttextar{width:99%;height:40px;}
 .repactbox{text-align:right;margin-top:4px;}
-#sld2{border-top:1px solid #ddd;}
 </style>
 <script type="text/javascript">
-mods.push(function(q){
+seajs.use('qcomcn',function(q){
     var $ = q.jq;
+    $(function(){
 	seajs.use('ICanHaz',function(ich){
 
         var sldroot = $('#sldroot');
@@ -54,7 +55,7 @@ mods.push(function(q){
         });
 
         var sld2 = $("#sld2");
-        var sld2ul = $('ul.sldlist', sld2);
+        var sld2ul = $('#sld2ul', sld2);
         var partners = $('span.partner', sld2);
         var sender = $('span.sender', sld2);
         var mems = $('p.mems', sld2);
@@ -72,7 +73,7 @@ mods.push(function(q){
             $.ajax({ url: "${urlPrefix}/message/" + window.msgid + "/reply", msg: $(this),
                 data: { size: 10, startid: '999999999999999999' },
                 success: function (j) {
-                    $('#slider').animate({ left: -580 }, { duration: 500, easing: "swing" });
+                    $('#slider').animate({ left: -570 }, { duration: 500, easing: "swing" });
                     sender.html(this.msg.data('sender'));
                     partners.empty();
                     mems.empty();
@@ -146,6 +147,7 @@ mods.push(function(q){
             $("#tboxrep").val("回复：" + $('a.scn', stream).text() + " ").focus();
         });
     });
+    });
 });
 </script>
 
@@ -186,7 +188,7 @@ mods.push(function(q){
 						<span class="act"><a class="mrrep lk">回复</a></span>
                     </li>
                 </script>
-                <div id='sld2'>
+                <div id='sld2' class="sldlist">
                 	<div class="msgmem">
 						<p class="pr100 mb10"><span class='sender'></span> --> <span class='partner'></span></p>
 						<p class="mems"></p>
@@ -197,7 +199,7 @@ mods.push(function(q){
 						<input type="hidden" id="replaysource"/>
 						<div class='repactbox'><a id="btnrep" class="btnr">回复</a></div>
 					</div>
-					<ul class="sldlist"></ul>
+					<ul id="sld2ul"></ul>
 					<div class="pagger">
 					<a class="lk mr10 mrprev hide">上一页</a>
 					<a class="lk mrnext hide">下一页</a>

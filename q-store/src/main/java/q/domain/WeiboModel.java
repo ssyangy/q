@@ -45,7 +45,15 @@ public abstract class WeiboModel extends AbstractDomain implements Serializable 
 
 	private People people;
 
+	/**
+	 * quote weibo
+	 */
 	private WeiboModel quote;
+	
+	/**
+	 * quote reply
+	 */
+	private WeiboReply reply;
 
 	private String picturePath;
 
@@ -250,6 +258,20 @@ public abstract class WeiboModel extends AbstractDomain implements Serializable 
 	@Override
 	public String toString() {
 		return "Weibo [senderId=" + senderId + ", senderRealName=" + senderRealName + ", quoteWeiboId=" + quoteWeiboId + ", quoteSenderId=" + quoteSenderId + ", replyWeiboId=" + replyWeiboId + ", replySenderId=" + replySenderId + ", fromType=" + fromType + ", fromId=" + fromId + ", content=" + content  + ", longitude=" + longitude + ", latitude=" + latitude +", status=" + status + ", fromPostfix=" + fromPostfix + ", id=" + id + ", created=" + created + ", modified=" + modified + ", picturePath=" + picturePath +"]";
+	}
+
+	/**
+	 * @param reply the reply to set
+	 */
+	public void setReply(WeiboReply reply) {
+		this.reply = reply;
+	}
+
+	/**
+	 * @return the reply
+	 */
+	public WeiboReply getReply() {
+		return reply;
 	}
 
 }

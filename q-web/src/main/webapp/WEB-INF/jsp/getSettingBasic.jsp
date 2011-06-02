@@ -92,7 +92,7 @@ function check() {
 </script>
 <div class="mingrid">
 
-<h2>修改密码</h2>
+<h2>设置</h2>
 <div class="ui-tabs mt10">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
         <li class="ui-state-default crt2 ui-state-un"><a href="${urlPrefix}/profile/avatar">头像</a></li>
@@ -101,7 +101,7 @@ function check() {
     </ul>
 </div>
 <div class='tabscont'>
-<h2 class="f14" style="margin:30px 0;">添加或修改你的头像</h2>
+<h2 class="f14" style="margin:30px 0;">修改密码</h2>
 <table class='qform ml20'>
 	<tr>
 			<th align="right">当前密码：</th>

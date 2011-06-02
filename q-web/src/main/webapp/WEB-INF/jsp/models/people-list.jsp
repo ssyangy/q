@@ -58,32 +58,34 @@ seajs.use("qcomcn",function(q){
 
 		var dia_ret = $("#dia_ret");
 		$("a.btnat").live('click', function () {
-			var stream = $(this).closest('li');
-			$("textarea[name='content']",dia_ret).val('').val('//@'+$('span.username',stream).text().trim());
 			dia_ret.dialog("open");
+			var stream = $(this).closest('li');
+			$("textarea[name='content']",dia_ret).val('').val('//@'+$('span.username',stream).text()).focusaft();
 		});
         $('input.donet', dia_ret).live("click",function () {
 			var dia = $('#dia_ret');
 			$.ajax({ url: '${urlPrefix}/weibo', type: 'POST',
 				data: {content:$("textarea[name='content']",dia).val()},
 				success: function(m){
+					if (m && !m.id) return;
 					dia_ret.dialog("close");
 				} });
         });
 
 		var dia_letter = $("#dia_letter");
 		$("a.btnletter").live('click', function () {
-			var stream = $(this).closest('li');
-			$('div.wpeople',dia_letter).empty().html('发私信给：'+ $('span.username',stream).text().trim());
-			$("textarea[name='content']",dia_letter).val('');
-			$("#letter_url",dia_letter).val('${urlPrefix}/message?receiverId='+stream.attr('people_id'));
 			dia_letter.dialog("open");
+			var stream = $(this).closest('li');
+			$('div.wpeople',dia_letter).empty().html('发私信给：'+ $('span.username',stream).text());
+			$("textarea[name='content']",dia_letter).val('').focusaft();
+			$("#letter_url",dia_letter).val('${urlPrefix}/message?receiverId='+stream.attr('people_id'));
 		});
         $('input.donet', dia_letter).live("click",function () {
 			var dia = $('#dia_letter');
 			$.ajax({ url: $("#letter_url",dia).val(), type: 'POST',
 				data: {content:$("textarea[name='content']",dia).val()},
 				success: function(m){
+					if (m && !m.id) return;
 					dia.dialog("close");
 				} });
         });

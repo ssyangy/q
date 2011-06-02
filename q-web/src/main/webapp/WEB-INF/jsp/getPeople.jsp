@@ -35,8 +35,8 @@ seajs.use("qcomcn",function(q){
 
 		var adia_ret = $("#adia_ret");
 		$("a.abtnat").click(function () {
-			$("textarea[name='content']",adia_ret).val('').val('//@${people.username}');
 			adia_ret.dialog("open");
+			$("textarea[name='content']",adia_ret).val('').val('//@${people.username}').focusaft();
 		});
         $('input.donet', adia_ret).live("click",function () {
 			$.ajax({ url: '${urlPrefix}/weibo', type: 'POST',
@@ -49,10 +49,10 @@ seajs.use("qcomcn",function(q){
 
 		var adia_letter = $("#adia_letter");
 		$("a.abtnletter").click(function () {
-			$('div.wpeople',adia_letter).empty().html('发私信给：${people.realName}');
-			$("textarea[name='content']",adia_letter).val('');
-			$("#letter_url",adia_letter).val('${urlPrefix}/message?receiverId=${people.id}');
 			adia_letter.dialog("open");
+			$('div.wpeople',adia_letter).empty().html('发私信给：${people.realName}');
+			$("textarea[name='content']",adia_letter).val('').focusaft();
+			$("#letter_url",adia_letter).val('${urlPrefix}/message?receiverId=${people.id}');
 		});
         $('input.donet', adia_letter).live("click",function () {
 			$.ajax({ url: $("#letter_url",adia_letter).val(), type: 'POST',
@@ -109,7 +109,7 @@ seajs.use("qcomcn",function(q){
     </ul>
 </div>
 <div class='tabscont'>
-<jsp:include page="models/weibo-list.jsp">
+<jsp:include page="models/weibo-list-unhead.jsp">
 	<jsp:param name="feedUrl" value="${urlPrefix}/people/${people.id}/weibo" />
 </jsp:include>
 </div>

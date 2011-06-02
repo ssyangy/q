@@ -1,23 +1,12 @@
 package q.web.weibo;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.CollectionUtils;
-
-import q.dao.DaoHelper;
-import q.dao.FavoriteDao;
-import q.dao.GroupDao;
-import q.dao.PeopleDao;
-import q.dao.WeiboDao;
-import q.dao.page.WeiboPage;
-import q.domain.Weibo;
-import q.util.CollectionKit;
+import q.biz.WeiboService;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotExistException;
 
 /**
  * @author seanlinwang
@@ -26,28 +15,11 @@ import q.web.ResourceContext;
  * 
  */
 public class GetPeopleWeibo extends Resource {
-	private PeopleDao peopleDao;
 
-	public void setPeopleDao(PeopleDao peopleDao) {
-		this.peopleDao = peopleDao;
-	}
+	private WeiboService weiboService;
 
-	private WeiboDao weiboDao;
-
-	public void setWeiboDao(WeiboDao weiboDao) {
-		this.weiboDao = weiboDao;
-	}
-
-	private GroupDao groupDao;
-
-	public void setGroupDao(GroupDao groupDao) {
-		this.groupDao = groupDao;
-	}
-
-	private FavoriteDao favoriteDao;
-
-	public void setFavoriteDao(FavoriteDao favoriteDao) {
-		this.favoriteDao = favoriteDao;
+	public void setWeiboService(WeiboService weiboService) {
+		this.weiboService = weiboService;
 	}
 
 	@Override
@@ -57,52 +29,7 @@ public class GetPeopleWeibo extends Resource {
 		int size = context.getInt("size", 10);
 		long startId = context.getIdLong("startId", IdCreator.MAX_ID);
 		int type = context.getInt("type", 0);
-		int asc = 1;
-		WeiboPage page = new WeiboPage();
-		if (type == asc) { // 1 indicate asc
-			page.setDesc(false);
-		} else {
-			page.setDesc(true);
-		}
-		boolean hasPrev = false;
-		boolean hasNext = false;
-		int fetchSize = size + 1;
-		page.setSize(fetchSize);
-		if (startId > 0) {
-			page.setStartId(startId);
-		}
-		page.setSenderId(peopleId);
-		List<Weibo> weibos = weiboDao.getWeibosByPage(page);
-		Map<String, Object> api = new HashMap<String, Object>();
-		if (CollectionKit.isNotEmpty(weibos)) {
-			if (weibos.size() == fetchSize) {
-				if (type == asc) { // more than one previous page
-					hasPrev = true;
-				} else { // more than one next page
-					hasNext = true;
-				}
-				weibos.remove(weibos.size() - 1);// remove last one
-			}
-			if (type == asc) { // this action from next page
-				hasNext = true;
-			} else if (startId != IdCreator.MAX_ID) {// this action from previous page
-				hasPrev = true;
-			}
-			if (type == asc) { // reverse asc to desc
-				Weibo[] array = weibos.toArray(new Weibo[weibos.size()]);
-				CollectionUtils.reverseArray(array);
-				weibos = Arrays.asList(array);
-			}
-			DaoHelper.injectWeiboModelsWithQuote(weiboDao, weibos);
-			DaoHelper.injectWeiboModelsWithPeople(peopleDao, weibos);
-			DaoHelper.injectWeiboModelsWithFrom(groupDao, weibos);
-			if (loginPeopleId > 0) {
-				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
-			}
-			api.put("weibos", weibos);
-		}
-		api.put("hasPrev", hasPrev);
-		api.put("hasNext", hasNext);
+		Map<String, Object> api = weiboService.getPeopleWeiboPagination(peopleId, loginPeopleId, size, startId, type);
 		context.setModel("api", api);
 
 	}
@@ -114,6 +41,9 @@ public class GetPeopleWeibo extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-
+		long peopleId = context.getResourceIdLong();
+		if (IdCreator.isNotValidId(peopleId)) {
+			throw new PeopleNotExistException();
+		}
 	}
 }

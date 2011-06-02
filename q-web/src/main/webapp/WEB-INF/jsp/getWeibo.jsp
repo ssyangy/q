@@ -70,25 +70,7 @@ seajs.use(['qcomcn','app/weibo_rep','ICanHaz'],function(q, rep, ichp){
 	    </form>
     </div>
     <div class="tw-reps">
-<script type="text/html" id="stream_ext">
-	{{#people}}
-	<a href="${urlPrefix}/people/{{id}}"><img class="wh24 sldimg" src="{{avatarPath}}-24" alt="head" /></a>
-	<p>
-	<a class='lk' href='${urlPrefix}/people/{{id}}'>{{screenName}}</a>
-	{{/people}}
-	{{text}}
-	</p>
-    <p class='rel'>
-		<span class="stat gray">{{screenTime}}</span>
-		<span class='actions'>
-        <a href="javascript:void(0);" class='lk lkrb r_replay'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
-        <a href="javascript:void(0);" class='lk lkrb r_resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
-        <a href="javascript:void(0);" class='lk lkrb r_unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
-        <a href="javascript:void(0);" class='lk lkrb r_fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
-		{{#isown}}<a href="javascript:void(0);" class='lk r_del'>删除</a>{{/isown}}
-		</span>
-	</p>
-</script>  
+	<jsp:include page="icanhaz/iStream_ext.jsp" />
     <ul class="msglist mb5"></ul>
     <a class='lk mr10 rrprev hide'>上一页</a>
     <a class='lk rrnext hide'>下一页</a>
@@ -98,13 +80,4 @@ seajs.use(['qcomcn','app/weibo_rep','ICanHaz'],function(q, rep, ichp){
     
 </div></div>
 
-<div id="dia_ret" class="ui_dialog" title="转发">
-	<div class="wpeople mb10"></div>
-	<div class="wsor mb10"></div>
-	<div class="wcontent mb10"></div>
-	<input class='ret_url' type='hidden' ></input>
-	<textarea name="content" class="mttextar_val" style="width:100%"></textarea>
-    <img src="${staticUrlPrefix}/content/images/ajax/ajaxload.gif" class="ajaxload hide" alt="ajaxload" />
-    <input type='hidden' class='donet' />
-</div>	
 </div><jsp:include page="models/foot.jsp" />

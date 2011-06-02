@@ -9,6 +9,7 @@ package q.web.exception;
  * 
  */
 public class ErrorCode {
+	public static final String EC_REQUEST_PARAMETER_INVALID = "20001";
 
 	public static final String EC_PEOPLE_NOT_EXIST = "40000";
 
@@ -20,5 +21,8 @@ public class ErrorCode {
 
 	public static final String EC_PEOPLE_NOT_PERMIT = "40004";
 
-	public static final String EC_REQUEST_PARAMETER_INVALID = "20001";
+	public static final String EC_GROUP_NOT_EXIST = "50000";
+
+	public static final String EC_GROUP_ALREADY_EXIST = "50001";
+
 }

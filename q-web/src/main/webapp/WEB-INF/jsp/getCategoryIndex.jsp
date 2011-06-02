@@ -109,9 +109,9 @@ mods.push(function (q) {
 				</li>
 				</c:forEach>
             </ul>
-            <div id='sld2'></div>
+            <div id='sld2' class="sldlist"></div>
             <script type="text/html" id="group">
-					<ul id="sldtrunk" class="sldlist">
+					<ul id="sldtrunk">
 					{{#groups}}
                     <li gid={{id}}>
                         <img src="{{avatarPath}}-48" alt="avtor" class="sldimg" />

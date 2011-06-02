@@ -3,6 +3,9 @@
  */
 package q.biz;
 
+import java.sql.SQLException;
+import java.util.Map;
+
 import q.domain.Weibo;
 import q.domain.WeiboReply;
 
@@ -39,5 +42,58 @@ public interface WeiboService {
 	 * @throws Exception
 	 */
 	void addReplyRetweet(Weibo retweet) throws Exception;
+
+	/**
+	 * @param peopleId
+	 * @param loginPeopleId
+	 * @param size
+	 * @param startId
+	 * @param type
+	 * @return
+	 * @throws SQLException
+	 */
+	Map<String, Object> getPeopleWeiboPagination(long peopleId, long loginPeopleId, int size, long startId, int type) throws Exception;
+
+	/**
+	 * @param groupId
+	 * @param loginPeopleId
+	 * @param size
+	 * @param startId
+	 * @param type
+	 * @return
+	 * @throws Exception
+	 */
+	Map<String, Object> getGroupWeiboPagination(long groupId, long loginPeopleId, int size, long startId, int type) throws Exception;
+
+	/**
+	 * @param loginPeopleId
+	 * @param page
+	 * @param size
+	 * @param startId
+	 * @param type
+	 * @return
+	 * @throws Exception
+	 */
+	Map<String, Object> getWeiboReplyPagination(long weiboId, long loginPeopleId, int size, long startId, int type) throws Exception;
+
+	/**
+	 * @param loginPeopleId
+	 * @param size
+	 * @param startId
+	 * @param type
+	 * @return
+	 * @throws Exception
+	 */
+	Map<String, Object> getReplyReceivedPagination(long loginPeopleId, int size, long startId, int type) throws Exception;
+
+	/**
+	 * @param loginPeopleId
+	 * @param size
+	 * @param startId
+	 * @param type
+	 * @return
+	 * @throws Exception
+	 */
+	Map<String, Object> getReplySendedPagination(long loginPeopleId, int size, long startId, int type) throws Exception;
 
 }
