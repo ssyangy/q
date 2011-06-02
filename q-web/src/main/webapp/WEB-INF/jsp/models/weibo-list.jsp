@@ -10,8 +10,8 @@ seajs.use(['qcomcn','app/weibo','underscore'], function (q, w, _) {
 			var ajaxweibo = function(size,startid){
 				$.ajax({ url: "${param['feedUrl']}?tab=${param['tab']}",
 					data: {size:size, startId:startid, search:"${param['search']}"},
-					success: function(json){
-						$(json.weibos).each(function(){
+					success: function(j){
+						$(j.weibos).each(function(){
 							this.old = true;
 							var t = new w.WeiboModel(this);
 							w.weibos.add(t);
