@@ -11,8 +11,11 @@
     #index .header .titles{top:45px;left:218px;width:500px;height:20px;background:url(../content/images/titles2.png) no-repeat scroll 0 0;}
     .errorTT{height:37px;line-height:37px;color:#333;font-size:14px;background:url(../content/images/exclamation.png) no-repeat scroll left center;padding:10px 0 10px 50px;margin:35px 0;}
     .signuptgt{position:absolute;left:380px;top:50px;border-left:1px solid #dcdcdc;height:200px;padding-left:90px;}
-    h5{font-size:16px;font-weight:700;color:#00649b;margin-bottom:40px;}
-    .qform td{}
+    .signuptgt p{margin-top:8px;}
+    h5{font-size:16px;font-weight:700;color:#00649b;margin-bottom:22px;}
+    table.qform td{padding:8px 0 8px 0;}
+    table.qform input.mttext{height:26px;line-height:26px;width:200px;}
+    table.qform td[align="right"]{padding-top:16px;}
     </style>
 	<script src="/scripts/sea.js")" type="text/javascript"></script>
 	<script type="text/javascript">
@@ -37,25 +40,28 @@
     <table class='qform'>
 		<tr>
 			<td align="right">邮箱：</td>
-			<td><input type='text' class='mttext' size='23'></td>
+			<td><input type='text' class='mttext'></td>
 		</tr>
 		<tr>
 			<td align="right">密码：</td>
-			<td><input type='text' class='mttext' size='23'><a href="#" class='lk ml10'>忘记密码</a></td>
+			<td><input type='text' class='mttext'></td>
 		</tr>
 		<tr>
 			<td></td>
-			<td><input type="checkbox"> 记住我</td>
+			<td><a href="#" class='lk'>忘记密码</a></td>
 		</tr>
 		<tr>
 			<td></td>
-			<td><input class='btnr' type="button" value="登 录" /></td>
+			<td>
+            <input type="checkbox" class="vaip"> 保持登录状态
+            <input class='btnr ml10' type="button" value="登 录" />
+            </td>
 		</tr>
 	</table>
 
         <div class="signuptgt">
         <h5>注册</h5>
-        还不是Q.com.cn用户？<a href="signup.html" class='btnb'>立即注册！</a>
+        <p>还不是Q.com.cn用户？<a href="signup.html" class='btnb'>立即注册！</a></p>
         </div>
     </div>
 
