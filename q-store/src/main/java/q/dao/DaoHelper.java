@@ -600,6 +600,66 @@ public class DaoHelper {
 		}
 	}
 
+	public static void injectWeiboReplyWithReplyOrQuote(WeiboDao weiboDao, List<WeiboReply> weiboReplies) throws SQLException {
+		if (CollectionKit.isEmpty(weiboReplies)) {
+			return;
+		}
+
+		Set<Long> replyIds = new HashSet<Long>(weiboReplies.size());
+		Set<Long> quoteIds = new HashSet<Long>(weiboReplies.size());
+		for (WeiboReply reply : weiboReplies) {
+			if (reply.getReplyWeiboId() > 0) { // reply has higher priority to quote
+				replyIds.add(reply.getReplyWeiboId());
+			} else if (reply.getQuoteWeiboId() > 0) {
+				quoteIds.add(reply.getQuoteWeiboId());
+			}
+		}
+		if (CollectionKit.isEmpty(quoteIds) && CollectionKit.isEmpty(replyIds)) {
+			return; // return if no replyId and quoteId
+		}
+
+		Map<Long, Weibo> quoteMap = null;
+		if (CollectionKit.isNotEmpty(quoteIds)) {
+			List<Weibo> quotes = weiboDao.getWeibosByIds(new ArrayList<Long>(quoteIds), true);
+			if (CollectionKit.isNotEmpty(quotes)) {
+				quoteMap = new HashMap<Long, Weibo>(quotes.size());
+				for (Weibo quote : quotes) {
+					quoteMap.put(quote.getId(), quote);
+				}
+			}
+		}
+
+		Map<Long, WeiboReply> replyMap = null;
+		if (CollectionKit.isNotEmpty(replyIds)) {
+			List<WeiboReply> replies = weiboDao.getWeiboRepliesByIds(new ArrayList<Long>(replyIds), true);
+			if (CollectionKit.isNotEmpty(replies)) {
+				replyMap = new HashMap<Long, WeiboReply>(replies.size());
+				for (WeiboReply reply : replies) {
+					replyMap.put(reply.getId(), reply);
+				}
+			}
+		}
+
+		if (replyMap.size() > 0 || quoteMap.size() > 0) {
+			for (WeiboReply weiboReply : weiboReplies) {
+				if (weiboReply.getReplyWeiboId() > 0) {
+					WeiboReply reply = replyMap.get(weiboReply.getReplyWeiboId());
+					if (reply.getStatus() == Status.DELETE.getValue()) {
+						reply.setContent(null);
+					}
+					weiboReply.setReply(reply);
+				} else if (weiboReply.getQuoteWeiboId() > 0) {
+					Weibo quote = quoteMap.get(weiboReply.getQuoteWeiboId());
+					if (quote.getStatus() == Status.DELETE.getValue()) {
+						quote.setContent(null);
+					}
+					weiboReply.setQuote(quote);
+				}
+			}
+		}
+
+	}
+
 	/**
 	 * @param weiboDao
 	 * @param weibo

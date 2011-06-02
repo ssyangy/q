@@ -24,6 +24,8 @@
 		<property name="shortUrlService" ref="shortUrlService" />
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
+		<property name="groupDao" ref="groupDao" />
+		<property name="favoriteDao" ref="favoriteDao" />
 	</bean>
 	<bean id="mailService" class="q.biz.impl.DefaultMailService">
 		<property name="fromAddress" value="${q.mail.address}" />

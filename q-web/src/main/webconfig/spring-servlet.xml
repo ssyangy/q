@@ -16,6 +16,8 @@
 			<props>
 				<prop key="q.web.exception.PeopleNotPermitException">error/403</prop>
 				<prop key="q.web.ResourceNotFoundException">error/404</prop>
+				<prop key="q.web.PeopleNotExistException">error/404</prop>
+				<prop key="q.web.GroupNotExistException">error/404</prop>
 			</props>
 		</property>
 		<property name="statusCodes">
@@ -599,16 +601,10 @@
 
 	<!-- weibo web -->
 	<bean id="getPeopleWeibo" class="q.web.weibo.GetPeopleWeibo">
-		<property name="weiboDao" ref="weiboDao" />
-		<property name="peopleDao" ref="peopleDao" />
-		<property name="groupDao" ref="groupDao" />
-		<property name="favoriteDao" ref="favoriteDao" />
+		<property name="weiboService" ref="weiboService"/>
 	</bean>
 	<bean id="getGroupWeibo" class="q.web.weibo.GetGroupWeibo">
-		<property name="weiboDao" ref="weiboDao" />
-		<property name="peopleDao" ref="peopleDao" />
-		<property name="groupDao" ref="groupDao" />
-		<property name="favoriteDao" ref="favoriteDao" />
+		<property name="weiboService" ref="weiboService"/>
 	</bean>
 	<bean id="addWeibo" class="q.web.weibo.AddWeibo">
 		<property name="weiboService" ref="weiboService" />
@@ -629,10 +625,7 @@
 		<property name="favoriteDao" ref="favoriteDao" />
 	</bean>
 	<bean id="getWeiboReply" class="q.web.weibo.GetWeiboReply">
-		<property name="weiboDao" ref="weiboDao" />
-		<property name="peopleDao" ref="peopleDao" />
-		<property name="groupDao" ref="groupDao" />
-		<property name="favoriteDao" ref="favoriteDao" />
+		<property name="weiboService" ref="weiboService" />
 	</bean>
 	<bean id="addWeiboReply" class="q.web.weibo.AddWeiboReply">
 		<property name="weiboDao" ref="weiboDao" />
@@ -664,17 +657,13 @@
 		<property name="weiboService" ref="weiboService"></property>
 	</bean>
 	<bean id="getReplyReceived" class="q.web.weibo.GetReplyReceived">
-		<property name="favoriteDao" ref="favoriteDao" />
-		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
-		<property name="groupDao" ref="groupDao" />
 		<property name="cacheService" ref="cacheService" />
+		<property name="weiboService" ref="weiboService"/>
 	</bean>
 	<bean id="getReplySended" class="q.web.weibo.GetReplySended">
-		<property name="favoriteDao" ref="favoriteDao" />
-		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
-		<property name="groupDao" ref="groupDao" />
+		<property name="weiboService" ref="weiboService"/>
 	</bean>
 	<bean id="getAtIndex" class="q.web.weibo.getAtIndex">
 		<property name="weiboDao" ref="weiboDao" />
