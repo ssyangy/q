@@ -3,6 +3,7 @@
 
     <div id="footer">
     </div>
+
 <script type="text/javascript">
 seajs.use('qcomcn', function (q) {
     $ = q.jq;
@@ -68,6 +69,14 @@ seajs.use('qcomcn', function (q) {
 		</tr>		
 	</table>
     <a href="${urlPrefix}/people/new" class="lk">还不是Q.com.cn用户？立即去注册！</a>
+</div>
+
+<div id="dia_ret" class="ui_dialog hide" title="转发">
+	<div class="wpeople mb10"></div>
+	<div class="wcontent mb10"></div>
+	<textarea name="content" class="mttextar" style="width:100%"></textarea>
+    <img src="${staticUrlPrefix}/content/images/ajax/ajaxload.gif" class="ajaxload hide" alt="ajaxload" />
+    <input type='hidden' class='donet' />
 </div>
 
 <div id="dialog_target"></div>
