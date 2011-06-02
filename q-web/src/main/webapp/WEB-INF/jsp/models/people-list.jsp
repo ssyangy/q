@@ -63,13 +63,11 @@ seajs.use("qcomcn",function(q){
 			dia_ret.dialog("open");
 		});
         $('input.donet', dia_ret).live("click",function () {
-			$('img.ajaxload', this).show();
 			var dia = $('#dia_ret');
 			$.ajax({ url: '${urlPrefix}/weibo', type: 'POST',
 				data: {content:$("textarea[name='content']",dia).val()},
 				success: function(m){
 					dia_ret.dialog("close");
-					$('img.ajaxload', dia_fow).hide();
 				} });
         });
 
@@ -82,13 +80,11 @@ seajs.use("qcomcn",function(q){
 			dia_letter.dialog("open");
 		});
         $('input.donet', dia_letter).live("click",function () {
-			$('img.ajaxload', this).show();
 			var dia = $('#dia_letter');
 			$.ajax({ url: $("#letter_url",dia).val(), type: 'POST',
 				data: {content:$("textarea[name='content']",dia).val()},
 				success: function(m){
 					dia.dialog("close");
-					$('img.ajaxload', dia).hide();
 				} });
         });
 	});
@@ -115,7 +111,6 @@ seajs.use("qcomcn",function(q){
 
 <div id="dia_ret" class="ui_dialog hide" title="@">
 	<textarea name="content" style="width:100%;height:100px;"></textarea>
-	<img src="${staticUrlPrefix}/content/images/ajax/ajaxload.gif" class="ajaxload" alt="ajaxload" />
 	<input type='hidden' class='donet' />
 	<input type='hidden' class='undonet' />
 </div>
@@ -123,7 +118,6 @@ seajs.use("qcomcn",function(q){
 	<div class="wpeople mb10"></div>
 	<input id='letter_url' type='hidden'></input>
 	<textarea name="content" style="width:100%;height:100px;"></textarea>
-	<img src="${staticUrlPrefix}/content/images/ajax/ajaxload.gif" class="ajaxload" alt="ajaxload" />
 	<input type='hidden' class='donet' />
 	<input type='hidden' class='undonet' />
 </div>
