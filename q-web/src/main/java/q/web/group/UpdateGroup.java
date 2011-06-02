@@ -26,11 +26,11 @@ import q.web.exception.RequestParameterInvalidException;
 
 /**
  * AddGroup action
- * 
+ *
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 19, 2011
- * 
+ *
  */
 public class UpdateGroup extends Resource {
 	private GroupDao groupDao;
@@ -107,7 +107,7 @@ public class UpdateGroup extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
@@ -127,6 +127,9 @@ public class UpdateGroup extends Resource {
 		if (group.getCreatorId() != loginPeopleId) {
 			throw new PeopleNotPermitException();
 		}
+		GroupValidator.validateGroupName(context.getString("name"));
+		GroupValidator.validateIntro(context.getString("intro"));
+
 		long categoryId = context.getIdLong("categoryId");
 		if (IdCreator.isNotValidId(categoryId)) {
 			throw new RequestParameterInvalidException("category:invalid");

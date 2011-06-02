@@ -341,7 +341,7 @@
 	<bean id="getFollowerIndex" class="q.web.people.GetFollowerIndex">
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="cacheService" ref="cacheService" />
-	</bean>	
+	</bean>
 	<bean id="addPeopleFollowing" class="q.web.people.AddPeopleFollowing">
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="notifyService" ref="notifyService" />
@@ -480,6 +480,7 @@
 	<!-- group web -->
 	<bean id="addGroup" class="q.web.group.AddGroup">
 		<property name="groupDao" ref="groupDao" />
+		<property name="categoryDao" ref="categoryDao" />
 		<property name="searchService" ref="searchService" />
 		<property name="pictureService" ref="pictureService" />
 	</bean>

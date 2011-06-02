@@ -8,9 +8,11 @@ package q.web.group;
  */
 import q.biz.PictureService;
 import q.biz.SearchService;
+import q.dao.CategoryDao;
 import q.dao.GroupDao;
 import q.domain.Group;
 import q.util.IdCreator;
+import q.util.StringKit;
 import q.web.Resource;
 import q.web.ResourceContext;
 import q.web.exception.PeopleNotLoginException;
@@ -43,6 +45,16 @@ public class AddGroup extends Resource {
 		this.pictureService = pictureService;
 	}
 
+	private CategoryDao categoryDao;
+
+	public CategoryDao getCategoryDao() {
+		return categoryDao;
+	}
+
+	public void setCategoryDao(CategoryDao categoryDao) {
+		this.categoryDao = categoryDao;
+	}
+
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		Group group = new Group();
@@ -62,7 +74,7 @@ public class AddGroup extends Resource {
 			group.setLongitude(Double.parseDouble(context.getString("longitude")));
 		}
 		if (context.getString("groupImage") != "") {
-			group.setAvatarPath(context.getString("groupImage"));
+			group.setAvatarPath(this.pictureService.getImageUrl() + context.getString("groupImage"));
 		} else {
 			group.setAvatarPath(pictureService.getDefaultGroupAvatarPath());
 		}
@@ -87,18 +99,19 @@ public class AddGroup extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-
-		GroupValidator.validateGroupName(context.getString("name"));
-
 		long loginPeopleId = context.getCookiePeopleId();
 		if (IdCreator.isNotValidId(loginPeopleId)) {
 			throw new PeopleNotLoginException();
 		}
+		GroupValidator.validateGroupName(context.getString("name"));
 
 		long categoryId = context.getIdLong("categoryId");
-		if (IdCreator.isNotValidId(categoryId)) {
-			throw new RequestParameterInvalidException("category:invalid");
+		GroupValidator.validateCategory(categoryId);
+		if(null == categoryDao.getCategoryById(categoryId)){
+			throw new RequestParameterInvalidException();
 		}
+		GroupValidator.validateImg(context.getString("groupImage"));
+		GroupValidator.validateIntro(context.getString("intro"));
 
 	}
-}
+	}
