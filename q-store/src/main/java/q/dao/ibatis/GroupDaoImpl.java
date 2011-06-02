@@ -290,7 +290,7 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 	public List<Group> getRecommendGroupsByPage(GroupRecommendPage page) throws SQLException {
 		// FIXME sean, use new groups instead
 		GroupPage gpage = new GroupPage();
-		gpage.setSize(6);
+		gpage.setSize(9);
 		return this.getGroupsByPage(gpage);
 	}
 
