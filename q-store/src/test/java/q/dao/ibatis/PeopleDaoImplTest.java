@@ -34,7 +34,7 @@ public class PeopleDaoImplTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		peopleDao = (PeopleDao) TestSupport.getBean("peopleDao");
+		peopleDao = (PeopleDao) StoreTestSupport.getBean("peopleDao");
 	}
 
 	/**

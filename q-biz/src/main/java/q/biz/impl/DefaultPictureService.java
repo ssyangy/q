@@ -11,12 +11,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
-
-import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
@@ -24,8 +20,6 @@ import q.biz.PictureService;
 import q.commons.http.JdkHttpClient;
 import q.commons.image.ImageKit;
 import q.util.IdCreator;
-import q.web.DefaultResourceContext;
-import q.web.ResourceContext;
 
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
@@ -145,25 +139,26 @@ public class DefaultPictureService implements PictureService {
 		}
 		return true;
 	}
+
 	public static boolean postPicturesTwo(URL url, String path, BufferedImage[] images) throws IOException {
 		for (int i = 0; i < images.length; i++) {
 			BufferedImage temp = images[i];
 			Map<String, CharSequence> payload = new HashMap<String, CharSequence>();
-			payload.put("imgdir", path.substring(path.indexOf("/g")+1,path.lastIndexOf("/")+1));
+			payload.put("imgdir", path.substring(path.indexOf("/g") + 1, path.lastIndexOf("/") + 1));
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
 			JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
 			encoder.encode(temp);
 			InputStream is = new ByteArrayInputStream(os.toByteArray());
 			if (i == 0) {
 				HttpURLConnection connection = JdkHttpClient.getHttpConnection(url, 100000, 100000);
-				String[] data = JdkHttpClient.postMultipart(connection, payload, is, String.valueOf(path.substring(path.lastIndexOf("/")+1,path.length())) + "-64", os.size(), "image/jpeg").split(";");
+				String[] data = JdkHttpClient.postMultipart(connection, payload, is, String.valueOf(path.substring(path.lastIndexOf("/") + 1, path.length())) + "-64", os.size(), "image/jpeg").split(";");
 				if (!data[0].equals("success")) {
 					return false;
 				}
 				JdkHttpClient.releaseUrlConnection(connection);
 			} else if (i == 1) {
 				HttpURLConnection connection = JdkHttpClient.getHttpConnection(url, 100000, 100000);
-				String[] data = JdkHttpClient.postMultipart(connection, payload, is, String.valueOf(path.substring(path.lastIndexOf("/")+1,path.length())) + "-48", os.size(), "image/jpeg").split(";");
+				String[] data = JdkHttpClient.postMultipart(connection, payload, is, String.valueOf(path.substring(path.lastIndexOf("/") + 1, path.length())) + "-48", os.size(), "image/jpeg").split(";");
 				if (!data[0].equals("success")) {
 					return false;
 				}
@@ -172,6 +167,7 @@ public class DefaultPictureService implements PictureService {
 		}
 		return true;
 	}
+
 	public static String postPictures(URL url, String dir, String name, BufferedImage[] images) throws IOException {
 		String toEnd = "false";
 		for (int i = 0; i < images.length; i++) {
@@ -228,6 +224,7 @@ public class DefaultPictureService implements PictureService {
 		}
 		return sb;
 	}
+
 	@Override
 	public String uploadGroupPicture(InputStream picture, long groupId, long size, String type) throws Exception {
 		long dir = groupId % 10000;
@@ -243,12 +240,13 @@ public class DefaultPictureService implements PictureService {
 		}
 		return sb;
 	}
+
 	@Override
-	public String uploadWeiboPictures(InputStream picture,String type) throws Exception {
+	public String uploadWeiboPictures(InputStream picture, String type) throws Exception {
 		long picId = IdCreator.getLongId();
 		String dir = "w/" + Long.toString(picId % 10000, Character.MAX_RADIX) + "/";
-		String kind=type.substring(type.indexOf("/")+1, type.length());
-		String name = Long.toString(picId, Character.MAX_RADIX)+"."+kind;
+		String kind = type.substring(type.indexOf("/") + 1, type.length());
+		String name = Long.toString(picId, Character.MAX_RADIX) + "." + kind;
 		BufferedImage image = ImageKit.load(picture);
 
 		int originWidth = image.getWidth();
@@ -272,9 +270,9 @@ public class DefaultPictureService implements PictureService {
 			image160 = ImageKit.zoomTo(image, 160);
 			image320 = ImageKit.zoomTo(image, 320);
 		}
-		BufferedImage tagImage=image;
+		BufferedImage tagImage = image;
 
-		if(kind.equals("png")){
+		if (kind.equals("png")) {
 			tagImage = new BufferedImage(originWidth, originHeight, BufferedImage.TYPE_INT_RGB);
 			Image temp = image.getScaledInstance(originWidth, originHeight, Image.SCALE_SMOOTH);
 			Graphics g = tagImage.getGraphics();
@@ -328,7 +326,7 @@ public class DefaultPictureService implements PictureService {
 	}
 
 	@Override
-	public boolean editGroupAvatar(double x1, double x2, double y1, double y2,String path) throws Exception {
+	public boolean editGroupAvatar(double x1, double x2, double y1, double y2, String path) throws Exception {
 		URL temp = new URL(path);
 		HttpURLConnection con = JdkHttpClient.getHttpConnection(temp, 100000, 100000);
 		InputStream imagetemp;
@@ -398,7 +396,7 @@ public class DefaultPictureService implements PictureService {
 
 	@Override
 	public String getType(String typeString) {
-		String type="";
+		String type = "";
 		if (typeString.equals("jpg") || typeString.equals("jpeg") || typeString.equals("JPEG") || typeString.equals("JPG")) {
 			type = "image/jpeg";
 		} else if (typeString.equals("png") || typeString.equals("PNG")) {
@@ -406,10 +404,55 @@ public class DefaultPictureService implements PictureService {
 		} else if (typeString.equals("gif") || typeString.equals("GIF")) {
 			type = "image/gif";
 		}
-          return type;
+		return type;
 	}
 
+	private static final Map<String, Integer> biaoqingMap = new HashMap<String, Integer>();
 
+	private static final String[] biaoqings = new String[] { "微笑", "撇嘴", "色", "发呆", "得意", "流泪", "害羞", "闭嘴", "睡", "大哭", "尴尬", "生气", "调皮", "呲牙", "惊讶", "难过", "酷", "冷汗", "抓狂", "吐", "偷笑", "可爱", "白眼", "傲慢", "饿", "困", "惊恐", "汗", "大笑", "大兵", "奋斗", "咒骂", "疑问", "嘘...", "晕", "折磨", "哀", "骷髅", "再见", "擦汗", "抠鼻", "鼓掌", "糗大了", "坏笑", "吓", "左哼哼", "右哼哼", "哈欠", "鄙视", "委屈", "快哭了", "阴险", "亲亲", "可怜", "玫瑰", "凋谢", "示爱", "爱心", "心碎", "蛋糕", "闪电", "炸弹", "便便", "啤酒", "咖啡", "饭", "抱抱", "强", " 弱", "握手", "胜利", "佩服", "勾引", "拳头", "差劲", "爱你", "NO", "OK", "猪头", "月亮", "太阳" };
 
+	static {
+		for (int i = 0; i < biaoqings.length; i++) {
+			biaoqingMap.put(biaoqings[i], i + 1);
+		}
+	}
+
+	@Override
+	public String replaceBiaoqing(String content) {
+		char[] charArray = content.toCharArray();
+		StringBuilder sb = new StringBuilder(content.length() * 2);
+		int start = 0;
+		boolean startMatched = false;
+		for (int i = 0; i < charArray.length; i++) {
+			char cha = charArray[i];
+			if (cha == '[') {
+				start = i + 1;
+				startMatched = true;
+			} else if (cha == ']') {
+				if (startMatched) {
+					String key = content.substring(start, i);
+					Integer value = biaoqingMap.get(key);
+					if (value == null) {
+						sb.append('[');
+						sb.append(key);
+						sb.append(']');
+					} else {
+						sb.append("<img src=\"");
+						sb.append(this.imageUrl);
+						sb.append("/biaoqing/");
+						sb.append(value);
+						sb.append(".gif");
+						sb.append("\" />");
+					}
+					startMatched = false;
+				} else {
+					sb.append(cha);
+				}
+			} else if (!startMatched) {
+				sb.append(cha);
+			}
+		}
+		return sb.toString();
+	}
 
 }

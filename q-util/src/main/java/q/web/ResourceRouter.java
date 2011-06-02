@@ -24,10 +24,10 @@ import q.web.exception.PeopleNotLoginException;
 
 /**
  * RESTFUL resource entry
- * 
+ *
  * @author seanlinwang
  * @date Jan 16, 2011
- * 
+ *
  */
 public class ResourceRouter implements Controller, ApplicationContextAware {
 
@@ -53,7 +53,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 
 	/**
 	 * set default resource to router
-	 * 
+	 *
 	 * @param defaultResource
 	 */
 	public void setDefaultResource(Resource defaultResource) {
@@ -238,8 +238,14 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 			}
 		} else if (segs.length == 2) {
 			String last = segs[1];
-			if (!StringUtils.isNumeric(last)) {
-				resourceName += StringKit.capitalize(last);
+			if (!StringUtils.isNumeric(last) ) {
+				if(resourceName.equals("people") ) {
+					if(last.length() < 6) {
+						resourceName += StringKit.capitalize(last);
+					}
+				} else {
+					resourceName += StringKit.capitalize(last);
+				}
 			}
 		} else if (segs.length == 3) {
 			if (!StringUtils.isNumeric(segs[1])) {

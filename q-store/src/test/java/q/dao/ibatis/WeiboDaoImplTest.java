@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.dao.ibatis;
 
@@ -10,6 +10,8 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import q.dao.page.WeiboReplyPage;
 
 /**
  * @author seanlinwang at gmail dot com
@@ -24,7 +26,7 @@ public class WeiboDaoImplTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		weiboDao = (WeiboDaoImpl) TestSupport.getBean("weiboDao");
+		weiboDao = (WeiboDaoImpl) StoreTestSupport.getBean("weiboDao");
 	}
 
 	/**
@@ -49,67 +51,80 @@ public class WeiboDaoImplTest {
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#addWeibo(q.domain.Weibo)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.WeiboDaoImpl#addWeibo(q.domain.Weibo)}.
 	 */
 	@Test
 	public void testAddWeibo() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#addWeiboJoinGroup(long, long, long)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.WeiboDaoImpl#addWeiboJoinGroup(long, long, long)}.
 	 */
 	@Test
 	public void testAddWeiboJoinGroup() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#getWeiboIdsByJoinPage(q.dao.page.WeiboPage)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.WeiboDaoImpl#getWeiboIdsByJoinPage(q.dao.page.WeiboPage)}
+	 * .
 	 */
 	@Test
 	public void testGetWeiboIdsByJoinPage() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#getHotGroupWeibosByGroupId(long, int, int)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.WeiboDaoImpl#getHotGroupWeibosByGroupId(long, int, int)}
+	 * .
 	 */
 	@Test
 	public void testGetHotGroupWeibosByGroupId() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#getHotWeibosByGroupIds(java.util.List, int, int)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.WeiboDaoImpl#getHotWeibosByGroupIds(java.util.List, int, int)}
+	 * .
 	 */
 	@Test
 	public void testGetHotWeibosByGroupIds() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#getWeibosByIds(java.util.List, boolean)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.WeiboDaoImpl#getWeibosByIds(java.util.List, boolean)}
+	 * .
 	 */
 	@Test
 	public void testGetWeibosByIds() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#getWeiboRepliesByIds(java.util.List, boolean)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.WeiboDaoImpl#getWeiboRepliesByIds(java.util.List, boolean)}
+	 * .
 	 */
 	@Test
 	public void testGetWeiboRepliesByIds() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#getWeibosByPage(q.dao.page.WeiboPage)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.WeiboDaoImpl#getWeibosByPage(q.dao.page.WeiboPage)}.
 	 */
 	@Test
 	public void testGetWeibosByPage() {
-		
+
 	}
 
 	/**
@@ -117,15 +132,17 @@ public class WeiboDaoImplTest {
 	 */
 	@Test
 	public void testGetHotWeibos() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#getFollowingWeibosByPage(q.dao.page.WeiboPage)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.WeiboDaoImpl#getFollowingWeibosByPage(q.dao.page.WeiboPage)}
+	 * .
 	 */
 	@Test
 	public void testGetFollowingWeibosByPage() {
-		
+
 	}
 
 	/**
@@ -133,60 +150,75 @@ public class WeiboDaoImplTest {
 	 */
 	@Test
 	public void testGetWeiboById() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#getWeiboRepliesByPage(q.dao.page.WeiboReplyPage)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.WeiboDaoImpl#getWeiboRepliesByPage(q.dao.page.WeiboReplyPage)}
+	 * .
+	 * @throws SQLException
 	 */
 	@Test
-	public void testGetWeiboRepliesByPage() {
-		
+	public void testGetWeiboRepliesByPageForReplyReceived() throws SQLException {
+		WeiboReplyPage page = new WeiboReplyPage();
+		page.setDesc(false);
+		page.setSize(10);
+		page.setStartId(10L);
+		page.setQuoteSenderId(1L);
+		weiboDao.getWeiboRepliesByPage(page);
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#addWeiboReply(q.domain.WeiboReply)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.WeiboDaoImpl#addWeiboReply(q.domain.WeiboReply)}.
 	 */
 	@Test
 	public void testAddWeiboReply() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#getPeopleWeiboNumByPeopleId(long)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.WeiboDaoImpl#getPeopleWeiboNumByPeopleId(long)}.
 	 */
 	@Test
 	public void testGetPeopleWeiboNumByPeopleId() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#getWeiboReplyById(long)}.
+	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#getWeiboReplyById(long)}
+	 * .
 	 */
 	@Test
 	public void testGetWeiboReplyById() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#getWeiboJoinGroupByWeiboIdAndGroupId(long, long)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.WeiboDaoImpl#getWeiboJoinGroupByWeiboIdAndGroupId(long, long)}
+	 * .
 	 */
 	@Test
 	public void testGetWeiboJoinGroupByWeiboIdAndGroupId() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#getWeiboJoinGroupByWeiboId(long)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.WeiboDaoImpl#getWeiboJoinGroupByWeiboId(long)}.
 	 */
 	@Test
 	public void testGetWeiboJoinGroupByWeiboId() {
-		
+
 	}
 
 	/**
 	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#deleteWeiboById(long)}.
-	 * 
+	 *
 	 * @throws SQLException
 	 */
 	@Test
@@ -195,8 +227,10 @@ public class WeiboDaoImplTest {
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#deleteWeiboJoinGroupsByWeiboId(long)}.
-	 * @throws SQLException 
+	 * Test method for
+	 * {@link q.dao.ibatis.WeiboDaoImpl#deleteWeiboJoinGroupsByWeiboId(long)}.
+	 *
+	 * @throws SQLException
 	 */
 	@Test
 	public void testDeleteWeiboJoinGroupsByWeiboId() throws SQLException {
@@ -204,8 +238,11 @@ public class WeiboDaoImplTest {
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#deleteWeiboReplyBySenderIdAndReplyId(long, long)}.
-	 * @throws SQLException 
+	 * Test method for
+	 * {@link q.dao.ibatis.WeiboDaoImpl#deleteWeiboReplyBySenderIdAndReplyId(long, long)}
+	 * .
+	 *
+	 * @throws SQLException
 	 */
 	@Test
 	public void testDeleteWeiboReplyBySenderIdAndReplyId() throws SQLException {
@@ -213,29 +250,33 @@ public class WeiboDaoImplTest {
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#incrWeiboRetweetNumByWeiboId(long)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.WeiboDaoImpl#incrWeiboRetweetNumByWeiboId(long)}.
 	 */
 	@Test
 	public void testIncrWeiboRetweetNumByWeiboId() {
-		
+
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#decrWeiboRetweetNumberByWeiboId(long)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.WeiboDaoImpl#decrWeiboRetweetNumberByWeiboId(long)}.
 	 */
 	@Test
 	public void testDecrWeiboRetweetNumberByWeiboId() {
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#incrWeiboReplyNumByReplyId(long)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.WeiboDaoImpl#incrWeiboReplyNumByReplyId(long)}.
 	 */
 	@Test
 	public void testIncrWeiboReplyNumByReplyId() {
 	}
 
 	/**
-	 * Test method for {@link q.dao.ibatis.WeiboDaoImpl#decrWeiboReplyNumByWeiboId(long)}.
+	 * Test method for
+	 * {@link q.dao.ibatis.WeiboDaoImpl#decrWeiboReplyNumByWeiboId(long)}.
 	 */
 	@Test
 	public void testDecrWeiboReplyNumByWeiboId() {
