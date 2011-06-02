@@ -1,9 +1,9 @@
-﻿#slidbox{overflow:hidden;position:relative;height:1000px;border:1px solid #dcdcdc;border-width:0 1px 1px;}
-#slider{position:absolute;top:0;left:0;width:1160px;height:1000px;}
+﻿#slidbox{overflow:hidden;position:relative;height:900px;}
+#slider{position:absolute;top:0;left:0;width:1160px;height:1000px;border-top:1px solid #dcdcdc;}
 .sldlist{width:580px;}
 .sldlist span.time{color:#B2B7B5}
 .sldlist span.actions{position:absolute;right:0;top:0;}
-.sldlist li{cursor:pointer;border-top:1px solid #ddd;padding:15px 58px 15px 83px;position:relative;zoom:1;
+.sldlist li{cursor:pointer;border:1px solid #ddd;border-top:none 0;padding:15px 58px 15px 83px;position:relative;zoom:1;
             min-height:48px; _height:48px; overflow:visible;}
 #sldroot li{background:url("images/rollbtn_h.png") no-repeat scroll 540px center transparent;}
 #sldroot li.hover{background-image:url("images/rollbtn_h.png");background-color:#f6f6f6;}
@@ -14,3 +14,4 @@
 .sldlist li .act{position:absolute;top:15px;right:16px;}
 .sldlist li .actun{position:absolute;top:15px;right:20px;}
 #sld2{position:absolute;top:0;left:580px;}
+#pagger{margin:10px 0 0 20px;}
