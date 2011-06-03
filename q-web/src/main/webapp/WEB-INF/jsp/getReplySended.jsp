@@ -59,9 +59,9 @@
    <div class='quote'>
 		<div class='text'>
 		{{#people}}
-		<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>：
+		我回复<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>的微博：
 		{{/people}}
-		<a href="${urlPrefix}/weibo/{{id}}" class='lk'>回复{{#people}}{{screenName}}{{/people}}的微博：{{text}}</a>
+		<a href="${urlPrefix}/weibo/{{id}}" class='lk'>{{text}}</a>
 		</div>
 		{{#picturePath}}
 		<img src="{{picturePath}}-160" class="img160 weiboImg"/>
@@ -72,9 +72,9 @@
    <div class='quote'>
 		<div class='text'>
 		{{#people}}
-		<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>：
+		我回复<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>的回复：
 		{{/people}}
-		<a href="${urlPrefix}/weibo/{{id}}" class='lk'>回复{{#people}}{{screenName}}{{/people}}的回复：{{text}}</a>
+		<a href="${urlPrefix}/weibo/{{id}}" class='lk'>{{text}}</a>
 		</div>
 		{{#picturePath}}
 		<img src="{{picturePath}}-160" class="img160 weiboImg"/>

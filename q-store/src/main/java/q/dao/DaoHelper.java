@@ -28,6 +28,7 @@ import q.domain.Weibo;
 import q.domain.WeiboModel;
 import q.domain.WeiboReply;
 import q.util.CollectionKit;
+import q.util.MapKit;
 
 /**
  * @author seanlinwang
@@ -654,21 +655,19 @@ public class DaoHelper {
 			}
 		}
 
-		if (replyMap.size() > 0 || quoteMap.size() > 0) {
-			for (WeiboReply weiboReply : weiboReplies) {
-				if (weiboReply.getReplyWeiboId() > 0) {
-					WeiboReply reply = replyMap.get(weiboReply.getReplyWeiboId());
-					if (reply.getStatus() == Status.DELETE.getValue()) {
-						reply.setContent(null);
-					}
-					weiboReply.setReply(reply);
-				} else if (weiboReply.getQuoteWeiboId() > 0) {
-					Weibo quote = quoteMap.get(weiboReply.getQuoteWeiboId());
-					if (quote.getStatus() == Status.DELETE.getValue()) {
-						quote.setContent(null);
-					}
-					weiboReply.setQuote(quote);
+		for (WeiboReply weiboReply : weiboReplies) {
+			if (weiboReply.getReplyWeiboId() > 0) { // reply has higher priority to quote
+				WeiboReply reply = replyMap.get(weiboReply.getReplyWeiboId());
+				if (reply.getStatus() == Status.DELETE.getValue()) {
+					reply.setContent(null);
 				}
+				weiboReply.setReply(reply);
+			} else if (weiboReply.getQuoteWeiboId() > 0) {
+				Weibo quote = quoteMap.get(weiboReply.getQuoteWeiboId());
+				if (quote.getStatus() == Status.DELETE.getValue()) {
+					quote.setContent(null);
+				}
+				weiboReply.setQuote(quote);
 			}
 		}
 

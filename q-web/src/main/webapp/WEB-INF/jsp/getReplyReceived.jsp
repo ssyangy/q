@@ -54,32 +54,28 @@
 		<script type="text/html" id="replys">
 <li stream_id="{{id}}">
 <p class="rel">{{text}} <span class='time'>{{screenTime}}</span><a class='lk del'>删除</a></p>
+ <div class='quote'>
+<div class='text'>
+{{#people}}
+		<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>
+{{/people}}
 {{#quote}}
-   <div class='quote'>
-		<div class='text'>
-		{{#people}}
-		<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>：
-		{{/people}}
-		<a href="${urlPrefix}/weibo/{{id}}" class='lk'>回复我的微博：{{text}}</a>
+		回复我的微博：
+		<a href="${urlPrefix}/weibo/{{id}}" class='lk'>{{text}}</a>
 		</div>
 		{{#picturePath}}
 		<img src="{{picturePath}}-160" class="img160 weiboImg"/>
 		{{/picturePath}}
-	</div>
 {{/quote}}
 {{#reply}}
-   <div class='quote'>
-		<div class='text'>
-		{{#people}}
-		<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>：
-		{{/people}}
-		<a href="${urlPrefix}/weibo/{{id}}" class='lk'>回复我的回复：{{text}}</a>
+		回复我的回复：
+		<a href="${urlPrefix}/weibo/{{id}}" class='lk'>{{text}}</a>
 		</div>
 		{{#picturePath}}
 		<img src="{{picturePath}}-160" class="img160 weiboImg"/>
 		{{/picturePath}}
-	</div>
 {{/reply}}
+</div>
 </li>
         </script>
         <ul class='replist'></ul>
