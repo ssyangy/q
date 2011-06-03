@@ -132,10 +132,10 @@ seajs.use(['qcomcn','app/weibo_rep','ICanHaz'],function(q, rep, ichp){
              <p><span class="mr10">${weibo.people.area.myProvince.name}&nbsp;${weibo.people.area.myCity.name}&nbsp;${weibo.people.area.myCounty.name}</span></p>
              <p class="gray">${weibo.people.intro}</p>
              <p>
-				<a class="btnb btnletter <c:if test="${weibo.self == true }">hide_im</c:if>" href='javascript:void(0);'>私信</a>
-				<a class="btnb btnat <c:if test="${weibo.self == true }">hide_im</c:if>">&#64</a>
-				<a class="btnb unwat <c:if test="${weibo.people.following == false }">hide_im</c:if> <c:if test="${weibo.self == true }">hide_im</c:if>">解除关注</a>
-				<a class="btnb wat <c:if test="${weibo.people.following == true }">hide_im</c:if> <c:if test="${weibo.self == true }">hide_im</c:if>">关注</a>
+				<a class="btnb btnletter <c:if test="${weibo.people.self == true }">hide_im</c:if>" href='javascript:void(0);'>私信</a>
+				<a class="btnb btnat <c:if test="${weibo.people.self == true }">hide_im</c:if>">&#64</a>
+				<a class="btnb unwat <c:if test="${weibo.people.following == false }">hide_im</c:if> <c:if test="${weibo.people.self == true }">hide_im</c:if>">解除关注</a>
+				<a class="btnb wat <c:if test="${weibo.people.following == true }">hide_im</c:if> <c:if test="${weibo.people.self == true }">hide_im</c:if>">关注</a>
 			</p>
          </div>
      </div>
