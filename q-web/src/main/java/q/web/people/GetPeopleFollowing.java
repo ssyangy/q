@@ -14,7 +14,6 @@ import org.apache.commons.collections.CollectionUtils;
 import q.dao.DaoHelper;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
-import q.dao.page.PeoplePage;
 import q.dao.page.PeopleRelationPage;
 import q.domain.Group;
 import q.domain.People;
@@ -57,11 +56,13 @@ public class GetPeopleFollowing extends Resource {
 
 		if (!context.isApiRequest()) {
 			People people = peopleDao.getPeopleById(fromPeopleId);
+			if (loginPeopleId > 0 && loginPeopleId != people.getId()) {
+				DaoHelper.injectPeopleWithVisitorRelation(peopleDao, people, loginPeopleId);
+			}
+			if (loginPeopleId > 0) {
+				DaoHelper.injectPeopleWithSelf(people, loginPeopleId);
+			} 
 			context.setModel("people", people);
-			PeoplePage page = new PeoplePage();
-			page.setSize(6);
-			List<People> recommendPeoples = peopleDao.getPeoplesByPage(page);
-			context.setModel("recommendPeoples", recommendPeoples);
 			List<Group> groups = groupDao.getGroupsByJoinPeopleId(fromPeopleId);
 			context.setModel("groups", groups);
 		} else {

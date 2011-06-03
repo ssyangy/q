@@ -319,7 +319,6 @@
 	</bean>
 	<bean id="getPeople" class="q.web.people.GetPeople">
 		<property name="peopleDao" ref="peopleDao" />
-		<property name="eventDao" ref="eventDao" />
 		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="addPeople" class="q.web.people.AddPeople">

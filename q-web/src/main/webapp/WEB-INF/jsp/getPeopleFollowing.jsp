@@ -65,6 +65,17 @@ seajs.use("qcomcn",function(q){
 	});
 });
 </script>
+<c:choose>
+	<c:when test="${people.self}">
+		<c:set var="call" value="我"/>
+	</c:when>
+	<c:when test="${people.gender.value==2}">
+		<c:set var="call" value="她"/>
+	</c:when>
+	<c:otherwise>
+		<c:set var="call" value="他"/>
+	</c:otherwise>
+</c:choose>
 <div class="layout grid-m0s220 mingrid">
     <div class="col-main"><div class="main-wrap">
 
@@ -80,7 +91,9 @@ seajs.use("qcomcn",function(q){
         <span class="mr10">${people.area.myProvince.name}&nbsp;${people.area.myCity.name}&nbsp;${people.area.myCounty.name}</span>
         </p>
         <p class="profileintro">${people.intro}</p>
-        <p class="tar">
+        
+     	<p class="tar" style="min-height:22px;">
+        <c:if test="${!people.self}">
         	<a class="btnb btnletter" href='javascript:void(0);'>私信</a>
 			<a class="btnb btnat">&#64</a>
 			<c:choose>
@@ -91,11 +104,12 @@ seajs.use("qcomcn",function(q){
 				<a class="btnb wat">关注</a>
 			</c:otherwise>
 			</c:choose>
+		</c:if>
         </p>
     </div>
 </div>    
 <div class='mgroups clear'>
-<p class="fgray2 mb5">他的圈子：</p>
+<p class="fgray2 mb5">${call}的圈子：</p>
 <c:forEach items="${groups}" var="group" varStatus="status">
 	<a href="${urlPrefix}/group/${group.id}" class='lk mr10'>${group.name}</a>
 </c:forEach>
@@ -103,9 +117,9 @@ seajs.use("qcomcn",function(q){
 
 <div class="ui-tabs mt10">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
-        <li class="ui-state-default crt2 ui-state-un"><a href="${urlPrefix}/people/${people.id}">他点发言</a></li>
-        <li class="ui-state-default crt2 ui-state-active"><a href="${urlPrefix}/people/${people.id}/following">他关注的</a></li>
-        <li class="ui-state-default crt2 ui-state-un"><a href="${urlPrefix}/people/${people.id}/follower">关注他的</a></li>
+        <li class="ui-state-default crt2 ui-state-un"><a href="${urlPrefix}/people/${people.id}">${call}的发言</a></li>
+        <li class="ui-state-default crt2 ui-state-active"><a href="${urlPrefix}/people/${people.id}/following">${call}关注的</a></li>
+        <li class="ui-state-default crt2 ui-state-un"><a href="${urlPrefix}/people/${people.id}/follower">关注${call}的</a></li>
     </ul>
 </div>
 <div class='tabscont' style="border-top:none 0;">
