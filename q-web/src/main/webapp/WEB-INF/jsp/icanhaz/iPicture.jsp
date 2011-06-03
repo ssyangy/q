@@ -6,7 +6,7 @@
 			<p class='mt10 mb10'><img src="{{picturePath}}-320" class="img320 preImg"/></p>
 			<a class='imgRotateL lk mr10'>左转</a>
 	    	<a class='imgRotateR lk mr10'>右转</a>
-	    	<a href='{{picturePath}}' class='lk' target='_blank'>查看原图</a>
+	    	<a data-ks-lazyload='{{picturePath}}' class='lk' target='_blank'>查看原图</a>
 		</div>
 		{{/picturePath}}
 </script>
