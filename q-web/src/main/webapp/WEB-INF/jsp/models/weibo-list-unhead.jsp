@@ -48,7 +48,7 @@ seajs.use(['qcomcn','app/weibo','underscore'], function (q, w, _) {
 	{{#people}}
 	<div class='text'><a class='lk' href='${urlPrefix}/people/{{id}}' title='{{ screenName }}'>{{ screenName }}</a>
 	{{/people}}
-	{{ text }}
+	{{{ text }}}
 	</div>
 	{{>picture}}
 </div>
