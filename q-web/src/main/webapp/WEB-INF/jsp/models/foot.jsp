@@ -1,21 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
     </div></div>
 
-    <div id="footer">
-    </div>
-<script src="${staticUrlPrefix}/scripts/src/seed.js"></script>
-<script src="${staticUrlPrefix}/scripts/src/ua.js"></script>
-<script src="${staticUrlPrefix}/scripts/src/node.js"></script>
-<script src="${staticUrlPrefix}/scripts/src/dom.js"></script>
-<script src="${staticUrlPrefix}/scripts/src/event.js"></script>
-<script src="${staticUrlPrefix}/scripts/src/datalazyload.js"></script>
-<script src="${staticUrlPrefix}/scripts/src/impl.js"></script>
+    <div id="footer"></div>
+
 <script type="text/javascript">
-KISSY.use("datalazyload", function(S, DataLazyload) {
-    S.ready(function(S) {
-        var dl = DataLazyload();
-    });
-});
 seajs.use('qcomcn', function (q) {
     $ = q.jq;
     
@@ -48,7 +36,6 @@ seajs.use('qcomcn', function (q) {
 		});
 	}
 });
-
 </script>
 <div id="signovb" class="hide">
 	<a class="clo dclo" style="position:absolute;top:10px;right:10px;"></a>
