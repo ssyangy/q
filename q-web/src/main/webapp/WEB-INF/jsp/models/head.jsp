@@ -75,10 +75,10 @@
 
       		initget = function(){
 		    	Getpush();
-		    	pushtime = setInterval("Getpush()",15000);
+		    	pushtime = setInterval("Getpush()",30000);
 		    }
 	        <c:if test="${loginCookie!=null}">
-	        //var sss = setTimeout("initget()",2000);
+	        var sss = setTimeout("initget()",5000);
         	</c:if>
 		});
 	});

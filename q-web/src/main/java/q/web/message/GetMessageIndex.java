@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 import q.biz.CacheService;
-import q.commons.domain.AbstractDomain;
 import q.dao.DaoHelper;
 import q.dao.MessageDao;
 import q.dao.PeopleDao;
