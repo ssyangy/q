@@ -435,6 +435,12 @@ public class DaoHelper {
 		}
 	}
 
+	public static void injectPeopleWithSelf(People people, long loginPeopleId) {
+		if (loginPeopleId == people.getId()) {
+			people.setSelf(true);
+		}
+	}
+
 	public static void injectPeopleWithVisitorRelation(PeopleDao peopleDao, People people, Long fromPeopleId) throws SQLException {
 		if (null == people) {
 			return;
