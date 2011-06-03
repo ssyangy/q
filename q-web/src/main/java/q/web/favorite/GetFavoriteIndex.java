@@ -3,27 +3,12 @@
  */
 package q.web.favorite;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.CollectionUtils;
-
 import q.biz.WeiboService;
-import q.dao.DaoHelper;
 import q.dao.EventDao;
-import q.dao.FavoriteDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
-import q.dao.WeiboDao;
-import q.dao.page.FavoritePage;
-import q.domain.Favorite;
-import q.domain.FavoriteStatus;
-import q.domain.WeiboModel;
-import q.util.CollectionKit;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;

@@ -53,7 +53,7 @@ public abstract class WeiboModel extends AbstractDomain implements Serializable 
 	/**
 	 * quote reply
 	 */
-	private WeiboReply reply;
+	private WeiboModel reply;
 
 	private String picturePath;
 
@@ -263,14 +263,14 @@ public abstract class WeiboModel extends AbstractDomain implements Serializable 
 	/**
 	 * @param reply the reply to set
 	 */
-	public void setReply(WeiboReply reply) {
+	public void setReply(WeiboModel reply) {
 		this.reply = reply;
 	}
 
 	/**
 	 * @return the reply
 	 */
-	public WeiboReply getReply() {
+	public WeiboModel getReply() {
 		return reply;
 	}
 
