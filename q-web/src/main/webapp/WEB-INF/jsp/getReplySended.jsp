@@ -24,7 +24,7 @@
                 });
 			}
 			$.ajax({ url:"${urlPrefix}/reply/sended",
-				data:{startId:"999999999999999999",size:10},
+				data:{size:10},
 				success:wbs_ajsucc });
 			$('a.prev').click(function(){
 				$.ajax({ url:"${urlPrefix}/reply/sended",
@@ -61,13 +61,26 @@
 		{{#people}}
 		<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>：
 		{{/people}}
-		<a href="${urlPrefix}/weibo/{{id}}" class='lk'>{{text}}</a>
+		<a href="${urlPrefix}/weibo/{{id}}" class='lk'>回复{{#people}}{{screenName}}{{/people}}的微博：{{text}}</a>
 		</div>
 		{{#picturePath}}
 		<img src="{{picturePath}}-160" class="img160 weiboImg"/>
 		{{/picturePath}}
 	</div>
 {{/quote}}
+{{#reply}}
+   <div class='quote'>
+		<div class='text'>
+		{{#people}}
+		<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>：
+		{{/people}}
+		<a href="${urlPrefix}/weibo/{{id}}" class='lk'>回复{{#people}}{{screenName}}{{/people}}的回复：{{text}}</a>
+		</div>
+		{{#picturePath}}
+		<img src="{{picturePath}}-160" class="img160 weiboImg"/>
+		{{/picturePath}}
+	</div>
+{{/reply}}
             </li>
         </script>
         <ul class='replist'></ul>
