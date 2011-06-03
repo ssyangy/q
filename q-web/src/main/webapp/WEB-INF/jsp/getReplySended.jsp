@@ -53,7 +53,7 @@
         <p class='simptab mb15'><a class="lk" href="${urlPrefix}/reply/received">收到的回应</a><span class='split'></span><span class="fw">发出的回应</span></p>
         <script type="text/html" id="replys">
             <li stream_id="{{id}}">
-                <p class="rel">{{text}} <span class='time'>{{screenTime}}</span><a class='lk del'>删除</a></p>
+                <p class="rel">{{{text}}} <span class='time'>{{screenTime}}</span><a class='lk del'>删除</a></p>
 
 {{#quote}}
    <div class='quote'>
@@ -61,7 +61,7 @@
 		{{#people}}
 		我回复<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>的微博：
 		{{/people}}
-		<a href="${urlPrefix}/weibo/{{id}}" class='lk'>{{text}}</a>
+		<a href="${urlPrefix}/weibo/{{id}}" class='lk'>{{{text}}}</a>
 		</div>
 		{{#picturePath}}
 		<img src="{{picturePath}}-160" class="img160 weiboImg"/>
@@ -74,7 +74,7 @@
 		{{#people}}
 		我回复<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>的回复：
 		{{/people}}
-		<a href="${urlPrefix}/weibo/{{id}}" class='lk'>{{text}}</a>
+		<a href="${urlPrefix}/weibo/{{id}}" class='lk'>{{{text}}}</a>
 		</div>
 		{{#picturePath}}
 		<img src="{{picturePath}}-160" class="img160 weiboImg"/>
