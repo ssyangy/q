@@ -11,6 +11,8 @@
     require('jqplus/jq_validation')($);
     exports.jq = $;
     var _ = require('underscore');
+    var KISSY = require('kissy');
+    require('plus/datalazyload')(KISSY);
 
 
     exports.loader = function () {
@@ -23,10 +25,9 @@
         //        });
 
         $("#signovb").ajaxSuccess(function (evt, resp, set) {
-            if (!$.type(resp.responseText) === "string") return;
-            if (resp.responseText == "") return;
+            if (!$.type(resp.responseText) === "string" || resp.responseText == "") return;
             var m = eval("(" + resp.responseText + ")");
-            if (m && !m.id) return;
+            if (!exports.ajaxr(m)) return;
             if (m.error_code == "40002") {
                 var o = $(this);
                 o.dialog("open");
@@ -47,6 +48,7 @@
         calculateLayout();
         var lazyLayout = _.debounce(calculateLayout, 300);
         window.win.resize(lazyLayout);
+
     }
 
     exports.fixui = function (box, includme) {
@@ -107,6 +109,10 @@
 
         $('[tgtt]', box).fixtarget();
 
+        KISSY.use("datalazyload", function (S, DataLazyload) {
+            var dl = DataLazyload(box[0]);
+        });
+
         if (includme) {
             box.hover(
                 function () { $(this).addClass('hover'); },
@@ -117,7 +123,7 @@
     }
 
     exports.ajaxr = function (m) {
-        if (m && !m.id) return false;
-        return;
+        if (m && !m.id) return true;
+        return false;
     }
 });
