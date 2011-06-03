@@ -3,7 +3,7 @@
     var _ = require('underscore');
     var Backbone = require('backbone');
     var quote = require('app/weibo_quote');
-    var resubapp = require('app/resub');
+    var dialog = require('app/dialog');
     var rotate = require('plus/rotate');
 
     var ich = {};
@@ -14,7 +14,7 @@
         $ = qcomcn.jq;
         ich = ichp;
         quote.Loader(q, ich);
-        resubapp.Loader(q);
+        dialog.Loader(q);
     }
 
     exports.WeiboRepItemModel = Backbone.Model.extend({
@@ -83,7 +83,7 @@
             });
         },
         resub: function () {
-            resubapp.Open(this.model.get('text'), this.model.get('people').username, '/reply/' + this.model.get('id') + '/retweet');
+            dialog.At(this.model.get('text'), this.model.get('people').username, '/reply/' + this.model.get('id') + '/retweet');
         },
         fav: function () {
             $.ajax({ url: window.urlprefix + '/reply/' + this.model.get('id') + '/favorite', type: 'POST', msg: this,

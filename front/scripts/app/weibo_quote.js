@@ -2,7 +2,7 @@
     var $ = {};
     var _ = require('underscore');
     var Backbone = require('backbone');
-    var resubapp = require('app/resub');
+    var dialog = require('app/dialog');
 
     var ich = {};
     exports.Loader = function (q, ichp) {
@@ -51,7 +51,7 @@
             return this;
         },
         resub: function () {
-            resubapp.Open(this.model.get('text'), this.model.get('people').username, '/weibo/' + this.model.get('id') + '/retweet');
+            dialog.At(this.model.get('text'), this.model.get('people').username, '/weibo/' + this.model.get('id') + '/retweet');
         },
         toggleimg: function () {
             $('div.imgPre', this.el).toggle();

@@ -2,7 +2,7 @@
     var $ = {};
     var _ = require('underscore');
     var Backbone = require('backbone');
-    var resubapp = require('app/resub');
+    var dialog = require('app/dialog');
 
     var ich = {};
     exports.Loader = function (q, ichp) {
@@ -71,7 +71,7 @@
             });
         },
         resub: function () {
-            resubapp.Open(this.model.get('text'), this.model.get('people').username, '/reply/' + this.model.get('id') + '/retweet');
+            dialog.At(this.model.get('text'), this.model.get('people').username, '/reply/' + this.model.get('id') + '/retweet');
         },
         replay: function () {
             $("input.reply_val", this.model.get("parent").el).val("回复@" + this.model.get("people").username + ":").focus().data("replyId", this.model.get("id"));

@@ -112,10 +112,6 @@ table.qform td{padding:8px 0 8px 8px;}
 table.qform td[align="right"]{vertical-align:top;padding-top:16px;}
 table.qform td[align="right"]{padding-top:11px;vertical-align:top;} /* QCOMCN */
 
-.tweet{padding:0 0 0 68px;position:relative;font-size:14px;}
-.tweet img.avator{position:absolute;top:0;left:0;}
-.tweet p{line-height:24px;}
-
 a.btnNM{display:block;width:220px;height:26px;background:url(images/btnNM.png) no-repeat scroll 0 0;}
 a.btnNM:hover{background-position:0 -26px;}
 

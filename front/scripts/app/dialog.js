@@ -4,7 +4,7 @@
 
     exports.Loader = function (qcomcn) {
         $ = qcomcn.jq;
-        rdia = $('#dia_ret');   
+        rdia = $('#dia_ret');
         if (!rdia.data("init")) {
             $('input.donet', rdia).click(function () {
                 $('img.ajaxload', rdia).show();
@@ -20,12 +20,19 @@
         }
     }
 
-    exports.Open = function (text, username, url) {
+    exports.At = function (text, username, url) {
         rdia.dialog("open");
         $('.wcontent', rdia).html(text);
         $('.wpeople', rdia).html(username);
         $('.mttextar', rdia).val('//@' + username + ' ').focusaft();
         rdia.data("url", window.urlprefix + url);
+    }
+
+    exports.Letter = function (username, userid) {
+        rdia.dialog("open");
+        $("span.ui-dialog-title").text("向" + username + "发送私信");
+        $('.mttextar', rdia).focus();
+        rdia.data("url", window.urlprefix + "/message?receiverId=" + userid);
     }
 
 });

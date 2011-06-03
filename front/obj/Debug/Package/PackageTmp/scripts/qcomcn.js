@@ -16,11 +16,11 @@
     exports.loader = function () {
         $("body").addClass(window.bow);
         uihelp.loader($);
-//        $('input.search_inp').focus(function () {
-//            $(this).next('input.search_btn').addClass('typing');
-//        }).blur(function () {
-//            $(this).next('input.search_btn').removeClass('typing');
-//        });
+        //        $('input.search_inp').focus(function () {
+        //            $(this).next('input.search_btn').addClass('typing');
+        //        }).blur(function () {
+        //            $(this).next('input.search_btn').removeClass('typing');
+        //        });
 
         $("#signovb").ajaxSuccess(function (evt, resp, set) {
             if (!$.type(resp.responseText) === "string") return;
@@ -116,4 +116,8 @@
 
     }
 
+    exports.ajaxr = function (m) {
+        if (m && !m.id) return false;
+        return;
+    }
 });

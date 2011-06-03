@@ -3,7 +3,7 @@
     var Backbone = require('backbone');
     var rep = require('app/weibo_rep');
     var quote = require('app/weibo_quote');
-    var resubapp = require('app/resub');
+    var dialog = require('app/dialog');
     var rotate = require('plus/rotate');
 
     var ich = {};
@@ -16,7 +16,7 @@
         ich = ichp;
         rep.Loader(q, ich);
         quote.Loader(q, ich);
-        resubapp.Loader(q);
+        dialog.Loader(q);
         seed = $('#streams');
     }
 
@@ -94,7 +94,7 @@
             $.ajax({ url: window.urlprefix + '/weibo/' + this.model.get('id'), type: 'POST', msg: this,
                 data: { _method: 'delete' },
                 success: function (m) {
-                    if (m) return;
+                    if (q.ajaxr(m)) return;
                     $(this.msg.el).css({ "overflow": "hidden" }).slideUp("slow", function () { $(this).remove(); });
                 }
             });
@@ -149,7 +149,7 @@
             inp.val('');
         },
         resub: function () {
-            resubapp.Open(this.model.get('text'), this.model.get('people').username, '/weibo/' + this.model.get('id') + '/retweet');
+            dialog.At(this.model.get('text'), this.model.get('people').username, '/weibo/' + this.model.get('id') + '/retweet');
         },
         fav: function () {
             $.ajax({ url: window.urlprefix + '/weibo/' + this.model.get('id') + '/favorite', type: 'POST', msg: this,
