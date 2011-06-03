@@ -5,7 +5,7 @@
 	<p>
 	<a class='lk' href='${urlPrefix}/people/{{id}}'>{{screenName}}</a>
 	{{/people}}
-	{{text}}
+	{{{text}}}
 	</p>
     <p class='rel'>
 		<span class="stat gray">{{screenTime}}</span>
