@@ -14,13 +14,58 @@ ul.msglist img.sldimg {left: 10px;}
 ul.msglist p.content{min-height:30px; _height:30px; overflow:visible;}
 </style>
 <script type="text/javascript">
-seajs.use(['qcomcn','app/weibo_rep','ICanHaz'],function(q, rep, ichp){
+seajs.use(['qcomcn','app/weibo_rep','ICanHaz','plus/rotate','app/dialog'],function(q, rep, ichp, rotate, dialog){
 	var $ = q.jq;
 	$(function(){
+		dialog.Loader(q);
+        $("a.imgRotateL").click(function(){
+        	rotate.run($('img.preImg')[0], 'left');
+        });
+	    $("a.imgRotateR").click(function(){
+	    	rotate.run($('img.preImg')[0], 'right');
+	    });	
+	    $("img.weiboImg,img.preImg").click(function () {
+            $('div.imgPre').toggle();
+            $('img.weiboImg').toggle();
+        });
+	    
+        $(".resub").click(function () {
+            dialog.At("${weibo.content}", "${weibo.people.username}", '/weibo/${weibo.id}/retweet');
+        });
+        
+        $(".fav").click(function () {
+            $.ajax({ url: window.urlprefix + '/weibo/${weibo.id}/favorite', type: 'POST',
+                success: function () {
+                    $('a.fav').addClass('hide');
+                    $('a.unfav').removeClass('hide');
+                }
+            });
+        });
+        $(".unfav").click(function () {
+            $.ajax({ url: window.urlprefix + '/weibo/${weibo.id}/favorite', type: 'POST',
+                data: { _method: 'delete' },
+                success: function () {
+                    $('.unfav').addClass('hide');
+                    $('.fav').removeClass('hide');
+                }
+            });
+        });
+        $(".del").click(function () {
+            if (!confirm('确定要删除？')) return;
+            $.ajax({ url: window.urlprefix + '/weiboReply/${weibo.id}', type: 'POST',
+                data: { _method: 'delete' },
+                success: function (m) {
+                	if (q.ajaxr(m)) return;
+                	window.location.href="${urlPrefix}/";
+                }
+            });
+        });
+		
+		
 		rep.Loader(q, ichp);
     	var ul = $('ul.msglist');
         var suc_repajax = function(j){
-        	$('body').animate({scrollTop:0},700,"swing");
+        	//$('body').animate({scrollTop:0},700,"swing");
         	var pv = $('a.rrprev'); pv.hide(); if (j.hasPrev) pv.show();
         	var nt = $('a.rrnext'); nt.hide(); if (j.hasNext) nt.show();
             ul.empty();
@@ -81,7 +126,6 @@ seajs.use(['qcomcn','app/weibo_rep','ICanHaz'],function(q, rep, ichp){
 	    <p style="margin-top:38px;">
 		    <span class="fgray2">${weibo.time}</span>
 		    <span class="FR">
-			<a href="javascript:void(0);" class='lk lkrb togreply'>回复<c:if test="${weibo.replyNum != 0 }">(${weibo.replyNum})</c:if></a>
 			<a href="javascript:void(0);" class='lk lkrb resub ml5'>转发<c:if test="${weibo.retweetNum != 0 }">(${weibo.retweetNum})</c:if></a>
 			<a href="javascript:void(0);" class='lk lkrb unfav ml5 <c:if test="${weibo.fav == false }">hide</c:if>'>取消收藏</a>
 			<a href="javascript:void(0);" class='lk lkrb fav ml5 <c:if test="${weibo.fav == true }">hide</c:if>'>收藏</a>
@@ -121,24 +165,12 @@ seajs.use(['qcomcn','app/weibo_rep','ICanHaz'],function(q, rep, ichp){
 	    <a class='lk mr10 rrprev hide'>上一页</a>
 	    <a class='lk rrnext hide'>下一页</a>
     </div>
-</div></div>
-<div class="col-sub">
-     <div class="profile">
-     	<a href="${urlPrefix}/people/${weibo.people.id}">
-         <img src="${weibo.people.avatarPath}-48" alt="portrait" class="FL mr10" /></a>
-         <div class='proline'>
-             <p><a href="${urlPrefix}/people/${people.id}" class="lk">${weibo.people.realName}</a></p>
-             <p><a href="${urlPrefix}/people/${people.id}" class="lk">${weibo.people.username}</a></p>
-             <p><span class="mr10">${weibo.people.area.myProvince.name}&nbsp;${weibo.people.area.myCity.name}&nbsp;${weibo.people.area.myCounty.name}</span></p>
-             <p class="gray">${weibo.people.intro}</p>
-             <p>
-				<a class="btnb btnletter <c:if test="${weibo.people.self == true }">hide_im</c:if>" href='javascript:void(0);'>私信</a>
-				<a class="btnb btnat <c:if test="${weibo.people.self == true }">hide_im</c:if>">&#64</a>
-				<a class="btnb unwat <c:if test="${weibo.people.following == false }">hide_im</c:if> <c:if test="${weibo.people.self == true }">hide_im</c:if>">解除关注</a>
-				<a class="btnb wat <c:if test="${weibo.people.following == true }">hide_im</c:if> <c:if test="${weibo.people.self == true }">hide_im</c:if>">关注</a>
-			</p>
-         </div>
-     </div>
-</div></div>
+	</div></div>
+    <div class="col-sub">
+		<jsp:include page="icanhaz/iProfile.jsp" >
+			<jsp:param name="peopleId" value="${weibo.people.id}" />
+		</jsp:include>
+    </div>
+</div>
 
-</div><jsp:include page="models/foot.jsp" />
+<jsp:include page="models/foot.jsp" />
