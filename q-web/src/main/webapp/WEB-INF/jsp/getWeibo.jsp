@@ -54,26 +54,24 @@ seajs.use(['qcomcn','app/weibo_rep','ICanHaz'],function(q, rep, ichp){
 	});
 });
 </script>
-<div class="layout grid-m0s7">
-<div class="col-main"><div class="main-wrap pr10">
+<div class="layout grid-m0s220 mingrid">
+    <div class="col-main"><div class="main-wrap">
     <div class='tweet'>
-	    <a href="${urlPrefix}/people/${weibo.people.id}"><img src="${weibo.people.avatarPath}-24" alt='avator' /></a>
-	    <p><a class="lk">${weibo.people.realName}</a><span class='time ml10'>${weibo.time}</span></p>
-	    <p>
-	    ${weibo.content}
-	    </p>
+	    <p>${weibo.content}</p>
+	    <p>${weibo.time}</p>
     </div>
     <div class="tw-sub">
 	    <form action="${urlPrefix}/weibo/${weibo.id}/reply">
-		<input class='mttext_val reply_val' type='text' value='发表点评论。。。' />
+	    <textarea id="inputmain" name="content" maxlength="140" class="mttextar_val reply_val countable">发表点评论 . . .</textarea>
+		<div class="cttarget"></div>
     	<a class='btnb reply_btn'>提交</a>
 	    </form>
     </div>
     <div class="tw-reps">
-	<jsp:include page="icanhaz/iStream_ext.jsp" />
-    <ul class="msglist mb5"></ul>
-    <a class='lk mr10 rrprev hide'>上一页</a>
-    <a class='lk rrnext hide'>下一页</a>
+		<jsp:include page="icanhaz/iStream_ext.jsp" />
+	    <ul class="msglist mb5"></ul>
+	    <a class='lk mr10 rrprev hide'>上一页</a>
+	    <a class='lk rrnext hide'>下一页</a>
     </div>
 </div></div>
 <div class="col-sub">

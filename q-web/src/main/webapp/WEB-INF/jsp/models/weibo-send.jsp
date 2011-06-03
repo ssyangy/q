@@ -198,7 +198,8 @@ function checkWeibo() {
 </script>
 <form action="${urlPrefix}/weibo" onsubmit="return checkWeibo();" method="post" name="weiboForm">
 	<div class="inputbx">
-		<textarea id="inputmain" name="content" class="mttextar_val">说点什么 . . .</textarea>
+		<textarea id="inputmain" name="content" maxlength="140" class="mttextar_val countable">说点什么 . . .</textarea>
+		<div class="cttarget"></div>
 		<div id="inputbtm" class="rel clear height0">
 			插入：
 			<a class="lk mr10 emot" tgtt='emots'>表情</a>
