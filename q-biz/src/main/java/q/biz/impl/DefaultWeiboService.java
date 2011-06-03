@@ -4,6 +4,7 @@
 package q.biz.impl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -22,10 +23,14 @@ import q.dao.FavoriteDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
+import q.dao.page.FavoritePage;
 import q.dao.page.WeiboJoinGroupPage;
 import q.dao.page.WeiboPage;
 import q.dao.page.WeiboReplyPage;
+import q.domain.Favorite;
+import q.domain.FavoriteStatus;
 import q.domain.Weibo;
+import q.domain.WeiboModel;
 import q.domain.WeiboReply;
 import q.util.CollectionKit;
 import q.util.IdCreator;
@@ -290,6 +295,7 @@ public class DefaultWeiboService implements WeiboService {
 			}
 			DaoHelper.injectWeiboModelsWithPeople(peopleDao, replies);
 			DaoHelper.injectWeiboModelsWithFrom(groupDao, replies);
+			injectWeiboReplyWithBiaoqingImage(replies);
 			if (loginPeopleId > 0) {
 				DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, replies, loginPeopleId);
 			}
@@ -347,6 +353,7 @@ public class DefaultWeiboService implements WeiboService {
 			DaoHelper.injectWeiboModelsWithPeople(peopleDao, replies);
 			DaoHelper.injectWeiboModelsWithFrom(groupDao, replies);
 			DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, replies, loginPeopleId);
+			injectWeiboReplyWithBiaoqingImage(replies);
 			api.put("replies", replies);
 		}
 		api.put("hasPrev", hasPrev);
@@ -396,7 +403,63 @@ public class DefaultWeiboService implements WeiboService {
 			DaoHelper.injectWeiboModelsWithPeople(peopleDao, replies);
 			DaoHelper.injectWeiboModelsWithFrom(groupDao, replies);
 			DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, replies, loginPeopleId);
+			injectWeiboReplyWithBiaoqingImage(replies);
 			api.put("replies", replies);
+		}
+		api.put("hasPrev", hasPrev);
+		api.put("hasNext", hasNext);
+		return api;
+	}
+
+	@Override
+	public Map<String, Object> getFavoritePagination(long loginPeopleId, int size, long startId, int type) throws SQLException {
+		int asc = 1;
+		FavoritePage page = new FavoritePage();
+		if (type == asc) { // 1 indicate asc
+			page.setDesc(false);
+		} else {
+			page.setDesc(true);
+		}
+		boolean hasPrev = false;
+		boolean hasNext = false;
+		int fetchSize = size + 1;
+		page.setStatus(FavoriteStatus.FAV);
+		page.setSize(fetchSize);
+		page.setCreatorId(loginPeopleId);
+		if (startId > 0) {
+			page.setStartId(startId);
+		}
+		List<Favorite> favorites = this.favoriteDao.getPageFavorites(page);
+		Map<String, Object> api = new HashMap<String, Object>();
+		if (CollectionKit.isNotEmpty(favorites)) {
+			if (favorites.size() == fetchSize) {
+				if (type == asc) { // more than one previous page
+					hasPrev = true;
+				} else { // more than one next page
+					hasNext = true;
+				}
+				favorites.remove(favorites.size() - 1);// remove last one
+			}
+			if (type == asc) { // this action from next page
+				hasNext = true;
+			} else if (startId != IdCreator.MAX_ID) {// this action from previous page
+				hasPrev = true;
+			}
+			if (type == asc) { // reverse asc to desc
+				Favorite[] array = favorites.toArray(new Favorite[favorites.size()]);
+				CollectionUtils.reverseArray(array);
+				favorites = Arrays.asList(array);
+			}
+
+			DaoHelper.injectFavoritesWithSource(weiboDao, favorites);
+			List<WeiboModel> weiboModels = new ArrayList<WeiboModel>(favorites.size());
+			for (Favorite fav : favorites) {
+				weiboModels.add(fav.getSource());
+			}
+			DaoHelper.injectWeiboModelsWithFrom(groupDao, weiboModels);
+			DaoHelper.injectWeiboModelsWithQuote(weiboDao, weiboModels);
+			DaoHelper.injectWeiboModelsWithPeople(peopleDao, weiboModels);
+			api.put("favorites", favorites);
 		}
 		api.put("hasPrev", hasPrev);
 		api.put("hasNext", hasNext);
@@ -411,6 +474,30 @@ public class DefaultWeiboService implements WeiboService {
 			String content = weibo.getContent();
 			if (StringKit.isNotEmpty(content)) {
 				weibo.setContent(pictureService.replaceBiaoqing(content));
+			}
+			if (weibo.getQuote() != null && StringKit.isNotEmpty(weibo.getQuote().getContent())) {
+				weibo.getQuote().setContent(pictureService.replaceBiaoqing(weibo.getQuote().getContent()));
+			}
+		}
+
+	}
+
+	/**
+	 * @param weibos
+	 */
+	private void injectWeiboReplyWithBiaoqingImage(List<WeiboReply> weibos) {
+		for (WeiboReply reply : weibos) {
+			String content = reply.getContent();
+			if (StringKit.isNotEmpty(content)) {
+				reply.setContent(pictureService.replaceBiaoqing(content));
+			}
+			WeiboModel quote = reply.getQuote();
+			if (quote != null && StringKit.isNotEmpty(quote.getContent())) {
+				quote.setContent(pictureService.replaceBiaoqing(quote.getContent()));
+			}
+			WeiboReply quoteReply = reply.getReply();
+			if (quoteReply != null && StringKit.isNotEmpty(quoteReply.getContent())) {
+				quoteReply.setContent(pictureService.replaceBiaoqing(quoteReply.getContent()));
 			}
 		}
 
