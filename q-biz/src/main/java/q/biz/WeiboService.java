@@ -96,4 +96,14 @@ public interface WeiboService {
 	 */
 	Map<String, Object> getReplySendedPagination(long loginPeopleId, int size, long startId, int type) throws Exception;
 
+	/**
+	 * @param loginPeopleId
+	 * @param size
+	 * @param startId
+	 * @param type
+	 * @return
+	 * @throws SQLException
+	 */
+	Map<String, Object> getFavoritePagination(long loginPeopleId, int size, long startId, int type) throws Exception;
+
 }

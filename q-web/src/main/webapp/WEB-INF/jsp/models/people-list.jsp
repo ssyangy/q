@@ -100,10 +100,10 @@ seajs.use("qcomcn",function(q){
         <p>{{ntro}}&nbsp;</p>
         <span class="act">
 			<span class='username hide'>{{username}}</span>
-			<a class="btnb btnletter {{#isown}}hide_im{{/isown}}" href='javascript:void(0);'>私信</a>
-			<a class="btnb btnat {{#isown}}hide_im{{/isown}}">&#64</a>
-			<a class="btnb unwat {{^following}}hide_im{{/following}} {{#isown}}hide_im{{/isown}}">解除关注</a>
-			<a class="btnb wat {{#following}}hide_im{{/following}} {{#isown}}hide_im{{/isown}}">关注</a>
+			<a class="btnb btnletter {{#self}}hide_im{{/self}}" href='javascript:void(0);'>私信</a>
+			<a class="btnb btnat {{#self}}hide_im{{/self}}">&#64</a>
+			<a class="btnb unwat {{^following}}hide_im{{/following}} {{#self}} hide_im{{/self}}">解除关注</a>
+			<a class="btnb wat {{#following}}hide_im{{/following}} {{#self}} hide_im{{/self}}">关注</a>
 		</span>
     </li>
 </script>

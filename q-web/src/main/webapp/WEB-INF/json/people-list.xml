@@ -23,6 +23,7 @@
 								<member name="createdTime" apiName="createdTime" apiType="string" />
 								<member name="gender.value" apiName="gender" apiType="int" />
 								<member name="following" apiName="following" apiType="boolean" />
+								<member name="self" apiName="self" apiType="boolean" />
 								<member name="area" apiName="area">
 									<type>
 										<struct>

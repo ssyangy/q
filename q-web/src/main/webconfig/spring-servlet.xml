@@ -601,10 +601,10 @@
 
 	<!-- weibo web -->
 	<bean id="getPeopleWeibo" class="q.web.weibo.GetPeopleWeibo">
-		<property name="weiboService" ref="weiboService"/>
+		<property name="weiboService" ref="weiboService" />
 	</bean>
 	<bean id="getGroupWeibo" class="q.web.weibo.GetGroupWeibo">
-		<property name="weiboService" ref="weiboService"/>
+		<property name="weiboService" ref="weiboService" />
 	</bean>
 	<bean id="addWeibo" class="q.web.weibo.AddWeibo">
 		<property name="weiboService" ref="weiboService" />
@@ -659,11 +659,11 @@
 	<bean id="getReplyReceived" class="q.web.weibo.GetReplyReceived">
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="cacheService" ref="cacheService" />
-		<property name="weiboService" ref="weiboService"/>
+		<property name="weiboService" ref="weiboService" />
 	</bean>
 	<bean id="getReplySended" class="q.web.weibo.GetReplySended">
 		<property name="peopleDao" ref="peopleDao" />
-		<property name="weiboService" ref="weiboService"/>
+		<property name="weiboService" ref="weiboService" />
 	</bean>
 	<bean id="getAtIndex" class="q.web.weibo.getAtIndex">
 		<property name="weiboDao" ref="weiboDao" />
@@ -676,11 +676,10 @@
 
 	<!-- favorite web -->
 	<bean id="getFavoriteIndex" class="q.web.favorite.GetFavoriteIndex">
-		<property name="favoriteDao" ref="favoriteDao" />
-		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="groupDao" ref="groupDao" />
 		<property name="eventDao" ref="eventDao" />
+		<property name="weiboService" ref="weiboService" />
 	</bean>
 	<bean id="addWeiboFavorite" class="q.web.favorite.AddWeiboFavorite">
 		<property name="favoriteDao" ref="favoriteDao" />

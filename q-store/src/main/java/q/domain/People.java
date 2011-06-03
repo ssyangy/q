@@ -66,6 +66,8 @@ public class People extends AbstractDomain implements Serializable {
 	private String url;
 
 	private boolean following = false;
+	
+	private boolean self = false;
 
 	private PeopleRelation relation;
 
@@ -373,6 +375,20 @@ public class People extends AbstractDomain implements Serializable {
 
 	public boolean isNotAdmin() {
 		return this.roleId != 9;
+	}
+
+	/**
+	 * @param self the self to set
+	 */
+	public void setSelf(boolean self) {
+		this.self = self;
+	}
+
+	/**
+	 * @return the self
+	 */
+	public boolean isSelf() {
+		return self;
 	}
 
 }
