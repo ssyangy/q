@@ -6,7 +6,7 @@
 		{{#people}}
 		<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>：
 		{{/people}}
-		{{text}}
+		{{{ text }}}
 		</div>
 		{{>picture}}
 		<span class="">

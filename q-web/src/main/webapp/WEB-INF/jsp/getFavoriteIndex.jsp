@@ -72,7 +72,7 @@ $(function(){
 <div class='bd'>
 	<div class='text'><a class='lk' href='${urlPrefix}/people/{{id}}' title='{{ screenName }}'>{{ screenName }}</a>
 	{{/people}}
-	{{ text }}
+	{{{ text }}}
 	</div>
 </div>
 <div class='fd'>

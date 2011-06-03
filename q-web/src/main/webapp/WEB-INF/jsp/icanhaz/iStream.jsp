@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
+<%@ page langua{ge="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 	%>
 <script type="text/html" id="stream">
 <div class='hd'>
 	{{#people}}
@@ -9,7 +9,7 @@
 <div class='bd'>
 	<div class='text'><a class='lk' href='${urlPrefix}/people/{{id}}' title='{{ screenName }}'>{{ screenName }}</a>
 	{{/people}}
-	{{ text }}
+	{{{ text }}}
 	</div>
 	{{>picture}}
 </div>
