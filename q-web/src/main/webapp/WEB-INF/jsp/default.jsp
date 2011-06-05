@@ -91,128 +91,35 @@ function errorContext(error){
 
 <div class="mt20 clear">
 	<div class="FL" style="width:480px">
-	
-<h4>圈子分类</h4>
-<ul class="sldlist" id="sldroot">
-<li>
-	<img src="${staticUrlPrefix}/content/images/icons/icons-02.png" alt="ico" class="sldimg" />
-	<p class='f14'>吃喝玩乐</p>
-	<p>
-	<a class="lk">吃好喝好</a>
-	<a class="lk">旅行</a>
-	<a class="lk">泡吧</a>
-	<a class="lk">扑克</a>
-	<a class="lk">桌游</a>
-	<a class="lk">三国杀</a>
-	<a class="lk">上海徐汇麻将</a>
-	</p>
-</li>
-<li>
-	<img src="${staticUrlPrefix}/content/images/icons/icons-03.png" alt="ico" class="sldimg" />
-	<p class='f14'>八小时以外，吃喝玩乐，浮于世</p>
-	<p>
-	<a class="lk">吃好喝好</a>
-	<a class="lk">旅行</a>
-	<a class="lk">泡吧</a>
-	<a class="lk">扑克</a>
-	<a class="lk">桌游</a>
-	<a class="lk">三国杀</a>
-	<a class="lk">上海徐汇麻将</a>
-	</p>
-</li>
-<li>
-	<img src="${staticUrlPrefix}/content/images/icons/icons-04.png" alt="ico" class="sldimg" />
-	<p class='f14'>八小时以外，吃喝玩乐，浮于世</p>
-	<p>
-	<a class="lk">吃好喝好</a>
-	<a class="lk">旅行</a>
-	<a class="lk">泡吧</a>
-	<a class="lk">扑克</a>
-	<a class="lk">桌游</a>
-	<a class="lk">三国杀</a>
-	<a class="lk">上海徐汇麻将</a>
-	<a class="lk">吃好喝好</a>
-	<a class="lk">旅行</a>
-	<a class="lk">泡吧</a>
-	<a class="lk">扑克</a>
-	<a class="lk">桌游</a>
-	<a class="lk">三国杀</a>
-	<a class="lk">上海徐汇麻将</a>
-	</p>
-</li>
-<li>
-	<img src="${staticUrlPrefix}/content/images/icons/icons-05.png" alt="ico" class="sldimg" />
-	<p class='f14'>八小时以外，吃喝玩乐，浮于世</p>
-	<p>
-	<a class="lk">吃好喝好</a>
-	<a class="lk">旅行</a>
-	<a class="lk">泡吧</a>
-	<a class="lk">扑克</a>
-	<a class="lk">桌游</a>
-	<a class="lk">三国杀</a>
-	<a class="lk">上海徐汇麻将</a>
-	</p>
-</li>
-<li>
-	<img src="${staticUrlPrefix}/content/images/icons/icons-06.png" alt="ico" class="sldimg" />
-	<p class='f14'>八小时以外，吃喝玩乐，浮于世</p>
-	<p>
-	<a class="lk">吃好喝好</a>
-	<a class="lk">旅行</a>
-	<a class="lk">泡吧</a>
-	<a class="lk">扑克</a>
-	<a class="lk">桌游</a>
-	<a class="lk">三国杀</a>
-	<a class="lk">上海徐汇麻将</a>
-	</p>
-</li>
-<li>
-	<img src="${staticUrlPrefix}/content/images/icons/icons-07.png" alt="ico" class="sldimg" />
-	<p class='f14'>八小时以外，吃喝玩乐，浮于世</p>
-	<p>
-	<a class="lk">吃好喝好</a>
-	<a class="lk">旅行</a>
-	<a class="lk">泡吧</a>
-	<a class="lk">扑克</a>
-	<a class="lk">桌游</a>
-	<a class="lk">三国杀</a>
-	<a class="lk">上海徐汇麻将</a>
-	</p>
-</li>
-<li class="end">
-	<img src="${staticUrlPrefix}/content/images/icons/icons-08.png" alt="ico" class="sldimg" />
-	<p class='f14'>八小时以外，吃喝玩乐，浮于世</p>
-	<p>
-	<a class="lk">吃好喝好</a>
-	<a class="lk">旅行</a>
-	<a class="lk">泡吧</a>
-	<a class="lk">扑克</a>
-	<a class="lk">桌游</a>
-	<a class="lk">三国杀</a>
-	<a class="lk">上海徐汇麻将</a>
-	</p>
-</li>
-</ul>
-</div>
-
+		<h4>圈子分类</h4>
+		<ul class="sldlist" id="sldroot">
+			<c:forEach items="${cats}" var="cat" varStatus="status">
+			<li>
+				<img src="${staticUrlPrefix}/content/images/icons/icons-0${status.index + 2}.png" alt="ico" class="sldimg" />
+				<p class='f14'><a href="${urlPrefix}/category">${cat.name}</a></p>
+				<p>
+				<c:forEach items="${cat.groups}" var="group" varStatus="status">
+					<a class="lk" href="${urlPrefix}/group/${group.id}">${group.name}</a>
+				</c:forEach>
+				</p>
+			</li>
+			</c:forEach>
+		</ul>
+	</div>
 	<div class="FL" style="width:290px;padding-left:40px;">
-	
-<h4>热议ING</h4>
-<ul class="msglist">
-
-
-<c:forEach items="${hotWeibos}" var="weibo">
-    <li>
-        <a href="${urlPrefix}/people/${weibo.people.id}">
-        <img src="${weibo.people.avatarPath}-48" alt="{{screenName}}" class="sldimg" />
-        </a>
-        <p><a href="${urlPrefix}/people/${weibo.people.id}" class="lk">${weibo.people.realName}</a></p>
-        <p><a href="${urlPrefix}/weibo/${weibo.id}">${weibo.content}</a></p>
-    </li>					
-</c:forEach>
-</ul>
-</div>
-
+		<h4>热议ING</h4>
+		<ul class="msglist">
+			<c:forEach items="${hotWeibos}" var="weibo">
+		    <li>
+		        <a href="${urlPrefix}/people/${weibo.people.id}">
+		        <img src="${weibo.people.avatarPath}-48" alt="{{screenName}}" class="sldimg" />
+		        </a>
+		        <p><a href="${urlPrefix}/people/${weibo.people.id}" class="lk">${weibo.people.realName}</a></p>
+		        <p><a href="${urlPrefix}/weibo/${weibo.id}">${weibo.content}</a></p>
+		    </li>					
+			</c:forEach>
+		</ul>
+	</div>
 </div>
 
 			<div class="footer">
