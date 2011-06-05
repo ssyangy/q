@@ -184,10 +184,11 @@ seajs.use(['qcomcn','jq_area'],function(q, area){
 					</tr>
 					<tr>
 						<td align="right">感兴趣的圈子：</td>
-						<td align="right"><c:forEach items="${groups}" var="group">
+						<td>
+						<c:forEach items="${groups}" var="group">
 								<input name="group" type='checkbox' value="${group.id}" />
 								<span class='group-name'>${group.name}</span>
-							</c:forEach></td>
+						</c:forEach></td>
 						<td class="col-help">
 							<div class="label-box-good" style="display: none;"
 								id="groupcorrect"></div>
