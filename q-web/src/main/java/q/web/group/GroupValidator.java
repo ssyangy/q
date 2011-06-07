@@ -38,12 +38,11 @@ public class GroupValidator {
 	}
 
 	public static void validateImg(String url) throws RequestParameterInvalidException, SQLException {
-		if(StringKit.isNotEmpty(url)) {
-			Pattern p = Pattern.compile("\\/g\\/[0-9]+\\/[0-9]+[-]?[0-9]+");
-			if(!p.matcher(url).matches()) {
-				throw new RequestParameterInvalidException("imgUrl:invalid");
-			}
+      if(!StringKit.isEmpty(url)){
+		if(!url.substring(0,4).equals("http")){
+	    	throw new RequestParameterInvalidException("imgUrl:invalid");
 		}
+      }
 	}
 
 	public static void validateIntro(String intro) throws RequestParameterInvalidException, SQLException {
