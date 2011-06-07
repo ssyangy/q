@@ -180,9 +180,9 @@
 						</entry>
 						<entry>
 							<key>
-								<value>getWeibo:api</value>
+								<value>getWeibo:weibo</value>
 							</key>
-							<value>/WEB-INF/json/weibo-and-replies-list.xml</value>
+							<value>/WEB-INF/json/weibo.xml</value>
 						</entry>
 						<entry>
 							<key>
