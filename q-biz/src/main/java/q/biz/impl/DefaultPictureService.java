@@ -1,7 +1,9 @@
 package q.biz.impl;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -194,7 +196,7 @@ public class DefaultPictureService implements PictureService {
 				JdkHttpClient.releaseUrlConnection(connection);
 			} else if (i == 2) {
 				HttpURLConnection connection = JdkHttpClient.getHttpConnection(url, 100000, 100000);
-				toEnd = JdkHttpClient.postMultipart(connection, payload, is, name, os.size(), "image/jpeg");
+				toEnd = JdkHttpClient.postMultipart(connection, payload, is, name, os.size(), "image/png");
 				String[] data = toEnd.split(";");
 				if (!data[0].equals("success")) {
 					return "false";
@@ -278,7 +280,7 @@ public class DefaultPictureService implements PictureService {
 			Graphics g = tagImage.getGraphics();
 			g.drawImage(temp, 0, 0, null);
 			g.dispose();
-
+			ImageKit.save(tagImage, "/home/zhao/下载/test/opigin3.png","png");
 		}
 		BufferedImage[] images = new BufferedImage[3];
 		images[0] = image160;
