@@ -302,7 +302,7 @@ $("#hidden_frame").css("display","none");
 					<div>
 						<div class='hide' id="savewrong"></div>
 						<div class='hide' id="savecorrect"></div>
-						<input type="button" id="saveButton" class='btnr hide' value='保存' onclick="save()"></input> 
+						<input type="button" id="saveButton" class='btnr hide' value='保存' onclick="save()"></input>
 						<input type="button" id="cancelButton" class='btnr hide' value='取消'></input>
 					</div>
 				</div>

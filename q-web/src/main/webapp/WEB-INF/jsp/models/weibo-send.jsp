@@ -18,14 +18,14 @@ seajs.use(['qcomcn','jqplus/jq_rotate', 'jqplus/jq_countable','plus/emote'], fun
 	rota($);
 	cb($);
 	$(function(){
-		
+
 		$("#emots>img").click(function(){
 			var txt = emote.text[$(this).attr("mid")-1];
 			var maintxt = $("#inputmain").val();
 			if(maintxt == "说点什么 . . .") maintxt = "";
 			$("#inputmain").val(maintxt+"["+txt+"]").focusaft();
 		});
-		
+
 		$('#inputmain').focus(function() {
 			$(this).css('height', '40');
 			$('#inputbtm').removeClass('height0');
@@ -48,7 +48,7 @@ seajs.use(['qcomcn','jqplus/jq_rotate', 'jqplus/jq_countable','plus/emote'], fun
 			}
 			isImg = false;
 		});
-		
+
 		dia_img = $("#dia_img");
 		bindImgDia = function() {
 			dia_img.dialog("open");
@@ -204,7 +204,7 @@ function checkWeibo() {
 			插入：
 			<a class="lk mr10 emot" tgtt='emots'>表情</a>
 	        <div id="emots" class='tgtbox'>
-				<c:forEach var="id" begin="1" end="81">  
+				<c:forEach var="id" begin="1" end="81">
 					<img src="${imageUrlPrefix}/biaoqing/${id}.gif" mid="${id}">
 				</c:forEach>
 	        </div>
