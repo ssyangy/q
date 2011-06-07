@@ -454,7 +454,9 @@ public class DefaultWeiboService implements WeiboService {
 			DaoHelper.injectFavoritesWithSource(weiboDao, favorites);
 			List<WeiboModel> weiboModels = new ArrayList<WeiboModel>(favorites.size());
 			for (Favorite fav : favorites) {
-				weiboModels.add(fav.getSource());
+				if(null != fav.getSource()) {
+					weiboModels.add(fav.getSource());
+				}
 			}
 			DaoHelper.injectWeiboModelsWithFrom(groupDao, weiboModels);
 			DaoHelper.injectWeiboModelsWithQuote(weiboDao, weiboModels);

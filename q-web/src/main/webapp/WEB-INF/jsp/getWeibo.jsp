@@ -13,56 +13,63 @@ ul.msglist li{padding:15px 10px 15px 68px;}
 ul.msglist img.sldimg {left: 10px;}
 ul.msglist p.content{min-height:30px; _height:30px; overflow:visible;}
 </style>
+<jsp:include page="icanhaz/pPicture.jsp" />
+<jsp:include page="icanhaz/iQuote.jsp" />
+<script type='text/javascript'>
+var tmp_tweet = "\
+    <p>{{{ text }}}</p>\
+    <p>{{>picture}}</p>\
+    <p style='margin-top:38px;'>\
+	    <span class='fgray2'>{{screenTime}}</span>\
+	    <span class=FR'>\
+		<a href='javascript:void(0);' class='hod lk lkrb resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>\
+		<a href='javascript:void(0);' class='hod lk lkrb unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>\
+		<a href='javascript:void(0);' class='hod lk lkrb fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>\
+		{{#isown}}<a href='javascript:void(0);' class='hod lk del'>删除</a>{{/isown}}\
+	    </span>\
+    </p>";
+</script>
+<script type='text/javascript'>
+var tmp_stream_ext = "\
+	{{#people}}\
+	<a href='${urlPrefix}/people/{{id}}'><img class='sldimg' src='{{avatarPath}}-48' alt='head' /></a>\
+	<p class='content'>\
+	<a class='lk' href='${urlPrefix}/people/{{id}}'>{{screenName}}</a>\
+	{{/people}}\
+	{{text}}\
+	</p>\
+    <p class='rel'>\
+		<span class='stat gray'>{{screenTime}}</span>\
+		<span class='FR'>\
+        <a href='javascript:void(0);' class='lk lkrb r_replay'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>\
+        <a href='javascript:void(0);' class='lk lkrb r_resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>\
+        <a href='javascript:void(0);' class='lk lkrb r_unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>\
+        <a href='javascript:void(0);' class='lk lkrb r_fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>\
+		{{#isown}}<a href='javascript:void(0);' class='lk r_del'>删除</a>{{/isown}}\
+		</span>\
+	</p>";
+</script>
 <script type="text/javascript">
-seajs.use(['qcomcn','app/weibo_rep','ICanHaz','plus/rotate','app/dialog'],function(q, rep, ichp, rotate, dialog){
+seajs.use(['qcomcn','app/weibo','app/weibo_rep','plus/rotate','app/dialog'],function(q, wb, rep, rotate, dialog){
 	var $ = q.jq;
 	$(function(){
+		wb.Loader(q);
+		rep.Loader(q);
 		dialog.Loader(q);
-        $("a.imgRotateL").click(function(){
-        	rotate.run($('img.preImg')[0], 'left');
-        });
-	    $("a.imgRotateR").click(function(){
-	    	rotate.run($('img.preImg')[0], 'right');
-	    });	
-	    $("img.weiboImg,img.preImg").click(function () {
-            $('div.imgPre').toggle();
-            $('img.weiboImg').toggle();
-        });
-	    
-        $(".resub").click(function () {
-            dialog.At("${weibo.content}", "${weibo.people.username}", '/weibo/${weibo.id}/retweet');
-        });
-        
-        $(".fav").click(function () {
-            $.ajax({ url: window.urlprefix + '/weibo/${weibo.id}/favorite', type: 'POST',
-                success: function () {
-                    $('a.fav').addClass('hide');
-                    $('a.unfav').removeClass('hide');
-                }
-            });
-        });
-        $(".unfav").click(function () {
-            $.ajax({ url: window.urlprefix + '/weibo/${weibo.id}/favorite', type: 'POST',
-                data: { _method: 'delete' },
-                success: function () {
-                    $('.unfav').addClass('hide');
-                    $('.fav').removeClass('hide');
-                }
-            });
-        });
-        $(".del").click(function () {
-            if (!confirm('确定要删除？')) return;
-            $.ajax({ url: window.urlprefix + '/weiboReply/${weibo.id}', type: 'POST',
-                data: { _method: 'delete' },
-                success: function (m) {
-                	if (q.ajaxr(m)) return;
-                	window.location.href="${urlPrefix}/";
-                }
-            });
-        });
 		
+		$.ajax({ url:"${urlPrefix}/weibo/${weibo.id}",
+			success:function(j){
+				var w = new wb.WeiboModel(j);
+		        var view = new wb.WeiboView({ 
+		        	model:w, 
+		        	tmp:tmp_tweet, 
+		        	quotetmp:tmp_quote,
+		        	partials:partials
+		        });
+		        $("#tweet").html(view.render().el);
+			}
+		});
 		
-		rep.Loader(q, ichp);
     	var ul = $('ul.msglist');
         var suc_repajax = function(j){
         	//$('body').animate({scrollTop:0},700,"swing");
@@ -72,7 +79,7 @@ seajs.use(['qcomcn','app/weibo_rep','ICanHaz','plus/rotate','app/dialog'],functi
             $(j.replies).each(function () {
             	this.parent = $('body');
                 var rr = new rep.WeiboRepModel(this);
-                var view = new rep.WeiboRepView({ model: rr });
+                var view = new rep.WeiboRepView({ model: rr,tmp: tmp_stream_ext });
                 ul.append(view.render().el);
             });
         }
@@ -110,29 +117,7 @@ seajs.use(['qcomcn','app/weibo_rep','ICanHaz','plus/rotate','app/dialog'],functi
 </script>
 <div class="layout grid-m0s220 mingrid">
     <div class="col-main"><div class="main-wrap">
-    <div class='tweet mt20'>
-	    <p>${weibo.content}</p>
-	    <p>
-		    <c:if test="${weibo.picturePath != null }">
-			    <img src="${weibo.picturePath}-160" class="img160 weiboImg"/>
-				<div class='imgPre hide'>
-					<p class='mt10 mb10'><img src="${weibo.picturePath}-320" class="img320 preImg"/></p>
-					<a class='imgRotateL lk mr10'>左转</a>
-			    	<a class='imgRotateR lk mr10'>右转</a>
-			    	<a href='${weibo.picturePath}' class='lk' target='_blank'>查看原图</a>
-				</div>
-		    </c:if>
-	    </p>
-	    <p style="margin-top:38px;">
-		    <span class="fgray2">${weibo.time}</span>
-		    <span class="FR">
-			<a href="javascript:void(0);" class='lk lkrb resub ml5'>转发<c:if test="${weibo.retweetNum != 0 }">(${weibo.retweetNum})</c:if></a>
-			<a href="javascript:void(0);" class='lk lkrb unfav ml5 <c:if test="${weibo.fav == false }">hide</c:if>'>取消收藏</a>
-			<a href="javascript:void(0);" class='lk lkrb fav ml5 <c:if test="${weibo.fav == true }">hide</c:if>'>收藏</a>
-			<c:if test="${weibo.senderId == loginCookie.peopleId }"><a href="javascript:void(0);" class='lk del'>删除</a></c:if>
-		    </span>
-	    </p>
-    </div>
+    <div id="tweet" class='tweet mt20'></div>
     <h3 style="margin-bottom:20px;">回复</h3>
     <div class="tw-sub clear">
 	    <form action="${urlPrefix}/weibo/${weibo.id}/reply">
@@ -142,33 +127,15 @@ seajs.use(['qcomcn','app/weibo_rep','ICanHaz','plus/rotate','app/dialog'],functi
 	    </form>
     </div>
     <div class="tw-reps mt10">
-	<script type="text/html" id="stream_ext">
-	{{#people}}
-	<a href="${urlPrefix}/people/{{id}}"><img class="sldimg" src="{{avatarPath}}-48" alt="head" /></a>
-	<p class="content">
-	<a class='lk' href='${urlPrefix}/people/{{id}}'>{{screenName}}</a>
-	{{/people}}
-	{{text}}
-	</p>
-    <p class='rel'>
-		<span class="stat gray">{{screenTime}}</span>
-		<span class='FR'>
-        <a href="javascript:void(0);" class='lk lkrb r_replay'>回复{{#replyNum}}({{replyNum}}){{/replyNum}}</a>
-        <a href="javascript:void(0);" class='lk lkrb r_resub ml5'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>
-        <a href="javascript:void(0);" class='lk lkrb r_unfav ml5 {{^favorited}}hide{{/favorited}}'>取消收藏</a>
-        <a href="javascript:void(0);" class='lk lkrb r_fav ml5 {{#favorited}}hide{{/favorited}}'>收藏</a>
-		{{#isown}}<a href="javascript:void(0);" class='lk r_del'>删除</a>{{/isown}}
-		</span>
-	</p>
-	</script>
 	    <ul class="msglist mb5"></ul>
 	    <a class='lk mr10 rrprev hide'>上一页</a>
 	    <a class='lk rrnext hide'>下一页</a>
     </div>
 	</div></div>
     <div class="col-sub">
-		<jsp:include page="icanhaz/iProfile.jsp" >
+		<jsp:include page="models/profile.jsp" >
 			<jsp:param name="peopleId" value="${weibo.people.id}" />
+			<jsp:param name="avatarSize" value="48" />
 		</jsp:include>
     </div>
 </div>

@@ -15,7 +15,10 @@ li.streambox{padding:15px 20px;}
 	</div>
 </div></div>
     <div class="col-sub">
-        <jsp:include page="models/profile.jsp"/>
+		<jsp:include page="models/profile.jsp" >
+			<jsp:param name="peopleId" value="${loginCookie.peopleId}" />
+			<jsp:param name="avatarSize" value="48" />
+		</jsp:include>
     </div>
 </div>
 

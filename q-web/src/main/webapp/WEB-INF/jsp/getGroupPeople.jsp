@@ -15,8 +15,8 @@
 		</div>
 		<div class='tabscont' style="border-top:none 0;">
 			<jsp:include page="models/people-list.jsp">
-			<jsp:param name="feedUrl" value="${urlPrefix}/group/${group.id}/people" />
-			<jsp:param name="orderId" value="joinGroup" />
+				<jsp:param name="feedUrl" value="${urlPrefix}/group/${group.id}/people" />
+				<jsp:param name="order" value="joinGroup" />
 			</jsp:include>
 		</div>
 	</div></div>

@@ -9,10 +9,34 @@
 .replist .del{position:absolute;top:0;right:50px;}
 .replist .sldimg{position:absolute;top:10px;left:10px;}
 </style>
+<script type='text/javascript'>
+var tmp_sendreplys = "\
+<li stream_id='{{id}}'>\
+	<p class='rel'>{{{text}}} <span class='time'>{{screenTime}}</span><a class='lk del'>删除</a></p>\
+	{{#quote}}\
+	<div class='quote'>\
+		<div class='text'>\
+		{{#people}}我回复<a href='${urlPrefix}/people/{{id}}'  class='lk'>{{screenName}}</a>的微博：{{/people}}\
+		<a href='${urlPrefix}/weibo/{{id}}' class='lk'>{{{text}}}</a>\
+		</div>\
+		{{#picturePath}}<img src='{{picturePath}}-160' class='img160 weiboImg'/>{{/picturePath}}\
+	</div>\
+	{{/quote}}\
+	{{#reply}}\
+	<div class='quote'>\
+		<div class='text'>\
+		{{#people}}我回复<a href='${urlPrefix}/people/{{id}}'  class='lk'>{{screenName}}</a>的回复：{{/people}}\
+		<a href='${urlPrefix}/weibo/{{id}}' class='lk'>{{{text}}}</a>\
+		</div>\
+		{{#picturePath}}<img src='{{picturePath}}-160' class='img160 weiboImg'/>{{/picturePath}}\
+	</div>\
+	{{/reply}}\
+</li>";
+</script>
 	<script type="text/javascript">
-	mods.push(function (q) {
+	seajs.use(['qcomcn','mustache'], function (q,mc) {
 		var $ = q.jq;
-		seajs.use('ICanHaz', function (ich) {
+		$(function(){
 			var wbs = $('ul.replist');
 			var wbs_ajsucc = function(j){
 				$('body').animate({scrollTop:0},700,"swing");
@@ -20,7 +44,7 @@
             	var nt = $('a.next'); nt.hide(); if (j.hasNext) nt.show();
             	wbs.empty();
                 $(j.replies).each(function(){
-                	wbs.append(ich.replys(this));
+                	wbs.append(mc.to_html(tmp_sendreplys, this));
                 });
 			}
 			$.ajax({ url:"${urlPrefix}/reply/sended",
@@ -51,38 +75,6 @@
 <div class="layout grid-m0s220 mingrid">
     <div class="col-main"><div class="main-wrap">
         <p class='simptab mb15'><a class="lk" href="${urlPrefix}/reply/received">收到的回应</a><span class='split'></span><span class="fw">发出的回应</span></p>
-        <script type="text/html" id="replys">
-            <li stream_id="{{id}}">
-                <p class="rel">{{{text}}} <span class='time'>{{screenTime}}</span><a class='lk del'>删除</a></p>
-
-{{#quote}}
-   <div class='quote'>
-		<div class='text'>
-		{{#people}}
-		我回复<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>的微博：
-		{{/people}}
-		<a href="${urlPrefix}/weibo/{{id}}" class='lk'>{{{text}}}</a>
-		</div>
-		{{#picturePath}}
-		<img src="{{picturePath}}-160" class="img160 weiboImg"/>
-		{{/picturePath}}
-	</div>
-{{/quote}}
-{{#reply}}
-   <div class='quote'>
-		<div class='text'>
-		{{#people}}
-		我回复<a href="${urlPrefix}/people/{{id}}"  class='lk'>{{screenName}}</a>的回复：
-		{{/people}}
-		<a href="${urlPrefix}/weibo/{{id}}" class='lk'>{{{text}}}</a>
-		</div>
-		{{#picturePath}}
-		<img src="{{picturePath}}-160" class="img160 weiboImg"/>
-		{{/picturePath}}
-	</div>
-{{/reply}}
-            </li>
-        </script>
         <ul class='replist'></ul>
 		<div class="pagger">
 			<a class="lk mr10 prev hide">上一页</a>
@@ -90,7 +82,10 @@
 		</div>
     </div></div>
     <div class="col-sub">
-        <jsp:include page="models/profile.jsp"/>
+		<jsp:include page="models/profile.jsp" >
+			<jsp:param name="peopleId" value="${loginCookie.peopleId}" />
+			<jsp:param name="avatarSize" value="48" />
+		</jsp:include>
     </div>
 </div>
 <jsp:include page="models/foot.jsp" />

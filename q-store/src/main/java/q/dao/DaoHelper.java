@@ -227,12 +227,17 @@ public class DaoHelper {
 			for (Favorite fav : favorites) { // inject weibo and reply sources
 				if (weiboMap != null && fav.isFromWeibo()) {
 					Weibo weibo = weiboMap.get(fav.getFromId());
-					fav.setSource(weibo);
-					fav.getSource().setFav(true);
+					if(weibo != null) {
+						fav.setSource(weibo);
+						fav.getSource().setFav(true);
+					}
 				}
 				if (replyMap != null && fav.isFromReply()) {
-					fav.setSource(replyMap.get(fav.getFromId()));
-					fav.getSource().setFav(true);
+					WeiboReply reply = replyMap.get(fav.getFromId());
+					if (reply != null) {
+						fav.setSource(reply);
+						fav.getSource().setFav(true);
+					}
 				}
 			}
 		}
