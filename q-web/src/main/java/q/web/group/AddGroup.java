@@ -73,8 +73,8 @@ public class AddGroup extends Resource {
 			group.setLatitude(Double.parseDouble(context.getString("latitude")));
 			group.setLongitude(Double.parseDouble(context.getString("longitude")));
 		}
-		if (context.getString("groupImage") != "") {
-			group.setAvatarPath(this.pictureService.getImageUrl() + context.getString("groupImage"));
+		if (!StringKit.isEmpty(context.getString("groupImage")) ) {
+			group.setAvatarPath(context.getString("groupImage"));
 		} else {
 			group.setAvatarPath(pictureService.getDefaultGroupAvatarPath());
 		}

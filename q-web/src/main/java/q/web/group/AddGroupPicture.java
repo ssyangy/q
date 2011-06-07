@@ -65,7 +65,7 @@ public class AddGroupPicture extends Resource {
 						String place = data[1].substring(data[1].indexOf(":") + 1);
 						context.setModel("imgHeight", ImageKit.load(fileItem.getInputStream()).getHeight());
 						context.setModel("imgWidth", ImageKit.load(fileItem.getInputStream()).getWidth());
-						context.setModel("imgPath",  place);
+						context.setModel("imgPath",  pictureService.getImageUrl()+place);
 						context.setModel("value", "上传成功");
 					} else {
 						context.setModel("isImg", false);

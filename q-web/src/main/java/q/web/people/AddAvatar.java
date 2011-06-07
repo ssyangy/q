@@ -60,17 +60,7 @@ public class AddAvatar extends Resource {
 					context.setModel("isImg", false);
 				}
 
-				// fileItem.write( new File("/home/zhao/下载/test/"+fileName) );
-				// BufferedImage originImage=ImageKit.load(new
-				// File("/home/zhao/下载/test/"+fileName));
-				// BufferedImage cutImage=ImageKit.cutTo(originImage, 5,
-				// 10,105,110);
-				// BufferedImage image128=ImageKit.zoomTo(cutImage, 128, 128);
-				// BufferedImage image48=ImageKit.zoomTo(cutImage, 48, 48);
-				// / BufferedImage image24=ImageKit.zoomTo(cutImage, 24, 24);
-				// ImageKit.save(image128, "/home/zhao/下载/test/128.gif","jpg");
-				// ImageKit.save(image48, "/home/zhao/下载/test/48.jpg","jpg");
-				// ImageKit.save(image24, "/home/zhao/下载/test/24.jpg","jpg");
+
 				}
 			}
 
