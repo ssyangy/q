@@ -1,15 +1,14 @@
 ﻿define(function (require, exports, module) {
     var _ = require('underscore');
+    var mc = require('mustache');
     var Backbone = require('backbone');
     var dialog = require('app/dialog');
 
-    var ich = {};
     var $ = {};
     var q = {};
-    exports.Loader = function (qcomcn, ichp) {
+    exports.Loader = function (qcomcn) {
         q = qcomcn;
         $ = qcomcn.jq;
-        ich = ichp;
         dialog.Loader(q);
     }
 
@@ -63,9 +62,58 @@
     });
 
     exports.PeopList = Backbone.Collection.extend({
-        model: exports.WeiboModel,
-        initialize: function () {
-            // somthing
+        model: exports.PeopModel,
+        size: 9,
+        order: "id",
+        initialize: function (spec) {
+            this.tmp = spec.tmp;
+            this.feedUrl = spec.feedUrl;
+            if (spec.search) this.search = spec.search;
+            if (spec.size) this.size = spec.size;
+            if (spec.lite) this.lite = spec.lite;
+            if (spec.order) this.order = spec.order;
+
+            _.bindAll(this, 'prev', 'next', 'ajaxsucc');
+            var seed = spec.seed;
+            this.box = $(".box", seed);
+            this.pv = $(".prev", seed);
+            this.pv.bind(this.prev);
+            this.nt = $(".next", seed);
+            this.nt.bind(this.next);
+
+            $.ajax({ url: this.feedUrl,
+                data: { size: this.size, search: this.search },
+                success: this.ajaxsucc
+            });
+        },
+        ajaxsucc: function (j) {
+            if (j.hasPrev) this.pv.show(); else this.pv.hide();
+            if (j.hasNext) this.nt.show(); else this.nt.hide();
+            this.box.empty();
+            var el = this;
+            $(j.peoples).each(function () {
+                var pp = new exports.PeopModel(this);
+                var view = new exports.PeopView({ model: pp, tmp: el.tmp });
+                el.box.append(view.render().el);
+            });
+            if (this.lite) $("li", this.box).filter(":nth-child(" + this.lite + "n)").addClass("end");
+            q.fixui(this.box);
+        },
+        prev: function () {
+            var stid = this.first().get(this.order);
+            if (!_.isNumber(stid)) stid = stid.id;
+            $.ajax({ url: this.feedUrl,
+                data: { startId: stid, size: this.size, search: this.search, type: 1 },
+                success: this.ajaxsucc
+            });
+        },
+        next: function () {
+            var stid = this.last().get(this.order);
+            if (!_.isNumber(stid)) stid = stid.id;
+            $.ajax({ url: this.feedUrl,
+                data: { startId: stid, size: this.size, search: this.search },
+                success: this.ajaxsucc
+            });
         }
     });
 
@@ -78,8 +126,7 @@
             "click a.focus": "focus"
         },
         initialize: function (spec) {
-            this.runich = ich.people;
-            if (spec.ich) this.runich = spec.ich;
+            this.tmp = spec.tmp;
 
             _.bindAll(this, 'render', 'change', 'remove');
             this.model.bind('change', this.change);
@@ -87,13 +134,11 @@
             this.model.view = this;
         },
         render: function () {
-            $(this.el).html(this.runich(this.model.toJSON()));
-            $(this.el).attr('people_id', this.model.get('id'));
-            if (this.model.get("order_id")) $(this.el).attr('order_id', this.model.get('order_id'));
+            $(this.el).html(mc.to_html(this.tmp, this.model.toJSON()));
             return this;
         },
         change: function () {
-            $(this.el).html(this.runich(this.model.toJSON()));
+            $(this.el).html(mc.to_html(this.tmp, this.model.toJSON()));
             q.fixui($(this.el));
         },
         focus: function () {

@@ -1,13 +1,12 @@
 ﻿define(function (require, exports, module) {
-    var $ = {};
+    var mc = require('mustache');
     var _ = require('underscore');
     var Backbone = require('backbone');
     var dialog = require('app/dialog');
 
-    var ich = {};
+    var $ = {};
     exports.Loader = function (q, ichp) {
         $ = q.jq;
-        ich = ichp;
     }
 
     exports.WeiboRepModel = Backbone.Model.extend({
@@ -46,19 +45,19 @@
             "click .r_unfav": "unfav",
             "click .r_replay": "replay"
         },
-        initialize: function () {
+        initialize: function (spec) {
+            this.tmp = spec.tmp;
             _.bindAll(this, 'render', 'change', 'remove');
             this.model.bind('change', this.change);
             this.model.bind('remove', this.remove);
             this.model.view = this;
         },
         render: function () {
-            $(this.el).html(ich.stream_ext(this.model.toJSON()))
-            .data('replyid', this.model.get('id'));
+            $(this.el).html(mc.to_html(this.tmp, this.model.toJSON())).data('replyid', this.model.get('id'));
             return this;
         },
         change: function () {
-            $(this.el).html(ich.stream(this.model.toJSON()));
+            $(this.el).html(mc.to_html(this.tmp, this.model.toJSON()));
         },
         remove: function () {
             if (!confirm('确定要删除？')) return;
@@ -77,19 +76,19 @@
             $("input.reply_val", this.model.get("parent").el).val("回复@" + this.model.get("people").username + ":").focus().data("replyId", this.model.get("id"));
         },
         fav: function () {
-            $.ajax({ url: window.urlprefix + '/reply/' + this.model.get('id') + '/favorite', type: 'POST', msg: this,
+            $.ajax({ url: window.urlprefix + '/reply/' + this.model.get('id') + '/favorite', type: 'POST', o: this,
                 success: function () {
-                    $('.fav', this.msg.el).addClass('hide');
-                    $('.unfav', this.msg.el).removeClass('hide');
+                    $('.r_fav', this.o.el).addClass('hide');
+                    $('.r_unfav', this.o.el).removeClass('hide');
                 }
             });
         },
         unfav: function () {
-            $.ajax({ url: window.urlprefix + '/reply/' + this.model.get('id') + '/favorite', type: 'POST', msg: this,
+            $.ajax({ url: window.urlprefix + '/reply/' + this.model.get('id') + '/favorite', type: 'POST', o: this,
                 data: { _method: 'delete' },
                 success: function () {
-                    $('.unfav', this.msg.el).addClass('hide');
-                    $('.fav', this.msg.el).removeClass('hide');
+                    $('.r_unfav', this.o.el).addClass('hide');
+                    $('.r_fav', this.o.el).removeClass('hide');
                 }
             });
         }

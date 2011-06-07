@@ -1,13 +1,12 @@
 ﻿define(function (require, exports, module) {
-    var $ = {};
+    var mc = require('mustache');
     var _ = require('underscore');
     var Backbone = require('backbone');
     var dialog = require('app/dialog');
 
-    var ich = {};
+    var $ = {};
     exports.Loader = function (q, ichp) {
         $ = q.jq;
-        ich = ichp;
     }
 
     exports.WeiboQueModel = Backbone.Model.extend({
@@ -42,12 +41,14 @@
             "click a.imgRotateR": "imgrotater",
             "click a.imgRotateL": "imgrotatel"
         },
-        initialize: function () {
+        initialize: function (spec) {
+            this.tmp = spec.tmp;
+            this.partials = spec.partials;
             _.bindAll(this, 'render');
             this.model.view = this;
         },
         render: function () {
-            $(this.el).html(ich.quote(this.model.toJSON()));
+            $(this.el).html(mc.to_html(this.tmp, this.model.toJSON(), this.partials));
             return this;
         },
         resub: function () {

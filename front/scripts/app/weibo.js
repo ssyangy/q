@@ -1,23 +1,20 @@
 ﻿define(function (require, exports, module) {
     var _ = require('underscore');
+    var mc = require('mustache');
     var Backbone = require('backbone');
     var rep = require('app/weibo_rep');
     var quote = require('app/weibo_quote');
     var dialog = require('app/dialog');
     var rotate = require('plus/rotate');
 
-    var ich = {};
-    var seed = {};
     var $ = {};
     var q = {};
-    exports.Loader = function (qcomcn, ichp) {
+    exports.Loader = function (qcomcn) {
         q = qcomcn;
         $ = qcomcn.jq;
-        ich = ichp;
-        rep.Loader(q, ich);
-        quote.Loader(q, ich);
+        rep.Loader(q);
+        quote.Loader(q);
         dialog.Loader(q);
-        seed = $('#streams');
     }
 
     exports.WeiboModel = Backbone.Model.extend({
@@ -69,25 +66,28 @@
             "click a.imgRotateR": "imgrotater",
             "click a.imgRotateL": "imgrotatel"
         },
-        initialize: function () {
+        initialize: function (spec) {
             _.bindAll(this, 'render', 'change', 'remove', 'suc_repajax', 'initrep');
             this.model.bind('change', this.change);
             this.model.bind('remove', this.remove);
             this.model.view = this;
+            this.tmp = spec.tmp;
+            this.partials = spec.partials;
+            this.quotetmp = spec.quotetmp;
+            this.replytmp = spec.replytmp;
         },
         render: function () {
-            $(this.el).html(ich.stream(this.model.toJSON()))
-            .attr('stream-id', this.model.get('id'));
+            $(this.el).html(mc.to_html(this.tmp, this.model.toJSON(), this.partials)).attr('stream-id', this.model.get('id'));
             if (this.model.get("order_id")) $(this.el).attr('order_id', this.model.get('order_id'));
             if (this.model.get("quote")) {
                 var qq = new quote.WeiboQueModel(this.model.get("quote"));
-                var view = new quote.WeiboQueView({ model: qq });
+                var view = new quote.WeiboQueView({ model: qq, tmp: this.quotetmp, partials: this.partials });
                 $("div.bd", this.el).append(view.render().el);
             }
             return this;
         },
         change: function () {
-            $(this.el).html(ich.stream(this.model.toJSON()));
+            $(this.el).html(mc.to_html(this.tmp, this.model.toJSON(), this.partials));
         },
         remove: function () {
             if (!confirm('确定要删除？')) return;
@@ -106,14 +106,14 @@
             $(json.replies).each(function () {
                 this.parent = el;
                 var rr = new rep.WeiboRepModel(this);
-                var view = new rep.WeiboRepView({ model: rr });
+                var view = new rep.WeiboRepView({ model: rr, tmp: el.replytmp });
                 ul.append(view.render().el);
             });
             var pv = $('a.rrprev', this.el); pv.hide(); if (json.hasPrev) pv.show();
             var nt = $('a.rrnext', this.el); nt.hide(); if (json.hasNext) nt.show();
         },
         initrep: function (m) {
-            if (m && !m.id) return;
+            if (q.ajaxr(m)) return;
             $.ajax({ url: window.urlprefix + "/weibo/" + this.model.get('id') + "/reply",
                 data: { size: 10 },
                 success: this.suc_repajax
@@ -152,19 +152,19 @@
             dialog.At(this.model.get('text'), this.model.get('people').username, '/weibo/' + this.model.get('id') + '/retweet');
         },
         fav: function () {
-            $.ajax({ url: window.urlprefix + '/weibo/' + this.model.get('id') + '/favorite', type: 'POST', msg: this,
+            $.ajax({ url: window.urlprefix + '/weibo/' + this.model.get('id') + '/favorite', type: 'POST', o: this,
                 success: function () {
-                    $('a.fav', this.msg.el).addClass('hide');
-                    $('a.unfav', this.msg.el).removeClass('hide');
+                    $('a.fav', this.o.el).addClass('hide');
+                    $('a.unfav', this.o.el).removeClass('hide');
                 }
             });
         },
         unfav: function () {
-            $.ajax({ url: window.urlprefix + '/weibo/' + this.model.get('id') + '/favorite', type: 'POST', msg: this,
+            $.ajax({ url: window.urlprefix + '/weibo/' + this.model.get('id') + '/favorite', type: 'POST', o: this,
                 data: { _method: 'delete' },
                 success: function () {
-                    $('.unfav', this.msg.el).addClass('hide');
-                    $('.fav', this.msg.el).removeClass('hide');
+                    $('.unfav', this.o.el).addClass('hide');
+                    $('.fav', this.o.el).removeClass('hide');
                 }
             });
         },
@@ -179,17 +179,5 @@
             rotate.run($('img.preImg', this.el)[0], 'left');
         }
     });
-
-    exports.weibos = new exports.WeiboList();
-    var weiboAdd = function (o) {
-        var el = new exports.WeiboView({ model: o }).render().el;
-        if (o.get('old')) {
-            seed.append(el);
-        } else {
-            seed.prepend(el);
-        }
-        q.fixui($(el), true);
-    }
-    exports.weibos.bind('add', weiboAdd);
 
 });

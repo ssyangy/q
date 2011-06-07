@@ -588,7 +588,6 @@
     <Content Include="scripts\back\json2.js" />
     <Content Include="scripts\back\lavaLamp.js" />
     <Content Include="scripts\config.js" />
-    <Content Include="scripts\ICanHaz.js" />
     <Content Include="scripts\jqplus\jq_bgiframe.js" />
     <Content Include="scripts\jqplus\jq_cookie.js" />
     <Content Include="scripts\jqplus\jq_countable.js" />
@@ -611,6 +610,7 @@
     <Content Include="scripts\jq_area.js" />
     <Content Include="scripts\kissy.js" />
     <Content Include="scripts\klass.js" />
+    <Content Include="scripts\mustache.js" />
     <Content Include="scripts\plus\rotate.js" />
     <Content Include="scripts\plus\emote.js" />
     <Content Include="scripts\qcomcn.js" />

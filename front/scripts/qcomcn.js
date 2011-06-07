@@ -10,6 +10,8 @@
     require('jqplus/jq_focusaft')($);
     require('jqplus/jq_validation')($);
     exports.jq = $;
+
+    exports.mc = require('mustache');
     var _ = require('underscore');
     var KISSY = require('kissy');
     require('plus/datalazyload')(KISSY);

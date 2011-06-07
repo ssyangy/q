@@ -1,19 +1,17 @@
 ﻿define(function (require, exports, module) {
-    var $ = require('jquery');
+    var mc = require('mustache');
     var _ = require('underscore');
     var Backbone = require('backbone');
     var quote = require('app/weibo_quote');
     var dialog = require('app/dialog');
     var rotate = require('plus/rotate');
 
-    var ich = {};
     var $ = {};
     var q = {};
-    exports.Loader = function (qcomcn, ichp) {
+    exports.Loader = function (qcomcn) {
         q = qcomcn;
         $ = qcomcn.jq;
-        ich = ichp;
-        quote.Loader(q, ich);
+        quote.Loader(q);
         dialog.Loader(q);
     }
 
@@ -52,25 +50,29 @@
             "click .r_fav": "fav",
             "click .r_unfav": "unfav"
         },
-        initialize: function () {
+        initialize: function (spec) {
+            this.tmp = spec.tmp;
+            this.partials = spec.partials;
+            this.quotetmp = spec.quotetmp;
+
             _.bindAll(this, 'render', 'change', 'remove');
             this.model.bind('change', this.change);
             this.model.bind('remove', this.remove);
             this.model.view = this;
         },
         render: function () {
-            $(this.el).html(ich.weibo_repitem(this.model.toJSON()))
+            $(this.el).html(mc.to_html(this.tmp, this.model.toJSON()))
             .data('replyid', this.model.get('id'));
             if (this.model.get("order_id")) $(this.el).attr('order_id', this.model.get('order_id'));
             if (this.model.get("quote")) {
                 var qq = new quote.WeiboQueModel(this.model.get("quote"));
-                var view = new quote.WeiboQueView({ model: qq });
+                var view = new quote.WeiboQueView({ model: qq, tmp: this.quotetmp, partials: this.partials });
                 $("div.bd", this.el).append(view.render().el);
             }
             return this;
         },
         change: function () {
-            $(this.el).html(ich.stream(this.model.toJSON()));
+            $(this.el).html(mc.to_html(this.tmp, this.model.toJSON()));
         },
         remove: function () {
             if (!confirm('确定要删除？')) return;
