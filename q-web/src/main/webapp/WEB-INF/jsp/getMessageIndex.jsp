@@ -17,17 +17,16 @@ border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;}
 .repactbox{text-align:right;margin-top:4px;}
 </style>
 <script type="text/javascript">
-seajs.use('qcomcn',function(q){
+seajs.use(['qcomcn','mustache'],function(q, mc){
     var $ = q.jq;
     $(function(){
-	seajs.use('ICanHaz',function(ich){
 
         var sldroot = $('#sldroot');
         var sldrootul = $('ul.sldlist', sldroot);
         var intmsglist = function (json) {
             sldrootul.empty();
             $(json.messages).each(function () {
-                var li = ich.msglist(this);
+                var li = $(mc.to_html(tmp_msglist, this));
                 li.data('members', this.receivers);
                 li.data('sender', this.sender.screenName)
                 sldrootul.append(li);
@@ -62,7 +61,7 @@ seajs.use('qcomcn',function(q){
         var msgli_ajsucc = function (j) {
             sld2ul.empty();
             $(j.replies).each(function () {
-                sld2ul.append(ich.msgitem(this));
+                sld2ul.append(mc.to_html(tmp_msgitem, this));
             });
             var pv = $('a.mrprev', sld2); pv.hide(); if (j.hasPrev) pv.show();
             var nt = $('a.mrnext', sld2); nt.hide(); if (j.hasNext) nt.show();
@@ -147,7 +146,6 @@ seajs.use('qcomcn',function(q){
             $("#tboxrep").val("回复：" + $('a.scn', stream).text() + " ").focus();
         });
     });
-    });
 });
 </script>
 
@@ -157,19 +155,18 @@ seajs.use('qcomcn',function(q){
     	<h2 id="root" class='mb10 cur'>私信<a class="rollbtn3 in_bk hide"></a></h2>
         <div id="slidbox">
             <div id="slider">
-            	<script type="text/html" id="msglist">
-	                    <li class='msgli hov' stream_id='{{id}}' order_id='{{#lastReply}}{{id}}{{/lastReply}}'>
-							{{#sender}}
-	                        <img src="{{avatarPath}}-48" alt="sender" class="sldimg" />
-	                        <p class='rel pr100'>{{screenName}}
-							{{/sender}}
-							 ->
-							{{#receivers}}
-							<a class="lk" href='${urlPrefix}/people/{{id}}'>{{screenName}}</a>
-							{{/receivers}} ({{replyNum}})
-	                        <span class="time">{{#lastReply}}{{screenTime}}{{/lastReply}}</span></p>
-	                        {{#lastReply}}<p>{{text}}</p>{{/lastReply}}
-	                    </li>
+				<script type='text/javascript'>
+				var tmp_msglist = "\
+                    <li class='msgli hov' stream_id='{{id}}' order_id='{{#lastReply}}{{id}}{{/lastReply}}'>\
+						{{#sender}}\
+		                <img src='{{avatarPath}}-48' alt='sender' class='sldimg' />\
+		                <p class='rel pr100'>{{screenName}}\
+						{{/sender}}->{{#receivers}}\
+						<a class='lk' href='${urlPrefix}/people/{{id}}'>{{screenName}}</a>\
+						{{/receivers}} ({{replyNum}})\
+		                <span class='time'>{{#lastReply}}{{screenTime}}{{/lastReply}}</span></p>\
+		                {{#lastReply}}<p>{{text}}</p>{{/lastReply}}\
+		            </li>";
 				</script>
 				<div id="sldroot" class="sldlist">
 					<ul class="sldlist"></ul>
@@ -178,16 +175,17 @@ seajs.use('qcomcn',function(q){
 					<a class="lk next hide">下一页</a>
 					</div>
 				</div>
-                <script type="text/html" id="msgitem">
-                    <li reply_id='{{id}}'>
-						{{#sender}}
-                        <img src="{{avatarPath}}-48" alt="avatar" class="sldimg" />
-                        <p class='rel'><a class="lk scn">{{screenName}}</a>
-						{{/sender}}<span class="time ml10">{{screenTime}}</span></p>
-                        <p class="rel">{{text}}</p>
-						<span class="act"><a class="mrrep lk">回复</a></span>
-                    </li>
-                </script>
+				<script type='text/javascript'>
+				var tmp_msgitem = "\
+                    <li reply_id='{{id}}'>\
+						{{#sender}}\
+		                <img src='{{avatarPath}}-48' alt='avatar' class='sldimg' />\
+		                <p class='rel'><a class='lk scn'>{{screenName}}</a>\
+						{{/sender}}<span class='time ml10'>{{screenTime}}</span></p>\
+		                <p class='rel'>{{text}}</p>\
+						<span class='act'><a class='mrrep lk'>回复</a></span>\
+		            </li>";
+				</script>				
                 <div id='sld2' class="sldlist">
                 	<div class="msgmem">
 						<p class="pr100 mb10"><span class='sender'></span> --> <span class='partner'></span></p>
