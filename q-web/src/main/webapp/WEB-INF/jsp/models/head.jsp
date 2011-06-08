@@ -15,8 +15,8 @@
 	var Getpush = {};
 	seajs.use("qcomcn",function(q){
 		q.jq(function(){
-			for(var i in mods) mods[i](q);
 			q.loader();
+			for(var i in mods) mods[i](q);
 
 			var $ = q.jq;
 

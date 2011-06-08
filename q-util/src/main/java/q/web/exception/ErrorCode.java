@@ -24,5 +24,7 @@ public class ErrorCode {
 	public static final String EC_GROUP_NOT_EXIST = "50000";
 
 	public static final String EC_GROUP_ALREADY_EXIST = "50001";
+	
+	public static final String EC_WEIBO_NOT_EXIST = "60000";
 
 }

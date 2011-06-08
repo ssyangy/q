@@ -24,11 +24,11 @@
     
 	<jsp:include page="models/profile.jsp" >
 		<jsp:param name="peopleId" value="${people.id}" />
-		<jsp:param name="avatarSize" value="128" />
+		<jsp:param name="tmp" value="tmp_profilebig" />
 	</jsp:include>
 	
 	<div class='mgroups clear'>
-	<p class="fgray2 mb5">${call}的圈子：</p>
+	<p class="fgray mb5">${call}的圈子：</p>
 	<c:forEach items="${groups}" var="group">
 		<a href="${urlPrefix}/group/${group.id}" class='lk mr10'>${group.name}</a>
 	</c:forEach>

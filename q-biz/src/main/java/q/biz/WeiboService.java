@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.biz;
 
@@ -12,7 +12,7 @@ import q.domain.WeiboReply;
 /**
  * @author seanlinwang at gmail dot com
  * @date May 5, 2011
- * 
+ *
  */
 public interface WeiboService {
 
@@ -105,5 +105,25 @@ public interface WeiboService {
 	 * @throws SQLException
 	 */
 	Map<String, Object> getFavoritePagination(long loginPeopleId, int size, long startId, int type) throws Exception;
+
+	/**
+	 * @param weiboId
+	 * @param loginPeopleId
+	 * @return
+	 * @throws SQLException
+	 */
+	Weibo getWeibo(long weiboId, long loginPeopleId) throws Exception;
+
+	/**
+	 * @param username
+	 * @param loginPeopleId
+	 * @param size
+	 * @param startId
+	 * @param type
+	 * @return
+	 */
+	Map<String, Object> getAtPagination(long loginPeopleId, int size, long startId) throws Exception;
+
+	Map<String, Object> getSearchWeiboPagination(String search, long loginPeopleId, int size, long startId, int type) throws Exception;
 
 }
