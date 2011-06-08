@@ -15,7 +15,6 @@ import q.web.Resource;
 import q.web.ResourceContext;
 
 public class GetSearchGroup extends Resource {
-	private static long maxId;
 	private SearchService searchService;
 
 	public void setSearchService(SearchService searchService) {
@@ -34,21 +33,18 @@ public class GetSearchGroup extends Resource {
 			String search = context.getString("search");
 			List<Group> groups = null;
 			int size = context.getInt("size", 1);
-			long startId = context.getIdLong("startId");
+			long startId = context.getIdLong("startId", IdCreator.MAX_ID);
 			int type = context.getInt("type", 0);
 			int fetchSize = size + 1;
 			int asc = 1;
 			boolean hasPrev = false;
 			boolean hasNext = false;
 			String searchAft = "";
-			if(startId == 0) {
-				startId = IdCreator.MAX_ID;
-			}
 			if(StringKit.isEmpty(search)) {
 				if(type != 1) {
-					searchAft = "*:* AND id:[* TO " + (startId - 1) + "]";
+					search = "*:* AND id:[* TO " + (startId - 1) + "]";
 				} else {
-					searchAft = "*:* AND id:[" + (startId) + " TO *]";
+					search = "*:* AND id:[" + (startId) + " TO *]";
 				}
 
 			} else if (StringKit.isNotEmpty(search) && type != 1) {
@@ -60,16 +56,13 @@ public class GetSearchGroup extends Resource {
 			Map<String, Object> api = new HashMap<String, Object>();
 			if (StringKit.isNotEmpty(search)) {
 				List<Long> bs = searchService.searchGroup(search, type, fetchSize);
-				if(startId == IdCreator.MAX_ID) {
-					maxId = bs.get(0);
-				}
 				if(bs.size() == fetchSize) {
 					if(type != 1) {
 						bs.remove(bs.size() - 1);
 					} else {
 						bs.remove(0);
 					}
-					if (type == asc && bs.get(bs.size() - 1) != maxId) { // more than one previous page
+					if (type == asc && bs.get(bs.size() - 1) != IdCreator.MAX_ID) { // more than one previous page
 						hasPrev = true;
 					} else { // more than one next page
 						hasNext = true;
