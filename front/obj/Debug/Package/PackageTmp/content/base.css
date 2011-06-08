@@ -41,10 +41,12 @@ small { font-size: 12px; }
 .hide_im{display:none!important;}
 .show_im{display:block!important;}
 .rel{position:relative;}
+.abs{position:absolute;}
 .fw{font-weight:700;}
 .f14{font-size:14px;}
 .f16{font-size:16px;}
 .vaip{vertical-align:-3px;}
+.vaip1{vertical-align:-1px\9;}
 .FR{float:right!important}
 .FL{float:left!important;}
 .tal{text-align:left;}
@@ -167,7 +169,7 @@ a.lk2{cursor:pointer;color:#7AB8CE;}
 a.lk2:hover{background-color:#7AB8CE;color:#fff;}
 a.lk3{cursor:pointer;color:#00649b;}
 a.lk3:hover{text-decoration:underline;}
-a.lkrb{padding-right:10px;border-right:1px solid #dcdcdc;}
+span.lkrb{margin:0 5px;border-right:1px solid #dcdcdc;}
 a.more{border:1px solid #ddd;border-left-width:3px;background:#fff url(images/botharrow.gif) no-repeat scroll right -20px;padding:1px 13px 1px 3px;cursor:pointer;}
 a.more:hover{border-color:#88A825}
 .newin{background:url(images/tips/new_window.gif) no-repeat right center;padding-right:12px;color:#88A825}

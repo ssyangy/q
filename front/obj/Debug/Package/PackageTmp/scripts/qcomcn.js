@@ -42,15 +42,6 @@
         require('jqplus/jq_target')($, "#toper, #main, #footer");
         exports.fixui($("body"));
 
-        window.win = $(window);
-        var calculateLayout = function () {
-            window.winHeight = window.win.height();
-            window.winWidth = window.win.width();
-        };
-        calculateLayout();
-        var lazyLayout = _.debounce(calculateLayout, 300);
-        window.win.resize(lazyLayout);
-
     }
 
     exports.fixui = function (box, includme) {
@@ -122,6 +113,17 @@
             );
         }
 
+    }
+
+    exports.window = function () {
+        window.win = $(window);
+        var calculateLayout = function () {
+            window.winHeight = window.win.height();
+            window.winWidth = window.win.width();
+        };
+        calculateLayout();
+        var lazyLayout = _.debounce(calculateLayout, 300);
+        window.win.resize(lazyLayout);
     }
 
     exports.ajaxr = function (m) {
