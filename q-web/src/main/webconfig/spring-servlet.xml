@@ -618,10 +618,7 @@
 		<property name="pictureService" ref="pictureService"></property>
 	</bean>
 	<bean id="getWeibo" class="q.web.weibo.GetWeibo">
-		<property name="weiboDao" ref="weiboDao" />
-		<property name="peopleDao" ref="peopleDao" />
-		<property name="groupDao" ref="groupDao" />
-		<property name="favoriteDao" ref="favoriteDao" />
+		<property name="weiboService" ref="weiboService" />
 	</bean>
 	<bean id="getWeiboReply" class="q.web.weibo.GetWeiboReply">
 		<property name="weiboService" ref="weiboService" />
@@ -665,12 +662,9 @@
 		<property name="weiboService" ref="weiboService" />
 	</bean>
 	<bean id="getAtIndex" class="q.web.weibo.getAtIndex">
-		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
-		<property name="groupDao" ref="groupDao" />
-		<property name="favoriteDao" ref="favoriteDao" />
-		<property name="searchService" ref="searchService" />
 		<property name="cacheService" ref="cacheService" />
+		<property name="weiboService" ref="weiboService" />
 	</bean>
 
 	<!-- favorite web -->

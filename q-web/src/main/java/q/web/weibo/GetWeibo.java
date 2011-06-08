@@ -3,16 +3,12 @@
  */
 package q.web.weibo;
 
-import q.dao.DaoHelper;
-import q.dao.FavoriteDao;
-import q.dao.GroupDao;
-import q.dao.PeopleDao;
-import q.dao.WeiboDao;
+import q.biz.WeiboService;
 import q.domain.Weibo;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
-import q.web.exception.RequestParameterInvalidException;
+import q.web.exception.WeiboNotExistException;
 
 /**
  * @author seanlinwang
@@ -21,28 +17,10 @@ import q.web.exception.RequestParameterInvalidException;
  * 
  */
 public class GetWeibo extends Resource {
-	private WeiboDao weiboDao;
+	private WeiboService weiboService;
 
-	public void setWeiboDao(WeiboDao weiboDao) {
-		this.weiboDao = weiboDao;
-	}
-
-	private PeopleDao peopleDao;
-
-	public void setPeopleDao(PeopleDao peopleDao) {
-		this.peopleDao = peopleDao;
-	}
-
-	private GroupDao groupDao;
-
-	public void setGroupDao(GroupDao groupDao) {
-		this.groupDao = groupDao;
-	}
-
-	private FavoriteDao favoriteDao;
-
-	public void setFavoriteDao(FavoriteDao favoriteDao) {
-		this.favoriteDao = favoriteDao;
+	public void setWeiboService(WeiboService weiboService) {
+		this.weiboService = weiboService;
 	}
 
 	/*
@@ -55,15 +33,7 @@ public class GetWeibo extends Resource {
 		long weiboId = context.getResourceIdLong();
 		long loginPeopleId = context.getCookiePeopleId();
 
-		Weibo weibo = weiboDao.getWeiboById(weiboId);
-		if (weibo.getQuoteWeiboId() > 0) {
-			DaoHelper.injectWeiboModelWithQuote(weiboDao, weibo);
-		}
-		DaoHelper.injectWeiboModelWithPeople(peopleDao, weibo);
-		DaoHelper.injectWeiboModelWithFrom(groupDao, weibo);
-		if (loginPeopleId > 0) {
-			DaoHelper.injectWeiboWithFavorite(favoriteDao, weibo, loginPeopleId);
-		}
+		Weibo weibo = weiboService.getWeibo(weiboId, loginPeopleId);
 		context.setModel("weibo", weibo);
 	}
 
@@ -76,7 +46,7 @@ public class GetWeibo extends Resource {
 	public void validate(ResourceContext context) throws Exception {
 		long weiboId = context.getResourceIdLong();
 		if (IdCreator.isNotValidId(weiboId)) {
-			throw new RequestParameterInvalidException("weibo:invalid");
+			throw new WeiboNotExistException();
 		}
 	}
 
