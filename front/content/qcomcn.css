@@ -80,7 +80,7 @@ li.streambox.hover .fd b.cloarrow:hover{background-image:url(images/tips/stop_h.
 li.streambox.hover a.hod{visibility:inherit;}
 li.streambox .repmod{border:1px solid #ddd;padding:5px;margin-bottom:10px;}
 li.streambox .extend{display:none;padding:10px 0 5px 58px;}
-li.streambox input.reply_val{width:200px;}
+li.streambox input.reply_val{width:500px;}
 li.streambox span.actions{position:absolute;right:0;top:0;}
 a.newweibo{display:block;background-color:#E2F4F8;height:26px;line-height:26px;color:#00649b;margin:5px;cursor:pointer;text-align:center;
            -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px;}
