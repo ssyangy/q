@@ -23,14 +23,13 @@ var tmp_stream = "\
 		<span class='lkrb'></span>\
 		<a href='javascript:void(0);' class='lk resub'>转发{{#retweetNum}}({{retweetNum}}){{/retweetNum}}</a>\
 		<span class='lkrb'></span>\
-		{{#isown}}<a href='javascript:void(0);' class='lk del'>删除</a>{{/isown}}\
-		<span class='lkrb'></span>\
+		{{#isown}}<a href='javascript:void(0);' class='lk del'>删除</a><span class='lkrb'></span>{{/isown}}\
 		<a href='javascript:void(0);' class='lk fav {{#favorited}}hide{{/favorited}}'>收藏</a>\
 		<a href='javascript:void(0);' class='lk unfav {{^favorited}}hide{{/favorited}}'>取消收藏</a>\
 	</div>\
 	<div class='extend'>\
-		<input class='mttext_val reply_val' type='text' value='发表点评论。。。' />\
-		<a class='btnb reply_btn'>提交</a>\
+		<div class='clear'><input class='mttext_val reply_val' type='text' value='发表点评论。。。' />\
+		<a class='btnb reply_btn FR mt5'>提交</a></div>\
 		<ul class='msglist mb5'></ul>\
 		<a class='lk mr10 rrprev hide'>上一页</a>\
 		<a class='lk rrnext hide'>下一页</a>\
