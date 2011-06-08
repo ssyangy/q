@@ -10,7 +10,7 @@ seajs.use(['qcomcn','app/weibo','underscore'], function (q, w, _) {
 	var $ = q.jq;
 	$(function(){
 		var seed = $('#streams');
-		
+		q.window();
 		w.Loader(q);
 	    w.weibos = new w.WeiboList();
 	    var weiboAdd = function (o) {
