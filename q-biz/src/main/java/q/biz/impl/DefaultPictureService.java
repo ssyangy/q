@@ -90,14 +90,15 @@ public class DefaultPictureService implements PictureService {
 			originImage160 = ImageKit.rotate(originImage160, fix);
 			originImage320 = ImageKit.rotate(originImage320, fix);
 			BufferedImage[] images = new BufferedImage[3];
-			images[0] = originImage;
-			images[1] = originImage160;
-			images[2] = originImage320;
+			images[0] = originImage160;
+			images[1] = originImage320;
+			images[2] = originImage;
 			URL tempt = new URL(this.imageUploadUrl);
 			int di = picturePath.lastIndexOf("/");
 			String name = picturePath.substring(di);
 			picturePath = picturePath.substring(0, di);
 			String dir = picturePath.substring(picturePath.lastIndexOf("/"));
+			dir="/w"+dir;
 			sb = postPictures(tempt, dir, name, images);
 		}
 		if (sb.equals("false")) {
