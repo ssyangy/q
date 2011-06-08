@@ -1,9 +1,10 @@
 /**
- * 
+ *
  */
 package q.web.group;
 
 import q.dao.GroupDao;
+import q.dao.PeopleDao;
 import q.domain.Status;
 import q.util.IdCreator;
 import q.web.Resource;
@@ -15,7 +16,7 @@ import q.web.exception.PeopleNotPermitException;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 18, 2011
- * 
+ *
  */
 public class DeleteGroupJoin extends Resource {
 
@@ -25,9 +26,14 @@ public class DeleteGroupJoin extends Resource {
 		this.groupDao = groupDao;
 	}
 
+	private PeopleDao peopleDao;
+
+	public void setPeopleDao(PeopleDao peopleDao) {
+		this.peopleDao = peopleDao;
+	}
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -37,12 +43,13 @@ public class DeleteGroupJoin extends Resource {
 		int rowEffected = groupDao.updatePeopleJoinGroupStatusByPeopleIdAndGroupIdAndOldStatus(loginId, groupId, Status.DELETE, Status.COMMON);
 		if (rowEffected > 0) {
 			groupDao.decrGroupJoinNumByGroupId(groupId);
+			peopleDao.decrPeopleGroupNumberByPeopleId(context.getCookiePeopleId());
 		}
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override

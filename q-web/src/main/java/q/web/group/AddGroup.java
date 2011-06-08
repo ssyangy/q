@@ -10,6 +10,7 @@ import q.biz.PictureService;
 import q.biz.SearchService;
 import q.dao.CategoryDao;
 import q.dao.GroupDao;
+import q.dao.PeopleDao;
 import q.domain.Group;
 import q.util.IdCreator;
 import q.util.StringKit;
@@ -31,6 +32,12 @@ public class AddGroup extends Resource {
 
 	public void setGroupDao(GroupDao groupDao) {
 		this.groupDao = groupDao;
+	}
+
+	private PeopleDao peopleDao;
+
+	public void setPeopleDao(PeopleDao peopleDao) {
+		this.peopleDao = peopleDao;
 	}
 
 	private SearchService searchService;
@@ -83,6 +90,8 @@ public class AddGroup extends Resource {
 		groupDao.addPeopleJoinGroup(group.getCreatorId(), group.getId());
 		groupDao.incrGroupJoinNumByGroupId(group.getId());
 		searchService.updateGroup(group);
+
+		peopleDao.incrPeopleGroupNumberByPeopleId(context.getCookiePeopleId());
 
 		if (context.isApiRequest()) {
 			context.setModel("group", group);

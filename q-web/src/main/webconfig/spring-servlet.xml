@@ -481,6 +481,7 @@
 	<!-- group web -->
 	<bean id="addGroup" class="q.web.group.AddGroup">
 		<property name="groupDao" ref="groupDao" />
+		<property name="peopleDao" ref="peopleDao" />
 		<property name="categoryDao" ref="categoryDao" />
 		<property name="searchService" ref="searchService" />
 		<property name="pictureService" ref="pictureService" />
@@ -538,9 +539,11 @@
 	</bean>
 	<bean id="addGroupJoin" class="q.web.group.AddGroupJoin">
 		<property name="groupDao" ref="groupDao" />
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="deleteGroupJoin" class="q.web.group.DeleteGroupJoin">
 		<property name="groupDao" ref="groupDao" />
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="getGroupJoin" class="q.web.group.GetGroupJoin">
 		<property name="groupDao" ref="groupDao" />
@@ -729,10 +732,7 @@
 
 	<!-- search web -->
 	<bean id="getSearchWeibo" class="q.web.search.GetSearchWeibo">
-		<property name="weiboDao" ref="weiboDao" />
-		<property name="peopleDao" ref="peopleDao" />
-		<property name="groupDao" ref="groupDao" />
-		<property name="searchService" ref="searchService"></property>
+		<property name="weiboService" ref="weiboService"></property>
 	</bean>
 	<bean id="getSearchGroup" class="q.web.search.GetSearchGroup">
 		<property name="searchService" ref="searchService"></property>
