@@ -18,7 +18,7 @@ import q.domain.PeopleRelationStatus;
 /**
  * @author alin
  * @date Feb 10, 2011
- * 
+ *
  */
 public interface PeopleDao {
 
@@ -165,12 +165,24 @@ public interface PeopleDao {
 
 	/**
 	 * @param toPeopleId
-	 * @return 
+	 * @return
 	 */
 	int decrPeopleFollowerNumberByPeopleId(long toPeopleId) throws SQLException;
 
 	/**
-	 * @param peopleId 
+	 * @param peopleId
+	 * @param newPassword
+	 */
+	int decrPeopleGroupNumberByPeopleId(long PeopleId) throws SQLException;
+
+	/**
+	 * @param peopleId
+	 * @param newPassword
+	 */
+	int incrPeopleGroupNumberByPeopleId(long PeopleId) throws SQLException;
+
+	/**
+	 * @param peopleId
 	 * @param newPassword
 	 */
 	int updatePasswordByPeopleId(long peopleId, String newPassword) throws SQLException;
