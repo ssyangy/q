@@ -26,10 +26,11 @@ seajs.use(['qcomcn','jqplus/jq_rotate', 'jqplus/jq_countable','plus/emote'], fun
 			$("#inputmain").val(maintxt+"["+txt+"]").focusaft();
 		});
 
-		$('#inputmain').focus(function() {
+/* 		$('#inputmain').focus(function() {
 			$(this).css('height', '40');
 			$('#inputbtm').removeClass('height0');
-		});
+		}); */
+		
 		$("body").bind("keyup", function(e) {
 			var code = (e.keyCode ? e.keyCode : e.which);
 			var tarname = $(e.target).get(0).tagName;
@@ -198,9 +199,8 @@ function checkWeibo() {
 </script>
 <form action="${urlPrefix}/weibo" onsubmit="return checkWeibo();" method="post" name="weiboForm">
 	<div class="inputbx">
-		<textarea id="inputmain" name="content" maxlength="140" class="mttextar_val countable">说点什么 . . .</textarea>
-		<div class="cttarget"></div>
-		<div id="inputbtm" class="rel clear height0">
+		<textarea id="inputmain" style="height:60px;" name="content" maxlength="140" class="mttextar_val countable">说点什么 . . .</textarea>
+		<div id="inputbtm" class="rel clear">
 			插入：
 			<a class="lk mr10 emot" tgtt='emots'>表情</a>
 	        <div id="emots" class='tgtbox'>
@@ -222,6 +222,7 @@ function checkWeibo() {
 					<input type="hidden" name="groupId" value="${group.id}" />
 				</c:otherwise>
 			</c:choose>
+			<span class="cttarget abs" style="right:70px;bottom:5px;"></span>
 			<input id="btnSubTweet" type="submit" name="name" value="发表"
 				class="btnr btninp" /> <input type="hidden" name="from"
 				value="${param['from']}" /> <input type="hidden" name="picPath"

@@ -93,7 +93,7 @@ var tmp_replys = "\
     <div class="col-sub">
 		<jsp:include page="models/profile.jsp" >
 			<jsp:param name="peopleId" value="${loginCookie.peopleId}" />
-			<jsp:param name="avatarSize" value="48" />
+			<jsp:param name="tmp" value="tmp_profile" />
 		</jsp:include>
     </div>
 </div>
