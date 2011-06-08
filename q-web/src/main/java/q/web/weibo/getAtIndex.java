@@ -17,7 +17,7 @@ import q.web.exception.PeopleNotLoginException;
 /**
  * @author seanlinwang at gmail dot com
  * @date May 14, 2011
- * 
+ *
  */
 public class getAtIndex extends Resource {
 
@@ -41,7 +41,7 @@ public class getAtIndex extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -52,7 +52,7 @@ public class getAtIndex extends Resource {
 		if (context.isApiRequest()) {
 			if (context.isApiRequest()) {
 				int size = context.getInt("size", 10);
-				long startId = context.getIdLong("startId");
+				long startId = context.getIdLong("startId", IdCreator.MAX_ID);
 				Map<String, Object> api = weiboService.getAtPagination(loginPeopleId, size, startId);
 				context.setModel("api", api);
 			}
@@ -64,7 +64,7 @@ public class getAtIndex extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override

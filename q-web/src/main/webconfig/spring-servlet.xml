@@ -729,10 +729,7 @@
 
 	<!-- search web -->
 	<bean id="getSearchWeibo" class="q.web.search.GetSearchWeibo">
-		<property name="weiboDao" ref="weiboDao" />
-		<property name="peopleDao" ref="peopleDao" />
-		<property name="groupDao" ref="groupDao" />
-		<property name="searchService" ref="searchService"></property>
+		<property name="weiboService" ref="weiboService"></property>
 	</bean>
 	<bean id="getSearchGroup" class="q.web.search.GetSearchGroup">
 		<property name="searchService" ref="searchService"></property>

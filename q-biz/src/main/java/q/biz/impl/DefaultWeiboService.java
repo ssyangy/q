@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.biz.impl;
 
@@ -39,7 +39,7 @@ import q.util.StringKit;
 /**
  * @author seanlinwang at gmail dot com
  * @date May 5, 2011
- * 
+ *
  */
 public class DefaultWeiboService implements WeiboService {
 	private WeiboDao weiboDao;
@@ -92,7 +92,7 @@ public class DefaultWeiboService implements WeiboService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.biz.WeiboService#addWeiboReply(q.domain.WeiboReply)
 	 */
 	@Override
@@ -106,7 +106,7 @@ public class DefaultWeiboService implements WeiboService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.biz.WeiboService#addWeibo(q.domain.Weibo)
 	 */
 	@Override
@@ -116,7 +116,7 @@ public class DefaultWeiboService implements WeiboService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.biz.WeiboService#addWeiboRetweet(q.domain.Weibo)
 	 */
 	@Override
@@ -127,7 +127,7 @@ public class DefaultWeiboService implements WeiboService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.biz.WeiboService#addReplyRetweet(q.domain.Weibo)
 	 */
 	@Override
@@ -429,7 +429,7 @@ public class DefaultWeiboService implements WeiboService {
 	@Override
 	public Map<String, Object> getAtPagination(long loginPeopleId, int size, long startId) throws Exception {
 		String username = this.peopleDao.getPeopleById(loginPeopleId).getUsername();
-		
+
 		if (startId == 0) { // only first time to visit this page, startId is 0
 			startId = IdCreator.MAX_ID;
 		}
@@ -454,6 +454,40 @@ public class DefaultWeiboService implements WeiboService {
 					DaoHelper.injectWeiboModelsWithFavorite(favoriteDao, weibos, loginPeopleId);
 				}
 				api.put("weibos", weibos);
+			}
+		}
+		api.put("hasPrev", hasPrev);
+		api.put("hasNext", hasNext);
+		return api;
+	}
+
+	@Override
+	public Map<String, Object> getSearchWeiboPagination(String search, long loginPeopleId, int size, long startId, int type) throws Exception {
+		int asc = 1;
+		if(StringKit.isNotEmpty(search)) {
+			search = search + " " + "AND id:[* TO " + (startId - 1) + "]";
+		} else {
+			search = "*:* AND id:[* TO " + (startId - 1) + "]";
+		}
+		boolean hasPrev = false;
+		boolean hasNext = false;
+		Map<String, Object> api = new HashMap<String, Object>();
+		if (StringKit.isNotEmpty(search)) {
+			List<Long> bs = searchService.searchWeibo(search, size);
+			if (bs != null) {
+				if (bs.size() > 0) {
+					if (type == asc) { // this action from next page
+						hasNext = true;
+					} else if (startId != IdCreator.MAX_ID) {// this action from previous page
+						hasPrev = true;
+					}
+					List<? extends WeiboModel> weibos = weiboDao.getWeibosByIds(bs, true);
+					if (CollectionKit.isNotEmpty(weibos)) {
+						DaoHelper.injectWeiboModelsWithPeople(peopleDao, weibos);
+						DaoHelper.injectWeiboModelsWithFrom(groupDao, weibos);
+						api.put("weibos", weibos);
+					}
+				}
 			}
 		}
 		api.put("hasPrev", hasPrev);
