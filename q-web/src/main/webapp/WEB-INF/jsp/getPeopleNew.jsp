@@ -28,13 +28,11 @@ seajs.use('qcomcn',function(q){
         	{
         	    var emailtest= /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
         	    if(emailtest.test(a)){
-        	         $("#emailcorrect").css("display","block");
         	         $("#emailwrong").css("display","none");
         	       //  alert(emailExistCheck());
         	       //   emailExistCheck();
         	         return true;
         	    }
-        	    $("#emailcorrect").css("display","none");
         	    $("#emailwrong").css("display","block");
         	    $("#emailwrong").html("请输入正确的邮箱地址。");
         	   return false;
@@ -117,7 +115,6 @@ seajs.use('qcomcn',function(q){
         	       else {
         	          var errorkind=errorType(json.error);
         	          if(errorkind=="email"){
-        	            $("#emailcorrect").css("display","none");
         	            $("#emailwrong").css("display","block");
         	            $("#emailwrong").html(errorContext(json.error));
         	          }
@@ -170,7 +167,6 @@ seajs.use('qcomcn',function(q){
         	  var ca=checkauthcode($("#authcode").val());
         	  var crp=true;
         	  if(!newEmail){
-        	          $("#emailcorrect").css("display","none");
         	          $("#emailwrong").css("display","block");
         	          $("#emailwrong").html("该邮箱已被注册。");
         	  }
@@ -232,11 +228,9 @@ seajs.use('qcomcn',function(q){
         	    success: function(json){
         	   // var data="{'error_code':'403309','error':'该邮箱地址已被注册.'}";
         	      if(json == null){
-        	          $("#emailcorrect").css("display","block");
         	          $("#emailwrong").css("display","none");
         	          newEmail = true;
         	      } else {
-        	          $("#emailcorrect").css("display","none");
         	          $("#emailwrong").css("display","block");
         	          $("#emailwrong").html(errorContext(json.error));
         	          newEmail = false;
@@ -281,7 +275,9 @@ seajs.use('qcomcn',function(q){
 <body>
 <div class="signup">
     <h1 class="logo2"></h1>
-
+	
+	<span class='info'>已有Q.com.cn帐号？<a class='lk ml5'>马上登录</a></span>
+	
         <ul class='pssyao clear'>
             <li class="done">创建帐号</li>
             <li class="end">填写资料</li>
@@ -289,63 +285,50 @@ seajs.use('qcomcn',function(q){
 
         <table class='qform'>
 			<tr>
-				<td align="right">邮箱：</td>
+				<td align="right" class="f14">邮箱：</td>
 				<td><input type='text' class='mttext' id='email' onblur="checkEmail(this.value),emailExistCheck()">
-						<div class="label-box-good" style="display: none;"
-							id="emailcorrect"></div>
-						<div class="label-box-error" style="display: none;"
-							id="emailwrong"></div>
+						<div class="label-box-good hide mt5 fgray2" id="emailcorrect"></div>
+						<div class="label-box-error hide mt5 fgray2" id="emailwrong"></div>
 				</td>
 			</tr>
 			<tr>
-				<td align="right">用户名：</td>
-				<td><input type='text' class='mttext' id='username' onblur="checkUserName(this.value),usernameExistCheck()">
-						  <div class="label-box-good" style="display: none;"
-							id="usernamecorrect"></div>
-						  <div class="label-box-error" style="display: none;"
-							id="usernamewrong"></div>
+				<td align="right" class="f14">用户名：</td>
+				<td><input type='text' class='mttext' id='username' onblur="checkUserName(this.value),usernameExistCheck()" style="width:120px;">
+						  <div class="label-box-good hide mt5 fgray2" id="usernamecorrect"></div>
+						  <div class="label-box-error hide mt5 fgray2" id="usernamewrong"></div>
 				</td>
 			</tr>
 			<tr>
-				<td align="right">真实姓名：</td>
-				<td><input name="realName" type="text" id="realName" class="mttext" size="20" onblur="checkrealName(this.value)">
-									     	<div class="label-box-good" style="display: none;"
-							id="realNamecorrect"></div>
-						    <div class="label-box-error" style="display: none;"
-							id="realNamewrong"></div>
+				<td align="right" class="f14">真实姓名：</td>
+				<td><input name="realName" type="text" id="realName" class="mttext" style="width:120px;" onblur="checkrealName(this.value)">
+						<div class="label-box-good hide mt5 fgray2" id="realNamecorrect"></div>
+						<div class="label-box-error hide mt5 fgray2" id="realNamewrong"></div>					
 				</td>
 			</tr>
 			<tr>
-				<td align="right">密码：</td>
+				<td align="right" class="f14">密码：</td>
 				<td><input type='password' class='mttext' id='password' onblur="checkPassword(this.value)" >
-						<div class="label-box-good" style="display: none;"
-							id="passwordcorrect"></div>
-						<div class="label-box-error" style="display: none;"
-							id="passwordwrong"></div>
+						<div class="label-box-good hide mt5 fgray2" id="passwordcorrect"></div>
+						<div class="label-box-error hide mt5 fgray2" id="passwordwrong"></div>						
 				</td>
 			</tr>
 			<tr>
-				<td align="right">重复密码：</td>
+				<td align="right" class="f14">重复密码：</td>
 				<td><input type='password' class='mttext' id="confirmPassword" onblur="recheckPassword(this.value)">
-						<div class="label-box-good" style="display: none;"
-							id="repasswordcorrect"></div>
-						<div class="label-box-error" style="display: none;"
-							id="repasswordwrong"></div>
+						<div class="label-box-good hide mt5 fgray2" id="repasswordcorrect"></div>
+						<div class="label-box-error hide mt5 fgray2" id="repasswordwrong"></div>	
 				</td>
 			</tr>
 			<tr>
-				<td align="right">验证码：<input type='hidden' name='authcodeId' id='authcodeId'></td>
-				<td class="col-field">
-				<input type="text" name="authcode" id="authcode"
-					class="mttext" size="5" onblur="checkauthcode(this.value)">
-                        <img id="authimg"  src="" />
-                        <a href="javascript:reloadVerify_img()">看不清,换一张</a>
-                       </td>
-				<td class="col-help">
-				    <div class="label-box-good" style="display: none;"
-					id="authcodecorrect"></div>
-				    <div class="label-box-error" style="display: none;"
-					id="authcodewrong"></div>
+				<td align="right" class="f14">验证码：<input type='hidden' name='authcodeId' id='authcodeId'></td>
+				<td class="">
+				<input type="text" name="authcode" id="authcode" class="mttext" size="5" onblur="checkauthcode(this.value)">
+                        <img style="vertical-align:middle;width:70px;" id="authimg"  src="" />
+                        <a href="javascript:reloadVerify_img()" class="lk">看不清,换一张</a>
+                </td>
+				<td>
+						<div class="label-box-good hide mt5 fgray2" id="authcodecorrect"></div>
+						<div class="label-box-error hide mt5 fgray2" id="authcodewrong"></div>					
 				</td>
 			</tr>
 			<tr>

@@ -29,7 +29,7 @@
 										</struct>
 									</type>
 								</member>
-								<member name="quote" apiName="quote">
+								<member name="reply" apiName="reply">
 									<type>
 										<struct>
 											<member name="id" apiName="id" apiType="string" />
@@ -47,6 +47,34 @@
 													<struct>
 														<member name="id" apiName="id" apiType="string" />
 														<member name="realName" apiName="screenName" apiType="string" />
+														<member name="username" apiName="username" apiType="string" />
+														<member name="avatarPath" apiName="avatarPath" apiType="string" />
+													</struct>
+												</type>
+											</member>
+										</struct>
+									</type>
+								</member>
+								<member name="quote" apiName="quote">
+									<type>
+										<struct>
+											<member name="id" apiName="id" apiType="string" />
+											<member name="time" apiName="screenTime" apiType="string" />
+											<member name="createdTime" apiName="createdTime" apiType="string" />
+											<member name="content" apiName="text" apiType="string" />
+											<member name="picturePath" apiName="picturePath" apiType="string" />
+											<member name="fav" apiName="favorited" apiType="boolean" />
+											<member name="fromName" apiName="fromName" apiType="string" />
+											<member name="fromUrl" apiName="fromUrl" apiType="string" />
+											<member name="replyNum" apiName="replyNum" apiType="int" />
+											<member name="retweetNum" apiName="retweetNum" apiType="int" />
+											<member name="status" apiName="status" apiType="int" />
+											<member name="people" apiName="people">
+												<type>
+													<struct>
+														<member name="id" apiName="id" apiType="string" />
+														<member name="realName" apiName="screenName" apiType="string" />
+														<member name="username" apiName="username" apiType="string" />
 														<member name="avatarPath" apiName="avatarPath" apiType="string" />
 													</struct>
 												</type>

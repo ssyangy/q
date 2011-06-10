@@ -68,19 +68,4 @@
 	<session-config>
 		<session-timeout>0</session-timeout>
 	</session-config>
-	<!-- ====================================================== -->
-	<!-- Error Pages -->
-	<!-- ====================================================== -->
-	<error-page>
-		<error-code>500</error-code>
-		<location>/error/hungUp</location>
-	</error-page>
-	<error-page>
-		<error-code>404</error-code>
-		<location>/error/notExist</location>
-	</error-page>
-	<error-page>
-		<error-code>403</error-code>
-		<location>/error/forbid</location>
-	</error-page>
 </web-app>

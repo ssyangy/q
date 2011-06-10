@@ -23,6 +23,7 @@ import q.util.IdCreator;
 import q.util.StringKit;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
 import q.web.exception.RequestParameterInvalidException;
 
 /**
@@ -126,9 +127,9 @@ public class AddMessage extends Resource {
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		long senderId = context.getCookiePeopleId();
-		if (senderId == 0) {
-			throw new RequestParameterInvalidException("login:invalid");
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
 		}
 		String[] receiverStringIds = StringKit.split(context.getString("receiverId"), ',');
 		if (ArrayKit.isEmpty(receiverStringIds)) {
@@ -148,7 +149,7 @@ public class AddMessage extends Resource {
 			throw new RequestParameterInvalidException("receiver:invalid");
 		}
 		HashSet<Long> idSet = new HashSet<Long>(receiverIds);
-		if(idSet.contains(senderId)) {
+		if(idSet.contains(loginPeopleId)) {
 			throw new RequestParameterInvalidException("receiver:不能自己发给自己");
 		}
 		List<People> receivers = peopleDao.getPeoplesByIds(new ArrayList<Long>(idSet));

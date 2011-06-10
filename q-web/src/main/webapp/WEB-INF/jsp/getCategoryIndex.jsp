@@ -13,7 +13,7 @@ span.tit{display:none;}
 <script type="text/javascript">
 mods.push(function (q) {
 	var $ = q.jq;
-         
+
          var lis = $("#sldroot>li");
          var roll = $('#passroll');
          var slider = $("#slider");
@@ -23,11 +23,15 @@ mods.push(function (q) {
                 slider.animate({ left: 0 }, { duration: 500, easing: "swing" });
                 $('span.tit', roll).text('');
                 root.data("clicked", false).removeClass("lk3 rollbtn2");;
-             } 
+             }
          });
-         
+
 		seajs.use('ICanHaz', function (ich) {
-			lis.click(function () {
+			lis.click(function (e) {
+                var code = (e.keyCode ? e.keyCode : e.which);
+                var tarname = $(e.target).get(0).tagName;
+                if (tarname == 'A') return;
+                
 				window.gpid = $(this).attr('gpcid');
 				$('span.tit',roll).text($('.name',this).text()).show();
 				$.ajax({ url: "${urlPrefix}/category/"+ window.gpid +"/group",
@@ -54,9 +58,9 @@ mods.push(function (q) {
 				   		$("#sld2").html(ich.group(json));
 				    }
 				});
-			});				
+			});
 		});
-		
+
 		$('#sld2 a.act').live('click',function(){
 			var li = $(this).parent('li');
 			$.ajax({ url: '${urlPrefix}/group/' + li.attr('gid') + '/join', type: 'POST', msg:this,
@@ -95,8 +99,8 @@ mods.push(function (q) {
             <ul id="sldroot" class="sldlist">
 				<c:forEach items="${cats}" var="cat" varStatus="status">
 				<li gpcid='${cat.id}' class='hov'>
-					<img src="${staticUrlPrefix}/content/images/icons/icons-0${status.index + 2}.png" alt="gpcate" class="sldimg" >
-					<p><span class='name f14 fblue'>${cat.name}</span></p>
+					<img src="${cat.avatarPath}" class="sldimg" >
+					<p><span class='name f14 fblue fw'>${cat.name}</span></p>
 					<p>
 						<c:forEach items="${cat.groups}" var="group" varStatus="status">
 							<a class="lk" href="${urlPrefix}/group/${group.id}">${group.name}</a>
@@ -105,16 +109,16 @@ mods.push(function (q) {
 				</li>
 				</c:forEach>
             </ul>
-            <div id='sld2'></div>
+            <div id='sld2' class="sldlist"></div>
             <script type="text/html" id="group">
-					<ul id="sldtrunk" class="sldlist">
+					<ul id="sldtrunk">
 					{{#groups}}
                     <li gid={{id}}>
-                        <img src="{{avatarPath}}" alt="avtor" class="sldimg" />
+                        <img src="{{avatarPath}}-48" alt="avtor" class="sldimg" />
                         <a class='btnb act {{#joined}}hide_im{{/joined}}'>关注</a>
                         <a class='btnb actun {{^joined}}hide_im{{/joined}}'>取消关注</a>
-                       <p><a href='${urlPrefix}/group/{{id}}' class='lk'>{{name}}</a></p>
-                        <p>成员：{{joinNum}}人&nbsp;&nbsp;创建于：{{screenTime}}</p>
+                       <p><a href='${urlPrefix}/group/{{id}}' class='lk fw'>{{name}}</a></p>
+                        <p class='fgray2'>成员：{{joinNum}}人&nbsp;&nbsp;创建于：{{screenTime}}</p>
                         <p>{{intro}}</p>
                     </li>
 					{{/groups}}
@@ -132,7 +136,7 @@ mods.push(function (q) {
 			<jsp:param name="id" value="0" />
 		</jsp:include>
     </div>
-    <div class="col-extra" style="padding-top:13px;">
+    <div class="col-extra">
 
         <div class="component">
         <h3>圈子推荐</h3>
@@ -140,7 +144,7 @@ mods.push(function (q) {
             <c:forEach items="${recommendGroups}" var="group" varStatus="status">
             <li class="<c:if test="${status.count%3==0}">end</c:if>">
                 <a href="${urlPrefix}/group/${group.id}">
-                	<img class="img48" src="${group.avatarPath}" alt="img" />
+                	<img class="img48" src="${group.avatarPath}-48" alt="img" />
                 </a>
                 <div class="gray">
                     <a href="${urlPrefix}/group/${group.id}" class='lk'>${group.name}</a>

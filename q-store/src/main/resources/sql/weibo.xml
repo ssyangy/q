@@ -135,15 +135,15 @@
 		and id = #weiboId#
 		and status = 0;
 	</update>
-	
+
 	<update id="deleteWeiboByPage">
 		update weibo set
 		status = #newStatus#
 		where
 		id = #id#
 		and status = #oldStatus#;
-	</update>	
-	
+	</update>
+
 	<update id="deleteWeiboJoinGroupsByPage">
 		update weibo_join_group set
 		status = #newStatus#
@@ -305,7 +305,8 @@
 			</isNotNull>
 		<isNotNull prepend="and " property="quoteSenderId">
 			quote_sender_id = #quoteSenderId#
-			</isNotNull>
+			and sender_id != #quoteSenderId#
+		</isNotNull>
 		<isNotNull prepend="and " property="quoteSenderIds">
 			quote_sender_id in
 			<iterate property="quoteSenderIds" open="(" close=")" conjunction=",">

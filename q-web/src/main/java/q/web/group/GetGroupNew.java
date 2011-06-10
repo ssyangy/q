@@ -7,8 +7,10 @@ import q.dao.CategoryDao;
 import q.dao.GroupDao;
 import q.domain.Category;
 import q.domain.Group;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
 
 /**
  * @author Zhehao
@@ -47,7 +49,9 @@ public class GetGroupNew extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
-		
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
+		}
 	}
 }

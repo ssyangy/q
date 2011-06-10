@@ -12,8 +12,11 @@
     <script type="text/javascript">
         seajs.use('qcomcn', function (q) {
             $ = q.jq;
-            $(function () {
-                q.loader();
+            
+			$(function () {
+				q.loader();
+				$("#signvali").validationEngine();
+			
             });
 			            
         });
@@ -69,24 +72,34 @@ function errorContext(error){
 <div class="header">
 	<div class="logo"></div>
 	<div class="titles"></div>
-	<span id="loginWrong hide"></span>
+
 	<table class="signin-area">
-			<tr>
-				<td align="right">邮箱：</td>
-				<td><input id="email" name="email" type='text' class='mttext' accesskey='l'></td>
-			</tr>
-			<tr>
-				<td align="right">密码：</td>
-				<td><input id="password" name="password" type='password' class='mttext' accesskey='l'></td>
-				<td><a href="${urlPrefix}/password/forget" class="lk ml10">忘记密码</a></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><input type="checkbox" checked="checked" /> 保持登录状态 
-				<a href="#" class="btnr access_l" onclick="check()">登 录</a></td>
-				<td><a class="lk ml10" href="${urlPrefix}/people/new">立即注册</a></td>
-			</tr>		
+		<tr>
+			<td align="right">邮箱：</td>
+			<td><input id="email" name="email" type='text' class='validate[required,custom[email],ajax[ajaxEmailExist]] mttext' style="width:170px;" accesskey='l'></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td style="padding-top:6px;" align="right">密码：</td>
+			<td style="padding-top:6px;"><input id="password" name="password" type='password' class='mttext validate[required]' style="width:170px;" accesskey='l'></td>
+			<td style="padding-top:6px;"><a href="${urlPrefix}/password/forget" class="lk ml10">忘记密码</a></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td style="height:23px;line-height:23px;padding-top:4px;">
+				<input type="checkbox" checked="checked" style="vertical-align:middle;margin:0 8px 4px 2px;" />保持登录状态
+				<input type="submit" class="btnr access_l submit FR" style="margin-right:2px;" onclick="check()" value="登 录" />
+			</td>
+			<td style="padding-top:4px;"><a class="lk ml10" href="${urlPrefix}/people/new">立即注册</a></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><span id='loginWrong' class='hide fred'></span>
+			</td>
+			<td></td>
+		</tr>		
 	</table>
+	
 </div>
 
 <div class="mt20 clear">
@@ -95,7 +108,7 @@ function errorContext(error){
 		<ul class="sldlist" id="sldroot">
 			<c:forEach items="${cats}" var="cat" varStatus="status">
 			<li>
-				<img src="${staticUrlPrefix}/content/images/icons/icons-0${status.index + 2}.png" alt="ico" class="sldimg" />
+				<img src="${cat.avatarPath}" alt="ico" class="sldimg" />
 				<p class='f14'><a href="${urlPrefix}/category">${cat.name}</a></p>
 				<p>
 				<c:forEach items="${cat.groups}" var="group" varStatus="status">
@@ -106,7 +119,7 @@ function errorContext(error){
 			</c:forEach>
 		</ul>
 	</div>
-	<div class="FL" style="width:290px;padding-left:40px;">
+	<div class="FL" style="width:300px;padding-left:40px;">
 		<h4>热议ING</h4>
 		<ul class="msglist">
 			<c:forEach items="${hotWeibos}" var="weibo">
@@ -115,7 +128,7 @@ function errorContext(error){
 		        <img src="${weibo.people.avatarPath}-48" alt="{{screenName}}" class="sldimg" />
 		        </a>
 		        <p><a href="${urlPrefix}/people/${weibo.people.id}" class="lk">${weibo.people.realName}</a></p>
-		        <p><a href="${urlPrefix}/weibo/${weibo.id}">${weibo.content}</a></p>
+		        <p>${weibo.content}</p>
 		    </li>					
 			</c:forEach>
 		</ul>

@@ -16,18 +16,21 @@ import q.dao.GroupDao;
 import q.domain.Group;
 import q.domain.GroupJoinCategory;
 import q.domain.Status;
+import q.util.CollectionKit;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
+import q.web.exception.PeopleNotPermitException;
 import q.web.exception.RequestParameterInvalidException;
 
 /**
  * AddGroup action
- * 
+ *
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 19, 2011
- * 
+ *
  */
 public class UpdateGroup extends Resource {
 	private GroupDao groupDao;
@@ -84,7 +87,7 @@ public class UpdateGroup extends Resource {
 				if (join.getStatus() == Status.DELETE.getValue()) {
 					hasCatDeleted = join;
 				}
-			} else {
+			} else if (join.getStatus() == Status.COMMON.getValue()) {
 				deleteJoinIds.add(join.getId());
 			}
 		}
@@ -93,7 +96,9 @@ public class UpdateGroup extends Resource {
 		} else if (hasCatDeleted != null) { // reopen deleted and selected join
 			groupDao.updateGroupJoinCategoryStatusByIdAndOldStatus(hasCatDeleted.getId(), Status.COMMON, Status.DELETE);
 		}
-		groupDao.deleteGroupJoinCategoriesByjoinIdsAndGroupId(group.getId(), deleteJoinIds); // delete old joins
+		if (CollectionKit.isNotEmpty(deleteJoinIds)) {
+			groupDao.deleteGroupJoinCategoriesByjoinIdsAndGroupId(group.getId(), deleteJoinIds); // delete old joins
+		}
 
 		searchService.updateGroup(group); // update search
 
@@ -102,13 +107,16 @@ public class UpdateGroup extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
+		}
 		long groupId = context.getResourceIdLong();
-		long loginId = context.getCookiePeopleId();
 		if (IdCreator.isNotValidId(groupId)) {
 			throw new RequestParameterInvalidException("group:invalid");
 		}
@@ -116,9 +124,12 @@ public class UpdateGroup extends Resource {
 		if (group == null) {
 			throw new RequestParameterInvalidException("group:invalid");
 		}
-		if (group.getCreatorId() != loginId) {
-			throw new RequestParameterInvalidException("login:invalid");
+		if (group.getCreatorId() != loginPeopleId) {
+			throw new PeopleNotPermitException();
 		}
+		GroupValidator.validateGroupName(context.getString("name"));
+		GroupValidator.validateIntro(context.getString("intro"));
+
 		long categoryId = context.getIdLong("categoryId");
 		if (IdCreator.isNotValidId(categoryId)) {
 			throw new RequestParameterInvalidException("category:invalid");

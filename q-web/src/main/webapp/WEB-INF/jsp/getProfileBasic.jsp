@@ -148,14 +148,14 @@ seajs.use('jq_area',function(area){
 <h2>设置</h2>
 <div class="ui-tabs mt10">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
-        <li class="ui-state-default crt2"><a href="${urlPrefix}/profile/avatar">头像</a></li>
+        <li class="ui-state-default crt2 ui-state-un"><a href="${urlPrefix}/profile/avatar">头像</a></li>
         <li class="ui-state-default crt2 ui-state-active"><a href="${urlPrefix}/profile/basic">基本信息</a></li>
-        <li class="ui-state-default crt2"><a href="${urlPrefix}/setting/basic">修改密码</a></li>
+        <li class="ui-state-default crt2 ui-state-un"><a href="${urlPrefix}/setting/basic">修改密码</a></li>
     </ul>
 </div>
-<div class='tabscont' style="padding:10px;">
-<h2 class='f16 fw'>填写或修改个人资料</h2>
-<table id="setting-form" class='qform'>
+<div class='tabscont'>
+<h2 class='f14 fw' style="margin:30px 0">填写或修改个人资料</h2>
+<table id="setting-form" class='qform ml10'>
 		<tr>
 			<td align="right">昵称：</td>
 			<td class='col-field'>
@@ -234,7 +234,7 @@ seajs.use('jq_area',function(area){
 		</tr>
 		<tr>
 			<td align="right">关于我：</td>
-			<td class='col-field'><textarea style='width:250px;height:100px;' id="intro" class='mttextar'>${people.intro}</textarea></td>
+			<td class='col-field'><textarea style='width:270px;height:100px;' id="intro" class='mttextar'>${people.intro}</textarea></td>
 			<td class='col-help'></td>
 		</tr>
 		<tr>

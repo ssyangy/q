@@ -27,7 +27,7 @@ import q.util.IdCreator;
  * @author Zhehao
  * @author seanlinwang
  * @date Feb 15, 2011
- * 
+ *
  */
 
 public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
@@ -46,6 +46,47 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 
 		join.setId(IdCreator.getLongId());
 		this.sqlMapClient.insert("insertGroupJoinCategory", join);
+	}
+
+	@Override
+	public GroupJoinCategory selectGroupIdByCatIdAndGroupId(long categoryId, long groupId) throws SQLException {
+		GroupJoinCategory join = new GroupJoinCategory();
+		join.setCategoryId(categoryId);
+		join.setGroupId(groupId);
+
+		Object gjc = this.sqlMapClient.queryForObject("selectGroupIdByCatIdAndGroupId", join);
+		if (gjc != null) {
+			return (GroupJoinCategory) gjc;
+		}
+		return null;
+	}
+
+	@Override
+	public void updateGroupJoinCategoryForAdmin(long groupId, long categoryId, int promote) throws SQLException {
+		GroupJoinCategory join = new GroupJoinCategory();
+		join.setCategoryId(categoryId);
+		join.setGroupId(groupId);
+		join.setPromote(promote);
+		this.sqlMapClient.update("updateCategoryJoinGroupByGroupIdAndCategoryId", join);
+	}
+
+	@Override
+	public void addGroupJoinCategoryForAdmin(long groupId, long categoryId, int promote) throws SQLException {
+		GroupJoinCategory join = new GroupJoinCategory();
+		join.setCategoryId(categoryId);
+		join.setGroupId(groupId);
+		join.setPromote(promote);
+		join.setId(IdCreator.getLongId());
+		this.sqlMapClient.insert("insertGroupJoinCategory", join);
+	}
+
+	@Override
+	public void deleteGroupJoinCategoryForAdmin(long groupId, long categoryId) throws SQLException {
+		GroupJoinCategory join = new GroupJoinCategory();
+		join.setCategoryId(categoryId);
+		join.setGroupId(groupId);
+		join.setPromote(0);
+		this.sqlMapClient.update("updateCategoryJoinGroupByGroupIdAndCategoryId", join);
 	}
 
 	@Override
@@ -176,7 +217,7 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.CategoryDao#getNewGroups(int)
 	 */
 	@Override
@@ -207,7 +248,7 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see q.dao.GroupDao#getAllPromotedGroups(java.util.List)
 	 */
 	@Override
@@ -229,9 +270,14 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 			GroupJoinCategory join = groupId2CatMap.get(group.getId());
 			if (join != null) {
 				group.setCategoryId(join.getCategoryId());
+				group.setGroupJoinCategory(join);
 			}
 		}
-		return groups;
+		List<Group> sortGroups = new ArrayList<Group>(joins.size());
+		for (GroupJoinCategory join : joins) {
+			sortGroups.add(join.getGroup());
+		}
+		return sortGroups;
 	}
 
 	public List<Group> getGroupsByPage(GroupPage page) throws SQLException {
@@ -244,7 +290,7 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 	public List<Group> getRecommendGroupsByPage(GroupRecommendPage page) throws SQLException {
 		// FIXME sean, use new groups instead
 		GroupPage gpage = new GroupPage();
-		gpage.setSize(6);
+		gpage.setSize(9);
 		return this.getGroupsByPage(gpage);
 	}
 
@@ -325,5 +371,4 @@ public class GroupDaoImpl extends AbstractDaoImpl implements GroupDao {
 	public int decrGroupJoinNumByGroupId(long groupId) throws SQLException {
 		return this.sqlMapClient.update("decrGroupJoinNumByGroupId", groupId);
 	}
-
 }

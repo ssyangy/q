@@ -12,10 +12,10 @@ import java.util.Map;
 import org.apache.commons.collections.CollectionUtils;
 
 import q.dao.DaoHelper;
-import q.dao.EventDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.page.PeopleRelationPage;
+import q.domain.Group;
 import q.domain.People;
 import q.domain.PeopleRelation;
 import q.domain.PeopleRelationStatus;
@@ -29,7 +29,7 @@ import q.web.exception.RequestParameterInvalidException;
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 23, 2011
- *
+ * 
  */
 public class GetPeopleFollowing extends Resource {
 	private PeopleDao peopleDao;
@@ -38,21 +38,15 @@ public class GetPeopleFollowing extends Resource {
 		this.peopleDao = peopleDao;
 	}
 
-	private EventDao eventDao;
-
-	public void setEventDao(EventDao eventDao) {
-		this.eventDao = eventDao;
-	}
-
 	private GroupDao groupDao;
 
 	public void setGroupDao(GroupDao groupDao) {
 		this.groupDao = groupDao;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.web.Resource#execute(q.web.ResourceContext)
 	 */
 	@Override
@@ -61,12 +55,16 @@ public class GetPeopleFollowing extends Resource {
 		long loginPeopleId = context.getCookiePeopleId();
 
 		if (!context.isApiRequest()) {
-			GetPeopleFrame frame = new GetPeopleFrame();
-			frame.setEventDao(eventDao);
-			frame.setGroupDao(groupDao);
-			frame.setPeopleDao(peopleDao);
-			frame.validate(context);
-			frame.execute(context);
+			People people = peopleDao.getPeopleById(fromPeopleId);
+			if (loginPeopleId > 0 && loginPeopleId != people.getId()) {
+				DaoHelper.injectPeopleWithVisitorRelation(peopleDao, people, loginPeopleId);
+			}
+			if (loginPeopleId > 0) {
+				DaoHelper.injectPeopleWithSelf(people, loginPeopleId);
+			} 
+			context.setModel("people", people);
+			List<Group> groups = groupDao.getGroupsByJoinPeopleId(fromPeopleId);
+			context.setModel("groups", groups);
 		} else {
 			int size = context.getInt("size", 10);
 			long startId = context.getIdLong("startId", IdCreator.MAX_ID);
@@ -136,13 +134,13 @@ public class GetPeopleFollowing extends Resource {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
 		long fromPeopleId = context.getResourceIdLong();
-		if(IdCreator.isNotValidId(fromPeopleId) ){
+		if (IdCreator.isNotValidId(fromPeopleId)) {
 			throw new RequestParameterInvalidException("fromPeopleId:invalid");
 		}
 	}

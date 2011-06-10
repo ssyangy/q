@@ -29,6 +29,7 @@ create table people(
 	following_num mediumint unsigned not null,
 	follower_num mediumint unsigned not null,
 	friend_num mediumint unsigned not null,
+	group_num mediumint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null
@@ -183,6 +184,7 @@ create table category(
 	avatar_path varchar(60),
 	join_num mediumint unsigned not null,
 	group_num mediumint unsigned not null,
+	sort_order int unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null)
@@ -213,7 +215,7 @@ create table message_join_people(
 	sender_id bigint unsigned not null,
 	receiver_id bigint unsigned not null,
 	last_reply_id bigint unsigned not null,
-	last_reply_sender_id bigint unsigned not null,	
+	last_reply_sender_id bigint unsigned not null,
 	reply_num mediumint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
@@ -239,7 +241,7 @@ create table message_reply_join_people(
 	sender_id bigint unsigned not null,
 	receiver_id bigint unsigned not null,
 	quote_message_id bigint unsigned not null,
-	quote_sender_id bigint unsigned not null,	
+	quote_sender_id bigint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null)

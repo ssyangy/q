@@ -11,13 +11,15 @@ import q.domain.Group;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
+import q.web.exception.PeopleNotPermitException;
 import q.web.exception.RequestParameterInvalidException;
 
 /**
  * @author Zhehao
  * @author seanlinwang
  * @date Feb 15, 2011
- * 
+ *
  */
 public class GetGroupEdit extends Resource {
 
@@ -26,7 +28,7 @@ public class GetGroupEdit extends Resource {
 	public void setCategoryDao(CategoryDao categoryDao) {
 		this.categoryDao = categoryDao;
 	}
-	
+
 	private GroupDao groupDao;
 
 	public void setGroupDao(GroupDao groupDao) {
@@ -48,14 +50,22 @@ public class GetGroupEdit extends Resource {
 		context.setModel("group", group);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see q.web.Resource#validate(q.web.ResourceContext)
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+
 		long groupId = context.getResourceIdLong();
+
 		long loginId = context.getCookiePeopleId();
-		if(IdCreator.isNotValidId(groupId)) {
+		if (IdCreator.isNotValidId(loginId)) {
+			throw new PeopleNotLoginException();
+		}
+
+		if (IdCreator.isNotValidId(groupId)) {
 			throw new RequestParameterInvalidException("group:invalid");
 		}
 		Group group = groupDao.getGroupById(groupId);
@@ -63,8 +73,8 @@ public class GetGroupEdit extends Resource {
 			throw new RequestParameterInvalidException("group:invalid");
 		}
 		if (group.getCreatorId() != loginId) {
-			throw new RequestParameterInvalidException("login:invalid");
+			throw new PeopleNotPermitException();
 		}
-		
+
 	}
 }

@@ -5,29 +5,28 @@
 </jsp:include>
 <link href="${staticUrlPrefix}/content/slider.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
-#slidbox{width:580px;}
-.main-wrap{padding-right:20px;}
-.msgbox{border:1px solid #ddd;}
-.msgmem{background-color:#f6f6f6;position:relative;padding:10px;}
-.msgmem p{line-height:24px;}
-.memdel{position:absolute;top:10px;right:10px;_right:30px;}
-.msgrepbox{padding:10px;}
+.sldlist{width:570px;}
+#sld2{left:570px;}
+
+.msgmem{background-color:#f6f6f6;position:relative;padding:12px 20px 15px;
+border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;}
+.msgmem p{line-height:24px;height:24px;}
+.memdel{position:absolute;top:15px;right:20px;_right:30px;}
+.msgrepbox{padding:15px 20px;border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;}
 .msgrepbox .mttextar{width:99%;height:40px;}
-.repactbox{text-align:right;margin-top:10px;}
-#sld2{border:1px solid #ddd;width:578px;}
-.sldlist img.sldimg{left:10px!important;}
+.repactbox{text-align:right;margin-top:4px;}
 </style>
 <script type="text/javascript">
-mods.push(function(q){
+seajs.use(['qcomcn','mustache'],function(q, mc){
     var $ = q.jq;
-	seajs.use('ICanHaz',function(ich){
+    $(function(){
 
         var sldroot = $('#sldroot');
         var sldrootul = $('ul.sldlist', sldroot);
         var intmsglist = function (json) {
             sldrootul.empty();
             $(json.messages).each(function () {
-                var li = ich.msglist(this);
+                var li = $(mc.to_html(tmp_msglist, this));
                 li.data('members', this.receivers);
                 li.data('sender', this.sender.screenName)
                 sldrootul.append(li);
@@ -55,14 +54,14 @@ mods.push(function(q){
         });
 
         var sld2 = $("#sld2");
-        var sld2ul = $('ul.sldlist', sld2);
+        var sld2ul = $('#sld2ul', sld2);
         var partners = $('span.partner', sld2);
         var sender = $('span.sender', sld2);
         var mems = $('p.mems', sld2);
         var msgli_ajsucc = function (j) {
             sld2ul.empty();
             $(j.replies).each(function () {
-                sld2ul.append(ich.msgitem(this));
+                sld2ul.append(mc.to_html(tmp_msgitem, this));
             });
             var pv = $('a.mrprev', sld2); pv.hide(); if (j.hasPrev) pv.show();
             var nt = $('a.mrnext', sld2); nt.hide(); if (j.hasNext) nt.show();
@@ -73,7 +72,7 @@ mods.push(function(q){
             $.ajax({ url: "${urlPrefix}/message/" + window.msgid + "/reply", msg: $(this),
                 data: { size: 10, startid: '999999999999999999' },
                 success: function (j) {
-                    $('#slider').animate({ left: -580 }, { duration: 500, easing: "swing" });
+                    $('#slider').animate({ left: -570 }, { duration: 500, easing: "swing" });
                     sender.html(this.msg.data('sender'));
                     partners.empty();
                     mems.empty();
@@ -113,6 +112,22 @@ mods.push(function(q){
         });
 
         $('#btnrep').click(function () {
+			var repContent = $("#tboxrep").val().trim();
+			if(repContent=='' || repContent=='\n' || repContent=='\t' ) {
+				return false;
+			}
+			/*
+			var flag = true;
+			$("li" ,sld2).each(function(){
+				var rpc="回复：" + $('a.scn', this).text().trim();
+				if(repContent == rpc) {
+					flag = false;
+				}
+			});
+			if(flag == false) {
+				return false;
+			}
+			*/
             $.ajax({ url: "${urlPrefix}/message/" + window.msgid + "/reply", type: "POST",
                 data: { content: $("#tboxrep").val(), replymessageid: $('#replaysource').val() },
                 success: function (m) {
@@ -140,19 +155,18 @@ mods.push(function(q){
     	<h2 id="root" class='mb10 cur'>私信<a class="rollbtn3 in_bk hide"></a></h2>
         <div id="slidbox">
             <div id="slider">
-            	<script type="text/html" id="msglist">
-	                    <li class='msgli hov' stream_id='{{id}}' order_id='{{#lastReply}}{{id}}{{/lastReply}}'>
-							{{#sender}}
-	                        <img src="{{avatarPath}}-48" alt="sender" class="sldimg" />
-	                        <p class='rel pr100'>{{screenName}}
-							{{/sender}}
-							 ->
-							{{#receivers}}
-							<a class="lk" href='${urlPrefix}/people/{{id}}'>{{screenName}}</a>
-							{{/receivers}} ({{replyNum}})
-	                        <span class="time">{{#lastReply}}{{screenTime}}{{/lastReply}}</span></p>
-	                        {{#lastReply}}<p>{{text}}</p>{{/lastReply}}
-	                    </li>
+				<script type='text/javascript'>
+				var tmp_msglist = "\
+                    <li class='msgli hov' stream_id='{{id}}' order_id='{{#lastReply}}{{id}}{{/lastReply}}'>\
+						{{#sender}}\
+		                <img src='{{avatarPath}}-48' alt='sender' class='sldimg' />\
+		                <p class='rel pr100'>{{screenName}}\
+						{{/sender}}->{{#receivers}}\
+						<a class='lk' href='${urlPrefix}/people/{{id}}'>{{screenName}}</a>\
+						{{/receivers}} ({{replyNum}})\
+		                <span class='time'>{{#lastReply}}{{screenTime}}{{/lastReply}}</span></p>\
+		                {{#lastReply}}<p>{{text}}</p>{{/lastReply}}\
+		            </li>";
 				</script>
 				<div id="sldroot" class="sldlist">
 					<ul class="sldlist"></ul>
@@ -161,29 +175,29 @@ mods.push(function(q){
 					<a class="lk next hide">下一页</a>
 					</div>
 				</div>
-                <script type="text/html" id="msgitem">
-                    <li reply_id='{{id}}'>
-						{{#sender}}
-                        <img src="{{avatarPath}}-48" alt="avatar" class="sldimg" />
-                        <p class='rel'><a class="lk scn">{{screenName}}</a>
-						{{/sender}}
-							<span class="time">{{screenTime}}</span>
-						</p>
-                        <p class="rel">{{text}}<span class="act"><a class="mrrep lk">回复</a></span></p>
-                    </li>
-                </script>
-                <div id='sld2'>
+				<script type='text/javascript'>
+				var tmp_msgitem = "\
+                    <li reply_id='{{id}}'>\
+						{{#sender}}\
+		                <img src='{{avatarPath}}-48' alt='avatar' class='sldimg' />\
+		                <p class='rel'><a class='lk scn'>{{screenName}}</a>\
+						{{/sender}}<span class='time ml10'>{{screenTime}}</span></p>\
+		                <p class='rel'>{{text}}</p>\
+						<span class='act'><a class='mrrep lk'>回复</a></span>\
+		            </li>";
+				</script>				
+                <div id='sld2' class="sldlist">
                 	<div class="msgmem">
-						<p class="pr100"><span class='sender'></span> --> <span class='partner'></span></p>
+						<p class="pr100 mb10"><span class='sender'></span> --> <span class='partner'></span></p>
 						<p class="mems"></p>
 						<a class="memdel btnb">删除</a>
 					</div>
 					<div class="msgrepbox">
-						<textarea id="tboxrep" class='mttextar' style=""></textarea>
+						<textarea id="tboxrep" class='mttextar' style="height:64px;"></textarea>
 						<input type="hidden" id="replaysource"/>
 						<div class='repactbox'><a id="btnrep" class="btnr">回复</a></div>
 					</div>
-					<ul class="sldlist"></ul>
+					<ul id="sld2ul"></ul>
 					<div class="pagger">
 					<a class="lk mr10 mrprev hide">上一页</a>
 					<a class="lk mrnext hide">下一页</a>
@@ -192,7 +206,7 @@ mods.push(function(q){
             </div>
         </div>
     </div></div>
-    <div class="col-sub" style="padding-top:42px;">
+    <div class="col-sub" style="padding-top:36px;">
         <a href='${urlPrefix}/message/new' class="btnNM"></a>
     </div>
 </div>

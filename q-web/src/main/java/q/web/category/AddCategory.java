@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package q.web.category;
 
@@ -7,10 +7,15 @@ import java.sql.SQLException;
 
 import q.biz.PictureService;
 import q.dao.CategoryDao;
+import q.dao.PeopleDao;
 import q.domain.Category;
+import q.domain.People;
 import q.util.IdCreator;
+import q.util.StringKit;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
+import q.web.exception.PeopleNotPermitException;
 
 /**
  * @author Zhehao
@@ -18,6 +23,11 @@ import q.web.ResourceContext;
  * 
  */
 public class AddCategory extends Resource {
+	private PeopleDao peopleDao;
+
+	public void setPeopleDao(PeopleDao peopleDao) {
+		this.peopleDao = peopleDao;
+	}
 
 	private CategoryDao categoryDao;
 
@@ -37,7 +47,12 @@ public class AddCategory extends Resource {
 		category.setId(IdCreator.getLongId());
 		category.setName(context.getString("name"));
 		category.setIntro(context.getString("intro"));
-		category.setAvatarPath(this.pictureService.getDefaultCategoryAvatarPath());
+		String avatarPath = context.getString("avatarPath");
+		if (StringKit.isEmpty(avatarPath)) {
+			category.setAvatarPath(this.pictureService.getDefaultCategoryAvatarPath());
+		} else {
+			category.setAvatarPath(avatarPath);
+		}
 		categoryDao.addCategory(category);
 	}
 
@@ -48,7 +63,14 @@ public class AddCategory extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		// TODO Auto-generated method stub
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
+		}
+		People people = peopleDao.getPeopleById(loginPeopleId);
+		if (people.isNotAdmin()) {
+			throw new PeopleNotPermitException();
+		}
 
 	}
 }

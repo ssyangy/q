@@ -27,7 +27,7 @@ public class FavoriteDaoImplTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		favoriteDao = (FavoriteDaoImpl) TestSupport.getBean("favoriteDao");
+		favoriteDao = (FavoriteDaoImpl) StoreTestSupport.getBean("favoriteDao");
 	}
 
 	/**

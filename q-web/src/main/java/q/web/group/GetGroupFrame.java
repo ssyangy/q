@@ -77,7 +77,7 @@ public class GetGroupFrame extends Resource {
 		// List<People> hotGroupPeoples = this.peopleDao.getPeoplesByIds(hotGroupPeopleIds);
 		// context.setModel("hotPeoples", hotGroupPeoples);
 
-		List<Long> groupPeopleIds = this.groupDao.getJoinPeopleIdsByGroupId(groupId, 3, 0);
+		List<Long> groupPeopleIds = this.groupDao.getJoinPeopleIdsByGroupId(groupId, 9, 0);
 		List<People> groupPeoples = this.peopleDao.getPeoplesByIds(groupPeopleIds);
 		context.setModel("newPeoples", groupPeoples);
 

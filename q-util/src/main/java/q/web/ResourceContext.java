@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
+import q.web.exception.ErrorCodeException;
+
 /**
  * @author seanlinwang
  * @date Jan 18, 2011

@@ -5,8 +5,11 @@ import q.dao.PeopleDao;
 import q.domain.Area;
 import q.domain.Degree;
 import q.domain.People;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
+import q.web.exception.PeopleNotPermitException;
 
 public class GetPeopleFull extends Resource {
 	private PeopleDao peopleDao;
@@ -35,6 +38,14 @@ public class GetPeopleFull extends Resource {
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
+		}
+		long peopleId = context.getResourceIdLong();
+		if (peopleId != loginPeopleId) {
+			throw new PeopleNotPermitException();
+		}
 	}
 
 }

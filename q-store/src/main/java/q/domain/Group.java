@@ -7,7 +7,7 @@ import q.commons.domain.AbstractDomain;
 /**
  * @author Zhehao
  * @date Feb 15, 2011
- * 
+ *
  */
 public class Group extends AbstractDomain implements Serializable {
 
@@ -28,10 +28,12 @@ public class Group extends AbstractDomain implements Serializable {
 	private boolean joined;
 
 	private long categoryId;
-	
+
 	private Category category;
-	
+
 	private People creator;
+
+	private GroupJoinCategory groupJoinCategory;
 
 	/**
 	 * @param categoryId
@@ -156,7 +158,7 @@ public class Group extends AbstractDomain implements Serializable {
 	public People getCreator() {
 		return creator;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Group [id=" + id + ", creatorId=" + creatorId + ", name=" + name + ", intro=" + intro + ", longitude=" + longitude + ", latitude=" + latitude + ", status=" + status + ", created=" + created + ", modified=" + modified + "]";
@@ -174,5 +176,14 @@ public class Group extends AbstractDomain implements Serializable {
 	 */
 	public Category getCategory() {
 		return category;
+	}
+
+	public void setGroupJoinCategory(GroupJoinCategory join) {
+		this.groupJoinCategory = join;
+		join.setGroup(this);
+	}
+
+	public GroupJoinCategory getGroupJoinCategory() {
+		return this.groupJoinCategory;
 	}
 }

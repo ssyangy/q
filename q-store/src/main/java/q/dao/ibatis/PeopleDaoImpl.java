@@ -96,8 +96,9 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 		return (People) this.sqlMapClient.queryForObject("selectPeoplesByPage", page);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
-	private List<People> getPeoplesByPage(PeoplePage page) throws SQLException {
+	public List<People> getPeoplesByPage(PeoplePage page) throws SQLException {
 		return (List<People>) this.sqlMapClient.queryForList("selectPeoplesByPage", page);
 	}
 
@@ -228,7 +229,14 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 	public int decrPeopleFollowingNumberByPeopleId(long peopleId) throws SQLException {
 		return this.sqlMapClient.update("decrPeopleFollowingNumberByPeopleId", peopleId);
 	}
-
+	@Override
+	public int decrPeopleGroupNumberByPeopleId(long peopleId) throws SQLException {
+		return this.sqlMapClient.update("decrPeopleGroupNumberByPeopleId", peopleId);
+	}
+	@Override
+	public int incrPeopleGroupNumberByPeopleId(long peopleId) throws SQLException {
+		return this.sqlMapClient.update("incrPeopleGroupNumberByPeopleId", peopleId);
+	}
 	/*
 	 * (non-Javadoc)
 	 *
@@ -251,5 +259,7 @@ public class PeopleDaoImpl extends AbstractDaoImpl implements PeopleDao {
 		p.setPassword(newPassword);
 		return this.sqlMapClient.update("updatePasswordByPeopleId", p);
 	}
+
+
 
 }

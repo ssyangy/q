@@ -12,7 +12,7 @@ mods.push(function(q){
 <link href='${staticUrlPrefix}/content/navleft.css' rel='stylesheet' type='text/css' />
 <div class="navleft">
 
-<c:if test="${loginCookie != null}">
+<c:if test="${loginCookie.peopleId > 0}">
 <div class="avator">
     <a href="${urlPrefix}/people/${loginCookie.peopleId}">
     <img src="${loginCookie.avatarPath}-128" class="max-w128" alt="portraitt" /></a>

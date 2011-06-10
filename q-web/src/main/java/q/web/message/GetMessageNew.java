@@ -13,8 +13,10 @@ import q.commons.pinyin.Pinyin;
 import q.dao.PeopleDao;
 import q.domain.People;
 import q.util.CollectionKit;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
 
 /**
  * @author seanlinwang
@@ -82,7 +84,7 @@ public class GetMessageNew extends Resource {
 		Set<String> pinyins = Pinyin.getPinyin(people.getRealName());
 		if (CollectionKit.isNotEmpty(pinyins)) {
 			buffer.append(StringUtils.join(pinyins, ' '));
-			if(pinyins.size() == 1) {
+			if (pinyins.size() == 1) {
 				buffer.append(' ');
 			}
 		}
@@ -95,7 +97,7 @@ public class GetMessageNew extends Resource {
 		buffer.append(people.getUsername());
 		buffer.append("\",");
 		buffer.append("name:\"");
-		buffer.append(people.getRealName()+"@"+people.getUsername());
+		buffer.append(people.getRealName() + "@" + people.getUsername());
 		buffer.append("\",");
 		buffer.append("id:\"");
 		buffer.append(people.getId());
@@ -104,7 +106,10 @@ public class GetMessageNew extends Resource {
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
+		}
 	}
 
 }

@@ -6,7 +6,6 @@
     <link href="${staticUrlPrefix}/content/main/jquery.ui.css")" rel="stylesheet" type="text/css" />
     <link href="${staticUrlPrefix}/content/qcomcn.css")" rel="stylesheet" type="text/css" />
     <link href="${staticUrlPrefix}/content/signup.css")" rel="stylesheet" type="text/css" />
-    <script src="${staticUrlPrefix}/scripts/sea.js")" type="text/javascript"></script>
 </head>
 <style type="text/css">
 ul.pssyao li{width:233px;}
@@ -14,11 +13,10 @@ ul.pssyao li{width:233px;}
 <body>
 	<div class="signup">
 		<h1 class="logo2"></h1>
-			<table class='qform'>
-				<tr>
-					<td align="right">密码重置成功，您可以正常登录了！</td>
-				</tr>
-			</table>
+		<span class='info'><a class='lk mr5' href="${urlPrefix}/people/new">注册</a><a class='lk' href="${urlPrefix}/login/new">登录</a></span>
+		<div class='qform' style="padding:20px;text-align:center;">
+		密码重置成功，您可以正常登录了！
+		</div>
 	</div>
 </body>
 </html>

@@ -7,8 +7,10 @@ import q.dao.FavoriteDao;
 import q.dao.WeiboDao;
 import q.domain.Favorite;
 import q.domain.Weibo;
+import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
 import q.web.exception.PeopleNotPermitException;
 import q.web.exception.RequestParameterInvalidException;
 
@@ -55,8 +57,9 @@ public class AddWeiboFavorite extends Resource {
 
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		if (context.getCookiePeopleId() <= 0) {
-			throw new PeopleNotPermitException("login:无操作权限");
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
 		}
 		long weiboId = context.getResourceIdLong();
 		if (weiboId == 0) {

@@ -13,10 +13,10 @@ import org.apache.commons.collections.CollectionUtils;
 
 import q.biz.CacheService;
 import q.dao.DaoHelper;
-import q.dao.EventDao;
 import q.dao.GroupDao;
 import q.dao.PeopleDao;
 import q.dao.page.PeopleRelationPage;
+import q.domain.Group;
 import q.domain.People;
 import q.domain.PeopleRelation;
 import q.domain.PeopleRelationStatus;
@@ -39,22 +39,16 @@ public class GetPeopleFollower extends Resource {
 		this.peopleDao = peopleDao;
 	}
 
-	private EventDao eventDao;
+	private CacheService cacheService;
 
-	public void setEventDao(EventDao eventDao) {
-		this.eventDao = eventDao;
+	public void setCacheService(CacheService cacheService) {
+		this.cacheService = cacheService;
 	}
 
 	private GroupDao groupDao;
 
 	public void setGroupDao(GroupDao groupDao) {
 		this.groupDao = groupDao;
-	}
-
-	private CacheService cacheService;
-
-	public void setCacheService(CacheService cacheService) {
-		this.cacheService = cacheService;
 	}
 
 	/*
@@ -65,16 +59,21 @@ public class GetPeopleFollower extends Resource {
 	@Override
 	public void execute(ResourceContext context) throws Exception {
 		long toPeopleId = context.getResourceIdLong();
-		this.cacheService.clearFoNotify(toPeopleId);
-
 		long loginPeopleId = context.getCookiePeopleId();
+		if (loginPeopleId == toPeopleId) {
+			this.cacheService.clearFoNotify(toPeopleId);
+		}
 		if (!context.isApiRequest()) {
-			GetPeopleFrame frame = new GetPeopleFrame();
-			frame.setEventDao(eventDao);
-			frame.setGroupDao(groupDao);
-			frame.setPeopleDao(peopleDao);
-			frame.validate(context);
-			frame.execute(context);
+			People people = peopleDao.getPeopleById(toPeopleId);
+			if (loginPeopleId > 0 && loginPeopleId != people.getId()) {
+				DaoHelper.injectPeopleWithVisitorRelation(peopleDao, people, loginPeopleId);
+			}
+			if (loginPeopleId > 0) {
+				DaoHelper.injectPeopleWithSelf(people, loginPeopleId);
+			} 
+			context.setModel("people", people);
+			List<Group> groups = groupDao.getGroupsByJoinPeopleId(toPeopleId);
+			context.setModel("groups", groups);
 		} else {
 			int size = context.getInt("size", 10);
 			long startId = context.getIdLong("startId", IdCreator.MAX_ID);
@@ -139,7 +138,6 @@ public class GetPeopleFollower extends Resource {
 			api.put("hasPrev", hasPrev);
 			api.put("hasNext", hasNext);
 			context.setModel("api", api);
-
 		}
 	}
 

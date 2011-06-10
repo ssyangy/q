@@ -121,6 +121,7 @@ public class GetGroupPeople extends Resource {
 				if (CollectionKit.isNotEmpty(peoples)) {
 					if (loginPeopleId > 0) {
 						DaoHelper.injectPeoplesWithVisitorRelation(peopleDao, peoples, loginPeopleId);
+						DaoHelper.injectPeoplesWithSelf(peoples, loginPeopleId);
 					}
 					List<People> orderPeoples = new ArrayList<People>(peoples.size());
 					Map<Long, People> peopleId2PeopleMap = new HashMap<Long, People>();

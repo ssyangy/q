@@ -52,15 +52,21 @@ create table message_reply_join_people(
 	sender_id bigint unsigned not null,
 	receiver_id bigint unsigned not null,
 	quote_message_id bigint unsigned not null,
-	quote_sender_id bigint unsigned not null,	
+	quote_sender_id bigint unsigned not null,
 	status tinyint unsigned not null,
 	created datetime not null,
 	modified timestamp not null)
 default character set utf8 engine = innodb;
 
-#5-12 sean 
+#5-12 sean
 alter table message_join_people add last_reply_id bigint unsigned not null;
 alter table message_join_people add last_reply_sender_id bigint unsigned not null;
 
 #5-15 sean
 alter table group_join_category add promote tinyint unsigned not null;
+
+#5-31 sean
+alter table category add sort_order int unsigned not null;
+
+#6-8 zhao
+alter table people add group_num int unsigned not null;

@@ -23,14 +23,15 @@ import q.serialize.mapping.MemberMapping;
 import q.serialize.mapping.MemberMappingFactory;
 import q.serialize.mapping.OperationCodeException;
 import q.util.StringKit;
+import q.web.exception.ErrorCodeException;
 
 /**
  * Json view resolver
- *
+ * 
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Mar 7, 2011
- *
+ * 
  */
 public class DefaultJsonViewResolver implements ViewResolver {
 	protected final Logger log = Logger.getLogger();
@@ -47,7 +48,7 @@ public class DefaultJsonViewResolver implements ViewResolver {
 
 	/**
 	 * Must call init() before view()
-	 *
+	 * 
 	 * @throws IOException
 	 * @throws MappingFormatException
 	 */
@@ -66,7 +67,7 @@ public class DefaultJsonViewResolver implements ViewResolver {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see q.web.ViewResolver#view(q.web.ResourceContext, q.web.Resource)
 	 */
 	@Override
@@ -97,8 +98,7 @@ public class DefaultJsonViewResolver implements ViewResolver {
 		writer.write("{\"error_code\":\"");
 		writer.write(error.getErrorCode());
 		writer.write("\",\"error\":\"");
-		writer.write(error.getError());
+		writer.write(error.getError() == null ? "" : error.getError());
 		writer.write("\"}");
 	}
-
 }

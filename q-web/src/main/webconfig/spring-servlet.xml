@@ -11,6 +11,25 @@
 			<value>true</value>
 		</property>
 	</bean>
+	<bean id="exceptionResolver" class="q.web.DefaultMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="q.web.exception.PeopleNotPermitException">error/403</prop>
+				<prop key="q.web.ResourceNotFoundException">error/404</prop>
+				<prop key="q.web.PeopleNotExistException">error/404</prop>
+				<prop key="q.web.GroupNotExistException">error/404</prop>
+			</props>
+		</property>
+		<property name="statusCodes">
+			<props>
+				<prop key="error/403">403</prop>
+				<prop key="error/404">404</prop>
+				<prop key="error/500">500</prop>
+			</props>
+		</property>
+		<property name="defaultErrorView" value="error/500" />
+		<property name="defaultStatusCode" value="500"></property>
+	</bean>
 	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
 			<value>/WEB-INF/jsp/</value>
@@ -161,9 +180,9 @@
 						</entry>
 						<entry>
 							<key>
-								<value>getWeibo:api</value>
+								<value>getWeibo:weibo</value>
 							</key>
-							<value>/WEB-INF/json/weibo-and-replies-list.xml</value>
+							<value>/WEB-INF/json/weibo.xml</value>
 						</entry>
 						<entry>
 							<key>
@@ -273,66 +292,17 @@
 							</key>
 							<value>/WEB-INF/json/check.xml</value>
 						</entry>
+						<entry>
+							<key>
+								<value>deleteMessage:id</value>
+							</key>
+							<value>/WEB-INF/json/check.xml</value>
+						</entry>
 					</map>
 				</property>
 			</bean>
 		</property>
 		<property name="loginPath" value="/login/new" />
-		<property name="needLoginResources">
-			<set>
-				<value>getMineIndex</value>
-				<value>getSettingIndex</value>
-				<value>getPeopleFeed</value>
-				<value>getPeopleFull</value>
-				<value>addPeopleFull</value>
-				<value>updatePeople</value>
-				<value>addPeopleFollowing</value>
-				<value>deletePeopleFollowing</value>
-				<value>getGroupNew</value>
-				<value>getGroupEdit</value>
-				<value>addGroup</value>
-				<value>updateGroup</value>
-				<value>getGroupFeed</value>
-				<value>getGroupFeedEvent</value>
-				<value>addGroupJoin</value>
-				<value>deleteGroupJoin</value>
-				<value>getCategoryNew</value>
-				<value>addCategory</value>
-				<value>getEventNew</value>
-				<value>addEvent</value>
-				<value>addEventJoin</value>
-				<value>deleteEventJoin</value>
-				<value>getMessageIndex</value>
-				<value>getMessageNew</value>
-				<value>addMessage</value>
-				<value>getMessage</value>
-				<value>getMessageReply</value>
-				<value>addMessage</value>
-				<value>deleteMessage</value>
-				<value>deleteMessageReply</value>
-				<value>addMessageReply</value>
-				<value>addWeibo</value>
-				<value>deleteWeibo</value>
-				<value>addWeiboReply</value>
-				<value>deleteWeiboReply</value>
-				<value>getWeiboNew</value>
-				<value>getReplyNew</value>
-				<value>getWeiboRetweet</value>
-				<value>addWeiboRetweet</value>
-				<value>getReplyRetweet</value>
-				<value>addReplyRetweet</value>
-				<value>addWeiboFavorite</value>
-				<value>addReplyFavorite</value>
-				<value>deleteWeiboFavorite</value>
-				<value>deleteReplyFavorite</value>
-				<value>getProfileBasic</value>
-				<value>getProfileAvatar</value>
-				<value>getFavoriteIndex</value>
-				<value>getReplyReceived</value>
-				<value>getReplySended</value>
-				<value>getAtIndex</value>
-			</set>
-		</property>
 	</bean>
 
 	<!-- global web -->
@@ -340,12 +310,8 @@
 		<property name="categoryDao" ref="categoryDao" />
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="weiboDao" ref="weiboDao" />
-		<property name="eventDao" ref="eventDao" />
 		<property name="groupDao" ref="groupDao" />
 	</bean>
-	<bean id="getErrorHungUp" class="q.web.error.getErrorHungUp" />
-	<bean id="getErrorNotExist" class="q.web.error.getErrorNotExist" />
-	<bean id="getErrorForbid" class="q.web.error.getErrorForbid" />
 
 	<!-- people web -->
 	<bean id="getMineIndex" class="q.web.people.GetMineIndex" />
@@ -353,7 +319,6 @@
 	</bean>
 	<bean id="getPeople" class="q.web.people.GetPeople">
 		<property name="peopleDao" ref="peopleDao" />
-		<property name="eventDao" ref="eventDao" />
 		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="addPeople" class="q.web.people.AddPeople">
@@ -364,13 +329,18 @@
 	</bean>
 	<bean id="getPeopleFollowing" class="q.web.people.GetPeopleFollowing">
 		<property name="peopleDao" ref="peopleDao" />
-		<property name="eventDao" ref="eventDao" />
 		<property name="groupDao" ref="groupDao" />
 	</bean>
 	<bean id="getPeopleFollower" class="q.web.people.GetPeopleFollower">
 		<property name="peopleDao" ref="peopleDao" />
-		<property name="eventDao" ref="eventDao" />
 		<property name="groupDao" ref="groupDao" />
+		<property name="cacheService" ref="cacheService" />
+	</bean>
+	<bean id="getFollowingIndex" class="q.web.people.GetFollowingIndex">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="getFollowerIndex" class="q.web.people.GetFollowerIndex">
+		<property name="peopleDao" ref="peopleDao" />
 		<property name="cacheService" ref="cacheService" />
 	</bean>
 	<bean id="addPeopleFollowing" class="q.web.people.AddPeopleFollowing">
@@ -477,16 +447,42 @@
 		<property name="categoryDao" ref="categoryDao" />
 	</bean>
 	<bean id="addCategory" class="q.web.category.AddCategory">
+		<property name="peopleDao" ref="peopleDao" />
 		<property name="categoryDao" ref="categoryDao" />
 		<property name="redirectPath" value="/category" />
 		<property name="pictureService" ref="pictureService" />
 	</bean>
+	<bean id="getCategoryEdit" class="q.web.category.GetCategoryEdit">
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="categoryDao" ref="categoryDao" />
+	</bean>
 	<bean id="getCategoryNew" class="q.web.category.GetCategoryNew">
+		<property name="peopleDao" ref="peopleDao" />
+	</bean>
+	<bean id="updateCategory" class="q.web.category.UpdateCategory">
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="categoryDao" ref="categoryDao" />
+		<property name="pictureService" ref="pictureService" />
+	</bean>
+	<bean id="updateCategoryOrder" class="q.web.category.UpdateCategoryOrder">
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="categoryDao" ref="categoryDao" />
+	</bean>
+	<bean id="deleteCategory" class="q.web.category.DeleteCategory">
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="categoryDao" ref="categoryDao" />
+	</bean>
+	<bean id="getCategoryAdmin" class="q.web.category.GetCategoryAdmin">
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="groupDao" ref="groupDao" />
+		<property name="categoryDao" ref="categoryDao" />
 	</bean>
 
 	<!-- group web -->
 	<bean id="addGroup" class="q.web.group.AddGroup">
 		<property name="groupDao" ref="groupDao" />
+		<property name="peopleDao" ref="peopleDao" />
+		<property name="categoryDao" ref="categoryDao" />
 		<property name="searchService" ref="searchService" />
 		<property name="pictureService" ref="pictureService" />
 	</bean>
@@ -543,15 +539,45 @@
 	</bean>
 	<bean id="addGroupJoin" class="q.web.group.AddGroupJoin">
 		<property name="groupDao" ref="groupDao" />
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="deleteGroupJoin" class="q.web.group.DeleteGroupJoin">
 		<property name="groupDao" ref="groupDao" />
+		<property name="peopleDao" ref="peopleDao" />
 	</bean>
 	<bean id="getGroupJoin" class="q.web.group.GetGroupJoin">
 		<property name="groupDao" ref="groupDao" />
 	</bean>
-	<!-- photo web -->
-	<bean id="getGroupPhoto" class="q.web.photo.GetGroupPhoto">
+	<bean id="addGroupPicture" class="q.web.group.AddGroupPicture">
+		<property name="pictureService" ref="pictureService"></property>
+	</bean>
+	<bean id="addGroupEdit" class="q.web.group.AddGroupEdit">
+		<property name="pictureService" ref="pictureService"></property>
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+	<bean id="getGroupAdmin" class="q.web.group.GetGroupAdmin">
+		<property name="peopleDao" ref="peopleDao"></property>
+		<property name="categoryDao" ref="categoryDao" />
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+	<bean id="getGroupAdminNew" class="q.web.group.GetGroupAdminNew">
+	</bean>
+	<bean id="addGroupAdmin" class="q.web.group.AddGroupAdmin">
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+	<bean id="getGroupAdminEdit" class="q.web.group.GetGroupAdminEdit">
+		<property name="peopleDao" ref="peopleDao"></property>
+		<property name="categoryDao" ref="categoryDao" />
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+	<bean id="updateGroupAdmin" class="q.web.group.UpdateGroupAdmin">
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+	<bean id="deleteGroupAdmin" class="q.web.group.DeleteGroupAdmin">
+		<property name="groupDao" ref="groupDao" />
+	</bean>
+	<bean id="getGroupAvatar" class="q.web.group.GetGroupAvatar">
+		<property name="groupDao" ref="groupDao" />
 	</bean>
 
 	<!-- event web -->
@@ -577,16 +603,10 @@
 
 	<!-- weibo web -->
 	<bean id="getPeopleWeibo" class="q.web.weibo.GetPeopleWeibo">
-		<property name="weiboDao" ref="weiboDao" />
-		<property name="peopleDao" ref="peopleDao" />
-		<property name="groupDao" ref="groupDao" />
-		<property name="favoriteDao" ref="favoriteDao" />
+		<property name="weiboService" ref="weiboService" />
 	</bean>
 	<bean id="getGroupWeibo" class="q.web.weibo.GetGroupWeibo">
-		<property name="weiboDao" ref="weiboDao" />
-		<property name="peopleDao" ref="peopleDao" />
-		<property name="groupDao" ref="groupDao" />
-		<property name="favoriteDao" ref="favoriteDao" />
+		<property name="weiboService" ref="weiboService" />
 	</bean>
 	<bean id="addWeibo" class="q.web.weibo.AddWeibo">
 		<property name="weiboService" ref="weiboService" />
@@ -595,21 +615,16 @@
 	<bean id="deleteWeibo" class="q.web.weibo.DeleteWeibo">
 		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
+		<property name="searchService" ref="searchService"></property>
 	</bean>
 	<bean id="addWeiboPicture" class="q.web.weibo.AddWeiboPicture">
 		<property name="pictureService" ref="pictureService"></property>
 	</bean>
 	<bean id="getWeibo" class="q.web.weibo.GetWeibo">
-		<property name="weiboDao" ref="weiboDao" />
-		<property name="peopleDao" ref="peopleDao" />
-		<property name="groupDao" ref="groupDao" />
-		<property name="favoriteDao" ref="favoriteDao" />
+		<property name="weiboService" ref="weiboService" />
 	</bean>
 	<bean id="getWeiboReply" class="q.web.weibo.GetWeiboReply">
-		<property name="weiboDao" ref="weiboDao" />
-		<property name="peopleDao" ref="peopleDao" />
-		<property name="groupDao" ref="groupDao" />
-		<property name="favoriteDao" ref="favoriteDao" />
+		<property name="weiboService" ref="weiboService" />
 	</bean>
 	<bean id="addWeiboReply" class="q.web.weibo.AddWeiboReply">
 		<property name="weiboDao" ref="weiboDao" />
@@ -641,34 +656,26 @@
 		<property name="weiboService" ref="weiboService"></property>
 	</bean>
 	<bean id="getReplyReceived" class="q.web.weibo.GetReplyReceived">
-		<property name="favoriteDao" ref="favoriteDao" />
-		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
-		<property name="groupDao" ref="groupDao" />
 		<property name="cacheService" ref="cacheService" />
+		<property name="weiboService" ref="weiboService" />
 	</bean>
 	<bean id="getReplySended" class="q.web.weibo.GetReplySended">
-		<property name="favoriteDao" ref="favoriteDao" />
-		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
-		<property name="groupDao" ref="groupDao" />
+		<property name="weiboService" ref="weiboService" />
 	</bean>
 	<bean id="getAtIndex" class="q.web.weibo.getAtIndex">
-		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
-		<property name="groupDao" ref="groupDao" />
-		<property name="favoriteDao" ref="favoriteDao" />
-		<property name="searchService" ref="searchService" />
 		<property name="cacheService" ref="cacheService" />
+		<property name="weiboService" ref="weiboService" />
 	</bean>
 
 	<!-- favorite web -->
 	<bean id="getFavoriteIndex" class="q.web.favorite.GetFavoriteIndex">
-		<property name="favoriteDao" ref="favoriteDao" />
-		<property name="weiboDao" ref="weiboDao" />
 		<property name="peopleDao" ref="peopleDao" />
 		<property name="groupDao" ref="groupDao" />
 		<property name="eventDao" ref="eventDao" />
+		<property name="weiboService" ref="weiboService" />
 	</bean>
 	<bean id="addWeiboFavorite" class="q.web.favorite.AddWeiboFavorite">
 		<property name="favoriteDao" ref="favoriteDao" />
@@ -725,10 +732,7 @@
 
 	<!-- search web -->
 	<bean id="getSearchWeibo" class="q.web.search.GetSearchWeibo">
-		<property name="weiboDao" ref="weiboDao" />
-		<property name="peopleDao" ref="peopleDao" />
-		<property name="groupDao" ref="groupDao" />
-		<property name="searchService" ref="searchService"></property>
+		<property name="weiboService" ref="weiboService"></property>
 	</bean>
 	<bean id="getSearchGroup" class="q.web.search.GetSearchGroup">
 		<property name="searchService" ref="searchService"></property>

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.Controller;
 
 import q.log.Logger;
 import q.util.StringKit;
+import q.web.exception.ErrorCodeException;
 import q.web.exception.PeopleNotLoginException;
 
 /**
@@ -120,12 +121,12 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 		String servletPath = request.getRequestURI().substring(request.getContextPath().length()); // path without context and domain
 		String[] segs = StringKit.split(servletPath, PATH_SPLIT); // split path to path segments
 		Resource resource = getResource(request, method, servletPath, segs); // get request resource
+		ResourceContext context = toResourceContext(request, response, servletPath, segs); // construct resource context
+		complementModel(context); // complement model
 		if (resource == null) { // if resource not exists , return 404
-			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			log.debug("resource not found by method %s and path %s", method, servletPath);
-			return null;
+			throw new ResourceNotFoundException(servletPath);
 		} else {
-			ResourceContext context = toResourceContext(request, response, servletPath, segs); // construct resource context
 			boolean isJson = context.isApiRequest();
 			if (this.needLoginResources != null && this.needLoginResources.contains(resource.getName())) { // request resource need visitor login first
 				if (context.getCookiePeopleId() <= 0) { // visitor logoff
@@ -142,18 +143,19 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 				resource.validate(context);
 				resource.execute(context); // execute resource if exists
 			} catch (ErrorCodeException e) {
-				if (isJson) {
-					context.setErrorModel(e); // api请求错误常见,不记录错误日志
+				if (isJson) {// api请求错误特殊处理
+					context.setErrorModel(e);
+				} else if (e instanceof PeopleNotLoginException) {
+					context.redirectServletPath(loginPath + "?from=" + URLEncoder.encode(servletPath, "utf-8"));
+					return null;
 				} else {
-					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 					throw e;
 				}
-			} catch (Exception e) {// resource internal error
-				log.error("resource  %s execute exeption", e, resource);
+			} catch (Exception e) {
+				log.error("", e);
 				throw e;
 			}
 
-			complementModel(context); // complement model
 			ViewResolver viewResolver = null;
 			if (isJson) {
 				viewResolver = this.jsonViewResolver;
@@ -181,7 +183,7 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 		context.setModel("contextPath", this.contextPath);
 		context.setModel("staticUrlPrefix", this.staticUrlPrefix);
 		context.setModel("pushUrlPrefix", this.pushUrlPrefix);
-		context.setModel("imageUrl", this.imageUrl);
+		context.setModel("imageUrlPrefix", this.imageUrl);
 		if (this.imageUrl != null) {
 			context.setModel("avatarUrlPrefix", this.imageUrl + "/a");
 		}
@@ -197,32 +199,31 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 
 	protected Resource getResource(HttpServletRequest request, String method, String path, String[] segs) {
 		Resource resource = null;
-		String resourceName = toResourceName(method, segs);
-		if (StringKit.isEmpty(resourceName)) {
+		if (segs.length == 0) {
 			resource = this.defaultResource;
 			resource.setName("default");
-		} else {
-			if ("error".equals(segs[0])) {// XXX sean, e.g /error/notExist
-				resource = this.getGetResource(resourceName);
+			return resource;
+		} else if (segs.length >= 4) {
+			return resource;
+		}
+
+		String resourceName = toResourceName(method, segs);
+		// get resource by resourceName and method
+		if (HTTP_METHOD_POST.equals(method)) {
+			String _method = request.getParameter(HTTP_INNER_METHOD);
+			if (null == _method) {
+				resource = this.getPostResource(resourceName);
 			} else {
-				// get resource by resourceName and method
-				if (HTTP_METHOD_POST.equals(method)) {
-					String _method = request.getParameter(HTTP_INNER_METHOD);
-					if (null == _method) {
-						resource = this.getPostResource(resourceName);
-					} else {
-						_method = _method.toLowerCase();
-						if (HTTP_METHOD_UPDATE.equals(_method)) {
-							resource = this.getUpdateResource(resourceName);
-						}
-						if (HTTP_METHOD_DELETE.equals(_method)) {
-							resource = this.getDeleteResource(resourceName);
-						}
-					}
-				} else if (HTTP_METHOD_GET.equals(method)) {
-					resource = this.getGetResource(resourceName);
+				_method = _method.toLowerCase();
+				if (HTTP_METHOD_UPDATE.equals(_method)) {
+					resource = this.getUpdateResource(resourceName);
+				}
+				if (HTTP_METHOD_DELETE.equals(_method)) {
+					resource = this.getDeleteResource(resourceName);
 				}
 			}
+		} else if (HTTP_METHOD_GET.equals(method)) {
+			resource = this.getGetResource(resourceName);
 		}
 		log.debug("get resource:%s by method:%s and path:%s, resourceName:%s", resource, method, path, resourceName);
 		return resource;
@@ -230,9 +231,6 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 
 	protected String toResourceName(String method, String[] segs) {
 		String resourceName = null;
-		if (segs.length == 0) {
-			return resourceName;
-		}
 		resourceName = segs[0];
 		if (segs.length == 1) {
 			if (HTTP_METHOD_GET.equals(method)) {
@@ -240,8 +238,14 @@ public class ResourceRouter implements Controller, ApplicationContextAware {
 			}
 		} else if (segs.length == 2) {
 			String last = segs[1];
-			if (!StringUtils.isNumeric(last)) {
-				resourceName += StringKit.capitalize(last);
+			if (!StringUtils.isNumeric(last) ) {
+				if(resourceName.equals("people") ) {
+					if(last.length() < 6) {
+						resourceName += StringKit.capitalize(last);
+					}
+				} else {
+					resourceName += StringKit.capitalize(last);
+				}
 			}
 		} else if (segs.length == 3) {
 			if (!StringUtils.isNumeric(segs[1])) {

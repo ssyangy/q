@@ -13,6 +13,7 @@ import q.util.IdCreator;
 import q.util.StringKit;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
 import q.web.exception.RequestParameterInvalidException;
 
 /**
@@ -67,10 +68,10 @@ public class AddReplyRetweet extends Resource {
 	}
 
 	@Override
-	public void validate(ResourceContext context) throws RequestParameterInvalidException {
-		long senderId = context.getCookiePeopleId();
-		if (IdCreator.isNotValidId(senderId)) {
-			throw new RequestParameterInvalidException("login:invalid");
+	public void validate(ResourceContext context) throws RequestParameterInvalidException, PeopleNotLoginException {
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
 		}
 		long replyId = context.getResourceIdLong();
 		if (IdCreator.isNotValidId(replyId)) {

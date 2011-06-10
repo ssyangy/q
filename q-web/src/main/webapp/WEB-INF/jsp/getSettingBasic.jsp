@@ -92,30 +92,27 @@ function check() {
 </script>
 <div class="mingrid">
 
-<h2>修改密码</h2>
+<h2>设置</h2>
 <div class="ui-tabs mt10">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
-        <li class="ui-state-default crt2"><a href="${urlPrefix}/profile/avatar">头像</a></li>
-        <li class="ui-state-default crt2"><a href="${urlPrefix}/profile/basic">基本信息</a></li>
+        <li class="ui-state-default crt2 ui-state-un"><a href="${urlPrefix}/profile/avatar">头像</a></li>
+        <li class="ui-state-default crt2 ui-state-un"><a href="${urlPrefix}/profile/basic">基本信息</a></li>
         <li class="ui-state-default crt2 ui-state-active"><a href="${urlPrefix}/setting/basic">修改密码</a></li>
     </ul>
 </div>
-<div class='tabscont' style="padding:10px;">
-<table class='qform'>
+<div class='tabscont'>
+<h2 class="f14" style="margin:30px 0;">修改密码</h2>
+<table class='qform ml20'>
 	<tr>
 			<th align="right">当前密码：</th>
-			<td class='col-field'><input type='password' id="oldpassword" name="oldpassword" class='mttext' size='20'/></td>
+			<td class='col-field'><input type='password' id="oldpassword" name="oldpassword" class='mttext' size='20'/><a class="lk ml10" href="${urlPrefix}/password/forget">密码忘记了？</a></td>
 			<td class='col-help'>
 				<div class='label-box-good' id="passwordcorrect" style='display:none;'></div>
 				<div class='label-box-error' id="passwordwrong" style='display:none;'></div>
 			</td>
 	</tr>
 	<tr>
-			<th></th>
-			<td colspan='2' class='bottom'><span class='field-desc'><a class="lk" href="/password/fprget">密码忘记了？</a></span></td>
-	</tr>
-	<tr>
-			<th align="right">新密码：</th>
+			<th align="right" class="tar">新密码：</th>
 			<td class='col-field'><input type='password' class='mttext' size='20'
 			id="newPassword" name="newPassword" onblur="checkNewPassword(this.value)"/></td>
 			<td class='col-help'>

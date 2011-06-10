@@ -8,18 +8,18 @@ import q.commons.domain.AbstractDomain;
 
 /**
  * Group category.
- * 
+ *
  * @author Zhehao
  * @date Feb 15, 2011
- * 
+ *
  */
 public class Category extends AbstractDomain implements Serializable {
 	private static final long serialVersionUID = 1611557472302730738L;
-	
+
 	private String name;
 
 	private String intro;
-	
+
 	private String avatarPath;
 
 	private String status;
@@ -30,6 +30,8 @@ public class Category extends AbstractDomain implements Serializable {
 
 	private int joinNum;
 
+	private int sortOrder;
+
 	public List<Group> getGroups() {
 		return groups;
 	}
@@ -37,7 +39,7 @@ public class Category extends AbstractDomain implements Serializable {
 	public void setGroups(List<Group> groups) {
 		this.groups = groups;
 	}
-	
+
 	public void addGroup(Group g) {
 		if(this.groups == null) {
 			this.groups = new ArrayList<Group>();
@@ -52,7 +54,7 @@ public class Category extends AbstractDomain implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public boolean hasAvatar() {
 		if (avatarPath == null || avatarPath.endsWith("-def")) {
 			return false;
@@ -100,9 +102,17 @@ public class Category extends AbstractDomain implements Serializable {
 		this.joinNum = joinNum;
 	}
 
+	public int getSortOrder() {
+		return sortOrder;
+	}
+
+	public void setSortOrder(int sortOrder) {
+		this.sortOrder = sortOrder;
+	}
+
 	@Override
 	public String toString() {
 		return "Category [id=" + id + ", name=" + name + ", " + "intro=" + intro + ", status=" + status + ", created=" + created + ", modified=" + modified + "]";
 	}
-	
+
 }

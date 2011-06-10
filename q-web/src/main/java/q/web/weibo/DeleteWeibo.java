@@ -3,6 +3,7 @@
  */
 package q.web.weibo;
 
+import q.biz.SearchService;
 import q.dao.PeopleDao;
 import q.dao.WeiboDao;
 import q.domain.Status;
@@ -10,6 +11,8 @@ import q.domain.Weibo;
 import q.util.IdCreator;
 import q.web.Resource;
 import q.web.ResourceContext;
+import q.web.exception.PeopleNotLoginException;
+import q.web.exception.PeopleNotPermitException;
 import q.web.exception.RequestParameterInvalidException;
 
 /**
@@ -28,6 +31,12 @@ public class DeleteWeibo extends Resource {
 
 	public void setPeopleDao(PeopleDao peopleDao) {
 		this.peopleDao = peopleDao;
+	}
+
+	private SearchService searchService;
+
+	public void setSearchService(SearchService searchService) {
+		this.searchService = searchService;
 	}
 
 	/*
@@ -52,6 +61,7 @@ public class DeleteWeibo extends Resource {
 		}
 		// delete weibo groups
 		this.weiboDao.deleteWeiboJoinGroupsByWeiboId(weiboId);
+		searchService.deleteWeiboById(weiboId);
 		context.setModel("weibo", weibo);
 
 	}
@@ -63,17 +73,17 @@ public class DeleteWeibo extends Resource {
 	 */
 	@Override
 	public void validate(ResourceContext context) throws Exception {
-		long senderId = context.getCookiePeopleId();
-		if (IdCreator.isNotValidId(senderId)) {
-			throw new RequestParameterInvalidException("login:invalid");
+		long loginPeopleId = context.getCookiePeopleId();
+		if (IdCreator.isNotValidId(loginPeopleId)) {
+			throw new PeopleNotLoginException();
 		}
 		long weiboId = context.getResourceIdLong();
 		if (IdCreator.isNotValidId(weiboId)) {
 			throw new RequestParameterInvalidException("weibo:invalid");
 		}
 		Weibo weibo = this.weiboDao.getWeiboById(weiboId);
-		if (weibo.getSenderId() != senderId) {
-			throw new RequestParameterInvalidException("privilege:invalid");
+		if (weibo.getSenderId() != loginPeopleId) {
+			throw new PeopleNotPermitException();
 		}
 	}
 }

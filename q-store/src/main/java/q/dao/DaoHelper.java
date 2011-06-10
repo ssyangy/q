@@ -28,12 +28,13 @@ import q.domain.Weibo;
 import q.domain.WeiboModel;
 import q.domain.WeiboReply;
 import q.util.CollectionKit;
+import q.util.MapKit;
 
 /**
  * @author seanlinwang
  * @email xalinx at gmail dot com
  * @date Feb 22, 2011
- *
+ * 
  */
 public class DaoHelper {
 	public static List<Long> convertPeopleJoinGroupsToPeopleIds(List<PeopleJoinGroup> joins) {
@@ -226,12 +227,17 @@ public class DaoHelper {
 			for (Favorite fav : favorites) { // inject weibo and reply sources
 				if (weiboMap != null && fav.isFromWeibo()) {
 					Weibo weibo = weiboMap.get(fav.getFromId());
-					fav.setSource(weibo);
-					fav.getSource().setFav(true);
+					if(weibo != null) {
+						fav.setSource(weibo);
+						fav.getSource().setFav(true);
+					}
 				}
 				if (replyMap != null && fav.isFromReply()) {
-					fav.setSource(replyMap.get(fav.getFromId()));
-					fav.getSource().setFav(true);
+					WeiboReply reply = replyMap.get(fav.getFromId());
+					if (reply != null) {
+						fav.setSource(reply);
+						fav.getSource().setFav(true);
+					}
 				}
 			}
 		}
@@ -427,6 +433,20 @@ public class DaoHelper {
 		}
 	}
 
+	public static void injectPeoplesWithSelf(List<People> peoples, long loginPeopleId) {
+		for (People people : peoples) {
+			if (loginPeopleId == people.getId()) {
+				people.setSelf(true);
+			}
+		}
+	}
+
+	public static void injectPeopleWithSelf(People people, long loginPeopleId) {
+		if (loginPeopleId == people.getId()) {
+			people.setSelf(true);
+		}
+	}
+
 	public static void injectPeopleWithVisitorRelation(PeopleDao peopleDao, People people, Long fromPeopleId) throws SQLException {
 		if (null == people) {
 			return;
@@ -592,9 +612,70 @@ public class DaoHelper {
 		for (WeiboModel model : weiboModels) {
 			if (model.getQuoteWeiboId() > 0) {
 				Weibo quote = quoteMap.get(model.getQuoteWeiboId());
+				if (quote.getStatus() == Status.DELETE.getValue()) {
+					quote.setContent(null);
+				}
 				model.setQuote(quote);
 			}
 		}
+	}
+
+	public static void injectWeiboReplyWithReplyOrQuote(WeiboDao weiboDao, List<WeiboReply> weiboReplies) throws SQLException {
+		if (CollectionKit.isEmpty(weiboReplies)) {
+			return;
+		}
+
+		Set<Long> replyIds = new HashSet<Long>(weiboReplies.size());
+		Set<Long> quoteIds = new HashSet<Long>(weiboReplies.size());
+		for (WeiboReply reply : weiboReplies) {
+			if (reply.getReplyWeiboId() > 0) { // reply has higher priority to quote
+				replyIds.add(reply.getReplyWeiboId());
+			} else if (reply.getQuoteWeiboId() > 0) {
+				quoteIds.add(reply.getQuoteWeiboId());
+			}
+		}
+		if (CollectionKit.isEmpty(quoteIds) && CollectionKit.isEmpty(replyIds)) {
+			return; // return if no replyId and quoteId
+		}
+
+		Map<Long, Weibo> quoteMap = null;
+		if (CollectionKit.isNotEmpty(quoteIds)) {
+			List<Weibo> quotes = weiboDao.getWeibosByIds(new ArrayList<Long>(quoteIds), true);
+			if (CollectionKit.isNotEmpty(quotes)) {
+				quoteMap = new HashMap<Long, Weibo>(quotes.size());
+				for (Weibo quote : quotes) {
+					quoteMap.put(quote.getId(), quote);
+				}
+			}
+		}
+
+		Map<Long, WeiboReply> replyMap = null;
+		if (CollectionKit.isNotEmpty(replyIds)) {
+			List<WeiboReply> replies = weiboDao.getWeiboRepliesByIds(new ArrayList<Long>(replyIds), true);
+			if (CollectionKit.isNotEmpty(replies)) {
+				replyMap = new HashMap<Long, WeiboReply>(replies.size());
+				for (WeiboReply reply : replies) {
+					replyMap.put(reply.getId(), reply);
+				}
+			}
+		}
+
+		for (WeiboReply weiboReply : weiboReplies) {
+			if (weiboReply.getReplyWeiboId() > 0) { // reply has higher priority to quote
+				WeiboReply reply = replyMap.get(weiboReply.getReplyWeiboId());
+				if (reply.getStatus() == Status.DELETE.getValue()) {
+					reply.setContent(null);
+				}
+				weiboReply.setReply(reply);
+			} else if (weiboReply.getQuoteWeiboId() > 0) {
+				Weibo quote = quoteMap.get(weiboReply.getQuoteWeiboId());
+				if (quote.getStatus() == Status.DELETE.getValue()) {
+					quote.setContent(null);
+				}
+				weiboReply.setQuote(quote);
+			}
+		}
+
 	}
 
 	/**
@@ -604,6 +685,9 @@ public class DaoHelper {
 	 */
 	public static void injectWeiboModelWithQuote(WeiboDao weiboDao, Weibo weibo) throws SQLException {
 		Weibo quote = weiboDao.getWeiboById(weibo.getQuoteWeiboId());
+		if (quote.getStatus() == Status.DELETE.getValue()) {
+			quote.setContent(null);
+		}
 		weibo.setQuote(quote);
 	}
 
@@ -647,7 +731,7 @@ public class DaoHelper {
 	 * @throws SQLException
 	 */
 	public static void injectCategoriesWithPromotedGroups(GroupDao groupDao, List<Category> categorys) throws SQLException {
-		if(CollectionKit.isEmpty(categorys)) {
+		if (CollectionKit.isEmpty(categorys)) {
 			return;
 		}
 		List<Long> catIds = new ArrayList<Long>(categorys.size());

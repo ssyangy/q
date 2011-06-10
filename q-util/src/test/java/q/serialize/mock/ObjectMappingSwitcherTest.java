@@ -48,7 +48,7 @@ public class ObjectMappingSwitcherTest extends ApiMappingXmlTestBase {
 		pojo.setZ(false);
 		Convert convert = new JSONConvert(sw);
 		rspMapping.write(convert, false, pojo, false);
-		assertEquals("{\"title\":\"xxx\"}", sw.toString());
+		assertEquals("{\"title\":\"xxx\",\"z\":0}", sw.toString());
 	}
 
 	
@@ -76,7 +76,7 @@ public class ObjectMappingSwitcherTest extends ApiMappingXmlTestBase {
 		pojo.put("z", false);
 		Convert convert = new JSONConvert(sw);
 		rspMapping.write(convert, false, pojo, false);
-		assertEquals("{\"title\":\"xxx\"}", sw.toString());
+		assertEquals("{\"title\":\"xxx\",\"z\":0}", sw.toString());
 	}
 
 }
