@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="events">
+	<typeAlias alias="event" type="q.domain.Event" />
+	<typeAlias alias="pje" type="q.domain.PeopleJoinEvent" />
+	<resultMap id="eventResult" class="event">
+		<result property="id" column="id" />
+		<result property="creatorId" column="creator_id" />
+		<result property="groupId" column="group_id" />
+		<result property="name" column="name" />
+		<result property="intro" column="intro" />
+		<result property="area" column="area_id" typeHandler="q.dao.ibatis.AreaHandler" />
+		<result property="address" column="address" />
+		<result property="cost" column="cost" />
+		<result property="number" column="number" />
+		<result property="joinNum" column="join_num" />
+		<result property="started" column="started" />
+		<result property="ended" column="ended" />
+		<result property="status" column="status" />
+		<result property="created" column="created" />
+		<result property="modified" column="modified" />
+	</resultMap>
+
+	<resultMap id="pjeResult" class="pje">
+		<result property="id" column="id" />
+		<result property="peopleId" column="people_id" />
+		<result property="eventId" column="event_id" />
+		<result property="groupId" column="group_id" />
+		<result property="status" column="status" />
+		<result property="created" column="created" />
+		<result property="modified" column="modified" />
+	</resultMap>
+
+	<sql id="event.columns">
+		id,
+		creator_id,
+		group_id,
+		name,
+		intro,
+		area_id,
+		address,
+		cost,
+		number,
+		join_num,
+		started,
+		ended,
+		status,
+		created,
+		modified
+	</sql>
+
+	<select id="selectEventById" resultMap="eventResult">
+		select
+		<include refid="event.columns" />
+		from
+		event
+		where id=#value#
+	</select>
+
+	<select id="selectEventsByIds" resultMap="eventResult">
+		select
+		<include refid="event.columns" />
+		from
+		event
+		where id in
+		<iterate open="(" close=")" conjunction=",">
+			#[]#
+        </iterate>
+        order by id desc
+	</select>
+
+	<select id="selectPageEvents" resultMap="eventResult">
+		select
+		<include refid="event.columns" />
+		from event
+		<dynamic prepend="where ">
+			<isNotNull property="groupId" prepend="and ">
+				group_id = #groupId#
+			</isNotNull>
+			<isNotNull property="creatorId" prepend="and ">
+				creator_id = #creatorId#
+			</isNotNull>
+			<isNotNull property="groupIds" prepend="and ">
+				group_id in
+				<iterate property="groupIds" open="(" close=")" conjunction=",">
+					#groupIds[]#
+        		</iterate>
+			</isNotNull>
+		</dynamic>
+		order by id desc
+		limit #startIndex#, #size#
+	</select>
+
+	<insert id="insertEvent">
+		insert into event
+		(
+		<include refid="event.columns" />
+		) values (
+		#id#,
+		#creatorId#,
+		#groupId#,
+		#name#,
+		#intro#,
+		#area,handler=q.dao.ibatis.AreaHandler#,
+		#address#,
+		#cost#,
+		#number#,
+		#joinNum#,
+		#started#,
+		#ended#,
+		0,
+		now(),
+		null
+		)
+	</insert>
+
+	<sql id="pje.columns">
+		id,
+		people_id,
+		event_id,
+		group_id,
+		status,
+		created,
+		modified
+	</sql>
+
+	<insert id="insertPeopleJoinEvent">
+		insert into q.people_join_event
+		(
+		<include refid="pje.columns" />
+		) values (
+		#id#,
+		#peopleId#,
+		#eventId#,
+		#groupId#,
+		0,
+		now(),
+		null
+		)
+	</insert>
+
+	<update id="updatePeopleJoinEventStatusByPeopleIdAndEventId">
+		update people_join_event set
+		status = #status#,
+		modified = null
+		where
+		people_id = #peopleId#
+		and
+		event_id = #eventId#
+	</update>
+
+	<select id="selectPeopleJoinEventByPeopleIdAndEventId"
+		resultMap="pjeResult">
+		select
+		<include refid="pje.columns" />
+		from
+		people_join_event
+		where
+		people_id=#peopleId#
+		and
+		event_id=#eventId#
+	</select>
+
+	<select id="selectPeopleJoinEventsByPage" resultMap="pjeResult">
+		select
+		<include refid="pje.columns" />
+		from
+		people_join_event
+		where
+		status = 0
+		<isNotNull prepend="and" property="peopleId">
+			people_id = #peopleId#
+		</isNotNull>
+		<isNotNull prepend="and" property="eventId">
+			event_id = #eventId#
+		</isNotNull>
+		<isNotNull property="groupId" prepend="and">
+			group_id = #groupId#
+       	</isNotNull>		
+		<isNotNull property="groupIds" prepend="and">
+			group_id in
+			<iterate property="groupIds" open="(" close=")" conjunction=",">
+				#groupIds[]#
+       		</iterate>
+       	</isNotNull>				
+		order by id desc
+		<isNotNull property="size">
+			limit #startIndex#, #size#
+		</isNotNull>
+	</select>
+
+	<select id="selectJoinNumberById" resultClass="int">
+		select
+		count(id)
+		from people_join_event
+		where status = 0
+		and event_id = #value#
+	</select>
+</sqlMap>

@@ -1,0 +1,249 @@
+# == people ==
+create table people(
+	id bigint unsigned not null primary key,
+	year tinyint unsigned not null,
+	month tinyint unsigned not null,
+	day tinyint unsigned not null,
+	gender_id tinyint unsigned not null,
+	blood_type_id tinyint unsigned not null,
+	degree_id tinyint unsigned not null,
+	role_id tinyint unsigned not null,
+	country_code smallint unsigned not null,
+	area_id mediumint unsigned not null,
+	hometown_id mediumint unsigned not null,
+	mobile bigint unsigned not null,
+	username varchar(32) not null,
+	password varchar(32) not null,
+	login_token varchar(32) not null,
+	email varchar(64) not null,
+	real_name varchar(32),
+	url varchar(60),
+	intro varchar(1024),
+	avatar_path varchar(60),
+	book varchar(1000),
+	film varchar(1000),
+	music varchar(1000),
+	idol varchar(1000),
+	hope varchar(1000),
+	weibo_num mediumint unsigned not null,
+	following_num mediumint unsigned not null,
+	follower_num mediumint unsigned not null,
+	friend_num mediumint unsigned not null,
+	group_num mediumint unsigned not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null
+	)
+default character set utf8 engine = innodb;
+
+create table authcode(
+   id bigint unsigned not null primary key,
+   value varchar(8) not null
+)
+default character set utf8 engine = innodb;
+
+
+create table people_certify (
+	id bigint unsigned not null primary key,
+	people_id bigint unsigned not null,
+	rand varchar(32) not null,
+	expired datetime not null,
+	type tinyint unsigned not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null)
+default character set utf8 engine = innodb;
+
+create table people_relation(
+	id bigint unsigned not null primary key,
+	from_people_id bigint unsigned not null,
+	to_people_id bigint unsigned not null,
+	alias varchar(32),
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null)
+default character set utf8 engine = innodb;
+
+create table people_join_group(
+	id bigint unsigned not null primary key,
+	people_id bigint unsigned not null,
+	group_id bigint unsigned not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null)
+default character set utf8 engine = innodb;
+
+create table people_join_event(
+	id bigint unsigned not null primary key,
+	people_id bigint unsigned not null,
+	event_id bigint unsigned not null,
+	group_id bigint unsigned not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null)
+default character set utf8 engine = innodb;
+
+# == event ==
+create table event(
+	id bigint unsigned not null primary key,
+	creator_id bigint unsigned not null,
+	group_id bigint unsigned not null,
+	area_id mediumint unsigned not null,
+	name varchar(32) not null,
+	intro varchar(10240),
+	address varchar(512),
+	cost varchar(512),
+	number mediumint unsigned not null,
+	join_num mediumint unsigned not null,
+	started datetime not null,
+	ended datetime not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null)
+default character set utf8 engine = innodb;
+
+# == weibo ==
+create table weibo (
+	id bigint unsigned not null primary key,
+	sender_id bigint unsigned not null,
+	quote_weibo_id bigint unsigned,
+	quote_sender_id bigint unsigned,
+	reply_weibo_id bigint unsigned not null,
+	reply_sender_id bigint unsigned not null,
+	from_type tinyint unsigned not null,
+	from_id bigint unsigned not null,
+	content varchar(10240) not null,
+	longitude double not null,
+	latitude double not null,
+	reply_num mediumint unsigned not null,
+	retweet_num mediumint unsigned not null,
+	picture_path varchar(50),
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null)
+default character set utf8 engine = innodb;
+
+create table weibo_reply (
+	id bigint unsigned not null primary key,
+	sender_id bigint unsigned not null,
+	quote_weibo_id bigint unsigned not null,
+	quote_sender_id bigint unsigned not null,
+	reply_weibo_id bigint unsigned not null,
+	reply_sender_id bigint unsigned not null,
+	from_type tinyint unsigned not null,
+	from_id bigint unsigned not null,
+	content varchar(10240) not null,
+	reply_num mediumint unsigned not null,
+	retweet_num mediumint unsigned not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null)
+default character set utf8 engine = innodb;
+
+create table weibo_join_group(
+	id bigint unsigned not null primary key,
+	weibo_id bigint unsigned not null,
+	sender_id bigint unsigned not null,
+	group_id bigint unsigned not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null)
+default character set utf8 engine = innodb;
+
+# == favorite ==
+create table favorite (
+	id bigint unsigned not null primary key,
+	from_type tinyint unsigned not null,
+	from_id bigint unsigned not null,
+	creator_id bigint unsigned not null,
+	sender_id bigint unsigned not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null)
+default character set utf8 engine = innodb;
+
+# == group ==
+create table `group`(
+	id bigint unsigned not null primary key,
+	creator_id bigint unsigned not null,
+	name varchar(32) not null,
+	intro varchar(1024) not null,
+	avatar_path varchar(60),
+	longitude double not null,
+	latitude double not null,
+	join_num mediumint unsigned not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null)
+default character set utf8 engine = innodb;
+
+create table category(
+	id bigint unsigned not null primary key,
+	name varchar(32) not null,
+	intro varchar(1024) not null,
+	avatar_path varchar(60),
+	join_num mediumint unsigned not null,
+	group_num mediumint unsigned not null,
+	sort_order int unsigned not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null)
+default character set utf8 engine = innodb;
+
+create table group_join_category(
+	id bigint unsigned not null primary key,
+	group_id bigint unsigned not null,
+	category_id bigint unsigned not null,
+	promote tinyint unsigned not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null)
+default character set utf8 engine = innodb;
+
+# == message ==
+create table message(
+	id bigint unsigned not null primary key,
+	sender_id bigint unsigned not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null)
+default character set utf8 engine = innodb;
+
+create table message_join_people(
+	id bigint unsigned not null primary key,
+	message_id bigint unsigned not null,
+	sender_id bigint unsigned not null,
+	receiver_id bigint unsigned not null,
+	last_reply_id bigint unsigned not null,
+	last_reply_sender_id bigint unsigned not null,
+	reply_num mediumint unsigned not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null)
+default character set utf8 engine = innodb;
+
+create table message_reply(
+	id bigint unsigned not null primary key,
+	sender_id bigint unsigned not null,
+	quote_message_id bigint unsigned not null,
+	quote_sender_id bigint unsigned not null,
+	reply_message_id bigint unsigned not null,
+	reply_sender_id bigint unsigned not null,
+	content varchar(1024) not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null)
+default character set utf8 engine = innodb;
+
+create table message_reply_join_people(
+	id bigint unsigned not null primary key,
+	reply_id bigint unsigned not null,
+	sender_id bigint unsigned not null,
+	receiver_id bigint unsigned not null,
+	quote_message_id bigint unsigned not null,
+	quote_sender_id bigint unsigned not null,
+	status tinyint unsigned not null,
+	created datetime not null,
+	modified timestamp not null)
+default character set utf8 engine = innodb;
+

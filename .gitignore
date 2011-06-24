@@ -1,5 +1,15 @@
+<<<<<<< HEAD
 *.[oa]
 *~
 bin/*
 obj/*
 *.swp
+=======
+*/target/*
+.*
+!.gitignore
+*/.*/*
+*~
+*.[ao]
+*/logq/*
+>>>>>>> 45db6bff1fc0fbb03ed6a82947accd7811451350

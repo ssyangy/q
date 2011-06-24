@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="groups">
+	<typeAlias alias="group" type="q.domain.Group" />
+	<typeAlias alias="pjg" type="q.domain.PeopleJoinGroup" />
+	<typeAlias alias="gjc" type="q.domain.GroupJoinCategory" />
+	<resultMap id="groupResult" class="group">
+		<result property="id" column="id" />
+		<result property="creatorId" column="creator_id" />
+		<result property="name" column="name" />
+		<result property="intro" column="intro" />
+		<result property="avatarPath" column="avatar_path" />
+		<result property="longitude" column="longitude" />
+		<result property="latitude" column="latitude" />
+		<result property="status" column="status" />
+		<result property="created" column="created" />
+		<result property="modified" column="modified" />
+		<result property="joinNum" column="join_num" />
+	</resultMap>
+	<resultMap id="groupIdNameResult" class="group">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+	</resultMap>
+	<resultMap id="pjgResult" class="pjg">
+		<result property="id" column="id" />
+		<result property="peopleId" column="people_id" />
+		<result property="groupId" column="group_id" />
+		<result property="status" column="status" />
+		<result property="created" column="created" />
+		<result property="modified" column="modified" />
+	</resultMap>
+	<resultMap id="gjcResult" class="gjc">
+		<result property="id" column="id" />
+		<result property="groupId" column="group_id" />
+		<result property="categoryId" column="category_id" />
+		<result property="promote" column="promote" />
+		<result property="status" column="status" />
+		<result property="created" column="created" />
+		<result property="modified" column="modified" />
+	</resultMap>
+
+	<sql id="group.columns">
+		id,
+		creator_id,
+		name,
+		intro,
+		avatar_path,
+		longitude,
+		latitude,
+		status,
+		created,
+		modified,
+		join_num
+	</sql>
+	<sql id="pjg.columns">
+		id,
+		people_id,
+		group_id,
+		status,
+		created,
+		modified
+	</sql>
+	<sql id="gjc.columns">
+		id,
+		group_id,
+		category_id,
+		promote,
+		status,
+		created,
+		modified
+	</sql>
+
+	<select id="selectIdNamesByIds" resultMap="groupIdNameResult">
+		select
+		id, name
+		from `group`
+		where id in
+		<iterate open="(" close=")" conjunction=",">
+			#[]#
+        </iterate>
+	</select>
+
+	<select id="selectGroupIdsByIds" resultClass="long">
+		select
+		id
+		from `group`
+		where id in
+		<iterate open="(" close=")" conjunction=",">
+			#[]#
+        </iterate>
+	</select>
+
+	<select id="selectGroupById" resultMap="groupResult">
+		select
+		<include refid="group.columns" />
+		from `group`
+		where id=#value#
+	</select>
+
+	<update id="updateGroupById">
+		update `group`
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="intro">
+				intro=#intro#
+			</isNotNull>
+			<isNotNull prepend="," property="name">
+				name=#name#
+			</isNotNull>
+			<isNotNull prepend="," property="avatarPath">
+				avatar_path=#avatarPath#
+			</isNotNull>
+		</dynamic>
+		where id=#id#
+	</update>
+
+	<select id="selectGroupsByIds" resultMap="groupResult">
+		select
+		<include refid="group.columns" />
+		from `group`
+		where id in
+		<iterate open="(" close=")" conjunction=",">
+			#[]#
+        </iterate>
+	</select>
+	<select id="selectGroupsByLocation" resultMap="groupResult">
+		select
+		<include refid="group.columns" />
+		from `group`
+		where abs(longitude-#longitude#) &lt; 0.005
+		and
+		abs(latitude-#latitude#) &lt; 0.005
+		order by join_num limit 100
+	</select>
+
+	<select id="getGroupsByPage" resultMap="groupResult">
+		select
+		<include refid="group.columns" />
+		from `group`
+		<dynamic prepend="where ">
+			<isNotNull prepend="and " property="groupIds">
+				group_id in
+				<iterate property="groupIds" open="(" close=")" conjunction=",">
+					#groupIds[]#
+	        	</iterate>
+			</isNotNull>
+			<isNotNull prepend="and " property="startId">
+				id &lt; #startId#
+			</isNotNull>
+		</dynamic>
+		order by id desc
+		<isNotNull property="size">
+			limit #startIndex#, #size#
+		</isNotNull>
+	</select>
+
+	<select id="selectGroupIdsByCatId" resultClass="long">
+		select group_id
+		from group_join_category
+		where status = 0
+		and category_id = #value#
+	</select>
+
+	<select id="selectGroupIdByCatIdAndGroupId" resultClass="gjc">
+		select <include refid="gjc.columns" />
+		from group_join_category
+		where status = 0
+		and category_id = #categoryId#
+		and group_id = #groupId#
+	</select>
+
+	<update id="decrGroupJoinNumByGroupId">
+		update `group` set join_num = greatest(0, join_num -
+		1) where id = #value#
+	</update>
+
+	<update id="incrGroupJoinNumByGroupId">
+		update `group` set join_num = join_num + 1 where id =
+		#value#
+	</update>
+
+	<update id="deleteGroupJoinCategoriesByjoinIdsAndGroupId">
+		update group_join_category set status = 1 where group_id = #groupId#
+		and id in
+		<iterate property="ids" open="(" close=")" conjunction=",">
+			#ids[]#
+        </iterate>
+	</update>
+
+	<select id="getGroupJoinCategoriesByPage" resultMap="gjcResult">
+		select
+		<include refid="gjc.columns" />
+		from
+		group_join_category
+		<dynamic prepend="where ">
+			<isNotNull prepend="and " property="status">
+				status = #status#
+			</isNotNull>
+			<isNotNull prepend="and " property="groupId">
+				group_id = #groupId#
+			</isNotNull>
+		</dynamic>
+	</select>
+
+	<select id="getGroupIdsByGroupJoinCategoryPageOrderByGroupId"
+		resultClass="long">
+		select group_id
+		from group_join_category
+		<dynamic prepend="where ">
+			<isNotNull prepend="and " property="status">
+				status = #status#
+			</isNotNull>
+			<isNotNull prepend="and " property="categoryId">
+				category_id =
+				#categoryId#
+			</isNotNull>
+			<isNotNull prepend="and " property="startId">
+				<isEqual property="desc" compareValue="true">
+					group_id &lt;
+					#startId#
+				</isEqual>
+				<isEqual property="desc" compareValue="false">
+					group_id &gt;
+					#startId#
+				</isEqual>
+			</isNotNull>
+		</dynamic>
+		order by group_id
+		<isNotNull property="desc" prepend=" ">
+			<isEqual property="desc" compareValue="true">
+				desc
+			</isEqual>
+			<isEqual property="desc" compareValue="false">
+				asc
+			</isEqual>
+		</isNotNull>
+		<isNotNull property="size">
+			limit #startIndex#, #size#
+		</isNotNull>
+	</select>
+
+	<select id="getPromotedGroupJoinCategoriesByCatIds" resultMap="gjcResult">
+		select
+		<include refid="gjc.columns" />
+		from
+		group_join_category
+		where
+		status = 0 and promote > 0
+		<isNotNull prepend="and " property="categoryIds">
+			category_id in
+			<iterate property="categoryIds" open="(" close=")"
+				conjunction=",">
+				#categoryIds[]#
+        	</iterate>
+		</isNotNull>
+		order by promote desc
+	</select>
+
+	<insert id="insertGroup">
+		insert into `group`
+		(
+		<include refid="group.columns" />
+		) values (
+		#id#,
+		#creatorId#,
+		#name#,
+		#intro#,
+		#avatarPath#,
+		#longitude#,
+		#latitude#,
+		0,
+		now(),
+		null,
+		0
+		)
+	</insert>
+
+	<insert id="insertGroupJoinCategory">
+		insert into group_join_category
+		(
+		<include refid="gjc.columns" />
+		) values (
+		#id#,
+		#groupId#,
+		#categoryId#,
+		#promote#,
+		0,
+		now(),
+		null
+		)
+	</insert>
+
+	<insert id="insertPeopleJoinGroup">
+		insert into people_join_group
+		(
+		<include refid="pjg.columns" />
+		) values (
+		#id#,
+		#peopleId#,
+		#groupId#,
+		0,
+		now(),
+		null
+		)
+	</insert>
+
+	<update id="updatePeopleJoinGroupStatusByIdAndOldStatus">
+		update people_join_group set
+		status = #newStatus#
+		where
+		id = #id#
+		and status = #oldStatus#
+	</update>
+
+	<update id="updatePeopleJoinGroupStatusByPeopleIdAndGroupIdAndOldStatus">
+		update people_join_group set
+		status = #newStatus#
+		where
+		people_id = #peopleId#
+		and group_id = #groupId#
+		and status =
+		#oldStatus#
+	</update>
+
+	<update id="updateCategoryJoinGroupByGroupIdAndCategoryId">
+		update group_join_category set
+		promote = #promote#
+		where
+		group_id = #groupId#
+		and category_id = #categoryId#
+	</update>
+
+	<select id="selectPeopleJoinGroupByPage" resultMap="pjgResult">
+		select
+		<include refid="pjg.columns" />
+		from
+		people_join_group
+		where
+		people_id=#peopleId#
+		and
+		group_id=#groupId#
+	</select>
+
+	<select id="selectPeopleJoinGroupsByPage" resultMap="pjgResult">
+		select
+		<include refid="pjg.columns" />
+		from people_join_group
+		<dynamic prepend="where">
+			<isNotNull prepend="and " property="status">
+				status = #status#
+	        </isNotNull>
+			<isNotNull prepend="and " property="groupIds">
+				group_id in
+				<iterate property="groupIds" open="(" close=")" conjunction=",">
+					#groupIds[]#
+	        	</iterate>
+			</isNotNull>
+			<isNotNull prepend="and " property="groupId">
+				group_id = #groupId#
+			</isNotNull>
+			<isNotNull prepend="and " property="startId">
+				<isEqual property="desc" compareValue="true">
+					id &lt;= #startId#
+				</isEqual>
+				<isEqual property="desc" compareValue="false">
+					id &gt;= #startId#
+				</isEqual>
+			</isNotNull>
+		</dynamic>
+		<isNotNull property="groupIds">
+			group by people_id
+	    </isNotNull>
+		order by id
+		<isNotNull property="desc" prepend=" ">
+			<isEqual property="desc" compareValue="true">
+				desc
+			</isEqual>
+			<isEqual property="desc" compareValue="false">
+				asc
+			</isEqual>
+		</isNotNull>
+		<isNotNull property="size">
+			limit #startIndex#, #size#
+		</isNotNull>
+	</select>
+
+	<select id="selectJoinGroupIdsByPage" resultClass="long">
+		select group_id
+		from people_join_group
+		<dynamic prepend="where">
+			<isNotNull prepend="and " property="status">
+				status = #status#
+	        </isNotNull>
+			<isNotNull prepend="and " property="peopleId">
+				people_id = #peopleId#
+	        </isNotNull>
+			<isNotNull prepend="and " property="groupIds">
+				group_id in
+				<iterate property="groupIds" open="(" close=")" conjunction=",">
+					#groupIds[]#
+	        	</iterate>
+			</isNotNull>
+			<isNotNull prepend="and " property="groupId">
+				group_id = #groupId#
+			</isNotNull>
+			<isNotNull prepend="and " property="startId">
+				id &lt; #startId#
+			</isNotNull>
+		</dynamic>
+		order by id desc
+		<isNotNull property="size">
+			limit #startIndex#, #size#
+		</isNotNull>
+	</select>
+
+	<update id="updateGroupJoinCategoryStatusByPage">
+		update group_join_category
+		set status = #newStatus#
+		where id = #id#
+		and status = #oldStatus#
+	</update>
+
+</sqlMap>

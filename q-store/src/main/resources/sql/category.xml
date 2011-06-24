@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="categorys">
+	<typeAlias alias="category" type="q.domain.Category" />
+	<resultMap id="categoryResult" class="category">
+		<result property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="intro" column="intro" />
+        <result property="avatarPath" column="avatar_path"/>
+        <result property="groupNum" column="group_num" />
+        <result property="joinNum" column="join_num" />
+        <result property="sortOrder" column="sort_order" />
+        <result property="status" column="status" />
+        <result property="created" column="created" />
+		<result property="modified" column="modified" />
+	</resultMap>
+
+	<sql id="category.columns">
+	 id,
+	 name,
+	 intro,
+	 avatar_path,
+	 group_num,
+	 join_num,
+	 sort_order,
+	 status,
+	 created,
+	 modified
+	</sql>
+
+	<select id="selectCategoryById" resultMap="categoryResult">
+		select
+		<include refid="category.columns" />
+		from category
+		where id=#value#
+	</select>
+
+	<insert id="insertCategory">
+		insert into category
+		(
+		<include refid="category.columns" />
+		) values (
+		#id#,
+		#name#,
+		#intro#,
+		#avatarPath#,
+		#groupNum#,
+		#joinNum#,
+		#sortOrder#,
+		0,
+		now(),
+		null
+		)
+	</insert>
+
+    <select id="selectCategorys" resultMap="categoryResult">
+		select
+		<include refid="category.columns" />
+		from category where status = 0 order by sort_order desc
+	</select>
+
+	<update id="updateCategoryById">
+		update category
+		<dynamic prepend="set">
+			<isNotNull prepend=", " property="intro">
+				intro=#intro#
+			</isNotNull>
+			<isNotNull prepend=", " property="name">
+				name=#name#
+			</isNotNull>
+			<isNotNull prepend=", " property="avatarPath">
+				avatar_path=#avatarPath#
+			</isNotNull>
+			<isGreaterThan prepend=", " property="sortOrder" compareValue="0">
+	           	sort_order = #sortOrder#
+	        </isGreaterThan>
+		</dynamic>
+		where id=#id#
+	</update>
+
+	<update id="deleteCategoryById">
+		update category set status = 1 where id=#id#
+	</update>
+
+</sqlMap>
